@@ -241,7 +241,7 @@ app.use(AxiosPlugin, {
   baseURL: import.meta.env.VITE_API_BASE_URL,
   prefixAPI: '/api/v1',
   options: {
-    timeout: 5000,
+    timeout: 10000,
     headers: { 'Content-Type': 'application/json' }
   }
 });
