@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useApp } from '@/stores/app';
 
 export default {
-  install: async (app, { baseURL, options, unless }) => {
-    const { $error, $router } = app.config.globalProperties;
+  install: async (app, { baseURL, prefixAPI = '', options }) => {
+    const { $router } = app.config.globalProperties;
 
     const store = useApp();
 
     const axiosInstance = axios.create({
-      baseURL: baseURL,
+      baseURL: baseURL + prefixAPI,
       timeout: options.timeout,
       headers: options.headers
     });
