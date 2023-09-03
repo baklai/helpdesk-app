@@ -19,7 +19,7 @@ export default defineConfig({
       '/api/v1': {
         target: VITE_API_BASE_URL,
         changeOrigin: true,
-        secure: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api\/v1/, '/api/v1')
       }
     }
