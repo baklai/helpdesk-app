@@ -13,13 +13,13 @@
       "linkedin": "https://www.linkedin.com/in/baklai/"
     }
   },
-  "homepage": "https://github.com/baklai/helpdesk-app#readme",
+  "homepage": "https://github.com/baklai/helpdesk-app-v1#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/baklai/helpdesk-app.git"
+    "url": "git+https://github.com/baklai/helpdesk-app-v1.git"
   },
   "bugs": {
-    "url": "https://github.com/baklai/helpdesk-app/issues"
+    "url": "https://github.com/baklai/helpdesk-app-v1/issues"
   },
   "keywords": [
     "vue",
