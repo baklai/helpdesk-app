@@ -41,12 +41,13 @@ export default {
     };
 
     $router.beforeEach(async (to, from, next) => {
+      if (!store?.user && store.getAccessToken()) {
+        await $auth.me();
+      }
       if (to?.meta?.auth && !store?.user) next({ name: 'signin' });
       else if (to?.meta?.admin && !store?.user?.isAdmin) next({ name: 'access-denied' });
       else next();
     });
-
-    await $auth.user();
 
     app.provide('helpdesk', app.config.globalProperties.$helpdesk);
   }

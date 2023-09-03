@@ -7,7 +7,7 @@ export default {
     const store = useApp();
 
     app.config.globalProperties.$auth = {
-      async user() {
+      async me() {
         try {
           const user = await $axios({ method: endpoints.user.method, url: endpoints.user.url });
           store.setUser(user);
@@ -29,7 +29,7 @@ export default {
 
           //     if (remember) localStorage.setItem('access_token', token);
 
-          await this.user();
+          await this.me();
           $router.push({ name: 'home' });
         } catch (err) {
           $error(err);
