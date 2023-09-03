@@ -13,15 +13,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@@': fileURLToPath(new URL('./', import.meta.url))
     }
-  },
-  server: {
-    proxy: {
-      '/api/v1': {
-        target: VITE_API_BASE_URL,
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api\/v1/, '/api/v1')
-      }
-    }
   }
+  // server: {
+  //   proxy: {
+  //     '/api/v1': {
+  //       target: VITE_API_BASE_URL,
+  //       changeOrigin: true,
+  //       secure: false,
+  //       rewrite: (path) => path.replace(/^\/api\/v1/, '/api/v1')
+  //     }
+  //   }
+  // }
 });
