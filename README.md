@@ -24,9 +24,9 @@ $ npm install
 
 ## Project variables
 
-| Key               | Comment            |
-| ----------------- | ------------------ |
-| `VITE_SERVER_API` | APP Connection url |
+| Key                 | Comment      |
+| ------------------- | ------------ |
+| `VITE_API_BASE_URL` | API base url |
 
 ## Project Setup
 
