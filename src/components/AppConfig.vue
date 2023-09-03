@@ -131,4 +131,9 @@ const decrementScale = () => {
 ::v-deep(.p-selectbutton > .p-button) {
   width: 50%;
 }
+
+.p-link {
+  text-align: center;
+  background-color: var(--text-color-secondary);
+}
 </style>
