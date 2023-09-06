@@ -1,13 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+
 import { useStatistic } from '@/stores/api/statistics';
 import { MONTHS_OF_YEAR, DAYS_OF_WEEK } from '@/service/Constants';
 import { dateToStr } from '@/service/DataFilters';
+
 const Statistic = useStatistic();
 
 const { t } = useI18n();
 const stats = ref({});
+
 const yearChartData = ref();
 const monthChartData = ref();
 const weekChartData = ref();
@@ -23,31 +26,35 @@ const chartOptions = ref({
 onMounted(async () => {
   stats.value = await Statistic.request();
   yearChartData.value = {
-    labels: MONTHS_OF_YEAR.map((month) => t(month.label)),
+    labels: MONTHS_OF_YEAR.map(month => t(month.label)),
     datasets: [
       {
         label: t('Count of requests'),
-        data: MONTHS_OF_YEAR.map((month) => stats.value.yearchar.find((item) => item.month === month.key)?.count || 0)
+        data: MONTHS_OF_YEAR.map(
+          month => stats.value.yearchar.find(item => item.month === month.key)?.count || 0
+        )
       }
     ]
   };
 
   monthChartData.value = {
-    labels: stats.value.monthchar.map((item) => item.date),
+    labels: stats.value.monthchar.map(item => item.date),
     datasets: [
       {
         label: t('Count of requests'),
-        data: stats.value.monthchar.map((item) => item.count)
+        data: stats.value.monthchar.map(item => item.count)
       }
     ]
   };
 
   weekChartData.value = {
-    labels: DAYS_OF_WEEK.map((week) => t(week.label)),
+    labels: DAYS_OF_WEEK.map(week => t(week.label)),
     datasets: [
       {
         label: t('Count of requests'),
-        data: DAYS_OF_WEEK.map((day) => stats.value.weekchar.find((item) => item.day - 1 === day.key)?.count || 0)
+        data: DAYS_OF_WEEK.map(
+          day => stats.value.weekchar.find(item => item.day - 1 === day.key)?.count || 0
+        )
       }
     ]
   };
@@ -80,7 +87,9 @@ onMounted(async () => {
                   </span>
                   <div class="text-900 font-medium text-xl">{{ stats?.requests || '-' }}</div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+                <div
+                  class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <title>book-open-outline</title>
                     <path
@@ -100,7 +109,9 @@ onMounted(async () => {
                   </span>
                   <div class="text-900 font-medium text-xl">{{ stats?.closed || '-' }}</div>
                 </div>
-                <div class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2">
+                <div
+                  class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2"
+                >
                   <i class="pi pi-check-circle text-white text-2xl"></i>
                 </div>
               </div>
@@ -166,7 +177,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.companies || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -187,7 +200,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.branches || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -208,7 +223,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.enterprises || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -229,7 +246,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.departments || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -250,7 +269,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.locations || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
                 <path
@@ -271,7 +292,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.positions || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>briefcase-account-outline</title>
                 <path

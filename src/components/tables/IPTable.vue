@@ -88,7 +88,9 @@ defineProps({
     <tr>
       <td class="font-weight-bold" width="50%">{{ $t('Internet') }} :</td>
       <td>
-        <i :class="record?.status?.internet ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'" />
+        <i
+          :class="record?.status?.internet ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'"
+        />
       </td>
     </tr>
 
@@ -103,7 +105,10 @@ defineProps({
   <div
     v-if="
       internet &&
-      (record?.internet?.mail || record?.internet?.dateOpen || record?.internet?.dateClose || record?.internet?.comment)
+      (record?.internet?.mail ||
+        record?.internet?.dateOpen ||
+        record?.internet?.dateClose ||
+        record?.internet?.comment)
     "
   >
     <h5>{{ $t('Internet') }}</h5>

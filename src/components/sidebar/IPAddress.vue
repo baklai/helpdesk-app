@@ -1,26 +1,22 @@
 <script setup>
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useToast } from 'primevue/usetoast';
-import { useIPAddress } from '@/stores/api/ipaddresses';
-import { dateToStr } from '@/service/DataFilters';
+
 import IPTable from '@/components/tables/IPTable.vue';
 
-const { t } = useI18n();
-const toast = useToast();
-const IPAddress = useIPAddress();
+import { useIPAddress } from '@/stores/api/ipaddresses';
+import { dateToStr } from '@/service/DataFilters';
+
+const { $init, findOne } = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await IPAddress.findOne({ id, populate: true });
+      record.value = await findOne({ id, populate: true });
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = IPAddress.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseSidebar();
     }
   }
 });
@@ -33,9 +29,9 @@ const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
 };
 
-const onClose = () => {
+const onCloseSidebar = () => {
   visible.value = false;
-  record.value = IPAddress.$reset();
+  record.value = $init();
   emits('close', {});
 };
 </script>
@@ -51,7 +47,9 @@ const onClose = () => {
           <AppIcons name="network-ip-address" :size="40" class="mr-2" />
           <div>
             <p class="text-lg mb-0">IP {{ record?.ipaddress }}</p>
-            <p class="text-base font-normal">{{ $t('Date open') }} : {{ dateToStr(record?.date) || '-' }}</p>
+            <p class="text-base font-normal">
+              {{ $t('Date open') }} : {{ dateToStr(record?.date) || '-' }}
+            </p>
           </div>
         </div>
         <div class="flex align-items-center justify-content-center">
@@ -73,7 +71,7 @@ const onClose = () => {
             class="w-2rem h-2rem hover:text-color mx-2"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
-            @click="onClose"
+            @click="onCloseSidebar"
           />
         </div>
       </div>

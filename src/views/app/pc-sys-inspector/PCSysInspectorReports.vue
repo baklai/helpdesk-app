@@ -3,14 +3,16 @@ import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
-import { useInspector } from '@/stores/api/inspectors';
-import { useTool } from '@/stores/api/systools';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
 import SidebarRecord from '@/components/sidebar/SysInspector.vue';
 import SysFilter from '@/components/modals/SysFilter.vue';
+
+import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
+import { useInspector } from '@/stores/api/inspectors';
+import { useTool } from '@/stores/api/systools';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -452,10 +454,10 @@ const createSysInspectorScript = async ({}) => {
       <OptionsMenu
         ref="refMenu"
         hostkey="host"
-        @view="(data) => refModal.toggle(data)"
-        @create="async (data) => await createSysInspectorScript(data)"
-        @update="(data) => refModal.toggle(data)"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => refModal.toggle(data)"
+        @create="async data => await createSysInspectorScript(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
@@ -469,8 +471,8 @@ const createSysInspectorScript = async ({}) => {
         :onUpdate="Inspector.findAll"
         :onDelete="Inspector.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="async (data) => await createSysInspectorScript(data)"
-        @toggle-sidebar="(data) => refSidebar.toggle(data)"
+        @toggle-modal="async data => await createSysInspectorScript(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
           <i class="my-auto mr-2 hidden sm:block">
@@ -491,11 +493,11 @@ const createSysInspectorScript = async ({}) => {
             text
             plain
             rounded
-            icon="pi pi-bookmark-fill "
+            icon="pi pi-bookmark-fill"
             iconClass="text-2xl"
             class="p-button-lg hover:text-orange-500 h-3rem w-3rem"
             v-tooltip.bottom="$t('Show all problems')"
-            @click="(event) => refWarningMenu.toggle(event)"
+            @click="event => refWarningMenu.toggle(event)"
           />
         </template>
       </SSDataTable>

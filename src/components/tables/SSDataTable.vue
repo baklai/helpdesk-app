@@ -46,7 +46,7 @@ defineExpose({
     }
     await onUpdateRecords();
   },
-  delete: async (data) => {
+  delete: async data => {
     await onRemoveRecord(data);
   }
 });
@@ -107,7 +107,7 @@ const menuReports = ref([
   }
 ]);
 
-const onColumnsMenu = (event) => {
+const onColumnsMenu = event => {
   refMenuColumns.value.toggle(event);
 };
 
@@ -178,45 +178,68 @@ const initParams = () => {
 const initColumns = async () => {
   const columns = props.columns
     .filter(({ column }) => column?.field)
-    .map(async ({ header, column, sorter, filter, selectable, exportable, filtrable, sortable, frozen }) => {
-      return {
-        header: {
-          text: header?.text || column.field,
-          icon: header?.icon || null,
-          width: header?.width || '15rem'
-        },
-        column: {
-          field: column.field,
-          render(value) {
-            return typeof column?.render === 'function' ? column?.render(value) : <span>{value}</span>;
+    .map(
+      async ({
+        header,
+        column,
+        sorter,
+        filter,
+        selectable,
+        exportable,
+        filtrable,
+        sortable,
+        frozen
+      }) => {
+        return {
+          header: {
+            text: header?.text || column.field,
+            icon: header?.icon || null,
+            width: header?.width || '15rem'
           },
-          action(value) {
-            return typeof column?.action === 'function' ? column?.action(value) : null;
-          }
-        },
-        sorter: { field: sorter?.field || column.field },
-        filter: {
-          field: filter?.field ? filter?.field : column.field,
-          value: null,
-          matchMode: filter?.matchMode ? filter?.matchMode : FilterMatchMode.IN,
-          showFilterMatchModes: filter?.showFilterMatchModes === undefined ? false : filter?.showFilterMatchModes,
-          filterOperator: filter?.showFilterMatchModes === undefined ? FilterOperator.AND : filter?.filterOperator,
-          options: filter?.options
-            ? {
-                key: filter?.options?.key ? filter?.options?.key : 'id',
-                value: filter?.options?.value ? filter?.options?.value : 'id',
-                label: filter?.options?.label ? filter?.options?.label : 'title',
-                records: typeof filter?.options?.onRecords === 'function' ? await filter?.options?.onRecords() : []
-              }
-            : null
-        },
-        selectable: selectable === undefined ? true : selectable,
-        exportable: exportable === undefined ? false : exportable,
-        filtrable: filtrable === undefined ? false : filtrable,
-        sortable: sortable === undefined ? false : sortable,
-        frozen: frozen === undefined ? false : frozen
-      };
-    });
+          column: {
+            field: column.field,
+            render(value) {
+              return typeof column?.render === 'function' ? (
+                column?.render(value)
+              ) : (
+                <span>{value}</span>
+              );
+            },
+            action(value) {
+              return typeof column?.action === 'function' ? column?.action(value) : null;
+            }
+          },
+          sorter: { field: sorter?.field || column.field },
+          filter: {
+            field: filter?.field ? filter?.field : column.field,
+            value: null,
+            matchMode: filter?.matchMode ? filter?.matchMode : FilterMatchMode.IN,
+            showFilterMatchModes:
+              filter?.showFilterMatchModes === undefined ? false : filter?.showFilterMatchModes,
+            filterOperator:
+              filter?.showFilterMatchModes === undefined
+                ? FilterOperator.AND
+                : filter?.filterOperator,
+            options: filter?.options
+              ? {
+                  key: filter?.options?.key ? filter?.options?.key : 'id',
+                  value: filter?.options?.value ? filter?.options?.value : 'id',
+                  label: filter?.options?.label ? filter?.options?.label : 'title',
+                  records:
+                    typeof filter?.options?.onRecords === 'function'
+                      ? await filter?.options?.onRecords()
+                      : []
+                }
+              : null
+          },
+          selectable: selectable === undefined ? true : selectable,
+          exportable: exportable === undefined ? false : exportable,
+          filtrable: filtrable === undefined ? false : filtrable,
+          sortable: sortable === undefined ? false : sortable,
+          frozen: frozen === undefined ? false : frozen
+        };
+      }
+    );
 
   cols.value = await Promise.all(columns);
 };
@@ -225,10 +248,12 @@ const initFilters = async () => {
   filters.value = {
     global: {
       value: null,
-      matchMode: props?.globalFilter?.matchMode ? props?.globalFilter?.matchMode : FilterMatchMode.CONTAINS
+      matchMode: props?.globalFilter?.matchMode
+        ? props?.globalFilter?.matchMode
+        : FilterMatchMode.CONTAINS
     },
     ...props.columns
-      .filter((column) => column?.filtrable)
+      .filter(column => column?.filtrable)
       .reduce((previousObject, currentObject) => {
         return Object.assign(previousObject, {
           [currentObject.filter.field]: currentObject?.filter?.showFilterMatchModes
@@ -264,7 +289,7 @@ const clearGlobalFilter = async () => {
   }
 };
 
-const filterConverter = (object) => {
+const filterConverter = object => {
   const filterMode = (mode, value) => {
     switch (mode) {
       case 'startsWith':
@@ -320,7 +345,10 @@ const filterConverter = (object) => {
   for (const prop in object) {
     if (prop === 'global') {
       if (object['global']?.value !== null) {
-        filterObject[props.globalFilter.field] = filterMode(object['global'].matchMode, object['global'].value);
+        filterObject[props.globalFilter.field] = filterMode(
+          object['global'].matchMode,
+          object['global'].value
+        );
       }
       continue;
     }
@@ -332,8 +360,8 @@ const filterConverter = (object) => {
     if (object[prop]?.operator === 'and') {
       filterAND.push(
         ...object[prop]?.constraints
-          ?.filter((item) => item?.value && item?.value !== null)
-          ?.map((item) => {
+          ?.filter(item => item?.value && item?.value !== null)
+          ?.map(item => {
             return { [prop]: filterMode(item.matchMode, item.value) };
           })
       );
@@ -342,8 +370,8 @@ const filterConverter = (object) => {
     if (object[prop]?.operator === 'or') {
       filterOR.push(
         ...object[prop]?.constraints
-          ?.filter((item) => item?.value && item?.value !== null)
-          ?.map((item) => {
+          ?.filter(item => item?.value && item?.value !== null)
+          ?.map(item => {
             return { [prop]: filterMode(item.matchMode, item.value) };
           })
       );
@@ -361,7 +389,7 @@ const filterConverter = (object) => {
   return filterObject;
 };
 
-const sortConverter = (value) => {
+const sortConverter = value => {
   const sortObject = {};
   if (value.length !== 0) {
     value.forEach(({ field, order }) => {
@@ -377,25 +405,25 @@ const exportCSV = () => {
   refDataTable.value.exportCSV();
 };
 
-const onPage = async (event) => {
+const onPage = async event => {
   const { rows, first } = event;
   params.value.limit = rows;
   params.value.offset = first;
   await onUpdateRecords();
 };
 
-const onSort = async (event) => {
+const onSort = async event => {
   params.value.sort = sortConverter(event.multiSortMeta);
   await onUpdateRecords();
 };
 
-const onFilter = async (event) => {
+const onFilter = async event => {
   params.value.offset = 0;
   params.value.filters = filterConverter(event.filters);
   await onUpdateRecords();
 };
 
-const onStorage = async (event) => {
+const onStorage = async event => {
   const { rows, first } = event;
   params.value.limit = rows;
   // params.value.offset = first;
@@ -428,7 +456,7 @@ const resetLocalStorage = async () => {
 };
 
 const selectAllColumns = () => {
-  cols.value.filter((col) => !col.selectable).forEach((col) => (col.selectable = true));
+  cols.value.filter(col => !col.selectable).forEach(col => (col.selectable = true));
   refMenuColumns.value.hide();
 };
 
@@ -464,7 +492,12 @@ onMounted(async () => {
       >
         <template #option="{ option }">
           <div class="flex align-items-center">
-            <Checkbox binary v-model="option.selectable" :inputId="option.column.field" class="mr-2" />
+            <Checkbox
+              binary
+              v-model="option.selectable"
+              :inputId="option.column.field"
+              class="mr-2"
+            />
             <label :for="option.column.field">{{ $t(option.header.text) }}</label>
           </div>
         </template>
@@ -519,8 +552,10 @@ onMounted(async () => {
       :paginatorTemplate="{
         '640px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
         '960px': 'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        '1300px': 'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        default: 'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
+        '1300px':
+          'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+        default:
+          'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
       }"
       class="p-datatable-sm min-w-full overflow-x-auto"
       @state-restore="onStorage"
@@ -541,8 +576,13 @@ onMounted(async () => {
               </p>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full">
-            <span v-if="globalFilter && filters['global']" class="p-input-icon-left p-input-icon-right sm:w-max w-full">
+          <div
+            class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
+          >
+            <span
+              v-if="globalFilter && filters['global']"
+              class="p-input-icon-left p-input-icon-right sm:w-max w-full"
+            >
               <i class="pi pi-search" />
               <InputText
                 class="sm:w-max w-full"
@@ -632,7 +672,9 @@ onMounted(async () => {
       </template>
 
       <template #paginatorstart>
-        <div class="flex flex-wrap gap-4 align-items-center justify-content-evenly xl:justify-content-between p-2">
+        <div
+          class="flex flex-wrap gap-4 align-items-center justify-content-evenly xl:justify-content-between p-2"
+        >
           <div class="flex flex-wrap gap-2 align-items-center justify-content-evenly">
             <Button
               plain
@@ -692,7 +734,9 @@ onMounted(async () => {
       </Column>
 
       <Column
-        v-for="({ header, column, filter, sortable, filtrable, selectable, exportable, frozen }, index) of cols"
+        v-for="(
+          { header, column, filter, sortable, filtrable, selectable, exportable, frozen }, index
+        ) of cols"
         :hidden="!selectable"
         :key="`${column.field}-${index}`"
         :field="column.field"
@@ -725,7 +769,10 @@ onMounted(async () => {
           </div>
         </template>
 
-        <template #filter="{ filterModel, filterCallback }" v-if="filtrable === undefined ? false : filtrable">
+        <template
+          #filter="{ filterModel, filterCallback }"
+          v-if="filtrable === undefined ? false : filtrable"
+        >
           <Listbox
             filter
             multiple
@@ -741,7 +788,11 @@ onMounted(async () => {
           >
             <template #option="{ option }">
               <div class="flex align-items-center">
-                <Checkbox :value="option[filter.options.value]" :modelValue="filterModel.value" class="mr-2" />
+                <Checkbox
+                  :value="option[filter.options.value]"
+                  :modelValue="filterModel.value"
+                  class="mr-2"
+                />
                 <label>{{ option[filter?.options?.label] }}</label>
               </div>
             </template>

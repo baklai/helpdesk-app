@@ -4,6 +4,7 @@ import { required, email } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { AutocompleteOffForms } from '@/service/ReadonlyForms';
 
 const { t } = useI18n();
@@ -71,7 +72,11 @@ onMounted(() => {
       <div class="flex align-items-center justify-content-center mr-4">
         <div class="w-auto">
           <div class="flex justify-content-center align-items-center">
-            <p class="vertical-text uppercase font-bold text-5xl text-color line-height-1" translate="no" lang="en">
+            <p
+              class="vertical-text uppercase font-bold text-5xl text-color line-height-1"
+              translate="no"
+              lang="en"
+            >
               help
             </p>
           </div>
@@ -79,7 +84,11 @@ onMounted(() => {
             <img src="/img/logo-app.webp" alt="HD logo" width="48" height="48" />
           </div>
           <div class="flex justify-content-center align-items-center">
-            <p class="vertical-text uppercase font-bold text-5xl text-color line-height-1" translate="no" lang="en">
+            <p
+              class="vertical-text uppercase font-bold text-5xl text-color line-height-1"
+              translate="no"
+              lang="en"
+            >
               desk
             </p>
           </div>
@@ -100,7 +109,12 @@ onMounted(() => {
                 :class="{ 'p-invalid': !!$validate.login.$errors.length }"
               />
             </span>
-            <small id="login-help" class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
+            <small
+              id="login-help"
+              class="p-error"
+              v-for="error in $validate.login.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -135,7 +149,12 @@ onMounted(() => {
                 </ul>
               </template>
             </Password>
-            <small id="password-help" class="p-error" v-for="error in $validate.password.$errors" :key="error.$uid">
+            <small
+              id="password-help"
+              class="p-error"
+              v-for="error in $validate.password.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -152,7 +171,12 @@ onMounted(() => {
                 :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
               />
             </span>
-            <small id="fullname-help" class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
+            <small
+              id="fullname-help"
+              class="p-error"
+              v-for="error in $validate.fullname.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -169,7 +193,12 @@ onMounted(() => {
                 :class="{ 'p-invalid': !!$validate.email.$errors.length }"
               />
             </span>
-            <small id="email-help" class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
+            <small
+              id="email-help"
+              class="p-error"
+              v-for="error in $validate.email.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -188,7 +217,12 @@ onMounted(() => {
                 :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
               />
             </span>
-            <small id="phone-help" class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
+            <small
+              id="phone-help"
+              class="p-error"
+              v-for="error in $validate.phone.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>

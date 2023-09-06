@@ -2,11 +2,13 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/IPAddress.vue';
 import SidebarRecord from '@/components/sidebar/IPAddress.vue';
+
 import { dateToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
@@ -418,7 +420,11 @@ const columns = ref([
       field: 'status.internet',
       dataType: 'boolean',
       render(value) {
-        return value ? <i class={'pi pi-check-circle font-bold text-green-500'}></i> : <span>-</span>;
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
+        ) : (
+          <span>-</span>
+        );
       }
     },
     sorter: { field: 'status.internet' },
@@ -452,7 +458,11 @@ const columns = ref([
       field: 'status.email',
       dataType: 'boolean',
       render(value) {
-        return value ? <i class={'pi pi-check-circle font-bold text-green-500'}></i> : <span>-</span>;
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
+        ) : (
+          <span>-</span>
+        );
       }
     },
     sorter: { field: 'status.email' },
@@ -503,10 +513,10 @@ const columns = ref([
       <OptionsMenu
         ref="refMenu"
         hostkey="ipaddress"
-        @view="(data) => refSidebar.toggle(data)"
-        @create="(data) => refModal.toggle(data)"
-        @update="(data) => refModal.toggle(data)"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => refSidebar.toggle(data)"
+        @create="data => refModal.toggle(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
@@ -520,8 +530,8 @@ const columns = ref([
         :onUpdate="IPAddress.findAll"
         :onDelete="IPAddress.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="(data) => refModal.toggle(data)"
-        @toggle-sidebar="(data) => refSidebar.toggle(data)"
+        @toggle-modal="data => refModal.toggle(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
           <i class="mr-2 hidden sm:block">

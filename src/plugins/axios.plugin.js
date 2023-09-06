@@ -4,7 +4,7 @@ import { useApp } from '@/stores/app';
 
 export default {
   install: async (app, { baseURL, prefixAPI = '', options }) => {
-    const { $router } = app.config.globalProperties;
+    const { $error, $router } = app.config.globalProperties;
 
     const store = useApp();
 
@@ -15,15 +15,36 @@ export default {
     });
 
     axiosInstance.interceptors.request.use(
-      (config) => {
+      config => {
         const token = store.getAccessToken();
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`;
         }
         return config;
       },
-      (error) => {
+      error => {
         return Promise.reject(error);
+      }
+    );
+
+    axiosInstance.interceptors.response.use(
+      response => response.data,
+      async error => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          try {
+            const newAccessToken = await refreshToken();
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            return axiosInstance(originalRequest);
+          } catch (refreshError) {
+            store.resetAccessRefreshToken();
+            $router.push({ name: 'signin' });
+            throw refreshError;
+          }
+        }
+        $error(error.response.data);
+        return Promise.reject(error.response.data);
       }
     );
 
@@ -42,25 +63,6 @@ export default {
         throw error;
       }
     };
-
-    axiosInstance.interceptors.response.use(
-      (response) => response.data,
-      async (error) => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-          try {
-            const newAccessToken = await refreshToken();
-            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-            return axiosInstance(originalRequest);
-          } catch (refreshError) {
-            $router.push({ name: 'signin' });
-            throw refreshError;
-          }
-        }
-        return Promise.reject(error);
-      }
-    );
 
     app.config.globalProperties.$axios = axiosInstance;
 

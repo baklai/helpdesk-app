@@ -1,12 +1,14 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue';
-import { useConfig } from '@/stores/config';
+
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppConfig from '@/components/AppConfig.vue';
 import AppHosting from '@/components/AppHosting.vue';
 
-const Config = useConfig();
+import { useConfig } from '@/stores/config';
+
+const $config = useConfig();
 
 const outsideClickListener = ref(null);
 
@@ -20,25 +22,25 @@ const disabledSelectedFromHTML = ref({
 
 const containerClass = computed(() => {
   return {
-    'layout-theme-light': Config.theme === 'light',
-    'layout-theme-dark': Config.theme === 'dark',
-    'layout-overlay': Config.menuMode === 'overlay',
-    'layout-static': Config.menuMode === 'static',
-    'layout-static-inactive': Config.staticMenuDesktopInactive && Config.menuMode === 'static',
-    'layout-overlay-active': Config.overlayMenuActive,
-    'layout-mobile-active': Config.staticMenuMobileActive,
-    'p-input-filled': Config.inputStyle === 'filled',
-    'p-ripple-disabled': !Config.ripple
+    'layout-theme-light': $config.theme === 'light',
+    'layout-theme-dark': $config.theme === 'dark',
+    'layout-overlay': $config.menuMode === 'overlay',
+    'layout-static': $config.menuMode === 'static',
+    'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static',
+    'layout-overlay-active': $config.overlayMenuActive,
+    'layout-mobile-active': $config.staticMenuMobileActive,
+    'p-input-filled': $config.inputStyle === 'filled',
+    'p-ripple-disabled': !$config.ripple
   };
 });
 
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
-    outsideClickListener.value = (event) => {
+    outsideClickListener.value = event => {
       if (isOutsideClicked(event)) {
-        Config.overlayMenuActive = false;
-        Config.staticMenuMobileActive = false;
-        Config.menuHoverActive = false;
+        $config.overlayMenuActive = false;
+        $config.staticMenuMobileActive = false;
+        $config.menuHoverActive = false;
       }
     };
     document.addEventListener('click', outsideClickListener.value);
@@ -52,7 +54,7 @@ const unbindOutsideClickListener = () => {
   }
 };
 
-const isOutsideClicked = (event) => {
+const isOutsideClicked = event => {
   const sidebarEl = document.querySelector('.layout-sidebar');
   const topbarEl = document.querySelector('.layout-menu-button');
   return !(
@@ -64,7 +66,7 @@ const isOutsideClicked = (event) => {
 };
 
 watchEffect(() => {
-  if (Config.isSidebarActive) {
+  if ($config.isSidebarActive) {
     bindOutsideClickListener();
   } else {
     unbindOutsideClickListener();

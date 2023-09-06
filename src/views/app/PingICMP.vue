@@ -3,6 +3,7 @@ import { onMounted, onBeforeUnmount } from 'vue';
 import TerminalService from 'primevue/terminalservice';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { useTool } from '@/stores/api/systools';
 
 const { t } = useI18n();
@@ -18,7 +19,7 @@ onBeforeUnmount(() => {
   TerminalService.off('command', commandHandler);
 });
 
-const commandHandler = async (text) => {
+const commandHandler = async text => {
   let response;
   let argsIndex = text.indexOf(' ');
   let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
@@ -71,7 +72,9 @@ const commandHandler = async (text) => {
             </p>
           </div>
         </div>
-        <div class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full">
+        <div
+          class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
+        >
           <div class="flex gap-2 sm:w-max w-full justify-content-between">
             <Button
               text
@@ -113,12 +116,16 @@ const commandHandler = async (text) => {
 
         <p>
           <code class="text-base font-normal text-color surface-hover">-n &lt;число&gt;</code>
-          <span class="text-lg font-normal line-height-2"> : Указывает количество отправляемых запросов пинга. </span>
+          <span class="text-lg font-normal line-height-2">
+            : Указывает количество отправляемых запросов пинга.
+          </span>
         </p>
 
         <p>
           <code class="text-base font-normal text-color surface-hover">-l &lt;размер&gt;</code>
-          <span class="text-lg font-normal line-height-2"> : Задает размер пакета данных пинга в байтах. </span>
+          <span class="text-lg font-normal line-height-2">
+            : Задает размер пакета данных пинга в байтах.
+          </span>
         </p>
 
         <p>

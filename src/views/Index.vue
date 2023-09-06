@@ -10,13 +10,17 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <div class="w-30rem h-auto text-center">
             <div class="flex justify-content-center mb-2">
               <div class="justify-content-start">
-                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">help</p>
+                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
+                  help
+                </p>
               </div>
               <div class="flex align-items-center justify-content-center">
                 <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
               </div>
               <div class="justify-content-start">
-                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">desk</p>
+                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
+                  desk
+                </p>
               </div>
             </div>
             <div class="text-center mb-6">
@@ -28,9 +32,21 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
               </p>
             </div>
             <nav class="flex justify-content-evenly mb-2">
-              <BtnSocialMedia icon="pi pi-facebook" :href="$helpdesk?.authorSocial?.facebook" tooltip="Facebook" />
-              <BtnSocialMedia icon="pi pi-github" :href="$helpdesk?.authorSocial?.github" tooltip="Github" />
-              <BtnSocialMedia icon="pi pi-linkedin" :href="$helpdesk?.authorSocial?.linkedin" tooltip="Linkedin" />
+              <BtnSocialMedia
+                icon="pi pi-facebook"
+                :href="$helpdesk?.authorSocial?.facebook"
+                tooltip="Facebook"
+              />
+              <BtnSocialMedia
+                icon="pi pi-github"
+                :href="$helpdesk?.authorSocial?.github"
+                tooltip="Github"
+              />
+              <BtnSocialMedia
+                icon="pi pi-linkedin"
+                :href="$helpdesk?.authorSocial?.linkedin"
+                tooltip="Linkedin"
+              />
             </nav>
             <p class="text-center text-500">
               {{ $helpdesk?.copyright }}
@@ -49,7 +65,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="documentation" class="mb-4">
             <h3 class="mb-1">{{ 'Documentation' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/docs"> HD’s official documentation </RouterLink>
+              <RouterLink class="text-blue-500" to="/docs">
+                HD’s official documentation
+              </RouterLink>
               provides you with all information you need to get started.
             </span>
           </section>
@@ -60,27 +78,31 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
               <RouterLink class="text-blue-500" to="/app/pc-sys-inspector/statistics">
                 PC SysInspector service
               </RouterLink>
-              aggregates information about computers on the network, which can be useful for managing a fleet of
-              computers and ensuring the security of an organization.
+              aggregates information about computers on the network, which can be useful for
+              managing a fleet of computers and ensuring the security of an organization.
             </span>
           </section>
 
           <section id="hd-live-log" class="mb-4">
             <h3 class="mb-1">{{ 'Help Desk Live Log' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/app/helpdesk-live-log/statistics"> Help Desk Live Log </RouterLink>
-              web service allows users to submit support requests through a web interface, track request status, and
-              provide statistics and analytics on Help Desk performance.
+              <RouterLink class="text-blue-500" to="/app/helpdesk-live-log/statistics">
+                Help Desk Live Log
+              </RouterLink>
+              web service allows users to submit support requests through a web interface, track
+              request status, and provide statistics and analytics on Help Desk performance.
             </span>
           </section>
 
           <section id="network-information">
             <h3 class="mb-1">{{ 'Network information' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/app/network-info/statistics"> Network information </RouterLink>
-              web service is designed for keeping track of IP addresses of network devices and users on a local network.
-              It allows administrators to keep records, as well as provides information on the availability of devices
-              and their current status.
+              <RouterLink class="text-blue-500" to="/app/network-info/statistics">
+                Network information
+              </RouterLink>
+              web service is designed for keeping track of IP addresses of network devices and users
+              on a local network. It allows administrators to keep records, as well as provides
+              information on the availability of devices and their current status.
             </span>
           </section>
         </main>

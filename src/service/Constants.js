@@ -23,10 +23,10 @@ export const DAYS_OF_WEEK = [
   { key: 7, label: 'Sunday' }
 ];
 
-export const monthOfNumber = (value) => {
+export const monthOfNumber = value => {
   return MONTHS_OF_YEAR[value];
 };
 
-export const dayOfNumber = (value) => {
+export const dayOfNumber = value => {
   return DAYS_OF_WEEK[value];
 };

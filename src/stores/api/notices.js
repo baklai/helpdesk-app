@@ -2,9 +2,9 @@ import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useNotice = defineStore('notice', () => {
-  const axios = inject('axios');
+  const $axios = inject('axios');
 
-  function $reset() {
+  function $init({ name = undefined, text = undefined, users = [] }) {
     return {
       name: null,
       text: null,
@@ -14,7 +14,7 @@ export const useNotice = defineStore('notice', () => {
 
   async function findAll(params) {
     try {
-      return await axios.get('/notices', { params });
+      return await $axios.get('/notices', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -22,7 +22,7 @@ export const useNotice = defineStore('notice', () => {
 
   async function createOne({ id, name, text, userId }) {
     try {
-      return await axios.post(`/notices/${id}`, { name, text, userId });
+      return await $axios.post(`/notices/${id}`, { name, text, userId });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -30,11 +30,11 @@ export const useNotice = defineStore('notice', () => {
 
   async function removeOne({ id }) {
     try {
-      return await axios.delete(`/notices/${id}`);
+      return await $axios.delete(`/notices/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { $reset, findAll, createOne, removeOne };
+  return { $init, findAll, createOne, removeOne };
 });

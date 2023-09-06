@@ -1,14 +1,16 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+
 import BtnHostingDialog from '@/components/buttons/BtnHostingDialog.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
 import BtnMainMenu from '@/components/buttons/BtnMainMenu.vue';
 import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
+
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -33,7 +35,7 @@ const onTopBarMenuButton = () => {
 
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
-    outsideClickListener.value = (event) => {
+    outsideClickListener.value = event => {
       if (isOutsideClicked(event)) {
         topbarMenuActive.value = false;
       }
@@ -49,7 +51,7 @@ const unbindOutsideClickListener = () => {
   }
 };
 
-const isOutsideClicked = (event) => {
+const isOutsideClicked = event => {
   if (!topbarMenuActive.value) return;
   const sidebarEl = document.querySelector('.layout-topbar-menu');
   const topbarEl = document.querySelector('.layout-topbar-menu-button');
@@ -64,10 +66,13 @@ const isOutsideClicked = (event) => {
 
 <template>
   <div class="layout-topbar">
-    <button class="p-link layout-menu-button layout-topbar-button" @click="Config.onMenuToggle()">
+    <button class="p-link layout-menu-button layout-topbar-button" @click="$config.onMenuToggle()">
       <i class="pi pi-bars"></i>
     </button>
-    <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
+    <button
+      class="p-link layout-topbar-menu-button layout-topbar-button"
+      @click="onTopBarMenuButton()"
+    >
       <i class="pi pi-ellipsis-v"></i>
     </button>
     <div class="layout-topbar-menu" :class="topbarMenuClasses">

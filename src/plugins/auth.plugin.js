@@ -33,6 +33,7 @@ export default {
           $router.push({ name: 'home' });
         } catch (err) {
           $error(err);
+          throw err;
         }
       },
 
@@ -45,6 +46,7 @@ export default {
           });
         } catch (err) {
           $error(err);
+          throw err;
         } finally {
           $router.push({ name: 'home' });
         }

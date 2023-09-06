@@ -4,25 +4,28 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
+
 import { useChannel } from '@/stores/api/channels';
 
 const { t } = useI18n();
 const toast = useToast();
-const Channel = useChannel();
+const confirm = useConfirm();
+const { $init, findOne, createOne, updateOne, removeOne } = useChannel();
 
 const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      if (id) record.value = await Channel.findOne({ id });
-      else record.value = Channel.$reset();
+      if (id) {
+        record.value = await findOne({ id });
+      } else {
+        record.value = $init({});
+      }
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = Channel.$reset();
-      $validate.value.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseModal();
     }
   }
 });
@@ -49,6 +52,7 @@ const options = ref([
 ]);
 
 const record = ref({});
+
 const $validate = useVuelidate(
   {
     locationFrom: { required },
@@ -65,15 +69,15 @@ const $validate = useVuelidate(
   record
 );
 
-const onClose = () => {
+const onCloseModal = () => {
   visible.value = false;
+  record.value = $init({});
   $validate.value.$reset();
-  record.value = Channel.$reset();
   emits('close', {});
 };
 
 const onCreateRecord = async () => {
-  record.value = Channel.$reset();
+  record.value = $init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -84,46 +88,93 @@ const onCreateRecord = async () => {
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await Channel.removeOne(record.value);
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onClose();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        }
+        onCloseModal();
+        record.value = $init({});
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     if (record.value?.id) {
-      await Channel.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+      try {
+        await updateOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await Channel.createOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await createOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onClose();
   } else {
     toast.add({
       severity: 'warn',
@@ -145,7 +196,7 @@ const onSaveRecord = async () => {
     v-model:visible="visible"
     :style="{ width: '600px' }"
     class="p-fluid"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -166,7 +217,7 @@ const onSaveRecord = async () => {
             class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -203,7 +254,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Unit start')"
               :class="{ 'p-invalid': !!$validate.unitFrom.$errors.length }"
             />
-            <small id="unitFrom-help" class="p-error" v-for="error in $validate.unitFrom.$errors" :key="error.$uid">
+            <small
+              id="unitFrom-help"
+              class="p-error"
+              v-for="error in $validate.unitFrom.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -219,7 +275,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Location end')"
               :class="{ 'p-invalid': !!$validate.locationTo.$errors.length }"
             />
-            <small id="locationTo-help" class="p-error" v-for="error in $validate.locationTo.$errors" :key="error.$uid">
+            <small
+              id="locationTo-help"
+              class="p-error"
+              v-for="error in $validate.locationTo.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -233,7 +294,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Unit end')"
               :class="{ 'p-invalid': !!$validate.unitTo.$errors.length }"
             />
-            <small id="unitTo-help" class="p-error" v-for="error in $validate.unitTo.$errors" :key="error.$uid">
+            <small
+              id="unitTo-help"
+              class="p-error"
+              v-for="error in $validate.unitTo.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -249,7 +315,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Level')"
               :class="{ 'p-invalid': !!$validate.level.$errors.length }"
             />
-            <small id="level-help" class="p-error" v-for="error in $validate.level.$errors" :key="error.$uid">
+            <small
+              id="level-help"
+              class="p-error"
+              v-for="error in $validate.level.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -263,7 +334,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Type')"
               :class="{ 'p-invalid': !!$validate.type.$errors.length }"
             />
-            <small id="type-help" class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
+            <small
+              id="type-help"
+              class="p-error"
+              v-for="error in $validate.type.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -277,7 +353,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Speed')"
               :class="{ 'p-invalid': !!$validate.speed.$errors.length }"
             />
-            <small id="speed-help" class="p-error" v-for="error in $validate.speed.$errors" :key="error.$uid">
+            <small
+              id="speed-help"
+              class="p-error"
+              v-for="error in $validate.speed.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -291,7 +372,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Status')"
               :class="{ 'p-invalid': !!$validate.status.$errors.length }"
             />
-            <small id="status-help" class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
+            <small
+              id="status-help"
+              class="p-error"
+              v-for="error in $validate.status.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -305,7 +391,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Operator')"
               :class="{ 'p-invalid': !!$validate.operator.$errors.length }"
             />
-            <small id="operator-help" class="p-error" v-for="error in $validate.operator.$errors" :key="error.$uid">
+            <small
+              id="operator-help"
+              class="p-error"
+              v-for="error in $validate.operator.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -335,7 +426,7 @@ const onSaveRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

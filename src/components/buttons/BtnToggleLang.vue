@@ -1,25 +1,25 @@
 <script setup>
 import { ref } from 'vue';
+
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
-
+const $config = useConfig();
 const refMenu = ref();
 const items = ref([
   {
     label: 'English',
     icon: 'pi pi-language',
-    command: () => Config.toggleLang('en')
+    command: () => $config.toggleLang('en')
   },
   {
     label: 'Українська',
     icon: 'pi pi-language',
-    command: () => Config.toggleLang('uk')
+    command: () => $config.toggleLang('uk')
   },
   {
     label: 'Русский',
     icon: 'pi pi-language',
-    command: () => Config.toggleLang('ru')
+    command: () => $config.toggleLang('ru')
   }
 ]);
 </script>
@@ -37,6 +37,6 @@ const items = ref([
     iconClass="text-2xl"
     class="p-button-lg hover:text-color h-3rem w-3rem"
     v-tooltip.bottom="$t('Languages')"
-    @click="(event) => refMenu.toggle(event)"
+    @click="event => refMenu.toggle(event)"
   />
 </template>

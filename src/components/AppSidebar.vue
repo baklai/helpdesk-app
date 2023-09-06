@@ -11,13 +11,17 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
   <router-link to="/" class="flex justify-content-center layout-topbar-logo py-2 mb-6">
     <div class="flex justify-content-center">
       <div class="justify-content-start">
-        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">h&nbsp;e&nbsp;l&nbsp;p&nbsp;</p>
+        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+          h&nbsp;e&nbsp;l&nbsp;p&nbsp;
+        </p>
       </div>
       <div class="flex align-items-center justify-content-center">
         <img src="/img/logo-app.webp" alt="HD logo" width="32" height="32" class="mx-2" />
       </div>
       <div class="justify-content-start">
-        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">&nbsp;d&nbsp;e&nbsp;s&nbsp;k</p>
+        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+          &nbsp;d&nbsp;e&nbsp;s&nbsp;k
+        </p>
       </div>
     </div>
   </router-link>

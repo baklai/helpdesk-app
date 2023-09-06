@@ -4,12 +4,14 @@ import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
+
+import SSDataTable from '@/components/tables/SSDataTable.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+
+import { dateTimeToStr, eventToStr, eventToColor } from '@/service/DataFilters';
 import { useScope } from '@/stores/scope';
 import { useLogger } from '@/stores/api/loggers';
 import { useUser } from '@/stores/api/users';
-import { dateTimeToStr, eventToStr, eventToColor } from '@/service/DataFilters';
-import SSDataTable from '@/components/tables/SSDataTable.vue';
-import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -106,9 +108,9 @@ const columns = ref([
         label: 'comment',
         onRecords: () => {
           return Scope.scopeGroups()
-            .map((group) => group.items)
+            .map(group => group.items)
             .flat()
-            .map((item) => {
+            .map(item => {
               return { scope: item.scope, comment: item.comment };
             });
         }
@@ -201,10 +203,10 @@ const confirmDeleteAll = () => {
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
-        @view="(data) => false"
-        @create="(data) => false"
-        @update="(data) => false"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => false"
+        @create="data => false"
+        @update="data => false"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <SSDataTable
@@ -216,8 +218,8 @@ const confirmDeleteAll = () => {
         :onUpdate="Logger.findAll"
         :onDelete="Logger.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="(data) => false"
-        @toggle-sidebar="(data) => false"
+        @toggle-modal="data => false"
+        @toggle-sidebar="data => false"
       >
         <template #icon>
           <i class="mr-2 hidden sm:block">

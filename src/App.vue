@@ -2,13 +2,13 @@
 import { onMounted } from 'vue';
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 
 onMounted(() => {
-  Config.applyScale();
-  Config.onMenuToggle();
-  Config.toggleTheme();
-  Config.toggleLang();
+  $config.applyScale();
+  $config.onMenuToggle();
+  $config.toggleTheme();
+  $config.toggleLang();
 });
 </script>
 

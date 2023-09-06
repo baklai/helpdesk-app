@@ -2,11 +2,11 @@ import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useStatistic = defineStore('statistic', () => {
-  const axios = inject('axios');
+  const $axios = inject('axios');
 
   async function network() {
     try {
-      return await axios.get('/statistics/network');
+      return await $axios.get('/statistics/network');
     } catch (err) {
       throw new Error(err.message);
     }
@@ -14,7 +14,7 @@ export const useStatistic = defineStore('statistic', () => {
 
   async function request() {
     try {
-      return await axios.get('/statistics/request');
+      return await $axios.get('/statistics/request');
     } catch (err) {
       throw new Error(err.message);
     }
@@ -22,7 +22,7 @@ export const useStatistic = defineStore('statistic', () => {
 
   async function inspector() {
     try {
-      return await axios.get('/statistics/inspector');
+      return await $axios.get('/statistics/inspector');
     } catch (err) {
       throw new Error(err.message);
     }
@@ -30,7 +30,7 @@ export const useStatistic = defineStore('statistic', () => {
 
   async function dashboard() {
     try {
-      return await axios.get('/statistics/dashboard');
+      return await $axios.get('/statistics/dashboard');
     } catch (err) {
       throw new Error(err.message);
     }

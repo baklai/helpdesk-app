@@ -4,27 +4,27 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { useEvent } from '@/stores/api/events';
 
+import { useEvent } from '@/stores/api/events';
 import { dateTimeToStr, capitalizeFirstLetter } from '@/service/DataFilters';
 
 const { t } = useI18n();
 const toast = useToast();
-const Event = useEvent();
+const { $init, findOne, createOne, updateOne, removeOne } = useEvent();
 
 const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      if (id) record.value = await Event.findOne({ id });
-      else record.value = Event.$reset();
+      if (id) {
+        record.value = await findOne({ id });
+      } else {
+        record.value = $init({});
+      }
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = Event.$reset();
-      $validate.value.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseModal();
     }
   }
 });
@@ -51,6 +51,7 @@ const options = ref([
 ]);
 
 const record = ref({});
+
 const $validate = useVuelidate(
   {
     title: { required },
@@ -61,15 +62,15 @@ const $validate = useVuelidate(
   record
 );
 
-const onClose = () => {
+const onCloseModal = () => {
   visible.value = false;
+  record.value = $init({});
   $validate.value.$reset();
-  record.value = Event.$reset();
   emits('close', {});
 };
 
 const onCreateRecord = async () => {
-  record.value = Event.$reset();
+  record.value = $init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -80,46 +81,94 @@ const onCreateRecord = async () => {
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await Event.removeOne(record.value);
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onClose();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+          onCloseModal();
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        }
+        record.value = $init({});
+        await onRecords();
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     if (record.value?.id) {
-      await Event.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+      try {
+        await updateOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await Event.createOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await createOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onClose();
   } else {
     toast.add({
       severity: 'warn',
@@ -141,7 +190,7 @@ const onSaveRecord = async () => {
     v-model:visible="visible"
     :style="{ width: '400px' }"
     class="p-fluid"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -162,7 +211,7 @@ const onSaveRecord = async () => {
             class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -178,7 +227,12 @@ const onSaveRecord = async () => {
           :placeholder="$t('Title event')"
           :class="{ 'p-invalid': !!$validate.title.$errors.length }"
         />
-        <small id="title-help" class="p-error" v-for="error in $validate.title.$errors" :key="error.$uid">
+        <small
+          id="title-help"
+          class="p-error"
+          v-for="error in $validate.title.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
@@ -198,7 +252,12 @@ const onSaveRecord = async () => {
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!$validate.datetime.$errors.length }"
         />
-        <small id="datetime-help" class="p-error" v-for="error in $validate.datetime.$errors" :key="error.$uid">
+        <small
+          id="datetime-help"
+          class="p-error"
+          v-for="error in $validate.datetime.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
@@ -212,13 +271,18 @@ const onSaveRecord = async () => {
           resetFilterOnHide
           v-model="record.eventType"
           :options="['event', 'meeting', 'deadline', 'holiday', 'birthday']"
-          :optionLabel="(item) => capitalizeFirstLetter($t(item))"
+          :optionLabel="item => capitalizeFirstLetter($t(item))"
           aria-describedby="eventType-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Event type')"
           :class="{ 'p-invalid': !!$validate.eventType.$errors.length }"
         />
-        <small id="eventType-help" class="p-error" v-for="error in $validate.eventType.$errors" :key="error.$uid">
+        <small
+          id="eventType-help"
+          class="p-error"
+          v-for="error in $validate.eventType.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
@@ -233,14 +297,19 @@ const onSaveRecord = async () => {
           v-model="record.description"
           :placeholder="$t('Description')"
         />
-        <small id="description-help" class="p-error" v-for="error in $validate.description.$errors" :key="error.$uid">
+        <small
+          id="description-help"
+          class="p-error"
+          v-for="error in $validate.description.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

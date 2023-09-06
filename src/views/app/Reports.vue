@@ -1,11 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStatistic } from '@/stores/api/statistics';
-import { dateToStr } from '@/service/DataFilters';
-
 import AppIcons from '@/components/AppIcons.vue';
-
-onMounted(async () => {});
 </script>
 
 <template>
@@ -46,7 +40,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -63,7 +59,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -101,7 +99,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -118,7 +118,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -135,7 +137,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-chart-bar text-6xl" />
             </div>
             <div>
@@ -173,7 +177,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -190,7 +196,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -207,7 +215,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -224,7 +234,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-table text-6xl" />
             </div>
             <div>
@@ -241,7 +253,9 @@ onMounted(async () => {});
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
-            <div class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4">
+            <div
+              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
+            >
               <i class="pi pi-chart-pie text-6xl" />
             </div>
             <div>

@@ -1,7 +1,7 @@
 <script setup>
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 </script>
 
 <template>
@@ -11,6 +11,6 @@ const Config = useConfig();
     rounded
     icon="pi pi-cloud-upload"
     v-tooltip.bottom="$t('HD File Hosting')"
-    @click="Config.cloud = !Config.cloud"
+    @click="$config.cloud = !$config.cloud"
   />
 </template>

@@ -5,13 +5,14 @@ import { required } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
-import { useSysfilter } from '@/stores/api/sysfilters';
+
 import { capitalizeFirstLetter } from '@/service/DataFilters';
+import { useSysfilter } from '@/stores/api/sysfilters';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
-const SysFilter = useSysfilter();
+const { $init, findAll, findOne, createOne, updateOne, removeOne } = useSysfilter();
 
 const emits = defineEmits(['close']);
 
@@ -39,16 +40,16 @@ const groupBy = (array, property) => {
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      if (id) record.value = await SysFilter.findOne({ id });
-      else record.value = SysFilter.$reset();
-      records.value = await SysFilter.findAll({});
+      if (id) {
+        record.value = await findOne({ id });
+      } else {
+        record.value = $init({});
+      }
+      records.value = await findAll({});
       records.value = groupBy(records.value, 'type');
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = SysFilter.$reset();
-      $validate.value.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseModal();
     }
   }
 });
@@ -76,18 +77,22 @@ const options = ref([
 
 const record = ref({});
 const records = ref([]);
-const $validate = useVuelidate({ regex: { required }, type: { required }, status: { required } }, record);
 
-const onClose = () => {
+const $validate = useVuelidate(
+  { regex: { required }, type: { required }, status: { required } },
+  record
+);
+
+const onCloseModal = () => {
   visible.value = false;
+  record.value = $init({});
   $validate.value.$reset();
-  record.value = SysFilter.$reset();
   emits('close', {});
 };
 
 const onRecords = async () => {
   try {
-    records.value = await SysFilter.findAll({});
+    records.value = await findAll({});
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -99,7 +104,7 @@ const onRecords = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = SysFilter.$reset();
+  record.value = $init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -119,14 +124,23 @@ const onRemoveRecord = async () => {
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (record.value?.id) {
-        await SysFilter.removeOne(record.value);
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is removed'),
-          life: 3000
-        });
-        record.value = SysFilter.$reset();
+        try {
+          await removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        }
+        record.value = $init({});
         await onRecords();
       } else {
         toast.add({
@@ -149,7 +163,7 @@ const onRemoveRecord = async () => {
 };
 
 const onUpdateRecords = async () => {
-  record.value = SysFilter.$reset();
+  record.value = $init({});
   await onRecords();
   toast.add({
     severity: 'success',
@@ -163,23 +177,42 @@ const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     if (record.value?.id) {
-      await SysFilter.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+      try {
+        await updateOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await SysFilter.createOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await createOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onClose();
   } else {
     toast.add({
       severity: 'warn',
@@ -201,7 +234,7 @@ const onSaveRecord = async () => {
     class="p-fluid"
     v-model:visible="visible"
     :style="{ width: '480px' }"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -225,7 +258,7 @@ const onSaveRecord = async () => {
             icon="pi pi-ellipsis-v"
             class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -291,13 +324,18 @@ const onSaveRecord = async () => {
           resetFilterOnHide
           v-model="record.type"
           :options="['account', 'software', 'share']"
-          :optionLabel="(item) => capitalizeFirstLetter($t(item))"
+          :optionLabel="item => capitalizeFirstLetter($t(item))"
           aria-describedby="type-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter type')"
           :class="{ 'p-invalid': !!$validate.type.$errors.length }"
         />
-        <small id="type-help" class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
+        <small
+          id="type-help"
+          class="p-error"
+          v-for="error in $validate.type.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
@@ -311,13 +349,18 @@ const onSaveRecord = async () => {
           resetFilterOnHide
           v-model="record.status"
           :options="['allow', 'deny']"
-          :optionLabel="(item) => capitalizeFirstLetter($t(item))"
+          :optionLabel="item => capitalizeFirstLetter($t(item))"
           aria-describedby="status-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter status')"
           :class="{ 'p-invalid': !!$validate.status.$errors.length }"
         />
-        <small id="status-help" class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
+        <small
+          id="status-help"
+          class="p-error"
+          v-for="error in $validate.status.$errors"
+          :key="error.$uid"
+        >
           {{ $t(error.$message) }}
         </small>
       </div>
@@ -335,7 +378,7 @@ const onSaveRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

@@ -94,7 +94,7 @@ const items = ref([
     iconClass="text-2xl"
     class="p-button-lg hover:text-color h-3rem w-3rem"
     v-tooltip.bottom="$t('DB Tables')"
-    @click="(event) => refMenu.toggle(event)"
+    @click="event => refMenu.toggle(event)"
   />
 
   <DBСompany ref="refModalСompany" @close="() => true" />

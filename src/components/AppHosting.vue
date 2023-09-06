@@ -1,23 +1,24 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
+
 import { useConfig } from '@/stores/config';
 import { useFileHosting } from '@/stores/api/filehosting';
 import { byteToStr } from '@/service/DataFilters';
 
-const Config = useConfig();
+const $config = useConfig();
 const FileHosting = useFileHosting();
 
 const nodes = ref([]);
 const expandedKeys = ref({});
 
 watchEffect(async () => {
-  if (Config.cloud) {
+  if ($config.cloud) {
     const records = await FileHosting.findAll({});
     nodes.value = initNodesList(records);
   }
 });
 
-const copyToClipboard = (value) => {
+const copyToClipboard = value => {
   navigator.clipboard.writeText(value);
 };
 
@@ -36,7 +37,7 @@ const initNodesList = (arr, key = '') => {
   });
 };
 
-const expandNode = (node) => {
+const expandNode = node => {
   expandedKeys.value[node.key] = true;
   if (node.children && node.children.length) {
     for (let child of node.children) {
@@ -60,7 +61,7 @@ const collapseAll = () => {
 <template>
   <Dialog
     maximizable
-    v-model:visible="Config.cloud"
+    v-model:visible="$config.cloud"
     :header="$t('HD File Hosting')"
     :contentStyle="{ height: '400px' }"
     :style="{ minWidth: '30vw' }"
@@ -79,7 +80,13 @@ const collapseAll = () => {
       </div>
     </template>
 
-    <Tree filter :value="nodes" v-model:expandedKeys="expandedKeys" filterMode="lenient" scrollHeight="flex">
+    <Tree
+      filter
+      :value="nodes"
+      v-model:expandedKeys="expandedKeys"
+      filterMode="lenient"
+      scrollHeight="flex"
+    >
       <template #default="{ node }">
         <div>
           <p class="font-bold">{{ node.label }}</p>

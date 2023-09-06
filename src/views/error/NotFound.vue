@@ -1,17 +1,19 @@
 <script setup>
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 </script>
 
 <template>
   <div class="container">
-    <div class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center border-radius-53">
+    <div
+      class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center border-radius-53"
+    >
       <div class="grid flex flex-column align-items-center">
         <h1 class="text-900 font-bold text-4xl lg:text-5xl mb-2">{{ $t('Not Found') }}</h1>
         <span class="text-600 mb-5">{{ $t('Requested resource is not available') }}.</span>
         <img
-          :src="Config?.theme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
+          :src="$config?.theme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
           alt="Access denied"
           width="280"
           class="mb-5"

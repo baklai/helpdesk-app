@@ -2,19 +2,15 @@ import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useUnit = defineStore('unit', () => {
-  const axios = inject('axios');
+  const $axios = inject('axios');
 
-  function $reset() {
-    return {
-      id: null,
-      name: null,
-      description: null
-    };
+  function $init({ id = undefined, name = undefined, description = undefined }) {
+    return { id, name, description };
   }
 
   async function findAll(params) {
     try {
-      return await axios.get('/units', { params });
+      return await $axios.get('/units', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -22,23 +18,23 @@ export const useUnit = defineStore('unit', () => {
 
   async function findOne({ id }) {
     try {
-      return await axios.get(`/units/${id}`);
+      return await $axios.get(`/units/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function createOne({ name, description = null }) {
+  async function createOne({ ...payload }) {
     try {
-      return await axios.post('/units', { name, description });
+      return await $axios.post('/units', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function updateOne({ id, name, description = null }) {
+  async function updateOne({ id, ...payload }) {
     try {
-      return await axios.put(`/units/${id}`, { name, description });
+      return await $axios.put(`/units/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -46,11 +42,11 @@ export const useUnit = defineStore('unit', () => {
 
   async function removeOne({ id }) {
     try {
-      return await axios.delete(`/units/${id}`);
+      return await $axios.delete(`/units/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { $reset, findAll, findOne, createOne, updateOne, removeOne };
+  return { $init, findAll, findOne, createOne, updateOne, removeOne };
 });

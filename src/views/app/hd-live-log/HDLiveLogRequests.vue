@@ -1,6 +1,13 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
+
+import SSDataTable from '@/components/tables/SSDataTable.vue';
+import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+import ModalRecord from '@/components/modals/Request.vue';
+import SidebarRecord from '@/components/sidebar/Request.vue';
+
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useRequest } from '@/stores/api/requests';
 import { useСompany } from '@/stores/api/companies';
@@ -10,11 +17,6 @@ import { useDepartment } from '@/stores/api/departments';
 import { useEnterprise } from '@/stores/api/enterprises';
 import { usePosition } from '@/stores/api/positions';
 import { useUser } from '@/stores/api/users';
-import SSDataTable from '@/components/tables/SSDataTable.vue';
-import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
-import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-import ModalRecord from '@/components/modals/Request.vue';
-import SidebarRecord from '@/components/sidebar/Request.vue';
 
 const Request = useRequest();
 const Сompany = useСompany();
@@ -500,10 +502,10 @@ const columns = ref([
       <OptionsMenu
         ref="refMenu"
         hostkey="ipaddress"
-        @view="(data) => refSidebar.toggle(data)"
-        @create="(data) => refModal.toggle(data)"
-        @update="(data) => refModal.toggle(data)"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => refSidebar.toggle(data)"
+        @create="data => refModal.toggle(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
@@ -517,8 +519,8 @@ const columns = ref([
         :onUpdate="Request.findAll"
         :onDelete="Request.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="(data) => refModal.toggle(data)"
-        @toggle-sidebar="(data) => refSidebar.toggle(data)"
+        @toggle-modal="data => refModal.toggle(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
           <i class="mr-2 hidden sm:block">

@@ -2,10 +2,12 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
+import IPTable from '@/components/tables/IPTable.vue';
+
 import { useRequest } from '@/stores/api/requests';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { dateTimeToStr } from '@/service/DataFilters';
-import IPTable from '@/components/tables/IPTable.vue';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -23,10 +25,7 @@ defineExpose({
         : null;
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = Request.$reset();
-      recordIP.value = IPAddress.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseSidebar();
     }
   }
 });
@@ -40,10 +39,10 @@ const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
 };
 
-const onClose = () => {
+const onCloseSidebar = () => {
   visible.value = false;
-  record.value = Request.$reset();
-  recordIP.value = IPAddress.$reset();
+  record.value = Request.$init({});
+  recordIP.value = IPAddress.$init({});
   emits('close', {});
 };
 </script>
@@ -84,7 +83,7 @@ const onClose = () => {
             class="w-2rem h-2rem hover:text-color mx-2"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
-            @click="onClose"
+            @click="onCloseSidebar"
           />
         </div>
       </div>
@@ -107,7 +106,13 @@ const onClose = () => {
           <tr>
             <td class="font-weight-bold" width="50%">{{ $t('Status') }} :</td>
             <td>
-              <i :class="record?.closed ? 'pi pi-check-circle text-green-500' : 'pi pi-info-circle text-orange-500'" />
+              <i
+                :class="
+                  record?.closed
+                    ? 'pi pi-check-circle text-green-500'
+                    : 'pi pi-info-circle text-orange-500'
+                "
+              />
             </td>
           </tr>
           <tr>

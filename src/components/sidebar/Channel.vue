@@ -1,24 +1,19 @@
 <script setup>
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useToast } from 'primevue/usetoast';
+
 import { useChannel } from '@/stores/api/channels';
 
-const { t } = useI18n();
-const toast = useToast();
-const Channel = useChannel();
+const { $init, findOne } = useChannel();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await Channel.findOne({ id });
+      record.value = await findOne({ id });
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = Channel.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseSidebar();
     }
   }
 });
@@ -31,9 +26,9 @@ const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
 };
 
-const onClose = () => {
+const onCloseSidebar = () => {
   visible.value = false;
-  record.value = Channel.$reset();
+  record.value = $init({});
   emits('close', {});
 };
 </script>
@@ -49,7 +44,9 @@ const onClose = () => {
           <AppIcons name="network-channels" :size="40" class="mr-2" />
           <div>
             <p class="text-lg mb-0">{{ $t('Network channel') }}</p>
-            <p class="text-base font-normal">{{ record?.locationFrom }} - {{ record?.locationTo }}</p>
+            <p class="text-base font-normal">
+              {{ record?.locationFrom }} - {{ record?.locationTo }}
+            </p>
           </div>
         </div>
         <div class="flex align-items-center justify-content-center">
@@ -71,7 +68,7 @@ const onClose = () => {
             class="w-2rem h-2rem hover:text-color mx-2"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
-            @click="onClose"
+            @click="onCloseSidebar"
           />
         </div>
       </div>

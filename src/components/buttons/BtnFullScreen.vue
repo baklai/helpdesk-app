@@ -26,7 +26,7 @@ const toggleFullScreen = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('fullscreenchange', (event) => {
+  window.addEventListener('fullscreenchange', event => {
     isFullScreen.value = document.fullscreenElement !== null;
   });
 });

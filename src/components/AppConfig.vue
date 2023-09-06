@@ -1,19 +1,19 @@
 <script setup>
 import { ref } from 'vue';
+
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 
 const visible = ref(false);
-
 const scales = ref([12, 13, 14, 15, 16]);
 
 const incrementScale = () => {
-  Config.scale++;
+  $config.scale++;
 };
 
 const decrementScale = () => {
-  Config.scale--;
+  $config.scale--;
 };
 </script>
 
@@ -56,14 +56,14 @@ const decrementScale = () => {
           type="button"
           @click="decrementScale"
           class="p-button-text p-button-rounded p-button-plain w-2rem h-2rem mr-2"
-          :disabled="Config.scale === scales[0]"
+          :disabled="$config.scale === scales[0]"
         />
         <div class="flex gap-2 align-items-center">
           <i
             class="pi pi-circle-fill text-300"
             v-for="item in scales"
             :key="item"
-            :class="{ 'text-primary-500': item === Config.scale }"
+            :class="{ 'text-primary-500': item === $config.scale }"
           ></i>
         </div>
         <Button
@@ -72,7 +72,7 @@ const decrementScale = () => {
           pButton
           @click="incrementScale"
           class="p-button-text p-button-rounded p-button-plain w-2rem h-2rem ml-2"
-          :disabled="Config.scale === scales[scales.length - 1]"
+          :disabled="$config.scale === scales[scales.length - 1]"
         />
       </div>
     </div>
@@ -84,7 +84,7 @@ const decrementScale = () => {
         <h5 class="flex align-items-center h-full">{{ $t('Ripple Effect') }}</h5>
       </div>
       <div class="flex-1">
-        <SelectButton v-model="Config.ripple" :options="[true, false]" aria-labelledby="single" />
+        <SelectButton v-model="$config.ripple" :options="[true, false]" aria-labelledby="single" />
       </div>
     </div>
 
@@ -95,7 +95,7 @@ const decrementScale = () => {
         <h5 class="flex align-items-center h-full">{{ $t('Menu Type') }}</h5>
       </div>
       <div class="flex-1">
-        <SelectButton v-model="Config.menuMode" :options="['static', 'overlay']" />
+        <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
       </div>
     </div>
 
@@ -106,7 +106,7 @@ const decrementScale = () => {
         <h5 class="flex align-items-center h-full">{{ $t('Input Style') }}</h5>
       </div>
       <div class="flex-1">
-        <SelectButton v-model="Config.inputStyle" :options="['outlined', 'filled']" />
+        <SelectButton v-model="$config.inputStyle" :options="['outlined', 'filled']" />
       </div>
     </div>
 
@@ -117,7 +117,7 @@ const decrementScale = () => {
         <h5 class="flex align-items-center h-full">{{ $t('Themes style') }}</h5>
       </div>
       <div class="flex-1">
-        <SelectButton v-model="Config.theme" :options="['light', 'dark']" />
+        <SelectButton v-model="$config.theme" :options="['light', 'dark']" />
       </div>
     </div>
 

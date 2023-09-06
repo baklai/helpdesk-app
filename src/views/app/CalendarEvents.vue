@@ -4,9 +4,11 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Qalendar } from 'qalendar';
+
+import ModalRecord from '@/components/modals/Event.vue';
+
 import { useEvent } from '@/stores/api/events';
 import { dateTimeToStr } from '@/service/DataFilters';
-import ModalRecord from '@/components/modals/Event.vue';
 
 const { t, locale } = useI18n();
 
@@ -45,7 +47,7 @@ const records = ref([]);
 const startDate = ref(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
 const endDate = ref(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0));
 
-const fixLocale = (key) => {
+const fixLocale = key => {
   if (key === 'uk') return 'uk-UA';
   if (key === 'ru') return 'ru-RU';
   return 'en-US';
@@ -225,7 +227,9 @@ onMounted(async () => {
           <div v-if="eventDialogData && eventDialogData?.title">
             <Card class="w-full p-2">
               <template #title>
-                <div class="flex align-content-center align-items-center justify-content-between flex-wrap">
+                <div
+                  class="flex align-content-center align-items-center justify-content-between flex-wrap"
+                >
                   <div class="flex align-content-center align-items-center">
                     <i
                       class="pi pi-circle-fill mr-2"
@@ -328,7 +332,8 @@ onMounted(async () => {
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
   border-color: var(--surface-border) !important;
-  background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0) fixed,
+  background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
+      fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,
     linear-gradient(-45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0) fixed,
     linear-gradient(-45deg, #80808010 10%, transparent 0) fixed !important;

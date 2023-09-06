@@ -5,7 +5,6 @@ import { useToast } from 'primevue/usetoast';
 
 const { t } = useI18n();
 const toast = useToast();
-
 const $auth = inject('auth');
 
 const onSignout = async () => {

@@ -2,11 +2,11 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { useTool } from '@/stores/api/systools';
 
 const { t } = useI18n();
 const toast = useToast();
-
 const Tool = useTool();
 
 const props = defineProps({
@@ -122,7 +122,7 @@ const options = computed(() => [
   ...(props.hostkey && record.value[props?.hostkey] ? hostOptions.value : [])
 ]);
 
-const copyIPtoClipboard = async (value) => {
+const copyIPtoClipboard = async value => {
   await navigator.clipboard.writeText(value);
   toast.add({
     severity: 'info',
@@ -132,7 +132,7 @@ const copyIPtoClipboard = async (value) => {
   });
 };
 
-const onPINGCommand = async (value) => {
+const onPINGCommand = async value => {
   try {
     toast.add({
       severity: 'info',
@@ -158,7 +158,7 @@ const onPINGCommand = async (value) => {
   }
 };
 
-const getPINGLink = async (value) => {
+const getPINGLink = async value => {
   const file = await Tool.getLinkPING({ host: value });
   const url = window.URL.createObjectURL(new Blob([file]));
   const link = document.createElement('a');
@@ -173,7 +173,7 @@ const getPINGLink = async (value) => {
   link.click();
 };
 
-const getRDPLink = async (value) => {
+const getRDPLink = async value => {
   const file = await Tool.getLinkRDP({ host: value });
   const url = window.URL.createObjectURL(new Blob([file]));
   const link = document.createElement('a');
@@ -188,7 +188,7 @@ const getRDPLink = async (value) => {
   link.click();
 };
 
-const getVNClink = async (value) => {
+const getVNClink = async value => {
   const file = await Tool.getLinkVNC({ host: value });
   const url = window.URL.createObjectURL(new Blob([file]));
   const link = document.createElement('a');

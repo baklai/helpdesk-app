@@ -7,7 +7,7 @@ export default function (key, defaultValue) {
       const value = localStorage.getItem(key);
       return value ? JSON.parse(value) : defaultValue;
     },
-    set: (value) => {
+    set: value => {
       if (value === null) {
         localStorage.removeItem(key);
       } else {

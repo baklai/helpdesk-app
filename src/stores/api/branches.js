@@ -2,20 +2,20 @@ import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useBranch = defineStore('branch', () => {
-  const axios = inject('axios');
+  const $axios = inject('axios');
 
-  function $reset() {
-    return {
-      id: null,
-      name: null,
-      address: null,
-      description: null
-    };
+  function $init({
+    id = undefined,
+    name = undefined,
+    address = undefined,
+    description = undefined
+  }) {
+    return { id, name, address, description };
   }
 
   async function findAll(params) {
     try {
-      return await axios.get('/branches', { params });
+      return await $axios.get('/branches', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -23,23 +23,23 @@ export const useBranch = defineStore('branch', () => {
 
   async function findOne({ id }) {
     try {
-      return await axios.get(`/branches/${id}`);
+      return await $axios.get(`/branches/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function createOne({ name, address = null, description = null }) {
+  async function createOne({ ...payload }) {
     try {
-      return await axios.post('/branches', { name, address, description });
+      return await $axios.post('/branches', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function updateOne({ id, name, address = null, description = null }) {
+  async function updateOne({ id, ...payload }) {
     try {
-      return await axios.put(`/branches/${id}`, { name, address, description });
+      return await $axios.put(`/branches/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -47,11 +47,11 @@ export const useBranch = defineStore('branch', () => {
 
   async function removeOne({ id }) {
     try {
-      return await axios.delete(`/branches/${id}`);
+      return await $axios.delete(`/branches/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { $reset, findAll, findOne, createOne, updateOne, removeOne };
+  return { $init, findAll, findOne, createOne, updateOne, removeOne };
 });

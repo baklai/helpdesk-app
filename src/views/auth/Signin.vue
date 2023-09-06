@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { AutocompleteOffForms } from '@/service/ReadonlyForms';
 
 const { t } = useI18n();
@@ -27,13 +28,27 @@ const onSignin = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     try {
-      await $auth.signin({ login: login.value, password: password.value, remember: remember.value });
-      toast.add({ severity: 'success', summary: t('HD Information'), detail: t('Authorization passed'), life: 3000 });
+      await $auth.signin({
+        login: login.value,
+        password: password.value,
+        remember: remember.value
+      });
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Authorization passed'),
+        life: 3000
+      });
     } catch (err) {
       toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
     }
   } else {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t('Input login and password'), life: 3000 });
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t('Input login and password'),
+      life: 3000
+    });
   }
 };
 

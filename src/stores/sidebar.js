@@ -29,7 +29,11 @@ export const useSidebar = defineStore('sidebar', () => {
         getRoute('calendar-events'),
         {
           ...getRoute('network-info'),
-          items: [getRoute('network-channels'), getRoute('network-ip-address'), getRoute('network-statistics')]
+          items: [
+            getRoute('network-channels'),
+            getRoute('network-ip-address'),
+            getRoute('network-statistics')
+          ]
         },
         {
           ...getRoute('helpdesk-live-log'),
@@ -50,13 +54,18 @@ export const useSidebar = defineStore('sidebar', () => {
     {
       title: t('Administration'),
       separator: false,
-      items: [getRoute('core-dashboard'), getRoute('core-log-audit'), getRoute('core-options'), getRoute('core-users')]
+      items: [
+        getRoute('core-dashboard'),
+        getRoute('core-log-audit'),
+        getRoute('core-options'),
+        getRoute('core-users')
+      ]
     }
   ]);
 
   function getRoute(name) {
     const routes = Router.getRoutes();
-    const route = routes.find((item) => item.name === name);
+    const route = routes.find(item => item.name === name);
     return { title: t(route.meta.title), to: route.path, icon: route.name };
   }
 

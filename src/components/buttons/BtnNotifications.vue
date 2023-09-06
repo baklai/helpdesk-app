@@ -36,7 +36,7 @@ const onRecords = async () => {
   }
 };
 
-const onRemoveRecord = async (id) => {
+const onRemoveRecord = async id => {
   try {
     await Notice.removeOne({ id });
     await onRecords();
@@ -95,7 +95,11 @@ onMounted(async () => {
     </DataView>
   </OverlayPanel>
 
-  <i v-if="records?.docs?.length" v-badge.success="records?.docs?.length" class="p-overlay-badge mx-2">
+  <i
+    v-if="records?.docs?.length"
+    v-badge.success="records?.docs?.length"
+    class="p-overlay-badge mx-2"
+  >
     <Button
       text
       plain
@@ -106,7 +110,7 @@ onMounted(async () => {
       aria-controls="notifications-menu"
       class="w-3rem h-3rem hover:text-color"
       v-tooltip.bottom="$t('Notifications')"
-      @click="(event) => refMenu.toggle(event)"
+      @click="event => refMenu.toggle(event)"
     />
   </i>
 </template>

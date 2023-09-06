@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
+
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
 
@@ -73,7 +74,13 @@ onMounted(async () => {
       </div>
     </div>
 
-    <ProgressSpinner class="flex" strokeWidth="3" animationDuration="0.8s" style="height: 80%" v-if="loader" />
+    <ProgressSpinner
+      class="flex"
+      strokeWidth="3"
+      animationDuration="0.8s"
+      style="height: 80%"
+      v-if="loader"
+    />
 
     <div class="grid" v-else>
       <div class="col-12 lg:col-6 xl:col-4">
@@ -85,7 +92,9 @@ onMounted(async () => {
               </span>
               <div class="text-900 font-medium text-xl">{{ stats?.count || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
                 <path
@@ -110,7 +119,9 @@ onMounted(async () => {
                 {{ stats?.count - stats?.warning || '-' }}
               </div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>check-outline</title>
                 <path
@@ -135,7 +146,9 @@ onMounted(async () => {
                 {{ stats?.warning || '-' }}
               </div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-orange-500 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-orange-500 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>alert-octagon-outline</title>
                 <path
@@ -156,7 +169,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">{{ $t('Administrator rights') }}</span>
               <div class="text-900 font-medium text-xl">{{ stats?.useraccount || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>account-key-outline</title>
                 <path
@@ -177,7 +192,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">{{ $t('Unwanted software') }}</span>
               <div class="text-900 font-medium text-xl">{{ stats?.product || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>microsoft</title>
                 <path d="M2,3H11V12H2V3M11,22H2V13H11V22M21,3V12H12V3H21M21,22H12V13H21V22Z" />
@@ -196,7 +213,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">{{ $t('Shared resources') }}</span>
               <div class="text-900 font-medium text-xl">{{ stats?.share || '-' }}</div>
             </div>
-            <div class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2">
+            <div
+              class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>folder-network-outline</title>
                 <path
@@ -220,7 +239,9 @@ onMounted(async () => {
                   <h5 class="text-color m-0">
                     {{ $t('PC Software') }}
                   </h5>
-                  <p class="text-color-secondary">{{ $t('Software count') }} : {{ stats?.software?.length || '-' }}</p>
+                  <p class="text-color-secondary">
+                    {{ $t('Software count') }} : {{ stats?.software?.length || '-' }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -228,7 +249,11 @@ onMounted(async () => {
             <div class="flex justify-content-end">
               <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
                 <i class="pi pi-search" />
-                <InputText class="sm:w-max w-full" :placeholder="$t('Search')" v-model="filters['global'].value" />
+                <InputText
+                  class="sm:w-max w-full"
+                  :placeholder="$t('Search')"
+                  v-model="filters['global'].value"
+                />
                 <i
                   class="pi pi-times cursor-pointer hover:text-color"
                   v-tooltip.bottom="$t('Clear filter')"
@@ -279,7 +304,9 @@ onMounted(async () => {
               :key="`unsoftware-${index}`"
             >
               <div>
-                <span class="text-900 font-medium mr-2 mb-1 md:mb-0"> {{ index + 1 }}. {{ item }} </span>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0">
+                  {{ index + 1 }}. {{ item }}
+                </span>
               </div>
             </li>
           </ul>

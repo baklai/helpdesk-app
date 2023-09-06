@@ -1,7 +1,7 @@
 <script setup>
 import { useConfig } from '@/stores/config';
 
-const Config = useConfig();
+const $config = useConfig();
 </script>
 
 <template>
@@ -9,8 +9,8 @@ const Config = useConfig();
     text
     plain
     rounded
-    :icon="Config.isDarkTheme ? 'pi pi-sun' : 'pi pi-moon'"
-    v-tooltip.bottom="Config.isDarkTheme ? $t('Theme Light') : $t('Theme Dark')"
-    @click="Config.isDarkTheme ? (Config.theme = 'light') : (Config.theme = 'dark')"
+    :icon="$config.isDarkTheme ? 'pi pi-sun' : 'pi pi-moon'"
+    v-tooltip.bottom="$config.isDarkTheme ? $t('Theme Light') : $t('Theme Dark')"
+    @click="$config.isDarkTheme ? ($config.theme = 'light') : ($config.theme = 'dark')"
   />
 </template>

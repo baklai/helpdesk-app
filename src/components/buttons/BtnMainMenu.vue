@@ -10,7 +10,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 
 const refMenu = ref();
 
-const toggle = (event) => {
+const toggle = event => {
   refMenu.value.toggle(event);
 };
 </script>

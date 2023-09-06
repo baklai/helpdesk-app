@@ -1,10 +1,12 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Channel.vue';
 import SidebarRecord from '@/components/sidebar/Channel.vue';
+
 import { useChannel } from '@/stores/api/channels';
 
 const Channel = useChannel();
@@ -252,10 +254,10 @@ const columns = ref([
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
-        @view="(data) => refSidebar.toggle(data)"
-        @create="(data) => refModal.toggle(data)"
-        @update="(data) => refModal.toggle(data)"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => refSidebar.toggle(data)"
+        @create="data => refModal.toggle(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
@@ -268,8 +270,8 @@ const columns = ref([
         :onUpdate="Channel.findAll"
         :onDelete="Channel.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="(data) => refModal.toggle(data)"
-        @toggle-sidebar="(data) => refSidebar.toggle(data)"
+        @toggle-modal="data => refModal.toggle(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
           <i class="mr-2 hidden sm:block">

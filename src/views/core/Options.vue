@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { useNotice } from '@/stores/api/notices';
 import { useUser } from '@/stores/api/users';
 
@@ -16,7 +17,10 @@ const Notice = useNotice();
 const notice = ref({});
 const users = ref([]);
 
-const $validate = useVuelidate({ title: { required }, text: { required }, users: { required } }, notice);
+const $validate = useVuelidate(
+  { title: { required }, text: { required }, users: { required } },
+  notice
+);
 
 const onSendNotification = async () => {
   const valid = await $validate.value.$validate();
@@ -115,7 +119,12 @@ onMounted(async () => {
 
             <div class="field">
               <label for="notification-text">{{ $t('Notification text') }}</label>
-              <Textarea rows="5" id="notification-text" v-model="notice.text" :placeholder="$t('Notification text')" />
+              <Textarea
+                rows="5"
+                id="notification-text"
+                v-model="notice.text"
+                :placeholder="$t('Notification text')"
+              />
               <small class="p-error" v-for="error in $validate.text.$errors" :key="error.$uid">
                 {{ $t(error.$message) }}
               </small>

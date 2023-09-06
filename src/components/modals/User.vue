@@ -1,17 +1,19 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, integer, email, between, requiredIf } from '@vuelidate/validators';
+import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { useScope } from '@/stores/scope';
 import { useUser } from '@/stores/api/users';
 
 const { t } = useI18n();
 const toast = useToast();
 
-const User = useUser();
-const Scope = useScope();
+const { $init, findOne, createOne, updateOne, removeOne } = useUser();
+const { scopeLength, getDefaultScope, getSelectScope } = useScope();
 
 const emits = defineEmits(['close']);
 
@@ -19,31 +21,17 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = await User.findOne({ id });
-        scopeGroups.value = Scope.scopeGroups();
-        record.value?.scope?.forEach((scope) => {
-          scopeGroups.value.forEach((group) => {
-            group.items.forEach((item) => {
-              if (item.scope === scope) {
-                item.value = true;
-              }
-            });
-          });
-        });
+        const user = await findOne({ id });
+        record.value = $init(user);
       } else {
-        record.value = User.$reset();
-        scopeGroups.value = Scope.scopeGroups();
+        record.value = $init({});
       }
       visible.value = true;
       setTimeout(() => {
         readonly.value = false;
       }, 500);
     } catch (err) {
-      visible.value = false;
-      record.value = User.$reset();
-      $validate.value.$reset();
-      readonly.value = false;
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseModal();
     }
   }
 });
@@ -70,8 +58,50 @@ const options = ref([
   }
 ]);
 
+const refSelectMenu = ref();
+const selectOptions = ref([
+  {
+    label: t('Select all'),
+    icon: 'pi pi-check-circle',
+    command: () => {
+      record.value.scope = getSelectScope(true);
+    }
+  },
+  {
+    label: t('Unselect all'),
+    icon: 'pi pi-minus-circle',
+    command: () => {
+      record.value.scope = getSelectScope(false);
+    }
+  },
+  { separator: true },
+  {
+    label: t('Set default'),
+    icon: 'pi pi-verified',
+    command: () => {
+      record.value.scope = getDefaultScope();
+    }
+  }
+]);
+
 const record = ref({});
-const scopeGroups = ref([]);
+
+const filters = ref({ global: { value: null, matchMode: FilterMatchMode.CONTAINS } });
+
+const selectScopeLength = computed(() => {
+  let count = 0;
+  record.value?.scope?.forEach((item, index, array) => {
+    const keys = Object.keys(item);
+    for (const key of keys) {
+      if (typeof item[key] === 'boolean') {
+        if (array[index][key]) {
+          count++;
+        }
+      }
+    }
+  });
+  return count;
+});
 
 const $validate = useVuelidate(
   {
@@ -89,44 +119,16 @@ const $validate = useVuelidate(
   record
 );
 
-const onClose = () => {
+const onCloseModal = () => {
   visible.value = false;
+  record.value = $init({});
   $validate.value.$reset();
-  record.value = User.$reset();
   readonly.value = true;
   emits('close', {});
 };
 
-const setDefaultScope = () => {
-  scopeGroups.value = Scope.scopeGroups();
-  scopeGroups.value.forEach((group) => {
-    group.items.forEach((item) => {
-      item.value = item?.default || false;
-    });
-  });
-};
-
-const selectAllScope = () => {
-  scopeGroups.value = Scope.scopeGroups();
-  scopeGroups.value.forEach((group) => {
-    group.items.forEach((item) => {
-      item.value = true;
-    });
-  });
-};
-
-const unselectAllScope = () => {
-  scopeGroups.value = Scope.scopeGroups();
-  scopeGroups.value.forEach((group) => {
-    group.items.forEach((item) => {
-      item.value = false;
-    });
-  });
-};
-
 const onCreateRecord = async () => {
-  record.value = User.$reset();
-  scopeGroups.value = Scope.scopeGroups();
+  record.value = $init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -137,53 +139,93 @@ const onCreateRecord = async () => {
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await User.removeOne(record.value);
-    $validate.value.$reset();
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onClose();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        }
+        record.value = $init({});
+        await onRecords();
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
-    record.value.scope = scopeGroups.value
-      .map((group) => group.items)
-      .flat()
-      .filter((item) => item.value)
-      .map((item) => item.scope);
-
-    if (record?.value?.id) {
-      await User.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+    if (record.value?.id) {
+      try {
+        await updateOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await User.createOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await createOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+        onCloseModal();
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onClose();
   } else {
     toast.add({
       severity: 'warn',
@@ -193,19 +235,24 @@ const onSaveRecord = async () => {
     });
   }
 };
+
+const onCellEditComplete = event => {
+  let { data, newValue, field } = event;
+  data[field] = newValue;
+};
 </script>
 
 <template>
   <Menu ref="refMenu" popup :model="options" />
-
+  <Menu ref="refSelectMenu" popup :model="selectOptions" />
   <Dialog
     modal
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '800px' }"
+    style="width: 800px"
     class="p-fluid"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -226,7 +273,7 @@ const onSaveRecord = async () => {
             class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -245,7 +292,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('User login')"
               :class="{ 'p-invalid': !!$validate.login.$errors.length }"
             />
-            <small id="login-help" class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
+            <small
+              id="login-help"
+              class="p-error"
+              v-for="error in $validate.login.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -281,7 +333,12 @@ const onSaveRecord = async () => {
                 </ul>
               </template>
             </Password>
-            <small id="password-help" class="p-error" v-for="error in $validate.password.$errors" :key="error.$uid">
+            <small
+              id="password-help"
+              class="p-error"
+              v-for="error in $validate.password.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -295,7 +352,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('User name')"
               :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
             />
-            <small id="fullname-help" class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
+            <small
+              id="fullname-help"
+              class="p-error"
+              v-for="error in $validate.fullname.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -309,7 +371,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('User email')"
               :class="{ 'p-invalid': !!$validate.email.$errors.length }"
             />
-            <small id="email-help" class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
+            <small
+              id="email-help"
+              class="p-error"
+              v-for="error in $validate.email.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -324,7 +391,12 @@ const onSaveRecord = async () => {
               v-model="record.phone"
               :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
             />
-            <small id="phone-help" class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
+            <small
+              id="phone-help"
+              class="p-error"
+              v-for="error in $validate.phone.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -342,7 +414,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Session timeout')"
               :class="{ 'p-invalid': !!$validate.timeout.$errors.length }"
             />
-            <small id="timeout-help" class="p-error" v-for="error in $validate.timeout.$errors" :key="error.$uid">
+            <small
+              id="timeout-help"
+              class="p-error"
+              v-for="error in $validate.timeout.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -364,105 +441,178 @@ const onSaveRecord = async () => {
 
         <div class="field col-12 xl:col-8">
           <div class="field">
-            <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
-              <div class="flex flex-wrap gap-2 align-items-center">
-                <p class="text-color m-0">
-                  <label for="phone" class="font-bold">{{ $t('Scope list') }}</label>
-                </p>
-              </div>
-              <div class="flex gap-2 sm:w-max w-full justify-content-between">
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-minus-circle"
-                  iconClass="text-xl"
-                  class="p-button-lg hover:text-color h-3rem w-3rem"
-                  v-tooltip.bottom="$t('Unselect all')"
-                  @click="unselectAllScope"
-                />
-
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-check-circle"
-                  iconClass="text-xl"
-                  class="p-button-lg hover:text-color h-3rem w-3rem"
-                  v-tooltip.bottom="$t('Select all')"
-                  @click="selectAllScope"
-                />
-
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-verified"
-                  iconClass="text-xl"
-                  class="p-button-lg hover:text-color h-3rem w-3rem"
-                  v-tooltip.bottom="$t('Set default')"
-                  @click="setDefaultScope"
-                />
-              </div>
-            </div>
-
-            <div class="border-1 border-solid border-round surface-border h-30rem overflow-y-auto">
-              <Accordion class="accordion-custom m-2">
-                <AccordionTab v-for="(group, index) in scopeGroups" :key="`group-tab-${index}`">
-                  <template #header>
-                    <i :class="group.icon" class="mr-2" />
-                    <span>{{ $t(group.name) }}</span>
-                  </template>
-                  <div v-for="item in group.items" class="flex align-items-center p-2">
-                    <Checkbox
-                      binary
-                      v-model="item.value"
-                      :name="item.scope"
-                      :inputId="`id:${item.scope}`"
-                      v-if="!item?.separator"
-                    />
-                    <label v-if="!item?.separator" :for="`id:${item.scope}`" class="ml-2">
-                      {{ $t(item.comment) }}
-                    </label>
-                    <Divider v-if="item?.separator" class="my-1" />
+            <DataTable
+              rowHover
+              scrollable
+              editMode="cell"
+              scrollHeight="flex"
+              responsiveLayout="scroll"
+              v-model:value="record.scope"
+              v-model:filters="filters"
+              :globalFilterFields="['scope']"
+              class="min-w-full overflow-x-auto"
+              style="height: calc(400px)"
+              @cell-edit-complete="onCellEditComplete"
+            >
+              <template #header>
+                <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
+                  <div class="flex flex-wrap gap-2 align-items-center">
+                    <i class="pi pi-unlock text-2xl mr-2"></i>
+                    <div>
+                      <p class="text-color m-0">
+                        {{ $t('Scope list') }}
+                      </p>
+                      <small class="text-color-secondary">
+                        {{ $t(`Select ${selectScopeLength} of ${scopeLength()} scopes`) }}
+                      </small>
+                    </div>
                   </div>
-                </AccordionTab>
-              </Accordion>
-            </div>
+                  <div
+                    class="flex gap-2 align-items-center justify-content-between sm:w-max w-full"
+                  >
+                    <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
+                      <i class="pi pi-search" />
+                      <InputText
+                        size="small"
+                        class="sm:w-max w-full"
+                        :placeholder="$t('Search scope')"
+                        v-model="filters['global'].value"
+                      />
+                      <i
+                        class="pi pi-times cursor-pointer hover:text-color"
+                        v-tooltip.bottom="$t('Clear filter')"
+                        @click="filters['global'].value = null"
+                      />
+                    </span>
+
+                    <div class="flex gap-2 justify-content-between">
+                      <Button
+                        text
+                        plain
+                        rounded
+                        icon="pi pi-cog"
+                        iconClass="text-2xl"
+                        class="p-button-lg hover:text-color h-3rem w-3rem"
+                        v-tooltip.bottom="$t('Scope option')"
+                        @click="event => refSelectMenu.toggle(event)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </template>
+
+              <template #empty>
+                <div class="text-center">
+                  <h5>{{ $t('No records found') }}</h5>
+                  <p>{{ $t('Try changing the search terms in the filter') }}</p>
+                </div>
+              </template>
+
+              <Column frozen field="scope" filterField="scope" header="Scope" class="font-bold">
+                <template #body="slotProps">
+                  {{ slotProps.data.comment }}
+                </template>
+              </Column>
+              <Column field="create" header="Create">
+                <template #body="{ data, field }">
+                  <i
+                    class="pi"
+                    :class="
+                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
+                    "
+                  ></i>
+                </template>
+                <template #editor="{ data, field }">
+                  <Checkbox v-model="data[field]" :binary="true" />
+                </template>
+              </Column>
+              <Column field="read" header="Read">
+                <template #body="{ data, field }">
+                  <i
+                    class="pi"
+                    :class="
+                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
+                    "
+                  ></i>
+                </template>
+                <template #editor="{ data, field }">
+                  <Checkbox v-model="data[field]" :binary="true" autofocus />
+                </template>
+              </Column>
+              <Column field="update" header="Update">
+                <template #body="{ data, field }">
+                  <i
+                    class="pi"
+                    :class="
+                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
+                    "
+                  ></i>
+                </template>
+                <template #editor="{ data, field }">
+                  <Checkbox v-model="data[field]" :binary="true" autofocus />
+                </template>
+              </Column>
+              <Column field="delete" header="Delete">
+                <template #body="{ data, field }">
+                  <i
+                    class="pi"
+                    :class="
+                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
+                    "
+                  ></i>
+                </template>
+                <template #editor="{ data, field }">
+                  <Checkbox v-model="data[field]" :binary="true" autofocus />
+                </template>
+              </Column>
+            </DataTable>
           </div>
         </div>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>
 
 <style scoped>
+::v-deep(.p-datatable-header) {
+  background: var(--surface-overlay);
+}
+
+::v-deep(.p-datatable .p-datatable-thead > tr > th) {
+  background: var(--surface-overlay);
+}
+
+::v-deep(.p-datatable .p-datatable-tbody > tr) {
+  background: var(--surface-overlay);
+}
+
+::v-deep(tr.p-datatable-emptymessage > td) {
+  border: none;
+}
+
+::v-deep(tr.p-datatable-emptymessage:hover) {
+  background: none !important;
+}
+
+::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
+  background: var(--surface-ground);
+}
+
+::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
+  background-color: var(--surface-ground);
+}
+
+::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
+  padding: 0.3rem 0.3rem;
+}
+
 ::v-deep(.p-input-icon-right > svg) {
   right: 0.5rem !important;
   cursor: pointer;
-}
-
-::v-deep(.p-accordion .p-accordion-tab) {
-  box-shadow: none;
-}
-
-::v-deep(.p-accordion .p-accordion-header .p-accordion-header-link) {
-  background: transparent;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-::v-deep(.p-accordion-tab-active > .p-accordion-header > a.p-accordion-header-link) {
-  background: var(--surface-hover) !important;
-  font-weight: 700 !important;
-}
-
-::v-deep(.p-accordion-content) {
-  background: transparent;
 }
 </style>

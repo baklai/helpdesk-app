@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, ipAddress } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { useRequest } from '@/stores/api/requests';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
@@ -33,16 +34,17 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) record.value = await Request.findOne({ id, populate: false });
-      else record.value = Request.$reset();
+      else record.value = Request.$init({});
 
-      const [company, branch, department, enterprise, position, location] = await Promise.allSettled([
-        Company.findAll({}),
-        Branch.findAll({}),
-        Department.findAll({}),
-        Enterprise.findAll({}),
-        Position.findAll({}),
-        Location.findAll({})
-      ]);
+      const [company, branch, department, enterprise, position, location] =
+        await Promise.allSettled([
+          Company.findAll({}),
+          Branch.findAll({}),
+          Department.findAll({}),
+          Enterprise.findAll({}),
+          Position.findAll({}),
+          Location.findAll({})
+        ]);
       companies.value = company.value;
       branches.value = branch.value;
       departments.value = department.value;
@@ -53,7 +55,7 @@ defineExpose({
       visible.value = true;
     } catch (err) {
       visible.value = false;
-      record.value = Request.$reset();
+      record.value = Request.$init({});
       $validate.value.$reset();
       toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
     }
@@ -111,10 +113,10 @@ const $validate = useVuelidate(
   record
 );
 
-const onClose = () => {
+const onCloseModal = () => {
   visible.value = false;
   $validate.value.$reset();
-  record.value = Request.$reset();
+  record.value = Request.$init({});
   emits('close', {});
 };
 
@@ -158,7 +160,7 @@ const findOneIPAddress = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = Request.$reset();
+  record.value = Request.$init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -177,7 +179,7 @@ const onRemoveRecord = async () => {
       detail: t('Record is removed'),
       life: 3000
     });
-    onClose();
+    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -208,7 +210,7 @@ const onSaveRecord = async () => {
         life: 3000
       });
     }
-    onClose();
+    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -239,7 +241,7 @@ const onSaveClosedRecord = async () => {
     v-model:visible="visible"
     :style="{ width: '800px' }"
     class="p-fluid"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -266,7 +268,7 @@ const onSaveClosedRecord = async () => {
             class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -285,14 +287,24 @@ const onSaveClosedRecord = async () => {
               v-model="record.request"
               :placeholder="$t('Client request')"
             />
-            <small id="request-help" class="p-error" v-for="error in $validate.request.$errors" :key="error.$uid">
+            <small
+              id="request-help"
+              class="p-error"
+              v-for="error in $validate.request.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
             <label for="mail" class="font-bold">{{ $t('Mail number') }}</label>
-            <InputText id="mail" aria-describedby="mail-help" v-model="record.mail" :placeholder="$t('Mail number')" />
+            <InputText
+              id="mail"
+              aria-describedby="mail-help"
+              v-model="record.mail"
+              :placeholder="$t('Mail number')"
+            />
           </div>
 
           <div class="field">
@@ -313,7 +325,12 @@ const onSaveClosedRecord = async () => {
               :placeholder="$t('Client location')"
               :class="{ 'p-invalid': !!$validate.location.$errors.length }"
             />
-            <small id="location-help" class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
+            <small
+              id="location-help"
+              class="p-error"
+              v-for="error in $validate.location.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -374,7 +391,12 @@ const onSaveClosedRecord = async () => {
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
                 />
-                <small id="fullname-help" class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
+                <small
+                  id="fullname-help"
+                  class="p-error"
+                  v-for="error in $validate.fullname.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -387,7 +409,12 @@ const onSaveClosedRecord = async () => {
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
                 />
-                <small id="phone-help" class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
+                <small
+                  id="phone-help"
+                  class="p-error"
+                  v-for="error in $validate.phone.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -409,7 +436,12 @@ const onSaveClosedRecord = async () => {
                   :placeholder="$t('Client position')"
                   :class="{ 'p-invalid': !!$validate.position.$errors.length }"
                 />
-                <small id="position-help" class="p-error" v-for="error in $validate.position.$errors" :key="error.$uid">
+                <small
+                  id="position-help"
+                  class="p-error"
+                  v-for="error in $validate.position.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -436,7 +468,12 @@ const onSaveClosedRecord = async () => {
                   :placeholder="$t('Client company')"
                   :class="{ 'p-invalid': !!$validate.company.$errors.length }"
                 />
-                <small id="company-help" class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
+                <small
+                  id="company-help"
+                  class="p-error"
+                  v-for="error in $validate.company.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -458,7 +495,12 @@ const onSaveClosedRecord = async () => {
                   :placeholder="$t('Client branch')"
                   :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
                 />
-                <small id="branch-help" class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
+                <small
+                  id="branch-help"
+                  class="p-error"
+                  v-for="error in $validate.branch.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -521,15 +563,28 @@ const onSaveClosedRecord = async () => {
 
           <div class="field">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
-            <Textarea rows="3" cols="10" id="comment" v-model="record.comment" :placeholder="$t('Comment')" />
+            <Textarea
+              rows="3"
+              cols="10"
+              id="comment"
+              v-model="record.comment"
+              :placeholder="$t('Comment')"
+            />
           </div>
         </div>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" :disabled="isClosed" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
+      <Button
+        text
+        plain
+        icon="pi pi-check"
+        :label="$t('Save')"
+        :disabled="isClosed"
+        @click="onSaveRecord"
+      />
       <Button
         text
         plain

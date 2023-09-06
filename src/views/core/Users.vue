@@ -1,11 +1,13 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useScope } from '@/stores/scope';
-import { useUser } from '@/stores/api/users';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/User.vue';
+
+import { useScope } from '@/stores/scope';
+import { useUser } from '@/stores/api/users';
 
 const User = useUser();
 const Scope = useScope();
@@ -165,7 +167,11 @@ const columns = ref([
     column: {
       field: 'isAdmin',
       render(value) {
-        return value ? <i class={'pi pi-check-circle font-bold text-green-500'}></i> : <span>-</span>;
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
+        ) : (
+          <span>-</span>
+        );
       }
     },
     sorter: { field: 'isAdmin' },
@@ -218,10 +224,10 @@ const columns = ref([
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
-        @view="(data) => refModal.toggle(data)"
-        @create="(data) => refModal.toggle(data)"
-        @update="(data) => refModal.toggle(data)"
-        @delete="(data) => refDataTable.delete(data)"
+        @view="data => refModal.toggle(data)"
+        @create="data => refModal.toggle(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
       />
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
@@ -235,8 +241,8 @@ const columns = ref([
         :onUpdate="User.findAll"
         :onDelete="User.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="(data) => refModal.toggle(data)"
-        @toggle-sidebar="(data) => refSidebar.toggle(data)"
+        @toggle-modal="data => refModal.toggle(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
           <i class="mr-2 hidden sm:block">

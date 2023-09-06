@@ -2,18 +2,15 @@ import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
 export const usePosition = defineStore('position', () => {
-  const axios = inject('axios');
+  const $axios = inject('axios');
 
-  function $reset() {
-    return {
-      id: null,
-      name: null
-    };
+  function $init({ id = undefined, name = undefined }) {
+    return { id, name };
   }
 
   async function findAll(params) {
     try {
-      return await axios.get('/positions', { params });
+      return await $axios.get('/positions', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -21,23 +18,23 @@ export const usePosition = defineStore('position', () => {
 
   async function findOne({ id }) {
     try {
-      return await axios.get(`/positions/${id}`);
+      return await $axios.get(`/positions/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function createOne({ name }) {
+  async function createOne({ ...payload }) {
     try {
-      return await axios.post('/positions', { name });
+      return await $axios.post('/positions', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function updateOne({ id, name }) {
+  async function updateOne({ id, ...payload }) {
     try {
-      return await axios.put(`/positions/${id}`, { name });
+      return await $axios.put(`/positions/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -45,11 +42,11 @@ export const usePosition = defineStore('position', () => {
 
   async function removeOne({ id }) {
     try {
-      return await axios.delete(`/positions/${id}`);
+      return await $axios.delete(`/positions/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { $reset, findAll, findOne, createOne, updateOne, removeOne };
+  return { $init, findAll, findOne, createOne, updateOne, removeOne };
 });

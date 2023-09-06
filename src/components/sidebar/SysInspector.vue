@@ -1,14 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useToast } from 'primevue/usetoast';
-import { useIPAddress } from '@/stores/api/ipaddresses';
-import { useInspector } from '@/stores/api/inspectors';
-import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
+
 import IPTable from '@/components/tables/IPTable.vue';
 
-const { t } = useI18n();
-const toast = useToast();
+import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
+import { useIPAddress } from '@/stores/api/ipaddresses';
+import { useInspector } from '@/stores/api/inspectors';
+
 const Inspector = useInspector();
 const IPAddress = useIPAddress();
 
@@ -24,10 +22,7 @@ defineExpose({
       });
       visible.value = true;
     } catch (err) {
-      visible.value = false;
-      record.value = Inspector.$reset();
-      recordIP.value = IPAddress.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseSidebar();
     }
   }
 });
@@ -41,23 +36,31 @@ const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
 };
 
-const onClose = () => {
+const onCloseSidebar = () => {
   visible.value = false;
-  record.value = Inspector.$reset();
-  recordIP.value = IPAddress.$reset();
+  record.value = Inspector.$init({});
+  recordIP.value = IPAddress.$init({});
   emits('close', {});
 };
 
-const memorySum = (value) => {
-  const summa = value ? value?.reduce((accumulator, { Capacity }) => Number(accumulator) + Number(Capacity), 0) : 0;
+const memorySum = value => {
+  const summa = value
+    ? value?.reduce((accumulator, { Capacity }) => Number(accumulator) + Number(Capacity), 0)
+    : 0;
   const index = Math.floor(Math.log(summa) / Math.log(1024));
-  return (summa / Math.pow(1024, index)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GiB', 'TB'][index];
+  return (
+    (summa / Math.pow(1024, index)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GiB', 'TB'][index]
+  );
 };
 
-const diskSum = (value) => {
-  const summa = value ? value?.reduce((accumulator, { Size }) => Number(accumulator) + Number(Size), 0) : 0;
+const diskSum = value => {
+  const summa = value
+    ? value?.reduce((accumulator, { Size }) => Number(accumulator) + Number(Size), 0)
+    : 0;
   const index = Math.floor(Math.log(summa) / Math.log(1024));
-  return (summa / Math.pow(1024, index)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GiB', 'TB'][index];
+  return (
+    (summa / Math.pow(1024, index)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GiB', 'TB'][index]
+  );
 };
 </script>
 
@@ -74,8 +77,12 @@ const diskSum = (value) => {
             <p class="text-lg mb-0">
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
-            <p class="text-base font-normal mb-0">{{ $t('Report host') }}: {{ record?.host || '-' }}</p>
-            <p class="text-base font-normal">{{ $t('Report date') }}: {{ dateTimeToStr(record?.updatedAt) || '-' }}</p>
+            <p class="text-base font-normal mb-0">
+              {{ $t('Report host') }}: {{ record?.host || '-' }}
+            </p>
+            <p class="text-base font-normal">
+              {{ $t('Report date') }}: {{ dateTimeToStr(record?.updatedAt) || '-' }}
+            </p>
           </div>
         </div>
         <div class="flex align-items-center justify-content-center">
@@ -97,7 +104,7 @@ const diskSum = (value) => {
             class="w-2rem h-2rem hover:text-color mx-2"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
-            @click="onClose"
+            @click="onCloseSidebar"
           />
         </div>
       </div>
@@ -120,7 +127,9 @@ const diskSum = (value) => {
           </svg>
           <div>
             <p class="text-lg mb-0">IP {{ recordIP?.ipaddress || '-' }}</p>
-            <p class="text-base font-normal">{{ $t('Date open') }} : {{ dateToStr(recordIP?.date) || '-' }}</p>
+            <p class="text-base font-normal">
+              {{ $t('Date open') }} : {{ dateToStr(recordIP?.date) || '-' }}
+            </p>
           </div>
         </div>
         <IPTable :record="recordIP" :internet="false" :email="false" v-if="recordIP?.ipaddress" />

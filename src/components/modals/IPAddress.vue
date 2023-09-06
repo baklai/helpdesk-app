@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, ipAddress } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+
 import { dateToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
@@ -32,17 +33,18 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) record.value = await IPAddress.findOne({ id, populate: false });
-      else record.value = IPAddress.$reset();
+      else record.value = IPAddress.$init({});
 
-      const [company, branch, department, enterprise, position, location, unit] = await Promise.allSettled([
-        Сompany.findAll({}),
-        Branch.findAll({}),
-        Department.findAll({}),
-        Enterprise.findAll({}),
-        Position.findAll({}),
-        Location.findAll({}),
-        Unit.findAll({})
-      ]);
+      const [company, branch, department, enterprise, position, location, unit] =
+        await Promise.allSettled([
+          Сompany.findAll({}),
+          Branch.findAll({}),
+          Department.findAll({}),
+          Enterprise.findAll({}),
+          Position.findAll({}),
+          Location.findAll({}),
+          Unit.findAll({})
+        ]);
       companies.value = company.value;
       branches.value = branch.value;
       departments.value = department.value;
@@ -54,7 +56,7 @@ defineExpose({
       visible.value = true;
     } catch (err) {
       visible.value = false;
-      record.value = IPAddress.$reset();
+      record.value = IPAddress.$init({});
       $validate.value.$reset();
       toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
     }
@@ -148,10 +150,10 @@ const $validate = useVuelidate(
   record
 );
 
-const onClose = () => {
+const onCloseModal = () => {
   visible.value = false;
+  record.value = IPAddress.$init({});
   $validate.value.$reset();
-  record.value = IPAddress.$reset();
   emits('close', {});
 };
 
@@ -192,7 +194,7 @@ const checkIPAddress = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = IPAddress.$reset();
+  record.value = IPAddress.$init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -212,7 +214,7 @@ const onRemoveRecord = async () => {
       detail: t('Record is removed'),
       life: 3000
     });
-    onClose();
+    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -243,7 +245,7 @@ const onSaveRecord = async () => {
         life: 3000
       });
     }
-    onClose();
+    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -265,7 +267,7 @@ const onSaveRecord = async () => {
     v-model:visible="visible"
     :style="{ width: '800px' }"
     class="p-fluid"
-    @hide="onClose"
+    @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-content-between w-full">
@@ -286,7 +288,7 @@ const onSaveRecord = async () => {
             class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
-            @click="(event) => refMenu.toggle(event)"
+            @click="event => refMenu.toggle(event)"
           />
         </div>
       </div>
@@ -308,7 +310,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Date create IP Address')"
               :class="{ 'p-invalid': !!$validate.date.$errors.length }"
             />
-            <small id="date-help" class="p-error" v-for="error in $validate.date.$errors" :key="error.$uid">
+            <small
+              id="date-help"
+              class="p-error"
+              v-for="error in $validate.date.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -322,7 +329,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Client mail number')"
               :class="{ 'p-invalid': !!$validate.mail.$errors.length }"
             />
-            <small id="mail-help" class="p-error" v-for="error in $validate.mail.$errors" :key="error.$uid">
+            <small
+              id="mail-help"
+              class="p-error"
+              v-for="error in $validate.mail.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -345,7 +357,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Client unit')"
               :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
             />
-            <small id="unit-help" class="p-error" v-for="error in $validate.unit.$errors" :key="error.$uid">
+            <small
+              id="unit-help"
+              class="p-error"
+              v-for="error in $validate.unit.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -368,7 +385,12 @@ const onSaveRecord = async () => {
               :placeholder="$t('Client location')"
               :class="{ 'p-invalid': !!$validate.location.$errors.length }"
             />
-            <small id="location-help" class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
+            <small
+              id="location-help"
+              class="p-error"
+              v-for="error in $validate.location.$errors"
+              :key="error.$uid"
+            >
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -410,13 +432,18 @@ const onSaveRecord = async () => {
                   resetFilterOnHide
                   v-model="record.cidr"
                   :options="CIDRS"
-                  :optionLabel="(obj) => `${obj.mask}/${obj.value}`"
+                  :optionLabel="obj => `${obj.mask}/${obj.value}`"
                   aria-describedby="cidr-help"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Mask IP Address')"
                   :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
                 />
-                <small id="cidr-help" class="p-error" v-for="error in $validate.unit.$errors" :key="error.$uid">
+                <small
+                  id="cidr-help"
+                  class="p-error"
+                  v-for="error in $validate.unit.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -491,7 +518,12 @@ const onSaveRecord = async () => {
                   :placeholder="$t('Client company')"
                   :class="{ 'p-invalid': !!$validate.company.$errors.length }"
                 />
-                <small id="company-help" class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
+                <small
+                  id="company-help"
+                  class="p-error"
+                  v-for="error in $validate.company.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -513,7 +545,12 @@ const onSaveRecord = async () => {
                   :placeholder="$t('Client branch')"
                   :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
                 />
-                <small id="branch-help" class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
+                <small
+                  id="branch-help"
+                  class="p-error"
+                  v-for="error in $validate.branch.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -585,7 +622,12 @@ const onSaveRecord = async () => {
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
                 />
-                <small id="fullname-help" class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
+                <small
+                  id="fullname-help"
+                  class="p-error"
+                  v-for="error in $validate.fullname.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -616,7 +658,12 @@ const onSaveRecord = async () => {
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
                 />
-                <small id="phone-help" class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
+                <small
+                  id="phone-help"
+                  class="p-error"
+                  v-for="error in $validate.phone.$errors"
+                  :key="error.$uid"
+                >
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -625,7 +672,11 @@ const onSaveRecord = async () => {
 
           <div class="field">
             <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
-            <InputText id="autoanswer" v-model="record.autoanswer" :placeholder="$t('Client autoanswer')" />
+            <InputText
+              id="autoanswer"
+              v-model="record.autoanswer"
+              :placeholder="$t('Client autoanswer')"
+            />
           </div>
 
           <div class="field">
@@ -648,7 +699,7 @@ const onSaveRecord = async () => {
             :value="record.email"
             v-model:editingRows="editingEmails"
             @row-edit-save="
-              (event) => {
+              event => {
                 record.email[event.index] = event.newData;
               }
             "
@@ -741,7 +792,12 @@ const onSaveRecord = async () => {
               </template>
             </Column>
 
-            <Column field="edit" :rowEditor="true" style="width: 10%" bodyStyle="text-align: center" />
+            <Column
+              field="edit"
+              :rowEditor="true"
+              style="width: 10%"
+              bodyStyle="text-align: center"
+            />
 
             <Column field="delete" bodyStyle="text-align: center">
               <template #body="{ index }">
@@ -762,7 +818,7 @@ const onSaveRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onClose" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>
