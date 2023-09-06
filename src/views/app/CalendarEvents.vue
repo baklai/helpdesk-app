@@ -258,7 +258,12 @@ onMounted(async () => {
                           icon="pi pi-trash"
                           class="p-button-lg hover:text-color"
                           v-tooltip.bottom="$t('Delete record')"
-                          @click="confirmDelete(eventDialogData)"
+                          @click="
+                            () => {
+                              closeEventDialog();
+                              confirmDelete(eventDialogData);
+                            }
+                          "
                         />
 
                         <Button
@@ -268,7 +273,12 @@ onMounted(async () => {
                           icon="pi pi-file-edit"
                           class="p-button-lg hover:text-color"
                           v-tooltip.bottom="$t('Update record')"
-                          @click="refModal.toggle(eventDialogData)"
+                          @click="
+                            () => {
+                              closeEventDialog();
+                              refModal.toggle(eventDialogData);
+                            }
+                          "
                         />
 
                         <Button
