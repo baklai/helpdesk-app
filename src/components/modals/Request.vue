@@ -33,8 +33,11 @@ const emits = defineEmits(['close']);
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      if (id) record.value = await Request.findOne({ id, populate: false });
-      else record.value = Request.$init({});
+      if (id) {
+        record.value = Request.$init(await Request.findOne({ id, populate: false }));
+      } else {
+        record.value = Request.$init({});
+      }
 
       const [company, branch, department, enterprise, position, location] =
         await Promise.allSettled([

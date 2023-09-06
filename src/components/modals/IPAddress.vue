@@ -32,8 +32,11 @@ const emits = defineEmits(['close']);
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      if (id) record.value = await IPAddress.findOne({ id, populate: false });
-      else record.value = IPAddress.$init({});
+      if (id) {
+        record.value = IPAddress.$init(await IPAddress.findOne({ id, populate: false }));
+      } else {
+        record.value = IPAddress.$init({});
+      }
 
       const [company, branch, department, enterprise, position, location, unit] =
         await Promise.allSettled([
@@ -265,7 +268,7 @@ const onSaveRecord = async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '800px' }"
+    :style="{ width: '900px' }"
     class="p-fluid"
     @hide="onCloseModal"
   >
@@ -825,6 +828,9 @@ const onSaveRecord = async () => {
 </template>
 
 <style scoped>
+::v-deep(.p-calendar-w-btn .p-datepicker-trigger.p-button) {
+  color: var(--text-color-secondary);
+}
 ::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
   color: var(--surface-400);
 }

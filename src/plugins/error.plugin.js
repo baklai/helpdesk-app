@@ -1,17 +1,17 @@
-const DEFAULT_LIFE = 3000;
+const DEFAULT_LIFE = 5000;
 
 export default {
   install: async (app, { life }) => {
     const { $toast, $t } = app.config.globalProperties;
 
     app.config.globalProperties.$error = error => {
-      let message = $t('Unspecified error');
+      let message = $t('Helpdesk system error');
       if (typeof error === 'string') {
         message = $t(error);
       } else if (typeof error?.message === 'string') {
         message = $t(error.message);
-      } else if (error?.message?.isArray) {
-        message = error.message.map(msg => $t(msg)).split('\n');
+      } else if (Array.isArray(error?.message)) {
+        message = error.message.map(msg => $t(msg)).join('\n');
       }
       $toast.add({
         severity: 'error',

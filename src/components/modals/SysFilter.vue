@@ -41,7 +41,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = await findOne({ id });
+        record.value = $init(await findOne({ id }));
       } else {
         record.value = $init({});
       }

@@ -23,16 +23,15 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = await Inspector.findOne({ id });
-        recordIP.value = await IPAddress.findOne({ ipaddress: record.value.host, populate: true });
+        record.value = Inspector.$init(await Inspector.findOne({ id }));
+        recordIP.value = IPAddress.$init(
+          await IPAddress.findOne({ ipaddress: record.value.host, populate: true })
+        );
         Sysfilter.value = await SysFilter.findAll({});
         visible.value = true;
       }
     } catch (err) {
-      visible.value = false;
-      record.value = await Inspector.$init({});
-      recordIP.value = await IPAddress.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+      onCloseModal();
     }
   }
 });
