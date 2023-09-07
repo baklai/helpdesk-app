@@ -385,8 +385,8 @@ const onCellEditComplete = event => {
             <InputMask
               id="phone"
               date="phone"
-              mask="+99(999) 999-99-99"
-              placeholder="+38(999) 999-99-99"
+              mask="+99(999)999-99-99"
+              placeholder="+38(999)999-99-99"
               v-model="record.phone"
               :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
             />

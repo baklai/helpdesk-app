@@ -167,11 +167,7 @@ const columns = ref([
     column: {
       field: 'isAdmin',
       render(value) {
-        return value ? (
-          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
-        ) : (
-          <span>-</span>
-        );
+        return value ? <i class={'pi pi-star-fill font-bold text-green-500'}></i> : <span>-</span>;
       }
     },
     sorter: { field: 'isAdmin' },
@@ -197,7 +193,7 @@ const columns = ref([
         return (
           <Tag
             class="text-base font-normal text-color surface-hover w-7rem px-2"
-            value={value ? `${value} / ${Scope.scopeLength()}` : '-'}
+            value={value ? `${value?.length} / ${Scope.scopeLength()}` : '-'}
           />
         );
       }
