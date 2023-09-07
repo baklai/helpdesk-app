@@ -7,14 +7,14 @@ import { Qalendar } from 'qalendar';
 
 import ModalRecord from '@/components/modals/Event.vue';
 
-import { useEvent } from '@/stores/api/events';
 import { dateTimeToStr } from '@/service/DataFilters';
+import { useEvent } from '@/stores/api/events';
 
 const { t, locale } = useI18n();
 
 const toast = useToast();
 const confirm = useConfirm();
-const Event = useEvent();
+const { findAll, removeOne } = useEvent();
 
 const colorScheme = ref({
   event: {
@@ -95,7 +95,7 @@ const enents = computed(() => {
 const getDataRecords = async () => {
   try {
     loading.value = true;
-    records.value = await Event.findAll({ startDate: startDate.value, endDate: endDate.value });
+    records.value = await findAll({ startDate: startDate.value, endDate: endDate.value });
     toast.add({
       severity: 'success',
       summary: t('HD Information'),
@@ -103,7 +103,6 @@ const getDataRecords = async () => {
       life: 3000
     });
   } catch (err) {
-    records.value = [];
     toast.add({
       severity: 'warn',
       summary: t('HD Warning'),
@@ -130,14 +129,24 @@ const confirmDelete = ({ id }) => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      await Event.removeOne({ id });
-      await getDataRecords();
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is removed'),
-        life: 3000
-      });
+      try {
+        await removeOne({ id });
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is removed'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not removed'),
+          life: 3000
+        });
+      } finally {
+        await getDataRecords();
+      }
     },
     reject: () => {
       toast.add({
