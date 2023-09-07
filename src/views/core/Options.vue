@@ -36,7 +36,7 @@ const onSendNotification = async () => {
         )
       ];
       $validate.value.$reset();
-      notice.value = Notice.$reset();
+      notice.value = Notice.$init({});
       toast.add({
         severity: 'success',
         summary: t('HD Information'),
@@ -62,7 +62,7 @@ const onSendNotification = async () => {
 };
 
 onMounted(async () => {
-  notice.value = Notice.$reset();
+  notice.value = Notice.$init({});
   users.value = await User.find({});
 });
 </script>

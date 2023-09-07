@@ -107,12 +107,13 @@ const columns = ref([
         value: 'scope',
         label: 'comment',
         onRecords: () => {
-          return Scope.scopeGroups()
-            .map(group => group.items)
-            .flat()
-            .map(item => {
-              return { scope: item.scope, comment: item.comment };
-            });
+          return [];
+          // return Scope.scopeGroups()
+          //   .map(group => group.items)
+          //   .flat()
+          //   .map(item => {
+          //     return { scope: item.scope, comment: item.comment };
+          //   });
         }
       }
     },
