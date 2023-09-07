@@ -23,10 +23,8 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = Inspector.$init(await Inspector.findOne({ id }));
-        recordIP.value = IPAddress.$init(
-          await IPAddress.findOne({ ipaddress: record.value.host, populate: true })
-        );
+        record.value = await Inspector.findOne({ id });
+        recordIP.value = await IPAddress.findOne({ ipaddress: record.value.host, populate: true });
         Sysfilter.value = await SysFilter.findAll({});
         visible.value = true;
       }
@@ -58,8 +56,8 @@ const options = ref([
 
 const onCloseModal = () => {
   visible.value = false;
-  record.value = Inspector.$init({});
-  recordIP.value = IPAddress.$init({});
+  record.value = null;
+  recordIP.value = null;
   emits('close', {});
 };
 

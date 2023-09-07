@@ -38,8 +38,8 @@ const toggleMenu = (event, data) => {
 
 const onCloseSidebar = () => {
   visible.value = false;
-  record.value = Inspector.$init({});
-  recordIP.value = IPAddress.$init({});
+  record.value = null;
+  recordIP.value = null;
   emits('close', {});
 };
 

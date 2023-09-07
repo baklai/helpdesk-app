@@ -29,18 +29,6 @@ const refModalSysFilter = ref();
 const refWarningMenu = ref();
 const warningOptions = ref([
   {
-    label: t('Show all warnings'),
-    icon: 'pi pi-bookmark-fill',
-    command: async () =>
-      await refDataTable.value.update({
-        filters: {
-          warning: 'all'
-        }
-      })
-  },
-  { separator: true },
-
-  {
     label: t('Show user account warnings'),
     icon: 'pi pi-users',
     command: async () =>
@@ -71,7 +59,17 @@ const warningOptions = ref([
       })
   },
   { separator: true },
-
+  {
+    label: t('Show all warnings'),
+    icon: 'pi pi-bookmark-fill',
+    command: async () =>
+      await refDataTable.value.update({
+        filters: {
+          warning: 'all'
+        }
+      })
+  },
+  { separator: true },
   {
     label: t('All System filters'),
     icon: 'pi pi-database',
@@ -449,7 +447,7 @@ const createSysInspectorScript = async ({}) => {
 <template>
   <div class="col-12">
     <div class="flex h-full">
-      <Menu ref="refWarningMenu" popup :model="warningOptions" />
+      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-20rem" />
 
       <OptionsMenu
         ref="refMenu"
