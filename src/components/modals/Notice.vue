@@ -12,7 +12,7 @@ const { t } = useI18n();
 const toast = useToast();
 
 const { $init, createOne } = useNotice();
-const { findAllPublic } = useUser();
+const { find } = useUser();
 
 const emits = defineEmits(['close']);
 
@@ -20,7 +20,7 @@ defineExpose({
   toggle: async ({}) => {
     try {
       record.value = $init({});
-      users.value = await findAllPublic({});
+      users.value = await find();
       visible.value = true;
     } catch (err) {
       visible.value = false;

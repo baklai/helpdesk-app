@@ -69,10 +69,10 @@ const columns = ref([
       matchMode: FilterMatchMode.IN,
       options: {
         key: 'id',
-        value: 'login',
-        label: 'login',
+        value: 'fullname',
+        label: 'fullname',
         onRecords: async () => {
-          return [{ id: 'anonymous', login: 'anonymous' }, ...(await User.find({}))];
+          return await User.find();
         }
       }
     },

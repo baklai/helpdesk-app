@@ -33,9 +33,9 @@ export const useUser = defineStore('user', () => {
     };
   }
 
-  async function findAllPublic(params) {
+  async function find() {
     try {
-      return await $axios.get('/users/me', { params });
+      return await $axios.get('/users/me');
     } catch (err) {
       throw new Error(err.message);
     }
@@ -81,5 +81,5 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  return { $init, findAllPublic, findAll, findOne, createOne, updateOne, removeOne };
+  return { $init, find, findAll, findOne, createOne, updateOne, removeOne };
 });
