@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, ipAddress } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import { dateToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
@@ -17,6 +18,7 @@ import { useUnit } from '@/stores/api/units';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
 
 const IPAddress = useIPAddress();
 const Сompany = useСompany();
@@ -37,7 +39,6 @@ defineExpose({
       } else {
         record.value = IPAddress.$init({});
       }
-
       const [company, branch, department, enterprise, position, location, unit] =
         await Promise.allSettled([
           Сompany.findAll({}),
@@ -59,9 +60,6 @@ defineExpose({
       visible.value = true;
     } catch (err) {
       visible.value = false;
-      record.value = IPAddress.$init({});
-      $validate.value.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
     }
   }
 });
@@ -153,13 +151,6 @@ const $validate = useVuelidate(
   record
 );
 
-const onCloseModal = () => {
-  visible.value = false;
-  record.value = IPAddress.$init({});
-  $validate.value.$reset();
-  emits('close', {});
-};
-
 const checkIPAddress = async () => {
   const validIPAddress = await $validate.value.ipaddress.$validate();
   try {
@@ -208,47 +199,93 @@ const onCreateRecord = async () => {
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await IPAddress.removeOne(record.value);
-    $validate.value.$reset();
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onCloseModal();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await IPAddress.removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        } finally {
+          visible.value = false;
+        }
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     if (record.value?.id) {
-      await IPAddress.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+      try {
+        await IPAddress.updateOne(record.value);
+        visible.value = false;
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await IPAddress.createOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await IPAddress.createOne(record.value);
+        visible.value = false;
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -257,6 +294,12 @@ const onSaveRecord = async () => {
       life: 3000
     });
   }
+};
+
+const onCloseModal = () => {
+  record.value = IPAddress.$init({});
+  $validate.value.$reset();
+  emits('close', {});
 };
 </script>
 
@@ -821,7 +864,7 @@ const onSaveRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

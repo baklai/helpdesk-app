@@ -49,7 +49,7 @@ defineExpose({
       records.value = groupBy(records.value, 'type');
       visible.value = true;
     } catch (err) {
-      onCloseModal();
+      visible.value = false;
     }
   }
 });
@@ -84,7 +84,6 @@ const $validate = useVuelidate(
 );
 
 const onCloseModal = () => {
-  visible.value = false;
   record.value = $init({});
   $validate.value.$reset();
   emits('close', {});
@@ -139,9 +138,9 @@ const onRemoveRecord = async () => {
             detail: t('Record not removed'),
             life: 3000
           });
+        } finally {
+          visible.value = false;
         }
-        record.value = $init({});
-        await onRecords();
       } else {
         toast.add({
           severity: 'warn',
@@ -179,13 +178,13 @@ const onSaveRecord = async () => {
     if (record.value?.id) {
       try {
         await updateOne(record.value);
+        visible.value = false;
         toast.add({
           severity: 'success',
           summary: t('HD Information'),
           detail: t('Record is updated'),
           life: 3000
         });
-        onCloseModal();
       } catch (err) {
         toast.add({
           severity: 'warn',
@@ -197,13 +196,13 @@ const onSaveRecord = async () => {
     } else {
       try {
         await createOne(record.value);
+        visible.value = false;
         toast.add({
           severity: 'success',
           summary: t('HD Information'),
           detail: t('Record is created'),
           life: 3000
         });
-        onCloseModal();
       } catch (err) {
         toast.add({
           severity: 'warn',
@@ -378,7 +377,7 @@ const onSaveRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

@@ -35,7 +35,7 @@ export const useUser = defineStore('user', () => {
 
   async function findAllPublic(params) {
     try {
-      return await $axios.get('/users/public', { params });
+      return await $axios.get('/users/me', { params });
     } catch (err) {
       throw new Error(err.message);
     }

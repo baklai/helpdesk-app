@@ -29,7 +29,7 @@ defineExpose({
         visible.value = true;
       }
     } catch (err) {
-      onCloseModal();
+      visible.value = false;
     }
   }
 });
@@ -55,31 +55,57 @@ const options = ref([
 ]);
 
 const onCloseModal = () => {
-  visible.value = false;
   record.value = null;
   recordIP.value = null;
   emits('close', {});
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await Inspector.removeOne(record.value);
-    visible.value = false;
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onCloseModal();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await Inspector.removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        } finally {
+          visible.value = false;
+        }
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveReport = () => {
@@ -981,7 +1007,7 @@ const validSoftware = value => {
     </template>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Close')" @click="onCloseModal" />
+      <Button text plain icon="pi pi-times" :label="$t('Close')" @click="visible = false" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveReport" />
     </template>
   </Dialog>

@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, ipAddress } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import { useRequest } from '@/stores/api/requests';
 import { useIPAddress } from '@/stores/api/ipaddresses';
@@ -16,6 +17,7 @@ import { usePosition } from '@/stores/api/positions';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
 
 const $helpdesk = inject('helpdesk');
 
@@ -58,9 +60,6 @@ defineExpose({
       visible.value = true;
     } catch (err) {
       visible.value = false;
-      record.value = Request.$init({});
-      $validate.value.$reset();
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
     }
   }
 });
@@ -117,7 +116,6 @@ const $validate = useVuelidate(
 );
 
 const onCloseModal = () => {
-  visible.value = false;
   $validate.value.$reset();
   record.value = Request.$init({});
   emits('close', {});
@@ -174,46 +172,93 @@ const onCreateRecord = async () => {
 };
 
 const onRemoveRecord = async () => {
-  if (record.value?.id) {
-    await Request.removeOne(record.value);
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is removed'),
-      life: 3000
-    });
-    onCloseModal();
-  } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not selected'),
-      life: 3000
-    });
-  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('HD Confirm delete record'),
+    icon: 'pi pi-info-circle text-yellow-500',
+    acceptIcon: 'pi pi-check',
+    acceptClass: 'p-button-danger',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      if (record.value?.id) {
+        try {
+          await Request.removeOne(record.value);
+          toast.add({
+            severity: 'success',
+            summary: t('HD Information'),
+            detail: t('Record is removed'),
+            life: 3000
+          });
+        } catch (err) {
+          toast.add({
+            severity: 'warn',
+            summary: t('HD Warning'),
+            detail: t('Record not removed'),
+            life: 3000
+          });
+        } finally {
+          visible.value = false;
+        }
+      } else {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not selected'),
+          life: 3000
+        });
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const onSaveRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
     if (record.value?.id) {
-      await Request.updateOne(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
+      try {
+        await Request.updateOne(record.value);
+        visible.value = false;
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is updated'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not updated'),
+          life: 3000
+        });
+      }
     } else {
-      await Request.createOne({ ...record.value, workerOpen: $helpdesk?.user?.id || null });
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
+      try {
+        await Request.createOne({ ...record.value, workerOpen: $helpdesk?.user?.id || null });
+        visible.value = false;
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is created'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not created'),
+          life: 3000
+        });
+      }
     }
-    onCloseModal();
   } else {
     toast.add({
       severity: 'warn',
@@ -579,7 +624,7 @@ const onSaveClosedRecord = async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="onCloseModal" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
       <Button
         text
         plain

@@ -57,8 +57,7 @@ const columns = ref([
         value: 'id',
         label: 'fullname',
         onRecords: async () => {
-          const { docs } = await User.findAll({ limit: 0 });
-          return docs;
+          return await User.findAllPublic({});
         }
       }
     },
@@ -452,8 +451,7 @@ const columns = ref([
         value: 'id',
         label: 'fullname',
         onRecords: async () => {
-          const { docs } = await User.findAll({ limit: 0 });
-          return docs;
+          return await User.findAllPublic({});
         }
       }
     },

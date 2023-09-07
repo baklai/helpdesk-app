@@ -64,12 +64,6 @@ const $validate = useVuelidate(
   record
 );
 
-const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
-  emits('close', {});
-};
-
 const onCreateRecord = async () => {
   record.value = $init({});
   $validate.value.$reset();
@@ -93,7 +87,6 @@ const onRemoveRecord = async () => {
       if (record.value?.id) {
         try {
           await removeOne(record.value);
-          visible.value = false;
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -107,6 +100,8 @@ const onRemoveRecord = async () => {
             detail: t('Record not removed'),
             life: 3000
           });
+        } finally {
+          visible.value = false;
         }
       } else {
         toast.add({
@@ -176,6 +171,12 @@ const onSaveRecord = async () => {
       life: 3000
     });
   }
+};
+
+const onCloseModal = () => {
+  record.value = $init({});
+  $validate.value.$reset();
+  emits('close', {});
 };
 </script>
 
