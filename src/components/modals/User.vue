@@ -85,6 +85,13 @@ const selectOptions = ref([
 
 const record = ref({});
 
+const columns = ref([
+  { field: 'create', header: t('Create') },
+  { field: 'read', header: t('Read') },
+  { field: 'update', header: t('Update') },
+  { field: 'delete', header: t('Delete') }
+]);
+
 const filters = ref({ global: { value: null, matchMode: FilterMatchMode.CONTAINS } });
 
 const selectScopeLength = computed(() => {
@@ -511,56 +518,26 @@ const onCellEditComplete = event => {
                   {{ slotProps.data.comment }}
                 </template>
               </Column>
-              <Column field="create" header="Create">
+
+              <Column
+                v-for="col of columns"
+                :key="col.field"
+                :field="col.field"
+                :header="col.header"
+              >
                 <template #body="{ data, field }">
                   <i
+                    v-if="data[field] !== undefined"
                     class="pi"
                     :class="
                       data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
                     "
-                  ></i>
+                  />
+                  <span v-else>-</span>
                 </template>
                 <template #editor="{ data, field }">
-                  <Checkbox v-model="data[field]" :binary="true" />
-                </template>
-              </Column>
-              <Column field="read" header="Read">
-                <template #body="{ data, field }">
-                  <i
-                    class="pi"
-                    :class="
-                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
-                    "
-                  ></i>
-                </template>
-                <template #editor="{ data, field }">
-                  <Checkbox v-model="data[field]" :binary="true" autofocus />
-                </template>
-              </Column>
-              <Column field="update" header="Update">
-                <template #body="{ data, field }">
-                  <i
-                    class="pi"
-                    :class="
-                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
-                    "
-                  ></i>
-                </template>
-                <template #editor="{ data, field }">
-                  <Checkbox v-model="data[field]" :binary="true" autofocus />
-                </template>
-              </Column>
-              <Column field="delete" header="Delete">
-                <template #body="{ data, field }">
-                  <i
-                    class="pi"
-                    :class="
-                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
-                    "
-                  ></i>
-                </template>
-                <template #editor="{ data, field }">
-                  <Checkbox v-model="data[field]" :binary="true" autofocus />
+                  <Checkbox v-model="data[field]" :binary="true" v-if="data[field] !== undefined" />
+                  <span v-else>-</span>
                 </template>
               </Column>
             </DataTable>

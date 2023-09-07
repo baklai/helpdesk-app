@@ -145,7 +145,7 @@ export const useScope = defineStore('scope', () => {
         scope: 'user',
         comment: 'User in database',
         create: false,
-        read: true,
+        read: false,
         update: false,
         delete: false
       },
@@ -153,19 +153,14 @@ export const useScope = defineStore('scope', () => {
       {
         scope: 'logger',
         comment: 'Logs from database',
-        create: false,
-        read: true,
-        update: false,
+        read: false,
         delete: false
       },
 
       {
         scope: 'notice',
         comment: 'Notice in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
+        create: false
       }
     ];
   }
