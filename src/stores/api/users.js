@@ -1,5 +1,6 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
+
 import { useScope } from '@/stores/scope';
 
 export const useUser = defineStore('user', () => {
@@ -30,6 +31,14 @@ export const useUser = defineStore('user', () => {
       isAdmin,
       scope: id ? $scope.getCustomScope(scope) : $scope.getDefaultScope()
     };
+  }
+
+  async function findAllPublic(params) {
+    try {
+      return await $axios.get('/users/public', { params });
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 
   async function findAll(params) {
@@ -72,5 +81,5 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { $init, findAllPublic, findAll, findOne, createOne, updateOne, removeOne };
 });
