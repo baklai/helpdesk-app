@@ -4,6 +4,58 @@ export const useScope = defineStore('scope', () => {
   function scope() {
     return [
       {
+        scope: 'user',
+        comment: 'User in database',
+        create: false,
+        read: false,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'event',
+        comment: 'Event in database',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'channel',
+        comment: 'Channel in database',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'ipaddress',
+        comment: 'Ipaddress in database',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'request',
+        comment: 'Request in database',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'inspector',
+        comment: 'SysInspector in database',
+        read: true,
+        delete: false
+      },
+
+      {
         scope: 'company',
         comment: 'Company in database',
         create: false,
@@ -67,57 +119,9 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'event',
-        comment: 'Event in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'channel',
-        comment: 'Channel in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'ipaddress',
-        comment: 'Ipaddress in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'request',
-        comment: 'Request in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'inspector',
-        comment: 'SysInspector in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'sysfilter',
-        comment: 'Filter in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
+        scope: 'notice',
+        comment: 'Notice in database',
+        create: false
       },
 
       {
@@ -142,10 +146,10 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'user',
-        comment: 'User in database',
+        scope: 'sysfilter',
+        comment: 'Filter in database',
         create: false,
-        read: false,
+        read: true,
         update: false,
         delete: false
       },
@@ -155,12 +159,6 @@ export const useScope = defineStore('scope', () => {
         comment: 'Logs from database',
         read: false,
         delete: false
-      },
-
-      {
-        scope: 'notice',
-        comment: 'Notice in database',
-        create: false
       }
     ];
   }
