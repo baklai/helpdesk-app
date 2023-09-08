@@ -186,7 +186,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Scope', icon: 'pi pi-exclamation-triangle', width: '12rem' },
+    header: { text: 'Scope', icon: 'pi pi-unlock', width: '12rem' },
     column: {
       field: 'scope',
       render(value) {
