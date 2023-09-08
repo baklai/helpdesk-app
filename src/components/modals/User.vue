@@ -524,6 +524,8 @@ const onCellEditComplete = event => {
                 :key="col.field"
                 :field="col.field"
                 :header="col.header"
+                headerClass="text-center"
+                class="text-center"
               >
                 <template #body="{ data, field }">
                   <i
@@ -533,11 +535,11 @@ const onCellEditComplete = event => {
                       data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
                     "
                   />
-                  <span v-else>-</span>
+                  <span v-else class="text-color-secondary">-</span>
                 </template>
                 <template #editor="{ data, field }">
                   <Checkbox v-model="data[field]" :binary="true" v-if="data[field] !== undefined" />
-                  <span v-else>-</span>
+                  <span v-else class="text-color-secondary">-</span>
                 </template>
               </Column>
             </DataTable>
@@ -589,5 +591,9 @@ const onCellEditComplete = event => {
 ::v-deep(.p-input-icon-right > svg) {
   right: 0.5rem !important;
   cursor: pointer;
+}
+
+::v-deep(.p-datatable .p-column-header-content) {
+  display: block;
 }
 </style>
