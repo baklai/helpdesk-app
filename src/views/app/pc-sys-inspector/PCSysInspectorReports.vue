@@ -420,7 +420,7 @@ const columns = ref([
   }
 ]);
 
-const createSysInspectorScript = async ({}) => {
+const createSysInspectorScript = async () => {
   try {
     const file = await Tool.getScriptInspector();
     const url = window.URL.createObjectURL(new Blob([file]));
@@ -453,7 +453,7 @@ const createSysInspectorScript = async ({}) => {
         ref="refMenu"
         hostkey="host"
         @view="data => refModal.toggle(data)"
-        @create="async data => await createSysInspectorScript(data)"
+        @create="async () => await createSysInspectorScript()"
         @update="data => refModal.toggle(data)"
         @delete="data => refDataTable.delete(data)"
       />
@@ -469,7 +469,7 @@ const createSysInspectorScript = async ({}) => {
         :onUpdate="Inspector.findAll"
         :onDelete="Inspector.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="async data => await createSysInspectorScript(data)"
+        @toggle-modal="async () => await createSysInspectorScript()"
         @toggle-sidebar="data => refSidebar.toggle(data)"
       >
         <template #icon>
