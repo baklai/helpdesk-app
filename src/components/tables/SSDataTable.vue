@@ -462,6 +462,7 @@ const selectAllColumns = () => {
 
 onMounted(async () => {
   try {
+    resetLocalStorage(); // temporary solution fix
     loading.value = true;
     initColumns();
     initFilters();
