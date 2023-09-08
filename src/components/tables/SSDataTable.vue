@@ -462,12 +462,12 @@ const selectAllColumns = () => {
 
 onMounted(async () => {
   try {
-    resetLocalStorage(); // temporary solution fix
     loading.value = true;
     initColumns();
     initFilters();
     initParams();
     await onUpdateRecords();
+    resetLocalStorage(); // temporary solution fix
   } catch (err) {
     records.value = [];
     toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
