@@ -114,7 +114,7 @@ const $validate = useVuelidate(
     login: { required },
     password: {
       requiredIf: requiredIf(function () {
-        return record.value?.id === null;
+        return !record.value?.id;
       })
     },
     fullname: { required },
