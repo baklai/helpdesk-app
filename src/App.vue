@@ -17,7 +17,8 @@ onMounted(() => {
 
   <RouterView />
 
-  <Toast class="z-100" />
+  <Toast position="bottom-right" class="z-100" />
+
   <ConfirmDialog :style="{ minWidth: '350px' }">
     <template #message="slotProps">
       <div class="flex align-items-center justify-content-start confirmation-content">
