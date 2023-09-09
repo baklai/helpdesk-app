@@ -4,7 +4,6 @@ import { ref, computed, watchEffect } from 'vue';
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppConfig from '@/components/AppConfig.vue';
-import AppHosting from '@/components/AppHosting.vue';
 
 import { useConfig } from '@/stores/config';
 
@@ -93,6 +92,5 @@ watchEffect(() => {
       </div>
     </div>
     <AppConfig />
-    <AppHosting />
   </div>
 </template>
