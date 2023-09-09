@@ -153,7 +153,7 @@ onMounted(async () => {
     iconClass="text-3xl"
     aria-haspopup="true"
     aria-controls="notifications-menu"
-    class="w-3rem h-3rem hover:text-color"
+    class="w-3rem h-3rem hover:text-color mx-2"
     v-tooltip.bottom="$t('Notifications')"
     @click="event => refMenu.toggle(event)"
     v-else
