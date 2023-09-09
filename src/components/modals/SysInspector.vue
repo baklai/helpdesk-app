@@ -21,15 +21,20 @@ const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({ id }) => {
-    try {
-      if (id) {
+    if (id) {
+      try {
         record.value = await Inspector.findOne({ id });
-        recordIP.value = await IPAddress.findOne({ ipaddress: record.value.host, populate: true });
+        try {
+          recordIP.value = await IPAddress.findOne({
+            ipaddress: record.value.host,
+            populate: true
+          });
+        } catch (err) {}
         Sysfilter.value = await SysFilter.findAll({});
         visible.value = true;
+      } catch (err) {
+        visible.value = false;
       }
-    } catch (err) {
-      visible.value = false;
     }
   }
 });

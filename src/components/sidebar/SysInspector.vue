@@ -16,10 +16,13 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       record.value = await Inspector.findOne({ id });
-      recordIP.value = await IPAddress.findOne({
-        ipaddress: record.value?.host,
-        populate: true
-      });
+      try {
+        recordIP.value = await IPAddress.findOne({
+          ipaddress: record.value?.host,
+          populate: true
+        });
+      } catch (err) {}
+
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
