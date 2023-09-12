@@ -133,9 +133,9 @@ onMounted(() => {
             <label for="remember">{{ $t('Remember me') }}</label>
           </div>
 
-          <RouterLink :to="{ name: 'signup' }" class="text-blue-500">
+          <router-link :to="{ name: 'signup' }" class="text-blue-500">
             {{ $t('Register in the app') }}
-          </RouterLink>
+          </router-link>
         </div>
       </div>
 
@@ -154,6 +154,11 @@ onMounted(() => {
   </div>
   <p class="text-center text-500 my-2">
     {{ $helpdesk?.copyright }}
+  </p>
+  <p class="text-center text-500 my-2">
+    <router-link :to="{ name: 'home' }" class="text-blue-500">
+      {{ $t('Helpdesk home page') }}
+    </router-link>
   </p>
 </template>
 

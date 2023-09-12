@@ -13,10 +13,6 @@ export default {
         return store?.user;
       },
 
-      get usersCount() {
-        return store?.users?.length;
-      },
-
       get timeout() {
         return store?.timeout;
       },
@@ -39,15 +35,6 @@ export default {
         return store?.user?.scope?.includes(scope);
       }
     };
-
-    $router.beforeEach(async (to, from, next) => {
-      if (!store?.user && store.getAccessToken()) {
-        await $auth.me();
-      }
-      if (to?.meta?.auth && !store?.user) next({ name: 'signin' });
-      else if (to?.meta?.admin && !store?.user?.isAdmin) next({ name: 'access-denied' });
-      else next();
-    });
 
     app.provide('helpdesk', app.config.globalProperties.$helpdesk);
   }

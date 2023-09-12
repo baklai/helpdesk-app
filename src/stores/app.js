@@ -1,9 +1,21 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useApp = defineStore('app', () => {
   const user = ref(null);
   const timeout = ref(15);
+
+  const loggedIn = computed(() => {
+    return user.value != null;
+  });
+
+  const isActive = computed(() => {
+    return user.value?.isActive;
+  });
+
+  const isAdmin = computed(() => {
+    return user.value?.isAdmin;
+  });
 
   function setUser(value) {
     user.value = value;
@@ -38,6 +50,10 @@ export const useApp = defineStore('app', () => {
   return {
     user,
     timeout,
+    loggedIn,
+    isAdmin,
+    isActive,
+
     setUser,
     setTimeout,
     getAccessToken,

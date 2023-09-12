@@ -23,31 +23,42 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
                 </p>
               </div>
             </div>
+
             <div class="text-center mb-6">
               <p class="text-600 font-medium">{{ $t('Web Application of technical support') }}</p>
             </div>
-            <div class="text-center mb-6">
+
+            <div class="text-center mb-3">
               <p class="text-xl line-height-2 text-color-secondary">
                 {{ $t('Helpdesk technical support') }}
               </p>
             </div>
-            <nav class="flex justify-content-evenly mb-2">
-              <BtnSocialMedia
-                icon="pi pi-facebook"
-                :href="$helpdesk?.authorSocial?.facebook"
-                tooltip="Facebook"
-              />
-              <BtnSocialMedia
-                icon="pi pi-github"
-                :href="$helpdesk?.authorSocial?.github"
-                tooltip="Github"
-              />
-              <BtnSocialMedia
-                icon="pi pi-linkedin"
-                :href="$helpdesk?.authorSocial?.linkedin"
-                tooltip="Linkedin"
-              />
-            </nav>
+
+            <ul class="list-none flex justify-content-evenly p-0 mb-2">
+              <li class="mx-4">
+                <BtnSocialMedia
+                  icon="pi pi-facebook"
+                  :href="$helpdesk?.authorSocial?.facebook"
+                  tooltip="Facebook"
+                />
+              </li>
+
+              <li class="mx-4">
+                <BtnSocialMedia
+                  icon="pi pi-github"
+                  :href="$helpdesk?.authorSocial?.github"
+                  tooltip="Github"
+                />
+              </li>
+
+              <li class="mx-4">
+                <BtnSocialMedia
+                  icon="pi pi-linkedin"
+                  :href="$helpdesk?.authorSocial?.linkedin"
+                  tooltip="Linkedin"
+                />
+              </li>
+            </ul>
             <p class="text-center text-500">
               {{ $helpdesk?.copyright }}
             </p>
@@ -65,9 +76,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="documentation" class="mb-4">
             <h3 class="mb-1">{{ 'Documentation' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/docs">
+              <router-link class="text-blue-500" to="/docs">
                 HD’s official documentation
-              </RouterLink>
+              </router-link>
               provides you with all information you need to get started.
             </span>
           </section>
@@ -75,9 +86,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="pc-sys-inspector" class="mb-4">
             <h3 class="mb-1">{{ 'PC SysInspector' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/app/pc-sys-inspector/statistics">
+              <router-link class="text-blue-500" :to="{ name: 'pc-sys-inspector-statistics' }">
                 PC SysInspector service
-              </RouterLink>
+              </router-link>
               aggregates information about computers on the network, which can be useful for
               managing a fleet of computers and ensuring the security of an organization.
             </span>
@@ -86,9 +97,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="hd-live-log" class="mb-4">
             <h3 class="mb-1">{{ 'Help Desk Live Log' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/app/helpdesk-live-log/statistics">
+              <router-link class="text-blue-500" :to="{ name: 'helpdesk-live-log-statistics' }">
                 Help Desk Live Log
-              </RouterLink>
+              </router-link>
               web service allows users to submit support requests through a web interface, track
               request status, and provide statistics and analytics on Help Desk performance.
             </span>
@@ -97,9 +108,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="network-information">
             <h3 class="mb-1">{{ 'Network information' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/app/network-info/statistics">
+              <router-link class="text-blue-500" :to="{ name: 'network-info-statistics' }">
                 Network information
-              </RouterLink>
+              </router-link>
               web service is designed for keeping track of IP addresses of network devices and users
               on a local network. It allows administrators to keep records, as well as provides
               information on the availability of devices and their current status.

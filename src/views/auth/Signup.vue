@@ -272,7 +272,9 @@ onMounted(() => {
     {{ $helpdesk?.copyright }}
   </p>
   <p class="text-center text-500 my-2">
-    <RouterLink to="/" class="text-blue-500">{{ $t('Helpdesk home page') }}</RouterLink>
+    <router-link :to="{ name: 'home' }" class="text-blue-500">
+      {{ $t('Helpdesk home page') }}
+    </router-link>
   </p>
 </template>
 

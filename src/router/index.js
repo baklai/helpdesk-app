@@ -1,195 +1,202 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import AppLayout from '@/layout/AppLayout.vue';
+import PrivateLayout from '@/layout/PrivateLayout.vue';
 import PublicLayout from '@/layout/PublicLayout.vue';
+
+import { useApp } from '@/stores/app';
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: '/',
-      component: AppLayout,
+      name: 'home',
+      meta: {
+        title: 'Helpdesk service',
+        description: 'Helpdesk of the technical support'
+      },
+      component: () => import('@/views/Index.vue'),
+      beforeEnter: (to, from) => {
+        const store = useApp();
+        if (!store.loggedIn) {
+          return { path: '/auth/signin' };
+        } else {
+          return true;
+        }
+      }
+    },
+
+    {
+      path: '/app',
+      //    redirect: '/',
       meta: { auth: true },
       children: [
         {
-          name: 'home',
-          path: '/',
-          component: () => import('@/views/Index.vue'),
+          name: 'calendar-events',
+          path: 'calendar-events',
           meta: {
-            title: 'Helpdesk service',
-            description: 'Helpdesk of the technical support'
-          }
+            title: 'Calendar of events',
+            description: 'Сalendar of events of the technical support'
+          },
+          component: () => import('@/views/app/CalendarEvents.vue')
         },
-
         {
-          name: 'app',
-          path: '/app',
+          path: 'network-info',
+          name: 'network-info',
+          //   redirect: '/app/network-info/statistics',
+          meta: {
+            title: 'Network information',
+            description: 'Network information of the technical support'
+          },
           children: [
             {
-              name: 'calendar-events',
-              path: '/app/calendar-events',
-              component: () => import('@/views/app/CalendarEvents.vue'),
+              path: 'channels',
+              name: 'network-channels',
               meta: {
-                title: 'Calendar of events',
-                description: 'Сalendar of events of the technical support'
-              }
-            },
-            {
-              name: 'network-info',
-              path: '/app/network-info',
-              meta: {
-                title: 'Network information',
-                description: 'Network information of the technical support'
+                title: 'Network channels',
+                description: 'Network channels of the technical support'
               },
-              children: [
-                {
-                  name: 'network-channels',
-                  path: '/app/network-info/channels',
-                  component: () => import('@/views/app/network-info/Channels.vue'),
-                  meta: {
-                    title: 'Network channels',
-                    description: 'Network channels of the technical support'
-                  }
-                },
-                {
-                  name: 'network-ip-address',
-                  path: '/app/network-info/ip-address',
-                  component: () => import('@/views/app/network-info/IPAddress.vue'),
-                  meta: {
-                    title: 'Network IP Address',
-                    description: 'Network IP Address of the technical support'
-                  }
-                },
-                {
-                  name: 'network-statistics',
-                  path: '/app/network-info/statistics',
-                  component: () => import('@/views/app/network-info/NetworkInfo.vue'),
-                  meta: {
-                    title: 'Service statistics',
-                    description: 'Statistics of network information'
-                  }
-                }
-              ]
+              component: () => import('@/views/app/network-info/Channels.vue')
             },
             {
-              name: 'helpdesk-live-log',
-              path: '/app/helpdesk-live-log',
+              path: 'ip-address',
+              name: 'network-ip-address',
+              meta: {
+                title: 'Network IP Address',
+                description: 'Network IP Address of the technical support'
+              },
+              component: () => import('@/views/app/network-info/IPAddress.vue')
+            },
+            {
+              path: 'statistics',
+              name: 'network-statistics',
+              meta: {
+                title: 'Service statistics',
+                description: 'Statistics of network information'
+              },
+              component: () => import('@/views/app/network-info/NetworkInfo.vue')
+            }
+          ]
+        },
+        {
+          path: 'helpdesk-live-log',
+          name: 'helpdesk-live-log',
+          //  redirect: '/app/helpdesk-live-log/statistics',
+          meta: {
+            title: 'Help Desk Live Log',
+            description: 'HD Live Log of the technical support'
+          },
+          children: [
+            {
+              path: 'requests',
+              name: 'helpdesk-live-log-requests',
               meta: {
                 title: 'Help Desk Live Log',
                 description: 'HD Live Log of the technical support'
               },
-              children: [
-                {
-                  name: 'helpdesk-live-log-requests',
-                  path: '/app/helpdesk-live-log/requests',
-                  component: () => import('@/views/app/hd-live-log/HDLiveLogRequests.vue'),
-                  meta: {
-                    title: 'Help Desk Live Log',
-                    description: 'HD Live Log of the technical support'
-                  }
-                },
-                {
-                  name: 'helpdesk-live-log-statistics',
-                  path: '/app/helpdesk-live-log/statistics',
-                  component: () => import('@/views/app/hd-live-log/HDLiveLog.vue'),
-                  meta: {
-                    title: 'Service statistics',
-                    description: 'Statistics of Helpdesk Live Log'
-                  }
-                }
-              ]
+              component: () => import('@/views/app/hd-live-log/HDLiveLogRequests.vue')
             },
             {
-              name: 'pc-sys-inspector',
-              path: '/app/pc-sys-inspector',
+              path: 'statistics',
+              name: 'helpdesk-live-log-statistics',
+              meta: {
+                title: 'Service statistics',
+                description: 'Statistics of Helpdesk Live Log'
+              },
+              component: () => import('@/views/app/hd-live-log/HDLiveLog.vue')
+            }
+          ]
+        },
+        {
+          path: 'pc-sys-inspector',
+          name: 'pc-sys-inspector',
+          //   redirect: '/app/pc-sys-inspector/statistics',
+          meta: {
+            title: 'PC SysInspector',
+            description: 'PC SysInspector service of the technical support'
+          },
+          children: [
+            {
+              path: 'reports',
+              name: 'pc-sys-inspector-reports',
               meta: {
                 title: 'PC SysInspector',
                 description: 'PC SysInspector service of the technical support'
               },
-              children: [
-                {
-                  name: 'pc-sys-inspector-reports',
-                  path: '/app/pc-sys-inspector/reports',
-                  component: () => import('@/views/app/pc-sys-inspector/PCSysInspectorReports.vue'),
-                  meta: {
-                    title: 'PC SysInspector',
-                    description: 'PC SysInspector service of the technical support'
-                  }
-                },
-                {
-                  name: 'pc-sys-inspector-statistics',
-                  path: '/app/pc-sys-inspector/statistics',
-                  component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue'),
-                  meta: {
-                    title: 'Service statistics',
-                    description: 'Statistics of PC SysInspector'
-                  }
-                }
-              ]
+              component: () => import('@/views/app/pc-sys-inspector/PCSysInspectorReports.vue')
             },
             {
-              name: 'ping-icmp',
-              path: '/app/ping-icmp',
-              component: () => import('@/views/app/PingICMP.vue'),
+              path: 'statistics',
+              name: 'pc-sys-inspector-statistics',
               meta: {
-                title: 'ICMP Ping',
-                description: 'ICMP Ping service of the technical support'
-              }
-            },
-            {
-              name: 'reports',
-              path: '/app/reports',
-              component: () => import('@/views/app/Reports.vue'),
-              meta: {
-                title: 'Reports of service',
-                description: 'Reports of the technical support'
-              }
+                title: 'Service statistics',
+                description: 'Statistics of PC SysInspector'
+              },
+              component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue')
             }
           ]
         },
-
         {
-          name: 'core',
-          path: '/core',
-          meta: { admin: true },
-          children: [
-            {
-              name: 'core-dashboard',
-              path: '/core/dashboard',
-              component: () => import('@/views/core/Dashboard.vue'),
-              meta: {
-                title: 'Dashboard',
-                description: 'Dashboard of the helpdesk service'
-              }
-            },
-            {
-              name: 'core-log-audit',
-              path: '/core/log-audit',
-              component: () => import('@/views/core/LogAudit.vue'),
-              meta: {
-                title: 'Activity audit',
-                description: 'Audit log of the helpdesk service'
-              }
-            },
-            {
-              name: 'core-options',
-              path: '/core/options',
-              component: () => import('@/views/core/Options.vue'),
-              meta: {
-                title: 'Configuration',
-                description: 'Configuration of the helpdesk service'
-              }
-            },
-            {
-              name: 'core-users',
-              path: '/core/users',
-              component: () => import('@/views/core/Users.vue'),
-              meta: {
-                title: 'User accounts',
-                description: 'User accounts of the helpdesk service'
-              }
-            }
-          ]
+          path: 'ping-icmp',
+          name: 'ping-icmp',
+          meta: {
+            title: 'ICMP Ping',
+            description: 'ICMP Ping service of the technical support'
+          },
+          component: () => import('@/views/app/PingICMP.vue')
+        },
+        {
+          path: 'reports',
+          name: 'reports',
+          meta: {
+            title: 'Reports of service',
+            description: 'Reports of the technical support'
+          },
+          component: () => import('@/views/app/Reports.vue')
+        }
+      ]
+    },
+
+    {
+      path: '/core',
+      redirect: '/',
+      meta: { auth: true, admin: true },
+      children: [
+        {
+          path: 'dashboard',
+          name: 'core-dashboard',
+          meta: {
+            title: 'Dashboard',
+            description: 'Dashboard of the helpdesk service'
+          },
+          component: () => import('@/views/core/Dashboard.vue')
+        },
+        {
+          path: 'log-audit',
+          name: 'core-log-audit',
+          meta: {
+            title: 'Activity audit',
+            description: 'Audit log of the helpdesk service'
+          },
+          component: () => import('@/views/core/LogAudit.vue')
+        },
+        {
+          path: 'options',
+          name: 'core-options',
+          meta: {
+            title: 'Configuration',
+            description: 'Configuration of the helpdesk service'
+          },
+          component: () => import('@/views/core/Options.vue')
+        },
+        {
+          path: 'users',
+          name: 'core-users',
+          meta: {
+            title: 'User accounts',
+            description: 'User accounts of the helpdesk service'
+          },
+          component: () => import('@/views/core/Users.vue')
         }
       ]
     },
@@ -197,56 +204,75 @@ const router = createRouter({
     {
       path: '/auth',
       redirect: '/auth/signin',
-      component: PublicLayout,
       children: [
         {
+          path: 'signin',
           name: 'signin',
-          path: '/auth/signin',
           component: () => import('@/views/auth/Signin.vue')
         },
         {
+          path: 'signup',
           name: 'signup',
-          path: '/auth/signup',
           component: () => import('@/views/auth/Signup.vue')
         }
       ]
     },
 
     {
-      path: '/',
-      component: PublicLayout,
-      children: [
-        {
-          name: 'not-found',
-          path: '/error/not-found',
-          component: () => import('@/views/error/NotFound.vue')
-        },
-        {
-          name: 'access-denied',
-          path: '/error/access-denied',
-          component: () => import('@/views/error/AccessDenied.vue')
-        },
-        {
-          name: 'error-occured',
-          path: '/error/error-occured',
-          component: () => import('@/views/error/ErrorOccured.vue')
-        }
-      ]
+      path: '/access-denied',
+      name: 'access-denied',
+      component: () => import('@/views/error/AccessDenied.vue')
     },
 
     {
-      name: 'not-router',
       path: '/:pathMatch(.*)*',
-      component: PublicLayout,
-      children: [
-        {
-          name: 'not-router',
-          path: '/:pathMatch(.*)*',
-          component: () => import('@/views/error/NotFound.vue')
-        }
-      ]
+      name: 'not-found',
+      component: () => import('@/views/error/NotFound.vue')
     }
   ]
 });
 
+router.beforeEach(async (to, from) => {
+  const store = useApp();
+
+  if (store.loggedIn) {
+    to.meta.layout = PrivateLayout;
+  } else {
+    to.meta.layout = PublicLayout;
+  }
+
+  return;
+
+  // if (to.name !== 'signin' && !store.loggedIn) next({ name: 'signin' });
+  // else next();
+
+  //   // if ((to.name !== 'signin' || to.name !== 'signup') && to?.meta?.auth && !store?.user) {
+  //   //   next({ name: 'signin' });
+  //   // } else if (to?.meta?.admin && !store?.user?.isAdmin) {
+  //   //   next({ name: 'access-denied' });
+  //   // } else {
+  //   //   next();
+  //   // }
+});
+
 export default router;
+
+// router.beforeEach(async (to, from, next) => {
+//   // next({ name: 'signin' });
+
+//   to.meta.layout = await import(`'@/layout/PrivateLayout.vue`);
+
+//   next();
+
+//   // if (!store?.user && store.getAccessToken()) {
+//   //   await $auth.me();
+//   // }
+
+//   // if ((to.name !== 'signin' || to.name !== 'signup') && to?.meta?.auth && !store?.user) {
+//   //   next({ name: 'signin' });
+//   // } else if (to?.meta?.admin && !store?.user?.isAdmin) {
+//   //   next({ name: 'access-denied' });
+//   // } else {
+//   //   next();
+//   // }
+// });

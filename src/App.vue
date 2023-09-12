@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
+
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
@@ -15,7 +16,9 @@ onMounted(() => {
 <template>
   <ScrollTop />
 
-  <RouterView />
+  <component :is="$route.meta.layout">
+    <slot />
+  </component>
 
   <Toast position="top-right" class="z-100" />
 
