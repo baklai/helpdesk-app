@@ -66,7 +66,7 @@ export const useSidebar = defineStore('sidebar', () => {
   function getRoute(name) {
     const routes = Router.getRoutes();
     const route = routes.find(item => item.name === name);
-    return { title: t(route.meta.title), to: route.path, icon: route.name };
+    return { title: t(route.meta.title), name: route.name, icon: route.name };
   }
 
   return { links, getRoute };

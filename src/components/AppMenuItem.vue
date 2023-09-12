@@ -71,7 +71,7 @@ const itemClick = (event, item) => {
 };
 
 const checkActiveRoute = item => {
-  return Route.path === item.to;
+  return Route.name === item.name;
 };
 </script>
 
@@ -81,7 +81,7 @@ const checkActiveRoute = item => {
       {{ item.title }}
     </div>
     <a
-      v-if="(!item.to || item.items) && item.visible !== false"
+      v-if="(!item.name || item.items) && item.visible !== false"
       :href="item.url"
       @click="!item.url && itemClick($event, item, index)"
       :class="item.class"
@@ -92,17 +92,17 @@ const checkActiveRoute = item => {
       <span class="layout-menuitem-text">{{ item.title }}</span>
       <i class="pi pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
     </a>
-    <RouterLink
-      v-if="item.to && !item.items && item.visible !== false"
+    <router-link
+      v-if="item.name && !item.items && item.visible !== false"
       @click="itemClick($event, item, index)"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
-      :to="item.to"
+      :to="{ name: item.name }"
     >
       <AppIcons :name="item.icon" class="mr-2" :size="18" />
       <span class="layout-menuitem-text">{{ item.title }}</span>
       <i class="pi pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
-    </RouterLink>
+    </router-link>
     <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
         <AppMenuItem

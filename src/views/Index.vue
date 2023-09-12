@@ -108,7 +108,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="network-information">
             <h3 class="mb-1">{{ 'Network information' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <router-link class="text-blue-500" :to="{ name: 'network-info-statistics' }">
+              <router-link class="text-blue-500" :to="{ name: 'network-statistics' }">
                 Network information
               </router-link>
               web service is designed for keeping track of IP addresses of network devices and users

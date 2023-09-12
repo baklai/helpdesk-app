@@ -28,8 +28,8 @@ const router = createRouter({
 
     {
       path: '/app',
-      //    redirect: '/',
       meta: { auth: true },
+      redirect: { name: 'home' },
       children: [
         {
           name: 'calendar-events',
@@ -43,11 +43,11 @@ const router = createRouter({
         {
           path: 'network-info',
           name: 'network-info',
-          //   redirect: '/app/network-info/statistics',
           meta: {
             title: 'Network information',
             description: 'Network information of the technical support'
           },
+          redirect: { name: 'network-statistics' },
           children: [
             {
               path: 'channels',
@@ -81,11 +81,11 @@ const router = createRouter({
         {
           path: 'helpdesk-live-log',
           name: 'helpdesk-live-log',
-          //  redirect: '/app/helpdesk-live-log/statistics',
           meta: {
             title: 'Help Desk Live Log',
             description: 'HD Live Log of the technical support'
           },
+          redirect: { name: 'helpdesk-live-log-statistics' },
           children: [
             {
               path: 'requests',
@@ -110,11 +110,11 @@ const router = createRouter({
         {
           path: 'pc-sys-inspector',
           name: 'pc-sys-inspector',
-          //   redirect: '/app/pc-sys-inspector/statistics',
           meta: {
             title: 'PC SysInspector',
             description: 'PC SysInspector service of the technical support'
           },
+          redirect: { name: 'pc-sys-inspector-statistics' },
           children: [
             {
               path: 'reports',
@@ -159,8 +159,8 @@ const router = createRouter({
 
     {
       path: '/core',
-      redirect: '/',
       meta: { auth: true, admin: true },
+      redirect: { name: 'home' },
       children: [
         {
           path: 'dashboard',
@@ -203,7 +203,7 @@ const router = createRouter({
 
     {
       path: '/auth',
-      redirect: '/auth/signin',
+      redirect: { name: 'signin' },
       children: [
         {
           path: 'signin',
