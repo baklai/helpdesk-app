@@ -8,7 +8,7 @@ import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
 import SidebarRecord from '@/components/sidebar/SysInspector.vue';
-import SysFilter from '@/components/modals/SysFilter.vue';
+import Filter from '@/components/modals/Filter.vue';
 
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
@@ -24,7 +24,7 @@ const refMenu = ref();
 const refModal = ref();
 const refSidebar = ref();
 const refDataTable = ref();
-const refModalSysFilter = ref();
+const refModalFilter = ref();
 
 const refWarningMenu = ref();
 const warningOptions = ref([
@@ -73,7 +73,7 @@ const warningOptions = ref([
   {
     label: t('All System filters'),
     icon: 'pi pi-database',
-    command: async () => refModalSysFilter.value.toggle({})
+    command: async () => refModalFilter.value.toggle({})
   }
 ]);
 
@@ -499,7 +499,7 @@ const createSysInspectorScript = async () => {
           />
         </template>
       </SSDataTable>
-      <SysFilter ref="refModalSysFilter" @close="() => true" />
+      <Filter ref="refModalFilter" @close="() => true" />
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>
   </div>

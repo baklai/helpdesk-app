@@ -146,7 +146,7 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'sysfilter',
+        scope: 'filter',
         comment: 'Filter in database',
         create: false,
         read: true,

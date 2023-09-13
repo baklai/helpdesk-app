@@ -7,12 +7,12 @@ import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { capitalizeFirstLetter } from '@/service/DataFilters';
-import { useSysfilter } from '@/stores/api/sysfilters';
+import { useFilter } from '@/stores/api/filters';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
-const { $init, findAll, findOne, createOne, updateOne, removeOne } = useSysfilter();
+const { $init, findAll, findOne, createOne, updateOne, removeOne } = useFilter();
 
 const emits = defineEmits(['close']);
 

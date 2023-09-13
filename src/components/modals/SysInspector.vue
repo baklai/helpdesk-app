@@ -9,13 +9,13 @@ import IPTable from '@/components/tables/IPTable.vue';
 import { byteToStr, strToDate, dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
 import { useIPAddress } from '@/stores/api/ipaddresses';
-import { useSysfilter } from '@/stores/api/sysfilters';
+import { useFilter } from '@/stores/api/filters';
 
 const { t } = useI18n();
 const toast = useToast();
 const Inspector = useInspector();
 const IPAddress = useIPAddress();
-const SysFilter = useSysfilter();
+const Filter = useFilter();
 
 const emits = defineEmits(['close']);
 
@@ -30,7 +30,7 @@ defineExpose({
             populate: true
           });
         } catch (err) {}
-        Sysfilter.value = await SysFilter.findAll({});
+        filters.value = await Filter.findAll({});
         visible.value = true;
       } catch (err) {
         visible.value = false;
@@ -43,7 +43,7 @@ const visible = ref(false);
 
 const record = ref({});
 const recordIP = ref({});
-const Sysfilter = ref([]);
+const filters = ref([]);
 
 const refMenu = ref();
 const options = ref([
@@ -169,7 +169,7 @@ const diskSum = value => {
 const validSoftware = value => {
   if (typeof value !== 'string') return true;
   let result = true;
-  Sysfilter.value.forEach(item => {
+  filters.value.forEach(item => {
     if (value.toLowerCase().includes(item?.regex.toLowerCase())) {
       result = false;
     }

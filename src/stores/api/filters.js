@@ -1,7 +1,7 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useSysfilter = defineStore('sysfilter', () => {
+export const useFilter = defineStore('filter', () => {
   const $axios = inject('axios');
 
   function $init({
@@ -16,7 +16,7 @@ export const useSysfilter = defineStore('sysfilter', () => {
 
   async function findAll(params) {
     try {
-      return await $axios.get('/sysfilters', { params });
+      return await $axios.get('/filters', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -24,7 +24,7 @@ export const useSysfilter = defineStore('sysfilter', () => {
 
   async function findOne({ id }) {
     try {
-      return await $axios.get(`/sysfilters/${id}`);
+      return await $axios.get(`/filters/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
@@ -32,7 +32,7 @@ export const useSysfilter = defineStore('sysfilter', () => {
 
   async function createOne({ ...payload }) {
     try {
-      return await $axios.post('/sysfilters', { ...payload });
+      return await $axios.post('/filters', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -40,7 +40,7 @@ export const useSysfilter = defineStore('sysfilter', () => {
 
   async function updateOne({ id, ...payload }) {
     try {
-      return await $axios.put(`/sysfilters/${id}`, { ...payload });
+      return await $axios.put(`/filters/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -48,7 +48,7 @@ export const useSysfilter = defineStore('sysfilter', () => {
 
   async function removeOne({ id }) {
     try {
-      return await $axios.delete(`/sysfilters/${id}`);
+      return await $axios.delete(`/filters/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }

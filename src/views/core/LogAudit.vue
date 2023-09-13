@@ -10,14 +10,14 @@ import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
 import { dateTimeToStr, eventToStr, eventToColor } from '@/service/DataFilters';
 import { useScope } from '@/stores/scope';
-import { useLogger } from '@/stores/api/loggers';
+import { useSyslog } from '@/stores/api/syslogs';
 import { useUser } from '@/stores/api/users';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const Logger = useLogger();
+const SysLog = useSyslog();
 const Scope = useScope();
 const User = useUser();
 
@@ -178,7 +178,7 @@ const confirmDeleteAll = () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      await Logger.removeAll({});
+      await SysLog.removeAll({});
       await refDataTable.value.update({});
       toast.add({
         severity: 'success',
@@ -216,8 +216,8 @@ const confirmDeleteAll = () => {
         :globalFilter="globalFilter"
         :storageKey="`app-${$route.name}-datatable`"
         :exportFileName="$route.name"
-        :onUpdate="Logger.findAll"
-        :onDelete="Logger.removeOne"
+        :onUpdate="SysLog.findAll"
+        :onDelete="SysLog.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
         @toggle-modal="data => false"
         @toggle-sidebar="data => false"
