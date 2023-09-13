@@ -7,7 +7,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 </script>
 
 <template>
-  <router-link to="/" class="flex justify-content-center layout-topbar-logo py-2 mb-6">
+  <RouterLink to="/" class="flex justify-content-center layout-topbar-logo py-2 mb-6">
     <div class="flex justify-content-center">
       <div class="justify-content-start">
         <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
@@ -23,7 +23,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
         </p>
       </div>
     </div>
-  </router-link>
+  </RouterLink>
 
   <div class="flex justify-content-start mt-6 mb-4">
     <div class="flex align-items-center justify-content-center mr-2">

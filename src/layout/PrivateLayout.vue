@@ -87,7 +87,7 @@ watchEffect(() => {
       <AppTopbar />
       <div class="layout-main overflow-auto">
         <div class="grid grid-nogutter" style="height: calc(100vh - 9rem)">
-          <router-view />
+          <RouterView />
         </div>
       </div>
     </div>

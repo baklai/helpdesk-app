@@ -241,38 +241,13 @@ router.beforeEach(async (to, from) => {
     to.meta.layout = PublicLayout;
   }
 
-  return;
-
-  // if (to.name !== 'signin' && !store.loggedIn) next({ name: 'signin' });
-  // else next();
-
-  //   // if ((to.name !== 'signin' || to.name !== 'signup') && to?.meta?.auth && !store?.user) {
-  //   //   next({ name: 'signin' });
-  //   // } else if (to?.meta?.admin && !store?.user?.isAdmin) {
-  //   //   next({ name: 'access-denied' });
-  //   // } else {
-  //   //   next();
-  //   // }
+  if (to.name !== 'signin' && to.name !== 'signup' && to?.meta?.auth && !store.loggedIn) {
+    return { name: 'signin' };
+  } else if (to?.meta?.admin && !store?.user?.isAdmin) {
+    return { name: 'access-denied' };
+  } else {
+    return;
+  }
 });
 
 export default router;
-
-// router.beforeEach(async (to, from, next) => {
-//   // next({ name: 'signin' });
-
-//   to.meta.layout = await import(`'@/layout/PrivateLayout.vue`);
-
-//   next();
-
-//   // if (!store?.user && store.getAccessToken()) {
-//   //   await $auth.me();
-//   // }
-
-//   // if ((to.name !== 'signin' || to.name !== 'signup') && to?.meta?.auth && !store?.user) {
-//   //   next({ name: 'signin' });
-//   // } else if (to?.meta?.admin && !store?.user?.isAdmin) {
-//   //   next({ name: 'access-denied' });
-//   // } else {
-//   //   next();
-//   // }
-// });

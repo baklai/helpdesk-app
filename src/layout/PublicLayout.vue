@@ -4,7 +4,7 @@
   >
     <div class="flex flex-column align-items-center justify-content-center">
       <div class="w-min justify-content-center align-items-center">
-        <router-view />
+        <RouterView />
       </div>
     </div>
   </main>

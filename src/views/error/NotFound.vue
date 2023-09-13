@@ -22,9 +22,9 @@ const $config = useConfig();
         />
         <div class="text-center">
           <i class="pi pi-home text-blue-600 mr-2"></i>
-          <router-link :to="{ name: 'home' }" class="text-blue-600">
+          <RouterLink :to="{ name: 'home' }" class="text-blue-600">
             {{ $t('Back to home page') }}
-          </router-link>
+          </RouterLink>
         </div>
       </div>
     </div>
