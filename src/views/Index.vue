@@ -86,7 +86,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="pc-sys-inspector" class="mb-4">
             <h3 class="mb-1">{{ 'PC SysInspector' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'pc-sys-inspector-statistics' }">
+              <RouterLink class="text-blue-500" :to="{ name: 'pc-sys-inspector' }">
                 PC SysInspector service
               </RouterLink>
               aggregates information about computers on the network, which can be useful for
@@ -97,7 +97,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="hd-live-log" class="mb-4">
             <h3 class="mb-1">{{ 'Help Desk Live Log' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'helpdesk-live-log-statistics' }">
+              <RouterLink class="text-blue-500" :to="{ name: 'helpdesk-live-log' }">
                 Help Desk Live Log
               </RouterLink>
               web service allows users to submit support requests through a web interface, track
@@ -108,7 +108,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <section id="network-information">
             <h3 class="mb-1">{{ 'Network information' }}</h3>
             <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'network-statistics' }">
+              <RouterLink class="text-blue-500" :to="{ name: 'network-info' }">
                 Network information
               </RouterLink>
               web service is designed for keeping track of IP addresses of network devices and users
