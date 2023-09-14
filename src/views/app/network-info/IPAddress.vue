@@ -417,7 +417,7 @@ const columns = ref([
   {
     header: { text: 'Internet', width: '12rem' },
     column: {
-      field: 'status.internet',
+      field: 'inetStatus',
       dataType: 'boolean',
       render(value) {
         return value ? (
@@ -427,7 +427,7 @@ const columns = ref([
         );
       }
     },
-    sorter: { field: 'status.internet' },
+    sorter: { field: 'inetStatus' },
     filter: {
       field: 'internet',
       value: null,
