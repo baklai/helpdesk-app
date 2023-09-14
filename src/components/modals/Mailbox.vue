@@ -7,6 +7,7 @@ import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { dateToStr } from '@/service/DataFilters';
+import { useMailbox } from '@/stores/api/mailboxes';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
@@ -14,12 +15,12 @@ import { useLocation } from '@/stores/api/locations';
 import { useDepartment } from '@/stores/api/departments';
 import { useEnterprise } from '@/stores/api/enterprises';
 import { usePosition } from '@/stores/api/positions';
-import { useUnit } from '@/stores/api/units';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
+const Mailbox = useMailbox();
 const IPAddress = useIPAddress();
 const Сompany = useСompany();
 const Branch = useBranch();
@@ -27,7 +28,6 @@ const Department = useDepartment();
 const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
-const Unit = useUnit();
 
 const emits = defineEmits(['close']);
 
@@ -35,27 +35,25 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = IPAddress.$init(await IPAddress.findOne({ id, populate: false }));
+        record.value = Mailbox.$init(await Mailbox.findOne({ id, populate: false }));
       } else {
-        record.value = IPAddress.$init({});
+        record.value = Mailbox.$init({});
       }
-      const [company, branch, department, enterprise, position, location, unit] =
+      const [company, branch, enterprise, department, position, location] =
         await Promise.allSettled([
           Сompany.findAll({}),
           Branch.findAll({}),
-          Department.findAll({}),
           Enterprise.findAll({}),
+          Department.findAll({}),
           Position.findAll({}),
-          Location.findAll({}),
-          Unit.findAll({})
+          Location.findAll({})
         ]);
       companies.value = company.value;
       branches.value = branch.value;
-      departments.value = department.value;
       enterprises.value = enterprise.value;
+      departments.value = department.value;
       positions.value = position.value;
       locations.value = location.value;
-      units.value = unit.value;
 
       visible.value = true;
     } catch (err) {
@@ -63,42 +61,6 @@ defineExpose({
     }
   }
 });
-
-const CIDRS = ref([
-  { value: 32, mask: '255.255.255.255' },
-  { value: 31, mask: '255.255.255.254' },
-  { value: 30, mask: '255.255.255.252' },
-  { value: 29, mask: '255.255.255.248' },
-  { value: 28, mask: '255.255.255.240' },
-  { value: 27, mask: '255.255.255.224' },
-  { value: 26, mask: '255.255.255.192' },
-  { value: 25, mask: '255.255.255.128' },
-  { value: 24, mask: '255.255.255.0' },
-  { value: 23, mask: '255.255.254.0' },
-  { value: 22, mask: '255.255.252.0' },
-  { value: 21, mask: '255.255.248.0' },
-  { value: 20, mask: '255.255.240.0' },
-  { value: 19, mask: '255.255.224.0' },
-  { value: 18, mask: '255.255.192.0' },
-  { value: 17, mask: '255.255.128.0' },
-  { value: 16, mask: '255.255.0.0' },
-  { value: 15, mask: '255.254.0.0' },
-  { value: 14, mask: '255.252.0.0' },
-  { value: 13, mask: '255.248.0.0' },
-  { value: 12, mask: '255.240.0.0' },
-  { value: 11, mask: '255.224.0.0' },
-  { value: 10, mask: '255.192.0.0' },
-  { value: 9, mask: '255.128.0.0' },
-  { value: 8, mask: '255.0.0.0' },
-  { value: 7, mask: '254.0.0.0' },
-  { value: 6, mask: '252.0.0.0' },
-  { value: 5, mask: '248.0.0.0' },
-  { value: 4, mask: '240.0.0.0' },
-  { value: 3, mask: '224.0.0.0' },
-  { value: 2, mask: '192.0.0.0' },
-  { value: 1, mask: '128.0.0.0' },
-  { value: 0, mask: '0.0.0.0' }
-]);
 
 const visible = ref(false);
 
@@ -125,19 +87,17 @@ const record = ref({});
 
 const companies = ref([]);
 const branches = ref([]);
-const departments = ref([]);
 const enterprises = ref([]);
+const departments = ref([]);
 const positions = ref([]);
 const locations = ref([]);
-const units = ref([]);
 
 const $validate = useVuelidate(
   {
-    ipaddress: { required, ipAddress },
-    cidr: { required },
-    unit: { required },
     mail: { required },
-    date: { required },
+    login: { required },
+    dateOpen: { required },
+    ipaddress: { ipAddress },
     location: { required },
     company: { required },
     branch: { required },
@@ -149,7 +109,7 @@ const $validate = useVuelidate(
   record
 );
 
-const checkIPAddress = async () => {
+const findOneIPAddress = async () => {
   const validIPAddress = await $validate.value.ipaddress.$validate();
   try {
     if (record.value?.ipaddress && validIPAddress) {
@@ -158,18 +118,21 @@ const checkIPAddress = async () => {
         populate: false
       });
       if (currentIP?.ipaddress) {
+        record.value.ipaddress = currentIP?.ipaddress || null;
+        record.value.location = currentIP?.location || null;
+        record.value.fullname = currentIP?.fullname || null;
+        record.value.phone = currentIP?.phone || null;
+        record.value.position = currentIP?.position || null;
+        record.value.company = currentIP?.company || null;
+        record.value.branch = currentIP?.branch || null;
+        record.value.enterprise = currentIP?.enterprise || null;
+        record.value.department = currentIP?.department || null;
+      } else {
         toast.add({
           severity: 'warn',
           summary: t('HD Warning'),
-          detail: t('IP address is busy'),
-          life: 5000
-        });
-      } else {
-        toast.add({
-          severity: 'info',
-          summary: t('HD Warning'),
-          detail: t('IP Address is free'),
-          life: 5000
+          detail: t('IP Address not found'),
+          life: 3000
         });
       }
     } else {
@@ -184,9 +147,8 @@ const checkIPAddress = async () => {
     toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
   }
 };
-
 const onCreateRecord = async () => {
-  record.value = IPAddress.$init({});
+  record.value = Mailbox.$init({});
   $validate.value.$reset();
   toast.add({
     severity: 'success',
@@ -207,7 +169,7 @@ const onRemoveRecord = async () => {
     accept: async () => {
       if (record.value?.id) {
         try {
-          await IPAddress.removeOne(record.value);
+          await Mailbox.removeOne(record.value);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -249,7 +211,7 @@ const onSaveRecord = async () => {
   if (valid) {
     if (record.value?.id) {
       try {
-        await IPAddress.updateOne(record.value);
+        await Mailbox.updateOne(record.value);
         visible.value = false;
         toast.add({
           severity: 'success',
@@ -267,7 +229,7 @@ const onSaveRecord = async () => {
       }
     } else {
       try {
-        await IPAddress.createOne(record.value);
+        await Mailbox.createOne(record.value);
         visible.value = false;
         toast.add({
           severity: 'success',
@@ -295,7 +257,7 @@ const onSaveRecord = async () => {
 };
 
 const onCloseModal = () => {
-  record.value = IPAddress.$init({});
+  record.value = Mailbox.$init({});
   $validate.value.$reset();
   emits('close', {});
 };
@@ -316,9 +278,9 @@ const onCloseModal = () => {
     <template #header>
       <div class="flex justify-content-between w-full">
         <div class="flex align-items-center justify-content-center">
-          <AppIcons name="network-ip-address" :size="42" class="mr-2" />
+          <AppIcons name="network-mailbox" :size="42" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('IP Address') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('Mailbox') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
             </p>
@@ -342,22 +304,41 @@ const onCloseModal = () => {
       <div class="formgrid grid">
         <div class="field col">
           <div class="field">
-            <label for="date" class="font-bold">{{ $t('Date create') }}</label>
+            <label for="dateOpen" class="font-bold">{{ $t('Date open') }}</label>
             <Calendar
-              id="date"
+              id="dateOpen"
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              aria-describedby="date-help"
-              :modelValue="dateToStr(record.date)"
-              v-model="record.date"
-              :placeholder="$t('Date create IP Address')"
-              :class="{ 'p-invalid': !!$validate.date.$errors.length }"
+              aria-describedby="dateOpen-help"
+              :modelValue="dateToStr(record.dateOpen)"
+              v-model="record.dateOpen"
+              :placeholder="$t('Date open mailbox')"
+              :class="{ 'p-invalid': !!$validate.dateOpen.$errors.length }"
             />
             <small
-              id="date-help"
+              id="dateOpen-help"
               class="p-error"
-              v-for="error in $validate.date.$errors"
+              v-for="error in $validate.dateOpen.$errors"
+              :key="error.$uid"
+            >
+              {{ $t(error.$message) }}
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="login" class="font-bold">{{ $t('Login mailbox') }}</label>
+            <InputText
+              id="login"
+              aria-describedby="login-help"
+              v-model="record.login"
+              :placeholder="$t('Login mailbox')"
+              :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+            />
+            <small
+              id="login-help"
+              class="p-error"
+              v-for="error in $validate.login.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
@@ -384,31 +365,109 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="unit" class="font-bold">{{ $t('Unit') }}</label>
-            <Dropdown
-              filter
-              autofocus
-              showClear
-              resetFilterOnHide
-              dataKey="id"
-              optionValue="id"
-              optionLabel="name"
-              id="unit"
-              aria-describedby="unit-help"
-              v-model="record.unit"
-              :options="units"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client unit')"
-              :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
+            <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
+            <div id="client-info" class="field">
+              <div class="field">
+                <InputText
+                  id="fullname"
+                  aria-describedby="fullname-help"
+                  v-model="record.fullname"
+                  :placeholder="$t('Client fullname')"
+                  :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+                />
+                <small
+                  id="fullname-help"
+                  class="p-error"
+                  v-for="error in $validate.fullname.$errors"
+                  :key="error.$uid"
+                >
+                  {{ $t(error.$message) }}
+                </small>
+              </div>
+
+              <div class="field">
+                <Dropdown
+                  filter
+                  autofocus
+                  showClear
+                  resetFilterOnHide
+                  id="position"
+                  dataKey="id"
+                  optionValue="id"
+                  optionLabel="name"
+                  aria-describedby="position-help"
+                  v-model="record.position"
+                  :options="positions"
+                  :filterPlaceholder="$t('Search')"
+                  :placeholder="$t('Client position')"
+                />
+              </div>
+
+              <div class="field">
+                <InputText
+                  id="phone"
+                  v-model="record.phone"
+                  aria-describedby="phone-help"
+                  :placeholder="$t('Client phone')"
+                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                />
+                <small
+                  id="phone-help"
+                  class="p-error"
+                  v-for="error in $validate.phone.$errors"
+                  :key="error.$uid"
+                >
+                  {{ $t(error.$message) }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="dateClose" class="font-bold">{{ $t('Date close') }}</label>
+            <Calendar
+              id="dateClose"
+              showIcon
+              showButtonBar
+              dateFormat="dd.mm.yy"
+              aria-describedby="dateClose-help"
+              :modelValue="dateToStr(record.dateClose)"
+              v-model="record.dateClose"
+              :placeholder="$t('Date close mailbox')"
             />
-            <small
-              id="unit-help"
-              class="p-error"
-              v-for="error in $validate.unit.$errors"
-              :key="error.$uid"
-            >
-              {{ $t(error.$message) }}
-            </small>
+          </div>
+        </div>
+
+        <div class="field col">
+          <div class="field">
+            <label for="ipaddress-sidr" class="font-bold">{{ $t('IP Address') }}</label>
+            <div id="ipaddress-sidr" class="field">
+              <div class="field">
+                <span class="p-input-icon-right">
+                  <i
+                    class="pi pi-search cursor-pointer"
+                    v-tooltip.bottom="$t('Check IP Address')"
+                    @click.prevent="findOneIPAddress"
+                  />
+                  <InputText
+                    id="ipaddress"
+                    aria-describedby="ipaddress-help"
+                    v-model="record.ipaddress"
+                    :placeholder="$t('Client IP Address')"
+                    :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
+                    @keypress.prevent.enter="findOneIPAddress"
+                  />
+                </span>
+                <small
+                  id="ipaddress-help"
+                  class="p-error"
+                  v-for="error in $validate.ipaddress.$errors"
+                  :key="error.$uid"
+                >
+                  {{ $t(error.$message) }}
+                </small>
+              </div>
+            </div>
           </div>
 
           <div class="field">
@@ -439,109 +498,6 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="field">
-            <label for="ipaddress-sidr" class="font-bold">{{ $t('IP Address') }}</label>
-            <div id="ipaddress-sidr" class="field">
-              <div class="field">
-                <span class="p-input-icon-right">
-                  <i
-                    class="pi pi-search cursor-pointer"
-                    v-tooltip.bottom="$t('Check IP Address')"
-                    @click.prevent="checkIPAddress"
-                  />
-                  <InputText
-                    id="ipaddress"
-                    aria-describedby="ipaddress-help"
-                    v-model="record.ipaddress"
-                    :placeholder="$t('Client IP Address')"
-                    :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
-                    @keypress.prevent.enter="checkIPAddress"
-                  />
-                </span>
-                <small
-                  id="ipaddress-help"
-                  class="p-error"
-                  v-for="error in $validate.ipaddress.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-              <div class="field">
-                <Dropdown
-                  id="cidr"
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  v-model="record.cidr"
-                  :options="CIDRS"
-                  :optionLabel="obj => `${obj.mask}/${obj.value}`"
-                  aria-describedby="cidr-help"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Mask IP Address')"
-                  :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
-                />
-                <small
-                  id="cidr-help"
-                  class="p-error"
-                  v-for="error in $validate.unit.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="field">
-            <label for="internet" class="font-bold">{{ $t('Internet') }}</label>
-            <div id="internet" class="field">
-              <div class="field">
-                <InputText
-                  id="internet-mail"
-                  v-model="record.internet.mail"
-                  :placeholder="$t('Internet mail number')"
-                />
-              </div>
-
-              <div class="field">
-                <Calendar
-                  showIcon
-                  showButtonBar
-                  dateFormat="dd.mm.yy"
-                  id="internet-date-open"
-                  :modelValue="dateToStr(record.internet.dateOpen)"
-                  v-model="record.internet.dateOpen"
-                  :placeholder="$t('Date open internet')"
-                />
-              </div>
-
-              <div class="field">
-                <Calendar
-                  showIcon
-                  showButtonBar
-                  dateFormat="dd.mm.yy"
-                  id="internet-date-close"
-                  :modelValue="dateToStr(record.internet.dateClose)"
-                  v-model="record.internet.dateClose"
-                  :placeholder="$t('Date close internet')"
-                />
-              </div>
-
-              <div class="field">
-                <Textarea
-                  rows="1"
-                  cols="10"
-                  id="internet-comment"
-                  v-model="record.internet.comment"
-                  :placeholder="$t('Comment')"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="field col">
           <div class="field">
             <label for="client-company" class="font-bold">{{ $t('Company') }}</label>
             <div id="client-company" class="field">
@@ -656,77 +612,9 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div id="client-info" class="field">
-              <div class="field">
-                <InputText
-                  id="fullname"
-                  aria-describedby="fullname-help"
-                  v-model="record.fullname"
-                  :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
-                />
-                <small
-                  id="fullname-help"
-                  class="p-error"
-                  v-for="error in $validate.fullname.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  id="position"
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  aria-describedby="position-help"
-                  v-model="record.position"
-                  :options="positions"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client position')"
-                />
-              </div>
-
-              <div class="field">
-                <InputText
-                  id="phone"
-                  v-model="record.phone"
-                  aria-describedby="phone-help"
-                  :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
-                />
-                <small
-                  id="phone-help"
-                  class="p-error"
-                  v-for="error in $validate.phone.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
-            <InputText
-              id="autoanswer"
-              v-model="record.autoanswer"
-              :placeholder="$t('Client autoanswer')"
-            />
-          </div>
-
-          <div class="field">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
-              rows="7"
+              rows="5"
               cols="10"
               id="comment"
               class="outline-none"

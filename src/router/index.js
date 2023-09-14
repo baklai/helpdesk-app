@@ -68,6 +68,15 @@ const router = createRouter({
               component: () => import('@/views/app/network-info/IPAddress.vue')
             },
             {
+              path: 'mailbox',
+              name: 'network-mailbox',
+              meta: {
+                title: 'Mailbox addresses',
+                description: 'Mailbox of the technical support'
+              },
+              component: () => import('@/views/app/network-info/Mailbox.vue')
+            },
+            {
               path: 'statistics',
               name: 'network-statistics',
               meta: {

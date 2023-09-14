@@ -1,34 +1,29 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-import ModalRecord from '@/components/modals/IPAddress.vue';
-import SidebarRecord from '@/components/sidebar/IPAddress.vue';
+import ModalRecord from '@/components/modals/Mailbox.vue';
+import SidebarRecord from '@/components/sidebar/Mailbox.vue';
 
 import { dateToStr } from '@/service/DataFilters';
-import { useIPAddress } from '@/stores/api/ipaddresses';
+import { useMailbox } from '@/stores/api/mailboxes';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
-import { useLocation } from '@/stores/api/locations';
-import { useDepartment } from '@/stores/api/departments';
 import { useEnterprise } from '@/stores/api/enterprises';
+import { useDepartment } from '@/stores/api/departments';
+import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
-import { useUnit } from '@/stores/api/units';
 
-const { t } = useI18n();
-
-const IPAddress = useIPAddress();
+const Mailbox = useMailbox();
 const Сompany = useСompany();
 const Branch = useBranch();
 const Department = useDepartment();
 const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
-const Unit = useUnit();
 
 const refMenu = ref();
 const refModal = ref();
@@ -36,12 +31,155 @@ const refSidebar = ref();
 const refDataTable = ref();
 
 const globalFilter = ref({
-  field: 'ipaddress',
+  field: 'login',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search IP Address'
+  placeholder: 'Search login'
 });
 
 const columns = ref([
+  {
+    header: { text: 'Status', width: '10rem' },
+    column: {
+      field: 'status',
+      render(value) {
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
+        ) : (
+          <i class={'pi pi-lock font-bold text-color-secondary ml-4'}></i>
+        );
+      }
+    },
+    sorter: { field: 'status' },
+    filter: {
+      field: 'status',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Login', width: '16rem' },
+    column: {
+      field: 'login',
+      render(value) {
+        return <span class="font-medium text-primary cursor-pointer">{value}</span>;
+      },
+      action(data) {
+        refSidebar.value.toggle(data);
+      }
+    },
+    sorter: { field: 'login' },
+    filter: {
+      field: 'login',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Mail', width: '16rem' },
+    column: {
+      field: 'mail',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'mail' },
+    filter: {
+      field: 'mail',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Date open', width: '16rem' },
+    column: {
+      field: 'dateOpen',
+      render(value) {
+        return <span>{dateToStr(value) || '-'}</span>;
+      }
+    },
+    sorter: { field: 'dateOpen' },
+    filter: {
+      field: 'dateOpen',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Fullname', width: '16rem' },
+    column: {
+      field: 'fullname',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'fullname' },
+    filter: {
+      field: 'fullname',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'IP Address', width: '15rem' },
+    column: {
+      field: 'ipaddress',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'ipaddress' },
+    filter: {
+      field: 'ipaddress',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
   {
     header: { text: 'Location', width: '15rem' },
     column: {
@@ -69,91 +207,6 @@ const columns = ref([
     filtrable: true,
     sortable: false,
     frozen: true
-  },
-
-  {
-    header: { text: 'Unit', width: '12rem' },
-    column: {
-      field: 'unit.name',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'unit.name' },
-    filter: {
-      field: 'unit',
-      value: null,
-      matchMode: FilterMatchMode.IN,
-      options: {
-        key: 'id',
-        value: 'id',
-        label: 'name',
-        onRecords: async () => {
-          return await Unit.findAll({});
-        }
-      }
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
-    frozen: false
-  },
-
-  {
-    header: { text: 'IP Address', width: '15rem' },
-    column: {
-      field: 'ipaddress',
-      render(value) {
-        return <span class="font-medium text-primary cursor-pointer">{value}</span>;
-      },
-      action(data) {
-        refSidebar.value.toggle(data);
-      }
-    },
-    sorter: { field: 'indexip' },
-    filter: {
-      field: 'ipaddress',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: true
-  },
-
-  {
-    header: { text: 'Mask', width: '12rem' },
-    column: {
-      field: 'mask',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    selectable: false,
-    exportable: false,
-    filtrable: false,
-    sortable: false,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Gateway', width: '12rem' },
-    column: {
-      field: 'gateway',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    selectable: false,
-    exportable: false,
-    filtrable: false,
-    sortable: false,
-    frozen: false
   },
 
   {
@@ -273,29 +326,6 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '16rem' },
-    column: {
-      field: 'fullname',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'fullname' },
-    filter: {
-      field: 'fullname',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
     header: { text: 'Position', width: '16rem' },
     column: {
       field: 'position.name',
@@ -348,62 +378,16 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Autoanswer', width: '12rem' },
+    header: { text: 'Date close', width: '16rem' },
     column: {
-      field: 'autoanswer',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'autoanswer' },
-    filter: {
-      field: 'autoanswer',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Mail', width: '16rem' },
-    column: {
-      field: 'mail',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'mail' },
-    filter: {
-      field: 'mail',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Date', width: '16rem' },
-    column: {
-      field: 'date',
+      field: 'dateClose',
       render(value) {
         return <span>{dateToStr(value) || '-'}</span>;
       }
     },
-    sorter: { field: 'date' },
+    sorter: { field: 'dateClose' },
     filter: {
-      field: 'date',
+      field: 'dateClose',
       value: null,
       matchMode: FilterMatchMode.DATE_IS
     },
@@ -411,44 +395,6 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Internet', width: '12rem' },
-    column: {
-      field: 'status.internet',
-      dataType: 'boolean',
-      render(value) {
-        return value ? (
-          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
-        ) : (
-          <span>-</span>
-        );
-      }
-    },
-    sorter: { field: 'status.internet' },
-    filter: {
-      field: 'internet',
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-      options: {
-        key: 'key',
-        value: 'key',
-        label: 'name',
-        onRecords: () => {
-          return [
-            { key: 'opened', name: t('Internet opened') },
-            { key: 'closed', name: t('Internet closed') },
-            { key: 'missing', name: t('Not Internet') }
-          ];
-        }
-      }
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
     frozen: false
   },
 
@@ -489,8 +435,8 @@ const columns = ref([
         :globalFilter="globalFilter"
         :storageKey="`app-${$route.name}-datatable`"
         :exportFileName="$route.name"
-        :onUpdate="IPAddress.findAll"
-        :onDelete="IPAddress.removeOne"
+        :onUpdate="Mailbox.findAll"
+        :onDelete="Mailbox.removeOne"
         @toggle-menu="(event, data) => refMenu.toggle(event, data)"
         @toggle-modal="data => refModal.toggle(data)"
         @toggle-sidebar="data => refSidebar.toggle(data)"

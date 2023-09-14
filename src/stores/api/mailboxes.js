@@ -1,23 +1,16 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useIPAddress = defineStore('ipaddress', () => {
+export const useMailbox = defineStore('mailbox', () => {
   const $axios = inject('axios');
 
   function $init({
     id = undefined,
     ipaddress = undefined,
-    cidr = undefined,
-    unit = undefined,
-    internet = {
-      mail: undefined,
-      dateOpen: undefined,
-      dateClose: undefined,
-      comment: undefined
-    },
-    autoanswer = undefined,
     mail = undefined,
-    date = undefined,
+    login = undefined,
+    dateOpen = undefined,
+    dateClose = undefined,
     location = undefined,
     company = undefined,
     branch = undefined,
@@ -31,12 +24,10 @@ export const useIPAddress = defineStore('ipaddress', () => {
     return {
       id,
       ipaddress,
-      cidr,
-      unit,
-      internet,
-      autoanswer,
       mail,
-      date,
+      login,
+      dateOpen,
+      dateClose,
       location,
       company,
       branch,
@@ -51,17 +42,15 @@ export const useIPAddress = defineStore('ipaddress', () => {
 
   async function findAll(params) {
     try {
-      return await $axios.get('/ipaddresses', { params });
+      return await $axios.get('/mailboxes', { params });
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async function findOne({ id = null, ipaddress = null, populate = false }) {
+  async function findOne({ id }) {
     try {
-      return await $axios.get(`/ipaddresses/${id || ipaddress || '127.0.0.1'}`, {
-        params: { populate }
-      });
+      return await $axios.get(`/mailboxes/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
@@ -69,7 +58,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
 
   async function createOne({ ...payload }) {
     try {
-      return await $axios.post('/ipaddresses', { ...payload });
+      return await $axios.post('/mailboxes', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -77,7 +66,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
 
   async function updateOne({ id, ...payload }) {
     try {
-      return await $axios.put(`/ipaddresses/${id}`, { ...payload });
+      return await $axios.put(`/mailboxes/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -85,7 +74,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
 
   async function removeOne({ id }) {
     try {
-      return await $axios.delete(`/ipaddresses/${id}`);
+      return await $axios.delete(`/mailboxes/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }

@@ -93,13 +93,6 @@ defineProps({
         />
       </td>
     </tr>
-
-    <tr>
-      <td class="font-weight-bold" width="40%">{{ $t('E-mail') }} :</td>
-      <td>
-        <i :class="record?.status?.email ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'" />
-      </td>
-    </tr>
   </table>
 
   <div
@@ -128,36 +121,6 @@ defineProps({
       <tr>
         <td class="font-weight-bold" width="40%">{{ $t('Comment') }} :</td>
         <td>{{ record?.internet?.comment }}</td>
-      </tr>
-    </table>
-  </div>
-
-  <div v-if="email && record?.email?.length > 0">
-    <h5>{{ $t('E-mail') }}</h5>
-    <table v-for="(email, index) in record?.email || []" :key="`email_${index}`">
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Login') }} :</td>
-        <td>{{ email?.login }}</td>
-      </tr>
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Fullname') }} :</td>
-        <td>{{ email?.fullname }}</td>
-      </tr>
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Mail number') }} :</td>
-        <td>{{ email?.mail }}</td>
-      </tr>
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Date open') }} :</td>
-        <td>{{ dateToStr(email?.dateOpen) || '-' }}</td>
-      </tr>
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Date close') }} :</td>
-        <td>{{ dateToStr(email?.dateClose) || '-' }}</td>
-      </tr>
-      <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('Comment') }} :</td>
-        <td>{{ email?.comment }}</td>
       </tr>
     </table>
   </div>

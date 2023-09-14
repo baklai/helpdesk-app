@@ -245,7 +245,7 @@ const validSoftware = value => {
                 </p>
               </div>
             </div>
-            <IPTable :record="recordIP" :internet="false" :email="false" />
+            <IPTable :record="recordIP" :internet="false" />
           </div>
           <Divider layout="vertical" class="hidden md:flex" v-if="recordIP?.ipaddress" />
           <div class="col-12 md:col">

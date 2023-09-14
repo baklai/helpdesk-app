@@ -202,7 +202,7 @@ const onCloseSidebar = () => {
         </table>
 
         <h5 v-if="recordIP">{{ $t('IP Address') }}</h5>
-        <IPTable :record="recordIP" :internet="false" :email="false" v-if="recordIP" />
+        <IPTable :record="recordIP" :internet="false" v-if="recordIP" />
       </div>
     </template>
   </Card>

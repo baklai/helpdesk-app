@@ -32,6 +32,7 @@ export const useSidebar = defineStore('sidebar', () => {
           items: [
             getRoute('network-channels'),
             getRoute('network-ip-address'),
+            getRoute('network-mailbox'),
             getRoute('network-statistics')
           ]
         },

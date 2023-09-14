@@ -40,6 +40,15 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
+        scope: 'mailbox',
+        comment: 'Mailbox in database',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
         scope: 'request',
         comment: 'Request in database',
         create: false,
