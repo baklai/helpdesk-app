@@ -82,7 +82,7 @@ const items = ref([
 </script>
 
 <template>
-  <Menu ref="refMenu" id="dbtables_menu" :model="items" :popup="true" />
+  <Menu ref="refMenu" id="dbtables_menu" :model="items" :popup="true" class="w-14rem p-2" />
 
   <Button
     text
