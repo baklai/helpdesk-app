@@ -72,7 +72,7 @@ const warningOptions = ref([
   { separator: true },
   {
     label: t('All System filters'),
-    icon: 'pi pi-database',
+    icon: 'pi pi-filter-fill',
     command: async () => refModalFilter.value.toggle({})
   }
 ]);
@@ -447,7 +447,7 @@ const createSysInspectorScript = async () => {
 <template>
   <div class="col-12">
     <div class="flex h-full">
-      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-20rem" />
+      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-15rem p-2" />
 
       <OptionsMenu
         ref="refMenu"

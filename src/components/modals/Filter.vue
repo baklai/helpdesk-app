@@ -238,7 +238,7 @@ const onSaveRecord = async () => {
     <template #header>
       <div class="flex justify-content-between w-full">
         <div class="flex align-items-center justify-content-center">
-          <i class="pi pi-users text-6xl mr-3"></i>
+          <i class="pi pi-filter-fill text-6xl mr-3"></i>
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">{{ $t('System filters') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
