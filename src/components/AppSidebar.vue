@@ -1,9 +1,9 @@
 <script setup>
 import AppMenu from '@/components/AppMenu.vue';
 import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
-import BtnTimeOut from '@/components/buttons/BtnTimeOut.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
 </script>
 
 <template>
@@ -44,8 +44,8 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
   </div>
 
   <div class="absolute bottom-0 left-0 right-0 w-full">
-    <div class="flex align-items-center align-content-center justify-content-around flex-wrap p-4">
-      <BtnTimeOut class="hover:text-color" />
+    <div class="flex align-items-center align-content-center justify-content-between flex-wrap p-4">
+      <BtnToggleUser />
       <BtnToggleLang />
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
       <BtnAppAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />

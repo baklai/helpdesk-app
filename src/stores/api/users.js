@@ -14,7 +14,6 @@ export const useUser = defineStore('user', () => {
     fullname = undefined,
     email = undefined,
     phone = undefined,
-    timeout = 15,
     isActive = false,
     isAdmin = false,
     scope = []
@@ -26,7 +25,6 @@ export const useUser = defineStore('user', () => {
       fullname,
       email,
       phone,
-      timeout,
       isActive,
       isAdmin,
       scope: id ? $scope.getCustomScope(scope) : $scope.getDefaultScope()

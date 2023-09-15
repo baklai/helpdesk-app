@@ -119,8 +119,7 @@ const $validate = useVuelidate(
     },
     fullname: { required },
     email: { required, email },
-    phone: { required },
-    timeout: { required, integer, betweenValue: between(5, 90) }
+    phone: { required }
   },
   record
 );
@@ -392,7 +391,7 @@ const onCellEditComplete = event => {
               id="phone"
               date="phone"
               mask="+99(999)999-99-99"
-              placeholder="+38(999)999-99-99"
+              placeholder="+99(999)999-99-99"
               v-model="record.phone"
               :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
             />
@@ -400,29 +399,6 @@ const onCellEditComplete = event => {
               id="phone-help"
               class="p-error"
               v-for="error in $validate.phone.$errors"
-              :key="error.$uid"
-            >
-              {{ $t(error.$message) }}
-            </small>
-          </div>
-
-          <div class="field">
-            <label for="phone" class="font-bold">{{ $t('Session timeout') }}</label>
-            <InputNumber
-              :min="5"
-              :max="90"
-              showButtons
-              id="timeout"
-              mode="decimal"
-              inputId="minmax-buttons"
-              v-model="record.timeout"
-              :placeholder="$t('Session timeout')"
-              :class="{ 'p-invalid': !!$validate.timeout.$errors.length }"
-            />
-            <small
-              id="timeout-help"
-              class="p-error"
-              v-for="error in $validate.timeout.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
@@ -513,7 +489,13 @@ const onCellEditComplete = event => {
                 </div>
               </template>
 
-              <Column frozen field="scope" filterField="scope" header="Scope" class="font-bold">
+              <Column
+                frozen
+                field="scope"
+                filterField="scope"
+                :header="$t('Scope')"
+                class="font-bold"
+              >
                 <template #body="slotProps">
                   {{ slotProps.data.comment }}
                 </template>

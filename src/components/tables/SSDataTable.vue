@@ -467,7 +467,6 @@ onMounted(async () => {
     initFilters();
     initParams();
     await onUpdateRecords();
-    resetLocalStorage(); // temporary solution fix
   } catch (err) {
     records.value = [];
     toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
@@ -606,6 +605,7 @@ onMounted(async () => {
                 icon="pi pi-filter-slash"
                 iconClass="text-2xl"
                 class="p-button-lg hover:text-color h-3rem w-3rem"
+                :class="params?.filters && Object.keys(params.filters).length ? 'text-primary' : ''"
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
               />

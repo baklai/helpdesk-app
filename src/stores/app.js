@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 
 export const useApp = defineStore('app', () => {
   const user = ref(null);
-  const timeout = ref(15);
 
   const loggedIn = computed(() => {
     return user.value != null;
@@ -19,10 +18,6 @@ export const useApp = defineStore('app', () => {
 
   function setUser(value) {
     user.value = value;
-  }
-
-  function setTimeout(value) {
-    timeout.value = value;
   }
 
   function getAccessToken() {
@@ -49,13 +44,11 @@ export const useApp = defineStore('app', () => {
 
   return {
     user,
-    timeout,
     loggedIn,
     isAdmin,
     isActive,
 
     setUser,
-    setTimeout,
     getAccessToken,
     setAccessToken,
     getRefreshToken,

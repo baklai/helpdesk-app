@@ -13,10 +13,6 @@ export default {
         return store?.user;
       },
 
-      get timeout() {
-        return store?.timeout;
-      },
-
       get loggedIn() {
         return store?.user != null;
       },
