@@ -117,29 +117,6 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Timeout', icon: 'pi pi-stopwatch', width: '12rem' },
-    column: {
-      field: 'timeout',
-      render(value) {
-        return <span>{value}m.</span>;
-      }
-    },
-    sorter: { field: 'timeout' },
-    filter: {
-      field: 'timeout',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
     header: { text: 'Active', icon: 'pi pi-check', width: '12rem' },
     column: {
       field: 'isActive',
