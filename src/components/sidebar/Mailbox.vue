@@ -1,17 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 
-import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
-import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
-
 import { useMailbox } from '@/stores/api/mailboxes';
-import { useInspector } from '@/stores/api/inspectors';
-import { useIPAddress } from '@/stores/api/ipaddresses';
 import { dateToStr } from '@/service/DataFilters';
 
 const Mailbox = useMailbox();
-const Inspector = useInspector();
-const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
@@ -98,7 +91,6 @@ const onCloseSidebar = () => {
 
     <template #content>
       <div class="overflow-y-auto pt-4" style="height: calc(100vh - 20rem)">
-        <h5>{{ $t('Mailbox description') }}</h5>
         <table>
           <tr>
             <td class="font-weight-bold" width="40%">{{ $t('Login') }} :</td>
@@ -170,10 +162,6 @@ const onCloseSidebar = () => {
             <td>{{ record?.comment }}</td>
           </tr>
         </table>
-
-        <IPAddressPartial :record="recordip" v-if="recordip" />
-
-        <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
       </div>
     </template>
   </Card>
