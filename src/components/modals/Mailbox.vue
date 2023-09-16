@@ -21,13 +21,12 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const Mailbox = useMailbox();
-const IPAddress = useIPAddress();
+const Location = useLocation();
 const Сompany = useСompany();
 const Branch = useBranch();
-const Department = useDepartment();
 const Enterprise = useEnterprise();
+const Department = useDepartment();
 const Position = usePosition();
-const Location = useLocation();
 
 const emits = defineEmits(['close']);
 
@@ -39,21 +38,21 @@ defineExpose({
       } else {
         record.value = Mailbox.$init({});
       }
-      const [company, branch, enterprise, department, position, location] =
+      const [location, company, branch, enterprise, department, position] =
         await Promise.allSettled([
+          Location.findAll({}),
           Сompany.findAll({}),
           Branch.findAll({}),
           Enterprise.findAll({}),
           Department.findAll({}),
-          Position.findAll({}),
-          Location.findAll({})
+          Position.findAll({})
         ]);
+      locations.value = location.value;
       companies.value = company.value;
       branches.value = branch.value;
       enterprises.value = enterprise.value;
       departments.value = department.value;
       positions.value = position.value;
-      locations.value = location.value;
 
       visible.value = true;
     } catch (err) {
@@ -99,7 +98,6 @@ const $validate = useVuelidate(
     fullname: { required },
     phone: { required },
     dateOpen: { required },
-    ipaddress: { ipAddress },
     location: { required },
     company: { required },
     branch: { required },
@@ -110,44 +108,6 @@ const $validate = useVuelidate(
   record
 );
 
-const findOneIPAddress = async () => {
-  const validIPAddress = await $validate.value.ipaddress.$validate();
-  try {
-    if (record.value?.ipaddress && validIPAddress) {
-      const currentIP = await IPAddress.findOne({
-        ipaddress: record.value.ipaddress,
-        populate: false
-      });
-      if (currentIP?.ipaddress) {
-        record.value.ipaddress = currentIP?.ipaddress || null;
-        record.value.location = currentIP?.location || null;
-        record.value.fullname = currentIP?.fullname || null;
-        record.value.phone = currentIP?.phone || null;
-        record.value.position = currentIP?.position || null;
-        record.value.company = currentIP?.company || null;
-        record.value.branch = currentIP?.branch || null;
-        record.value.enterprise = currentIP?.enterprise || null;
-        record.value.department = currentIP?.department || null;
-      } else {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('IP Address not found'),
-          life: 3000
-        });
-      }
-    } else {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('IP Address not entered'),
-        life: 3000
-      });
-    }
-  } catch (err) {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
-  }
-};
 const onCreateRecord = async () => {
   record.value = Mailbox.$init({});
   $validate.value.$reset();
@@ -449,37 +409,6 @@ const onCloseModal = () => {
         </div>
 
         <div class="field col">
-          <div class="field">
-            <label for="ipaddress-sidr" class="font-bold">{{ $t('IP Address') }}</label>
-            <div id="ipaddress-sidr" class="field">
-              <div class="field">
-                <span class="p-input-icon-right">
-                  <i
-                    class="pi pi-search cursor-pointer"
-                    v-tooltip.bottom="$t('Check IP Address')"
-                    @click.prevent="findOneIPAddress"
-                  />
-                  <InputText
-                    id="ipaddress"
-                    aria-describedby="ipaddress-help"
-                    v-model="record.ipaddress"
-                    :placeholder="$t('Client IP Address')"
-                    :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
-                    @keypress.prevent.enter="findOneIPAddress"
-                  />
-                </span>
-                <small
-                  id="ipaddress-help"
-                  class="p-error"
-                  v-for="error in $validate.ipaddress.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-            </div>
-          </div>
-
           <div class="field">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
