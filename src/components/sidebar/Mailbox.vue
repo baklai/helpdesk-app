@@ -1,17 +1,34 @@
 <script setup>
 import { ref } from 'vue';
 
+import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
+import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
+
 import { useMailbox } from '@/stores/api/mailboxes';
+import { useInspector } from '@/stores/api/inspectors';
+import { useIPAddress } from '@/stores/api/ipaddresses';
 import { dateToStr } from '@/service/DataFilters';
 
-const { $init, findOne } = useMailbox();
+const Mailbox = useMailbox();
+const Inspector = useInspector();
+const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await findOne({ id });
+      record.value = await Mailbox.findOne({ id });
+      try {
+        recordip.value = record.value?.ipaddress
+          ? await IPAddress.findOne({ ipaddress: record.value.ipaddress, populate: true })
+          : null;
+      } catch (err) {}
+      try {
+        recordsysi.value = record.value?.ipaddress
+          ? await Inspector.findOne({ host: record.value.ipaddress })
+          : null;
+      } catch (err) {}
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
@@ -21,7 +38,9 @@ defineExpose({
 
 const visible = ref(false);
 
-const record = ref({});
+const record = ref(null);
+const recordip = ref(null);
+const recordsysi = ref(null);
 
 const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
@@ -29,7 +48,9 @@ const toggleMenu = (event, data) => {
 
 const onCloseSidebar = () => {
   visible.value = false;
-  record.value = $init();
+  record.value = null;
+  recordip.value = null;
+  recordsysi.value = null;
   emits('close', {});
 };
 </script>
@@ -149,6 +170,10 @@ const onCloseSidebar = () => {
             <td>{{ record?.comment }}</td>
           </tr>
         </table>
+
+        <IPAddressPartial :record="recordip" v-if="recordip" />
+
+        <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
       </div>
     </template>
   </Card>

@@ -1,19 +1,25 @@
 <script setup>
 import { ref } from 'vue';
 
-import IPTable from '@/components/tables/IPTable.vue';
+import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
+import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
 
 import { useIPAddress } from '@/stores/api/ipaddresses';
+import { useInspector } from '@/stores/api/inspectors';
 import { dateToStr } from '@/service/DataFilters';
 
-const { $init, findOne } = useIPAddress();
+const Inspector = useInspector();
+const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await findOne({ id, populate: true });
+      record.value = await IPAddress.findOne({ id, populate: true });
+      try {
+        recordsysi.value = await Inspector.findOne({ host: record.value?.ipaddress });
+      } catch (err) {}
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
@@ -23,7 +29,8 @@ defineExpose({
 
 const visible = ref(false);
 
-const record = ref({});
+const record = ref(null);
+const recordsysi = ref(null);
 
 const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
@@ -31,7 +38,8 @@ const toggleMenu = (event, data) => {
 
 const onCloseSidebar = () => {
   visible.value = false;
-  record.value = $init();
+  record.value = null;
+  recordsysi.value = null;
   emits('close', {});
 };
 </script>
@@ -79,8 +87,8 @@ const onCloseSidebar = () => {
 
     <template #content>
       <div class="overflow-y-auto pt-4" style="height: calc(100vh - 20rem)">
-        <h5>{{ $t('IP Address') }}</h5>
-        <IPTable :record="record" />
+        <IPAddressPartial :record="record" v-if="record" />
+        <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
       </div>
     </template>
   </Card>

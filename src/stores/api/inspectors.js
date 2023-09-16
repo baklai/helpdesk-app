@@ -12,9 +12,9 @@ export const useInspector = defineStore('inspector', () => {
     }
   }
 
-  async function findOne({ id }) {
+  async function findOne({ id = null, host = null }) {
     try {
-      return await $axios.get(`/inspectors/${id}`);
+      return await $axios.get(`/inspectors/${id || host || '127.0.0.1'}`);
     } catch (err) {
       throw new Error(err.message);
     }
