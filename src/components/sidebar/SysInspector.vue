@@ -135,7 +135,7 @@ const diskSum = value => {
             </p>
           </div>
         </div>
-        <IPTable :record="recordIP" :internet="false" v-if="recordIP?.ipaddress" />
+        <IPTable :record="recordIP" v-if="recordIP?.ipaddress" />
 
         <div class="flex align-items-center mb-4">
           <svg

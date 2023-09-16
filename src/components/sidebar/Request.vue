@@ -150,7 +150,7 @@ const onCloseSidebar = () => {
             </td>
           </tr>
           <tr>
-            <td class="font-weight-bold" width="50%">{{ $t('Incoming letter number') }} :</td>
+            <td class="font-weight-bold" width="50%">{{ $t('Letter number') }} :</td>
             <td>{{ record?.mail || '-' }}</td>
           </tr>
           <tr>
@@ -202,7 +202,7 @@ const onCloseSidebar = () => {
         </table>
 
         <h5 v-if="recordIP">{{ $t('IP Address') }}</h5>
-        <IPTable :record="recordIP" :internet="false" v-if="recordIP" />
+        <IPTable :record="recordIP" v-if="recordIP" />
       </div>
     </template>
   </Card>

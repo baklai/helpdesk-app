@@ -6,14 +6,6 @@ defineProps({
     type: Object,
     default: {},
     required: true
-  },
-  internet: {
-    type: Boolean,
-    default: true
-  },
-  email: {
-    type: Boolean,
-    default: true
   }
 });
 </script>
@@ -41,8 +33,8 @@ defineProps({
       <td>{{ record?.gateway || '-' }}</td>
     </tr>
     <tr>
-      <td class="font-weight-bold" width="50%">{{ $t('Incoming letter number') }} :</td>
-      <td>{{ record?.mail || '-' }}</td>
+      <td class="font-weight-bold" width="50%">{{ $t('Letter number') }} :</td>
+      <td>{{ record?.reqnum || '-' }}</td>
     </tr>
     <tr>
       <td class="font-weight-bold" width="50%">{{ $t('Company') }} :</td>
@@ -97,18 +89,17 @@ defineProps({
 
   <div
     v-if="
-      internet &&
-      (record?.internet?.mail ||
-        record?.internet?.dateOpen ||
-        record?.internet?.dateClose ||
-        record?.internet?.comment)
+      record?.internet?.reqnum ||
+      record?.internet?.dateOpen ||
+      record?.internet?.dateClose ||
+      record?.internet?.comment
     "
   >
     <h5>{{ $t('Internet') }}</h5>
     <table>
       <tr>
-        <td class="font-weight-bold" width="40%">{{ $t('№ Mail') }} :</td>
-        <td>{{ record?.internet?.mail || '-' }}</td>
+        <td class="font-weight-bold" width="40%">{{ $t('Letter number') }} :</td>
+        <td>{{ record?.internet?.reqnum || '-' }}</td>
       </tr>
       <tr>
         <td class="font-weight-bold" width="40%">{{ $t('Date open') }} :</td>

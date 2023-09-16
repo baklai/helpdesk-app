@@ -347,12 +347,12 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="reqnum" class="font-bold">{{ $t('Incoming letter number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
               id="reqnum"
               aria-describedby="reqnum-help"
               v-model="record.reqnum"
-              :placeholder="$t('Incoming letter number')"
+              :placeholder="$t('Letter number')"
               :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
             />
             <small

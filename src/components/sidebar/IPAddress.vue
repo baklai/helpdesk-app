@@ -80,7 +80,7 @@ const onCloseSidebar = () => {
     <template #content>
       <div class="overflow-y-auto pt-4" style="height: calc(100vh - 20rem)">
         <h5>{{ $t('IP Address') }}</h5>
-        <IPTable :record="record" :internet="true" />
+        <IPTable :record="record" />
       </div>
     </template>
   </Card>
