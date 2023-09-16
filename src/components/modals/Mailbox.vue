@@ -85,17 +85,19 @@ const options = ref([
 
 const record = ref({});
 
+const locations = ref([]);
 const companies = ref([]);
 const branches = ref([]);
 const enterprises = ref([]);
 const departments = ref([]);
 const positions = ref([]);
-const locations = ref([]);
 
 const $validate = useVuelidate(
   {
     reqnum: { required },
     login: { required },
+    fullname: { required },
+    phone: { required },
     dateOpen: { required },
     ipaddress: { ipAddress },
     location: { required },
@@ -103,8 +105,7 @@ const $validate = useVuelidate(
     branch: { required },
     enterprise: { required },
     department: { required },
-    fullname: { required },
-    phone: { required }
+    position: { required }
   },
   record
 );
@@ -313,7 +314,7 @@ const onCloseModal = () => {
               aria-describedby="dateOpen-help"
               :modelValue="dateToStr(record.dateOpen)"
               v-model="record.dateOpen"
-              :placeholder="$t('Date open mailbox')"
+              :placeholder="$t('Date open')"
               :class="{ 'p-invalid': !!$validate.dateOpen.$errors.length }"
             />
             <small
@@ -351,7 +352,7 @@ const onCloseModal = () => {
               id="reqnum"
               aria-describedby="reqnum-help"
               v-model="record.reqnum"
-              :placeholder="$t('Client Incoming letter number')"
+              :placeholder="$t('Incoming letter number')"
               :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
             />
             <small
@@ -386,6 +387,24 @@ const onCloseModal = () => {
               </div>
 
               <div class="field">
+                <InputText
+                  id="phone"
+                  v-model="record.phone"
+                  aria-describedby="phone-help"
+                  :placeholder="$t('Client phone')"
+                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                />
+                <small
+                  id="phone-help"
+                  class="p-error"
+                  v-for="error in $validate.phone.$errors"
+                  :key="error.$uid"
+                >
+                  {{ $t(error.$message) }}
+                </small>
+              </div>
+
+              <div class="field">
                 <Dropdown
                   filter
                   autofocus
@@ -400,21 +419,12 @@ const onCloseModal = () => {
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
-                />
-              </div>
-
-              <div class="field">
-                <InputText
-                  id="phone"
-                  v-model="record.phone"
-                  aria-describedby="phone-help"
-                  :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                  :class="{ 'p-invalid': !!$validate.position.$errors.length }"
                 />
                 <small
-                  id="phone-help"
+                  id="position-help"
                   class="p-error"
-                  v-for="error in $validate.phone.$errors"
+                  v-for="error in $validate.position.$errors"
                   :key="error.$uid"
                 >
                   {{ $t(error.$message) }}
@@ -433,7 +443,7 @@ const onCloseModal = () => {
               aria-describedby="dateClose-help"
               :modelValue="dateToStr(record.dateClose)"
               v-model="record.dateClose"
-              :placeholder="$t('Date close mailbox')"
+              :placeholder="$t('Date close')"
             />
           </div>
         </div>
@@ -614,7 +624,7 @@ const onCloseModal = () => {
           <div class="field">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
-              rows="5"
+              rows="4"
               cols="10"
               id="comment"
               class="outline-none"

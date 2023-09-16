@@ -334,6 +334,7 @@ const onSaveClosedRecord = async () => {
               aria-describedby="request-help"
               v-model="record.request"
               :placeholder="$t('Client request')"
+              :class="{ 'p-invalid': !!$validate.request.$errors.length }"
             />
             <small
               id="request-help"
@@ -356,27 +357,26 @@ const onSaveClosedRecord = async () => {
           </div>
 
           <div class="field">
-            <label for="location" class="font-bold">{{ $t('Location') }}</label>
-            <Dropdown
-              filter
-              autofocus
-              showClear
-              resetFilterOnHide
-              id="location"
-              aria-describedby="location-help"
-              dataKey="id"
-              optionValue="id"
-              optionLabel="name"
-              v-model="record.location"
-              :options="locations"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!$validate.location.$errors.length }"
-            />
+            <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
+            <span class="p-input-icon-right">
+              <i
+                class="pi pi-search cursor-pointer"
+                v-tooltip.bottom="$t('Find IP Address')"
+                @click.prevent="findOneIPAddress"
+              />
+              <InputText
+                id="ipaddress"
+                aria-describedby="ipaddress-help"
+                v-model="record.ipaddress"
+                :placeholder="$t('Client IP Address')"
+                :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
+                @keypress.enter="findOneIPAddress"
+              />
+            </span>
             <small
-              id="location-help"
+              id="ipaddress-help"
               class="p-error"
-              v-for="error in $validate.location.$errors"
+              v-for="error in $validate.ipaddress.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
@@ -384,45 +384,25 @@ const onSaveClosedRecord = async () => {
           </div>
 
           <div class="field">
-            <label for="ipaddress-sidr" class="font-bold">{{ $t('IP Address') }}</label>
-            <div id="ipaddress-sidr" class="field">
-              <div class="field">
-                <span class="p-input-icon-right">
-                  <i
-                    class="pi pi-search cursor-pointer"
-                    v-tooltip.bottom="$t('Find IP Address')"
-                    @click.prevent="findOneIPAddress"
-                  />
-                  <InputText
-                    id="ipaddress"
-                    aria-describedby="ipaddress-help"
-                    v-model="record.ipaddress"
-                    :placeholder="$t('Client IP Address')"
-                    :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
-                    @keypress.enter="findOneIPAddress"
-                  />
-                </span>
-                <small
-                  id="ipaddress-help"
-                  class="p-error"
-                  v-for="error in $validate.ipaddress.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
-                </small>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
             <label for="conclusion" class="font-bold">{{ $t('Conclusion for request') }}</label>
             <Textarea
-              rows="7"
+              rows="5"
               cols="10"
               id="conclusion"
               aria-describedby="conclusion-help"
               v-model="record.conclusion"
               :placeholder="$t('Conclusion')"
+            />
+          </div>
+
+          <div class="field">
+            <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
+            <Textarea
+              rows="3"
+              cols="10"
+              id="comment"
+              v-model="record.comment"
+              :placeholder="$t('Comment')"
             />
           </div>
         </div>
@@ -494,6 +474,34 @@ const onSaveClosedRecord = async () => {
                 </small>
               </div>
             </div>
+          </div>
+
+          <div class="field">
+            <label for="location" class="font-bold">{{ $t('Location') }}</label>
+            <Dropdown
+              filter
+              autofocus
+              showClear
+              resetFilterOnHide
+              id="location"
+              aria-describedby="location-help"
+              dataKey="id"
+              optionValue="id"
+              optionLabel="name"
+              v-model="record.location"
+              :options="locations"
+              :filterPlaceholder="$t('Search')"
+              :placeholder="$t('Client location')"
+              :class="{ 'p-invalid': !!$validate.location.$errors.length }"
+            />
+            <small
+              id="location-help"
+              class="p-error"
+              v-for="error in $validate.location.$errors"
+              :key="error.$uid"
+            >
+              {{ $t(error.$message) }}
+            </small>
           </div>
 
           <div class="field">
@@ -607,17 +615,6 @@ const onSaveClosedRecord = async () => {
                 </small>
               </div>
             </div>
-          </div>
-
-          <div class="field">
-            <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
-            <Textarea
-              rows="3"
-              cols="10"
-              id="comment"
-              v-model="record.comment"
-              :placeholder="$t('Comment')"
-            />
           </div>
         </div>
       </div>

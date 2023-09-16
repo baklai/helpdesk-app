@@ -97,10 +97,10 @@ const columns = ref([
     column: {
       field: 'closed',
       render(value) {
-        return !value ? (
-          <i class="pi pi-info-circle text-orange-500 font-bold cursor-pointer" />
-        ) : (
+        return value ? (
           <i class="pi pi-check-circle text-green-500 font-bold cursor-pointer" />
+        ) : (
+          <i class="pi pi-info-circle text-orange-500 font-bold cursor-pointer" />
         );
       },
       action(data) {
@@ -115,7 +115,7 @@ const columns = ref([
     },
     selectable: true,
     exportable: false,
-    filtrable: false,
+    filtrable: true,
     sortable: true,
     frozen: true
   },

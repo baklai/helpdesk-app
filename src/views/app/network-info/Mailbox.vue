@@ -91,16 +91,16 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Mail', width: '16rem' },
+    header: { text: 'Letter number', width: '16rem' },
     column: {
-      field: 'mail',
+      field: 'reqnum',
       render(value) {
         return <span>{value}</span>;
       }
     },
-    sorter: { field: 'mail' },
+    sorter: { field: 'reqnum' },
     filter: {
-      field: 'mail',
+      field: 'reqnum',
       value: null,
       matchMode: FilterMatchMode.CONTAINS,
       filterOperator: FilterOperator.AND,
