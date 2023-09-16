@@ -241,6 +241,25 @@ const router = createRouter({
   ]
 });
 
+router.beforeEach((to, from) => {
+  const title = to?.meta?.title;
+  if (title) {
+    document.title = `HD • ${title}`;
+  } else {
+    document.title = `HD • Helpdesk service`;
+  }
+
+  const description = to.meta.description;
+  if (description) {
+    const metaDescriptionTag = document.querySelector('meta[name="description"]');
+    if (metaDescriptionTag) {
+      metaDescriptionTag.setAttribute('content', description);
+    }
+  }
+
+  return;
+});
+
 router.beforeEach(async (to, from) => {
   const store = useApp();
 

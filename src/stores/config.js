@@ -10,7 +10,6 @@ export const useConfig = defineStore('config', () => {
 
   const { locale, fallbackLocale, availableLocales, tm } = useI18n();
 
-  const cloud = ref(false);
   const activeMenuItem = ref(null);
   const scale = ref(useLocalStorage('app-scale', 12));
   const ripple = ref(useLocalStorage('app-ripple', true));
@@ -91,7 +90,6 @@ export const useConfig = defineStore('config', () => {
   }
 
   return {
-    cloud,
     ripple,
     inputStyle,
     menuMode,
