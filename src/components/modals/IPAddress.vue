@@ -41,13 +41,13 @@ defineExpose({
       }
       const [unit, location, company, branch, enterprise, department, position] =
         await Promise.allSettled([
+          Unit.findAll({}),
+          Location.findAll({}),
           Сompany.findAll({}),
           Branch.findAll({}),
-          Department.findAll({}),
           Enterprise.findAll({}),
-          Position.findAll({}),
-          Location.findAll({}),
-          Unit.findAll({})
+          Department.findAll({}),
+          Position.findAll({})
         ]);
       units.value = unit.value;
       locations.value = location.value;

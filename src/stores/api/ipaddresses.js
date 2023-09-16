@@ -13,10 +13,10 @@ export const useIPAddress = defineStore('ipaddress', () => {
     fullname = null,
     phone = null,
     internet = {
-      reqnum: null,
-      dateOpen: null,
-      dateClose: null,
-      comment: null
+      reqnum: undefined,
+      dateOpen: undefined,
+      dateClose: undefined,
+      comment: undefined
     },
     autoanswer = null,
     comment = null,
