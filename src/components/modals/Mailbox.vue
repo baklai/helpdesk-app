@@ -288,25 +288,6 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="login" class="font-bold">{{ $t('Login mailbox') }}</label>
-            <InputText
-              id="login"
-              aria-describedby="login-help"
-              v-model="record.login"
-              :placeholder="$t('Login mailbox')"
-              :class="{ 'p-invalid': !!$validate.login.$errors.length }"
-            />
-            <small
-              id="login-help"
-              class="p-error"
-              v-for="error in $validate.login.$errors"
-              :key="error.$uid"
-            >
-              {{ $t(error.$message) }}
-            </small>
-          </div>
-
-          <div class="field">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
               id="reqnum"
@@ -319,6 +300,25 @@ const onCloseModal = () => {
               id="reqnum-help"
               class="p-error"
               v-for="error in $validate.reqnum.$errors"
+              :key="error.$uid"
+            >
+              {{ $t(error.$message) }}
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="login" class="font-bold">{{ $t('Login mailbox') }}</label>
+            <InputText
+              id="login"
+              aria-describedby="login-help"
+              v-model="record.login"
+              :placeholder="$t('Login mailbox')"
+              :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+            />
+            <small
+              id="login-help"
+              class="p-error"
+              v-for="error in $validate.login.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
@@ -553,7 +553,7 @@ const onCloseModal = () => {
           <div class="field">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
-              rows="4"
+              rows="8"
               cols="10"
               id="comment"
               class="outline-none"
