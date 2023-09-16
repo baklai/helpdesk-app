@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
+import BtnBaseHosting from '@/components/buttons/BtnBaseHosting.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
@@ -77,6 +78,7 @@ const isOutsideClicked = event => {
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnToggleLang />
+      <BtnBaseHosting iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnNotifications />
       <BtnFullScreen iconClass="text-3xl" class="w-3rem h-3rem text-4xl hover:text-color mx-2" />
       <BtnMainMenu />
