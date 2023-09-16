@@ -4,12 +4,7 @@ import { defineStore } from 'pinia';
 export const useBranch = defineStore('branch', () => {
   const $axios = inject('axios');
 
-  function $init({
-    id = undefined,
-    name = undefined,
-    address = undefined,
-    description = undefined
-  }) {
+  function $init({ id = null, name = null, address = null, description = null }) {
     return { id, name, address, description };
   }
 
@@ -29,7 +24,7 @@ export const useBranch = defineStore('branch', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/branches', { ...payload });
     } catch (err) {

@@ -5,17 +5,17 @@ export const useChannel = defineStore('channel', () => {
   const $axios = inject('axios');
 
   function $init({
-    id = undefined,
-    locationFrom = undefined,
-    unitFrom = undefined,
-    locationTo = undefined,
-    unitTo = undefined,
-    level = undefined,
-    type = undefined,
-    speed = undefined,
-    status = undefined,
-    operator = undefined,
-    composition = undefined
+    id = null,
+    locationFrom = null,
+    unitFrom = null,
+    locationTo = null,
+    unitTo = null,
+    level = null,
+    type = null,
+    speed = null,
+    status = null,
+    operator = null,
+    composition = null
   }) {
     return {
       id,
@@ -48,7 +48,7 @@ export const useChannel = defineStore('channel', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/channels', { ...payload });
     } catch (err) {

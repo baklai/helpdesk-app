@@ -5,29 +5,29 @@ export const useRequest = defineStore('request', () => {
   const $axios = inject('axios');
 
   function $init({
-    fullname = undefined,
-    phone = undefined,
-    position = undefined,
-    ipaddress = undefined,
-    mail = undefined,
-    location = undefined,
-    company = undefined,
-    branch = undefined,
-    enterprise = undefined,
-    department = undefined,
-    request = undefined,
-    workerOpen = undefined,
-    workerClose = undefined,
-    closed = undefined,
-    comment = undefined,
-    conclusion = undefined
+    fullname = null,
+    phone = null,
+    position = null,
+    ipaddress = null,
+    reqnum = null,
+    location = null,
+    company = null,
+    branch = null,
+    enterprise = null,
+    department = null,
+    request = null,
+    workerOpen = null,
+    workerClose = null,
+    closed = false,
+    comment = null,
+    conclusion = null
   }) {
     return {
       fullname,
       phone,
       position,
       ipaddress,
-      mail,
+      reqnum,
       location,
       company,
       branch,
@@ -58,7 +58,7 @@ export const useRequest = defineStore('request', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/requests', { ...payload });
     } catch (err) {

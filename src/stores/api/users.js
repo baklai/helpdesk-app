@@ -8,12 +8,12 @@ export const useUser = defineStore('user', () => {
   const $scope = useScope();
 
   function $init({
-    id = undefined,
-    login = undefined,
-    password = undefined,
-    fullname = undefined,
-    email = undefined,
-    phone = undefined,
+    id = null,
+    login = null,
+    password = null,
+    fullname = null,
+    email = null,
+    phone = null,
     isActive = false,
     isAdmin = false,
     scope = []
@@ -55,7 +55,7 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  async function createOne({ scope, ...payload }) {
+  async function createOne({ id, scope, ...payload }) {
     try {
       return await $axios.post('/users', { ...payload, scope: $scope.getScopeKeyList(scope) });
     } catch (err) {

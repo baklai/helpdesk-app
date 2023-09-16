@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 export const useDepartment = defineStore('department', () => {
   const $axios = inject('axios');
 
-  function $init({ id = undefined, name = undefined, description = undefined }) {
+  function $init({ id = null, name = null, description = null }) {
     return { id, name, description };
   }
 
@@ -24,7 +24,7 @@ export const useDepartment = defineStore('department', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/departments', { ...payload });
     } catch (err) {

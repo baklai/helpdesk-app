@@ -5,47 +5,47 @@ export const useIPAddress = defineStore('ipaddress', () => {
   const $axios = inject('axios');
 
   function $init({
-    id = undefined,
-    ipaddress = undefined,
-    cidr = undefined,
-    unit = undefined,
+    id = null,
+    ipaddress = null,
+    cidr = null,
+    reqnum = null,
+    date = null,
+    fullname = null,
+    phone = null,
     internet = {
-      mail: undefined,
-      dateOpen: undefined,
-      dateClose: undefined,
-      comment: undefined
+      reqnum: null,
+      dateOpen: null,
+      dateClose: null,
+      comment: null
     },
-    autoanswer = undefined,
-    mail = undefined,
-    date = undefined,
-    location = undefined,
-    company = undefined,
-    branch = undefined,
-    enterprise = undefined,
-    department = undefined,
-    fullname = undefined,
-    position = undefined,
-    phone = undefined,
-    comment = undefined
+    autoanswer = null,
+    comment = null,
+    unit = null,
+    location = null,
+    company = null,
+    branch = null,
+    enterprise = null,
+    department = null,
+    position = null
   }) {
     return {
       id,
       ipaddress,
       cidr,
-      unit,
+      reqnum,
+      date,
+      fullname,
+      phone,
       internet,
       autoanswer,
-      mail,
-      date,
+      comment,
+      unit,
       location,
       company,
       branch,
       enterprise,
       department,
-      fullname,
-      position,
-      phone,
-      comment
+      position
     };
   }
 
@@ -67,7 +67,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/ipaddresses', { ...payload });
     } catch (err) {

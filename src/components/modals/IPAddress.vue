@@ -39,7 +39,7 @@ defineExpose({
       } else {
         record.value = IPAddress.$init({});
       }
-      const [company, branch, department, enterprise, position, location, unit] =
+      const [unit, location, company, branch, enterprise, department, position] =
         await Promise.allSettled([
           Сompany.findAll({}),
           Branch.findAll({}),
@@ -49,13 +49,13 @@ defineExpose({
           Location.findAll({}),
           Unit.findAll({})
         ]);
+      units.value = unit.value;
+      locations.value = location.value;
       companies.value = company.value;
       branches.value = branch.value;
-      departments.value = department.value;
       enterprises.value = enterprise.value;
+      departments.value = department.value;
       positions.value = position.value;
-      locations.value = location.value;
-      units.value = unit.value;
 
       visible.value = true;
     } catch (err) {
@@ -135,16 +135,17 @@ const $validate = useVuelidate(
   {
     ipaddress: { required, ipAddress },
     cidr: { required },
-    unit: { required },
-    mail: { required },
+    reqnum: { required },
     date: { required },
+    fullname: { required },
+    phone: { required },
+    unit: { required },
     location: { required },
     company: { required },
     branch: { required },
     enterprise: { required },
     department: { required },
-    fullname: { required },
-    phone: { required }
+    position: { required }
   },
   record
 );
@@ -365,18 +366,18 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="mail" class="font-bold">{{ $t('Mail number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Incoming letter number') }}</label>
             <InputText
-              id="mail"
-              aria-describedby="mail-help"
-              v-model="record.mail"
-              :placeholder="$t('Client mail number')"
-              :class="{ 'p-invalid': !!$validate.mail.$errors.length }"
+              id="reqnum"
+              aria-describedby="reqnum-help"
+              v-model="record.reqnum"
+              :placeholder="$t('Client Incoming letter number')"
+              :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
             />
             <small
-              id="mail-help"
+              id="reqnum-help"
               class="p-error"
-              v-for="error in $validate.mail.$errors"
+              v-for="error in $validate.reqnum.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
@@ -498,9 +499,9 @@ const onCloseModal = () => {
             <div id="internet" class="field">
               <div class="field">
                 <InputText
-                  id="internet-mail"
-                  v-model="record.internet.mail"
-                  :placeholder="$t('Internet mail number')"
+                  id="internet-reqnum"
+                  v-model="record.internet.reqnum"
+                  :placeholder="$t('Internet Incoming letter number')"
                 />
               </div>
 
@@ -677,24 +678,6 @@ const onCloseModal = () => {
               </div>
 
               <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  id="position"
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  aria-describedby="position-help"
-                  v-model="record.position"
-                  :options="positions"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client position')"
-                />
-              </div>
-
-              <div class="field">
                 <InputText
                   id="phone"
                   v-model="record.phone"
@@ -710,6 +693,24 @@ const onCloseModal = () => {
                 >
                   {{ $t(error.$message) }}
                 </small>
+              </div>
+
+              <div class="field">
+                <Dropdown
+                  filter
+                  autofocus
+                  showClear
+                  resetFilterOnHide
+                  id="position"
+                  dataKey="id"
+                  optionValue="id"
+                  optionLabel="name"
+                  aria-describedby="position-help"
+                  v-model="record.position"
+                  :options="positions"
+                  :filterPlaceholder="$t('Search')"
+                  :placeholder="$t('Client position')"
+                />
               </div>
             </div>
           </div>

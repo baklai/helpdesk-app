@@ -69,7 +69,7 @@ const visible = ref(false);
 const record = ref({});
 
 const isClosed = computed(() => {
-  return record.value.closed ? true : false;
+  return record?.value?.closed ? true : false;
 });
 
 const refMenu = ref();
@@ -272,7 +272,7 @@ const onSaveRecord = async () => {
 const onSaveClosedRecord = async () => {
   const valid = await $validate.value.$validate();
   if (valid) {
-    record.value.closed = new Date();
+    record.value.closed = true;
     record.value.workerClose = $helpdesk?.user?.id || null;
     await onSaveRecord();
   }
@@ -346,12 +346,12 @@ const onSaveClosedRecord = async () => {
           </div>
 
           <div class="field">
-            <label for="mail" class="font-bold">{{ $t('Mail number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Incoming letter number') }}</label>
             <InputText
-              id="mail"
-              aria-describedby="mail-help"
-              v-model="record.mail"
-              :placeholder="$t('Mail number')"
+              id="reqnum"
+              aria-describedby="reqnum-help"
+              v-model="record.reqnum"
+              :placeholder="$t('Incoming letter number')"
             />
           </div>
 

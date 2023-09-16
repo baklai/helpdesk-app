@@ -5,37 +5,37 @@ export const useMailbox = defineStore('mailbox', () => {
   const $axios = inject('axios');
 
   function $init({
-    id = undefined,
-    ipaddress = undefined,
-    mail = undefined,
-    login = undefined,
-    dateOpen = undefined,
-    dateClose = undefined,
-    location = undefined,
-    company = undefined,
-    branch = undefined,
-    enterprise = undefined,
-    department = undefined,
-    fullname = undefined,
-    position = undefined,
-    phone = undefined,
-    comment = undefined
+    id = null,
+    reqnum = null,
+    login = null,
+    fullname = null,
+    phone = null,
+    dateOpen = null,
+    dateClose = null,
+    ipaddress = null,
+    location = null,
+    company = null,
+    branch = null,
+    enterprise = null,
+    department = null,
+    position = null,
+    comment = null
   }) {
     return {
       id,
-      ipaddress,
-      mail,
+      reqnum,
       login,
+      fullname,
+      phone,
       dateOpen,
       dateClose,
+      ipaddress,
       location,
       company,
       branch,
       enterprise,
       department,
-      fullname,
       position,
-      phone,
       comment
     };
   }
@@ -56,7 +56,7 @@ export const useMailbox = defineStore('mailbox', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/mailboxes', { ...payload });
     } catch (err) {

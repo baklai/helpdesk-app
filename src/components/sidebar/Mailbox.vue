@@ -85,7 +85,7 @@ const onCloseSidebar = () => {
           </tr>
 
           <tr>
-            <td class="font-weight-bold" width="40%">{{ $t('Mail number') }} :</td>
+            <td class="font-weight-bold" width="40%">{{ $t('Incoming letter number') }} :</td>
             <td>{{ record?.mail }}</td>
           </tr>
 

@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 export const useNotice = defineStore('notice', () => {
   const $axios = inject('axios');
 
-  function $init({ name = undefined, text = undefined }) {
+  function $init({ name = null, text = null }) {
     return { name, text };
   }
 

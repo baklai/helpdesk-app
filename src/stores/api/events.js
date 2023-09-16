@@ -5,11 +5,11 @@ export const useEvent = defineStore('event', () => {
   const $axios = inject('axios');
 
   function $init({
-    id = undefined,
-    title = undefined,
-    datetime = undefined,
-    eventType = undefined,
-    description = undefined
+    id = null,
+    title = null,
+    datetime = null,
+    eventType = null,
+    description = null
   }) {
     return { id, title, datetime, eventType, description };
   }
@@ -30,7 +30,7 @@ export const useEvent = defineStore('event', () => {
     }
   }
 
-  async function createOne({ ...payload }) {
+  async function createOne({ id, ...payload }) {
     try {
       return await $axios.post('/events', { ...payload });
     } catch (err) {

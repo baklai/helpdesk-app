@@ -28,9 +28,9 @@ export const useSyslog = defineStore('syslog', () => {
     }
   }
 
-  async function removeAll(payload) {
+  async function removeAll() {
     try {
-      return await $axios.delete('/syslogs', { ...payload });
+      return await $axios.delete('/syslogs');
     } catch (err) {
       throw new Error(err.message);
     }

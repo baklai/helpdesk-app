@@ -94,7 +94,7 @@ const locations = ref([]);
 
 const $validate = useVuelidate(
   {
-    mail: { required },
+    reqnum: { required },
     login: { required },
     dateOpen: { required },
     ipaddress: { ipAddress },
@@ -346,18 +346,18 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="mail" class="font-bold">{{ $t('Mail number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Incoming letter number') }}</label>
             <InputText
-              id="mail"
-              aria-describedby="mail-help"
-              v-model="record.mail"
-              :placeholder="$t('Client mail number')"
-              :class="{ 'p-invalid': !!$validate.mail.$errors.length }"
+              id="reqnum"
+              aria-describedby="reqnum-help"
+              v-model="record.reqnum"
+              :placeholder="$t('Client Incoming letter number')"
+              :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
             />
             <small
-              id="mail-help"
+              id="reqnum-help"
               class="p-error"
-              v-for="error in $validate.mail.$errors"
+              v-for="error in $validate.reqnum.$errors"
               :key="error.$uid"
             >
               {{ $t(error.$message) }}
