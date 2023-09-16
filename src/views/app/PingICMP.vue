@@ -2,12 +2,10 @@
 import { onMounted, onBeforeUnmount } from 'vue';
 import TerminalService from 'primevue/terminalservice';
 import { useI18n } from 'vue-i18n';
-import { useToast } from 'primevue/usetoast';
 
 import { useTool } from '@/stores/api/systools';
 
 const { t } = useI18n();
-const toast = useToast();
 
 const Tool = useTool();
 
