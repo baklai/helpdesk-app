@@ -352,7 +352,7 @@ const onCloseModal = () => {
               aria-describedby="date-help"
               :modelValue="dateToStr(record.date)"
               v-model="record.date"
-              :placeholder="$t('Date create IP Address')"
+              :placeholder="$t('Date create')"
               :class="{ 'p-invalid': !!$validate.date.$errors.length }"
             />
             <small
@@ -710,7 +710,16 @@ const onCloseModal = () => {
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
+                  :class="{ 'p-invalid': !!$validate.position.$errors.length }"
                 />
+                <small
+                  id="position-help"
+                  class="p-error"
+                  v-for="error in $validate.position.$errors"
+                  :key="error.$uid"
+                >
+                  {{ $t(error.$message) }}
+                </small>
               </div>
             </div>
           </div>
