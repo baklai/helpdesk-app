@@ -133,19 +133,19 @@ const units = ref([]);
 
 const $validate = useVuelidate(
   {
+    date: { required },
+    reqnum: { required },
     ipaddress: { required, ipAddress },
     cidr: { required },
-    reqnum: { required },
-    date: { required },
-    fullname: { required },
-    phone: { required },
     unit: { required },
     location: { required },
+    fullname: { required },
+    phone: { required },
+    position: { required },
     company: { required },
     branch: { required },
     enterprise: { required },
-    department: { required },
-    position: { required }
+    department: { required }
   },
   record
 );
