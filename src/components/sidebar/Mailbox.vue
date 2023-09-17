@@ -13,11 +13,6 @@ defineExpose({
     try {
       record.value = await Mailbox.findOne({ id });
       try {
-        recordip.value = record.value?.ipaddress
-          ? await IPAddress.findOne({ ipaddress: record.value.ipaddress, populate: true })
-          : null;
-      } catch (err) {}
-      try {
         recordsysi.value = record.value?.ipaddress
           ? await Inspector.findOne({ host: record.value.ipaddress })
           : null;
@@ -32,8 +27,6 @@ defineExpose({
 const visible = ref(false);
 
 const record = ref(null);
-const recordip = ref(null);
-const recordsysi = ref(null);
 
 const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
@@ -42,8 +35,6 @@ const toggleMenu = (event, data) => {
 const onCloseSidebar = () => {
   visible.value = false;
   record.value = null;
-  recordip.value = null;
-  recordsysi.value = null;
   emits('close', {});
 };
 </script>
@@ -99,7 +90,7 @@ const onCloseSidebar = () => {
 
           <tr>
             <td class="font-weight-bold" width="40%">{{ $t('Letter number') }} :</td>
-            <td>{{ record?.mail }}</td>
+            <td>{{ record?.reqnum }}</td>
           </tr>
 
           <tr>
@@ -115,11 +106,6 @@ const onCloseSidebar = () => {
           <tr>
             <td class="font-weight-bold" width="50%">{{ $t('Phone') }} :</td>
             <td>{{ record?.phone || '-' }}</td>
-          </tr>
-
-          <tr>
-            <td class="font-weight-bold" width="50%">{{ $t('IP Address') }} :</td>
-            <td>{{ record?.ipaddress || '-' }}</td>
           </tr>
 
           <tr>

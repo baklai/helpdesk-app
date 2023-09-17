@@ -1,14 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
-import { required, ipAddress } from '@vuelidate/validators';
+import { required } from '@vuelidate/validators';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { dateToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';
-import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
 import { useLocation } from '@/stores/api/locations';

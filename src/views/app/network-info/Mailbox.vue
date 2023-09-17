@@ -91,7 +91,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Letter number', width: '16rem' },
+    header: { text: 'Letter number', width: '20rem' },
     column: {
       field: 'reqnum',
       render(value) {
@@ -135,7 +135,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '16rem' },
+    header: { text: 'Fullname', width: '18rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -154,29 +154,6 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'IP Address', width: '15rem' },
-    column: {
-      field: 'ipaddress',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'ipaddress' },
-    filter: {
-      field: 'ipaddress',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
     frozen: false
   },
 

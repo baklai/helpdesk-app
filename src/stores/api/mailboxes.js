@@ -46,9 +46,11 @@ export const useMailbox = defineStore('mailbox', () => {
     }
   }
 
-  async function findOne({ id }) {
+  async function findOne({ id, populate = false }) {
     try {
-      return await $axios.get(`/mailboxes/${id}`);
+      return await $axios.get(`/mailboxes/${id}`, {
+        params: { populate }
+      });
     } catch (err) {
       throw new Error(err.message);
     }
