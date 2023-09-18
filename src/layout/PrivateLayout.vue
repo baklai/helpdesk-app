@@ -74,11 +74,8 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
-    class="layout-wrapper"
-    :class="containerClass"
-    :style="$helpdesk.hasScope('selected-html') ? '' : disabledSelectedFromHTML"
-  >
+  <!-- :style="$helpdesk.hasScope('selected-html') ? '' : disabledSelectedFromHTML" -->
+  <div class="layout-wrapper" :class="containerClass">
     <div class="layout-sidebar surface-50">
       <AppSidebar />
     </div>
