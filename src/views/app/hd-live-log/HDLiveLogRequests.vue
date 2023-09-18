@@ -415,14 +415,14 @@ const columns = ref([
   {
     header: { text: 'Date closed', width: '15rem' },
     column: {
-      field: 'closed',
+      field: 'updatedAt',
       render(value) {
         return <span>{dateTimeToStr(value) || '-'}</span>;
       }
     },
-    sorter: { field: 'closed' },
+    sorter: { field: 'updatedAt' },
     filter: {
-      field: 'closed',
+      field: 'updatedAt',
       value: null,
       matchMode: FilterMatchMode.DATE_IS
     },
