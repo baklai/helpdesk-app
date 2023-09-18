@@ -12,11 +12,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       record.value = await Mailbox.findOne({ id });
-      try {
-        recordsysi.value = record.value?.ipaddress
-          ? await Inspector.findOne({ host: record.value.ipaddress })
-          : null;
-      } catch (err) {}
+
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
