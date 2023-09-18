@@ -36,6 +36,8 @@ defineExpose({
     try {
       if (id) {
         record.value = IPAddress.$init(await IPAddress.findOne({ id, populate: false }));
+
+        console.log(record.value);
       } else {
         record.value = IPAddress.$init({});
       }

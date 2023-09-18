@@ -12,12 +12,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
     date = null,
     fullname = null,
     phone = null,
-    internet = {
-      reqnum: undefined,
-      dateOpen: undefined,
-      dateClose: undefined,
-      comment: undefined
-    },
+    internet = null,
     autoanswer = null,
     comment = null,
     unit = null,
@@ -36,7 +31,12 @@ export const useIPAddress = defineStore('ipaddress', () => {
       date,
       fullname,
       phone,
-      internet,
+      internet: {
+        reqnum: internet?.reqnum || null,
+        dateOpen: internet?.dateOpen || null,
+        dateClose: internet?.dateClose || null,
+        comment: internet?.comment || null
+      },
       autoanswer,
       comment,
       unit,
