@@ -10,7 +10,7 @@ export const useUser = defineStore('user', () => {
   function $init({
     id = null,
     login = null,
-    password = null,
+    password = undefined,
     fullname = null,
     email = null,
     phone = null,
