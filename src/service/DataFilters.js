@@ -32,22 +32,19 @@ export const strToDate = value => {
   return [value?.slice(0, 4), '/', value?.slice(4, 6), '/', value?.slice(6)].join('');
 };
 
-export const eventToStr = value => {
-  const [model, ...args] = value.split(':');
-  if (value?.includes('find')) return `READ ${model.toUpperCase()} [ ${value} ]`;
-  else if (value?.includes('create')) return `CREATE ${model.toUpperCase()} [ ${value} ]`;
-  else if (value?.includes('update')) return `UPDATE ${model.toUpperCase()} [ ${value} ]`;
-  else if (value?.includes('remove')) return `DELETE ${model.toUpperCase()} [ ${value} ]`;
-  else return `GET ${model.toUpperCase()} [ ${value} ]`;
-};
-
-export const eventToColor = value => {
-  const [model, ...args] = value.split(':');
-  if (value?.includes('find')) return 'transparent';
-  else if (value?.includes('create')) return 'var(--green-50)';
-  else if (value?.includes('update')) return 'var(--yellow-50)';
-  else if (value?.includes('remove')) return 'var(--red-50)';
-  else return 'transparent';
+export const methodToColor = value => {
+  switch (value.toUpperCase()) {
+    case 'POST':
+      return 'var(--green-500)';
+    case 'GET':
+      return 'var(--blue-500)';
+    case 'PUT':
+      return 'var(--orange-500)';
+    case 'DELETE':
+      return 'var(--red-500)';
+    default:
+      return 'var(--gray-500)';
+  }
 };
 
 export const capitalizeFirstLetter = str => {

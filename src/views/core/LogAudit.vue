@@ -8,8 +8,7 @@ import { useConfirm } from 'primevue/useconfirm';
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
-import { dateTimeToStr, eventToStr, eventToColor } from '@/service/DataFilters';
-import { useScope } from '@/stores/scope';
+import { dateTimeToStr, methodToColor } from '@/service/DataFilters';
 import { useSyslog } from '@/stores/api/syslogs';
 import { useUser } from '@/stores/api/users';
 
@@ -18,14 +17,13 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const SysLog = useSyslog();
-const Scope = useScope();
 const User = useUser();
 
 const refMenu = ref();
 const refDataTable = ref();
 
 const globalFilter = ref({
-  field: 'address',
+  field: 'host',
   matchMode: FilterMatchMode.CONTAINS,
   placeholder: 'Search address'
 });
@@ -34,14 +32,14 @@ const columns = ref([
   {
     header: { text: 'Address', width: '12rem' },
     column: {
-      field: 'address',
+      field: 'host',
       render(value) {
         return <Tag class="text-base font-normal text-color surface-hover px-4" value={value} />;
       }
     },
-    sorter: { field: 'address' },
+    sorter: { field: 'host' },
     filter: {
-      field: 'address',
+      field: 'host',
       value: null,
       matchMode: FilterMatchMode.CONTAINS,
       filterOperator: FilterOperator.AND,
@@ -52,6 +50,27 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: true
+  },
+
+  {
+    header: { text: 'Date', width: '12rem' },
+    column: {
+      field: 'createdAt',
+      render(value) {
+        return <span>{dateTimeToStr(value) || '-'}</span>;
+      }
+    },
+    sorter: { field: 'createdAt' },
+    filter: {
+      field: 'createdAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
   },
 
   {
@@ -84,38 +103,24 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Event', width: '16rem' },
+    header: { text: 'Method', width: '10rem' },
     column: {
-      field: 'event',
+      field: 'method',
       render(value) {
         return (
           <Tag
-            class="text-base font-normal text-color border-1 border-solid surface-border border-round-xs px-2"
-            style={{ background: eventToColor(value) }}
-            value={eventToStr(value)}
+            class="text-base font-semibold text-white border-1 border-solid surface-border border-round-xs px-2 w-6rem"
+            style={{ background: methodToColor(value) }}
+            value={value}
           />
         );
       }
     },
-    sorter: { field: 'event' },
+    sorter: { field: 'method' },
     filter: {
-      field: 'event',
+      field: 'method',
       value: null,
-      matchMode: FilterMatchMode.IN,
-      options: {
-        key: 'scope',
-        value: 'scope',
-        label: 'comment',
-        onRecords: () => {
-          return [];
-          // return Scope.scopeGroups()
-          //   .map(group => group.items)
-          //   .flat()
-          //   .map(item => {
-          //     return { scope: item.scope, comment: item.comment };
-          //   });
-        }
-      }
+      matchMode: FilterMatchMode.CONTAINS
     },
     selectable: true,
     exportable: true,
@@ -125,18 +130,41 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date', width: '12rem' },
+    header: { text: 'Status', width: '10rem' },
     column: {
-      field: 'createdAt',
+      field: 'status',
       render(value) {
-        return <span>{dateTimeToStr(value) || '-'}</span>;
+        return <Tag class="text-base font-bold text-color surface-hover px-4" value={value} />;
       }
     },
-    sorter: { field: 'createdAt' },
+    sorter: { field: 'status' },
     filter: {
-      field: 'createdAt',
+      field: 'status',
       value: null,
-      matchMode: FilterMatchMode.DATE_IS
+      matchMode: FilterMatchMode.CONTAINS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Base Url', width: '15rem' },
+    column: {
+      field: 'baseUrl',
+      render(value) {
+        return <span class="text-base font-bold">{value}</span>;
+      }
+    },
+    sorter: { field: 'baseUrl' },
+    filter: {
+      field: 'baseUrl',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
     },
     selectable: true,
     exportable: true,
@@ -148,14 +176,14 @@ const columns = ref([
   {
     header: { text: 'User agent', width: '30rem' },
     column: {
-      field: 'agent',
+      field: 'userAgent',
       render(value) {
         return <span>{value}</span>;
       }
     },
-    sorter: { field: 'agent' },
+    sorter: { field: 'userAgent' },
     filter: {
-      field: 'agent',
+      field: 'userAgent',
       value: null,
       matchMode: FilterMatchMode.CONTAINS,
       filterOperator: FilterOperator.AND,

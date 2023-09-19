@@ -278,4 +278,9 @@ router.beforeEach(async (to, from) => {
   }
 });
 
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  //NProgress.done();
+});
+
 export default router;
