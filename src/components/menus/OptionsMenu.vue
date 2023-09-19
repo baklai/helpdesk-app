@@ -123,13 +123,22 @@ const options = computed(() => [
 ]);
 
 const copyIPtoClipboard = async value => {
-  await navigator.clipboard.writeText(value);
-  toast.add({
-    severity: 'info',
-    summary: t('HD Information'),
-    detail: t(`IP ${value} copied to clipboard`),
-    life: 3000
-  });
+  try {
+    await navigator?.clipboard.writeText(value);
+    toast.add({
+      severity: 'info',
+      summary: t('HD Information'),
+      detail: t(`IP ${value} copied to clipboard`),
+      life: 3000
+    });
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t(`IP not copied`),
+      life: 3000
+    });
+  }
 };
 
 const onPINGCommand = async value => {
