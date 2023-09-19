@@ -264,79 +264,55 @@ const onCloseModal = () => {
       <div class="formgrid grid">
         <div class="field col">
           <div class="field">
-            <label for="dateOpen" class="font-bold">{{ $t('Date open') }}</label>
+            <label class="font-bold">{{ $t('Date open') }}</label>
             <Calendar
-              id="dateOpen"
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              aria-describedby="dateOpen-help"
               :modelValue="dateToStr(record.dateOpen)"
               v-model="record.dateOpen"
               :placeholder="$t('Date open')"
               :class="{ 'p-invalid': !!$validate.dateOpen.$errors.length }"
             />
-            <small
-              id="dateOpen-help"
-              class="p-error"
-              v-for="error in $validate.dateOpen.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.dateOpen.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
+            <label class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
-              id="reqnum"
-              aria-describedby="reqnum-help"
               v-model="record.reqnum"
               :placeholder="$t('Letter number')"
               :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
             />
-            <small
-              id="reqnum-help"
-              class="p-error"
-              v-for="error in $validate.reqnum.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.reqnum.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="login" class="font-bold">{{ $t('Login mailbox') }}</label>
+            <label class="font-bold">{{ $t('Login mailbox') }}</label>
             <InputText
-              id="login"
-              aria-describedby="login-help"
               v-model="record.login"
               :placeholder="$t('Login mailbox')"
               :class="{ 'p-invalid': !!$validate.login.$errors.length }"
             />
-            <small
-              id="login-help"
-              class="p-error"
-              v-for="error in $validate.login.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div id="client-info" class="field">
+            <label class="font-bold">{{ $t('Client info') }}</label>
+            <div class="field">
               <div class="field">
                 <InputText
-                  id="fullname"
-                  aria-describedby="fullname-help"
                   v-model="record.fullname"
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
                 />
                 <small
-                  id="fullname-help"
                   class="p-error"
                   v-for="error in $validate.fullname.$errors"
                   :key="error.$uid"
@@ -347,18 +323,11 @@ const onCloseModal = () => {
 
               <div class="field">
                 <InputText
-                  id="phone"
                   v-model="record.phone"
-                  aria-describedby="phone-help"
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
                 />
-                <small
-                  id="phone-help"
-                  class="p-error"
-                  v-for="error in $validate.phone.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -369,11 +338,9 @@ const onCloseModal = () => {
                   autofocus
                   showClear
                   resetFilterOnHide
-                  id="position"
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  aria-describedby="position-help"
                   v-model="record.position"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
@@ -381,7 +348,6 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!$validate.position.$errors.length }"
                 />
                 <small
-                  id="position-help"
                   class="p-error"
                   v-for="error in $validate.position.$errors"
                   :key="error.$uid"
@@ -393,9 +359,8 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="dateClose" class="font-bold">{{ $t('Date close') }}</label>
+            <label class="font-bold">{{ $t('Date close') }}</label>
             <Calendar
-              id="dateClose"
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
@@ -409,14 +374,12 @@ const onCloseModal = () => {
 
         <div class="field col">
           <div class="field">
-            <label for="location" class="font-bold">{{ $t('Location') }}</label>
+            <label class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
               autofocus
               showClear
               resetFilterOnHide
-              id="location"
-              aria-describedby="location-help"
               dataKey="id"
               optionValue="id"
               optionLabel="name"
@@ -426,27 +389,20 @@ const onCloseModal = () => {
               :placeholder="$t('Client location')"
               :class="{ 'p-invalid': !!$validate.location.$errors.length }"
             />
-            <small
-              id="location-help"
-              class="p-error"
-              v-for="error in $validate.location.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="client-company" class="font-bold">{{ $t('Company') }}</label>
-            <div id="client-company" class="field">
+            <label class="font-bold">{{ $t('Company') }}</label>
+            <div class="field">
               <div class="field">
                 <Dropdown
                   filter
                   autofocus
                   showClear
                   resetFilterOnHide
-                  id="company"
-                  aria-describedby="company-help"
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
@@ -456,12 +412,7 @@ const onCloseModal = () => {
                   :placeholder="$t('Client company')"
                   :class="{ 'p-invalid': !!$validate.company.$errors.length }"
                 />
-                <small
-                  id="company-help"
-                  class="p-error"
-                  v-for="error in $validate.company.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -472,8 +423,6 @@ const onCloseModal = () => {
                   autofocus
                   showClear
                   resetFilterOnHide
-                  id="branch"
-                  aria-describedby="branch-help"
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
@@ -483,12 +432,7 @@ const onCloseModal = () => {
                   :placeholder="$t('Client branch')"
                   :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
                 />
-                <small
-                  id="branch-help"
-                  class="p-error"
-                  v-for="error in $validate.branch.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>
@@ -499,8 +443,6 @@ const onCloseModal = () => {
                   autofocus
                   showClear
                   resetFilterOnHide
-                  id="enterprise"
-                  aria-describedby="enterprise-help"
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
@@ -511,7 +453,6 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!$validate.enterprise.$errors.length }"
                 />
                 <small
-                  id="enterprise-help"
                   class="p-error"
                   v-for="error in $validate.enterprise.$errors"
                   :key="error.$uid"
@@ -526,8 +467,6 @@ const onCloseModal = () => {
                   autofocus
                   showClear
                   resetFilterOnHide
-                  id="department"
-                  aria-describedby="department-help"
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
@@ -538,7 +477,6 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!$validate.department.$errors.length }"
                 />
                 <small
-                  id="department-help"
                   class="p-error"
                   v-for="error in $validate.department.$errors"
                   :key="error.$uid"
@@ -550,11 +488,10 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
+            <label class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
               rows="8"
               cols="10"
-              id="comment"
               class="outline-none"
               v-model="record.comment"
               :placeholder="$t('Comment')"

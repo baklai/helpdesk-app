@@ -302,9 +302,8 @@ const onSaveRecord = async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid">
       <div class="field">
-        <label for="regex">{{ $t('Filter regex') }}</label>
+        <label>{{ $t('Filter regex') }}</label>
         <InputText
-          id="regex"
           v-model="record.regex"
           :placeholder="$t('Filter regex')"
           :class="{ 'p-invalid': !!$validate.regex.$errors.length }"
@@ -316,7 +315,6 @@ const onSaveRecord = async () => {
 
       <div class="field">
         <Dropdown
-          id="type"
           filter
           autofocus
           showClear
@@ -324,24 +322,17 @@ const onSaveRecord = async () => {
           v-model="record.type"
           :options="['account', 'software', 'share']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
-          aria-describedby="type-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter type')"
           :class="{ 'p-invalid': !!$validate.type.$errors.length }"
         />
-        <small
-          id="type-help"
-          class="p-error"
-          v-for="error in $validate.type.$errors"
-          :key="error.$uid"
-        >
+        <small class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
           {{ $t(error.$message) }}
         </small>
       </div>
 
       <div class="field">
         <Dropdown
-          id="status"
           filter
           autofocus
           showClear
@@ -349,26 +340,19 @@ const onSaveRecord = async () => {
           v-model="record.status"
           :options="['allow', 'deny']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
-          aria-describedby="status-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter status')"
           :class="{ 'p-invalid': !!$validate.status.$errors.length }"
         />
-        <small
-          id="status-help"
-          class="p-error"
-          v-for="error in $validate.status.$errors"
-          :key="error.$uid"
-        >
+        <small class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
           {{ $t(error.$message) }}
         </small>
       </div>
 
       <div class="field">
-        <label for="description">{{ $t('Filter description') }}</label>
+        <label>{{ $t('Filter description') }}</label>
         <Textarea
           rows="5"
-          id="description"
           class="min-w-full"
           v-model="record.description"
           :placeholder="$t('Filter description')"

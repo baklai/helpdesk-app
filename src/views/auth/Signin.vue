@@ -75,13 +75,12 @@ onMounted(() => {
     </div>
     <form @submit.prevent="onSignin" class="p-fluid w-full">
       <div class="field mb-4">
-        <label for="login" class="text-900 text-xl font-medium">
+        <label class="text-900 text-xl font-medium">
           {{ $t('Login') }}
         </label>
         <span class="p-input-icon-left">
           <i class="pi pi-user" />
           <InputText
-            id="login"
             v-model="login"
             :placeholder="$t('Login')"
             :class="{ 'p-invalid': !!$validate.login.$errors.length }"
@@ -93,12 +92,11 @@ onMounted(() => {
       </div>
 
       <div class="field mb-2">
-        <label for="password" class="text-900 text-xl font-medium">
+        <label class="text-900 text-xl font-medium">
           {{ $t('Password') }}
         </label>
         <Password
           toggleMask
-          id="password"
           v-model="password"
           :placeholder="$t('Password')"
           :promptLabel="$t('Choose a password')"
@@ -129,8 +127,8 @@ onMounted(() => {
       <div class="field mb-5">
         <div class="flex align-items-center justify-content-between">
           <div class="flex align-items-center">
-            <Checkbox v-model="remember" binary id="remember" class="mr-2" />
-            <label for="remember">{{ $t('Remember me') }}</label>
+            <Checkbox v-model="remember" binary class="mr-2" />
+            <label>{{ $t('Remember me') }}</label>
           </div>
 
           <RouterLink :to="{ name: 'signup' }" class="text-blue-500">

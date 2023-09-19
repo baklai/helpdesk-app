@@ -226,16 +226,13 @@ const onSaveRecord = async () => {
       <div class="formgrid grid">
         <div class="field col">
           <div class="field">
-            <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
+            <label class="font-bold">{{ $t('Location start') }}</label>
             <InputText
-              id="locationFrom"
-              aria-describedby="locationFrom-help"
               v-model="record.locationFrom"
               :placeholder="$t('Location start')"
               :class="{ 'p-invalid': !!$validate.locationFrom.$errors.length }"
             />
             <small
-              id="locationFrom-help"
               class="p-error"
               v-for="error in $validate.locationFrom.$errors"
               :key="error.$uid"
@@ -245,20 +242,13 @@ const onSaveRecord = async () => {
           </div>
 
           <div class="field">
-            <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
+            <label class="font-bold">{{ $t('Unit start') }}</label>
             <InputText
-              id="unitFrom"
-              aria-describedby="unitFrom-help"
               v-model="record.unitFrom"
               :placeholder="$t('Unit start')"
               :class="{ 'p-invalid': !!$validate.unitFrom.$errors.length }"
             />
-            <small
-              id="unitFrom-help"
-              class="p-error"
-              v-for="error in $validate.unitFrom.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.unitFrom.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -266,39 +256,25 @@ const onSaveRecord = async () => {
 
         <div class="field col">
           <div class="field">
-            <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
+            <label class="font-bold">{{ $t('Location end') }}</label>
             <InputText
-              id="locationTo"
-              aria-describedby="locationTo-help"
               v-model="record.locationTo"
               :placeholder="$t('Location end')"
               :class="{ 'p-invalid': !!$validate.locationTo.$errors.length }"
             />
-            <small
-              id="locationTo-help"
-              class="p-error"
-              v-for="error in $validate.locationTo.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.locationTo.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
+            <label class="font-bold">{{ $t('Unit end') }}</label>
             <InputText
-              id="unitTo"
-              aria-describedby="unitTo-help"
               v-model="record.unitTo"
               :placeholder="$t('Unit end')"
               :class="{ 'p-invalid': !!$validate.unitTo.$errors.length }"
             />
-            <small
-              id="unitTo-help"
-              class="p-error"
-              v-for="error in $validate.unitTo.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.unitTo.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
@@ -306,117 +282,75 @@ const onSaveRecord = async () => {
 
         <div class="field col-12">
           <div class="field">
-            <label for="level" class="font-bold">{{ $t('Level') }}</label>
+            <label class="font-bold">{{ $t('Level') }}</label>
             <InputText
-              id="level"
-              aria-describedby="level-help"
               v-model="record.level"
               :placeholder="$t('Level')"
               :class="{ 'p-invalid': !!$validate.level.$errors.length }"
             />
-            <small
-              id="level-help"
-              class="p-error"
-              v-for="error in $validate.level.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.level.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="type" class="font-bold">{{ $t('Type') }}</label>
+            <label class="font-bold">{{ $t('Type') }}</label>
             <InputText
-              id="type"
-              aria-describedby="type-help"
               v-model="record.type"
               :placeholder="$t('Type')"
               :class="{ 'p-invalid': !!$validate.type.$errors.length }"
             />
-            <small
-              id="type-help"
-              class="p-error"
-              v-for="error in $validate.type.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
+            <label class="font-bold">{{ $t('Speed') }}</label>
             <InputText
-              id="speed"
-              aria-describedby="speed-help"
               v-model="record.speed"
               :placeholder="$t('Speed')"
               :class="{ 'p-invalid': !!$validate.speed.$errors.length }"
             />
-            <small
-              id="speed-help"
-              class="p-error"
-              v-for="error in $validate.speed.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.speed.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="status" class="font-bold">{{ $t('Status') }}</label>
+            <label class="font-bold">{{ $t('Status') }}</label>
             <InputText
-              id="status"
-              aria-describedby="status-help"
               v-model="record.status"
               :placeholder="$t('Status')"
               :class="{ 'p-invalid': !!$validate.status.$errors.length }"
             />
-            <small
-              id="status-help"
-              class="p-error"
-              v-for="error in $validate.status.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
+            <label class="font-bold">{{ $t('Operator') }}</label>
             <InputText
-              id="operator"
-              aria-describedby="operator-help"
               v-model="record.operator"
               :placeholder="$t('Operator')"
               :class="{ 'p-invalid': !!$validate.operator.$errors.length }"
             />
-            <small
-              id="operator-help"
-              class="p-error"
-              v-for="error in $validate.operator.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.operator.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="composition" class="font-bold">{{ $t('Composition') }}</label>
+            <label class="font-bold">{{ $t('Composition') }}</label>
             <Textarea
               rows="5"
               cols="10"
-              id="composition"
-              aria-describedby="composition-help"
               v-model="record.composition"
               :placeholder="$t('Composition')"
               :class="{ 'p-invalid': !!$validate.composition.$errors.length }"
             />
-            <small
-              id="composition-help"
-              class="p-error"
-              v-for="error in $validate.composition.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.composition.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>

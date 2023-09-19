@@ -108,9 +108,8 @@ const onCloseModal = () => {
 
     <form @submit.prevent="onSendNotice">
       <div class="field">
-        <label for="notification-name">{{ $t('Notification name') }}</label>
+        <label>{{ $t('Notification name') }}</label>
         <InputText
-          id="notification-name"
           v-model="record.name"
           :placeholder="$t('Notification name')"
           :class="{ 'p-invalid': !!$validate.name.$errors.length }"
@@ -121,10 +120,9 @@ const onCloseModal = () => {
       </div>
 
       <div class="field">
-        <label for="notification-text">{{ $t('Notification text') }}</label>
+        <label>{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
-          id="notification-text"
           v-model="record.text"
           :placeholder="$t('Notification text')"
           :class="{ 'p-invalid': !!$validate.text.$errors.length }"
@@ -135,9 +133,8 @@ const onCloseModal = () => {
       </div>
 
       <div class="field">
-        <label for="notification-users">{{ $t('Notification users') }}</label>
+        <label>{{ $t('Notification users') }}</label>
         <MultiSelect
-          id="notification-users"
           v-model="record.users"
           :options="users"
           optionLabel="fullname"

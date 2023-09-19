@@ -287,34 +287,25 @@ const onCellEditComplete = event => {
       <div class="formgrid grid">
         <div class="field col-12 xl:col-4">
           <div class="field">
-            <label for="login" class="font-bold">{{ $t('User login') }}</label>
+            <label class="font-bold">{{ $t('User login') }}</label>
             <InputText
-              id="login"
               :readonly="readonly"
-              aria-describedby="login-help"
               v-model="record.login"
               :placeholder="$t('User login')"
               :class="{ 'p-invalid': !!$validate.login.$errors.length }"
             />
-            <small
-              id="login-help"
-              class="p-error"
-              v-for="error in $validate.login.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="password" class="font-bold">
+            <label class="font-bold">
               {{ $t('User password') }}
             </label>
             <Password
               toggleMask
               :readonly="readonly"
-              id="password"
-              aria-describedby="password-help"
               v-model="record.password"
               :placeholder="$t('User password')"
               :promptLabel="$t('Choose a password')"
@@ -337,85 +328,60 @@ const onCellEditComplete = event => {
                 </ul>
               </template>
             </Password>
-            <small
-              id="password-help"
-              class="p-error"
-              v-for="error in $validate.password.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.password.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
+            <label class="font-bold">{{ $t('User name') }}</label>
             <InputText
-              id="fullname"
-              aria-describedby="fullname-help"
               v-model="record.fullname"
               :placeholder="$t('User name')"
               :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
             />
-            <small
-              id="fullname-help"
-              class="p-error"
-              v-for="error in $validate.fullname.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="email" class="font-bold">{{ $t('User email') }}</label>
+            <label class="font-bold">{{ $t('User email') }}</label>
             <InputText
-              id="email"
-              aria-describedby="email-help"
               v-model="record.email"
               :placeholder="$t('User email')"
               :class="{ 'p-invalid': !!$validate.email.$errors.length }"
             />
-            <small
-              id="email-help"
-              class="p-error"
-              v-for="error in $validate.email.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
-            <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
+            <label class="font-bold">{{ $t('User phone') }}</label>
             <InputMask
-              id="phone"
               date="phone"
               mask="+99(999)999-99-99"
               placeholder="+99(999)999-99-99"
               v-model="record.phone"
               :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
             />
-            <small
-              id="phone-help"
-              class="p-error"
-              v-for="error in $validate.phone.$errors"
-              :key="error.$uid"
-            >
+            <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
               {{ $t(error.$message) }}
             </small>
           </div>
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-model="record.isActive" inputId="isActive" />
-              <label for="isActive" class="font-bold ml-2"> {{ $t('Activated account') }} </label>
+              <Checkbox binary v-model="record.isActive" />
+              <label class="font-bold ml-2"> {{ $t('Activated account') }} </label>
             </div>
           </div>
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-model="record.isAdmin" inputId="isAdmin" />
-              <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
+              <Checkbox binary v-model="record.isAdmin" />
+              <label class="font-bold ml-2"> {{ $t('Admin account') }} </label>
             </div>
           </div>
         </div>

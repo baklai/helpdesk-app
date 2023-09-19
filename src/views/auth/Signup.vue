@@ -100,35 +100,26 @@ onMounted(() => {
           <div class="formgrid grid">
             <div class="field col">
               <div class="field">
-                <label for="login" class="font-bold">{{ $t('User login') }}</label>
+                <label class="font-bold">{{ $t('User login') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-user" />
                   <InputText
-                    id="login"
-                    aria-describedby="login-help"
                     v-model="record.login"
                     :placeholder="$t('User login')"
                     :class="{ 'p-invalid': !!$validate.login.$errors.length }"
                   />
                 </span>
-                <small
-                  id="login-help"
-                  class="p-error"
-                  v-for="error in $validate.login.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>
 
               <div class="field">
-                <label for="password" class="font-bold">
+                <label class="font-bold">
                   {{ $t('User password') }}
                 </label>
                 <Password
                   toggleMask
-                  id="password"
-                  aria-describedby="password-help"
                   v-model="record.password"
                   :placeholder="$t('User password')"
                   :promptLabel="$t('Choose a password')"
@@ -152,7 +143,6 @@ onMounted(() => {
                   </template>
                 </Password>
                 <small
-                  id="password-help"
                   class="p-error"
                   v-for="error in $validate.password.$errors"
                   :key="error.$uid"
@@ -162,19 +152,16 @@ onMounted(() => {
               </div>
 
               <div class="field">
-                <label for="confirm-password" class="font-bold">
+                <label class="font-bold">
                   {{ $t('Confirm password') }}
                 </label>
                 <InputText
                   type="password"
-                  id="confirm-password"
-                  aria-describedby="confirm-password-help"
                   v-model="record.confirmPass"
                   :placeholder="$t('Confirm password')"
                   :class="{ 'p-invalid': !!$validate.confirmPass.$errors.length }"
                 />
                 <small
-                  id="confirm-password-help"
                   class="p-error"
                   v-for="error in $validate.confirmPass.$errors"
                   :key="error.$uid"
@@ -186,19 +173,16 @@ onMounted(() => {
 
             <div class="field col">
               <div class="field">
-                <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
+                <label class="font-bold">{{ $t('User name') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-id-card" />
                   <InputText
-                    id="fullname"
-                    aria-describedby="fullname-help"
                     v-model="record.fullname"
                     :placeholder="$t('User name')"
                     :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
                   />
                 </span>
                 <small
-                  id="fullname-help"
                   class="p-error"
                   v-for="error in $validate.fullname.$errors"
                   :key="error.$uid"
@@ -208,33 +192,25 @@ onMounted(() => {
               </div>
 
               <div class="field">
-                <label for="email" class="font-bold">{{ $t('User email') }}</label>
+                <label class="font-bold">{{ $t('User email') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-at" />
                   <InputText
-                    id="email"
-                    aria-describedby="email-help"
                     v-model="record.email"
                     :placeholder="$t('User email')"
                     :class="{ 'p-invalid': !!$validate.email.$errors.length }"
                   />
                 </span>
-                <small
-                  id="email-help"
-                  class="p-error"
-                  v-for="error in $validate.email.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>
 
               <div class="field">
-                <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
+                <label class="font-bold">{{ $t('User phone') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-phone" />
                   <InputMask
-                    id="phone"
                     date="phone"
                     mask="+99(999)999-99-99"
                     v-model="record.phone"
@@ -242,12 +218,7 @@ onMounted(() => {
                     :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
                   />
                 </span>
-                <small
-                  id="phone-help"
-                  class="p-error"
-                  v-for="error in $validate.phone.$errors"
-                  :key="error.$uid"
-                >
+                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
                   {{ $t(error.$message) }}
                 </small>
               </div>

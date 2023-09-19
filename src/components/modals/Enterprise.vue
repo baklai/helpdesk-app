@@ -255,9 +255,8 @@ const onSaveRecord = async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid">
       <div class="field">
-        <label for="name">{{ $t('Enterprise name') }}</label>
+        <label>{{ $t('Enterprise name') }}</label>
         <InputText
-          id="name"
           v-model="record.name"
           :placeholder="$t('Enterprise name')"
           :class="{ 'p-invalid': !!$validate.name.$errors.length }"
@@ -268,15 +267,14 @@ const onSaveRecord = async () => {
       </div>
 
       <div class="field">
-        <label for="address">{{ $t('Enterprise address') }}</label>
-        <InputText id="address" v-model="record.address" :placeholder="$t('Enterprise address')" />
+        <label>{{ $t('Enterprise address') }}</label>
+        <InputText v-model="record.address" :placeholder="$t('Enterprise address')" />
       </div>
 
       <div class="field">
-        <label for="comment">{{ $t('Enterprise comment') }}</label>
+        <label>{{ $t('Enterprise comment') }}</label>
         <Textarea
           rows="5"
-          id="comment"
           class="min-w-full"
           v-model="record.description"
           :placeholder="$t('Enterprise comment')"

@@ -218,52 +218,37 @@ const onCloseModal = () => {
 
     <form @submit.prevent="onSaveRecord">
       <div class="field">
-        <label for="title" class="font-bold">{{ $t('Title event') }}</label>
+        <label class="font-bold">{{ $t('Title event') }}</label>
         <InputText
-          id="title"
-          aria-describedby="title-help"
           v-model="record.title"
           :placeholder="$t('Title event')"
           :class="{ 'p-invalid': !!$validate.title.$errors.length }"
         />
-        <small
-          id="title-help"
-          class="p-error"
-          v-for="error in $validate.title.$errors"
-          :key="error.$uid"
-        >
+        <small class="p-error" v-for="error in $validate.title.$errors" :key="error.$uid">
           {{ $t(error.$message) }}
         </small>
       </div>
 
       <div class="field">
-        <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
+        <label class="font-bold">{{ $t('Datetime of event') }}</label>
         <Calendar
-          id="datetime"
           showIcon
           showTime
           showButtonBar
           dateFormat="dd.mm.yy"
           hourFormat="24"
-          aria-describedby="datetime-help"
           v-model="record.datetime"
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!$validate.datetime.$errors.length }"
           update:modelValue=""
         />
-        <small
-          id="datetime-help"
-          class="p-error"
-          v-for="error in $validate.datetime.$errors"
-          :key="error.$uid"
-        >
+        <small class="p-error" v-for="error in $validate.datetime.$errors" :key="error.$uid">
           {{ $t(error.$message) }}
         </small>
       </div>
 
       <div class="field">
         <Dropdown
-          id="eventType"
           filter
           autofocus
           showClear
@@ -276,22 +261,16 @@ const onCloseModal = () => {
           :placeholder="$t('Event type')"
           :class="{ 'p-invalid': !!$validate.eventType.$errors.length }"
         />
-        <small
-          id="eventType-help"
-          class="p-error"
-          v-for="error in $validate.eventType.$errors"
-          :key="error.$uid"
-        >
+        <small class="p-error" v-for="error in $validate.eventType.$errors" :key="error.$uid">
           {{ $t(error.$message) }}
         </small>
       </div>
 
       <div class="field">
-        <label for="description" class="font-bold">{{ $t('Description') }}</label>
+        <label class="font-bold">{{ $t('Description') }}</label>
         <Textarea
           rows="5"
           cols="12"
-          id="description"
           aria-describedby="description-help"
           v-model="record.description"
           :placeholder="$t('Description')"

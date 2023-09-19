@@ -255,9 +255,8 @@ const onSaveRecord = async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid">
       <div class="field">
-        <label for="name">{{ $t('Position name') }}</label>
+        <label>{{ $t('Position name') }}</label>
         <InputText
-          id="name"
           v-model="record.name"
           :placeholder="$t('Position name')"
           :class="{ 'p-invalid': !!$validate.name.$errors.length }"
