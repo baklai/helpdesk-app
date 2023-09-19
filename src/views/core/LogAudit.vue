@@ -8,7 +8,7 @@ import { useConfirm } from 'primevue/useconfirm';
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
-import { dateTimeToStr, methodToColor } from '@/service/DataFilters';
+import { dateTimeToStr, methodHttpToColor, statusCodeToColor } from '@/service/DataFilters';
 import { useSyslog } from '@/stores/api/syslogs';
 import { useUser } from '@/stores/api/users';
 
@@ -110,7 +110,7 @@ const columns = ref([
         return (
           <Tag
             class="text-base font-semibold text-white border-1 border-solid surface-border border-round-xs px-2 w-6rem"
-            style={{ background: methodToColor(value) }}
+            style={{ background: methodHttpToColor(value) }}
             value={value}
           />
         );
@@ -134,7 +134,12 @@ const columns = ref([
     column: {
       field: 'status',
       render(value) {
-        return <Tag class="text-base font-bold text-color surface-hover px-4" value={value} />;
+        return (
+          <Tag
+            class={`text-base font-bold ${statusCodeToColor(value)} surface-hover px-4`}
+            value={value}
+          />
+        );
       }
     },
     sorter: { field: 'status' },
@@ -151,11 +156,11 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Base Url', width: '15rem' },
+    header: { text: 'Base Url', width: '20rem' },
     column: {
       field: 'baseUrl',
       render(value) {
-        return <span class="text-base font-bold">{value}</span>;
+        return <span>{value}</span>;
       }
     },
     sorter: { field: 'baseUrl' },
