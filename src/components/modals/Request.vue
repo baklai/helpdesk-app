@@ -69,7 +69,7 @@ const visible = ref(false);
 const record = ref({});
 
 const isClosed = computed(() => {
-  return record?.value?.closed ? true : false;
+  return !record?.value?.closed ? false : true;
 });
 
 const refMenu = ref();
