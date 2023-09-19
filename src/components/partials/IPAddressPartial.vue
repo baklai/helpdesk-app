@@ -100,9 +100,7 @@ defineProps({
     <tr>
       <td class="font-weight-bold" width="50%">{{ $t('Internet') }} :</td>
       <td>
-        <i
-          :class="record?.status?.internet ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'"
-        />
+        <i :class="record?.inetStatus ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'" />
       </td>
     </tr>
   </table>
