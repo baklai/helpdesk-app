@@ -25,7 +25,7 @@ import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
     </div>
   </RouterLink>
 
-  <div class="flex justify-content-start mt-6 mb-4">
+  <div class="flex justify-content-start mt-6 mb-4" v-if="$route?.meta?.title">
     <div class="flex align-items-center justify-content-center mr-2">
       <Avatar class="mr-2" size="xlarge"><AppIcons :name="$route?.name" :size="32" /></Avatar>
     </div>
