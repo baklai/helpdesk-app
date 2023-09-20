@@ -32,7 +32,7 @@
     "npm": ">=9.6.6"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && vitepress build docs",
     "preview": "vite preview",
     "start:dev": "vite",
     "start:lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
