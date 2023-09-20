@@ -69,7 +69,12 @@ const columns = ref([
     column: {
       field: 'login',
       render(value) {
-        return <Tag class={`text-base font-bold text-primary surface-hover px-4`} value={value} />;
+        return (
+          <Tag
+            class={`text-base font-bold text-primary surface-hover cursor-pointer px-4`}
+            value={value}
+          />
+        );
       },
       action(data) {
         refSidebar.value.toggle(data);
