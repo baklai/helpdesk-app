@@ -331,6 +331,7 @@ const onSaveClosedRecord = async () => {
               rows="8"
               cols="10"
               v-model="record.request"
+              :disabled="isClosed"
               :placeholder="$t('Client request')"
               :class="{ 'p-invalid': !!$validate.request.$errors.length }"
             />
@@ -344,6 +345,7 @@ const onSaveClosedRecord = async () => {
             <InputText
               aria-describedby="reqnum-help"
               v-model="record.reqnum"
+              :disabled="isClosed"
               :placeholder="$t('Letter number')"
             />
           </div>
@@ -358,6 +360,7 @@ const onSaveClosedRecord = async () => {
               />
               <InputText
                 v-model="record.ipaddress"
+                :disabled="isClosed"
                 :placeholder="$t('Client IP Address')"
                 :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
                 @keypress.enter="findOneIPAddress"
@@ -375,13 +378,20 @@ const onSaveClosedRecord = async () => {
               cols="10"
               aria-describedby="conclusion-help"
               v-model="record.conclusion"
+              :disabled="isClosed"
               :placeholder="$t('Conclusion')"
             />
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Comment') }}</label>
-            <Textarea rows="3" cols="10" v-model="record.comment" :placeholder="$t('Comment')" />
+            <Textarea
+              rows="3"
+              cols="10"
+              v-model="record.comment"
+              :disabled="isClosed"
+              :placeholder="$t('Comment')"
+            />
           </div>
         </div>
 
@@ -392,6 +402,7 @@ const onSaveClosedRecord = async () => {
               <div class="field">
                 <InputText
                   v-model="record.fullname"
+                  :disabled="isClosed"
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
                 />
@@ -407,6 +418,7 @@ const onSaveClosedRecord = async () => {
               <div class="field">
                 <InputText
                   v-model="record.phone"
+                  :disabled="isClosed"
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
                 />
@@ -425,6 +437,7 @@ const onSaveClosedRecord = async () => {
                   optionValue="id"
                   optionLabel="name"
                   v-model="record.position"
+                  :disabled="isClosed"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
@@ -452,6 +465,7 @@ const onSaveClosedRecord = async () => {
               optionValue="id"
               optionLabel="name"
               v-model="record.location"
+              :disabled="isClosed"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
@@ -475,6 +489,7 @@ const onSaveClosedRecord = async () => {
                   optionValue="id"
                   optionLabel="name"
                   v-model="record.company"
+                  :disabled="isClosed"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
@@ -495,6 +510,7 @@ const onSaveClosedRecord = async () => {
                   optionValue="id"
                   optionLabel="name"
                   v-model="record.branch"
+                  :disabled="isClosed"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
@@ -515,6 +531,7 @@ const onSaveClosedRecord = async () => {
                   optionValue="id"
                   optionLabel="name"
                   v-model="record.enterprise"
+                  :disabled="isClosed"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
@@ -539,6 +556,7 @@ const onSaveClosedRecord = async () => {
                   optionValue="id"
                   optionLabel="name"
                   v-model="record.department"
+                  :disabled="isClosed"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
@@ -566,6 +584,7 @@ const onSaveClosedRecord = async () => {
         icon="pi pi-check"
         :label="$t('Save')"
         :disabled="isClosed"
+        v-show="!isClosed"
         @click="onSaveRecord"
       />
       <Button
@@ -574,6 +593,7 @@ const onSaveClosedRecord = async () => {
         icon="pi pi-check-circle"
         :label="$t('Save and closed')"
         :disabled="isClosed"
+        v-show="!isClosed"
         @click="onSaveClosedRecord"
       />
     </template>

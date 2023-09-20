@@ -5,6 +5,7 @@ export const useRequest = defineStore('request', () => {
   const $axios = inject('axios');
 
   function $init({
+    id = null,
     fullname = null,
     phone = null,
     position = null,
@@ -23,6 +24,7 @@ export const useRequest = defineStore('request', () => {
     conclusion = null
   }) {
     return {
+      id,
       fullname,
       phone,
       position,
