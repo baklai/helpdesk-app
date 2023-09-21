@@ -11,5 +11,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@@': fileURLToPath(new URL('./', import.meta.url))
     }
+  },
+  preview: {
+    port: 80,
+    host: true,
+    cors: true,
+    open: false,
+    strictPort: true
   }
 });
