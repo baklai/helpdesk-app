@@ -4,46 +4,6 @@ import { defineStore } from 'pinia';
 export const useRequest = defineStore('request', () => {
   const $axios = inject('axios');
 
-  function $init({
-    id = null,
-    fullname = null,
-    phone = null,
-    position = null,
-    ipaddress = null,
-    reqnum = null,
-    location = null,
-    company = null,
-    branch = null,
-    enterprise = null,
-    department = null,
-    request = null,
-    workerOpen = null,
-    workerClose = null,
-    closed = false,
-    comment = null,
-    conclusion = null
-  }) {
-    return {
-      id,
-      fullname,
-      phone,
-      position,
-      ipaddress,
-      reqnum,
-      location,
-      company,
-      branch,
-      enterprise,
-      department,
-      request,
-      workerOpen,
-      workerClose,
-      closed,
-      comment,
-      conclusion
-    };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/requests', { params });
@@ -60,7 +20,7 @@ export const useRequest = defineStore('request', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/requests', { ...payload });
     } catch (err) {
@@ -68,7 +28,7 @@ export const useRequest = defineStore('request', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/requests/${id}`, { ...payload });
     } catch (err) {
@@ -84,5 +44,5 @@ export const useRequest = defineStore('request', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

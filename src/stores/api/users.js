@@ -7,30 +7,6 @@ export const useUser = defineStore('user', () => {
   const $axios = inject('axios');
   const $scope = useScope();
 
-  function $init({
-    id = null,
-    login = null,
-    password = undefined,
-    fullname = null,
-    email = null,
-    phone = null,
-    isActive = false,
-    isAdmin = false,
-    scope = []
-  }) {
-    return {
-      id,
-      login,
-      password,
-      fullname,
-      email,
-      phone,
-      isActive,
-      isAdmin,
-      scope: id ? $scope.getCustomScope(scope) : $scope.getDefaultScope()
-    };
-  }
-
   async function find() {
     try {
       return await $axios.get('/users/me');
@@ -55,7 +31,7 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  async function createOne({ id, scope, ...payload }) {
+  async function createOne({ scope, ...payload }) {
     try {
       return await $axios.post('/users', { ...payload, scope: $scope.getScopeKeyList(scope) });
     } catch (err) {
@@ -63,7 +39,7 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  async function updateOne({ id, scope, ...payload }) {
+  async function updateOne(id, { scope, ...payload }) {
     try {
       return await $axios.put(`/users/${id}`, { ...payload, scope: $scope.getScopeKeyList(scope) });
     } catch (err) {
@@ -79,5 +55,5 @@ export const useUser = defineStore('user', () => {
     }
   }
 
-  return { $init, find, findAll, findOne, createOne, updateOne, removeOne };
+  return { find, findAll, findOne, createOne, updateOne, removeOne };
 });

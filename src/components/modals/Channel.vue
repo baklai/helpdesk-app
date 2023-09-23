@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -11,7 +11,25 @@ import { useChannel } from '@/stores/api/channels';
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
-const { $init, findOne, createOne, updateOne, removeOne } = useChannel();
+
+const { findOne, createOne, updateOne, removeOne } = useChannel();
+
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
+  useForm({
+    validationSchema: yup.object({
+      locationFrom: yup.string().required(),
+      unitFrom: yup.string().required(),
+      locationTo: yup.string().required(),
+      unitTo: yup.string().required(),
+      level: yup.string().required(),
+      type: yup.string().required(),
+      speed: yup.string().required(),
+      status: yup.string().required(),
+      operator: yup.string().required(),
+      composition: yup.string().required()
+    }),
+    initialValues: {}
+  });
 
 const emits = defineEmits(['close']);
 
@@ -19,9 +37,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = $init(await findOne({ id }));
-      } else {
-        record.value = $init({});
+        setValues(await findOne({ id }));
       }
       visible.value = true;
     } catch (err) {
@@ -31,6 +47,17 @@ defineExpose({
 });
 
 const visible = ref(false);
+
+const locationFrom = defineInputBinds('locationFrom');
+const unitFrom = defineInputBinds('unitFrom');
+const locationTo = defineInputBinds('locationTo');
+const unitTo = defineInputBinds('unitTo');
+const level = defineInputBinds('level');
+const type = defineInputBinds('type');
+const speed = defineInputBinds('speed');
+const status = defineInputBinds('status');
+const operator = defineInputBinds('operator');
+const composition = defineInputBinds('composition');
 
 const refMenu = ref();
 const options = ref([
@@ -51,33 +78,13 @@ const options = ref([
   }
 ]);
 
-const record = ref({});
-
-const $validate = useVuelidate(
-  {
-    locationFrom: { required },
-    unitFrom: { required },
-    locationTo: { required },
-    unitTo: { required },
-    level: { required },
-    type: { required },
-    speed: { required },
-    status: { required },
-    operator: { required },
-    composition: { required }
-  },
-  record
-);
-
 const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 
 const onCreateRecord = async () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -95,9 +102,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -134,55 +141,45 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await createOne(controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
+});
 </script>
 
 <template>
@@ -204,7 +201,7 @@ const onSaveRecord = async () => {
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">{{ $t('Network channel') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit current record') : $t('Create new record') }}
             </p>
           </div>
         </div>
@@ -228,28 +225,24 @@ const onSaveRecord = async () => {
           <div class="field">
             <label class="font-bold">{{ $t('Location start') }}</label>
             <InputText
-              v-model="record.locationFrom"
+              v-bind="locationFrom"
               :placeholder="$t('Location start')"
-              :class="{ 'p-invalid': !!$validate.locationFrom.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.locationFrom }"
             />
-            <small
-              class="p-error"
-              v-for="error in $validate.locationFrom.$errors"
-              :key="error.$uid"
-            >
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.locationFrom">
+              {{ $t(errors.locationFrom) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Unit start') }}</label>
             <InputText
-              v-model="record.unitFrom"
+              v-bind="unitFrom"
               :placeholder="$t('Unit start')"
-              :class="{ 'p-invalid': !!$validate.unitFrom.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.unitFrom }"
             />
-            <small class="p-error" v-for="error in $validate.unitFrom.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.unitFrom">
+              {{ $t(errors.unitFrom) }}
             </small>
           </div>
         </div>
@@ -258,24 +251,24 @@ const onSaveRecord = async () => {
           <div class="field">
             <label class="font-bold">{{ $t('Location end') }}</label>
             <InputText
-              v-model="record.locationTo"
+              v-bind="locationTo"
               :placeholder="$t('Location end')"
-              :class="{ 'p-invalid': !!$validate.locationTo.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.locationTo }"
             />
-            <small class="p-error" v-for="error in $validate.locationTo.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.locationTo">
+              {{ $t(errors.locationTo) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Unit end') }}</label>
             <InputText
-              v-model="record.unitTo"
+              v-bind="unitTo"
               :placeholder="$t('Unit end')"
-              :class="{ 'p-invalid': !!$validate.unitTo.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.unitTo }"
             />
-            <small class="p-error" v-for="error in $validate.unitTo.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.unitTo">
+              {{ $t(errors.unitTo) }}
             </small>
           </div>
         </div>
@@ -284,60 +277,60 @@ const onSaveRecord = async () => {
           <div class="field">
             <label class="font-bold">{{ $t('Level') }}</label>
             <InputText
-              v-model="record.level"
+              v-bind="level"
               :placeholder="$t('Level')"
-              :class="{ 'p-invalid': !!$validate.level.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.level }"
             />
-            <small class="p-error" v-for="error in $validate.level.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.level">
+              {{ $t(errors.level) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Type') }}</label>
             <InputText
-              v-model="record.type"
+              v-bind="type"
               :placeholder="$t('Type')"
-              :class="{ 'p-invalid': !!$validate.type.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.type }"
             />
-            <small class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.type">
+              {{ $t(errors.type) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Speed') }}</label>
             <InputText
-              v-model="record.speed"
+              v-bind="speed"
               :placeholder="$t('Speed')"
-              :class="{ 'p-invalid': !!$validate.speed.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.speed }"
             />
-            <small class="p-error" v-for="error in $validate.speed.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.speed">
+              {{ $t(errors.speed) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Status') }}</label>
             <InputText
-              v-model="record.status"
+              v-bind="status"
               :placeholder="$t('Status')"
-              :class="{ 'p-invalid': !!$validate.status.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.status }"
             />
-            <small class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.status">
+              {{ $t(errors.status) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Operator') }}</label>
             <InputText
-              v-model="record.operator"
+              v-bind="operator"
               :placeholder="$t('Operator')"
-              :class="{ 'p-invalid': !!$validate.operator.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.operator }"
             />
-            <small class="p-error" v-for="error in $validate.operator.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.operator">
+              {{ $t(errors.operator) }}
             </small>
           </div>
 
@@ -346,12 +339,12 @@ const onSaveRecord = async () => {
             <Textarea
               rows="5"
               cols="10"
-              v-model="record.composition"
+              v-bind="composition"
               :placeholder="$t('Composition')"
-              :class="{ 'p-invalid': !!$validate.composition.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.composition }"
             />
-            <small class="p-error" v-for="error in $validate.composition.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.composition">
+              {{ $t(errors.composition) }}
             </small>
           </div>
         </div>
@@ -364,5 +357,3 @@ const onSaveRecord = async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped></style>

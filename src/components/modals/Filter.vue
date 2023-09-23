@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -12,7 +12,18 @@ import { useFilter } from '@/stores/api/filters';
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
-const { $init, findAll, findOne, createOne, updateOne, removeOne } = useFilter();
+
+const { findAll, findOne, createOne, updateOne, removeOne } = useFilter();
+
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
+  useForm({
+    validationSchema: yup.object({
+      regex: yup.string().required(),
+      type: yup.string().required(),
+      status: yup.string().required()
+    }),
+    initialValues: {}
+  });
 
 const emits = defineEmits(['close']);
 
@@ -41,9 +52,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = $init(await findOne({ id }));
-      } else {
-        record.value = $init({});
+        setValues(await findOne({ id }));
       }
       records.value = await findAll({});
       records.value = groupBy(records.value, 'type');
@@ -55,6 +64,13 @@ defineExpose({
 });
 
 const visible = ref(false);
+
+const records = ref([]);
+
+const regex = defineInputBinds('regex');
+const type = defineInputBinds('type');
+const status = defineInputBinds('status');
+const description = defineInputBinds('description');
 
 const refMenu = ref();
 const options = ref([
@@ -75,17 +91,8 @@ const options = ref([
   }
 ]);
 
-const record = ref({});
-const records = ref([]);
-
-const $validate = useVuelidate(
-  { regex: { required }, type: { required }, status: { required } },
-  record
-);
-
 const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 
@@ -103,8 +110,7 @@ const onRecords = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -122,9 +128,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -162,7 +168,7 @@ const onRemoveRecord = async () => {
 };
 
 const onUpdateRecords = async () => {
-  record.value = $init({});
+  resetForm({ values: {} }, { force: true });
   await onRecords();
   toast.add({
     severity: 'success',
@@ -172,55 +178,45 @@ const onUpdateRecords = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await createOne(controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
+});
 </script>
 
 <template>
@@ -242,7 +238,7 @@ const onSaveRecord = async () => {
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">{{ $t('System filters') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit current record') : $t('Create new record') }}
             </p>
             <small class="font-normal line-height-2 text-color-secondary">
               {{ $t('System filters from database') }}
@@ -267,8 +263,8 @@ const onSaveRecord = async () => {
       <Dropdown
         filter
         autofocus
-        v-model="record"
         :options="records"
+        @change="event => setValues({ ...event.value })"
         optionGroupLabel="label"
         optionGroupChildren="items"
         :optionLabel="({ regex }) => regex"
@@ -304,12 +300,12 @@ const onSaveRecord = async () => {
       <div class="field">
         <label>{{ $t('Filter regex') }}</label>
         <InputText
-          v-model="record.regex"
+          v-bind="regex"
           :placeholder="$t('Filter regex')"
-          :class="{ 'p-invalid': !!$validate.regex.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.regex }"
         />
-        <small class="p-error" v-for="error in $validate.regex.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.regex">
+          {{ $t(errors.regex) }}
         </small>
       </div>
 
@@ -319,15 +315,15 @@ const onSaveRecord = async () => {
           autofocus
           showClear
           resetFilterOnHide
-          v-model="record.type"
+          v-bind="type"
           :options="['account', 'software', 'share']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter type')"
-          :class="{ 'p-invalid': !!$validate.type.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.type }"
         />
-        <small class="p-error" v-for="error in $validate.type.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.type">
+          {{ $t(errors.type) }}
         </small>
       </div>
 
@@ -337,15 +333,15 @@ const onSaveRecord = async () => {
           autofocus
           showClear
           resetFilterOnHide
-          v-model="record.status"
+          v-bind="status"
           :options="['allow', 'deny']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter status')"
-          :class="{ 'p-invalid': !!$validate.status.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.status }"
         />
-        <small class="p-error" v-for="error in $validate.status.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.status">
+          {{ $t(errors.status) }}
         </small>
       </div>
 
@@ -354,7 +350,7 @@ const onSaveRecord = async () => {
         <Textarea
           rows="5"
           class="min-w-full"
-          v-model="record.description"
+          v-bind="description"
           :placeholder="$t('Filter description')"
         />
       </div>

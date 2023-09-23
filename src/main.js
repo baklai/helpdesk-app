@@ -232,7 +232,7 @@ app.component('TreeTable', TreeTable);
 app.component('TriStateCheckbox', TriStateCheckbox);
 app.component('VirtualScroller', VirtualScroller);
 
-app.use(ErrorPlugin, { life: 3000 });
+app.use(ErrorPlugin, { life: 5000 });
 
 app.use(AxiosPlugin, {
   baseURL: import.meta.env.VITE_API_BASE_URL,

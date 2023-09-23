@@ -4,10 +4,6 @@ import { defineStore } from 'pinia';
 export const useFilter = defineStore('filter', () => {
   const $axios = inject('axios');
 
-  function $init({ id = null, regex = null, type = null, status = null, description = null }) {
-    return { id, regex, type, status, description };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/filters', { params });
@@ -24,7 +20,7 @@ export const useFilter = defineStore('filter', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/filters', { ...payload });
     } catch (err) {
@@ -32,7 +28,7 @@ export const useFilter = defineStore('filter', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/filters/${id}`, { ...payload });
     } catch (err) {
@@ -48,5 +44,5 @@ export const useFilter = defineStore('filter', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

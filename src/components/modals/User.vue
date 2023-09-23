@@ -17,6 +17,11 @@ const { scopeLength, getDefaultScope, getSelectScope } = useScope();
 
 const emits = defineEmits(['close']);
 
+//scope: id ? $scope.getCustomScope(scope) : $scope.getDefaultScope()
+// isActive = false,
+// isAdmin = false,
+// scope = []
+
 defineExpose({
   toggle: async ({ id }) => {
     try {

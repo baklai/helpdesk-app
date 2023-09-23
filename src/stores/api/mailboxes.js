@@ -4,40 +4,6 @@ import { defineStore } from 'pinia';
 export const useMailbox = defineStore('mailbox', () => {
   const $axios = inject('axios');
 
-  function $init({
-    id = null,
-    reqnum = null,
-    login = null,
-    fullname = null,
-    phone = null,
-    dateOpen = null,
-    dateClose = null,
-    location = null,
-    company = null,
-    branch = null,
-    enterprise = null,
-    department = null,
-    position = null,
-    comment = null
-  }) {
-    return {
-      id,
-      reqnum,
-      login,
-      fullname,
-      phone,
-      dateOpen,
-      dateClose,
-      location,
-      company,
-      branch,
-      enterprise,
-      department,
-      position,
-      comment
-    };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/mailboxes', { params });
@@ -56,7 +22,7 @@ export const useMailbox = defineStore('mailbox', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/mailboxes', { ...payload });
     } catch (err) {
@@ -64,7 +30,7 @@ export const useMailbox = defineStore('mailbox', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/mailboxes/${id}`, { ...payload });
     } catch (err) {
@@ -80,5 +46,5 @@ export const useMailbox = defineStore('mailbox', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from '@/service/DataFilters';
+
 const DEFAULT_LIFE = 5000;
 
 export default {
@@ -7,11 +9,11 @@ export default {
     app.config.globalProperties.$error = error => {
       let message = $t('Helpdesk system error');
       if (typeof error === 'string') {
-        message = $t(error);
+        message = $t(capitalizeFirstLetter(error));
       } else if (typeof error?.message === 'string') {
-        message = $t(error.message);
+        message = $t(capitalizeFirstLetter(error.message));
       } else if (Array.isArray(error?.message)) {
-        message = error.message.map(msg => $t(msg)).join('\n');
+        message = error.message.map(msg => $t(capitalizeFirstLetter(msg))).join('\n');
       }
       $toast.add({
         severity: 'error',

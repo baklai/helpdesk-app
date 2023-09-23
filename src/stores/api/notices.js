@@ -4,10 +4,6 @@ import { defineStore } from 'pinia';
 export const useNotice = defineStore('notice', () => {
   const $axios = inject('axios');
 
-  function $init({ name = null, text = null }) {
-    return { name, text };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/notices', { params });
@@ -32,5 +28,5 @@ export const useNotice = defineStore('notice', () => {
     }
   }
 
-  return { $init, findAll, createOne, removeOne };
+  return { findAll, createOne, removeOne };
 });

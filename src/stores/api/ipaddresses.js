@@ -4,51 +4,6 @@ import { defineStore } from 'pinia';
 export const useIPAddress = defineStore('ipaddress', () => {
   const $axios = inject('axios');
 
-  function $init({
-    id = null,
-    ipaddress = null,
-    cidr = null,
-    reqnum = null,
-    date = null,
-    fullname = null,
-    phone = null,
-    internet = null,
-    autoanswer = null,
-    comment = null,
-    unit = null,
-    location = null,
-    company = null,
-    branch = null,
-    enterprise = null,
-    department = null,
-    position = null
-  }) {
-    return {
-      id,
-      ipaddress,
-      cidr,
-      reqnum,
-      date,
-      fullname,
-      phone,
-      internet: {
-        reqnum: internet?.reqnum || null,
-        dateOpen: internet?.dateOpen || null,
-        dateClose: internet?.dateClose || null,
-        comment: internet?.comment || null
-      },
-      autoanswer,
-      comment,
-      unit,
-      location,
-      company,
-      branch,
-      enterprise,
-      department,
-      position
-    };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/ipaddresses', { params });
@@ -67,7 +22,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/ipaddresses', { ...payload });
     } catch (err) {
@@ -75,7 +30,7 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/ipaddresses/${id}`, { ...payload });
     } catch (err) {
@@ -91,5 +46,5 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

@@ -12,7 +12,18 @@ import { dateTimeToStr, capitalizeFirstLetter } from '@/service/DataFilters';
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
-const { $init, findOne, createOne, updateOne, removeOne } = useEvent();
+
+const { findOne, createOne, updateOne, removeOne } = useEvent();
+
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
+  useForm({
+    validationSchema: yup.object({
+      title: yup.string().required(),
+      datetime: yup.string().required(),
+      eventType: yup.string().required()
+    }),
+    initialValues: {}
+  });
 
 const emits = defineEmits(['close']);
 
@@ -20,10 +31,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = $init(await findOne({ id }));
-        record.value.datetime = dateTimeToStr(record.value.datetime);
-      } else {
-        record.value = $init({});
+        setValues(await findOne({ id }));
       }
       visible.value = true;
     } catch (err) {
@@ -33,6 +41,10 @@ defineExpose({
 });
 
 const visible = ref(false);
+
+const title = defineInputBinds('title');
+const datetime = defineInputBinds('datetime');
+const eventType = defineInputBinds('eventType');
 
 const refMenu = ref();
 const options = ref([
@@ -53,20 +65,13 @@ const options = ref([
   }
 ]);
 
-const record = ref({});
-
-const $validate = useVuelidate(
-  {
-    title: { required },
-    datetime: { required },
-    eventType: { required }
-  },
-  record
-);
+const onCloseModal = () => {
+  resetForm({ values: {} }, { force: true });
+  emits('close', {});
+};
 
 const onCreateRecord = async () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -84,9 +89,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -123,61 +128,45 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await createOne(controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
-
-const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
-  emits('close', {});
-};
+});
 </script>
 
 <template>
@@ -198,7 +187,7 @@ const onCloseModal = () => {
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">{{ $t('Calendar event') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit current record') : $t('Create new record') }}
             </p>
           </div>
         </div>
@@ -220,12 +209,12 @@ const onCloseModal = () => {
       <div class="field">
         <label class="font-bold">{{ $t('Title event') }}</label>
         <InputText
-          v-model="record.title"
+          v-bind="title"
           :placeholder="$t('Title event')"
-          :class="{ 'p-invalid': !!$validate.title.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.title }"
         />
-        <small class="p-error" v-for="error in $validate.title.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.title">
+          {{ $t(errors.title) }}
         </small>
       </div>
 
@@ -237,13 +226,12 @@ const onCloseModal = () => {
           showButtonBar
           dateFormat="dd.mm.yy"
           hourFormat="24"
-          v-model="record.datetime"
+          v-bind="datetime"
           :placeholder="$t('Datetime of event')"
-          :class="{ 'p-invalid': !!$validate.datetime.$errors.length }"
-          update:modelValue=""
+          :class="{ 'p-invalid': !!errors?.datetime }"
         />
-        <small class="p-error" v-for="error in $validate.datetime.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.datetime">
+          {{ $t(errors.datetime) }}
         </small>
       </div>
 
@@ -253,28 +241,21 @@ const onCloseModal = () => {
           autofocus
           showClear
           resetFilterOnHide
-          v-model="record.eventType"
+          v-bind="eventType"
           :options="['event', 'meeting', 'deadline', 'holiday', 'birthday']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
-          aria-describedby="eventType-help"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Event type')"
-          :class="{ 'p-invalid': !!$validate.eventType.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.eventType }"
         />
-        <small class="p-error" v-for="error in $validate.eventType.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.eventType">
+          {{ $t(errors.eventType) }}
         </small>
       </div>
 
       <div class="field">
         <label class="font-bold">{{ $t('Description') }}</label>
-        <Textarea
-          rows="5"
-          cols="12"
-          aria-describedby="description-help"
-          v-model="record.description"
-          :placeholder="$t('Description')"
-        />
+        <Textarea rows="5" cols="12" v-bind="description" :placeholder="$t('Description')" />
       </div>
     </form>
 

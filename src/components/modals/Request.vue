@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, inject } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required, ipAddress } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -30,15 +30,30 @@ const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
 
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
+  useForm({
+    validationSchema: yup.object({
+      ipaddress: yup.string().required(),
+      fullname: yup.string().required(),
+      phone: yup.string().required(),
+      position: yup.string().required(),
+      location: yup.string().required(),
+      company: yup.string().required(),
+      branch: yup.string().required(),
+      enterprise: yup.string().required(),
+      department: yup.string().required(),
+      request: yup.string().required()
+    }),
+    initialValues: {}
+  });
+
 const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = Request.$init(await Request.findOne({ id, populate: false }));
-      } else {
-        record.value = Request.$init({});
+        setValues(await Request.findOne({ id, populate: false }));
       }
 
       const [company, branch, department, enterprise, position, location] =
@@ -66,7 +81,23 @@ defineExpose({
 
 const visible = ref(false);
 
-const record = ref({});
+const companies = ref([]);
+const branches = ref([]);
+const departments = ref([]);
+const enterprises = ref([]);
+const positions = ref([]);
+const locations = ref([]);
+
+const ipaddress = defineInputBinds('ipaddress');
+const fullname = defineInputBinds('fullname');
+const phone = defineInputBinds('phone');
+const position = defineInputBinds('position');
+const location = defineInputBinds('location');
+const company = defineInputBinds('company');
+const branch = defineInputBinds('branch');
+const enterprise = defineInputBinds('enterprise');
+const department = defineInputBinds('department');
+const request = defineInputBinds('request');
 
 const isClosed = computed(() => {
   return !record?.value?.closed ? false : true;
@@ -92,32 +123,8 @@ const options = ref([
   }
 ]);
 
-const companies = ref([]);
-const branches = ref([]);
-const departments = ref([]);
-const enterprises = ref([]);
-const positions = ref([]);
-const locations = ref([]);
-
-const $validate = useVuelidate(
-  {
-    ipaddress: { ipAddress },
-    fullname: { required },
-    phone: { required },
-    position: { required },
-    location: { required },
-    company: { required },
-    branch: { required },
-    enterprise: { required },
-    department: { required },
-    request: { required }
-  },
-  record
-);
-
 const onCloseModal = () => {
-  $validate.value.$reset();
-  record.value = Request.$init({});
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 
@@ -161,8 +168,7 @@ const findOneIPAddress = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = Request.$init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -180,9 +186,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await Request.removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -219,64 +225,51 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await Request.updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await Request.createOne({ ...record.value, workerOpen: $helpdesk?.user?.id || null });
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await Request.updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await Request.createOne({ ...record.value, workerOpen: $helpdesk?.user?.id || null });
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
+});
 
-const onSaveClosedRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    record.value.closed = true;
-    record.value.workerClose = $helpdesk?.user?.id || null;
-    await onSaveRecord();
-  }
-};
+const onSaveClosedRecord = handleSubmit(async () => {
+  record.value.closed = true;
+  record.value.workerClose = $helpdesk?.user?.id || null;
+  await onSaveRecord();
+});
 </script>
 
 <template>

@@ -4,34 +4,6 @@ import { defineStore } from 'pinia';
 export const useChannel = defineStore('channel', () => {
   const $axios = inject('axios');
 
-  function $init({
-    id = null,
-    locationFrom = null,
-    unitFrom = null,
-    locationTo = null,
-    unitTo = null,
-    level = null,
-    type = null,
-    speed = null,
-    status = null,
-    operator = null,
-    composition = null
-  }) {
-    return {
-      id,
-      locationFrom,
-      unitFrom,
-      locationTo,
-      unitTo,
-      level,
-      type,
-      speed,
-      status,
-      operator,
-      composition
-    };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/channels', { params });
@@ -48,7 +20,7 @@ export const useChannel = defineStore('channel', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/channels', { ...payload });
     } catch (err) {
@@ -56,7 +28,7 @@ export const useChannel = defineStore('channel', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/channels/${id}`, { ...payload });
     } catch (err) {
@@ -72,5 +44,5 @@ export const useChannel = defineStore('channel', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

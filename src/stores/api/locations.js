@@ -4,10 +4,6 @@ import { defineStore } from 'pinia';
 export const useLocation = defineStore('location', () => {
   const $axios = inject('axios');
 
-  function $init({ id = null, name = null, region = null }) {
-    return { id, name, region };
-  }
-
   async function findAll(params) {
     try {
       return await $axios.get('/locations', { params });
@@ -24,7 +20,7 @@ export const useLocation = defineStore('location', () => {
     }
   }
 
-  async function createOne({ id, ...payload }) {
+  async function createOne({ ...payload }) {
     try {
       return await $axios.post('/locations', { ...payload });
     } catch (err) {
@@ -32,7 +28,7 @@ export const useLocation = defineStore('location', () => {
     }
   }
 
-  async function updateOne({ id, ...payload }) {
+  async function updateOne(id, { ...payload }) {
     try {
       return await $axios.put(`/locations/${id}`, { ...payload });
     } catch (err) {
@@ -48,5 +44,5 @@ export const useLocation = defineStore('location', () => {
     }
   }
 
-  return { $init, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

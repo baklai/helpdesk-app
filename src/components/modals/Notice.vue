@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -11,16 +11,25 @@ import { useUser } from '@/stores/api/users';
 const { t } = useI18n();
 const toast = useToast();
 
-const { $init, createOne } = useNotice();
+const { createOne } = useNotice();
 const { find } = useUser();
+
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
+  useForm({
+    validationSchema: yup.object({
+      name: yup.string().required(),
+      text: yup.string().required(),
+      users: yup.string().required()
+    }),
+    initialValues: {}
+  });
 
 const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({}) => {
     try {
-      record.value = $init({});
-      users.value = await find();
+      records.value = await find();
       visible.value = true;
     } catch (err) {
       visible.value = false;
@@ -30,60 +39,43 @@ defineExpose({
 
 const visible = ref(false);
 
-const record = ref({});
-const users = ref([]);
+const records = ref([]);
 
-const $validate = useVuelidate(
-  {
-    name: { required },
-    text: { required },
-    users: { required }
-  },
-  record
-);
+const name = defineInputBinds('name');
+const text = defineInputBinds('text');
+const users = defineInputBinds('users');
 
-const onSendNotice = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    try {
-      await Promise.allSettled[
-        record.value.users.map(({ id }) =>
-          createOne({
-            name: record.value.name,
-            text: record.value.text,
-            userId: id
-          })
-        )
-      ];
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('All messages have been sent'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t(err?.message),
-        life: 3000
-      });
-    } finally {
-      visible.value = false;
-    }
-  } else {
+const onSendNotice = handleSubmit(async () => {
+  try {
+    await Promise.allSettled[
+      values.users.map(({ id }) =>
+        createOne({
+          name: values.name,
+          text: values.text,
+          userId: id
+        })
+      )
+    ];
+    toast.add({
+      severity: 'success',
+      summary: t('HD Information'),
+      detail: t('All messages have been sent'),
+      life: 3000
+    });
+  } catch (err) {
     toast.add({
       severity: 'warn',
       summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
+      detail: t(err?.message),
       life: 3000
     });
+  } finally {
+    visible.value = false;
   }
-};
+});
 
 const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 </script>
@@ -110,12 +102,12 @@ const onCloseModal = () => {
       <div class="field">
         <label>{{ $t('Notification name') }}</label>
         <InputText
-          v-model="record.name"
+          v-bind="name"
           :placeholder="$t('Notification name')"
-          :class="{ 'p-invalid': !!$validate.name.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.name }"
         />
-        <small class="p-error" v-for="error in $validate.name.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.name">
+          {{ $t(errors.name) }}
         </small>
       </div>
 
@@ -123,24 +115,24 @@ const onCloseModal = () => {
         <label>{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
-          v-model="record.text"
+          v-bind="text"
           :placeholder="$t('Notification text')"
-          :class="{ 'p-invalid': !!$validate.text.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.text }"
         />
-        <small class="p-error" v-for="error in $validate.text.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.text">
+          {{ $t(errors.text) }}
         </small>
       </div>
 
       <div class="field">
         <label>{{ $t('Notification users') }}</label>
         <MultiSelect
-          v-model="record.users"
-          :options="users"
+          v-bind="users"
+          :options="records"
           optionLabel="fullname"
           :maxSelectedLabels="3"
           :placeholder="$t('Notification users')"
-          :class="{ 'p-invalid': !!$validate.users.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.users }"
           class="w-full"
         >
           <template #option="slotProps">
@@ -150,8 +142,8 @@ const onCloseModal = () => {
             </div>
           </template>
         </MultiSelect>
-        <small class="p-error" v-for="error in $validate.users.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.users">
+          {{ $t(errors.users) }}
         </small>
       </div>
     </form>
