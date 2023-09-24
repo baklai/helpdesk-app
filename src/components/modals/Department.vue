@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -14,13 +14,20 @@ const confirm = useConfirm();
 
 const { findAll, findOne, createOne, updateOne, removeOne } = useDepartment();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      name: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    name: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -42,9 +49,9 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const name = defineInputBinds('name');
-const address = defineInputBinds('address');
-const description = defineInputBinds('description');
+const name = defineComponentBinds('name');
+const address = defineComponentBinds('address');
+const description = defineComponentBinds('description');
 
 const refMenu = ref();
 const options = ref([

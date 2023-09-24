@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required, integer, email, between, requiredIf } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';

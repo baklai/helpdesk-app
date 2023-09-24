@@ -1,73 +1,59 @@
 <script setup>
-import { ref, computed, inject, onMounted } from 'vue';
-import { required, minLength, email, sameAs } from '@vuelidate/validators';
-import { useVuelidate } from '@vuelidate/core';
+import { inject, onMounted } from 'vue';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { AutocompleteOffForms } from '@/service/ReadonlyForms';
+
+const SUBMIT_COUNT = 5;
 
 const { t } = useI18n();
 const toast = useToast();
 
 const $auth = inject('auth');
 
-const record = ref({
-  login: undefined,
-  password: undefined,
-  fullname: undefined,
-  email: undefined,
-  phone: undefined
+const { errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
+  validationSchema: yup.object({
+    login: yup.string().required(),
+    password: yup.string().min(6).required(),
+    confirmPass: yup
+      .string()
+      .min(6)
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required(),
+    fullname: yup.string().required(),
+    email: yup.string().email().required(),
+    phone: yup.string().required()
+  }),
+  initialValues: {}
 });
 
-const password = computed(() => record.value.password);
-const confirmPass = ref(undefined);
+const login = defineComponentBinds('login');
+const password = defineComponentBinds('password');
+const confirmPass = defineComponentBinds('confirmPass');
+const fullname = defineComponentBinds('fullname');
+const email = defineComponentBinds('email');
+const phone = defineComponentBinds('phone');
 
-const $validate = useVuelidate(
-  {
-    login: { required },
-    password: {
-      required,
-      minLengthValue: minLength(6)
-    },
-    confirmPass: { required, sameAsPassword: sameAs(password) },
-    fullname: { required },
-    email: { required, email },
-    phone: { required }
-  },
-  record,
-  confirmPass
-);
-
-const onSignup = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    try {
-      await $auth.signup(record.value);
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Registration Successful'),
-        life: 3000
-      });
-      toast.add({
-        severity: 'info',
-        summary: t('HD Information'),
-        detail: t('Your account is registered. Please check email for activation instructions.'),
-        life: 10000
-      });
-    } catch (err) {
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
-    }
-  } else {
+const onSignup = handleSubmit(async values => {
+  try {
+    console.log(values);
+    await $auth.signup(values);
     toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Input registration information'),
-      life: 3000
+      severity: 'success',
+      summary: t('HD Information'),
+      detail: t(
+        'Your account is registered. Please contact with administrator for activation of account.'
+      ),
+      life: 10000
     });
+    resetForm();
+  } catch (err) {
+    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
   }
-};
+});
 
 onMounted(() => {
   AutocompleteOffForms();
@@ -97,6 +83,7 @@ onMounted(() => {
           <div class="text-center mb-4">
             <p class="text-600 font-medium">{{ $t('Register to the application to continue') }}</p>
           </div>
+
           <div class="formgrid grid">
             <div class="field col">
               <div class="field">
@@ -104,13 +91,13 @@ onMounted(() => {
                 <span class="p-input-icon-left">
                   <i class="pi pi-user" />
                   <InputText
-                    v-model="record.login"
+                    v-bind="login"
                     :placeholder="$t('User login')"
-                    :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+                    :class="{ 'p-invalid': !!errors?.login }"
                   />
                 </span>
-                <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.login">
+                  {{ $t(errors.login) }}
                 </small>
               </div>
 
@@ -120,13 +107,13 @@ onMounted(() => {
                 </label>
                 <Password
                   toggleMask
-                  v-model="record.password"
+                  v-bind="password"
                   :placeholder="$t('User password')"
                   :promptLabel="$t('Choose a password')"
                   :weakLabel="$t('Too simple')"
                   :mediumLabel="$t('Average complexity')"
                   :strongLabel="$t('Complex password')"
-                  :class="{ 'p-invalid': !!$validate.password.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.password }"
                 >
                   <template #header>
                     <h6>{{ $t('Pick a password') }}</h6>
@@ -142,12 +129,8 @@ onMounted(() => {
                     </ul>
                   </template>
                 </Password>
-                <small
-                  class="p-error"
-                  v-for="error in $validate.password.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.password">
+                  {{ $t(errors.password) }}
                 </small>
               </div>
 
@@ -157,16 +140,12 @@ onMounted(() => {
                 </label>
                 <InputText
                   type="password"
-                  v-model="record.confirmPass"
+                  v-bind="confirmPass"
                   :placeholder="$t('Confirm password')"
-                  :class="{ 'p-invalid': !!$validate.confirmPass.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.confirmPass }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.confirmPass.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.confirmPass">
+                  {{ $t(errors.confirmPass) }}
                 </small>
               </div>
             </div>
@@ -177,17 +156,13 @@ onMounted(() => {
                 <span class="p-input-icon-left">
                   <i class="pi pi-id-card" />
                   <InputText
-                    v-model="record.fullname"
+                    v-bind="fullname"
                     :placeholder="$t('User name')"
-                    :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+                    :class="{ 'p-invalid': !!errors?.fullname }"
                   />
                 </span>
-                <small
-                  class="p-error"
-                  v-for="error in $validate.fullname.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.fullname">
+                  {{ $t(errors.fullname) }}
                 </small>
               </div>
 
@@ -196,13 +171,13 @@ onMounted(() => {
                 <span class="p-input-icon-left">
                   <i class="pi pi-at" />
                   <InputText
-                    v-model="record.email"
+                    v-bind="email"
                     :placeholder="$t('User email')"
-                    :class="{ 'p-invalid': !!$validate.email.$errors.length }"
+                    :class="{ 'p-invalid': !!errors?.email }"
                   />
                 </span>
-                <small class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.email">
+                  {{ $t(errors.email) }}
                 </small>
               </div>
 
@@ -213,13 +188,13 @@ onMounted(() => {
                   <InputMask
                     date="phone"
                     mask="+99(999)999-99-99"
-                    v-model="record.phone"
+                    v-bind="phone"
                     :placeholder="$t('User phone')"
-                    :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                    :class="{ 'p-invalid': !!errors?.phone }"
                   />
                 </span>
-                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.phone">
+                  {{ $t(errors.phone) }}
                 </small>
               </div>
             </div>
@@ -231,8 +206,12 @@ onMounted(() => {
             type="submit"
             icon="pi pi-verified"
             class="block w-full p-3 text-xl text-center hover:text-color"
+            :disabled="submitCount > SUBMIT_COUNT"
             :label="$t('Register in the application')"
           />
+          <small class="p-error block w-full text-center mt-2" v-if="submitCount > SUBMIT_COUNT">
+            {{ $t('You submitted too many times') }}
+          </small>
         </form>
       </div>
     </div>
@@ -250,13 +229,7 @@ onMounted(() => {
 
 <style scoped>
 ::v-deep(.p-input-icon-right > svg) {
-  right: 0.5rem !important;
+  right: 0.8rem;
   cursor: pointer;
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  text-align: center;
 }
 </style>

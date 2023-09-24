@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -15,15 +15,22 @@ const confirm = useConfirm();
 
 const { findOne, createOne, updateOne, removeOne } = useEvent();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      title: yup.string().required(),
-      datetime: yup.string().required(),
-      eventType: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    title: yup.string().required(),
+    datetime: yup.string().required(),
+    eventType: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -42,9 +49,9 @@ defineExpose({
 
 const visible = ref(false);
 
-const title = defineInputBinds('title');
-const datetime = defineInputBinds('datetime');
-const eventType = defineInputBinds('eventType');
+const title = defineComponentBinds('title');
+const datetime = defineComponentBinds('datetime');
+const eventType = defineComponentBinds('eventType');
 
 const refMenu = ref();
 const options = ref([

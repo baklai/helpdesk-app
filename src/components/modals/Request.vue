@@ -30,22 +30,29 @@ const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      ipaddress: yup.string().required(),
-      fullname: yup.string().required(),
-      phone: yup.string().required(),
-      position: yup.string().required(),
-      location: yup.string().required(),
-      company: yup.string().required(),
-      branch: yup.string().required(),
-      enterprise: yup.string().required(),
-      department: yup.string().required(),
-      request: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    ipaddress: yup.string().required(),
+    fullname: yup.string().required(),
+    phone: yup.string().required(),
+    position: yup.string().required(),
+    location: yup.string().required(),
+    company: yup.string().required(),
+    branch: yup.string().required(),
+    enterprise: yup.string().required(),
+    department: yup.string().required(),
+    request: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -88,16 +95,16 @@ const enterprises = ref([]);
 const positions = ref([]);
 const locations = ref([]);
 
-const ipaddress = defineInputBinds('ipaddress');
-const fullname = defineInputBinds('fullname');
-const phone = defineInputBinds('phone');
-const position = defineInputBinds('position');
-const location = defineInputBinds('location');
-const company = defineInputBinds('company');
-const branch = defineInputBinds('branch');
-const enterprise = defineInputBinds('enterprise');
-const department = defineInputBinds('department');
-const request = defineInputBinds('request');
+const ipaddress = defineComponentBinds('ipaddress');
+const fullname = defineComponentBinds('fullname');
+const phone = defineComponentBinds('phone');
+const position = defineComponentBinds('position');
+const location = defineComponentBinds('location');
+const company = defineComponentBinds('company');
+const branch = defineComponentBinds('branch');
+const enterprise = defineComponentBinds('enterprise');
+const department = defineComponentBinds('department');
+const request = defineComponentBinds('request');
 
 const isClosed = computed(() => {
   return !record?.value?.closed ? false : true;

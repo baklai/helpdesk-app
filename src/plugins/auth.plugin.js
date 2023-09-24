@@ -44,11 +44,10 @@ export default {
             url: endpoints.signup.url,
             data: { login, password, fullname, email, phone }
           });
+          $router.push({ name: 'home' });
         } catch (err) {
           $error(err);
           throw err;
-        } finally {
-          $router.push({ name: 'home' });
         }
       },
 

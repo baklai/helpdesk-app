@@ -15,15 +15,22 @@ const confirm = useConfirm();
 
 const { findAll, findOne, createOne, updateOne, removeOne } = useFilter();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      regex: yup.string().required(),
-      type: yup.string().required(),
-      status: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    regex: yup.string().required(),
+    type: yup.string().required(),
+    status: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -67,10 +74,10 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const regex = defineInputBinds('regex');
-const type = defineInputBinds('type');
-const status = defineInputBinds('status');
-const description = defineInputBinds('description');
+const regex = defineComponentBinds('regex');
+const type = defineComponentBinds('type');
+const status = defineComponentBinds('status');
+const description = defineComponentBinds('description');
 
 const refMenu = ref();
 const options = ref([

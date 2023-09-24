@@ -14,13 +14,20 @@ const confirm = useConfirm();
 
 const { findAll, findOne, createOne, updateOne, removeOne } = useLocation();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      name: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    name: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -42,8 +49,8 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const name = defineInputBinds('name');
-const region = defineInputBinds('region');
+const name = defineComponentBinds('name');
+const region = defineComponentBinds('region');
 
 const refMenu = ref();
 const options = ref([

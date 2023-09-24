@@ -14,13 +14,20 @@ const confirm = useConfirm();
 
 const { findAll, findOne, createOne, updateOne, removeOne } = useBranch();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      name: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    name: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -61,9 +68,9 @@ const options = ref([
 
 const records = ref([]);
 
-const name = defineInputBinds('name');
-const address = defineInputBinds('address');
-const description = defineInputBinds('description');
+const name = defineComponentBinds('name');
+const address = defineComponentBinds('address');
+const description = defineComponentBinds('description');
 
 const onCloseModal = () => {
   resetForm({ values: {} }, { force: true });

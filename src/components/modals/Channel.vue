@@ -14,22 +14,29 @@ const confirm = useConfirm();
 
 const { findOne, createOne, updateOne, removeOne } = useChannel();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      locationFrom: yup.string().required(),
-      unitFrom: yup.string().required(),
-      locationTo: yup.string().required(),
-      unitTo: yup.string().required(),
-      level: yup.string().required(),
-      type: yup.string().required(),
-      speed: yup.string().required(),
-      status: yup.string().required(),
-      operator: yup.string().required(),
-      composition: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    locationFrom: yup.string().required(),
+    unitFrom: yup.string().required(),
+    locationTo: yup.string().required(),
+    unitTo: yup.string().required(),
+    level: yup.string().required(),
+    type: yup.string().required(),
+    speed: yup.string().required(),
+    status: yup.string().required(),
+    operator: yup.string().required(),
+    composition: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -48,16 +55,16 @@ defineExpose({
 
 const visible = ref(false);
 
-const locationFrom = defineInputBinds('locationFrom');
-const unitFrom = defineInputBinds('unitFrom');
-const locationTo = defineInputBinds('locationTo');
-const unitTo = defineInputBinds('unitTo');
-const level = defineInputBinds('level');
-const type = defineInputBinds('type');
-const speed = defineInputBinds('speed');
-const status = defineInputBinds('status');
-const operator = defineInputBinds('operator');
-const composition = defineInputBinds('composition');
+const locationFrom = defineComponentBinds('locationFrom');
+const unitFrom = defineComponentBinds('unitFrom');
+const locationTo = defineComponentBinds('locationTo');
+const unitTo = defineComponentBinds('unitTo');
+const level = defineComponentBinds('level');
+const type = defineComponentBinds('type');
+const speed = defineComponentBinds('speed');
+const status = defineComponentBinds('status');
+const operator = defineComponentBinds('operator');
+const composition = defineComponentBinds('composition');
 
 const refMenu = ref();
 const options = ref([

@@ -1,55 +1,51 @@
 <script setup>
-import { ref, inject, onMounted } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required, minLength } from '@vuelidate/validators';
+import { inject, onMounted } from 'vue';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { AutocompleteOffForms } from '@/service/ReadonlyForms';
+
+const SUBMIT_COUNT = 3;
 
 const { t } = useI18n();
 const toast = useToast();
 
 const $auth = inject('auth');
 
-const login = ref(null);
-const password = ref(null);
-const remember = ref(false);
+const { values, errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
+  validationSchema: yup.object({
+    login: yup.string().required(),
+    password: yup.string().min(6).required()
+  }),
+  initialValues: {
+    remember: JSON.parse(localStorage.getItem('app-auth-remember')) || false
+  }
+});
 
-const $validate = useVuelidate(
-  {
-    login: { required },
-    password: { required, minLength: minLength(6) }
-  },
-  { login, password }
-);
+const login = defineComponentBinds('login');
+const password = defineComponentBinds('password');
+const remember = defineComponentBinds('remember');
 
-const onSignin = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    try {
-      await $auth.signin({
-        login: login.value,
-        password: password.value,
-        remember: remember.value
-      });
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Authorization passed'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
-    }
-  } else {
+const onSignin = handleSubmit(async values => {
+  try {
+    await $auth.signin(values);
     toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Input login and password'),
+      severity: 'success',
+      summary: t('HD Information'),
+      detail: t('Authorization passed'),
       life: 3000
     });
+  } catch (err) {
+    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+  } finally {
+    resetForm();
   }
+});
+
+const onChangeRemember = () => {
+  localStorage.setItem('app-auth-remember', values.remember);
 };
 
 onMounted(() => {
@@ -81,13 +77,13 @@ onMounted(() => {
         <span class="p-input-icon-left">
           <i class="pi pi-user" />
           <InputText
-            v-model="login"
+            v-bind="login"
             :placeholder="$t('Login')"
-            :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+            :class="{ 'p-invalid': !!errors?.login }"
           />
         </span>
-        <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.login">
+          {{ $t(errors.login) }}
         </small>
       </div>
 
@@ -97,13 +93,13 @@ onMounted(() => {
         </label>
         <Password
           toggleMask
-          v-model="password"
+          v-bind="password"
           :placeholder="$t('Password')"
           :promptLabel="$t('Choose a password')"
           :weakLabel="$t('Too simple')"
           :mediumLabel="$t('Average complexity')"
           :strongLabel="$t('Complex password')"
-          :class="{ 'p-invalid': !!$validate.password.$errors.length }"
+          :class="{ 'p-invalid': !!errors?.password }"
         >
           <template #header>
             <h6>{{ $t('Pick a password') }}</h6>
@@ -119,15 +115,15 @@ onMounted(() => {
             </ul>
           </template>
         </Password>
-        <small class="p-error" v-for="error in $validate.password.$errors" :key="error.$uid">
-          {{ $t(error.$message) }}
+        <small class="p-error" v-if="errors?.password">
+          {{ $t(errors.password) }}
         </small>
       </div>
 
       <div class="field mb-5">
         <div class="flex align-items-center justify-content-between">
           <div class="flex align-items-center">
-            <Checkbox v-model="remember" binary class="mr-2" />
+            <Checkbox binary v-bind="remember" class="mr-2" @change="onChangeRemember" />
             <label>{{ $t('Remember me') }}</label>
           </div>
 
@@ -145,8 +141,12 @@ onMounted(() => {
           type="submit"
           icon="pi pi-sign-in"
           class="block w-full p-3 text-xl text-center hover:text-color"
+          :disabled="submitCount > SUBMIT_COUNT"
           :label="$t('Sign In')"
         />
+        <small class="p-error block w-full text-center mt-2" v-if="submitCount > SUBMIT_COUNT">
+          {{ $t('You submitted too many times') }}
+        </small>
       </div>
     </form>
   </div>
@@ -162,7 +162,7 @@ onMounted(() => {
 
 <style scoped>
 ::v-deep(.p-input-icon-right > svg) {
-  right: 0.5rem !important;
+  right: 0.8rem;
   cursor: pointer;
 }
 </style>

@@ -14,15 +14,22 @@ const toast = useToast();
 const { createOne } = useNotice();
 const { find } = useUser();
 
-const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineInputBinds } =
-  useForm({
-    validationSchema: yup.object({
-      name: yup.string().required(),
-      text: yup.string().required(),
-      users: yup.string().required()
-    }),
-    initialValues: {}
-  });
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    name: yup.string().required(),
+    text: yup.string().required(),
+    users: yup.string().required()
+  }),
+  initialValues: {}
+});
 
 const emits = defineEmits(['close']);
 
@@ -41,9 +48,9 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const name = defineInputBinds('name');
-const text = defineInputBinds('text');
-const users = defineInputBinds('users');
+const name = defineComponentBinds('name');
+const text = defineComponentBinds('text');
+const users = defineComponentBinds('users');
 
 const onSendNotice = handleSubmit(async () => {
   try {
