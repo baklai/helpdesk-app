@@ -14,7 +14,7 @@ const toast = useToast();
 
 const $auth = inject('auth');
 
-const { errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
+const { errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
   validationSchema: yup.object({
     login: yup.string().required(),
     password: yup.string().min(6).required(),
@@ -37,9 +37,8 @@ const fullname = defineComponentBinds('fullname');
 const email = defineComponentBinds('email');
 const phone = defineComponentBinds('phone');
 
-const onSignup = handleSubmit(async values => {
+const onSignup = handleSubmit(async (values, { resetForm }) => {
   try {
-    console.log(values);
     await $auth.signup(values);
     toast.add({
       severity: 'success',

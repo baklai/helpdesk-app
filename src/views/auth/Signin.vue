@@ -28,7 +28,7 @@ const login = defineComponentBinds('login');
 const password = defineComponentBinds('password');
 const remember = defineComponentBinds('remember');
 
-const onSignin = handleSubmit(async values => {
+const onSignin = handleSubmit(async (values, { resetForm }) => {
   try {
     await $auth.signin(values);
     toast.add({

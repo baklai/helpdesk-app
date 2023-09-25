@@ -135,22 +135,22 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'statistic:network',
-        comment: 'Read statistic of network',
+        comment: 'Statistic of network',
         read: true
       },
       {
         scope: 'statistic:request',
-        comment: 'Read statistic of requests',
+        comment: 'Statistic of requests',
         read: true
       },
       {
         scope: 'statistic:inspector',
-        comment: 'Read statistic of SysInspector',
+        comment: 'Statistic of SysInspector',
         read: true
       },
       {
         scope: 'statistic:dashboard',
-        comment: 'Read statistic for dashboard',
+        comment: 'Statistic for dashboard',
         read: true
       },
 
