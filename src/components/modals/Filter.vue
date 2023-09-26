@@ -13,7 +13,7 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, findOne, createOne, updateOne, removeOne } = useFilter();
+const { findAll, createOne, updateOne, removeOne } = useFilter();
 
 const {
   values,
@@ -31,8 +31,6 @@ const {
   }),
   initialValues: {}
 });
-
-const emits = defineEmits(['close']);
 
 const groupBy = (array, property) => {
   const result = [];
@@ -55,22 +53,7 @@ const groupBy = (array, property) => {
   return result;
 };
 
-defineExpose({
-  toggle: async ({ id }) => {
-    try {
-      if (id) {
-        setValues(await findOne({ id }));
-      }
-      records.value = await findAll({});
-      records.value = groupBy(records.value, 'type');
-      visible.value = true;
-    } catch (err) {
-      visible.value = false;
-    }
-  }
-});
-
-const visible = ref(false);
+const visible = ref(true);
 
 const records = ref([]);
 
@@ -98,9 +81,13 @@ const options = ref([
   }
 ]);
 
+const onShowModal = async () => {
+  records.value = await findAll({});
+  records.value = groupBy(records.value, 'type');
+};
+
 const onCloseModal = () => {
   resetForm({ values: {} }, { force: true });
-  emits('close', {});
 };
 
 const onRecords = async () => {
@@ -236,6 +223,7 @@ const onSaveRecord = handleSubmit(async () => {
     class="p-fluid"
     v-model:visible="visible"
     :style="{ width: '480px' }"
+    @show="onShowModal"
     @hide="onCloseModal"
   >
     <template #header>
@@ -243,13 +231,10 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex align-items-center justify-content-center">
           <i class="pi pi-filter-fill text-6xl mr-3"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('System filters') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('System filters') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ values?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit select record') : $t('Create new record') }}
             </p>
-            <small class="font-normal line-height-2 text-color-secondary">
-              {{ $t('System filters from database') }}
-            </small>
           </div>
         </div>
         <div class="flex gap-2 align-items-center">
@@ -303,7 +288,7 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-4" />
 
-    <form @submit.prevent="onSaveRecord" class="p-fluid">
+    <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
         <label>{{ $t('Filter regex') }}</label>
         <InputText

@@ -29,23 +29,7 @@ const {
   initialValues: {}
 });
 
-const emits = defineEmits(['close']);
-
-defineExpose({
-  toggle: async ({ id }) => {
-    try {
-      if (id) {
-        setValues(await findOne({ id }));
-      }
-      records.value = await findAll({});
-      visible.value = true;
-    } catch (err) {
-      visible.value = false;
-    }
-  }
-});
-
-const visible = ref(false);
+const visible = ref(true);
 
 const records = ref([]);
 
@@ -71,9 +55,12 @@ const options = ref([
   }
 ]);
 
+const onShowModal = async () => {
+  records.value = await findAll({});
+};
+
 const onCloseModal = () => {
   resetForm({ values: {} }, { force: true });
-  emits('close', {});
 };
 
 const onRecords = async () => {
@@ -209,6 +196,7 @@ const onSaveRecord = handleSubmit(async () => {
     class="p-fluid"
     v-model:visible="visible"
     :style="{ width: '480px' }"
+    @show="onShowModal"
     @hide="onCloseModal"
   >
     <template #header>
@@ -216,13 +204,10 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex align-items-center justify-content-center">
           <i class="pi pi-map-marker text-6xl mr-3"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('Location') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Location') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ values?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit select record') : $t('Create new record') }}
             </p>
-            <small class="font-normal line-height-2 text-color-secondary">
-              {{ $t('Locations from database') }}
-            </small>
           </div>
         </div>
 
@@ -255,7 +240,7 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-4" />
 
-    <form @submit.prevent="onSaveRecord" class="p-fluid">
+    <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
         <label>{{ $t('Location name') }}</label>
         <InputText
