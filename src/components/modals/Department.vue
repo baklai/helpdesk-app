@@ -12,7 +12,7 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, findOne, createOne, updateOne, removeOne } = useDepartment();
+const { findAll, createOne, updateOne, removeOne } = useDepartment();
 
 const {
   values,
@@ -207,7 +207,7 @@ const onSaveRecord = handleSubmit(async () => {
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Department') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ values?.id ? $t('Edit select record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>

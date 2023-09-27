@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useForm } from 'vee-validate';
+import { useForm, useFieldArray } from 'vee-validate';
 import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
@@ -12,23 +12,51 @@ import { useUser } from '@/stores/api/users';
 const { t } = useI18n();
 const toast = useToast();
 
-const { $init, findOne, createOne, updateOne, removeOne } = useUser();
+const { findOne, createOne, updateOne, removeOne } = useUser();
 const { scopeLength, getDefaultScope, getSelectScope } = useScope();
 
 const emits = defineEmits(['close']);
 
-//scope: id ? $scope.getCustomScope(scope) : $scope.getDefaultScope()
-// isActive = false,
-// isAdmin = false,
-// scope = []
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    login: yup.string().required(),
+    fullname: yup.string().required(),
+    email: yup.string().email().required(),
+    phone: yup.string().required()
+    // password: yup.string().when('$exist', {
+    //   is: exist => exist,
+    //   then: yup.string().min(6).required(),
+    //   otherwise: yup.string()
+    // })
+  }),
+  initialValues: {
+    isActive: false,
+    isAdmin: false,
+    scope: getDefaultScope()
+  }
+});
+
+const { fields } = useFieldArray('scope');
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = $init(await findOne({ id }));
+        const user = await findOne({ id });
+        setValues({ ...user });
       } else {
-        record.value = $init({});
+        resetForm(
+          { values: { isActive: false, isAdmin: false, scope: getDefaultScope() } },
+          { force: true }
+        );
       }
       visible.value = true;
       setTimeout(() => {
@@ -42,6 +70,14 @@ defineExpose({
 
 const readonly = ref(true);
 const visible = ref(false);
+
+const login = defineComponentBinds('login');
+const password = defineComponentBinds('password');
+const fullname = defineComponentBinds('fullname');
+const email = defineComponentBinds('email');
+const phone = defineComponentBinds('phone');
+const isActive = defineComponentBinds('isActive');
+const isAdmin = defineComponentBinds('isAdmin');
 
 const refMenu = ref();
 const options = ref([
@@ -68,14 +104,14 @@ const selectOptions = ref([
     label: t('Select all'),
     icon: 'pi pi-check-circle',
     command: () => {
-      record.value.scope = getSelectScope(true);
+      setValues({ scope: getSelectScope(true) });
     }
   },
   {
     label: t('Unselect all'),
     icon: 'pi pi-minus-circle',
     command: () => {
-      record.value.scope = getSelectScope(false);
+      setValues({ scope: getSelectScope(false) });
     }
   },
   { separator: true },
@@ -83,12 +119,10 @@ const selectOptions = ref([
     label: t('Set default'),
     icon: 'pi pi-verified',
     command: () => {
-      record.value.scope = getDefaultScope();
+      setValues({ scope: getDefaultScope() });
     }
   }
 ]);
-
-const record = ref({});
 
 const columns = ref([
   { field: 'create', header: t('Create') },
@@ -101,7 +135,7 @@ const filters = ref({ global: { value: null, matchMode: FilterMatchMode.CONTAINS
 
 const selectScopeLength = computed(() => {
   let count = 0;
-  record.value?.scope?.forEach((item, index, array) => {
+  values?.scope?.forEach((item, index, array) => {
     const keys = Object.keys(item);
     for (const key of keys) {
       if (typeof item[key] === 'boolean') {
@@ -114,31 +148,14 @@ const selectScopeLength = computed(() => {
   return count;
 });
 
-const $validate = useVuelidate(
-  {
-    login: { required },
-    password: {
-      requiredIf: requiredIf(function () {
-        return !record.value?.id;
-      })
-    },
-    fullname: { required },
-    email: { required, email },
-    phone: { required }
-  },
-  record
-);
-
 const onCloseModal = () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   readonly.value = true;
   emits('close', {});
 };
 
 const onCreateRecord = async () => {
-  record.value = $init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -156,9 +173,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -195,65 +212,52 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await updateOne(values.id, { ...controlledValues.value, scope: values.scope });
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await createOne({ ...controlledValues.value, scope: values.scope });
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
-
-const onCellEditComplete = event => {
-  let { data, newValue, field } = event;
-  data[field] = newValue;
-};
+});
 </script>
 
 <template>
   <Menu ref="refMenu" popup :model="options" />
+
   <Menu ref="refSelectMenu" popup :model="selectOptions" />
+
   <Dialog
     modal
     closable
@@ -268,9 +272,9 @@ const onCellEditComplete = event => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="core-users" :size="40" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('User account') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('User account') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
@@ -295,12 +299,12 @@ const onCellEditComplete = event => {
             <label class="font-bold">{{ $t('User login') }}</label>
             <InputText
               :readonly="readonly"
-              v-model="record.login"
+              v-bind="login"
               :placeholder="$t('User login')"
-              :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.login }"
             />
-            <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.login">
+              {{ $t(errors.login) }}
             </small>
           </div>
 
@@ -311,13 +315,13 @@ const onCellEditComplete = event => {
             <Password
               toggleMask
               :readonly="readonly"
-              v-model="record.password"
+              v-bind="password"
               :placeholder="$t('User password')"
               :promptLabel="$t('Choose a password')"
               :weakLabel="$t('Too simple')"
               :mediumLabel="$t('Average complexity')"
               :strongLabel="$t('Complex password')"
-              :class="{ 'p-invalid': !!$validate.password.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.password }"
             >
               <template #header>
                 <h6>{{ $t('Pick a password') }}</h6>
@@ -333,32 +337,32 @@ const onCellEditComplete = event => {
                 </ul>
               </template>
             </Password>
-            <small class="p-error" v-for="error in $validate.password.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.password">
+              {{ $t(errors.password) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('User name') }}</label>
             <InputText
-              v-model="record.fullname"
+              v-bind="fullname"
               :placeholder="$t('User name')"
-              :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.fullname }"
             />
-            <small class="p-error" v-for="error in $validate.fullname.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.fullname">
+              {{ $t(errors.fullname) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('User email') }}</label>
             <InputText
-              v-model="record.email"
+              v-bind="email"
               :placeholder="$t('User email')"
-              :class="{ 'p-invalid': !!$validate.email.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.email }"
             />
-            <small class="p-error" v-for="error in $validate.email.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.email">
+              {{ $t(errors.email) }}
             </small>
           </div>
 
@@ -368,24 +372,24 @@ const onCellEditComplete = event => {
               date="phone"
               mask="+99(999)999-99-99"
               placeholder="+99(999)999-99-99"
-              v-model="record.phone"
-              :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+              v-bind="phone"
+              :class="{ 'p-invalid': !!errors?.phone }"
             />
-            <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.phone">
+              {{ $t(errors.phone) }}
             </small>
           </div>
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-model="record.isActive" />
+              <Checkbox binary v-bind="isActive" />
               <label class="font-bold ml-2"> {{ $t('Activated account') }} </label>
             </div>
           </div>
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-model="record.isAdmin" />
+              <Checkbox binary v-bind="isAdmin" />
               <label class="font-bold ml-2"> {{ $t('Admin account') }} </label>
             </div>
           </div>
@@ -393,18 +397,20 @@ const onCellEditComplete = event => {
 
         <div class="field col-12 xl:col-8">
           <div class="field">
+            <!-- <div v-for="(field, idx) in fields" :key="field.key">
+              <input v-model="field.value.scope" type="url" />
+            </div> -->
+
             <DataTable
               rowHover
               scrollable
-              editMode="cell"
               scrollHeight="flex"
               responsiveLayout="scroll"
-              v-model:value="record.scope"
+              :value="fields"
               v-model:filters="filters"
               :globalFilterFields="['scope']"
               class="min-w-full overflow-x-auto"
               style="height: calc(400px)"
-              @cell-edit-complete="onCellEditComplete"
             >
               <template #header>
                 <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
@@ -467,8 +473,8 @@ const onCellEditComplete = event => {
                 :header="$t('Scope')"
                 class="font-bold"
               >
-                <template #body="slotProps">
-                  {{ slotProps.data.comment }}
+                <template #body="{ data }">
+                  {{ data.value.comment }}
                 </template>
               </Column>
 
@@ -481,17 +487,11 @@ const onCellEditComplete = event => {
                 class="text-center"
               >
                 <template #body="{ data, field }">
-                  <i
-                    v-if="data[field] !== undefined"
-                    class="pi"
-                    :class="
-                      data[field] ? 'pi-check-square text-primary' : 'pi-stop text-color-secondary'
-                    "
+                  <Checkbox
+                    v-model="data.value[field]"
+                    :binary="true"
+                    v-if="data.value[field] !== undefined"
                   />
-                  <span v-else class="text-color-secondary">-</span>
-                </template>
-                <template #editor="{ data, field }">
-                  <Checkbox v-model="data[field]" :binary="true" v-if="data[field] !== undefined" />
                   <span v-else class="text-color-secondary">-</span>
                 </template>
               </Column>

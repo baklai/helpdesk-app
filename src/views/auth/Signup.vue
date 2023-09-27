@@ -18,11 +18,11 @@ const { errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
   validationSchema: yup.object({
     login: yup.string().required(),
     password: yup.string().min(6).required(),
-    confirmPass: yup
+    passwordConfirm: yup
       .string()
+      .required()
       .min(6)
-      .oneOf([yup.ref('password'), null], 'Passwords must match')
-      .required(),
+      .oneOf([yup.ref('password')], 'Passwords must match'),
     fullname: yup.string().required(),
     email: yup.string().email().required(),
     phone: yup.string().required()
@@ -32,7 +32,7 @@ const { errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
 
 const login = defineComponentBinds('login');
 const password = defineComponentBinds('password');
-const confirmPass = defineComponentBinds('confirmPass');
+const passwordConfirm = defineComponentBinds('passwordConfirm');
 const fullname = defineComponentBinds('fullname');
 const email = defineComponentBinds('email');
 const phone = defineComponentBinds('phone');
@@ -139,12 +139,12 @@ onMounted(() => {
                 </label>
                 <InputText
                   type="password"
-                  v-bind="confirmPass"
+                  v-bind="passwordConfirm"
                   :placeholder="$t('Confirm password')"
-                  :class="{ 'p-invalid': !!errors?.confirmPass }"
+                  :class="{ 'p-invalid': !!errors?.passwordConfirm }"
                 />
-                <small class="p-error" v-if="errors?.confirmPass">
-                  {{ $t(errors.confirmPass) }}
+                <small class="p-error" v-if="errors?.passwordConfirm">
+                  {{ $t(errors.passwordConfirm) }}
                 </small>
               </div>
             </div>

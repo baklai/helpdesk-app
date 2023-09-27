@@ -64,7 +64,7 @@ onMounted(async () => {
       <div class="flex align-items-center justify-content-center">
         <Avatar size="large" icon="pi pi-bell text-4xl" class="mr-2" />
         <div>
-          <p class="text-lg font-bold line-height-2 mb-0">{{ $t('HD Notification') }}</p>
+          <p class="text-lg font-bold line-height-2 mb-2">{{ $t('HD Notification') }}</p>
           <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
             {{ $t('Helpdesk notification system') }}
           </p>

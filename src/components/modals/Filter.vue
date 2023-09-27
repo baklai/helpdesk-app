@@ -233,7 +233,7 @@ const onSaveRecord = handleSubmit(async () => {
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">{{ $t('System filters') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ values?.id ? $t('Edit select record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>

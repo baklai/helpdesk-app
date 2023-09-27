@@ -100,7 +100,7 @@ const onCloseModal = () => {
       <div class="flex justify-content-between w-full">
         <div class="flex align-items-center justify-content-center">
           <i class="pi pi-bell text-2xl mr-2"></i>
-          <p class="text-lg font-bold line-height-2 mb-0">{{ $t('HD Notification') }}</p>
+          <p class="text-lg font-bold line-height-2 mb-2">{{ $t('HD Notification') }}</p>
         </div>
       </div>
     </template>

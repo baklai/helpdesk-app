@@ -240,9 +240,9 @@ const onCloseModal = () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="network-mailbox" :size="42" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('Mailbox') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Mailbox') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ record?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>

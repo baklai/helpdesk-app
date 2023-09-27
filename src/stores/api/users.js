@@ -25,7 +25,11 @@ export const useUser = defineStore('user', () => {
 
   async function findOne({ id }) {
     try {
-      return await $axios.get(`/users/${id}`);
+      const user = await $axios.get(`/users/${id}`);
+      return {
+        ...user,
+        scope: $scope.getCustomScope(user.scope)
+      };
     } catch (err) {
       throw new Error(err);
     }

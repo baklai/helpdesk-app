@@ -300,7 +300,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
               {{ $t('Help Desk Live Log') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ record?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ $t('Status') }} :

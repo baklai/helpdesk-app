@@ -6,7 +6,6 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
-import { dateToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
@@ -15,6 +14,8 @@ import { useDepartment } from '@/stores/api/departments';
 import { useEnterprise } from '@/stores/api/enterprises';
 import { usePosition } from '@/stores/api/positions';
 import { useUnit } from '@/stores/api/units';
+
+import { dateToStr } from '@/service/DataFilters';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -31,15 +32,47 @@ const Unit = useUnit();
 
 const emits = defineEmits(['close']);
 
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    date: yup.string().required(),
+    reqnum: yup.string().required(),
+    ipaddress: yup
+      .string()
+      .required()
+      .test('ipaddress', 'Incorrect IP address', value => {
+        const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+        const ipv6Pattern = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
+        return ipv4Pattern.test(value) || ipv6Pattern.test(value);
+      }),
+    cidr: yup.object().required(),
+    unit: yup.string().required(),
+    location: yup.string().required(),
+    fullname: yup.string().required(),
+    phone: yup.string().required(),
+    position: yup.string().required(),
+    company: yup.string().required(),
+    branch: yup.string().required(),
+    enterprise: yup.string().required(),
+    department: yup.string().required()
+  }),
+  initialValues: {}
+});
+
 defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = IPAddress.$init(await IPAddress.findOne({ id, populate: false }));
-
-        console.log(record.value);
+        setValues(await IPAddress.findOne({ id, populate: false }));
       } else {
-        record.value = IPAddress.$init({});
+        resetForm({ values: {} }, { force: true });
       }
       const [unit, location, company, branch, enterprise, department, position] =
         await Promise.allSettled([
@@ -123,8 +156,6 @@ const options = ref([
   }
 ]);
 
-const record = ref({});
-
 const companies = ref([]);
 const branches = ref([]);
 const departments = ref([]);
@@ -133,31 +164,31 @@ const positions = ref([]);
 const locations = ref([]);
 const units = ref([]);
 
-const $validate = useVuelidate(
-  {
-    date: { required },
-    reqnum: { required },
-    ipaddress: { required, ipAddress },
-    cidr: { required },
-    unit: { required },
-    location: { required },
-    fullname: { required },
-    phone: { required },
-    position: { required },
-    company: { required },
-    branch: { required },
-    enterprise: { required },
-    department: { required }
-  },
-  record
-);
+const date = defineComponentBinds('date');
+const reqnum = defineComponentBinds('reqnum');
+const ipaddress = defineComponentBinds('ipaddress');
+const cidr = defineComponentBinds('cidr');
+const unit = defineComponentBinds('unit');
+const location = defineComponentBinds('location');
+const fullname = defineComponentBinds('fullname');
+const phone = defineComponentBinds('phone');
+const position = defineComponentBinds('position');
+const company = defineComponentBinds('company');
+const branch = defineComponentBinds('branch');
+const enterprise = defineComponentBinds('enterprise');
+const department = defineComponentBinds('department');
+const autoanswer = defineComponentBinds('autoanswer');
+const internetReqnum = defineComponentBinds('internet.reqnum');
+const internetDateOpen = defineComponentBinds('internet.dateOpen');
+const internetDateClose = defineComponentBinds('internet.dateClose');
+const internetComment = defineComponentBinds('internet.comment');
+const comment = defineComponentBinds('comment');
 
 const checkIPAddress = async () => {
-  const validIPAddress = await $validate.value.ipaddress.$validate();
   try {
-    if (record.value?.ipaddress && validIPAddress) {
+    if (values?.ipaddress) {
       const currentIP = await IPAddress.findOne({
-        ipaddress: record.value.ipaddress,
+        ipaddress: values.ipaddress,
         populate: false
       });
       if (currentIP?.ipaddress) {
@@ -189,8 +220,6 @@ const checkIPAddress = async () => {
 };
 
 const onCreateRecord = async () => {
-  record.value = IPAddress.$init({});
-  $validate.value.$reset();
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -208,9 +237,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await IPAddress.removeOne(record.value);
+          await IPAddress.removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -247,59 +276,48 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await IPAddress.updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await IPAddress.createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async values => {
+  if (values?.id) {
+    try {
+      await IPAddress.updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await IPAddress.createOne(controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
+});
 
 const onCloseModal = () => {
-  record.value = IPAddress.$init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 </script>
@@ -321,9 +339,9 @@ const onCloseModal = () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="network-ip-address" :size="42" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">{{ $t('IP Address') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('IP Address') }}</p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit current record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
@@ -350,25 +368,24 @@ const onCloseModal = () => {
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              :modelValue="dateToStr(record.date)"
-              v-model="record.date"
+              v-bind="date"
               :placeholder="$t('Date create')"
-              :class="{ 'p-invalid': !!$validate.date.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.date }"
             />
-            <small class="p-error" v-for="error in $validate.date.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.date">
+              {{ $t(errors.date) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
-              v-model="record.reqnum"
+              v-bind="reqnum"
               :placeholder="$t('Letter number')"
-              :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.reqnum }"
             />
-            <small class="p-error" v-for="error in $validate.reqnum.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.reqnum">
+              {{ $t(errors.reqnum) }}
             </small>
           </div>
 
@@ -382,14 +399,14 @@ const onCloseModal = () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
-              v-model="record.unit"
+              v-bind="unit"
               :options="units"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client unit')"
-              :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.unit }"
             />
-            <small class="p-error" v-for="error in $validate.unit.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.unit">
+              {{ $t(errors.unit) }}
             </small>
           </div>
 
@@ -403,14 +420,14 @@ const onCloseModal = () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
-              v-model="record.location"
+              v-bind="location"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!$validate.location.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.location }"
             />
-            <small class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.location">
+              {{ $t(errors.location) }}
             </small>
           </div>
 
@@ -425,18 +442,14 @@ const onCloseModal = () => {
                     @click.prevent="checkIPAddress"
                   />
                   <InputText
-                    v-model="record.ipaddress"
+                    v-bind="ipaddress"
                     :placeholder="$t('Client IP Address')"
-                    :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
+                    :class="{ 'p-invalid': !!errors?.ipaddress }"
                     @keypress.prevent.enter="checkIPAddress"
                   />
                 </span>
-                <small
-                  class="p-error"
-                  v-for="error in $validate.ipaddress.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.ipaddress">
+                  {{ $t(errors.ipaddress) }}
                 </small>
               </div>
               <div class="field">
@@ -445,15 +458,15 @@ const onCloseModal = () => {
                   autofocus
                   showClear
                   resetFilterOnHide
-                  v-model="record.cidr"
+                  v-bind="cidr"
                   :options="CIDRS"
                   :optionLabel="obj => `${obj.mask}/${obj.value}`"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Mask IP Address')"
-                  :class="{ 'p-invalid': !!$validate.unit.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.cidr }"
                 />
-                <small class="p-error" v-for="error in $validate.unit.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.cidr">
+                  {{ $t(errors.cidr) }}
                 </small>
               </div>
             </div>
@@ -462,10 +475,7 @@ const onCloseModal = () => {
             <label class="font-bold">{{ $t('Internet') }}</label>
             <div class="field">
               <div class="field">
-                <InputText
-                  v-model="record.internet.reqnum"
-                  :placeholder="$t('Internet Letter number')"
-                />
+                <InputText v-bind="internetReqnum" :placeholder="$t('Internet Letter number')" />
               </div>
 
               <div class="field">
@@ -473,8 +483,7 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
-                  :modelValue="dateToStr(record.internet.dateOpen)"
-                  v-model="record.internet.dateOpen"
+                  v-bind="internetDateOpen"
                   :placeholder="$t('Date open internet')"
                 />
               </div>
@@ -484,8 +493,7 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
-                  :modelValue="dateToStr(record.internet.dateClose)"
-                  v-model="record.internet.dateClose"
+                  v-bind="internetDateClose"
                   :placeholder="$t('Date close internet')"
                 />
               </div>
@@ -494,7 +502,7 @@ const onCloseModal = () => {
                 <Textarea
                   rows="1"
                   cols="10"
-                  v-model="record.internet.comment"
+                  v-bind="internetComment"
                   :placeholder="$t('Comment')"
                 />
               </div>
@@ -515,14 +523,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.company"
+                  v-bind="company"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
-                  :class="{ 'p-invalid': !!$validate.company.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.company }"
                 />
-                <small class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.company">
+                  {{ $t(errors.company) }}
                 </small>
               </div>
 
@@ -535,14 +543,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.branch"
+                  v-bind="branch"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
-                  :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.branch }"
                 />
-                <small class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.branch">
+                  {{ $t(errors.branch) }}
                 </small>
               </div>
 
@@ -555,18 +563,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.enterprise"
+                  v-bind="enterprise"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{ 'p-invalid': !!$validate.enterprise.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.enterprise }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.enterprise.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.enterprise">
+                  {{ $t(errors.enterprise) }}
                 </small>
               </div>
 
@@ -579,18 +583,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.department"
+                  v-bind="department"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{ 'p-invalid': !!$validate.department.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.department }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.department.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.department">
+                  {{ $t(errors.department) }}
                 </small>
               </div>
             </div>
@@ -601,27 +601,23 @@ const onCloseModal = () => {
             <div class="field">
               <div class="field">
                 <InputText
-                  v-model="record.fullname"
+                  v-bind="fullname"
                   :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.fullname }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.fullname.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.fullname">
+                  {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
                 <InputText
-                  v-model="record.phone"
+                  v-bind="phone"
                   :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.phone }"
                 />
-                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.phone">
+                  {{ $t(errors.phone) }}
                 </small>
               </div>
 
@@ -634,18 +630,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.position"
+                  v-bind="position"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
-                  :class="{ 'p-invalid': !!$validate.position.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.position }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.position.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.position">
+                  {{ $t(errors.position) }}
                 </small>
               </div>
             </div>
@@ -653,7 +645,7 @@ const onCloseModal = () => {
 
           <div class="field">
             <label class="font-bold">{{ $t('Autoanswer') }}</label>
-            <InputText v-model="record.autoanswer" :placeholder="$t('Client autoanswer')" />
+            <InputText v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
           <div class="field">
@@ -662,7 +654,7 @@ const onCloseModal = () => {
               rows="7"
               cols="10"
               class="outline-none"
-              v-model="record.comment"
+              v-bind="comment"
               :placeholder="$t('Comment')"
             />
           </div>
