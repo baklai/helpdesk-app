@@ -1,10 +1,17 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineAsyncComponent } from 'vue';
 
-import AppMenu from '@/components/AppMenu.vue';
-import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
-import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+// import AppMenu from '@/components/AppMenu.vue';
+// import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
+// import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
+// import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+
+const AppMenu = defineAsyncComponent(() => import('@/components/AppMenu.vue'));
+const BtnAppAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAppAuth.vue'));
+const BtnToggleTheme = defineAsyncComponent(() =>
+  import('@/components/buttons/BtnToggleTheme.vue')
+);
+const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
 
 const refMenu = ref();
 

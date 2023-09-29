@@ -80,7 +80,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
         <div class="field col-12 xl:col-6">
           <div class="field mb-0">
             <label class="font-bold text-primary text-lg">
-              {{ $t('Login') }} : <span class="text-color">{{ $helpdesk?.user?.login }}</span>
+              {{ $t('Login') }} :
+              <span class="text-color">{{ $helpdesk?.user?.login }}</span>
             </label>
           </div>
           <div class="field mb-0">
@@ -91,17 +92,20 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
           <div class="field mb-0">
             <label class="font-bold text-primary text-lg">
-              {{ $t('E-Mail') }} : <span class="text-color">{{ $helpdesk?.user?.email }}</span>
+              {{ $t('E-Mail') }} :
+              <span class="text-color">{{ $helpdesk?.user?.email }}</span>
             </label>
           </div>
           <div class="field mb-0">
             <label class="font-bold text-primary text-lg">
-              {{ $t('Phone') }} : <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
+              {{ $t('Phone') }} :
+              <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
             </label>
           </div>
           <div class="field mb-0">
             <label class="font-bold text-primary text-lg">
-              {{ $t('Is Admin') }} : <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
+              {{ $t('Is Admin') }} :
+              <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
             </label>
           </div>
         </div>

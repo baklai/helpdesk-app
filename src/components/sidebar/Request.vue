@@ -21,7 +21,10 @@ defineExpose({
       record.value = await Request.findOne({ id, populate: true });
       try {
         recordip.value = record.value?.ipaddress
-          ? await IPAddress.findOne({ ipaddress: record.value.ipaddress, populate: true })
+          ? await IPAddress.findOne({
+              ipaddress: record.value.ipaddress,
+              populate: true
+            })
           : null;
       } catch (err) {}
       try {
@@ -104,7 +107,9 @@ const onCloseSidebar = () => {
         <table>
           <tr>
             <td class="font-weight-bold" width="50%">{{ $t('Opened an request') }} :</td>
-            <td>{{ record?.workerOpen ? record?.workerOpen?.fullname : '-' }}</td>
+            <td>
+              {{ record?.workerOpen ? record?.workerOpen?.fullname : '-' }}
+            </td>
           </tr>
           <tr>
             <td class="font-weight-bold" width="50%">{{ $t('Date opened') }} :</td>
@@ -201,7 +206,9 @@ const onCloseSidebar = () => {
           <tr>
             <td colspan="2">
               <p class="font-weight-bold w-full">{{ $t('Conclusion for request') }} :</p>
-              <p class="font-medium text-primary">{{ record?.conclusion || '-' }}</p>
+              <p class="font-medium text-primary">
+                {{ record?.conclusion || '-' }}
+              </p>
             </td>
           </tr>
           <tr>

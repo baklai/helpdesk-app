@@ -205,7 +205,9 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex align-items-center justify-content-center">
           <i class="pi pi-building text-6xl mr-3"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Branch') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">
+              {{ $t('Branch') }}
+            </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>

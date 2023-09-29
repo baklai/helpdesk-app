@@ -37,7 +37,10 @@ export const useUser = defineStore('user', () => {
 
   async function createOne({ scope, ...payload }) {
     try {
-      return await $axios.post('/users', { ...payload, scope: $scope.getScopeKeyList(scope) });
+      return await $axios.post('/users', {
+        ...payload,
+        scope: $scope.getScopeKeyList(scope)
+      });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -45,7 +48,10 @@ export const useUser = defineStore('user', () => {
 
   async function updateOne(id, { scope, ...payload }) {
     try {
-      return await $axios.put(`/users/${id}`, { ...payload, scope: $scope.getScopeKeyList(scope) });
+      return await $axios.put(`/users/${id}`, {
+        ...payload,
+        scope: $scope.getScopeKeyList(scope)
+      });
     } catch (err) {
       throw new Error(err.message);
     }

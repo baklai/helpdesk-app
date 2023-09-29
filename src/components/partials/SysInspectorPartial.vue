@@ -140,7 +140,9 @@ const diskSum = value => {
 
   <table class="mb-2">
     <tr>
-      <td class="font-medium" width="40%">{{ $t('Baseboard serial number') }}</td>
+      <td class="font-medium" width="40%">
+        {{ $t('Baseboard serial number') }}
+      </td>
       <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
     </tr>
     <tr>

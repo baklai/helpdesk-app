@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import ModalRecord from '@/components/modals/Notice.vue';
+// import ModalRecord from '@/components/modals/Notice.vue';
+
+const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Notice.vue'));
 
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useNotice } from '@/stores/api/notices';
@@ -64,7 +66,9 @@ onMounted(async () => {
       <div class="flex align-items-center justify-content-center">
         <Avatar size="large" icon="pi pi-bell text-4xl" class="mr-2" />
         <div>
-          <p class="text-lg font-bold line-height-2 mb-2">{{ $t('HD Notification') }}</p>
+          <p class="text-lg font-bold line-height-2 mb-2">
+            {{ $t('HD Notification') }}
+          </p>
           <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
             {{ $t('Helpdesk notification system') }}
           </p>

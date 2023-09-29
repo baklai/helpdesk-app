@@ -80,7 +80,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of records') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.count || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.count || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -105,7 +107,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of channels')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.channels || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.channels || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -126,7 +130,9 @@ const onCountPercentWidth = (count, allCount) => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">{{ $t('Total number of units') }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.units || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.units || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -151,7 +157,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of locations')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.locations || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.locations || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -176,7 +184,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of companies')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.companies || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.companies || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -201,7 +211,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of branches')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.branches || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.branches || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -226,7 +238,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of enterprises')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.enterprises || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.enterprises || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -251,7 +265,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of departments')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.departments || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.departments || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -276,7 +292,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of Internets')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.internet || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.internet || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
@@ -301,7 +319,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of E-Mails')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.email || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.email || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
@@ -326,7 +346,9 @@ const onCountPercentWidth = (count, allCount) => {
               <span class="block text-500 font-medium mb-3">{{
                 $t('Total number of autoanswers')
               }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.autoanswer || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.autoanswer || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
@@ -362,7 +384,8 @@ const onCountPercentWidth = (count, allCount) => {
               <div>
                 <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ item.title }}</span>
                 <div class="mt-1 text-600">
-                  {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }} {{ stats.count }}
+                  {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }}
+                  {{ stats.count }}
                 </div>
               </div>
               <div class="mt-2 md:mt-0 flex align-items-center">

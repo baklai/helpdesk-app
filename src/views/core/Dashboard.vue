@@ -35,7 +35,9 @@ onMounted(async () => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">{{ $t('Total number of users') }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.users || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.users || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -60,7 +62,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of requests') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.requests || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.requests || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -85,7 +89,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of PC SysInspector reports') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.inspectors || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.inspectors || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -110,7 +116,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of IP Addresses') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.ipaddress || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.ipaddress || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -135,7 +143,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of channels') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.channels || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.channels || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -158,7 +168,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of units') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.units || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.units || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -183,7 +195,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of positions') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.positions || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.positions || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -208,7 +222,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of locations') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.locations || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.locations || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -233,7 +249,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of companies') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.companies || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.companies || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -258,7 +276,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of branches') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.branches || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.branches || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -283,7 +303,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of enterprises') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.enterprises || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.enterprises || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
@@ -308,7 +330,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of departments') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.departments || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.departments || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"

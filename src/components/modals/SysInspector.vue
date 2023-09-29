@@ -204,7 +204,8 @@ const validSoftware = value => {
               {{ $t('Report host') }}: {{ record?.host || '-' }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ $t('Report date') }}: {{ dateTimeToStr(record?.updatedAt) || '-' }}
+              {{ $t('Report date') }}:
+              {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
         </div>
@@ -338,15 +339,21 @@ const validSoftware = value => {
 
             <table class="mb-2">
               <tr>
-                <td class="font-medium" width="40%">{{ $t('Baseboard serial number') }}</td>
+                <td class="font-medium" width="40%">
+                  {{ $t('Baseboard serial number') }}
+                </td>
                 <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
               </tr>
               <tr>
-                <td class="font-medium" width="40%">{{ $t('Bios serial number') }}</td>
+                <td class="font-medium" width="40%">
+                  {{ $t('Bios serial number') }}
+                </td>
                 <td>{{ record?.bios?.SerialNumber || '-' }}</td>
               </tr>
               <tr>
-                <td class="font-medium" width="40%">{{ $t('Bios version') }}</td>
+                <td class="font-medium" width="40%">
+                  {{ $t('Bios version') }}
+                </td>
                 <td>{{ record?.bios?.Version || '-' }}</td>
               </tr>
             </table>
@@ -573,7 +580,9 @@ const validSoftware = value => {
             </svg>
 
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Network adapters') }}</p>
+              <p class="text-base font-bold mb-0">
+                {{ $t('Network adapters') }}
+              </p>
               <p class="text-base font-normal mb-0">
                 {{ $t('Number of network adapters') }} :
                 {{ record?.netadapter?.filter(item => item?.NetConnectionID)?.length || '-' }}
@@ -921,7 +930,9 @@ const validSoftware = value => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Shared resources') }}</p>
+              <p class="text-base font-bold mb-0">
+                {{ $t('Shared resources') }}
+              </p>
               <p class="text-base font-normal mb-0">
                 {{ $t('Number of resources') }} :
                 {{ record?.share?.length || '-' }}
@@ -966,7 +977,9 @@ const validSoftware = value => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Fixes and updates') }}</p>
+              <p class="text-base font-bold mb-0">
+                {{ $t('Fixes and updates') }}
+              </p>
               <p class="text-base font-normal mb-0">
                 {{ $t('Number of updates') }} :
                 {{ record?.fixupdate?.length || '-' }}

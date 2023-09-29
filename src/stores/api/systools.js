@@ -44,5 +44,11 @@ export const useTool = defineStore('tool', () => {
     }
   }
 
-  return { getCommandPING, getScriptInspector, getLinkPING, getLinkRDP, getLinkVNC };
+  return {
+    getCommandPING,
+    getScriptInspector,
+    getLinkPING,
+    getLinkRDP,
+    getLinkVNC
+  };
 });

@@ -25,7 +25,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </div>
 
             <div class="text-center mb-6">
-              <p class="text-600 font-medium">{{ $t('Web Application of technical support') }}</p>
+              <p class="text-600 font-medium">
+                {{ $t('Web Application of technical support') }}
+              </p>
             </div>
 
             <div class="text-center mb-3">

@@ -90,7 +90,9 @@ onMounted(async () => {
               <span class="block text-500 font-medium mb-3">
                 {{ $t('Total number of reports') }}
               </span>
-              <div class="text-900 font-medium text-xl">{{ stats?.count || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.count || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
@@ -167,7 +169,9 @@ onMounted(async () => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">{{ $t('Administrator rights') }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.useraccount || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.useraccount || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
@@ -190,7 +194,9 @@ onMounted(async () => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">{{ $t('Unwanted software') }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.product || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.product || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
@@ -211,7 +217,9 @@ onMounted(async () => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">{{ $t('Shared resources') }}</span>
-              <div class="text-900 font-medium text-xl">{{ stats?.share || '-' }}</div>
+              <div class="text-900 font-medium text-xl">
+                {{ stats?.share || '-' }}
+              </div>
             </div>
             <div
               class="flex align-items-center justify-content-center bg-orange-300 border-round w-3rem h-3rem p-2"
@@ -240,7 +248,8 @@ onMounted(async () => {
                     {{ $t('PC Software') }}
                   </h5>
                   <p class="text-color-secondary">
-                    {{ $t('Software count') }} : {{ stats?.software?.length || '-' }}
+                    {{ $t('Software count') }} :
+                    {{ stats?.software?.length || '-' }}
                   </p>
                 </div>
               </div>
@@ -292,7 +301,9 @@ onMounted(async () => {
           <div class="flex justify-content-between align-items-center mb-5">
             <div class="flex justify-content-start gap-2 align-items-center">
               <i class="pi pi-microsoft mr-2" style="font-size: 1.5rem"></i>
-              <h5 class="my-0">{{ $t('PC SysInspector unwanted software') }}</h5>
+              <h5 class="my-0">
+                {{ $t('PC SysInspector unwanted software') }}
+              </h5>
             </div>
             <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" />
           </div>
@@ -338,7 +349,8 @@ onMounted(async () => {
                     &gt; {{ Math.round(item?.days - 1) }} {{ $t('days') }}
                   </span>
                   <span v-else>
-                    {{ Math.round(stats?.days[index - 1]?.days) }} ~ {{ Math.round(item?.days) }}
+                    {{ Math.round(stats?.days[index - 1]?.days) }} ~
+                    {{ Math.round(item?.days) }}
                     {{ $t('days') }}
                   </span>
                 </span>

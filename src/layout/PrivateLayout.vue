@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, computed, watchEffect, defineAsyncComponent } from 'vue';
 
-import AppTopbar from '@/components/AppTopbar.vue';
-import AppSidebar from '@/components/AppSidebar.vue';
-import AppConfig from '@/components/AppConfig.vue';
+const AppTopbar = defineAsyncComponent(() => import('@/components/AppTopbar.vue'));
+const AppSidebar = defineAsyncComponent(() => import('@/components/AppSidebar.vue'));
+const AppConfig = defineAsyncComponent(() => import('@/components/AppConfig.vue'));
 
 import { useConfig } from '@/stores/config';
 

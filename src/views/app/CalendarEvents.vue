@@ -95,7 +95,10 @@ const enents = computed(() => {
 const getDataRecords = async () => {
   try {
     loading.value = true;
-    records.value = await findAll({ startDate: startDate.value, endDate: endDate.value });
+    records.value = await findAll({
+      startDate: startDate.value,
+      endDate: endDate.value
+    });
     toast.add({
       severity: 'success',
       summary: t('HD Information'),
@@ -163,7 +166,12 @@ onMounted(async () => {
   try {
     await getDataRecords();
   } catch (err) {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t(err.message),
+      life: 3000
+    });
   }
 });
 </script>

@@ -18,7 +18,9 @@ defineExpose({
     try {
       record.value = await IPAddress.findOne({ id, populate: true });
       try {
-        recordsysi.value = await Inspector.findOne({ host: record.value?.ipaddress });
+        recordsysi.value = await Inspector.findOne({
+          host: record.value?.ipaddress
+        });
       } catch (err) {}
       visible.value = true;
     } catch (err) {

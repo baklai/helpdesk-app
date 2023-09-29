@@ -38,7 +38,12 @@ const onSignin = handleSubmit(async (values, { resetForm }) => {
       life: 3000
     });
   } catch (err) {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t(err.message),
+      life: 3000
+    });
   } finally {
     resetForm();
   }
@@ -67,7 +72,9 @@ onMounted(() => {
       </div>
     </div>
     <div class="text-center mb-4">
-      <p class="text-600 font-medium">{{ $t('Sign In to the application to continue') }}</p>
+      <p class="text-600 font-medium">
+        {{ $t('Sign In to the application to continue') }}
+      </p>
     </div>
     <form @submit.prevent="onSignin" class="p-fluid w-full">
       <div class="field mb-4">

@@ -234,5 +234,11 @@ export const useScope = defineStore('scope', () => {
     return result;
   }
 
-  return { scopeLength, getDefaultScope, getSelectScope, getCustomScope, getScopeKeyList };
+  return {
+    scopeLength,
+    getDefaultScope,
+    getSelectScope,
+    getCustomScope,
+    getScopeKeyList
+  };
 });

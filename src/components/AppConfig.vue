@@ -81,7 +81,9 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">{{ $t('Ripple Effect') }}</h5>
+        <h5 class="flex align-items-center h-full">
+          {{ $t('Ripple Effect') }}
+        </h5>
       </div>
       <div class="flex-1">
         <SelectButton v-model="$config.ripple" :options="[true, false]" aria-labelledby="single" />

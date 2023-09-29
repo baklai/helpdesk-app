@@ -54,7 +54,13 @@ defineExpose({
         setValues({ ...user });
       } else {
         resetForm(
-          { values: { isActive: false, isAdmin: false, scope: getDefaultScope() } },
+          {
+            values: {
+              isActive: false,
+              isAdmin: false,
+              scope: getDefaultScope()
+            }
+          },
           { force: true }
         );
       }
@@ -131,7 +137,9 @@ const columns = ref([
   { field: 'delete', header: t('Delete') }
 ]);
 
-const filters = ref({ global: { value: null, matchMode: FilterMatchMode.CONTAINS } });
+const filters = ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+});
 
 const selectScopeLength = computed(() => {
   let count = 0;
@@ -215,7 +223,10 @@ const onRemoveRecord = async () => {
 const onSaveRecord = handleSubmit(async () => {
   if (values?.id) {
     try {
-      await updateOne(values.id, { ...controlledValues.value, scope: values.scope });
+      await updateOne(values.id, {
+        ...controlledValues.value,
+        scope: values.scope
+      });
       visible.value = false;
       toast.add({
         severity: 'success',
@@ -272,7 +283,9 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="core-users" :size="40" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('User account') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">
+              {{ $t('User account') }}
+            </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
@@ -383,7 +396,9 @@ const onSaveRecord = handleSubmit(async () => {
           <div class="field">
             <div class="flex align-items-center">
               <Checkbox binary v-bind="isActive" />
-              <label class="font-bold ml-2"> {{ $t('Activated account') }} </label>
+              <label class="font-bold ml-2">
+                {{ $t('Activated account') }}
+              </label>
             </div>
           </div>
 

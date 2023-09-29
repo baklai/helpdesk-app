@@ -1,11 +1,16 @@
 <script setup lang="jsx">
-import { ref } from 'vue';
+import { ref, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
-import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-import ModalRecord from '@/components/modals/Channel.vue';
-import SidebarRecord from '@/components/sidebar/Channel.vue';
+// import SSDataTable from '@/components/tables/SSDataTable.vue';
+// import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+// import ModalRecord from '@/components/modals/Channel.vue';
+// import SidebarRecord from '@/components/sidebar/Channel.vue';
+
+const SSDataTable = defineAsyncComponent(() => import('@/components/tables/SSDataTable.vue'));
+const OptionsMenu = defineAsyncComponent(() => import('@/components/menus/OptionsMenu.vue'));
+const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Channel.vue'));
+const SidebarRecord = defineAsyncComponent(() => import('@/components/sidebar/Channel.vue'));
 
 import { useChannel } from '@/stores/api/channels';
 

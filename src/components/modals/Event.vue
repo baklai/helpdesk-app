@@ -192,7 +192,9 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="calendar-events" :size="40" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Calendar event') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">
+              {{ $t('Calendar event') }}
+            </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>

@@ -9,7 +9,10 @@ export default {
     app.config.globalProperties.$auth = {
       async me() {
         try {
-          const user = await $axios({ method: endpoints.user.method, url: endpoints.user.url });
+          const user = await $axios({
+            method: endpoints.user.method,
+            url: endpoints.user.url
+          });
           store.setUser(user);
         } catch (err) {
           $error(err);

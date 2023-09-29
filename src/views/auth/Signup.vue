@@ -50,7 +50,12 @@ const onSignup = handleSubmit(async (values, { resetForm }) => {
     });
     resetForm();
   } catch (err) {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t(err.message),
+      life: 3000
+    });
   }
 });
 
@@ -80,7 +85,9 @@ onMounted(() => {
             </div>
           </div>
           <div class="text-center mb-4">
-            <p class="text-600 font-medium">{{ $t('Register to the application to continue') }}</p>
+            <p class="text-600 font-medium">
+              {{ $t('Register to the application to continue') }}
+            </p>
           </div>
 
           <div class="formgrid grid">

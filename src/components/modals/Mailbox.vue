@@ -240,7 +240,9 @@ const onCloseModal = () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="network-mailbox" :size="42" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Mailbox') }}</p>
+            <p class="text-lg font-bold line-height-2 mb-2">
+              {{ $t('Mailbox') }}
+            </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ record?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
@@ -450,7 +452,9 @@ const onCloseModal = () => {
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{ 'p-invalid': !!$validate.enterprise.$errors.length }"
+                  :class="{
+                    'p-invalid': !!$validate.enterprise.$errors.length
+                  }"
                 />
                 <small
                   class="p-error"
@@ -474,7 +478,9 @@ const onCloseModal = () => {
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{ 'p-invalid': !!$validate.department.$errors.length }"
+                  :class="{
+                    'p-invalid': !!$validate.department.$errors.length
+                  }"
                 />
                 <small
                   class="p-error"

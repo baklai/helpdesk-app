@@ -170,7 +170,12 @@ const findOneIPAddress = async () => {
       });
     }
   } catch (err) {
-    toast.add({ severity: 'warn', summary: t('HD Warning'), detail: t(err.message), life: 3000 });
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t(err.message),
+      life: 3000
+    });
   }
 };
 
@@ -253,7 +258,10 @@ const onSaveRecord = handleSubmit(async () => {
     }
   } else {
     try {
-      await Request.createOne({ ...record.value, workerOpen: $helpdesk?.user?.id || null });
+      await Request.createOne({
+        ...record.value,
+        workerOpen: $helpdesk?.user?.id || null
+      });
       visible.value = false;
       toast.add({
         severity: 'success',
@@ -535,7 +543,9 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{ 'p-invalid': !!$validate.enterprise.$errors.length }"
+                  :class="{
+                    'p-invalid': !!$validate.enterprise.$errors.length
+                  }"
                 />
                 <small
                   class="p-error"
@@ -560,7 +570,9 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{ 'p-invalid': !!$validate.department.$errors.length }"
+                  :class="{
+                    'p-invalid': !!$validate.department.$errors.length
+                  }"
                 />
                 <small
                   class="p-error"

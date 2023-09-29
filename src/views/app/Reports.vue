@@ -1,5 +1,5 @@
 <script setup>
-import AppIcons from '@/components/AppIcons.vue';
+// import AppIcons from '@/components/AppIcons.vue';
 </script>
 
 <template>
@@ -12,7 +12,9 @@ import AppIcons from '@/components/AppIcons.vue';
         <h3 class="my-auto">
           {{ $t($route?.meta?.title) }}
         </h3>
-        <h5 class="text-sm text-color-secondary my-auto">{{ $t($route?.meta?.description) }}</h5>
+        <h5 class="text-sm text-color-secondary my-auto">
+          {{ $t($route?.meta?.description) }}
+        </h5>
       </div>
     </div>
 

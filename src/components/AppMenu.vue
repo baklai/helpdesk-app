@@ -1,5 +1,9 @@
 <script setup>
-import AppMenuItem from '@/components/AppMenuItem.vue';
+import { defineAsyncComponent } from 'vue';
+
+const AppMenuItem = defineAsyncComponent(() => import('@/components/AppMenuItem.vue'));
+
+// import AppMenuItem from '@/components/AppMenuItem.vue';
 
 import { useSidebar } from '@/stores/sidebar';
 
