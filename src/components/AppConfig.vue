@@ -3,9 +3,11 @@ import { ref } from 'vue';
 
 import { useConfig } from '@/stores/config';
 
+defineProps(['visible']);
+defineEmits(['update:visible']);
+
 const $config = useConfig();
 
-const visible = ref(false);
 const scales = ref([12, 13, 14, 15, 16]);
 
 const incrementScale = () => {
@@ -18,20 +20,12 @@ const decrementScale = () => {
 </script>
 
 <template>
-  <button
-    type="button"
-    class="layout-config-button p-link"
-    v-tooltip.left="$t('HD Options')"
-    @click="visible = !visible"
-  >
-    <i class="pi pi-cog"></i>
-  </button>
-
   <Sidebar
-    v-model:visible="visible"
+    :visible="visible"
     position="right"
-    :transitionOptions="'.3s cubic-bezier(0, 0, 0.2, 1)'"
+    transitionOptions=".3s cubic-bezier(0, 0, 0.2, 1)"
     class="layout-config-sidebar w-30rem"
+    @update:visible="$emit('update:visible', !visible)"
   >
     <template #header>
       <div class="flex align-content-center w-25rem">
@@ -125,17 +119,16 @@ const decrementScale = () => {
 
     <Divider />
 
-    <Button :label="$t('Set default options')" class="p-button-text w-full" />
+    <Button
+      :label="$t('Set default options')"
+      class="p-button-text w-full"
+      @click="$config.setDefault"
+    />
   </Sidebar>
 </template>
 
 <style scoped>
 ::v-deep(.p-selectbutton > .p-button) {
   width: 50%;
-}
-
-.p-link {
-  text-align: center;
-  background-color: var(--text-color-secondary);
 }
 </style>

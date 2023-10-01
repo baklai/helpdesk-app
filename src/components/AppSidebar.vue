@@ -1,18 +1,9 @@
 <script setup>
-import { defineAsyncComponent } from 'vue';
-// import AppMenu from '@/components/AppMenu.vue';
-// import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
-// import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-// import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-// import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
-
-const AppMenu = defineAsyncComponent(() => import('@/components/AppMenu.vue'));
-const BtnAppAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAppAuth.vue'));
-const BtnToggleTheme = defineAsyncComponent(() =>
-  import('@/components/buttons/BtnToggleTheme.vue')
-);
-const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
-const BtnToggleUser = defineAsyncComponent(() => import('@/components/buttons/BtnToggleUser.vue'));
+import AppMenu from '@/components/AppMenu.vue';
+import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
+import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
+import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
 </script>
 
 <template>

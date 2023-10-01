@@ -89,6 +89,14 @@ export const useConfig = defineStore('config', () => {
     primevue.config.locale = tm('primevue');
   }
 
+  function setDefault() {
+    scale.value = 12;
+    ripple.value = true;
+    inputStyle.value = 'outlined';
+    menuMode.value = 'static';
+    theme.value = 'light';
+  }
+
   return {
     ripple,
     inputStyle,
@@ -108,6 +116,7 @@ export const useConfig = defineStore('config', () => {
     onMenuToggle,
     isSidebarActive,
     isDarkTheme,
-    toggleLang
+    toggleLang,
+    setDefault
   };
 });
