@@ -21,7 +21,8 @@ const confirm = useConfirm();
 
 const $helpdesk = inject('helpdesk');
 
-const Request = useRequest();
+const { findAll, createOne, updateOne, removeOne } = useRequest();
+
 const IPAddress = useIPAddress();
 const Company = useСompany();
 const Branch = useBranch();
@@ -60,7 +61,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        setValues(await Request.findOne({ id, populate: false }));
+        setValues(await findOne({ id, populate: false }));
       }
 
       const [company, branch, department, enterprise, position, location] =
@@ -244,7 +245,7 @@ const onRemoveRecord = async () => {
 const onSaveRecord = handleSubmit(async () => {
   if (values?.id) {
     try {
-      await Request.updateOne(values.id, { ...controlledValues.value, closed: values.closed });
+      await updateOne(values.id, { ...controlledValues.value, closed: values.closed });
       visible.value = false;
       toast.add({
         severity: 'success',
@@ -262,7 +263,7 @@ const onSaveRecord = handleSubmit(async () => {
     }
   } else {
     try {
-      await Request.createOne({
+      await createOne({
         ...controlledValues.value,
         workerOpen: $helpdesk?.user?.id || null
       });
