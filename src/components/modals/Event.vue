@@ -52,6 +52,7 @@ const visible = ref(false);
 const title = defineComponentBinds('title');
 const datetime = defineComponentBinds('datetime');
 const eventType = defineComponentBinds('eventType');
+const description = defineComponentBinds('description');
 
 const refMenu = ref();
 const options = ref([

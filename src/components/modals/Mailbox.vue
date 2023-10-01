@@ -19,7 +19,8 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const Mailbox = useMailbox();
+const { findOne, createOne, updateOne, removeOne } = useMailbox();
+
 const Location = useLocation();
 const Сompany = useСompany();
 const Branch = useBranch();
@@ -27,15 +28,38 @@ const Enterprise = useEnterprise();
 const Department = useDepartment();
 const Position = usePosition();
 
+const {
+  values,
+  errors,
+  handleSubmit,
+  controlledValues,
+  setValues,
+  resetForm,
+  defineComponentBinds
+} = useForm({
+  validationSchema: yup.object({
+    reqnum: yup.string().required(),
+    login: yup.string().required(),
+    fullname: yup.string().required(),
+    phone: yup.string().required(),
+    dateOpen: yup.string().required(),
+    location: yup.string().required(),
+    company: yup.string().required(),
+    branch: yup.string().required(),
+    enterprise: yup.string().required(),
+    department: yup.string().required(),
+    position: yup.string().required()
+  }),
+  initialValues: {}
+});
+
 const emits = defineEmits(['close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        record.value = Mailbox.$init(await Mailbox.findOne({ id, populate: false }));
-      } else {
-        record.value = Mailbox.$init({});
+        setValues(await findOne({ id, populate: false }));
       }
       const [location, company, branch, enterprise, department, position] =
         await Promise.allSettled([
@@ -81,8 +105,6 @@ const options = ref([
   }
 ]);
 
-const record = ref({});
-
 const locations = ref([]);
 const companies = ref([]);
 const branches = ref([]);
@@ -90,26 +112,22 @@ const enterprises = ref([]);
 const departments = ref([]);
 const positions = ref([]);
 
-const $validate = useVuelidate(
-  {
-    reqnum: { required },
-    login: { required },
-    fullname: { required },
-    phone: { required },
-    dateOpen: { required },
-    location: { required },
-    company: { required },
-    branch: { required },
-    enterprise: { required },
-    department: { required },
-    position: { required }
-  },
-  record
-);
+const reqnum = defineComponentBinds('reqnum');
+const login = defineComponentBinds('login');
+const fullname = defineComponentBinds('fullname');
+const phone = defineComponentBinds('phone');
+const dateOpen = defineComponentBinds('dateOpen');
+const dateClose = defineComponentBinds('dateClose');
+const location = defineComponentBinds('location');
+const company = defineComponentBinds('company');
+const branch = defineComponentBinds('branch');
+const enterprise = defineComponentBinds('enterprise');
+const department = defineComponentBinds('department');
+const position = defineComponentBinds('position');
+const comment = defineComponentBinds('comment');
 
 const onCreateRecord = async () => {
-  record.value = Mailbox.$init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
     summary: t('HD Information'),
@@ -127,9 +145,9 @@ const onRemoveRecord = async () => {
     acceptClass: 'p-button-danger',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (record.value?.id) {
+      if (values?.id) {
         try {
-          await Mailbox.removeOne(record.value);
+          await removeOne(values);
           toast.add({
             severity: 'success',
             summary: t('HD Information'),
@@ -166,59 +184,48 @@ const onRemoveRecord = async () => {
   });
 };
 
-const onSaveRecord = async () => {
-  const valid = await $validate.value.$validate();
-  if (valid) {
-    if (record.value?.id) {
-      try {
-        await Mailbox.updateOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is updated'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not updated'),
-          life: 3000
-        });
-      }
-    } else {
-      try {
-        await Mailbox.createOne(record.value);
-        visible.value = false;
-        toast.add({
-          severity: 'success',
-          summary: t('HD Information'),
-          detail: t('Record is created'),
-          life: 3000
-        });
-      } catch (err) {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not created'),
-          life: 3000
-        });
-      }
+const onSaveRecord = handleSubmit(async () => {
+  if (values?.id) {
+    try {
+      await updateOne(values.id, controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is updated'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not updated'),
+        life: 3000
+      });
     }
   } else {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Fill in all required fields'),
-      life: 3000
-    });
+    try {
+      await createOne(controlledValues.value);
+      visible.value = false;
+      toast.add({
+        severity: 'success',
+        summary: t('HD Information'),
+        detail: t('Record is created'),
+        life: 3000
+      });
+    } catch (err) {
+      toast.add({
+        severity: 'warn',
+        summary: t('HD Warning'),
+        detail: t('Record not created'),
+        life: 3000
+      });
+    }
   }
-};
+});
 
 const onCloseModal = () => {
-  record.value = Mailbox.$init({});
-  $validate.value.$reset();
+  resetForm({ values: {} }, { force: true });
   emits('close', {});
 };
 </script>
@@ -244,7 +251,7 @@ const onCloseModal = () => {
               {{ $t('Mailbox') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
@@ -271,37 +278,37 @@ const onCloseModal = () => {
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              :modelValue="dateToStr(record.dateOpen)"
-              v-model="record.dateOpen"
+              :modelValue="dateToStr(dateOpen)"
+              v-bind="dateOpen"
               :placeholder="$t('Date open')"
-              :class="{ 'p-invalid': !!$validate.dateOpen.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.dateOpen }"
             />
-            <small class="p-error" v-for="error in $validate.dateOpen.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.dateOpen">
+              {{ $t(errors.dateOpen) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
-              v-model="record.reqnum"
+              v-bind="reqnum"
               :placeholder="$t('Letter number')"
-              :class="{ 'p-invalid': !!$validate.reqnum.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.reqnum }"
             />
-            <small class="p-error" v-for="error in $validate.reqnum.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.reqnum">
+              {{ $t(errors.reqnum) }}
             </small>
           </div>
 
           <div class="field">
             <label class="font-bold">{{ $t('Login mailbox') }}</label>
             <InputText
-              v-model="record.login"
+              v-bind="login"
               :placeholder="$t('Login mailbox')"
-              :class="{ 'p-invalid': !!$validate.login.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.login }"
             />
-            <small class="p-error" v-for="error in $validate.login.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.login">
+              {{ $t(errors.login) }}
             </small>
           </div>
 
@@ -310,27 +317,23 @@ const onCloseModal = () => {
             <div class="field">
               <div class="field">
                 <InputText
-                  v-model="record.fullname"
+                  v-bind="fullname"
                   :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.fullname }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.fullname.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.fullname">
+                  {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
                 <InputText
-                  v-model="record.phone"
+                  v-bind="phone"
                   :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.phone }"
                 />
-                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.phone">
+                  {{ $t(errors.phone) }}
                 </small>
               </div>
 
@@ -343,18 +346,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.position"
+                  v-bind="position"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
-                  :class="{ 'p-invalid': !!$validate.position.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.position }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.position.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.position">
+                  {{ $t(errors.position) }}
                 </small>
               </div>
             </div>
@@ -367,8 +366,8 @@ const onCloseModal = () => {
               showButtonBar
               dateFormat="dd.mm.yy"
               aria-describedby="dateClose-help"
-              :modelValue="dateToStr(record.dateClose)"
-              v-model="record.dateClose"
+              :modelValue="dateToStr(dateClose)"
+              v-bind="dateClose"
               :placeholder="$t('Date close')"
             />
           </div>
@@ -385,14 +384,14 @@ const onCloseModal = () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
-              v-model="record.location"
+              v-bind="location"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!$validate.location.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.location }"
             />
-            <small class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.location">
+              {{ $t(errors.location) }}
             </small>
           </div>
 
@@ -408,14 +407,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.company"
+                  v-bind="company"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
-                  :class="{ 'p-invalid': !!$validate.company.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.company }"
                 />
-                <small class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.company">
+                  {{ $t(errors.company) }}
                 </small>
               </div>
 
@@ -428,14 +427,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.branch"
+                  v-bind="branch"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
-                  :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.branch }"
                 />
-                <small class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.branch">
+                  {{ $t(errors.branch) }}
                 </small>
               </div>
 
@@ -448,20 +447,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.enterprise"
+                  v-bind="enterprise"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{
-                    'p-invalid': !!$validate.enterprise.$errors.length
-                  }"
+                  :class="{ 'p-invalid': !!errors?.enterprise }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.enterprise.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.enterprise">
+                  {{ $t(errors.enterprise) }}
                 </small>
               </div>
 
@@ -474,20 +467,14 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.department"
+                  v-bind="department"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{
-                    'p-invalid': !!$validate.department.$errors.length
-                  }"
+                  :class="{ 'p-invalid': !!errors?.department }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.department.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.department">
+                  {{ $t(errors.department) }}
                 </small>
               </div>
             </div>
@@ -499,7 +486,7 @@ const onCloseModal = () => {
               rows="8"
               cols="10"
               class="outline-none"
-              v-model="record.comment"
+              v-bind="comment"
               :placeholder="$t('Comment')"
             />
           </div>

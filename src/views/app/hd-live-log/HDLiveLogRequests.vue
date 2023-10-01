@@ -1,18 +1,12 @@
 <script setup lang="jsx">
-import { ref, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-// import SSDataTable from '@/components/tables/SSDataTable.vue';
-// import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
-// import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-// import ModalRecord from '@/components/modals/Request.vue';
-// import SidebarRecord from '@/components/sidebar/Request.vue';
-
-const SSDataTable = defineAsyncComponent(() => import('@/components/tables/SSDataTable.vue'));
-const BtnDBTables = defineAsyncComponent(() => import('@/components/buttons/BtnDBTables.vue'));
-const OptionsMenu = defineAsyncComponent(() => import('@/components/menus/OptionsMenu.vue'));
-const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Request.vue'));
-const SidebarRecord = defineAsyncComponent(() => import('@/components/sidebar/Request.vue'));
+import SSDataTable from '@/components/tables/SSDataTable.vue';
+import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+import ModalRecord from '@/components/modals/Request.vue';
+import SidebarRecord from '@/components/sidebar/Request.vue';
 
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useRequest } from '@/stores/api/requests';

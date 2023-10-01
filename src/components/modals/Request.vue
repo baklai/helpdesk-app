@@ -105,9 +105,12 @@ const branch = defineComponentBinds('branch');
 const enterprise = defineComponentBinds('enterprise');
 const department = defineComponentBinds('department');
 const request = defineComponentBinds('request');
+const reqnum = defineComponentBinds('reqnum');
+const conclusion = defineComponentBinds('conclusion');
+const comment = defineComponentBinds('comment');
 
 const isClosed = computed(() => {
-  return !record?.value?.closed ? false : true;
+  return !values?.closed ? false : true;
 });
 
 const refMenu = ref();
@@ -136,23 +139,24 @@ const onCloseModal = () => {
 };
 
 const findOneIPAddress = async () => {
-  const validIPAddress = await $validate.value.ipaddress.$validate();
   try {
-    if (record.value?.ipaddress && validIPAddress) {
-      const currentIP = await IPAddress.findOne({
-        ipaddress: record.value.ipaddress,
+    if (values?.ipaddress) {
+      const record = await IPAddress.findOne({
+        ipaddress: values.ipaddress,
         populate: false
       });
-      if (currentIP?.ipaddress) {
-        record.value.ipaddress = currentIP?.ipaddress || null;
-        record.value.location = currentIP?.location || null;
-        record.value.fullname = currentIP?.fullname || null;
-        record.value.phone = currentIP?.phone || null;
-        record.value.position = currentIP?.position || null;
-        record.value.company = currentIP?.company || null;
-        record.value.branch = currentIP?.branch || null;
-        record.value.enterprise = currentIP?.enterprise || null;
-        record.value.department = currentIP?.department || null;
+      if (record?.ipaddress) {
+        setValues({
+          ipaddress: record?.ipaddress || null,
+          location: record?.location || null,
+          fullname: record?.fullname || null,
+          phone: record?.phone || null,
+          position: record?.position || null,
+          company: record?.company || null,
+          branch: record?.branch || null,
+          enterprise: record?.enterprise || null,
+          department: record?.department || null
+        });
       } else {
         toast.add({
           severity: 'warn',
@@ -240,7 +244,7 @@ const onRemoveRecord = async () => {
 const onSaveRecord = handleSubmit(async () => {
   if (values?.id) {
     try {
-      await Request.updateOne(values.id, controlledValues.value);
+      await Request.updateOne(values.id, { ...controlledValues.value, closed: values.closed });
       visible.value = false;
       toast.add({
         severity: 'success',
@@ -259,7 +263,7 @@ const onSaveRecord = handleSubmit(async () => {
   } else {
     try {
       await Request.createOne({
-        ...record.value,
+        ...controlledValues.value,
         workerOpen: $helpdesk?.user?.id || null
       });
       visible.value = false;
@@ -281,8 +285,11 @@ const onSaveRecord = handleSubmit(async () => {
 });
 
 const onSaveClosedRecord = handleSubmit(async () => {
-  record.value.closed = true;
-  record.value.workerClose = $helpdesk?.user?.id || null;
+  setValues({
+    closed: true,
+    workerClose: $helpdesk?.user?.id || null
+  });
+
   await onSaveRecord();
 });
 </script>
@@ -308,11 +315,11 @@ const onSaveClosedRecord = handleSubmit(async () => {
               {{ $t('Help Desk Live Log') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
-              {{ record?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ $t('Status') }} :
-              {{ record?.closed ? $t('Request closed') : $t('Request opened') }}
+              {{ values?.closed ? $t('Request closed') : $t('Request opened') }}
             </p>
           </div>
         </div>
@@ -338,13 +345,13 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <Textarea
               rows="8"
               cols="10"
-              v-model="record.request"
+              v-bind="request"
               :disabled="isClosed"
               :placeholder="$t('Client request')"
-              :class="{ 'p-invalid': !!$validate.request.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.request }"
             />
-            <small class="p-error" v-for="error in $validate.request.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.request">
+              {{ $t(errors.request) }}
             </small>
           </div>
 
@@ -352,7 +359,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <label class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
               aria-describedby="reqnum-help"
-              v-model="record.reqnum"
+              v-bind="reqnum"
               :disabled="isClosed"
               :placeholder="$t('Letter number')"
             />
@@ -367,15 +374,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 @click.prevent="findOneIPAddress"
               />
               <InputText
-                v-model="record.ipaddress"
+                v-bind="ipaddress"
                 :disabled="isClosed"
                 :placeholder="$t('Client IP Address')"
-                :class="{ 'p-invalid': !!$validate.ipaddress.$errors.length }"
+                :class="{ 'p-invalid': !!errors?.ipaddress }"
                 @keypress.enter="findOneIPAddress"
               />
             </span>
-            <small class="p-error" v-for="error in $validate.ipaddress.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.ipaddress">
+              {{ $t(errors.ipaddress) }}
             </small>
           </div>
 
@@ -385,7 +392,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
               rows="5"
               cols="10"
               aria-describedby="conclusion-help"
-              v-model="record.conclusion"
+              v-bind="conclusion"
               :disabled="isClosed"
               :placeholder="$t('Conclusion')"
             />
@@ -396,7 +403,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <Textarea
               rows="3"
               cols="10"
-              v-model="record.comment"
+              v-bind="comment"
               :disabled="isClosed"
               :placeholder="$t('Comment')"
             />
@@ -409,29 +416,25 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <div class="field">
               <div class="field">
                 <InputText
-                  v-model="record.fullname"
+                  v-bind="fullname"
                   :disabled="isClosed"
                   :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!$validate.fullname.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.fullname }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.fullname.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.fullname">
+                  {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
                 <InputText
-                  v-model="record.phone"
+                  v-bind="phone"
                   :disabled="isClosed"
                   :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!$validate.phone.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.phone }"
                 />
-                <small class="p-error" v-for="error in $validate.phone.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.phone">
+                  {{ $t(errors.phone) }}
                 </small>
               </div>
 
@@ -444,19 +447,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.position"
+                  v-bind="position"
                   :disabled="isClosed"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
-                  :class="{ 'p-invalid': !!$validate.position.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.position }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.position.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.position">
+                  {{ $t(errors.position) }}
                 </small>
               </div>
             </div>
@@ -472,15 +471,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
-              v-model="record.location"
+              v-bind="location"
               :disabled="isClosed"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!$validate.location.$errors.length }"
+              :class="{ 'p-invalid': !!errors?.location }"
             />
-            <small class="p-error" v-for="error in $validate.location.$errors" :key="error.$uid">
-              {{ $t(error.$message) }}
+            <small class="p-error" v-if="errors?.location">
+              {{ $t(errors.location) }}
             </small>
           </div>
 
@@ -496,15 +495,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.company"
+                  v-bind="company"
                   :disabled="isClosed"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
-                  :class="{ 'p-invalid': !!$validate.company.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.company }"
                 />
-                <small class="p-error" v-for="error in $validate.company.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.company">
+                  {{ $t(errors.company) }}
                 </small>
               </div>
 
@@ -517,15 +516,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.branch"
+                  v-bind="branch"
                   :disabled="isClosed"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
-                  :class="{ 'p-invalid': !!$validate.branch.$errors.length }"
+                  :class="{ 'p-invalid': !!errors?.branch }"
                 />
-                <small class="p-error" v-for="error in $validate.branch.$errors" :key="error.$uid">
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.branch">
+                  {{ $t(errors.branch) }}
                 </small>
               </div>
 
@@ -538,21 +537,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.enterprise"
+                  v-bind="enterprise"
                   :disabled="isClosed"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{
-                    'p-invalid': !!$validate.enterprise.$errors.length
-                  }"
+                  :class="{ 'p-invalid': !!errors?.enterprise }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.enterprise.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.enterprise">
+                  {{ $t(errors.enterprise) }}
                 </small>
               </div>
 
@@ -565,21 +558,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
-                  v-model="record.department"
+                  v-bind="department"
                   :disabled="isClosed"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{
-                    'p-invalid': !!$validate.department.$errors.length
-                  }"
+                  :class="{ 'p-invalid': !!errors?.department }"
                 />
-                <small
-                  class="p-error"
-                  v-for="error in $validate.department.$errors"
-                  :key="error.$uid"
-                >
-                  {{ $t(error.$message) }}
+                <small class="p-error" v-if="errors?.department">
+                  {{ $t(errors.department) }}
                 </small>
               </div>
             </div>

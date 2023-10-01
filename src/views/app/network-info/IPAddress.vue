@@ -1,13 +1,13 @@
 <script setup lang="jsx">
-import { ref, shallowRef, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 
-// import SSDataTable from '@/components/tables/SSDataTable.vue';
-// import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
-// import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-// import ModalRecord from '@/components/modals/IPAddress.vue';
-// import SidebarRecord from '@/components/sidebar/IPAddress.vue';
+import SSDataTable from '@/components/tables/SSDataTable.vue';
+import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+import ModalRecord from '@/components/modals/IPAddress.vue';
+import SidebarRecord from '@/components/sidebar/IPAddress.vue';
 
 import { dateToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
@@ -30,16 +30,10 @@ const Position = usePosition();
 const Location = useLocation();
 const Unit = useUnit();
 
-const refMenu = shallowRef(null);
-const refModal = shallowRef(null);
-const refSidebar = shallowRef(null);
-const refDataTable = shallowRef(null);
-
-const SSDataTable = defineAsyncComponent(() => import('@/components/tables/SSDataTable.vue'));
-const BtnDBTables = defineAsyncComponent(() => import('@/components/buttons/BtnDBTables.vue'));
-const OptionsMenu = defineAsyncComponent(() => import('@/components/menus/OptionsMenu.vue'));
-const ModalRecord = defineAsyncComponent(() => import('@/components/modals/IPAddress.vue'));
-const SidebarRecord = defineAsyncComponent(() => import('@/components/sidebar/IPAddress.vue'));
+const refMenu = ref(null);
+const refModal = ref(null);
+const refSidebar = ref(null);
+const refDataTable = ref(null);
 
 const globalFilter = ref({
   field: 'ipaddress',
