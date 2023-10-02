@@ -40,7 +40,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     position="top"
     :draggable="false"
     v-model:visible="visible"
-    :style="{ maxWidth: '600px' }"
+    :style="{ maxWidth: '500px' }"
   >
     <template #header>
       <div class="flex align-items-center">
@@ -64,12 +64,12 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
-            class="w-6rem h-6rem"
+            class="w-4rem h-4rem"
             v-if="$helpdesk?.user?.logo"
           />
-          <div class="flex align-items-center justify-content-center flex-column" v-else>
+          <div class="flex align-items-center justify-content-center p-3 flex-column" v-else>
             <i
-              class="pi pi-cloud-upload border-2 border-circle p-5 text-4xl text-color-secondary"
+              class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-color-secondary"
             />
             <p class="text-sm mt-4 mb-0 text-color-secondary">
               {{ $t('Drag and drop logo to here to upload') }}
