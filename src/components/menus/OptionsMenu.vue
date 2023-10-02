@@ -135,7 +135,7 @@ const copyIPtoClipboard = async value => {
     toast.add({
       severity: 'warn',
       summary: t('HD Warning'),
-      detail: t(`IP not copied`),
+      detail: t(`IP ${value} not copied to clipboard`),
       life: 3000
     });
   }
