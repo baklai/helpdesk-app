@@ -124,7 +124,7 @@ const options = computed(() => [
 
 const copyIPtoClipboard = async value => {
   try {
-    await navigator?.clipboard.writeText(value);
+    await navigator.clipboard.writeText(value);
     toast.add({
       severity: 'info',
       summary: t('HD Information'),
@@ -132,7 +132,6 @@ const copyIPtoClipboard = async value => {
       life: 3000
     });
   } catch (err) {
-    console.log(err);
     toast.add({
       severity: 'warn',
       summary: t('HD Warning'),
