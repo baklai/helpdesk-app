@@ -102,9 +102,6 @@ const columns = ref([
         ) : (
           <i class="pi pi-info-circle text-orange-500 font-bold cursor-pointer" />
         );
-      },
-      action(data) {
-        refSidebar.value.toggle(data);
       }
     },
     sorter: { field: 'closed' },

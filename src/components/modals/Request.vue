@@ -21,7 +21,7 @@ const confirm = useConfirm();
 
 const $helpdesk = inject('helpdesk');
 
-const { findAll, createOne, updateOne, removeOne } = useRequest();
+const { findOne, createOne, updateOne, removeOne } = useRequest();
 
 const IPAddress = useIPAddress();
 const Company = useСompany();
@@ -41,7 +41,6 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    ipaddress: yup.string().required(),
     fullname: yup.string().required(),
     phone: yup.string().required(),
     position: yup.string().required(),
@@ -82,6 +81,7 @@ defineExpose({
 
       visible.value = true;
     } catch (err) {
+      console.log(err);
       visible.value = false;
     }
   }
@@ -111,7 +111,7 @@ const conclusion = defineComponentBinds('conclusion');
 const comment = defineComponentBinds('comment');
 
 const isClosed = computed(() => {
-  return !values?.closed ? false : true;
+  return values?.workerClose ? true : false;
 });
 
 const refMenu = ref();
@@ -245,7 +245,7 @@ const onRemoveRecord = async () => {
 const onSaveRecord = handleSubmit(async () => {
   if (values?.id) {
     try {
-      await updateOne(values.id, { ...controlledValues.value, closed: values.closed });
+      await updateOne(values.id, { ...controlledValues.value, workerClose: values.workerClose });
       visible.value = false;
       toast.add({
         severity: 'success',
@@ -265,7 +265,8 @@ const onSaveRecord = handleSubmit(async () => {
     try {
       await createOne({
         ...controlledValues.value,
-        workerOpen: $helpdesk?.user?.id || null
+        workerOpen: $helpdesk?.user?.id || undefined,
+        workerClose: values.workerClose || undefined
       });
       visible.value = false;
       toast.add({
@@ -287,8 +288,7 @@ const onSaveRecord = handleSubmit(async () => {
 
 const onSaveClosedRecord = handleSubmit(async () => {
   setValues({
-    closed: true,
-    workerClose: $helpdesk?.user?.id || null
+    workerClose: $helpdesk?.user?.id || undefined
   });
 
   await onSaveRecord();

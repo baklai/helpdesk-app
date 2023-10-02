@@ -194,7 +194,7 @@ const onCloseSidebar = () => {
           <tr>
             <td class="font-weight-bold" width="50%">{{ $t('Date closed') }} :</td>
             <td>
-              {{ record?.closed ? dateTimeToStr(record?.closed) : '-' }}
+              {{ record?.closed ? dateTimeToStr(record?.updatedAt) : '-' }}
             </td>
           </tr>
           <tr>
