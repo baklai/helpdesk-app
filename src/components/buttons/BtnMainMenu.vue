@@ -2,12 +2,12 @@
 import { ref, defineAsyncComponent } from 'vue';
 
 // import AppMenu from '@/components/AppMenu.vue';
-// import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
+// import BtnAuth from '@/components/buttons/BtnAuth.vue';
 // import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 // import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 
-const AppMenu = defineAsyncComponent(() => import('@/components/AppMenu.vue'));
-const BtnAppAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAppAuth.vue'));
+const SidebarMenu = defineAsyncComponent(() => import('@/components/partials/SidebarMenu.vue'));
+const BtnAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAuth.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
 );
@@ -48,7 +48,7 @@ const toggle = event => {
         </div>
       </div>
       <div class="overflow-scroll w-full max-h-30rem">
-        <AppMenu />
+        <SidebarMenu />
       </div>
     </template>
 
@@ -56,7 +56,7 @@ const toggle = event => {
       <div class="flex align-items-center align-content-center justify-content-between p-2">
         <BtnToggleLang />
         <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
-        <BtnAppAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
+        <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
       </div>
     </template>
   </Menu>

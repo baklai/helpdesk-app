@@ -1,9 +1,9 @@
 <script setup>
-import AppMenu from '@/components/AppMenu.vue';
-import BtnAppAuth from '@/components/buttons/BtnAppAuth.vue';
+import SidebarMenu from '@/components/partials/SidebarMenu.vue';
+import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
+import BtnUserInfo from '@/components/buttons/BtnUserInfo.vue';
 </script>
 
 <template>
@@ -39,22 +39,22 @@ import BtnToggleUser from '@/components/buttons/BtnToggleUser.vue';
     </div>
   </div>
 
-  <div class="menu-sidebar overflow-y-scroll w-full text-base my-4">
-    <AppMenu />
+  <div class="sidebar-menu overflow-y-scroll w-full text-base my-4">
+    <SidebarMenu />
   </div>
 
   <div class="absolute bottom-0 left-0 right-0 w-full">
     <div class="flex align-items-center align-content-center justify-content-between flex-wrap p-4">
-      <BtnToggleUser />
+      <BtnUserInfo />
       <BtnToggleLang />
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
-      <BtnAppAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
+      <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.menu-sidebar {
+.sidebar-menu {
   height: calc(100vh - 20rem);
   scrollbar-width: none;
 }

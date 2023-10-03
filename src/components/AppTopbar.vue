@@ -1,16 +1,14 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 
-// import BtnBaseHosting from '@/components/buttons/BtnBaseHosting.vue';
+// import BtnHosting from '@/components/buttons/BtnHosting.vue';
 // import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 // import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 // import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
 // import BtnMainMenu from '@/components/buttons/BtnMainMenu.vue';
 // import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
-const BtnBaseHosting = defineAsyncComponent(() =>
-  import('@/components/buttons/BtnBaseHosting.vue')
-);
+const BtnHosting = defineAsyncComponent(() => import('@/components/buttons/BtnHosting.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
 );
@@ -91,7 +89,7 @@ const isOutsideClicked = event => {
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnToggleLang />
-      <BtnBaseHosting iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
+      <BtnHosting iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnNotifications />
       <BtnFullScreen iconClass="text-3xl" class="w-3rem h-3rem text-4xl hover:text-color mx-2" />
       <BtnMainMenu />

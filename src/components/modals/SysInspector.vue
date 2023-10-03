@@ -1002,7 +1002,7 @@ const validSoftware = value => {
           </table>
         </div>
       </div>
-      <ScrollTop target="parent" :threshold="400" behavior="smooth" />
+      <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
     </template>
 
     <template #footer>
@@ -1013,10 +1013,6 @@ const validSoftware = value => {
 </template>
 
 <style scoped>
-.p-scrolltop.p-link {
-  background: var(--primary-color);
-}
-
 table {
   width: 100%;
   border: 15px solid transparent;

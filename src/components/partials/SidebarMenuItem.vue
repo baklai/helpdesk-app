@@ -2,6 +2,8 @@
 import { ref, onBeforeMount, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
+import SidebarMenuItem from '@/components/partials/SidebarMenuItem.vue';
+
 import { useConfig } from '@/stores/config';
 
 const Route = useRoute();
@@ -106,7 +108,7 @@ const checkActiveRoute = item => {
     </RouterLink>
     <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
-        <AppMenuItem
+        <SidebarMenuItem
           v-for="(child, index) in item.items"
           :key="child"
           :index="index"

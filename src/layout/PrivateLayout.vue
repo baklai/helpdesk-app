@@ -3,7 +3,7 @@ import { ref, computed, watchEffect } from 'vue';
 
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
-import BtnAppConfig from '@/components/buttons/BtnAppConfig.vue';
+import BtnConfig from '@/components/buttons/BtnConfig.vue';
 
 import { useConfig } from '@/stores/config';
 
@@ -88,6 +88,15 @@ watchEffect(() => {
         </div>
       </div>
     </div>
-    <BtnAppConfig />
+    <BtnConfig />
   </div>
+
+  <ConfirmDialog :style="{ minWidth: '350px' }">
+    <template #message="slotProps">
+      <div class="flex align-items-center justify-content-start confirmation-content">
+        <i class="text-4xl mr-3" :class="slotProps.message.icon" />
+        <span class="font-medium">{{ slotProps.message.message }} </span>
+      </div>
+    </template>
+  </ConfirmDialog>
 </template>
