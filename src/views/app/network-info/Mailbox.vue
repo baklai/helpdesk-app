@@ -71,7 +71,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start min-w-full w-full px-4`}
+            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start min-w-min w-10 px-4`}
             value={value}
           />
         );
