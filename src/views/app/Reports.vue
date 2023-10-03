@@ -1,10 +1,8 @@
-<script setup>
-// import AppIcons from '@/components/AppIcons.vue';
-</script>
+<script setup></script>
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-6">
+    <div class="flex align-content-center m-6">
       <div class="flex align-items-center justify-content-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
@@ -18,18 +16,8 @@
       </div>
     </div>
 
-    <div class="grid align-content-start p-4">
-      <div class="col-12">
-        <div class="flex align-content-center">
-          <div class="flex align-items-center justify-content-center mr-2">
-            <AppIcons name="network-info" :size="24" />
-          </div>
-          <h3 class="my-auto">
-            {{ $t('Network information') }}
-          </h3>
-        </div>
-      </div>
-      <div class="col-12 lg:col-6 xl:col-2">
+    <div class="grid align-content-start p-6">
+      <div class="col-12 lg:col-6 xl:col-3">
         <div
           class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-orange-500"
         >
@@ -80,28 +68,6 @@
         </div>
       </div>
 
-      <div class="col-12">
-        <div class="flex align-content-center">
-          <div class="flex align-items-center justify-content-center mr-2">
-            <AppIcons name="helpdesk-live-log" :size="24" />
-          </div>
-          <h3 class="my-auto">
-            {{ $t('Help Desk Live Log') }}
-          </h3>
-        </div>
-      </div>
-      <div class="col-12 lg:col-6 xl:col-2">
-        <div
-          class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-orange-500"
-        >
-          <div class="flex flex-column align-items-center justify-content-center">
-            <div class="border-round p-2">
-              <i class="pi pi-plus-circle text-6xl" />
-            </div>
-            <p>{{ $t('Create report template') }}</p>
-          </div>
-        </div>
-      </div>
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
@@ -160,28 +126,6 @@
         </div>
       </div>
 
-      <div class="col-12">
-        <div class="flex align-content-center">
-          <div class="flex align-items-center justify-content-center mr-2">
-            <AppIcons name="pc-sys-inspector" :size="24" />
-          </div>
-          <h3 class="my-auto">
-            {{ $t('PC SysInspector') }}
-          </h3>
-        </div>
-      </div>
-      <div class="col-12 lg:col-6 xl:col-2">
-        <div
-          class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-orange-500"
-        >
-          <div class="flex flex-column align-items-center justify-content-center">
-            <div class="border-round p-2">
-              <i class="pi pi-plus-circle text-6xl" />
-            </div>
-            <p>{{ $t('Create report template') }}</p>
-          </div>
-        </div>
-      </div>
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 cursor-pointer h-full w-full hover:shadow-5">
           <div class="flex">
