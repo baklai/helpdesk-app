@@ -234,8 +234,9 @@ const onSaveRecord = handleSubmit(async () => {
           showIcon
           showTime
           showButtonBar
-          dateFormat="dd.mm.yy"
           hourFormat="24"
+          dateFormat="dd.mm.yy"
+          :manualInput="false"
           v-bind="datetime"
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!errors?.datetime }"

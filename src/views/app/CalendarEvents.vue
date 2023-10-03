@@ -1,14 +1,14 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Qalendar } from 'qalendar';
 
-import ModalRecord from '@/components/modals/Event.vue';
-
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useEvent } from '@/stores/api/events';
+
+const Modal = defineAsyncComponent(() => import('@/components/modals/Event.vue'));
 
 const { t, locale } = useI18n();
 
@@ -46,12 +46,6 @@ const records = ref([]);
 
 const startDate = ref(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
 const endDate = ref(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0));
-
-const fixLocale = key => {
-  if (key === 'uk') return 'uk-UA';
-  if (key === 'ru') return 'ru-RU';
-  return 'en-US';
-};
 
 const config = computed(() => {
   return {
@@ -92,6 +86,12 @@ const enents = computed(() => {
   });
 });
 
+const fixLocale = key => {
+  if (key === 'uk') return 'uk-UA';
+  if (key === 'ru') return 'ru-RU';
+  return 'en-US';
+};
+
 const getDataRecords = async () => {
   try {
     loading.value = true;
@@ -117,11 +117,11 @@ const getDataRecords = async () => {
   }
 };
 
-async function handleMonthChange(value) {
+const handleMonthChange = async value => {
   startDate.value = value.start;
   endDate.value = value.end;
   await getDataRecords();
-}
+};
 
 const confirmDelete = ({ id }) => {
   confirm.require({
@@ -178,7 +178,7 @@ onMounted(async () => {
 
 <template>
   <div class="w-full h-full">
-    <ModalRecord ref="refModal" @close="async () => await getDataRecords()" />
+    <Modal ref="refModal" @close="async () => await getDataRecords()" />
 
     <div class="flex justify-content-between flex-wrap mb-2">
       <div class="flex flex-wrap gap-2 align-items-center">
