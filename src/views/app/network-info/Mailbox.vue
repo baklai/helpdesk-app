@@ -65,13 +65,13 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Login', width: '16rem' },
+    header: { text: 'Login', width: '14rem' },
     column: {
       field: 'login',
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold text-primary surface-hover cursor-pointer px-4`}
+            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start min-w-full w-full px-4`}
             value={value}
           />
         );
