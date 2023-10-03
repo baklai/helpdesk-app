@@ -2,7 +2,7 @@
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center m-6">
+    <div class="flex align-content-center mb-4">
       <div class="flex align-items-center justify-content-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="grid align-content-start p-6">
+    <div class="grid align-content-start">
       <div class="col-12 lg:col-6 xl:col-3">
         <div
           class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-orange-500"
