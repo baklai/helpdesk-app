@@ -3,7 +3,7 @@ import SidebarMenu from '@/components/partials/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-import BtnUserInfo from '@/components/buttons/BtnUserInfo.vue';
+import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
 </script>
 
 <template>
@@ -45,7 +45,7 @@ import BtnUserInfo from '@/components/buttons/BtnUserInfo.vue';
 
   <div class="absolute bottom-0 left-0 right-0 w-full">
     <div class="flex align-items-center align-content-center justify-content-between flex-wrap p-4">
-      <BtnUserInfo />
+      <BtnInfoUser />
       <BtnToggleLang />
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
       <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />

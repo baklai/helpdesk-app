@@ -4,13 +4,14 @@ import { useI18n } from 'vue-i18n';
 
 import { useScope } from '@/stores/scope';
 
+defineProps(['visible']);
+defineEmits(['update:visible']);
+
 const { t } = useI18n();
 
 const $helpdesk = inject('helpdesk');
 
 const { getCustomScope } = useScope();
-
-const visible = ref(false);
 
 const columns = ref([
   { field: 'create', header: t('Create') },
@@ -23,23 +24,13 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
 </script>
 
 <template>
-  <Button
-    text
-    plain
-    rounded
-    icon="pi pi-user"
-    iconClass="text-2xl"
-    class="w-3rem h-3rem hover:text-color"
-    v-tooltip.top="$t('User account')"
-    @click="visible = true"
-  />
-
   <Dialog
     modal
     closable
     position="top"
     :draggable="false"
-    v-model:visible="visible"
+    :visible="visible"
+    @update:visible="$emit('update:visible', !visible)"
     :style="{ maxWidth: '500px' }"
   >
     <template #header>
