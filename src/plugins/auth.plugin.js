@@ -57,6 +57,12 @@ export default {
       async signout() {
         store.resetAccessRefreshToken();
         $router.push({ name: 'signin' });
+        $toast.add({
+          severity: 'info',
+          summary: $t('HD Information'),
+          detail: $t('Logout successfully completed'),
+          life: 3000
+        });
       }
     };
 
