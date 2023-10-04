@@ -26,7 +26,7 @@ const {
   validationSchema: yup.object({
     name: yup.string().required(),
     text: yup.string().required(),
-    users: yup.string().required()
+    users: yup.array().required()
   }),
   initialValues: {}
 });
