@@ -3,6 +3,8 @@ import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
+import { Clipboard } from 'v-clipboard';
+
 import { useTool } from '@/stores/api/systools';
 
 const { t } = useI18n();
@@ -124,7 +126,7 @@ const options = computed(() => [
 
 const copyIPtoClipboard = async value => {
   try {
-    await navigator.clipboard.writeText(value);
+    await Clipboard.copy(value);
     toast.add({
       severity: 'info',
       summary: t('HD Information'),
