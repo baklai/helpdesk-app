@@ -30,9 +30,10 @@ const basicOptions = ref({
 onMounted(async () => {
   loader.value = true;
 
+  stats.value = await Statistic.inspector();
+
   const documentStyle = getComputedStyle(document.documentElement);
   currentDate.value = dateToStr(Date.now());
-  stats.value = await Statistic.inspector();
 
   statusChart.value = {
     labels: ['Good PC', 'Warning Users', 'Warning Products', 'Warning Shares'],
@@ -389,7 +390,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-::v-deep(.p-datatable-header) {
+::v-deep(.p-datatable .p-datatable-header) {
   background: var(--surface-card);
 }
 

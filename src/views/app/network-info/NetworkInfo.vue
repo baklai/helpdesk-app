@@ -473,9 +473,14 @@ const onCountPercentWidth = (count, allCount) => {
   background: transparent;
 }
 ::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-overlay);
+  background: var(--surface-hover);
+  border: 1px solid var(--surface-hover);
 }
 ::v-deep(.p-datatable .p-datatable-tbody > tr) {
   background: transparent;
+}
+
+::v-deep(.p-component-overlay) {
+  background-color: transparent;
 }
 </style>
