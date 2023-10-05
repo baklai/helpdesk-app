@@ -501,7 +501,7 @@ const createSysInspectorScript = async () => {
         </template>
       </SSDataTable>
 
-      <component :is="refModalFilter" />
+      <component :is="refModalFilter" v-if="refModalFilter" />
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

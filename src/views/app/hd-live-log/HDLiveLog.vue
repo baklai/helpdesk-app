@@ -2,9 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { useStatistic } from '@/stores/api/statistics';
 import { MONTHS_OF_YEAR, DAYS_OF_WEEK } from '@/service/Constants';
 import { dateToStr } from '@/service/DataFilters';
+
+import { useStatistic } from '@/stores/api/statistics';
 
 const Statistic = useStatistic();
 

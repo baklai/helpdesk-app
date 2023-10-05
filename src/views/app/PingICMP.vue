@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, onBeforeUnmount } from 'vue';
+import Terminal from 'primevue/terminal';
 import TerminalService from 'primevue/terminalservice';
 import { useI18n } from 'vue-i18n';
 

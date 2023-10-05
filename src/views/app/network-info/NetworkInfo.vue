@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode } from 'primevue/api';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
