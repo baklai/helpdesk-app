@@ -8,7 +8,7 @@ import { dateToStr } from '@/service/DataFilters';
 const Statistic = useStatistic();
 
 const stats = ref({});
-const loader = ref();
+const loader = ref(true);
 const currentDate = ref();
 const statusChart = ref(null);
 
@@ -28,8 +28,6 @@ const basicOptions = ref({
 });
 
 onMounted(async () => {
-  loader.value = true;
-
   stats.value = await Statistic.inspector();
 
   const documentStyle = getComputedStyle(document.documentElement);
@@ -76,7 +74,7 @@ onMounted(async () => {
     </div>
 
     <ProgressSpinner
-      class="flex"
+      class="flex text-color-secondary"
       strokeWidth="3"
       animationDuration="0.8s"
       style="height: 80%"
