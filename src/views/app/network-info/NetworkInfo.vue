@@ -23,9 +23,12 @@ const basicOptions = ref({
 
 onMounted(async () => {
   stats.value = await Statistic.network();
+
+  console.log(stats.value);
+
   currentDate.value = dateToStr(Date.now());
   barBranches.value = {
-    labels: stats.value.barBranches.map(item => item.title),
+    labels: stats.value.barBranches.map(item => item.name),
     datasets: [
       {
         type: 'bar',
@@ -37,7 +40,7 @@ onMounted(async () => {
   };
 
   barEnterprises.value = {
-    labels: stats.value.barEnterprises.map(item => item.title),
+    labels: stats.value.barEnterprises.map(item => item.name),
     datasets: [
       {
         type: 'bar',
@@ -78,10 +81,10 @@ const onCountPercentWidth = (count, allCount) => {
           <div class="flex justify-content-between mb-3">
             <div>
               <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of records') }}
+                {{ $t('Total number of ipaddresses') }}
               </span>
               <div class="text-900 font-medium text-xl">
-                {{ stats?.count || '-' }}
+                {{ stats?.ipaddresses || '-' }}
               </div>
             </div>
             <div
@@ -293,7 +296,7 @@ const onCountPercentWidth = (count, allCount) => {
                 $t('Total number of Internets')
               }}</span>
               <div class="text-900 font-medium text-xl">
-                {{ stats?.internet || '-' }}
+                {{ stats?.internets || '-' }}
               </div>
             </div>
             <div
@@ -320,7 +323,7 @@ const onCountPercentWidth = (count, allCount) => {
                 $t('Total number of E-Mails')
               }}</span>
               <div class="text-900 font-medium text-xl">
-                {{ stats?.email || '-' }}
+                {{ stats?.mailboxes || '-' }}
               </div>
             </div>
             <div
@@ -347,7 +350,7 @@ const onCountPercentWidth = (count, allCount) => {
                 $t('Total number of autoanswers')
               }}</span>
               <div class="text-900 font-medium text-xl">
-                {{ stats?.autoanswer || '-' }}
+                {{ stats?.autoanswers || '-' }}
               </div>
             </div>
             <div
@@ -365,7 +368,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 xl:col-6">
-        <div class="card surface-50">
+        <div class="card surface-50 h-30rem">
           <div class="flex justify-content-between align-items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
             <div>
@@ -375,17 +378,17 @@ const onCountPercentWidth = (count, allCount) => {
               />
             </div>
           </div>
-          <ul class="list-none p-0 m-0 overflow-auto" style="height: 255px">
+          <ul class="list-none p-0 m-0 overflow-auto" style="height: 80%">
             <li
               v-for="(item, index) of stats.barUnits"
               :key="index"
               class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4"
             >
               <div>
-                <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ item.title }}</span>
+                <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ item.name }}</span>
                 <div class="mt-1 text-600">
                   {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }}
-                  {{ stats.count }}
+                  {{ stats.ipaddresses }}
                 </div>
               </div>
               <div class="mt-2 md:mt-0 flex align-items-center">
@@ -395,30 +398,32 @@ const onCountPercentWidth = (count, allCount) => {
                 >
                   <div
                     class="bg-yellow-300 h-full"
-                    :style="`width: ${onCountPercentWidth(item.count, stats.count)}px`"
+                    :style="`width: ${onCountPercentWidth(item.count, stats.ipaddresses)}px`"
                   ></div>
                 </div>
                 <span class="text-yellow-500 font-medium w-6rem">
-                  {{ onCountPercent(item.count, stats.count) }} %
+                  {{ onCountPercent(item.count, stats.ipaddresses) }} %
                 </span>
               </div>
             </li>
           </ul>
         </div>
 
-        <div class="card surface-50">
+        <div class="card surface-50 h-30rem">
           <h5>{{ $t('Locations status unuts') }}</h5>
           <DataTable
-            :rows="5"
-            paginator
+            :rows="10"
+            scrollable
+            scrollHeight="flex"
             :value="stats.barLocations"
             responsiveLayout="scroll"
+            style="height: 90%"
             currentPageReportTemplate="Locations {first} to {last} of {totalRecords}"
             paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           >
-            <Column field="title" :header="$t('Location')" sortable style="width: 70%">
+            <Column field="name" :header="$t('Location')" sortable style="width: 70%">
               <template #body="{ data }">
-                <span class="uppercase font-bold text-blue-500">{{ data.title }}</span>
+                <span class="uppercase font-bold text-blue-500">{{ data.name }}</span>
               </template>
             </Column>
             <Column field="count" header="Count units" sortable style="width: 30%">
@@ -431,11 +436,11 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 xl:col-6">
-        <div class="card surface-50">
+        <div class="card surface-50 h-30rem">
           <h5>{{ $t('Branches status') }}</h5>
           <Chart type="bar" :data="barBranches" :options="basicOptions" />
         </div>
-        <div class="card surface-50">
+        <div class="card surface-50 h-30rem">
           <h5>{{ $t('Enterprises status') }}</h5>
           <Chart type="bar" :data="barEnterprises" :options="basicOptions" />
         </div>
