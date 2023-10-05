@@ -338,6 +338,14 @@ onMounted(async () => {
 </style>
 
 <style scoped>
+::v-deep(.calendar-month__event) {
+  padding: 5px 10px;
+}
+::v-deep(.calendar-month__event:hover) {
+  background-color: var(--surface-hover);
+  padding: 5px 10px;
+}
+
 ::v-deep(.date-picker.is-in-qalendar) {
   display: none !important;
 }
