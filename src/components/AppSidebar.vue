@@ -7,7 +7,10 @@ import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
 </script>
 
 <template>
-  <RouterLink to="/" class="flex justify-content-center layout-topbar-logo py-2 mb-6">
+  <RouterLink
+    :to="{ name: 'home' }"
+    class="flex justify-content-center layout-topbar-logo py-2 mb-6"
+  >
     <div class="flex justify-content-center">
       <div class="justify-content-start">
         <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
