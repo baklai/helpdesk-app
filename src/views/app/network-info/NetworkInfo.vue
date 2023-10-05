@@ -1,10 +1,15 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
 
 const Statistic = useStatistic();
+
+const filters = ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+});
 
 const stats = ref({});
 const currentDate = ref();
@@ -23,8 +28,6 @@ const basicOptions = ref({
 
 onMounted(async () => {
   stats.value = await Statistic.network();
-
-  console.log(stats.value);
 
   currentDate.value = dateToStr(Date.now());
   barBranches.value = {
@@ -410,20 +413,36 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
 
         <div class="card surface-50 h-30rem">
-          <h5>{{ $t('Locations status unuts') }}</h5>
           <DataTable
-            :rows="10"
             scrollable
+            removableSort
             scrollHeight="flex"
             :value="stats.barLocations"
             responsiveLayout="scroll"
             style="height: 90%"
+            v-model:filters="filters"
+            :globalFilterFields="['name', 'country.name', 'representative.name', 'status']"
             currentPageReportTemplate="Locations {first} to {last} of {totalRecords}"
             paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           >
+            <template #header>
+              <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
+                <div class="flex flex-wrap gap-2 align-items-center">
+                  <h5 class="m-0">
+                    {{ $t('Locations status unuts') }}
+                  </h5>
+                </div>
+                <div class="flex flex-wrap align-items-center justify-content-between">
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search" />
+                    <InputText v-model="filters['global'].value" placeholder="Search location" />
+                  </span>
+                </div>
+              </div>
+            </template>
             <Column field="name" :header="$t('Location')" sortable style="width: 70%">
               <template #body="{ data }">
-                <span class="uppercase font-bold text-blue-500">{{ data.name }}</span>
+                <span class="font-bold text-blue-500">{{ data.name }}</span>
               </template>
             </Column>
             <Column field="count" header="Count units" sortable style="width: 30%">
@@ -448,3 +467,15 @@ const onCountPercentWidth = (count, allCount) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+::v-deep(.p-datatable .p-datatable-header) {
+  background: transparent;
+}
+::v-deep(.p-datatable .p-datatable-thead > tr > th) {
+  background: var(--surface-overlay);
+}
+::v-deep(.p-datatable .p-datatable-tbody > tr) {
+  background: transparent;
+}
+</style>
