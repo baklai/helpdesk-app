@@ -28,6 +28,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     modal
     closable
     position="top"
+    dismissableMask
     :draggable="false"
     :visible="visible"
     @update:visible="$emit('update:visible', !visible)"

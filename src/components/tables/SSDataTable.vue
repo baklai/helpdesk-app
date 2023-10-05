@@ -852,18 +852,18 @@ onMounted(async () => {
 
 <style scoped>
 ::v-deep(.p-datatable-header) {
-  background: var(--surface-overlay);
+  background: var(--surface-card);
 }
 
 ::v-deep(.p-paginator) {
-  background: var(--surface-overlay);
+  background: var(--surface-card);
 }
 ::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-overlay);
+  background: var(--surface-card);
 }
 
 ::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-overlay);
+  background: var(--surface-card);
 }
 
 ::v-deep(.p-component-overlay) {
@@ -891,7 +891,7 @@ onMounted(async () => {
 }
 
 ::v-deep(button.p-paginator-page.p-paginator-element.p-link.p-highlight) {
-  background: var(--surface-overlay);
+  background: var(--surface-card);
   color: var(--text-color);
 }
 
