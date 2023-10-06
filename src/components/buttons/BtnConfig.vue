@@ -1,7 +1,7 @@
 <script setup>
-import { ref, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 
-const AppConfig = defineAsyncComponent(() => import('@/components/AppConfig.vue'));
+import AppConfig from '@/components/AppConfig.vue';
 
 const visible = ref(false);
 </script>
@@ -16,7 +16,7 @@ const visible = ref(false);
     <i class="pi pi-cog"></i>
   </button>
 
-  <AppConfig v-model:visible="visible" v-if="visible" />
+  <AppConfig v-model:visible="visible" />
 </template>
 
 <style scoped>

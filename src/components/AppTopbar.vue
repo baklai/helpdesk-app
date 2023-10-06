@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 
+import { useConfig } from '@/stores/config';
+
 const BtnHosting = defineAsyncComponent(() => import('@/components/buttons/BtnHosting.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
@@ -11,8 +13,6 @@ const BtnNotifications = defineAsyncComponent(() =>
 );
 const BtnMainMenu = defineAsyncComponent(() => import('@/components/buttons/BtnMainMenu.vue'));
 const BtnFullScreen = defineAsyncComponent(() => import('@/components/buttons/BtnFullScreen.vue'));
-
-import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
 

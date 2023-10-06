@@ -1,9 +1,14 @@
 <script setup>
+import { defineAsyncComponent } from 'vue';
+
 import SidebarMenu from '@/components/partials/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
-import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
+
+const BtnToggleTheme = defineAsyncComponent(() =>
+  import('@/components/buttons/BtnToggleTheme.vue')
+);
+const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
 </script>
 
 <template>
