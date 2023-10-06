@@ -52,6 +52,13 @@ const toggle = event => {
       </div>
     </template>
 
+    <template #item="{ label, item, props }">
+      <a :href="item.url" v-bind="props.action">
+        <span v-bind="props.icon" />
+        <span v-bind="props.label">{{ label }}</span>
+      </a>
+    </template>
+
     <template #end>
       <div class="flex align-items-center align-content-center justify-content-between p-2">
         <BtnToggleLang />

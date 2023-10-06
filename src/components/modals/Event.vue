@@ -178,7 +178,14 @@ const onSaveRecord = handleSubmit(async () => {
 </script>
 
 <template>
-  <Menu ref="refMenu" popup :model="options" />
+  <Menu ref="refMenu" popup :model="options">
+    <template #item="{ label, item, props }">
+      <a :href="item.url" v-bind="props.action">
+        <span v-bind="props.icon" />
+        <span v-bind="props.label">{{ label }}</span>
+      </a>
+    </template>
+  </Menu>
 
   <Dialog
     closable

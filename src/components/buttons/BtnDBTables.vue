@@ -81,13 +81,19 @@ const items = ref([
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" :popup="true" class="w-14rem p-2" />
+  <Menu ref="refMenu" :model="items" popup class="w-14rem p-2">
+    <template #item="{ label, item, props }">
+      <a :href="item.url" v-bind="props.action">
+        <span v-bind="props.icon" />
+        <span v-bind="props.label">{{ label }}</span>
+      </a>
+    </template>
+  </Menu>
 
   <Button
     text
     plain
     rounded
-    aria-haspopup="true"
     icon="pi pi-database"
     iconClass="text-2xl"
     class="p-button-lg hover:text-color h-3rem w-3rem"
