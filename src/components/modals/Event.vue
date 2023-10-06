@@ -224,19 +224,21 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord">
       <div class="field">
-        <label class="font-bold">{{ $t('Title event') }}</label>
+        <label for="title" class="font-bold">{{ $t('Title event') }}</label>
         <InputText
+          id="title"
           v-bind="title"
           :placeholder="$t('Title event')"
           :class="{ 'p-invalid': !!errors?.title }"
+          aria-describedby="title-help"
         />
-        <small class="p-error" v-if="errors?.title">
+        <small id="title-help" class="p-error" v-if="errors?.title">
           {{ $t(errors.title) }}
         </small>
       </div>
 
       <div class="field">
-        <label class="font-bold">{{ $t('Datetime of event') }}</label>
+        <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
         <Calendar
           showIcon
           showTime
@@ -244,36 +246,47 @@ const onSaveRecord = handleSubmit(async () => {
           hourFormat="24"
           dateFormat="dd.mm.yy"
           :manualInput="false"
+          inputId="datetime"
           v-bind="datetime"
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!errors?.datetime }"
+          aria-describedby="datetime-help"
         />
-        <small class="p-error" v-if="errors?.datetime">
+        <small id="datetime-help" class="p-error" v-if="errors?.datetime">
           {{ $t(errors.datetime) }}
         </small>
       </div>
 
       <div class="field">
+        <label for="eventType" class="font-bold">{{ $t('Event type') }}</label>
         <Dropdown
           filter
           autofocus
           showClear
           resetFilterOnHide
+          inputId="eventType"
           v-bind="eventType"
           :options="['event', 'meeting', 'deadline', 'holiday', 'birthday']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Event type')"
           :class="{ 'p-invalid': !!errors?.eventType }"
+          aria-describedby="eventType-help"
         />
-        <small class="p-error" v-if="errors?.eventType">
+        <small id="eventType-help" class="p-error" v-if="errors?.eventType">
           {{ $t(errors.eventType) }}
         </small>
       </div>
 
       <div class="field">
-        <label class="font-bold">{{ $t('Description') }}</label>
-        <Textarea rows="5" cols="12" v-bind="description" :placeholder="$t('Description')" />
+        <label for="description" class="font-bold">{{ $t('Description') }}</label>
+        <Textarea
+          rows="5"
+          cols="12"
+          id="description"
+          v-bind="description"
+          :placeholder="$t('Description')"
+        />
       </div>
     </form>
 

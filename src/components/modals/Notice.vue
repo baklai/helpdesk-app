@@ -109,33 +109,38 @@ const onCloseModal = () => {
 
     <form @submit.prevent="onSendNotice">
       <div class="field">
-        <label>{{ $t('Notification name') }}</label>
+        <label for="name">{{ $t('Notification name') }}</label>
         <InputText
+          id="name"
           v-bind="name"
           :placeholder="$t('Notification name')"
           :class="{ 'p-invalid': !!errors?.name }"
+          aria-describedby="name-help"
         />
-        <small class="p-error" v-if="errors?.name">
+        <small id="name-help" class="p-error" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>
 
       <div class="field">
-        <label>{{ $t('Notification text') }}</label>
+        <label for="text">{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
+          id="text"
           v-bind="text"
           :placeholder="$t('Notification text')"
           :class="{ 'p-invalid': !!errors?.text }"
+          aria-describedby="text-help"
         />
-        <small class="p-error" v-if="errors?.text">
+        <small id="text-help" class="p-error" v-if="errors?.text">
           {{ $t(errors.text) }}
         </small>
       </div>
 
       <div class="field">
-        <label>{{ $t('Notification users') }}</label>
+        <label for="users">{{ $t('Notification users') }}</label>
         <MultiSelect
+          id="users"
           v-bind="users"
           :options="records"
           optionLabel="fullname"
@@ -143,6 +148,7 @@ const onCloseModal = () => {
           :placeholder="$t('Notification users')"
           :class="{ 'p-invalid': !!errors?.users }"
           class="w-full"
+          aria-describedby="users-help"
         >
           <template #option="slotProps">
             <div class="flex align-items-center">
@@ -151,7 +157,7 @@ const onCloseModal = () => {
             </div>
           </template>
         </MultiSelect>
-        <small class="p-error" v-if="errors?.users">
+        <small id="users-help" class="p-error" v-if="errors?.users">
           {{ $t(errors.users) }}
         </small>
       </div>

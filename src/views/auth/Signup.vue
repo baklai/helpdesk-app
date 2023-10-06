@@ -93,26 +93,29 @@ onMounted(() => {
           <div class="formgrid grid">
             <div class="field col">
               <div class="field">
-                <label class="font-bold">{{ $t('User login') }}</label>
+                <label for="login" class="font-bold">{{ $t('User login') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-user" />
                   <InputText
+                    id="login"
                     v-bind="login"
                     :placeholder="$t('User login')"
                     :class="{ 'p-invalid': !!errors?.login }"
+                    aria-describedby="login-help"
                   />
                 </span>
-                <small class="p-error" v-if="errors?.login">
+                <small id="login-help" class="p-error" v-if="errors?.login">
                   {{ $t(errors.login) }}
                 </small>
               </div>
 
               <div class="field">
-                <label class="font-bold">
+                <label for="password" class="font-bold">
                   {{ $t('User password') }}
                 </label>
                 <Password
                   toggleMask
+                  id="password"
                   v-bind="password"
                   :placeholder="$t('User password')"
                   :promptLabel="$t('Choose a password')"
@@ -120,6 +123,7 @@ onMounted(() => {
                   :mediumLabel="$t('Average complexity')"
                   :strongLabel="$t('Complex password')"
                   :class="{ 'p-invalid': !!errors?.password }"
+                  aria-describedby="password-help"
                 >
                   <template #header>
                     <h6>{{ $t('Pick a password') }}</h6>
@@ -135,22 +139,24 @@ onMounted(() => {
                     </ul>
                   </template>
                 </Password>
-                <small class="p-error" v-if="errors?.password">
+                <small id="password-help" class="p-error" v-if="errors?.password">
                   {{ $t(errors.password) }}
                 </small>
               </div>
 
               <div class="field">
-                <label class="font-bold">
+                <label for="passwordConfirm" class="font-bold">
                   {{ $t('Confirm password') }}
                 </label>
                 <InputText
                   type="password"
+                  id="passwordConfirm"
                   v-bind="passwordConfirm"
                   :placeholder="$t('Confirm password')"
                   :class="{ 'p-invalid': !!errors?.passwordConfirm }"
+                  aria-describedby="passwordConfirm-help"
                 />
-                <small class="p-error" v-if="errors?.passwordConfirm">
+                <small id="passwordConfirm-help" class="p-error" v-if="errors?.passwordConfirm">
                   {{ $t(errors.passwordConfirm) }}
                 </small>
               </div>
@@ -158,53 +164,60 @@ onMounted(() => {
 
             <div class="field col">
               <div class="field">
-                <label class="font-bold">{{ $t('User name') }}</label>
+                <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-id-card" />
                   <InputText
+                    id="fullname"
                     v-bind="fullname"
                     :placeholder="$t('User name')"
                     :class="{ 'p-invalid': !!errors?.fullname }"
+                    aria-describedby="fullname-help"
                   />
                 </span>
-                <small class="p-error" v-if="errors?.fullname">
+                <small id="fullname-help" class="p-error" v-if="errors?.fullname">
                   {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
-                <label class="font-bold">{{ $t('User email') }}</label>
+                <label for="email" class="font-bold">{{ $t('User email') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-at" />
                   <InputText
+                    id="email"
                     v-bind="email"
                     :placeholder="$t('User email')"
                     :class="{ 'p-invalid': !!errors?.email }"
+                    aria-describedby="email-help"
                   />
                 </span>
-                <small class="p-error" v-if="errors?.email">
+                <small id="email-help" class="p-error" v-if="errors?.email">
                   {{ $t(errors.email) }}
                 </small>
               </div>
 
               <div class="field">
-                <label class="font-bold">{{ $t('User phone') }}</label>
+                <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-phone" />
                   <InputMask
                     date="phone"
                     mask="+99(999)999-99-99"
+                    id="phone"
                     v-bind="phone"
                     :placeholder="$t('User phone')"
                     :class="{ 'p-invalid': !!errors?.phone }"
+                    aria-describedby="phone-help"
                   />
                 </span>
-                <small class="p-error" v-if="errors?.phone">
+                <small id="phone-help" class="p-error" v-if="errors?.phone">
                   {{ $t(errors.phone) }}
                 </small>
               </div>
             </div>
           </div>
+
           <Button
             text
             plain
@@ -214,8 +227,13 @@ onMounted(() => {
             class="block w-full p-3 text-xl text-center hover:text-color"
             :disabled="submitCount > SUBMIT_COUNT"
             :label="$t('Register in the application')"
+            aria-describedby="submit-help"
           />
-          <small class="p-error block w-full text-center mt-2" v-if="submitCount > SUBMIT_COUNT">
+          <small
+            id="submit-help"
+            class="p-error block w-full text-center mt-2"
+            v-if="submitCount > SUBMIT_COUNT"
+          >
             {{ $t('You submitted too many times') }}
           </small>
         </form>

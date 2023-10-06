@@ -299,58 +299,67 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
-        <label>{{ $t('Filter regex') }}</label>
+        <label for="regex">{{ $t('Filter regex') }}</label>
         <InputText
+          id="regex"
           v-bind="regex"
           :placeholder="$t('Filter regex')"
           :class="{ 'p-invalid': !!errors?.regex }"
+          aria-describedby="regex-help"
         />
-        <small class="p-error" v-if="errors?.regex">
+        <small id="regex-help" class="p-error" v-if="errors?.regex">
           {{ $t(errors.regex) }}
         </small>
       </div>
 
       <div class="field">
+        <label for="type">{{ $t('Filter type') }}</label>
         <Dropdown
           filter
           autofocus
           showClear
           resetFilterOnHide
+          inputId="type"
           v-bind="type"
           :options="['account', 'software', 'share']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter type')"
           :class="{ 'p-invalid': !!errors?.type }"
+          aria-describedby="type-help"
         />
-        <small class="p-error" v-if="errors?.type">
+        <small id="type-help" class="p-error" v-if="errors?.type">
           {{ $t(errors.type) }}
         </small>
       </div>
 
       <div class="field">
+        <label for="status">{{ $t('Filter status') }}</label>
         <Dropdown
           filter
           autofocus
           showClear
           resetFilterOnHide
+          inputId="status"
           v-bind="status"
           :options="['allow', 'deny']"
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter status')"
           :class="{ 'p-invalid': !!errors?.status }"
+          aria-describedby="status-help"
         />
-        <small class="p-error" v-if="errors?.status">
+        <small id="status-help" class="p-error" v-if="errors?.status">
           {{ $t(errors.status) }}
         </small>
       </div>
 
       <div class="field">
-        <label>{{ $t('Filter description') }}</label>
+        <label for="description">{{ $t('Filter description') }}</label>
         <Textarea
           rows="5"
           class="min-w-full"
+          id="description"
           v-bind="description"
           :placeholder="$t('Filter description')"
         />

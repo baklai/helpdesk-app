@@ -435,7 +435,11 @@ const onCountPercentWidth = (count, allCount) => {
                 <div class="flex flex-wrap align-items-center justify-content-between">
                   <span class="p-input-icon-left">
                     <i class="pi pi-search" />
-                    <InputText v-model="filters['global'].value" placeholder="Search location" />
+                    <InputText
+                      id="name"
+                      v-model="filters['global'].value"
+                      placeholder="Search location"
+                    />
                   </span>
                 </div>
               </div>

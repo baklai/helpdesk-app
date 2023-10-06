@@ -250,13 +250,15 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
-        <label>{{ $t('Position name') }}</label>
+        <label for="name">{{ $t('Position name') }}</label>
         <InputText
+          id="name"
           v-bind="name"
           :placeholder="$t('Position name')"
           :class="{ 'p-invalid': !!errors?.name }"
+          aria-describedby="name-help"
         />
-        <small class="p-error" v-if="errors?.name">
+        <small id="name-help" class="p-error" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>

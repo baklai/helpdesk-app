@@ -251,20 +251,22 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
-        <label>{{ $t('Location name') }}</label>
+        <label for="name">{{ $t('Location name') }}</label>
         <InputText
+          id="name"
           v-bind="name"
           :placeholder="$t('Location name')"
           :class="{ 'p-invalid': !!errors?.name }"
+          aria-describedby="name-help"
         />
-        <small class="p-error" v-if="errors?.name">
+        <small id="name-help" class="p-error" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>
 
       <div class="field">
-        <label>{{ $t('Location region') }}</label>
-        <InputText v-bind="region" :placeholder="$t('Location region')" />
+        <label for="region">{{ $t('Location region') }}</label>
+        <InputText id="region" v-bind="region" :placeholder="$t('Location region')" />
       </div>
     </form>
 

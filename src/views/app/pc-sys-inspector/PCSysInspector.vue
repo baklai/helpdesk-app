@@ -258,6 +258,7 @@ onMounted(async () => {
               <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
                 <i class="pi pi-search" />
                 <InputText
+                  id="name"
                   class="sm:w-max w-full"
                   :placeholder="$t('Search')"
                   v-model="filters['global'].value"

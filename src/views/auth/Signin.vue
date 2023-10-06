@@ -78,28 +78,31 @@ onMounted(() => {
     </div>
     <form @submit.prevent="onSignin" class="p-fluid w-full">
       <div class="field mb-4">
-        <label class="text-900 text-xl font-medium">
+        <label for="login" class="text-900 text-xl font-medium">
           {{ $t('Login') }}
         </label>
         <span class="p-input-icon-left">
           <i class="pi pi-user" />
           <InputText
+            id="login"
             v-bind="login"
             :placeholder="$t('Login')"
             :class="{ 'p-invalid': !!errors?.login }"
+            aria-describedby="login-help"
           />
         </span>
-        <small class="p-error" v-if="errors?.login">
+        <small id="login-help" class="p-error" v-if="errors?.login">
           {{ $t(errors.login) }}
         </small>
       </div>
 
       <div class="field mb-2">
-        <label class="text-900 text-xl font-medium">
+        <label for="password" class="text-900 text-xl font-medium">
           {{ $t('Password') }}
         </label>
         <Password
           toggleMask
+          inputId="password"
           v-bind="password"
           :placeholder="$t('Password')"
           :promptLabel="$t('Choose a password')"
@@ -107,6 +110,7 @@ onMounted(() => {
           :mediumLabel="$t('Average complexity')"
           :strongLabel="$t('Complex password')"
           :class="{ 'p-invalid': !!errors?.password }"
+          aria-describedby="password-help"
         >
           <template #header>
             <h6>{{ $t('Pick a password') }}</h6>
@@ -122,7 +126,7 @@ onMounted(() => {
             </ul>
           </template>
         </Password>
-        <small class="p-error" v-if="errors?.password">
+        <small id="password-help" class="p-error" v-if="errors?.password">
           {{ $t(errors.password) }}
         </small>
       </div>
@@ -130,8 +134,14 @@ onMounted(() => {
       <div class="field mb-5">
         <div class="flex align-items-center justify-content-between">
           <div class="flex align-items-center">
-            <Checkbox binary v-bind="remember" class="mr-2" @change="onChangeRemember" />
-            <label>{{ $t('Remember me') }}</label>
+            <Checkbox
+              binary
+              inputId="remember"
+              v-bind="remember"
+              class="mr-2"
+              @change="onChangeRemember"
+            />
+            <label for="remember">{{ $t('Remember me') }}</label>
           </div>
 
           <RouterLink :to="{ name: 'signup' }" class="text-blue-500">
@@ -150,8 +160,13 @@ onMounted(() => {
           class="block w-full p-3 text-xl text-center hover:text-color"
           :disabled="submitCount > SUBMIT_COUNT"
           :label="$t('Sign In')"
+          aria-describedby="submit-help"
         />
-        <small class="p-error block w-full text-center mt-2" v-if="submitCount > SUBMIT_COUNT">
+        <small
+          id="submit-help"
+          class="p-error block w-full text-center mt-2"
+          v-if="submitCount > SUBMIT_COUNT"
+        >
           {{ $t('You submitted too many times') }}
         </small>
       </div>

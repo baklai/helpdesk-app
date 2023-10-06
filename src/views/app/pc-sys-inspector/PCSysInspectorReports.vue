@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { ref } from 'vue';
+import { ref, shallowRef, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -23,7 +23,7 @@ const refMenu = ref();
 const refModal = ref();
 const refSidebar = ref();
 const refDataTable = ref();
-const refModalFilter = ref();
+const refModalFilter = shallowRef();
 
 const refWarningMenu = ref();
 const warningOptions = ref([

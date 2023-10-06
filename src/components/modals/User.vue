@@ -323,25 +323,28 @@ const onSaveRecord = handleSubmit(async () => {
       <div class="formgrid grid">
         <div class="field col-12 xl:col-4">
           <div class="field">
-            <label class="font-bold">{{ $t('User login') }}</label>
+            <label for="login" class="font-bold">{{ $t('User login') }}</label>
             <InputText
+              id="login"
               :readonly="readonly"
               v-bind="login"
               :placeholder="$t('User login')"
               :class="{ 'p-invalid': !!errors?.login }"
+              aria-describedby="login-help"
             />
-            <small class="p-error" v-if="errors?.login">
+            <small id="login-help" class="p-error" v-if="errors?.login">
               {{ $t(errors.login) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">
+            <label for="password" class="font-bold">
               {{ $t('User password') }}
             </label>
             <Password
               toggleMask
               :readonly="readonly"
+              id="password"
               v-bind="password"
               :placeholder="$t('User password')"
               :promptLabel="$t('Choose a password')"
@@ -349,6 +352,7 @@ const onSaveRecord = handleSubmit(async () => {
               :mediumLabel="$t('Average complexity')"
               :strongLabel="$t('Complex password')"
               :class="{ 'p-invalid': !!errors?.password }"
+              aria-describedby="password-help"
             >
               <template #header>
                 <h6>{{ $t('Pick a password') }}</h6>
@@ -364,53 +368,59 @@ const onSaveRecord = handleSubmit(async () => {
                 </ul>
               </template>
             </Password>
-            <small class="p-error" v-if="errors?.password">
+            <small id="password-help" class="p-error" v-if="errors?.password">
               {{ $t(errors.password) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('User name') }}</label>
+            <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
             <InputText
+              id="fullname"
               v-bind="fullname"
               :placeholder="$t('User name')"
               :class="{ 'p-invalid': !!errors?.fullname }"
+              aria-describedby="fullname-help"
             />
-            <small class="p-error" v-if="errors?.fullname">
+            <small id="fullname-help" class="p-error" v-if="errors?.fullname">
               {{ $t(errors.fullname) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('User email') }}</label>
+            <label for="email" class="font-bold">{{ $t('User email') }}</label>
             <InputText
+              id="email"
               v-bind="email"
               :placeholder="$t('User email')"
               :class="{ 'p-invalid': !!errors?.email }"
+              aria-describedby="email-help"
             />
-            <small class="p-error" v-if="errors?.email">
+            <small id="email-help" class="p-error" v-if="errors?.email">
               {{ $t(errors.email) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('User phone') }}</label>
+            <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
             <InputMask
               date="phone"
               mask="+99(999)999-99-99"
               placeholder="+99(999)999-99-99"
+              id="phone"
               v-bind="phone"
               :class="{ 'p-invalid': !!errors?.phone }"
+              aria-describedby="phone-help"
             />
-            <small class="p-error" v-if="errors?.phone">
+            <small id="phone-help" class="p-error" v-if="errors?.phone">
               {{ $t(errors.phone) }}
             </small>
           </div>
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-bind="isActive" />
-              <label class="font-bold ml-2">
+              <Checkbox inputId="isActive" binary v-bind="isActive" />
+              <label for="isActive" class="font-bold ml-2">
                 {{ $t('Activated account') }}
               </label>
             </div>
@@ -418,114 +428,107 @@ const onSaveRecord = handleSubmit(async () => {
 
           <div class="field">
             <div class="flex align-items-center">
-              <Checkbox binary v-bind="isAdmin" />
-              <label class="font-bold ml-2"> {{ $t('Admin account') }} </label>
+              <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
+              <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
             </div>
           </div>
         </div>
 
         <div class="field col-12 xl:col-8">
-          <div class="field">
-            <!-- <div v-for="(field, idx) in fields" :key="field.key">
-              <input v-model="field.value.scope" type="url" />
-            </div> -->
+          <DataTable
+            rowHover
+            scrollable
+            scrollHeight="flex"
+            responsiveLayout="scroll"
+            :value="fields"
+            v-model:filters="filters"
+            :globalFilterFields="['scope']"
+            class="min-w-full overflow-x-auto"
+            style="height: calc(400px)"
+          >
+            <template #header>
+              <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
+                <div class="flex flex-wrap gap-2 align-items-center">
+                  <i class="pi pi-unlock text-2xl mr-2"></i>
+                  <div>
+                    <p class="text-color m-0">
+                      {{ $t('Scope list') }}
+                    </p>
+                    <small class="text-color-secondary">
+                      {{ $t(`Select ${selectScopeLength} of ${scopeLength()} scopes`) }}
+                    </small>
+                  </div>
+                </div>
+                <div class="flex gap-2 align-items-center justify-content-between sm:w-max w-full">
+                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
+                    <i class="pi pi-search" />
+                    <InputText
+                      id="name"
+                      size="small"
+                      class="sm:w-max w-full"
+                      :placeholder="$t('Search scope')"
+                      v-model="filters['global'].value"
+                    />
+                    <i
+                      class="pi pi-times cursor-pointer hover:text-color"
+                      v-tooltip.bottom="$t('Clear filter')"
+                      @click="filters['global'].value = null"
+                    />
+                  </span>
 
-            <DataTable
-              rowHover
-              scrollable
-              scrollHeight="flex"
-              responsiveLayout="scroll"
-              :value="fields"
-              v-model:filters="filters"
-              :globalFilterFields="['scope']"
-              class="min-w-full overflow-x-auto"
-              style="height: calc(400px)"
+                  <div class="flex gap-2 justify-content-between">
+                    <Button
+                      text
+                      plain
+                      rounded
+                      icon="pi pi-cog"
+                      iconClass="text-2xl"
+                      class="p-button-lg hover:text-color h-3rem w-3rem"
+                      v-tooltip.bottom="$t('Scope option')"
+                      @click="event => refSelectMenu.toggle(event)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <template #empty>
+              <div class="text-center">
+                <h5>{{ $t('No records found') }}</h5>
+                <p>{{ $t('Try changing the search terms in the filter') }}</p>
+              </div>
+            </template>
+
+            <Column
+              frozen
+              field="scope"
+              filterField="scope"
+              :header="$t('Scope')"
+              class="font-bold"
             >
-              <template #header>
-                <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
-                  <div class="flex flex-wrap gap-2 align-items-center">
-                    <i class="pi pi-unlock text-2xl mr-2"></i>
-                    <div>
-                      <p class="text-color m-0">
-                        {{ $t('Scope list') }}
-                      </p>
-                      <small class="text-color-secondary">
-                        {{ $t(`Select ${selectScopeLength} of ${scopeLength()} scopes`) }}
-                      </small>
-                    </div>
-                  </div>
-                  <div
-                    class="flex gap-2 align-items-center justify-content-between sm:w-max w-full"
-                  >
-                    <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
-                      <i class="pi pi-search" />
-                      <InputText
-                        size="small"
-                        class="sm:w-max w-full"
-                        :placeholder="$t('Search scope')"
-                        v-model="filters['global'].value"
-                      />
-                      <i
-                        class="pi pi-times cursor-pointer hover:text-color"
-                        v-tooltip.bottom="$t('Clear filter')"
-                        @click="filters['global'].value = null"
-                      />
-                    </span>
-
-                    <div class="flex gap-2 justify-content-between">
-                      <Button
-                        text
-                        plain
-                        rounded
-                        icon="pi pi-cog"
-                        iconClass="text-2xl"
-                        class="p-button-lg hover:text-color h-3rem w-3rem"
-                        v-tooltip.bottom="$t('Scope option')"
-                        @click="event => refSelectMenu.toggle(event)"
-                      />
-                    </div>
-                  </div>
-                </div>
+              <template #body="{ data }">
+                {{ data.value.comment }}
               </template>
+            </Column>
 
-              <template #empty>
-                <div class="text-center">
-                  <h5>{{ $t('No records found') }}</h5>
-                  <p>{{ $t('Try changing the search terms in the filter') }}</p>
-                </div>
+            <Column
+              v-for="col of columns"
+              :key="col.field"
+              :field="col.field"
+              :header="col.header"
+              headerClass="text-center"
+              class="text-center"
+            >
+              <template #body="{ data, field }">
+                <Checkbox
+                  v-model="data.value[field]"
+                  :binary="true"
+                  v-if="data.value[field] !== undefined"
+                />
+                <span v-else class="text-color-secondary">-</span>
               </template>
-
-              <Column
-                frozen
-                field="scope"
-                filterField="scope"
-                :header="$t('Scope')"
-                class="font-bold"
-              >
-                <template #body="{ data }">
-                  {{ data.value.comment }}
-                </template>
-              </Column>
-
-              <Column
-                v-for="col of columns"
-                :key="col.field"
-                :field="col.field"
-                :header="col.header"
-                headerClass="text-center"
-                class="text-center"
-              >
-                <template #body="{ data, field }">
-                  <Checkbox
-                    v-model="data.value[field]"
-                    :binary="true"
-                    v-if="data.value[field] !== undefined"
-                  />
-                  <span v-else class="text-color-secondary">-</span>
-                </template>
-              </Column>
-            </DataTable>
-          </div>
+            </Column>
+          </DataTable>
         </div>
       </div>
     </form>

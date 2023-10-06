@@ -71,34 +71,34 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
 
         <div class="field col-12 xl:col-6">
           <div class="field mb-0">
-            <label class="font-bold text-primary text-lg">
+            <p class="font-bold text-primary text-lg">
               {{ $t('Login') }} :
               <span class="text-color">{{ $helpdesk?.user?.login }}</span>
-            </label>
+            </p>
           </div>
           <div class="field mb-0">
-            <label class="font-bold text-primary text-lg">
+            <p class="font-bold text-primary text-lg">
               {{ $t('Full name') }} :
               <span class="text-color">{{ $helpdesk?.user?.fullname }}</span>
-            </label>
+            </p>
           </div>
           <div class="field mb-0">
-            <label class="font-bold text-primary text-lg">
+            <p class="font-bold text-primary text-lg">
               {{ $t('E-Mail') }} :
               <span class="text-color">{{ $helpdesk?.user?.email }}</span>
-            </label>
+            </p>
           </div>
           <div class="field mb-0">
-            <label class="font-bold text-primary text-lg">
+            <p class="font-bold text-primary text-lg">
               {{ $t('Phone') }} :
               <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
-            </label>
+            </p>
           </div>
           <div class="field mb-0">
-            <label class="font-bold text-primary text-lg">
+            <p class="font-bold text-primary text-lg">
               {{ $t('Is Admin') }} :
               <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
-            </label>
+            </p>
           </div>
         </div>
 

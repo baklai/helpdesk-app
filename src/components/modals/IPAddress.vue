@@ -377,34 +377,38 @@ const onCloseModal = () => {
       <div class="formgrid grid">
         <div class="field col">
           <div class="field">
-            <label class="font-bold">{{ $t('Date create') }}</label>
+            <label for="date" class="font-bold">{{ $t('Date create') }}</label>
             <Calendar
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
+              id="date"
               v-bind="date"
               :placeholder="$t('Date create')"
               :class="{ 'p-invalid': !!errors?.date }"
+              aria-describedby="date-help"
             />
-            <small class="p-error" v-if="errors?.date">
+            <small id="date-help" class="p-error" v-if="errors?.date">
               {{ $t(errors.date) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Letter number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
+              id="reqnum"
               v-bind="reqnum"
               :placeholder="$t('Letter number')"
               :class="{ 'p-invalid': !!errors?.reqnum }"
+              aria-describedby="reqnum-help"
             />
-            <small class="p-error" v-if="errors?.reqnum">
+            <small id="reqnum-help" class="p-error" v-if="errors?.reqnum">
               {{ $t(errors.reqnum) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Unit') }}</label>
+            <label for="unit" class="font-bold">{{ $t('Unit') }}</label>
             <Dropdown
               filter
               autofocus
@@ -413,19 +417,21 @@ const onCloseModal = () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
+              inputId="unit"
               v-bind="unit"
               :options="units"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client unit')"
               :class="{ 'p-invalid': !!errors?.unit }"
+              aria-describedby="unit-help"
             />
-            <small class="p-error" v-if="errors?.unit">
+            <small id="unit-help" class="p-error" v-if="errors?.unit">
               {{ $t(errors.unit) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Location') }}</label>
+            <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
               autofocus
@@ -434,62 +440,70 @@ const onCloseModal = () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
+              inputId="location"
               v-bind="location"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
               :class="{ 'p-invalid': !!errors?.location }"
+              aria-describedby="location-help"
             />
-            <small class="p-error" v-if="errors?.location">
+            <small id="location-help" class="p-error" v-if="errors?.location">
               {{ $t(errors.location) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('IP Address') }}</label>
+            <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
             <div class="field">
-              <div class="field">
-                <span class="p-input-icon-right">
-                  <i
-                    class="pi pi-search cursor-pointer"
-                    v-tooltip.bottom="$t('Check IP Address')"
-                    @click.prevent="checkIPAddress"
-                  />
-                  <InputText
-                    v-bind="ipaddress"
-                    :placeholder="$t('Client IP Address')"
-                    :class="{ 'p-invalid': !!errors?.ipaddress }"
-                    @keypress.prevent.enter="checkIPAddress"
-                  />
-                </span>
-                <small class="p-error" v-if="errors?.ipaddress">
-                  {{ $t(errors.ipaddress) }}
-                </small>
-              </div>
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  v-bind="cidr"
-                  :options="CIDRS"
-                  :optionLabel="obj => `${obj.mask}/${obj.value}`"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Mask IP Address')"
-                  :class="{ 'p-invalid': !!errors?.cidr }"
+              <span class="p-input-icon-right" aria-describedby="ipaddress-help">
+                <i
+                  class="pi pi-search cursor-pointer"
+                  v-tooltip.bottom="$t('Check IP Address')"
+                  @click.prevent="checkIPAddress"
                 />
-                <small class="p-error" v-if="errors?.cidr">
-                  {{ $t(errors.cidr) }}
-                </small>
-              </div>
+                <InputText
+                  id="ipaddress"
+                  v-bind="ipaddress"
+                  :placeholder="$t('Client IP Address')"
+                  :class="{ 'p-invalid': !!errors?.ipaddress }"
+                  @keypress.prevent.enter="checkIPAddress"
+                />
+              </span>
+              <small id="ipaddress-help" class="p-error" v-if="errors?.ipaddress">
+                {{ $t(errors.ipaddress) }}
+              </small>
+            </div>
+            <div class="field">
+              <Dropdown
+                filter
+                autofocus
+                showClear
+                resetFilterOnHide
+                inputId="cidr"
+                v-bind="cidr"
+                :options="CIDRS"
+                :optionLabel="obj => `${obj.mask}/${obj.value}`"
+                :filterPlaceholder="$t('Search')"
+                :placeholder="$t('Mask IP Address')"
+                :class="{ 'p-invalid': !!errors?.cidr }"
+                aria-describedby="cidr-help"
+              />
+              <small id="cidr-help" class="p-error" v-if="errors?.cidr">
+                {{ $t(errors.cidr) }}
+              </small>
             </div>
           </div>
+
           <div class="field">
-            <label class="font-bold">{{ $t('Internet') }}</label>
-            <div class="field">
+            <label for="internet" class="font-bold">{{ $t('Internet') }}</label>
+            <div class="field" id="internet">
               <div class="field">
-                <InputText v-bind="internetReqnum" :placeholder="$t('Internet Letter number')" />
+                <InputText
+                  id="internetReqnum"
+                  v-bind="internetReqnum"
+                  :placeholder="$t('Internet Letter number')"
+                />
               </div>
 
               <div class="field">
@@ -497,6 +511,7 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
+                  id="internetDateOpen"
                   v-bind="internetDateOpen"
                   :placeholder="$t('Date open internet')"
                 />
@@ -507,6 +522,7 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
+                  id="internetDateClose"
                   v-bind="internetDateClose"
                   :placeholder="$t('Date close internet')"
                 />
@@ -516,6 +532,7 @@ const onCloseModal = () => {
                 <Textarea
                   rows="1"
                   cols="10"
+                  id="internetComment"
                   v-bind="internetComment"
                   :placeholder="$t('Comment')"
                 />
@@ -526,8 +543,8 @@ const onCloseModal = () => {
 
         <div class="field col">
           <div class="field">
-            <label class="font-bold">{{ $t('Company') }}</label>
-            <div class="field">
+            <label for="companies" class="font-bold">{{ $t('Company') }}</label>
+            <div class="field" id="companies">
               <div class="field">
                 <Dropdown
                   filter
@@ -537,13 +554,15 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="company"
                   v-bind="company"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
                   :class="{ 'p-invalid': !!errors?.company }"
+                  aria-describedby="company-help"
                 />
-                <small class="p-error" v-if="errors?.company">
+                <small id="company-help" class="p-error" v-if="errors?.company">
                   {{ $t(errors.company) }}
                 </small>
               </div>
@@ -557,13 +576,15 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="branch"
                   v-bind="branch"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
                   :class="{ 'p-invalid': !!errors?.branch }"
+                  aria-describedby="branch-help"
                 />
-                <small class="p-error" v-if="errors?.branch">
+                <small id="branch-help" class="p-error" v-if="errors?.branch">
                   {{ $t(errors.branch) }}
                 </small>
               </div>
@@ -577,13 +598,15 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="enterprise"
                   v-bind="enterprise"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
                   :class="{ 'p-invalid': !!errors?.enterprise }"
+                  aria-describedby="enterprise-help"
                 />
-                <small class="p-error" v-if="errors?.enterprise">
+                <small id="enterprise-help" class="p-error" v-if="errors?.enterprise">
                   {{ $t(errors.enterprise) }}
                 </small>
               </div>
@@ -597,13 +620,15 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="department"
                   v-bind="department"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
                   :class="{ 'p-invalid': !!errors?.department }"
+                  aria-describedby="department-help"
                 />
-                <small class="p-error" v-if="errors?.department">
+                <small id="department-help" class="p-error" v-if="errors?.department">
                   {{ $t(errors.department) }}
                 </small>
               </div>
@@ -611,26 +636,30 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Client info') }}</label>
-            <div class="field">
+            <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
+            <div class="field" id="client-info">
               <div class="field">
                 <InputText
+                  id="fullname"
                   v-bind="fullname"
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!errors?.fullname }"
+                  aria-describedby="fullname-help"
                 />
-                <small class="p-error" v-if="errors?.fullname">
+                <small id="fullname-help" class="p-error" v-if="errors?.fullname">
                   {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
                 <InputText
+                  id="phone"
                   v-bind="phone"
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!errors?.phone }"
+                  aria-describedby="phone-help"
                 />
-                <small class="p-error" v-if="errors?.phone">
+                <small id="phone-help" class="p-error" v-if="errors?.phone">
                   {{ $t(errors.phone) }}
                 </small>
               </div>
@@ -644,13 +673,15 @@ const onCloseModal = () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="position"
                   v-bind="position"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
                   :class="{ 'p-invalid': !!errors?.position }"
+                  aria-describedby="position-help"
                 />
-                <small class="p-error" v-if="errors?.position">
+                <small id="position-help" class="p-error" v-if="errors?.position">
                   {{ $t(errors.position) }}
                 </small>
               </div>
@@ -658,16 +689,17 @@ const onCloseModal = () => {
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Autoanswer') }}</label>
-            <InputText v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
+            <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
+            <InputText id="autoanswer" v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Comment') }}</label>
+            <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
               rows="7"
               cols="10"
               class="outline-none"
+              id="comment"
               v-bind="comment"
               :placeholder="$t('Comment')"
             />

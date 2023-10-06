@@ -349,24 +349,26 @@ const onSaveClosedRecord = handleSubmit(async () => {
       <div class="formgrid grid">
         <div class="field col">
           <div class="field">
-            <label class="font-bold">{{ $t('Client request') }}</label>
+            <label for="request" class="font-bold">{{ $t('Client request') }}</label>
             <Textarea
               rows="8"
               cols="10"
+              id="request"
               v-bind="request"
               :disabled="isClosed"
               :placeholder="$t('Client request')"
               :class="{ 'p-invalid': !!errors?.request }"
+              aria-describedby="request-help"
             />
-            <small class="p-error" v-if="errors?.request">
+            <small id="request-help" class="p-error" v-if="errors?.request">
               {{ $t(errors.request) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Letter number') }}</label>
+            <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
-              aria-describedby="reqnum-help"
+              id="reqnum"
               v-bind="reqnum"
               :disabled="isClosed"
               :placeholder="$t('Letter number')"
@@ -374,7 +376,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('IP Address') }}</label>
+            <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
             <span class="p-input-icon-right">
               <i
                 class="pi pi-search cursor-pointer"
@@ -382,24 +384,27 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 @click.prevent="findOneIPAddress"
               />
               <InputText
+                id="ipaddress"
                 v-bind="ipaddress"
                 :disabled="isClosed"
                 :placeholder="$t('Client IP Address')"
                 :class="{ 'p-invalid': !!errors?.ipaddress }"
                 @keypress.enter="findOneIPAddress"
+                aria-describedby="ipaddress-help"
               />
             </span>
-            <small class="p-error" v-if="errors?.ipaddress">
+            <small id="ipaddress-help" class="p-error" v-if="errors?.ipaddress">
               {{ $t(errors.ipaddress) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Conclusion for request') }}</label>
+            <label for="conclusion" class="font-bold">{{ $t('Conclusion for request') }}</label>
             <Textarea
               rows="5"
               cols="10"
               aria-describedby="conclusion-help"
+              id="conclusion"
               v-bind="conclusion"
               :disabled="isClosed"
               :placeholder="$t('Conclusion')"
@@ -407,10 +412,11 @@ const onSaveClosedRecord = handleSubmit(async () => {
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Comment') }}</label>
+            <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
               rows="3"
               cols="10"
+              id="comment"
               v-bind="comment"
               :disabled="isClosed"
               :placeholder="$t('Comment')"
@@ -420,28 +426,32 @@ const onSaveClosedRecord = handleSubmit(async () => {
 
         <div class="field col">
           <div class="field">
-            <label class="font-bold">{{ $t('Client info') }}</label>
-            <div class="field">
+            <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
+            <div class="field" id="client-info">
               <div class="field">
                 <InputText
+                  id="fullname"
                   v-bind="fullname"
                   :disabled="isClosed"
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!errors?.fullname }"
+                  aria-describedby="fullname-help"
                 />
-                <small class="p-error" v-if="errors?.fullname">
+                <small id="fullname-help" class="p-error" v-if="errors?.fullname">
                   {{ $t(errors.fullname) }}
                 </small>
               </div>
 
               <div class="field">
                 <InputText
+                  id="phone"
                   v-bind="phone"
                   :disabled="isClosed"
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!errors?.phone }"
+                  aria-describedby="phone-help"
                 />
-                <small class="p-error" v-if="errors?.phone">
+                <small id="phone-help" class="p-error" v-if="errors?.phone">
                   {{ $t(errors.phone) }}
                 </small>
               </div>
@@ -455,14 +465,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="position"
                   v-bind="position"
                   :disabled="isClosed"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
                   :class="{ 'p-invalid': !!errors?.position }"
+                  aria-describedby="position-help"
                 />
-                <small class="p-error" v-if="errors?.position">
+                <small id="position-help" class="p-error" v-if="errors?.position">
                   {{ $t(errors.position) }}
                 </small>
               </div>
@@ -470,7 +482,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Location') }}</label>
+            <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
               autofocus
@@ -479,21 +491,23 @@ const onSaveClosedRecord = handleSubmit(async () => {
               dataKey="id"
               optionValue="id"
               optionLabel="name"
+              inputId="location"
               v-bind="location"
               :disabled="isClosed"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
               :class="{ 'p-invalid': !!errors?.location }"
+              aria-describedby="location-help"
             />
-            <small class="p-error" v-if="errors?.location">
+            <small id="location-help" class="p-error" v-if="errors?.location">
               {{ $t(errors.location) }}
             </small>
           </div>
 
           <div class="field">
-            <label class="font-bold">{{ $t('Company') }}</label>
-            <div class="field">
+            <label for="companies" class="font-bold">{{ $t('Company') }}</label>
+            <div class="field" id="companies">
               <div class="field">
                 <Dropdown
                   filter
@@ -503,14 +517,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="company"
                   v-bind="company"
                   :disabled="isClosed"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
                   :class="{ 'p-invalid': !!errors?.company }"
+                  aria-describedby="company-help"
                 />
-                <small class="p-error" v-if="errors?.company">
+                <small id="company-help" class="p-error" v-if="errors?.company">
                   {{ $t(errors.company) }}
                 </small>
               </div>
@@ -524,14 +540,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="branch"
                   v-bind="branch"
                   :disabled="isClosed"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
                   :class="{ 'p-invalid': !!errors?.branch }"
+                  aria-describedby="branch-help"
                 />
-                <small class="p-error" v-if="errors?.branch">
+                <small id="branch-help" class="p-error" v-if="errors?.branch">
                   {{ $t(errors.branch) }}
                 </small>
               </div>
@@ -545,14 +563,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="enterprise"
                   v-bind="enterprise"
                   :disabled="isClosed"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
                   :class="{ 'p-invalid': !!errors?.enterprise }"
+                  aria-describedby="enterprise-help"
                 />
-                <small class="p-error" v-if="errors?.enterprise">
+                <small id="enterprise-help" class="p-error" v-if="errors?.enterprise">
                   {{ $t(errors.enterprise) }}
                 </small>
               </div>
@@ -566,14 +586,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   dataKey="id"
                   optionValue="id"
                   optionLabel="name"
+                  inputId="department"
                   v-bind="department"
                   :disabled="isClosed"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
                   :class="{ 'p-invalid': !!errors?.department }"
+                  aria-describedby="department-help"
                 />
-                <small class="p-error" v-if="errors?.department">
+                <small id="department-help" class="p-error" v-if="errors?.department">
                   {{ $t(errors.department) }}
                 </small>
               </div>

@@ -500,15 +500,17 @@ onMounted(async () => {
         optionLabel="header.text"
         :filterPlaceholder="$t('Search in list')"
       >
-        <template #option="{ option }">
+        <template #option="{ index, option }">
           <div class="flex align-items-center">
             <Checkbox
               binary
+              :inputId="`${option.column.field}${index}`"
               v-model="option.selectable"
-              :inputId="option.column.field"
               class="mr-2"
             />
-            <label :for="option.column.field">{{ $t(option.header.text) }}</label>
+            <label :for="`${option.column.field}${index}`">
+              {{ $t(option.header.text) }}
+            </label>
           </div>
         </template>
       </Listbox>
@@ -603,6 +605,7 @@ onMounted(async () => {
             >
               <i class="pi pi-search" />
               <InputText
+                id="name"
                 class="sm:w-max w-full"
                 :placeholder="$t(globalFilter?.placeholder)"
                 v-model="filters['global'].value"
@@ -805,14 +808,17 @@ onMounted(async () => {
             :filterPlaceholder="$t('Search in list')"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
-            <template #option="{ option }">
+            <template #option="{ index, option }">
               <div class="flex align-items-center">
                 <Checkbox
+                  :inputId="`${option.column.field}${index}`"
                   :value="option[filter.options.value]"
                   :modelValue="filterModel.value"
                   class="mr-2"
                 />
-                <label>{{ option[filter?.options?.label] }}</label>
+                <label :for="`${option.column.field}${index}`">
+                  {{ option[filter?.options?.label] }}
+                </label>
               </div>
             </template>
           </Listbox>

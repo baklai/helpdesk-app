@@ -249,22 +249,25 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
       <div class="field">
-        <label>{{ $t('Unit name') }}</label>
+        <label for="name">{{ $t('Unit name') }}</label>
         <InputText
+          id="name"
           v-bind="name"
           :placeholder="$t('Unit name')"
           :class="{ 'p-invalid': !!errors?.name }"
+          aria-describedby="name-help"
         />
-        <small class="p-error" v-if="errors?.name">
+        <small id="name-help" class="p-error" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>
 
       <div class="field">
-        <label>{{ $t('Unit description') }}</label>
+        <label for="description">{{ $t('Unit description') }}</label>
         <Textarea
           rows="5"
           class="min-w-full"
+          id="description"
           v-bind="description"
           :placeholder="$t('Unit description')"
         />
