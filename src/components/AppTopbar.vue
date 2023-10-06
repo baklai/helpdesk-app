@@ -1,13 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 
-// import BtnHosting from '@/components/buttons/BtnHosting.vue';
-// import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-// import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-// import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
-// import BtnMainMenu from '@/components/buttons/BtnMainMenu.vue';
-// import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
-
 const BtnHosting = defineAsyncComponent(() => import('@/components/buttons/BtnHosting.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')

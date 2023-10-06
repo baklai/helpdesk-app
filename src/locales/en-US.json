@@ -717,5 +717,6 @@
   "deadline": "deadline",
   "holiday": "holiday",
   "birthday": "birthday",
-  "Value is required": "Value is required"
+  "Value is required": "Value is required",
+  "Mailbox addresses": "Mailbox addresses"
 }

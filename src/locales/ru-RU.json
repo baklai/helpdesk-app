@@ -715,5 +715,6 @@
   "deadline": "крайний срок",
   "holiday": "праздник",
   "birthday": "день рождения",
-  "Value is required": "Требуется значение"
+  "Value is required": "Требуется значение",
+  "Mailbox addresses": "Почтовые ящики"
 }

@@ -715,5 +715,6 @@
   "deadline": "крайній термін",
   "holiday": "свято",
   "birthday": "день народження",
-  "Value is required": "Потрібно вказати значення"
+  "Value is required": "Потрібно вказати значення",
+  "Mailbox addresses": "Поштові скриньки"
 }
