@@ -69,6 +69,7 @@ const offsetRecords = ref(0);
 const recordsPerPage = ref(15);
 const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
 
+const refMenuActions = ref();
 const menuActions = ref([
   {
     label: t('Clear filters'),
@@ -87,6 +88,7 @@ const menuActions = ref([
   }
 ]);
 
+const refMenuReports = ref();
 const menuReports = ref([
   {
     label: t('Export records'),
@@ -709,23 +711,55 @@ onMounted(async () => {
               @click="resetLocalStorage"
             />
 
-            <SplitButton
+            <Menu ref="refMenuActions" :model="menuActions" popup>
+              <template #item="{ label, item, props }">
+                <a :href="item.url" v-bind="props.action">
+                  <span v-bind="props.icon" />
+                  <span v-bind="props.label">{{ label }}</span>
+                </a>
+              </template>
+            </Menu>
+            <Button
+              text
+              plain
+              outlined
               :label="$t('Actions')"
-              icon="pi pi-sliders-h"
-              :model="menuActions"
-              class="p-button-outlined sm:w-max w-full"
-              :buttonProps="{ class: 'text-color-secondary' }"
-              :menuButtonProps="{ class: 'text-color-secondary' }"
-            />
+              class="sm:w-max w-full"
+              @click="event => refMenuActions.toggle(event)"
+            >
+              <template #default>
+                <i class="pi pi-sliders-h" />
+                <span class="mx-2">
+                  {{ $t('Actions') }}
+                </span>
+                <i class="pi pi-chevron-down" />
+              </template>
+            </Button>
 
-            <SplitButton
+            <Menu ref="refMenuReports" :model="menuReports" popup>
+              <template #item="{ label, item, props }">
+                <a :href="item.url" v-bind="props.action">
+                  <span v-bind="props.icon" />
+                  <span v-bind="props.label">{{ label }}</span>
+                </a>
+              </template>
+            </Menu>
+            <Button
+              text
+              plain
+              outlined
               :label="$t('Reports')"
-              icon="pi pi-save"
-              :model="menuReports"
-              class="p-button-outlined sm:w-max w-full"
-              :buttonProps="{ class: 'text-color-secondary' }"
-              :menuButtonProps="{ class: 'text-color-secondary' }"
-            />
+              class="sm:w-max w-full"
+              @click="event => refMenuReports.toggle(event)"
+            >
+              <template #default>
+                <i class="pi pi-save" />
+                <span class="mx-2">
+                  {{ $t('Reports') }}
+                </span>
+                <i class="pi pi-chevron-down" />
+              </template>
+            </Button>
           </div>
         </div>
       </template>
