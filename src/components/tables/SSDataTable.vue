@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { ref, onMounted } from 'vue';
+import { ref, inject, onMounted } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -9,6 +9,8 @@ import { getObjField } from '@/service/ObjectMethods';
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
+
+const helpdesk = inject('helpdesk');
 
 const props = defineProps({
   columns: {
@@ -98,14 +100,7 @@ const menuReports = ref([
   {
     label: t('Export all records'),
     icon: 'pi pi-file-export',
-    command: () => {
-      toast.add({
-        severity: 'info',
-        summary: t('HD Information'),
-        detail: t('This functionality has not yet been implemented.'),
-        life: 5000
-      });
-    }
+    command: () => helpdesk.notImplemented()
   }
 ]);
 
