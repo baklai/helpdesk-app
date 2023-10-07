@@ -1,11 +1,17 @@
 <script setup>
+import { useI18n } from 'vue-i18n';
+
 import { dateToStr } from '@/service/DataFilters';
 import { useReport } from '@/stores/api/reports';
+
+const { t } = useI18n();
 
 const { getReport } = useReport();
 
 const convertToCSV = data => {
-  const header = Object.keys(data[0]).join(';');
+  const [first] = data;
+  const headerI18n = Object.keys(first).map(item => t(item));
+  const header = headerI18n.join(';');
   const rows = data.map(obj => Object.values(obj).join(';'));
   return `${header}\n${rows.join('\n')}`;
 };
