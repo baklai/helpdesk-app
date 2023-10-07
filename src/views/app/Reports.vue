@@ -94,7 +94,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
             <div
               class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
             >
-              <i class="pi pi-file-word text-6xl" />
+              <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
               <p class="text-900 font-medium text-xl mb-2">
