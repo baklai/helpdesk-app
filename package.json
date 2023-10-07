@@ -1,7 +1,7 @@
 {
   "name": "helpdesk-app-v1",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "description": "Helpdesk - Web application of technical support",
   "author": {
     "name": "Dmitrii Baklai",
@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "vite preview",
-    "build": "vite build && vitepress build docs",
+    "build": "vite build && vitepress build docs --minify false",
     "start:dev": "vite",
     "start:lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "start:format": "prettier --write src/",
@@ -68,6 +68,6 @@
     "prettier": "^2.7.1",
     "sass": "^1.58.1",
     "vite": "^4.0.0",
-    "vitepress": "^1.0.0-rc.10"
+    "vitepress": "^1.0.0-rc.20"
   }
 }
