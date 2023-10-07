@@ -716,5 +716,6 @@
   "holiday": "свято",
   "birthday": "день народження",
   "Value is required": "Потрібно вказати значення",
-  "Mailbox addresses": "Поштові скриньки"
+  "Mailbox addresses": "Поштові скриньки",
+  "This functionality has not yet been implemented": "Цей функціонал ще не реалізований"
 }

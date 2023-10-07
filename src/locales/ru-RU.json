@@ -716,5 +716,6 @@
   "holiday": "праздник",
   "birthday": "день рождения",
   "Value is required": "Требуется значение",
-  "Mailbox addresses": "Почтовые ящики"
+  "Mailbox addresses": "Почтовые ящики",
+  "This functionality has not yet been implemented": "Данный функционал еще не реализован"
 }

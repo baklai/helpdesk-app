@@ -718,5 +718,6 @@
   "holiday": "holiday",
   "birthday": "birthday",
   "Value is required": "Value is required",
-  "Mailbox addresses": "Mailbox addresses"
+  "Mailbox addresses": "Mailbox addresses",
+  "This functionality has not yet been implemented": "This functionality has not yet been implemented"
 }

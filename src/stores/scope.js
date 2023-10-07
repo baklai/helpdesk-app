@@ -155,6 +155,12 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
+        scope: 'report',
+        comment: 'Service reports',
+        read: false
+      },
+
+      {
         scope: 'filter',
         comment: 'Filter in database',
         create: false,
