@@ -29,6 +29,15 @@ export default {
         if (store?.user?.isAdmin) return true;
         if (options?.unless?.includes(scope)) return true;
         return store?.user?.scope?.includes(scope);
+      },
+
+      notImplemented() {
+        $toast.add({
+          severity: 'info',
+          summary: $t('HD Information'),
+          detail: $t('This functionality has not yet been implemented'),
+          life: 5000
+        });
       }
     };
 
