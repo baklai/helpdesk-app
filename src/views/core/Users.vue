@@ -129,8 +129,7 @@ const columns = ref([
       field: 'isActive',
       value: null,
       matchMode: FilterMatchMode.EQUALS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
+      showFilterMatchModes: false
     },
     selectable: true,
     exportable: true,
@@ -152,8 +151,7 @@ const columns = ref([
       field: 'isAdmin',
       value: null,
       matchMode: FilterMatchMode.EQUALS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
+      showFilterMatchModes: false
     },
     selectable: true,
     exportable: true,

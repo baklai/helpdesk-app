@@ -95,7 +95,7 @@ const columns = ref([
   {
     header: { text: 'Status', width: '12rem' },
     column: {
-      field: 'closed',
+      field: 'status',
       render(value) {
         return value ? (
           <i class="pi pi-check-circle text-green-500 font-bold cursor-pointer" />
@@ -104,11 +104,12 @@ const columns = ref([
         );
       }
     },
-    sorter: { field: 'closed' },
+    sorter: { field: 'status' },
     filter: {
-      field: 'closed',
+      field: 'status',
       value: null,
-      matchMode: FilterMatchMode.CONTAINS
+      matchMode: FilterMatchMode.EQUALS,
+      showFilterMatchModes: false
     },
     selectable: true,
     exportable: false,

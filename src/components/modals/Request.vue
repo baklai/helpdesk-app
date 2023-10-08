@@ -81,7 +81,6 @@ defineExpose({
 
       visible.value = true;
     } catch (err) {
-      console.log(err);
       visible.value = false;
     }
   }

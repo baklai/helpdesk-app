@@ -303,6 +303,9 @@ const filterConverter = object => {
       case 'endsWith':
         return { $regex: `${value}$`, $options: 'i' };
       case 'equals':
+        if (typeof value === 'boolean') {
+          return value;
+        }
         return { $regex: `^${value}$`, $options: 'i' };
       case 'notEquals':
         return { $ne: value };
@@ -355,7 +358,7 @@ const filterConverter = object => {
       continue;
     }
 
-    if (object[prop]?.value && object[prop]?.value !== null) {
+    if (object[prop]?.value !== undefined && object[prop]?.value !== null) {
       filterObject[prop] = filterMode(object[prop].matchMode, object[prop].value);
     }
 
@@ -832,20 +835,20 @@ onMounted(async () => {
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
-            :optionLabel="filter?.options?.label || 'title'"
+            :optionLabel="filter?.options?.label || 'label'"
             :options="filter?.options?.records || []"
             :filterPlaceholder="$t('Search in list')"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
-            <template #option="{ index, option }">
+            <template #option="{ option }">
               <div class="flex align-items-center">
                 <Checkbox
-                  :inputId="`${option.column.field}${index}`"
+                  :inputId="option.key"
                   :value="option[filter.options.value]"
                   :modelValue="filterModel.value"
                   class="mr-2"
                 />
-                <label :for="`${option.column.field}${index}`">
+                <label :for="option.key">
                   {{ option[filter?.options?.label] }}
                 </label>
               </div>
@@ -862,7 +865,7 @@ onMounted(async () => {
             class="p-column-filter"
             style="min-width: 12rem"
             @change="filterCallback()"
-            v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
+            v-else-if="filter?.matchMode === FilterMatchMode.EQUALS && filter?.options"
           >
             <template #option="slotProps">
               <Chip :label="slotProps.option[filter?.options?.label]" />
@@ -887,6 +890,16 @@ onMounted(async () => {
             @keydown.enter="filterCallback()"
             v-else-if="filter?.matchMode === FilterMatchMode.CONTAINS"
           />
+
+          <div
+            class="card flex flex-column align-items-center gap-3"
+            v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
+          >
+            <TriStateCheckbox v-model="filterModel.value" inputId="verified-filter" />
+            <label for="verified-filter" class="font-bold">
+              {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
+            </label>
+          </div>
         </template>
       </Column>
     </DataTable>

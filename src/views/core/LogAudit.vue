@@ -85,15 +85,9 @@ const columns = ref([
     filter: {
       field: 'user',
       value: null,
-      matchMode: FilterMatchMode.IN,
-      options: {
-        key: 'id',
-        value: 'fullname',
-        label: 'fullname',
-        onRecords: async () => {
-          return await User.find();
-        }
-      }
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
     },
     selectable: true,
     exportable: true,
@@ -143,14 +137,9 @@ const columns = ref([
       }
     },
     sorter: { field: 'status' },
-    filter: {
-      field: 'status',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS
-    },
     selectable: true,
     exportable: true,
-    filtrable: true,
+    filtrable: false,
     sortable: true,
     frozen: false
   },

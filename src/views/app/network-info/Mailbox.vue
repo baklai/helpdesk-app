@@ -53,9 +53,8 @@ const columns = ref([
     filter: {
       field: 'status',
       value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
+      matchMode: FilterMatchMode.EQUALS,
+      showFilterMatchModes: false
     },
     selectable: true,
     exportable: true,
