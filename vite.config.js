@@ -1,13 +1,28 @@
 import { fileURLToPath, URL } from 'node:url';
+import { defineConfig, loadEnv } from 'vite';
 
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
+
+const { VITE_APP_BASE_URL } = loadEnv('', process.cwd());
 
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
+    createHtmlPlugin({
+      minify: true,
+      inject: {
+        data: {
+          APP_BASE_URL: VITE_APP_BASE_URL ? VITE_APP_BASE_URL : '/',
+          APP_BASE_IMG: VITE_APP_BASE_URL
+            ? `${VITE_APP_BASE_URL}/img/preview.png`
+            : '/img/preview.png'
+        }
+      }
+    }),
     VitePWA({
       injectRegister: 'auto',
       registerType: 'autoUpdate',
@@ -33,8 +48,7 @@ export default defineConfig({
           }
         ]
       }
-    }),
-    vueJsx()
+    })
   ],
   resolve: {
     alias: {
