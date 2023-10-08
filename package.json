@@ -68,6 +68,7 @@
     "prettier": "^2.7.1",
     "sass": "^1.58.1",
     "vite": "^4.0.0",
+    "vite-plugin-pwa": "^0.16.5",
     "vitepress": "^1.0.0-rc.20"
   }
 }
