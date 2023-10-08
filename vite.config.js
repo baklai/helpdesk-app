@@ -6,7 +6,36 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  plugins: [vue(), VitePWA({ injectRegister: 'auto', registerType: 'autoUpdate' }), vueJsx()],
+  plugins: [
+    vue(),
+    VitePWA({
+      injectRegister: 'auto',
+      registerType: 'autoUpdate',
+      workbox: {
+        sourcemap: true
+      },
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      manifest: {
+        name: 'Helpdesk',
+        short_name: 'HD',
+        description: 'Helpdesk - Web application of technical support',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      }
+    }),
+    vueJsx()
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
