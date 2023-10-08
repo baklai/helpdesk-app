@@ -76,14 +76,26 @@ const items = ref([
         }
       }
     ]
+  },
+  {
+    label: t('All System filters'),
+    items: [
+      {
+        label: t('PC SysInspector'),
+        icon: 'pi pi-filter-fill',
+        command: () => {
+          refModal.value = defineAsyncComponent(() => import('@/components/modals/Filter.vue'));
+        }
+      }
+    ]
   }
 ]);
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" popup class="w-14rem p-2">
+  <Menu ref="refMenu" :model="items" popup class="w-16rem">
     <template #item="{ label, item, props }">
-      <a :href="item.url" v-bind="props.action">
+      <a :href="item.url" v-bind="props.action" class="px-4">
         <span v-bind="props.icon" />
         <span v-bind="props.label">{{ label }}</span>
       </a>

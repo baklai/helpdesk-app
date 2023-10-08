@@ -1,10 +1,11 @@
 <script setup lang="jsx">
-import { ref, shallowRef, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import SSDataTable from '@/components/tables/SSDataTable.vue';
+import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
 import SidebarRecord from '@/components/sidebar/SysInspector.vue';
@@ -23,7 +24,6 @@ const refMenu = ref();
 const refModal = ref();
 const refSidebar = ref();
 const refDataTable = ref();
-const refModalFilter = shallowRef();
 
 const refWarningMenu = ref();
 const warningOptions = ref([
@@ -67,14 +67,6 @@ const warningOptions = ref([
           warning: 'all'
         }
       })
-  },
-  { separator: true },
-  {
-    label: t('All System filters'),
-    icon: 'pi pi-filter-fill',
-    command: () => {
-      refModalFilter.value = defineAsyncComponent(() => import('@/components/modals/Filter.vue'));
-    }
   }
 ]);
 
@@ -505,10 +497,10 @@ const createSysInspectorScript = async () => {
             v-tooltip.bottom="$t('Show all problems')"
             @click="event => refWarningMenu.toggle(event)"
           />
+
+          <BtnDBTables />
         </template>
       </SSDataTable>
-
-      <component :is="refModalFilter" v-if="refModalFilter" />
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>
