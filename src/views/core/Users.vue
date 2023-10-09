@@ -6,7 +6,7 @@ import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/User.vue';
 
-import { useScope } from '@/stores/scope';
+import { useScope } from '@/stores/scopes';
 import { useUser } from '@/stores/api/users';
 
 const User = useUser();

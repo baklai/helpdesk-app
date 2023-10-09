@@ -2,7 +2,7 @@
 import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { useScope } from '@/stores/scope';
+import { useScope } from '@/stores/scopes';
 
 defineProps(['visible']);
 defineEmits(['update:visible']);

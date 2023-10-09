@@ -55,6 +55,7 @@ export default {
       },
 
       async signout() {
+        await $axios({ method: endpoints.signout.method, url: endpoints.signout.url });
         store.resetAccessRefreshToken();
         $router.push({ name: 'signin' });
         $toast.add({

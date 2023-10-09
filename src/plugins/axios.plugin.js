@@ -3,19 +3,37 @@ import axios from 'axios';
 import { useApp } from '@/stores/app';
 
 export default {
-  install: async (app, { baseURL, prefixAPI = '', options }) => {
+  install: (app, { baseURL, prefixAPI = '', options }) => {
     const { $error, $router } = app.config.globalProperties;
-
     const store = useApp();
 
     const axiosInstance = axios.create({
       baseURL: baseURL + prefixAPI,
       timeout: options.timeout,
-      headers: options.headers
+      headers: options.headers,
+      _retry: false
     });
 
+    const refreshAccessToken = async () => {
+      try {
+        const token = store.getRefreshToken();
+        if (!token) {
+          throw new Error('Unauthorized');
+        }
+        store.setAccessToken(token);
+        const { accessToken, refreshToken } = await axiosInstance.get('/auth/refresh');
+        store.setAccessToken(accessToken);
+        store.setRefreshToken(refreshToken);
+        return accessToken;
+      } catch (error) {
+        store.resetAccessRefreshToken();
+        $router.push({ name: 'signin' });
+        throw error;
+      }
+    };
+
     axiosInstance.interceptors.request.use(
-      config => {
+      async config => {
         const token = store.getAccessToken();
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`;
@@ -28,44 +46,41 @@ export default {
     );
 
     axiosInstance.interceptors.response.use(
-      response => response.data,
+      response => {
+        return response.data;
+      },
       async error => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
+        console.log(axiosInstance);
+        if (error.response && error.response.status === 401 && !axiosInstance.defaults._retry) {
+          axiosInstance.defaults._retry = true;
           try {
-            const newAccessToken = await refreshToken();
-            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            const accessToken = await refreshAccessToken();
+            const originalRequest = error.config;
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
             return axiosInstance(originalRequest);
-          } catch (refreshError) {
-            store.resetAccessRefreshToken();
-            $router.push({ name: 'signin' });
-            throw refreshError;
+          } catch (error) {
+            if (error.response && error.response.data) {
+              return Promise.reject(error.response.data);
+            }
+            return Promise.reject(error);
+          } finally {
+            axiosInstance.defaults._retry = false;
           }
+        } else if (
+          error.response &&
+          (error.response.status === 500 ||
+            error.response.status === 501 ||
+            error.response.status === 502 ||
+            error.response.status === 503)
+        ) {
+          $error(error.response.data);
         }
-        $error(error.response.data);
-        return Promise.reject(error.response.data);
+
+        return Promise.reject(error);
       }
     );
 
-    const refreshToken = async () => {
-      try {
-        const refreshToken = store.getRefreshToken();
-        if (!refreshToken) {
-          throw new Error('Unauthorized');
-        }
-        store.setAccessToken(refreshToken);
-        const data = await axiosInstance.get('/auth/refresh');
-        store.setAccessToken(data.accessToken);
-        store.setRefreshToken(data.refreshToken);
-        return data.accessToken;
-      } catch (error) {
-        throw error;
-      }
-    };
-
     app.config.globalProperties.$axios = axiosInstance;
-
     app.provide('axios', app.config.globalProperties.$axios);
   }
 };

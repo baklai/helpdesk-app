@@ -6,7 +6,7 @@ import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import { useScope } from '@/stores/scope';
+import { useScope } from '@/stores/scopes';
 import { useUser } from '@/stores/api/users';
 
 const { t } = useI18n();

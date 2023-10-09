@@ -1,7 +1,7 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
-import { useScope } from '@/stores/scope';
+import { useScope } from '@/stores/scopes';
 
 export const useUser = defineStore('user', () => {
   const $axios = inject('axios');

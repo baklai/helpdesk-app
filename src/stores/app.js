@@ -44,9 +44,9 @@ export const useApp = defineStore('app', () => {
 
   return {
     user,
-    loggedIn,
     isAdmin,
     isActive,
+    loggedIn,
 
     setUser,
     getAccessToken,
