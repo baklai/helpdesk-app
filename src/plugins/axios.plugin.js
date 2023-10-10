@@ -31,6 +31,9 @@ export default {
         return response.data;
       },
       async error => {
+        if (error.code === 'ECONNABORTED') {
+          throw new Error('The request has timed out. Please try again later.');
+        }
         const originalRequest = error.config;
         if (error.response && error.response.status === 401 && !originalRequest?._retry) {
           originalRequest._retry = true;
