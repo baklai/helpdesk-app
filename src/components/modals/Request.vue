@@ -354,7 +354,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
               cols="10"
               id="request"
               v-bind="request"
-              :disabled="isClosed"
               :placeholder="$t('Client request')"
               :class="{ 'p-invalid': !!errors?.request }"
               aria-describedby="request-help"
@@ -366,12 +365,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
 
           <div class="field">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
-            <InputText
-              id="reqnum"
-              v-bind="reqnum"
-              :disabled="isClosed"
-              :placeholder="$t('Letter number')"
-            />
+            <InputText id="reqnum" v-bind="reqnum" :placeholder="$t('Letter number')" />
           </div>
 
           <div class="field">
@@ -385,7 +379,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
               <InputText
                 id="ipaddress"
                 v-bind="ipaddress"
-                :disabled="isClosed"
                 :placeholder="$t('Client IP Address')"
                 :class="{ 'p-invalid': !!errors?.ipaddress }"
                 @keypress.enter="findOneIPAddress"
@@ -405,7 +398,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
               aria-describedby="conclusion-help"
               id="conclusion"
               v-bind="conclusion"
-              :disabled="isClosed"
               :placeholder="$t('Conclusion')"
             />
           </div>
@@ -417,7 +409,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
               cols="10"
               id="comment"
               v-bind="comment"
-              :disabled="isClosed"
               :placeholder="$t('Comment')"
             />
           </div>
@@ -431,7 +422,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 <InputText
                   id="fullname"
                   v-bind="fullname"
-                  :disabled="isClosed"
                   :placeholder="$t('Client fullname')"
                   :class="{ 'p-invalid': !!errors?.fullname }"
                   aria-describedby="fullname-help"
@@ -445,7 +435,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 <InputText
                   id="phone"
                   v-bind="phone"
-                  :disabled="isClosed"
                   :placeholder="$t('Client phone')"
                   :class="{ 'p-invalid': !!errors?.phone }"
                   aria-describedby="phone-help"
@@ -466,7 +455,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   optionLabel="name"
                   inputId="position"
                   v-bind="position"
-                  :disabled="isClosed"
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
@@ -492,7 +480,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
               optionLabel="name"
               inputId="location"
               v-bind="location"
-              :disabled="isClosed"
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
@@ -518,7 +505,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   optionLabel="name"
                   inputId="company"
                   v-bind="company"
-                  :disabled="isClosed"
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
@@ -541,7 +527,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   optionLabel="name"
                   inputId="branch"
                   v-bind="branch"
-                  :disabled="isClosed"
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
@@ -564,7 +549,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   optionLabel="name"
                   inputId="enterprise"
                   v-bind="enterprise"
-                  :disabled="isClosed"
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
@@ -587,7 +571,6 @@ const onSaveClosedRecord = handleSubmit(async () => {
                   optionLabel="name"
                   inputId="department"
                   v-bind="department"
-                  :disabled="isClosed"
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
@@ -605,7 +588,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
+      <Button
+        text
+        plain
+        icon="pi pi-times"
+        :label="$t('Cancel')"
+        :disabled="isClosed"
+        v-show="!isClosed"
+        @click="visible = false"
+      />
+
       <Button
         text
         plain
@@ -615,6 +607,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
         v-show="!isClosed"
         @click="onSaveRecord"
       />
+
       <Button
         text
         plain
