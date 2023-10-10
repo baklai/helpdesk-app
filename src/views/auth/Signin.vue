@@ -37,7 +37,6 @@ const onSignin = handleSubmit(async (values, { resetForm }) => {
       detail: t('Authorization passed'),
       life: 3000
     });
-    resetForm();
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -53,6 +52,7 @@ const onChangeRemember = () => {
 };
 
 onMounted(() => {
+  resetForm();
   AutocompleteOffForms();
 });
 </script>

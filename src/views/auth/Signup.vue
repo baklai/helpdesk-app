@@ -48,7 +48,6 @@ const onSignup = handleSubmit(async (values, { resetForm }) => {
       ),
       life: 10000
     });
-    resetForm();
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -60,6 +59,7 @@ const onSignup = handleSubmit(async (values, { resetForm }) => {
 });
 
 onMounted(() => {
+  resetForm();
   AutocompleteOffForms();
 });
 </script>
