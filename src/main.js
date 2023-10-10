@@ -159,7 +159,8 @@ app.use(AxiosPlugin, {
   options: {
     timeout: 10000,
     headers: { 'Content-Type': 'application/json' }
-  }
+  },
+  refresh: { url: '/auth/sefresh', method: 'get' }
 });
 
 app.use(AuthPlugin, {

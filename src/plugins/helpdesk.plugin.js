@@ -2,7 +2,7 @@ import { useApp } from '@/stores/app';
 
 export default {
   install: async (app, options) => {
-    const { $auth, $router, $toast, $t } = app.config.globalProperties;
+    const { $toast, $t } = app.config.globalProperties;
 
     const store = useApp();
 
@@ -14,19 +14,19 @@ export default {
       },
 
       get loggedIn() {
-        return store?.user != null;
+        return store?.loggedIn;
       },
 
       get isAdmin() {
-        return store?.user?.isAdmin;
+        return store?.isActive;
       },
 
       get isActive() {
-        return store?.user?.isActive;
+        return store?.isActive;
       },
 
       hasScope(scope) {
-        if (store?.user?.isAdmin) return true;
+        if (store?.isAdmin) return true;
         if (options?.unless?.includes(scope)) return true;
         return store?.user?.scope?.includes(scope);
       },

@@ -30,8 +30,6 @@ export default {
           store.setAccessToken(accessToken);
           store.setRefreshToken(refreshToken);
 
-          //     if (remember) localStorage.setItem('access_token', token);
-
           await this.me();
           $router.push({ name: 'home' });
         } catch (err) {
@@ -64,6 +62,27 @@ export default {
           detail: $t('Logout successfully completed'),
           life: 3000
         });
+      },
+
+      async refresh() {
+        try {
+          const token = store.getRefreshToken();
+          if (!token) {
+            throw new Error('Unauthorized');
+          }
+          store.setAccessToken(token);
+          const { accessToken, refreshToken } = await $axios({
+            method: endpoints.refresh.method,
+            url: endpoints.refresh.url
+          });
+          store.setAccessToken(accessToken);
+          store.setRefreshToken(refreshToken);
+          return accessToken;
+        } catch (error) {
+          store.resetAccessRefreshToken();
+          $router.push({ name: 'signin' });
+          throw error;
+        }
       }
     };
 

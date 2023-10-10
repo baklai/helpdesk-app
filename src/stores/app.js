@@ -4,8 +4,11 @@ import { defineStore } from 'pinia';
 export const useApp = defineStore('app', () => {
   const user = ref(null);
 
+  const accessToken = ref(null);
+  const refreshToken = ref(null);
+
   const loggedIn = computed(() => {
-    return user.value != null;
+    return user.value !== null && accessToken.value !== null && refreshToken.value !== null;
   });
 
   const isActive = computed(() => {
@@ -21,25 +24,25 @@ export const useApp = defineStore('app', () => {
   }
 
   function getAccessToken() {
-    return localStorage.getItem('app-auth-access-token');
+    return accessToken.value;
   }
 
   function setAccessToken(value) {
-    return localStorage.setItem('app-auth-access-token', value);
+    accessToken.value = value;
   }
 
   function getRefreshToken() {
-    return localStorage.getItem('app-auth-refresh-token');
+    return refreshToken.value;
   }
 
   function setRefreshToken(value) {
-    return localStorage.setItem('app-auth-refresh-token', value);
+    refreshToken.value = value;
   }
 
   function resetAccessRefreshToken() {
     user.value = null;
-    localStorage.removeItem('app-auth-access-token');
-    localStorage.removeItem('app-auth-refresh-token');
+    accessToken.value = null;
+    refreshToken.value = null;
   }
 
   return {
@@ -47,7 +50,6 @@ export const useApp = defineStore('app', () => {
     isAdmin,
     isActive,
     loggedIn,
-
     setUser,
     getAccessToken,
     setAccessToken,
