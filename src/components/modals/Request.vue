@@ -41,15 +41,15 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    fullname: yup.string().required(),
-    phone: yup.string().required(),
-    position: yup.string().required(),
-    location: yup.string().required(),
-    company: yup.string().required(),
-    branch: yup.string().required(),
-    enterprise: yup.string().required(),
-    department: yup.string().required(),
-    request: yup.string().required()
+    fullname: yup.string().required(t('Value is required')),
+    phone: yup.string().required(t('Value is required')),
+    position: yup.string().required(t('Value is required')),
+    location: yup.string().required(t('Value is required')),
+    company: yup.string().required(t('Value is required')),
+    branch: yup.string().required(t('Value is required')),
+    enterprise: yup.string().required(t('Value is required')),
+    department: yup.string().required(t('Value is required')),
+    request: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });
@@ -321,12 +321,15 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ $t('Help Desk Live Log') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p
+              class="text-base font-normal line-height-2 text-color-secondary mb-0"
+              v-show="!isClosed"
+            >
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
               {{ $t('Status') }} :
-              {{ values?.closed ? $t('Request closed') : $t('Request opened') }}
+              {{ isClosed ? $t('Request closed') : $t('Request opened') }}
             </p>
           </div>
         </div>

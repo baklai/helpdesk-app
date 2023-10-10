@@ -24,16 +24,16 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    locationFrom: yup.string().required(),
-    unitFrom: yup.string().required(),
-    locationTo: yup.string().required(),
-    unitTo: yup.string().required(),
-    level: yup.string().required(),
-    type: yup.string().required(),
-    speed: yup.string().required(),
-    status: yup.string().required(),
-    operator: yup.string().required(),
-    composition: yup.string().required()
+    locationFrom: yup.string().required(t('Value is required')),
+    unitFrom: yup.string().required(t('Value is required')),
+    locationTo: yup.string().required(t('Value is required')),
+    unitTo: yup.string().required(t('Value is required')),
+    level: yup.string().required(t('Value is required')),
+    type: yup.string().required(t('Value is required')),
+    speed: yup.string().required(t('Value is required')),
+    status: yup.string().required(t('Value is required')),
+    operator: yup.string().required(t('Value is required')),
+    composition: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });

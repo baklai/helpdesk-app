@@ -35,8 +35,8 @@ export default {
           throw new Error('The request has timed out. Please try again later.');
         }
         const originalRequest = error.config;
-        if (error.response && error.response.status === 401 && !originalRequest?._retry) {
-          originalRequest._retry = true;
+        if (error.response && error.response.status === 401 && !axiosInstance?.defaults?._retry) {
+          axiosInstance.defaults._retry = true;
           try {
             const token = store.getRefreshToken();
             if (!token) {
@@ -59,7 +59,7 @@ export default {
             }
             return Promise.reject(error);
           } finally {
-            originalRequest._retry = false;
+            axiosInstance.defaults._retry = false;
           }
         }
         return Promise.reject(error);

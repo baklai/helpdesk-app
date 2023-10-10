@@ -14,18 +14,18 @@ const toast = useToast();
 
 const $auth = inject('auth');
 
-const { errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
+const { errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
   validationSchema: yup.object({
-    login: yup.string().required(),
-    password: yup.string().min(6).required(),
+    login: yup.string().required(t('Value is required')),
+    password: yup.string().min(6).required(t('Value is required')),
     passwordConfirm: yup
       .string()
-      .required()
+      .required(t('Value is required'))
       .min(6)
       .oneOf([yup.ref('password')], 'Passwords must match'),
-    fullname: yup.string().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().required()
+    fullname: yup.string().required(t('Value is required')),
+    email: yup.string().email().required(t('Value is required')),
+    phone: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });

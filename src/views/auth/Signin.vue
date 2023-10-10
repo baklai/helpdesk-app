@@ -14,10 +14,10 @@ const toast = useToast();
 
 const $auth = inject('auth');
 
-const { values, errors, submitCount, handleSubmit, defineComponentBinds } = useForm({
+const { values, errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
   validationSchema: yup.object({
-    login: yup.string().required(),
-    password: yup.string().min(6).required()
+    login: yup.string().required(t('Value is required')),
+    password: yup.string().min(6).required(t('Value is required'))
   }),
   initialValues: {
     remember: JSON.parse(localStorage.getItem('app-auth-remember')) || false

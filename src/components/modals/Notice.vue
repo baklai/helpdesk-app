@@ -24,9 +24,9 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required(),
-    text: yup.string().required(),
-    users: yup.array().required()
+    name: yup.string().required(t('Value is required')),
+    text: yup.string().required(t('Value is required')),
+    users: yup.array().required(t('Value is required'))
   }),
   initialValues: {}
 });

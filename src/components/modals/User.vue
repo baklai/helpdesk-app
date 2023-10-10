@@ -27,13 +27,13 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    login: yup.string().required(),
-    fullname: yup.string().required(),
-    email: yup.string().email().required(),
-    phone: yup.string().required()
+    login: yup.string().required(t('Value is required')),
+    fullname: yup.string().required(t('Value is required')),
+    email: yup.string().email().required(t('Value is required')),
+    phone: yup.string().required(t('Value is required'))
     // password: yup.string().when('$exist', {
     //   is: exist => exist,
-    //   then: yup.string().min(6).required(),
+    //   then: yup.string().min(6).required(t('Value is required')),
     //   otherwise: yup.string()
     // })
   }),
