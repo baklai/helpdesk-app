@@ -160,7 +160,7 @@ app.use(AxiosPlugin, {
     timeout: 10000,
     headers: { 'Content-Type': 'application/json' }
   },
-  refresh: { url: '/auth/sefresh', method: 'get' }
+  refresh: { url: '/auth/refresh', method: 'get' }
 });
 
 app.use(AuthPlugin, {
@@ -169,7 +169,7 @@ app.use(AuthPlugin, {
     signin: { url: '/auth/signin', method: 'post' },
     signup: { url: '/auth/signup', method: 'post' },
     signout: { url: '/auth/signout', method: 'get' },
-    refresh: { url: '/auth/sefresh', method: 'get' }
+    refresh: { url: '/auth/refresh', method: 'get' }
   }
 });
 
