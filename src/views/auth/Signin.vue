@@ -37,6 +37,7 @@ const onSignin = handleSubmit(async (values, { resetForm }) => {
       detail: t('Authorization passed'),
       life: 3000
     });
+    resetForm();
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -44,8 +45,6 @@ const onSignin = handleSubmit(async (values, { resetForm }) => {
       detail: t(err.message),
       life: 3000
     });
-  } finally {
-    resetForm();
   }
 });
 
