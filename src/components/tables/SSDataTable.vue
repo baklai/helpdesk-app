@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { ref, inject, onMounted } from 'vue';
+import { ref, inject, computed, onMounted } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -72,7 +72,7 @@ const recordsPerPage = ref(15);
 const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
 
 const refMenuActions = ref();
-const menuActions = ref([
+const menuActions = computed(() => [
   {
     label: t('Clear filters'),
     icon: 'pi pi-filter-slash',
@@ -91,7 +91,7 @@ const menuActions = ref([
 ]);
 
 const refMenuReports = ref();
-const menuReports = ref([
+const menuReports = computed(() => [
   {
     label: t('Export records'),
     icon: 'pi pi-file-export',
@@ -568,7 +568,9 @@ onMounted(async () => {
       :rows="recordsPerPage"
       :totalRecords="totalRecords"
       :rowsPerPageOptions="recordsPerPageOptions"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} records"
+      :currentPageReportTemplate="
+        $t('Showing records', { first: '{first}', last: '{last}', totalRecords: '{totalRecords}' })
+      "
       :paginatorTemplate="{
         '640px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
         '960px': 'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',

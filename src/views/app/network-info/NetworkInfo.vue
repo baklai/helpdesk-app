@@ -422,8 +422,6 @@ const onCountPercentWidth = (count, allCount) => {
             style="height: 90%"
             v-model:filters="filters"
             :globalFilterFields="['name', 'country.name', 'representative.name', 'status']"
-            currentPageReportTemplate="Locations {first} to {last} of {totalRecords}"
-            paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           >
             <template #header>
               <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
@@ -438,7 +436,7 @@ const onCountPercentWidth = (count, allCount) => {
                     <InputText
                       id="name"
                       v-model="filters['global'].value"
-                      placeholder="Search location"
+                      :placeholder="$t('Search')"
                     />
                   </span>
                 </div>
@@ -449,7 +447,7 @@ const onCountPercentWidth = (count, allCount) => {
                 <span class="font-bold text-blue-500">{{ data.name }}</span>
               </template>
             </Column>
-            <Column field="count" header="Count units" sortable style="width: 30%">
+            <Column field="count" :header="$t('Count units')" sortable style="width: 30%">
               <template #body="{ data }">
                 <span class="font-bold text-green-300">{{ data.count }}</span>
               </template>

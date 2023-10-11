@@ -455,7 +455,7 @@ const onSaveRecord = handleSubmit(async () => {
                       {{ $t('Scope list') }}
                     </p>
                     <small class="text-color-secondary">
-                      {{ $t(`Select ${selectScopeLength} of ${scopeLength()} scopes`) }}
+                      {{ $t('Select scopes', [selectScopeLength, scopeLength()]) }}
                     </small>
                   </div>
                 </div>
@@ -466,10 +466,11 @@ const onSaveRecord = handleSubmit(async () => {
                       id="name"
                       size="small"
                       class="sm:w-max w-full"
-                      :placeholder="$t('Search scope')"
+                      :placeholder="$t('Search')"
                       v-model="filters['global'].value"
                     />
                     <i
+                      v-show="!!filters['global'].value"
                       class="pi pi-times cursor-pointer hover:text-color"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"

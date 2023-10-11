@@ -579,7 +579,7 @@
   "Read all positions from database": "Прочитать все должности из базы данных",
   "Update one position in database": "Обновить одну должность в базе данных",
   "Delete one position in database": "Удалить одну должность из базы данных",
-  "Unit database table": "Таблица базы данных подразделений",
+  "Unit database table": "Таблица базы данных устройств",
   "Create unit in database": "Создать подразделение в базе данных",
   "Read one unit from database": "Прочитать одно подразделение из базы данных",
   "Read all units from database": "Прочитать все подразделения из базы данных",
@@ -744,5 +744,11 @@
   "Update": "Обновить",
   "Delete": "Удалить",
   "Mailbox": "Почтовый ящик",
-  "Login mailbox": "Логин почтового ящика"
+  "Login mailbox": "Логин почтового ящика",
+  "Select scopes": "Выбрано {0} из {1} разрешений",
+  "Showing records": "Показаны записи с {first} по {last} из {totalRecords}",
+  "Drag and drop logo to here to upload": "Перетащите логотип сюда, чтобы загрузить",
+  "Is Admin": "Администратор",
+  "Unit description": "Описание устройства",
+  "Count units": "Количество устройств"
 }

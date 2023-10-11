@@ -1,5 +1,5 @@
 <script setup>
-import { ref, shallowRef, defineAsyncComponent } from 'vue';
+import { ref, shallowRef, computed, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -7,7 +7,7 @@ const { t } = useI18n();
 const refMenu = ref();
 const refModal = shallowRef(null);
 
-const items = ref([
+const items = computed(() => [
   {
     label: t('Unit records'),
     items: [

@@ -746,5 +746,11 @@
   "Update": "Update",
   "Delete": "Delete",
   "Mailbox": "Mailbox",
-  "Login mailbox": "Login mailbox"
+  "Login mailbox": "Login mailbox",
+  "Select scopes": "Select {0} of {1} scopes",
+  "Showing records": "Showing {first} to {last} of {totalRecords} records",
+  "Drag and drop logo to here to upload": "Drag and drop logo to here to upload",
+  "Is Admin": "Is Admin",
+  "Unit description": "Unit description",
+  "Count units": "Count units"
 }

@@ -78,7 +78,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
           <div class="field mb-0">
             <p class="font-bold text-primary text-lg">
-              {{ $t('Full name') }} :
+              {{ $t('Fullname') }} :
               <span class="text-color">{{ $helpdesk?.user?.fullname }}</span>
             </p>
           </div>

@@ -579,7 +579,7 @@
   "Read all positions from database": "Прочитати всі посади з бази даних",
   "Update one position in database": "Оновити одну посаду в базі даних",
   "Delete one position in database": "Видалити одну посаду з бази даних",
-  "Unit database table": "Таблиця бази даних підрозділів",
+  "Unit database table": "Таблиця бази даних пристроїв",
   "Create unit in database": "Створити підрозділ в базі даних",
   "Read one unit from database": "Прочитати один підрозділ з бази даних",
   "Read all units from database": "Прочитати всі підрозділи з бази даних",
@@ -744,5 +744,11 @@
   "Update": "Оновити",
   "Delete": "Видалити",
   "Mailbox": "Поштова скринька",
-  "Login mailbox": "Логін поштової скриньки"
+  "Login mailbox": "Логін поштової скриньки",
+  "Select scopes": "Вибрано {0} з {1} дозволів",
+  "Showing records": "Показано {first} до {last} із {totalRecords} записів",
+  "Drag and drop logo to here to upload": "Щоб завантажити, перетягніть логотип сюди",
+  "Is Admin": "Є адміністратором",
+  "Unit description": "Опис пристрою",
+  "Count units": "Кількість пристоїв"
 }
