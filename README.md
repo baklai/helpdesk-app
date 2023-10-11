@@ -37,6 +37,7 @@ $ npm install
 
 | Key                 | Comment      |
 | ------------------- | ------------ |
+| `VITE_APP_BASE_URL` | APP Base url |
 | `VITE_API_BASE_URL` | API Base url |
 | `VITE_FTP_BASE_URL` | FTP Base url |
 
