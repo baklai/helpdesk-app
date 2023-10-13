@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 
 
 import { useConfig } from '@/stores/config';
 
-const BtnHosting = defineAsyncComponent(() => import('@/components/buttons/BtnHosting.vue'));
+const BtnFTPClient = defineAsyncComponent(() => import('@/components/buttons/BtnFTPClient.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
 );
@@ -82,7 +82,7 @@ const isOutsideClicked = event => {
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
       <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnToggleLang />
-      <BtnHosting iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
+      <BtnFTPClient iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
       <BtnNotifications />
       <BtnFullScreen iconClass="text-3xl" class="w-3rem h-3rem text-4xl hover:text-color mx-2" />
       <BtnMainMenu />

@@ -10,8 +10,8 @@ const openInNewTab = url => {
     plain
     rounded
     icon="pi pi-cloud-upload"
-    v-tooltip.bottom="$t('HD File Hosting')"
-    @click="openInNewTab($helpdesk.ftpUrl)"
+    v-tooltip.bottom="$t('FTP File Hosting')"
+    @click="$router.push({ name: 'ftp-client' })"
     v-if="$helpdesk?.ftpUrl"
   />
 </template>

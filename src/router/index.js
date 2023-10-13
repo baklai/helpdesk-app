@@ -155,6 +155,15 @@ const router = createRouter({
           component: () => import('@/views/app/PingICMP.vue')
         },
         {
+          path: 'ftp-client',
+          name: 'ftp-client',
+          meta: {
+            title: 'FTP Client',
+            description: 'FTP Client of the technical support'
+          },
+          component: () => import('@/views/app/FTPClient.vue')
+        },
+        {
           path: 'reports',
           name: 'reports',
           meta: {
