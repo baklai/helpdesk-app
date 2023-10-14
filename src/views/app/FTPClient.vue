@@ -6,11 +6,14 @@ import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Clipboard } from 'v-clipboard';
 
+import ContextMenu from 'primevue/contextmenu';
 import Breadcrumb from 'primevue/breadcrumb';
 import FileUpload from 'primevue/fileupload';
 
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useFTPClient } from '@/stores/api/ftpclient';
+
+const axios = inject('axios');
 
 const { t } = useI18n();
 const toast = useToast();
@@ -18,23 +21,88 @@ const confirm = useConfirm();
 
 const ftp = useFTPClient();
 
-const axios = inject('axios');
-
 const home = ref({ icon: 'pi pi-folder-open' });
+
 const breadcrumb = ref([]);
+
 const files = ref([]);
+
 const loading = ref(false);
+
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS }
 });
+
 const lockedRowBack = computed(() => [
   {
-    name: t('return to back'),
+    name: null,
     size: null,
     type: 0,
     modifiedAt: null
   }
 ]);
+
+const refContextMenu = ref();
+
+const selectedRowData = ref();
+
+const ctxMenuOptions = computed(() => {
+  if (!selectedRowData.value?.type) return [];
+
+  if (selectedRowData.value?.type === 1) {
+    return [
+      {
+        label: 'Download file',
+        icon: 'pi pi-download',
+        command: () => download(selectedRowData.value.name)
+      },
+      {
+        label: 'Copy file link',
+        icon: 'pi pi-copy',
+        command: () => copyLink(selectedRowData.value.name)
+      },
+      {
+        label: 'Rename file',
+        icon: 'pi pi-file-edit',
+        command: () => false
+      },
+      { separator: true },
+      {
+        label: 'Delete file',
+        icon: 'pi pi-trash',
+        command: () => remove(selectedRowData.value.name, selectedRowData.value.type)
+      }
+    ];
+  }
+
+  if (selectedRowData.value?.type === 2) {
+    return [
+      {
+        label: 'Open folder',
+        icon: 'pi pi-folder-open',
+        command: () => update(selectedRowData.value.name)
+      },
+      {
+        label: 'Rename folder',
+        icon: 'pi pi-file-edit',
+        command: () => false
+      },
+      { separator: true },
+      {
+        label: 'Delete folder',
+        icon: 'pi pi-trash',
+        command: () => remove(selectedRowData.value.name, selectedRowData.value.type)
+      }
+    ];
+  }
+
+  return [];
+});
+
+const onRowContextMenu = event => {
+  if (selectedRowData.value?.type === 0) return;
+  refContextMenu.value.show(event.originalEvent);
+};
 
 const goToBack = async () => {
   if (breadcrumb.value.length) {
@@ -216,6 +284,7 @@ const uploadFolder = async () => {
 };
 
 const copyLink = async filename => {
+  if (filename) return;
   try {
     const link =
       `${axios.defaults.baseURL}/ftp/download?` +
@@ -235,6 +304,48 @@ const copyLink = async filename => {
   }
 };
 
+const filterFileIcon = filename => {
+  if (
+    filename.includes('.exe') ||
+    filename.includes('.msi') ||
+    filename.includes('.cmd') ||
+    filename.includes('.bat') ||
+    filename.includes('.vbs')
+  ) {
+    return 'pi pi-microsoft';
+  }
+
+  if (
+    filename.includes('.zip') ||
+    filename.includes('.rar') ||
+    filename.includes('.cab') ||
+    filename.includes('.7z') ||
+    filename.includes('.gz')
+  ) {
+    return 'pi pi-box';
+  }
+
+  if (filename.includes('.pdf')) return 'pi pi-file-pdf';
+
+  if (filename.includes('.doc') || filename.includes('.docx') || filename.includes('.odt')) {
+    return 'pi pi-file-word';
+  }
+
+  if (filename.includes('.xls') || filename.includes('.xlsx') || filename.includes('.ods')) {
+    return 'pi pi-file-excel';
+  }
+
+  if (filename.includes('.jpg') || filename.includes('.png') || filename.includes('.jpeg')) {
+    return 'pi pi-image';
+  }
+
+  if (filename.includes('.avi') || filename.includes('.mp4')) {
+    return 'pi pi-video';
+  }
+
+  return 'pi pi-file';
+};
+
 onMounted(async () => {
   await update();
 });
@@ -244,10 +355,20 @@ onMounted(async () => {
   <div class="col-12">
     <div class="flex h-full">
       <div class="flex w-full overflow-x-auto">
+        <ContextMenu ref="refContextMenu" :model="ctxMenuOptions">
+          <template #item="{ label, item, props }">
+            <a :href="item.url" v-bind="props.action">
+              <span v-bind="props.icon" />
+              <span v-bind="props.label">{{ label }}</span>
+            </a>
+          </template>
+        </ContextMenu>
+
         <DataTable
           rowHover
           sortable
           scrollable
+          contextMenu
           removableSort
           :value="files"
           :loading="loading"
@@ -259,12 +380,11 @@ onMounted(async () => {
           columnResizeMode="expand"
           v-model:filters="filters"
           :globalFilterFields="['name']"
+          v-model:contextMenuSelection="selectedRowData"
           :frozenValue="breadcrumb?.length ? lockedRowBack : null"
           style="height: calc(100vh - 6rem); width: 100%"
+          @rowContextmenu="onRowContextMenu"
           class="text-lg"
-          editMode="cell"
-          @cell-edit-complete="rename"
-          tableClass="editable-cells-table"
         >
           <template #header>
             <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
@@ -369,67 +489,41 @@ onMounted(async () => {
             field="name"
             :header="$t('Name')"
             :style="{ minWidth: '45%' }"
-            class="cursor-pointer"
             headerClass="font-bold text-center uppercase"
           >
             <template #body="{ data }">
-              <div class="flex flex-row flex-wrap">
+              <div class="flex flex-row flex-wrap" :class="data.type !== 1 ? 'cursor-pointer' : ''">
                 <div class="flex align-items-center justify-content-center mr-4">
                   <i
-                    class="pi pi-folder-open font-bold text-2xl text-color-secondary"
+                    class="pi pi-folder-open text-2xl font-bold text-color-secondary"
                     v-if="data.type === 0"
                   />
-                  <i class="pi pi-file text-green-500 text-2xl" v-if="data.type === 1" />
+                  <i :class="filterFileIcon(data.name)" class="text-2xl" v-if="data.type === 1" />
                   <i
-                    class="pi pi-folder font-bold text-orange-500 text-2xl"
+                    class="pi pi-folder text-2xl font-bold text-yellow-500"
                     v-if="data.type === 2"
                   />
                 </div>
                 <div class="flex align-items-center justify-content-center">
-                  <Button
-                    text
-                    plain
-                    :label="data.name"
-                    icon="pi pi-angle-left"
-                    iconClass="text-2xl"
-                    class="hover:text-green-500 cursor-pointer"
-                    v-tooltip.bottom="$t('Go to previous directory')"
+                  <span
+                    class="text-xl font-bold text-color-secondary"
                     @click="goToBack"
                     v-if="data.type === 0"
-                  />
+                  >
+                    {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
+                  </span>
                   <span class="text-xl" v-if="data.type === 1">
                     {{ data.name }}
                   </span>
-                  <span class="text-xl font-bold" v-if="data.type === 2">
+                  <span
+                    class="text-xl font-bold text-yellow-500"
+                    @click="update(data.name)"
+                    v-if="data.type === 2"
+                  >
                     {{ data.name }}
                   </span>
                 </div>
               </div>
-            </template>
-
-            <template #editor="{ data, field }">
-              <template v-if="!data?.type">
-                <div class="flex flex-row flex-wrap">
-                  <div class="flex align-items-center justify-content-center mr-4">
-                    <i class="pi pi-folder-open font-bold text-2xl text-color-secondary" />
-                  </div>
-                  <div class="flex align-items-center justify-content-center">
-                    <Button
-                      text
-                      plain
-                      :label="data.name"
-                      icon="pi pi-angle-left"
-                      iconClass="text-2xl"
-                      class="hover:text-green-500 cursor-pointer"
-                      v-tooltip.bottom="$t('Go to previous directory')"
-                      @click="goToBack"
-                    />
-                  </div>
-                </div>
-              </template>
-              <template v-else>
-                <InputText v-model="data[field]" autofocus class="w-full" />
-              </template>
             </template>
           </Column>
 
@@ -442,7 +536,7 @@ onMounted(async () => {
           >
             <template #body="{ data }">
               <span class="text-color-secondary">
-                {{ data.size ? byteToStr(data.size) : '' }}
+                {{ data.size && data.type !== 2 ? byteToStr(data.size) : '' }}
               </span>
             </template>
           </Column>
@@ -491,18 +585,6 @@ onMounted(async () => {
                   text
                   plain
                   rounded
-                  icon="pi pi-folder-open"
-                  iconClass="text-2xl"
-                  class="p-button-lg mx-2 text-orange-500 h-3rem w-3rem"
-                  v-tooltip.bottom="$t('Open folder')"
-                  @click="update(data.name)"
-                  v-if="data.type === 2"
-                />
-
-                <Button
-                  text
-                  plain
-                  rounded
                   icon="pi pi-download"
                   iconClass="text-2xl"
                   class="p-button-lg mx-2 text-green-500 h-3rem w-3rem"
@@ -511,17 +593,17 @@ onMounted(async () => {
                   v-if="data.type === 1"
                 />
 
-                <!-- <Button
+                <Button
                   text
                   plain
                   rounded
                   icon="pi pi-copy"
                   iconClass="text-2xl"
                   class="p-button-lg mx-2 text-primary h-3rem w-3rem"
-                  v-tooltip.bottom="$t('Copy link to file')"
+                  v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
-                /> -->
+                />
 
                 <Button
                   text
@@ -532,7 +614,7 @@ onMounted(async () => {
                   class="p-button-lg mx-2 text-red-500 h-3rem w-3rem"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
-                  v-if="data.type === 1 || data.type === 2"
+                  v-if="data.type === 1"
                 />
               </div>
             </template>
