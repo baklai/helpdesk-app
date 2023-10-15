@@ -774,5 +774,11 @@
   "Record is renamed": "Запис перейменовано",
   "File is uploaded": "Файл завантажено",
   "Copy file link": "Копіювати посилання на файл",
-  "Link copied to clipboard": "Посилання скопійовано в буфер обміну"
+  "Link copied to clipboard": "Посилання скопійовано в буфер обміну",
+  "Delete file": "Видалити файл",
+  "Delete folder": "Видалити каталог",
+  "Rename": "Перейменувати",
+  "Rename file": "Перейменувати файл",
+  "Rename folder": "Перейменувати каталог",
+  "Record rename not confirmed": "Перейменування не підтверджено"
 }

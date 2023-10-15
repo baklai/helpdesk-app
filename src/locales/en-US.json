@@ -776,5 +776,11 @@
   "Record is renamed": "Record is renamed",
   "File is uploaded": "File is uploaded",
   "Copy file link": "Copy file link",
-  "Link copied to clipboard": "Link copied to clipboard"
+  "Link copied to clipboard": "Link copied to clipboard",
+  "Delete file": "Delete file",
+  "Delete folder": "Delete folder",
+  "Rename": "Rename",
+  "Rename file": "Rename file",
+  "Rename folder": "Rename folder",
+  "Record rename not confirmed": "Record rename not confirmed"
 }

@@ -27,6 +27,8 @@ const breadcrumb = ref([]);
 
 const files = ref([]);
 
+const newValue = ref(null);
+
 const loading = ref(false);
 
 const filters = ref({
@@ -52,23 +54,23 @@ const ctxMenuOptions = computed(() => {
   if (selectedRowData.value?.type === 1) {
     return [
       {
-        label: 'Download file',
+        label: t('Download file'),
         icon: 'pi pi-download',
         command: () => download(selectedRowData.value.name)
       },
       {
-        label: 'Copy file link',
+        label: t('Copy file link'),
         icon: 'pi pi-copy',
         command: () => copyLink(selectedRowData.value.name)
       },
       {
-        label: 'Rename file',
+        label: t('Rename file'),
         icon: 'pi pi-file-edit',
-        command: () => false
+        command: () => rename(selectedRowData.value.name)
       },
       { separator: true },
       {
-        label: 'Delete file',
+        label: t('Delete file'),
         icon: 'pi pi-trash',
         command: () => remove(selectedRowData.value.name, selectedRowData.value.type)
       }
@@ -78,18 +80,18 @@ const ctxMenuOptions = computed(() => {
   if (selectedRowData.value?.type === 2) {
     return [
       {
-        label: 'Open folder',
+        label: t('Open folder'),
         icon: 'pi pi-folder-open',
         command: () => update(selectedRowData.value.name)
       },
       {
-        label: 'Rename folder',
+        label: t('Rename folder'),
         icon: 'pi pi-file-edit',
-        command: () => false
+        command: () => rename(selectedRowData.value.name)
       },
       { separator: true },
       {
-        label: 'Delete folder',
+        label: t('Delete folder'),
         icon: 'pi pi-trash',
         command: () => remove(selectedRowData.value.name, selectedRowData.value.type)
       }
@@ -131,30 +133,49 @@ const update = async path => {
   }
 };
 
-const rename = async event => {
-  const { value, newValue } = event;
-  if (value === newValue) return;
-  try {
-    await ftp.rename({
-      path: `/${breadcrumb.value.map(item => item.label).join('/')}/${value}`,
-      newPath: `/${breadcrumb.value.map(item => item.label).join('/')}/${newValue}`
-    });
-    toast.add({
-      severity: 'success',
-      summary: t('HD Information'),
-      detail: t('Record is renamed'),
-      life: 3000
-    });
-  } catch (err) {
-    toast.add({
-      severity: 'warn',
-      summary: t('HD Warning'),
-      detail: t('Record not renamed'),
-      life: 3000
-    });
-  } finally {
-    await update();
-  }
+const rename = async value => {
+  newValue.value = value;
+  confirm.require({
+    group: 'prompt-rename',
+    header: t('Rename'),
+    message: value,
+    icon: 'pi pi-question-circle',
+    acceptIcon: 'pi pi-check',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      try {
+        await ftp.rename({
+          path: `/${breadcrumb.value.map(item => item.label).join('/')}/${value}`,
+          newPath: `/${breadcrumb.value.map(item => item.label).join('/')}/${newValue.value}`
+        });
+        toast.add({
+          severity: 'success',
+          summary: t('HD Information'),
+          detail: t('Record is renamed'),
+          life: 3000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('HD Warning'),
+          detail: t('Record not renamed'),
+          life: 3000
+        });
+      } finally {
+        newValue.value = null;
+        await update();
+      }
+    },
+    reject: () => {
+      newValue.value = null;
+      toast.add({
+        severity: 'info',
+        summary: t('HD Information'),
+        detail: t('Record rename not confirmed'),
+        life: 3000
+      });
+    }
+  });
 };
 
 const remove = async (name, type) => {
@@ -355,6 +376,15 @@ onMounted(async () => {
   <div class="col-12">
     <div class="flex h-full">
       <div class="flex w-full overflow-x-auto">
+        <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">
+          <template #message="slotProps">
+            <span class="p-input-icon-left w-30rem">
+              <i class="pi pi-file-edit" />
+              <InputText v-model="newValue" placeholder="Enter new name" class="w-full" />
+            </span>
+          </template>
+        </ConfirmDialog>
+
         <ContextMenu ref="refContextMenu" :model="ctxMenuOptions">
           <template #item="{ label, item, props }">
             <a :href="item.url" v-bind="props.action">
@@ -602,6 +632,18 @@ onMounted(async () => {
                   class="p-button-lg mx-2 text-primary h-3rem w-3rem"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
+                  v-if="data.type === 1"
+                />
+
+                <Button
+                  text
+                  plain
+                  rounded
+                  icon="pi pi-file-edit"
+                  iconClass="text-2xl"
+                  class="p-button-lg mx-2 text-yellow-500 h-3rem w-3rem"
+                  v-tooltip.bottom="$t('Rename file')"
+                  @click="rename(data.name)"
                   v-if="data.type === 1"
                 />
 
