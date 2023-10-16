@@ -780,5 +780,9 @@
   "Rename": "Переименовать",
   "Rename file": "Переименовать файл",
   "Rename folder": "Переименовать папку",
-  "Record rename not confirmed": "Переименование не подтверждено"
+  "Record rename not confirmed": "Переименование не подтверждено",
+  "Choose": "Выбрать",
+  "Upload": "Загрузить",
+  "Pending": "В ожидании",
+  "Drag and drop files to here to upload": "Перетащите файлы сюда для загрузки"
 }

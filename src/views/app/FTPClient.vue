@@ -9,6 +9,7 @@ import { Clipboard } from 'v-clipboard';
 import ContextMenu from 'primevue/contextmenu';
 import Breadcrumb from 'primevue/breadcrumb';
 import FileUpload from 'primevue/fileupload';
+import Badge from 'primevue/badge';
 
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useFTPClient } from '@/stores/api/ftpclient';
@@ -22,15 +23,12 @@ const confirm = useConfirm();
 const ftp = useFTPClient();
 
 const home = ref({ icon: 'pi pi-folder-open' });
-
 const breadcrumb = ref([]);
-
+const ftpFiles = ref([]);
 const files = ref([]);
-
+const selectedRowData = ref();
 const newValue = ref(null);
-
 const loading = ref(false);
-
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS }
 });
@@ -45,8 +43,6 @@ const lockedRowBack = computed(() => [
 ]);
 
 const refContextMenu = ref();
-
-const selectedRowData = ref();
 
 const ctxMenuOptions = computed(() => {
   if (!selectedRowData.value?.type) return [];
@@ -120,7 +116,7 @@ const update = async path => {
     if (path) {
       breadcrumb.value.push({ label: path });
     }
-    files.value = await ftp.update({ path: breadcrumb.value.map(item => item.label).join('/') });
+    ftpFiles.value = await ftp.update({ path: breadcrumb.value.map(item => item.label).join('/') });
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -257,11 +253,14 @@ const download = async filename => {
 
 const uploadFile = async event => {
   try {
-    const [file] = event.files;
-    const bodyFormData = new FormData();
-    bodyFormData.append('path', `/${breadcrumb.value.map(item => item.label).join('/')}`);
-    bodyFormData.append('file', file);
-    await ftp.uploadFile(bodyFormData);
+    await Promise.all(
+      event.files.map(file => {
+        const bodyFormData = new FormData();
+        bodyFormData.append('path', `/${breadcrumb.value.map(item => item.label).join('/')}`);
+        bodyFormData.append('file', file);
+        return ftp.uploadFile(bodyFormData);
+      })
+    );
     toast.add({
       severity: 'success',
       summary: t('HD Information'),
@@ -367,6 +366,18 @@ const filterFileIcon = filename => {
   return 'pi pi-file';
 };
 
+const onRemoveTemplatingFile = (file, removeFileCallback, index) => {
+  removeFileCallback(index);
+};
+
+const onSelectedFiles = event => {
+  files.value = event.files;
+};
+
+const uploadEvent = callback => {
+  callback();
+};
+
 onMounted(async () => {
   await update();
 });
@@ -400,7 +411,7 @@ onMounted(async () => {
           scrollable
           contextMenu
           removableSort
-          :value="files"
+          :value="ftpFiles"
           :loading="loading"
           sortField="type"
           :sortOrder="-1"
@@ -451,45 +462,100 @@ onMounted(async () => {
                     />
                   </span>
                 </div>
-                <div class="flex gap-2 sm:w-max w-full justify-content-between">
-                  <FileUpload
-                    mode="basic"
-                    name="file"
-                    :auto="false"
-                    :multiple="false"
-                    customUpload
-                    chooseLabel="Upload"
-                    class="p-button p-component p-button-icon-only p-button-rounded p-button-text p-button-plain p-button-lg mx-2 hover:text-green-500 hover:surface-hover p-button-icon h-3rem w-3rem"
-                    v-tooltip.bottom="$t('Upload file')"
-                    @uploader="uploadFile"
-                  >
-                    <i class="pi pi-upload text-3xl"></i>
-                  </FileUpload>
-
-                  <Button
-                    text
-                    plain
-                    rounded
-                    icon="pi pi-folder"
-                    iconClass="text-3xl"
-                    class="p-button-lg mx-2 hover:text-orange-500 h-3rem w-3rem"
-                    v-tooltip.bottom="$t('Create folder')"
-                    @click="uploadFolder()"
-                  />
-
-                  <Button
-                    text
-                    plain
-                    rounded
-                    icon="pi pi-sync"
-                    iconClass="text-3xl"
-                    class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
-                    v-tooltip.bottom="$t('Update records')"
-                    @click="update()"
-                  />
-                </div>
+                <div class="flex gap-2 sm:w-max w-full justify-content-between"></div>
               </div>
             </div>
+
+            <FileUpload
+              multiple
+              customUpload
+              :auto="false"
+              name="files[]"
+              @select="onSelectedFiles"
+              @uploader="uploadFile"
+            >
+              <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
+                <div class="flex justify-content-between flex-wrap w-full">
+                  <div class="flex gap-2 align-items-center justify-content-center">
+                    <Button
+                      icon="pi pi-plus"
+                      :label="$t('Choose')"
+                      class="font-bold"
+                      @click="chooseCallback()"
+                    />
+
+                    <Button
+                      icon="pi pi-cloud-upload"
+                      :label="$t('Upload')"
+                      class="font-bold"
+                      :disabled="!files || files.length === 0"
+                      @click="uploadEvent(uploadCallback)"
+                    />
+
+                    <Button
+                      icon="pi pi-times"
+                      :label="$t('Cancel')"
+                      class="font-bold"
+                      :disabled="!files || files.length === 0"
+                      @click="clearCallback()"
+                    />
+                  </div>
+
+                  <div class="flex gap-2 align-items-center justify-content-center">
+                    <Button
+                      icon="pi pi-folder"
+                      class="font-bold"
+                      :label="$t('Create folder')"
+                      @click="uploadFolder()"
+                    />
+
+                    <Button
+                      text
+                      plain
+                      rounded
+                      icon="pi pi-sync"
+                      iconClass="text-2xl"
+                      class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
+                      v-tooltip.bottom="$t('Update records')"
+                      @click="update()"
+                    />
+                  </div>
+                </div>
+              </template>
+
+              <template #content="{ files, removeFileCallback }">
+                <div
+                  v-for="(file, index) of files"
+                  :key="file.name + file.type + file.size"
+                  class="p-fileupload-file"
+                >
+                  <i
+                    :class="filterFileIcon(file.name)"
+                    class="text-3xl p-fileupload-file-thumbnail p-2 mr-2"
+                  />
+
+                  <div class="p-fileupload-file-details">
+                    <div class="p-fileupload-file-name font-bold">{{ file.name }}</div>
+                    <span class="p-fileupload-file-size">{{ byteToStr(file.size) }}</span>
+                    <Badge :value="$t('Pending')" severity="warning" />
+                  </div>
+
+                  <div class="p-fileupload-file-actions">
+                    <Button
+                      text
+                      rounded
+                      icon="pi pi-times"
+                      severity="danger"
+                      @click="onRemoveTemplatingFile(file, removeFileCallback, index)"
+                    />
+                  </div>
+                </div>
+              </template>
+
+              <template #empty>
+                <p>{{ $t('Drag and drop files to here to upload') }}</p>
+              </template>
+            </FileUpload>
           </template>
 
           <template #loading>
@@ -499,18 +565,11 @@ onMounted(async () => {
 
           <template #empty>
             <div
-              v-if="!loading && files?.length === 0"
+              v-if="!loading && ftpFiles?.length === 0"
               class="flex flex-column justify-content-center p-datatable-loading-overlay p-component-overlay z-0"
             >
-              <i class="pi pi-upload text-color-secondary" style="font-size: 4rem"></i>
+              <i class="pi pi-folder-open text-8xl text-color-secondary" />
               <h5>{{ $t('No files found in folder') }}</h5>
-              <Button
-                icon="pi pi-home"
-                iconClass="text-sm"
-                class="p-button-lg"
-                :label="$t('Home folder')"
-                @click="update()"
-              />
             </div>
           </template>
 
@@ -522,7 +581,11 @@ onMounted(async () => {
             headerClass="font-bold text-center uppercase"
           >
             <template #body="{ data }">
-              <div class="flex flex-row flex-wrap" :class="data.type !== 1 ? 'cursor-pointer' : ''">
+              <div
+                class="flex flex-row flex-wrap"
+                :class="data.type !== 1 ? 'cursor-pointer' : ''"
+                @click="data.type === 2 ? update(data.name) : data.type === 0 ? goToBack() : false"
+              >
                 <div class="flex align-items-center justify-content-center mr-4">
                   <i
                     class="pi pi-folder-open text-2xl font-bold text-color-secondary"
@@ -535,17 +598,13 @@ onMounted(async () => {
                   />
                 </div>
                 <div class="flex align-items-center justify-content-center">
-                  <span
-                    class="text-xl font-bold text-color-secondary"
-                    @click="goToBack"
-                    v-if="data.type === 0"
-                  >
+                  <span class="text-xl font-bold text-color-secondary" v-if="data.type === 0">
                     {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
                   </span>
                   <span class="text-xl" v-if="data.type === 1">
                     {{ data.name }}
                   </span>
-                  <span class="text-xl font-bold" @click="update(data.name)" v-if="data.type === 2">
+                  <span class="text-xl font-bold" v-if="data.type === 2">
                     {{ data.name }}
                   </span>
                 </div>
@@ -681,17 +740,9 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-::v-deep(.p-fileupload > span) {
-  padding: 0;
-}
-
-::v-deep(.p-fileupload > span > svg) {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
 ::v-deep(.p-datatable-header) {
   background: var(--surface-card);
+  padding: 0.75rem 0rem;
 }
 
 ::v-deep(.p-datatable-footer) {
@@ -728,7 +779,7 @@ onMounted(async () => {
   background-color: var(--surface-ground);
 }
 
-::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
+::v-deep(.p-datatable.p-datatable-lg .p-datatable-tbody > tr > td) {
   padding: 0.3rem 0.3rem;
 }
 </style>

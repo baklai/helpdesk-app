@@ -780,5 +780,9 @@
   "Rename": "Перейменувати",
   "Rename file": "Перейменувати файл",
   "Rename folder": "Перейменувати каталог",
-  "Record rename not confirmed": "Перейменування не підтверджено"
+  "Record rename not confirmed": "Перейменування не підтверджено",
+  "Choose": "Обрати",
+  "Upload": "Завантажити",
+  "Pending": "Очікування",
+  "Drag and drop files to here to upload": "Перетягніть файли сюди для завантаження"
 }

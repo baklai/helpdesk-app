@@ -782,5 +782,9 @@
   "Rename": "Rename",
   "Rename file": "Rename file",
   "Rename folder": "Rename folder",
-  "Record rename not confirmed": "Record rename not confirmed"
+  "Record rename not confirmed": "Record rename not confirmed",
+  "Choose": "Choose",
+  "Upload": "Upload",
+  "Pending": "Pending",
+  "Drag and drop files to here to upload": "'Drag and drop files to here to upload"
 }
