@@ -304,14 +304,14 @@ const uploadFolder = async () => {
 };
 
 const copyLink = async filename => {
-  if (filename) return;
+  if (!filename) return;
   try {
     const link =
       `${axios.defaults.baseURL}/ftp/download?` +
       `path=${breadcrumb.value.map(item => item.label).join('/')}` +
       '&' +
-      `falename=${filename}`;
-    const encodedLink = encodeURI(link);
+      `filename=${filename}`;
+    const encodedLink = link.replaceAll(' ', '+');
     await Clipboard.copy(encodedLink);
     toast.add({
       severity: 'info',
