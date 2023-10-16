@@ -653,7 +653,7 @@ onMounted(async () => {
           >
             <template #body="{ data }">
               <span class="text-color-secondary">
-                {{ data.modifiedAt ? dateTimeToStr(data.modifiedAt) : null }}
+                {{ data?.modifiedAt ? dateTimeToStr(data.modifiedAt) : data?.rawModifiedAt }}
               </span>
             </template>
           </Column>
