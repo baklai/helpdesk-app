@@ -528,7 +528,7 @@ onMounted(async () => {
                     class="pi pi-folder-open text-2xl font-bold text-color-secondary"
                     v-if="data.type === 0"
                   />
-                  <i :class="filterFileIcon(data.name)" class="text-2xl" v-if="data.type === 1" />
+                  <i :class="filterFileIcon(data.name)" class="text-xl" v-if="data.type === 1" />
                   <i
                     class="pi pi-folder text-2xl font-bold text-yellow-500"
                     v-if="data.type === 2"
@@ -545,11 +545,7 @@ onMounted(async () => {
                   <span class="text-xl" v-if="data.type === 1">
                     {{ data.name }}
                   </span>
-                  <span
-                    class="text-xl font-bold text-yellow-500"
-                    @click="update(data.name)"
-                    v-if="data.type === 2"
-                  >
+                  <span class="text-xl font-bold" @click="update(data.name)" v-if="data.type === 2">
                     {{ data.name }}
                   </span>
                 </div>
@@ -616,8 +612,8 @@ onMounted(async () => {
                   plain
                   rounded
                   icon="pi pi-download"
-                  iconClass="text-2xl"
-                  class="p-button-lg mx-2 text-green-500 h-3rem w-3rem"
+                  iconClass="text-xl"
+                  class="p-button-lg mx-2 text-green-500 h-2rem w-2rem"
                   v-tooltip.bottom="$t('Download file')"
                   @click="download(data.name)"
                   v-if="data.type === 1"
@@ -628,8 +624,8 @@ onMounted(async () => {
                   plain
                   rounded
                   icon="pi pi-copy"
-                  iconClass="text-2xl"
-                  class="p-button-lg mx-2 text-primary h-3rem w-3rem"
+                  iconClass="text-xl"
+                  class="p-button-lg mx-2 text-primary h-2rem w-2rem"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
@@ -640,8 +636,8 @@ onMounted(async () => {
                   plain
                   rounded
                   icon="pi pi-file-edit"
-                  iconClass="text-2xl"
-                  class="p-button-lg mx-2 text-yellow-500 h-3rem w-3rem"
+                  iconClass="text-xl"
+                  class="p-button-lg mx-2 text-yellow-500 h-2rem w-2rem"
                   v-tooltip.bottom="$t('Rename file')"
                   @click="rename(data.name)"
                   v-if="data.type === 1"
@@ -652,8 +648,8 @@ onMounted(async () => {
                   plain
                   rounded
                   icon="pi pi-trash"
-                  iconClass="text-2xl"
-                  class="p-button-lg mx-2 text-red-500 h-3rem w-3rem"
+                  iconClass="text-xl"
+                  class="p-button-lg mx-2 text-red-500 h-2rem w-2rem"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
                   v-if="data.type === 1"
