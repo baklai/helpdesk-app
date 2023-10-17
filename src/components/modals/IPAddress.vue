@@ -465,6 +465,7 @@ const onCloseModal = () => {
                 <InputText
                   id="ipaddress"
                   v-bind="ipaddress"
+                  :disabled="!!values.id"
                   :placeholder="$t('Client IP Address')"
                   :class="{ 'p-invalid': !!errors?.ipaddress }"
                   @keypress.prevent.enter="checkIPAddress"
