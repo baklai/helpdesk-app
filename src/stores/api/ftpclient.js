@@ -14,7 +14,11 @@ export const useFTPClient = defineStore('ftpclient', () => {
 
   async function download(params) {
     try {
-      return await $axios.get('/ftp/download', { params, responseType: 'blob' });
+      return await $axios.get('/ftp/download', {
+        params,
+        responseType: 'blob',
+        timeout: 10 * 60 * 1000
+      });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -25,7 +29,8 @@ export const useFTPClient = defineStore('ftpclient', () => {
       return await $axios.post('/ftp/upload/file', payload, {
         headers: {
           'Content-Type': `multipart/form-data;`
-        }
+        },
+        timeout: 10 * 60 * 1000
       });
     } catch (err) {
       throw new Error(err.message);

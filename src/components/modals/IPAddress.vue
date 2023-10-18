@@ -382,8 +382,9 @@ const onCloseModal = () => {
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              id="date"
+              inputId="date"
               v-bind="date"
+              :modelValue="dateToStr(values.date)"
               :placeholder="$t('Date create')"
               :class="{ 'p-invalid': !!errors?.date }"
               aria-describedby="date-help"
@@ -512,8 +513,9 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
-                  id="internetDateOpen"
+                  inputId="internetDateOpen"
                   v-bind="internetDateOpen"
+                  :modelValue="dateToStr(values.internet.dateOpen)"
                   :placeholder="$t('Date open internet')"
                 />
               </div>
@@ -523,8 +525,9 @@ const onCloseModal = () => {
                   showIcon
                   showButtonBar
                   dateFormat="dd.mm.yy"
-                  id="internetDateClose"
+                  inputId="internetDateClose"
                   v-bind="internetDateClose"
+                  :modelValue="dateToStr(values.internet.dateClose)"
                   :placeholder="$t('Date close internet')"
                 />
               </div>

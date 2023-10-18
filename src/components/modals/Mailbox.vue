@@ -285,9 +285,9 @@ const onCloseModal = () => {
               showIcon
               showButtonBar
               dateFormat="dd.mm.yy"
-              :modelValue="dateToStr(dateOpen)"
-              id="dateOpen"
+              inputId="dateOpen"
               v-bind="dateOpen"
+              :modelValue="dateToStr(values.dateOpen)"
               :placeholder="$t('Date open')"
               :class="{ 'p-invalid': !!errors?.dateOpen }"
               aria-describedby="dateOpen-help"
@@ -385,9 +385,9 @@ const onCloseModal = () => {
               showButtonBar
               dateFormat="dd.mm.yy"
               aria-describedby="dateClose-help"
-              :modelValue="dateToStr(dateClose)"
-              id="dateClose"
+              inputId="dateClose"
               v-bind="dateClose"
+              :modelValue="dateToStr(values.dateClose)"
               :placeholder="$t('Date close')"
             />
           </div>

@@ -245,12 +245,13 @@ const onSaveRecord = handleSubmit(async () => {
           showButtonBar
           hourFormat="24"
           dateFormat="dd.mm.yy"
-          :manualInput="false"
           inputId="datetime"
           v-bind="datetime"
+          :modelValue="dateTimeToStr(values.datetime)"
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!errors?.datetime }"
           aria-describedby="datetime-help"
+          :disabled="true"
         />
         <small id="datetime-help" class="p-error" v-if="errors?.datetime">
           {{ $t(errors.datetime) }}
