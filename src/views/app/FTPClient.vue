@@ -29,6 +29,7 @@ const files = ref([]);
 const selectedRowData = ref();
 const newValue = ref(null);
 const loading = ref(false);
+const uploading = ref(false);
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS }
 });
@@ -218,7 +219,7 @@ const remove = async (name, type) => {
 
 const download = async filename => {
   try {
-    loading.value = true;
+    uploading.value = true;
 
     const file = await ftp.download({
       path: breadcrumb.value.map(item => item.label).join('/'),
@@ -247,12 +248,13 @@ const download = async filename => {
       life: 3000
     });
   } finally {
-    loading.value = false;
+    uploading.value = false;
   }
 };
 
 const uploadFile = async event => {
   try {
+    uploading.value = true;
     await Promise.all(
       event.files.map(file => {
         const bodyFormData = new FormData();
@@ -275,6 +277,7 @@ const uploadFile = async event => {
       life: 3000
     });
   } finally {
+    uploading.value = false;
     await update();
   }
 };
@@ -556,6 +559,8 @@ onMounted(async () => {
                 <p>{{ $t('Drag and drop files to here to upload') }}</p>
               </template>
             </FileUpload>
+
+            <ProgressBar mode="indeterminate" class="h-0.5rem w-full mt-2" v-show="uploading" />
           </template>
 
           <template #loading>

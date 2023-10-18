@@ -17,7 +17,7 @@ export const useFTPClient = defineStore('ftpclient', () => {
       return await $axios.get('/ftp/download', {
         params,
         responseType: 'blob',
-        timeout: 10 * 60 * 1000
+        timeout: 0
       });
     } catch (err) {
       throw new Error(err.message);
