@@ -53,7 +53,8 @@ const ctxMenuOptions = computed(() => {
       {
         label: t('Download file'),
         icon: 'pi pi-download',
-        command: () => download(selectedRowData.value.name)
+        url: getLinkToFile(selectedRowData.value.name),
+        target: '_blank'
       },
       {
         label: t('Copy file link'),
@@ -416,7 +417,7 @@ onMounted(async () => {
 
         <ContextMenu ref="refContextMenu" :model="ctxMenuOptions">
           <template #item="{ label, item, props }">
-            <a :href="item.url" v-bind="props.action">
+            <a :href="item.url" v-bind="props.action" :target="item.target || '_self'">
               <span v-bind="props.icon" />
               <span v-bind="props.label">{{ label }}</span>
             </a>
