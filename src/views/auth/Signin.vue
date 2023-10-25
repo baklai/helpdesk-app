@@ -67,6 +67,7 @@ onMounted(() => {
         <i class="pi pi-user" />
         <InputText
           id="login"
+          size="large"
           v-bind="login"
           :placeholder="$t('Login')"
           :class="{ 'p-invalid': !!errors?.login }"
@@ -84,6 +85,7 @@ onMounted(() => {
       </label>
       <Password
         toggleMask
+        inputSize="large"
         inputId="password"
         v-bind="password"
         :placeholder="$t('Password')"
@@ -92,6 +94,8 @@ onMounted(() => {
         :mediumLabel="$t('Average complexity')"
         :strongLabel="$t('Complex password')"
         :class="{ 'p-invalid': !!errors?.password }"
+        inputClass="text-xl"
+        :inputStyle="{ padding: '0.9375rem' }"
         aria-describedby="password-help"
       >
         <template #header>
@@ -134,9 +138,6 @@ onMounted(() => {
 
     <div class="field">
       <Button
-        text
-        plain
-        outlined
         type="submit"
         icon="pi pi-sign-in"
         class="block w-full p-3 text-xl text-center hover:text-color"

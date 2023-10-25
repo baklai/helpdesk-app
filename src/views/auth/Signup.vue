@@ -169,7 +169,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="field mb-6">
       <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
       <span class="p-input-icon-left">
         <i class="pi pi-phone" />
@@ -188,27 +188,25 @@ onMounted(() => {
       </small>
     </div>
 
-    <Button
-      text
-      plain
-      outlined
-      type="submit"
-      icon="pi pi-verified"
-      class="block w-full p-3 text-xl text-center hover:text-color"
-      :disabled="submitCount > SUBMIT_COUNT"
-      :label="$t('Register in the application')"
-      aria-describedby="submit-help"
-    />
+    <div class="field">
+      <Button
+        type="submit"
+        icon="pi pi-verified"
+        class="block w-full p-3 text-xl text-center"
+        :disabled="submitCount > SUBMIT_COUNT"
+        :label="$t('Register in the application')"
+        aria-describedby="submit-help"
+      />
+      <small
+        id="submit-help"
+        class="p-error block w-full text-center mt-2"
+        v-if="submitCount > SUBMIT_COUNT"
+      >
+        {{ $t('You submitted too many times') }}
+      </small>
+    </div>
 
-    <small
-      id="submit-help"
-      class="p-error block w-full text-center mt-2"
-      v-if="submitCount > SUBMIT_COUNT"
-    >
-      {{ $t('You submitted too many times') }}
-    </small>
-
-    <p class="text-600 text-center font-medium">
+    <p class="text-600 text-center font-medium py-2">
       {{ $t('Register to the application to continue') }}
     </p>
   </form>

@@ -119,7 +119,7 @@ const disabledSelectedFromHTML = ref({
                   </ul>
 
                   <p class="text-center my-4">
-                    <RouterLink :to="{ name: 'home' }" class="text-blue-500">
+                    <RouterLink :to="{ name: 'home' }" class="text-primary">
                       {{ $t('Helpdesk home page') }}
                     </RouterLink>
                   </p>
