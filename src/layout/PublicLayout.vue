@@ -53,7 +53,7 @@ const disabledSelectedFromHTML = ref({
                   <div class="flex justify-content-center mb-2">
                     <div class="justify-content-start">
                       <p
-                        class="uppercase font-bold text-8xl m-0 text-color"
+                        class="uppercase font-bold text-8xl m-0 text-white-alpha-80"
                         translate="no"
                         lang="en"
                       >
@@ -71,7 +71,7 @@ const disabledSelectedFromHTML = ref({
                     </div>
                     <div class="justify-content-start">
                       <p
-                        class="uppercase font-bold text-8xl m-0 text-color"
+                        class="uppercase font-bold text-8xl m-0 text-white-alpha-80"
                         translate="no"
                         lang="en"
                       >
@@ -118,7 +118,7 @@ const disabledSelectedFromHTML = ref({
                     </li>
                   </ul>
 
-                  <p class="text-center text-500 my-4">
+                  <p class="text-center my-4">
                     <RouterLink :to="{ name: 'home' }" class="text-blue-500">
                       {{ $t('Helpdesk home page') }}
                     </RouterLink>
@@ -129,7 +129,7 @@ const disabledSelectedFromHTML = ref({
           </div>
         </div>
         <div class="flex align-items-center gap-5">
-          <p class="text-color-secondary font-semibold">
+          <p class="text-500 font-semibold">
             {{ $helpdesk?.copyright }}
           </p>
         </div>
