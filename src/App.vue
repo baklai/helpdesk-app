@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted } from 'vue';
 
+import BtnConfig from '@/components/buttons/BtnConfig.vue';
+
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
@@ -17,6 +19,8 @@ onMounted(() => {
   <component :is="$route.meta.layout">
     <slot />
   </component>
+
+  <BtnConfig />
 
   <Toast position="top-right" class="z-100" />
 </template>

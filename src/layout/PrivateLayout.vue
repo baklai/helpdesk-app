@@ -3,21 +3,12 @@ import { ref, computed, watchEffect } from 'vue';
 
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
-import BtnConfig from '@/components/buttons/BtnConfig.vue';
 
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
 
 const outsideClickListener = ref(null);
-
-const disabledSelectedFromHTML = ref({
-  '-webkit-user-select': 'none',
-  '-moz-user-select': 'none',
-  '-ms-user-select': 'none',
-  '-o-user-select': 'none',
-  'user-select': 'none'
-});
 
 const containerClass = computed(() => {
   return {
@@ -74,7 +65,6 @@ watchEffect(() => {
 </script>
 
 <template>
-  <!-- :style="$helpdesk.hasScope('selected-html') ? '' : disabledSelectedFromHTML" -->
   <div class="layout-wrapper" :class="containerClass">
     <div class="layout-sidebar surface-50">
       <AppSidebar />
@@ -88,7 +78,6 @@ watchEffect(() => {
         </div>
       </div>
     </div>
-    <BtnConfig />
   </div>
 
   <ConfirmDialog :style="{ minWidth: '350px' }">
