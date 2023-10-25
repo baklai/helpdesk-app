@@ -28,6 +28,7 @@ const ftpFiles = ref([]);
 const files = ref([]);
 const selectedRowData = ref();
 const newValue = ref(null);
+const showUpload = ref(false);
 const loading = ref(false);
 const uploading = ref(false);
 const filters = ref({
@@ -465,7 +466,7 @@ onMounted(async () => {
                 class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
               >
                 <div class="flex flex-wrap align-items-center justify-content-between">
-                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
+                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full mx-2">
                     <i class="pi pi-search" />
                     <InputText
                       id="name"
@@ -480,6 +481,28 @@ onMounted(async () => {
                       @click="filters['global'].value = null"
                     />
                   </span>
+
+                  <Button
+                    text
+                    plain
+                    rounded
+                    icon="pi pi-plus-circle"
+                    iconClass="text-2xl"
+                    class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
+                    v-tooltip.bottom="$t('Upload files')"
+                    @click="showUpload = !showUpload"
+                  />
+
+                  <Button
+                    text
+                    plain
+                    rounded
+                    icon="pi pi-sync"
+                    iconClass="text-2xl"
+                    class="p-button-lg hover:text-primary h-3rem w-3rem"
+                    v-tooltip.bottom="$t('Update records')"
+                    @click="update()"
+                  />
                 </div>
                 <div class="flex gap-2 sm:w-max w-full justify-content-between"></div>
               </div>
@@ -490,6 +513,7 @@ onMounted(async () => {
               customUpload
               :auto="false"
               name="files[]"
+              v-show="showUpload"
               @select="onSelectedFiles"
               @uploader="uploadFile"
             >
@@ -526,17 +550,6 @@ onMounted(async () => {
                       class="font-bold"
                       :label="$t('Create folder')"
                       @click="uploadFolder()"
-                    />
-
-                    <Button
-                      text
-                      plain
-                      rounded
-                      icon="pi pi-sync"
-                      iconClass="text-2xl"
-                      class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
-                      v-tooltip.bottom="$t('Update records')"
-                      @click="update()"
                     />
                   </div>
                 </div>

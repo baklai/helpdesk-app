@@ -784,5 +784,6 @@
   "Choose": "Выбрать",
   "Upload": "Загрузить",
   "Pending": "В ожидании",
-  "Drag and drop files to here to upload": "Перетащите файлы сюда для загрузки"
+  "Drag and drop files to here to upload": "Перетащите файлы сюда для загрузки",
+  "Upload files": "Загрузить файлы"
 }
