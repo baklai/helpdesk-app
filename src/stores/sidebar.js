@@ -44,7 +44,6 @@ export const useSidebar = defineStore('sidebar', () => {
           ...getRoute('pc-sys-inspector'),
           items: [getRoute('pc-sys-inspector-reports'), getRoute('pc-sys-inspector-statistics')]
         },
-        getRoute('ftp-client'),
         getRoute('ping-icmp')
       ]
     },
