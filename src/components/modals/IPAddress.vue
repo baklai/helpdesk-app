@@ -515,7 +515,7 @@ const onCloseModal = () => {
                   dateFormat="dd.mm.yy"
                   inputId="internetDateOpen"
                   v-bind="internetDateOpen"
-                  :modelValue="dateToStr(values.internet.dateOpen)"
+                  :modelValue="dateToStr(values?.internet?.dateOpen)"
                   :placeholder="$t('Date open internet')"
                 />
               </div>
@@ -527,7 +527,7 @@ const onCloseModal = () => {
                   dateFormat="dd.mm.yy"
                   inputId="internetDateClose"
                   v-bind="internetDateClose"
-                  :modelValue="dateToStr(values.internet.dateClose)"
+                  :modelValue="dateToStr(values?.internet?.dateClose)"
                   :placeholder="$t('Date close internet')"
                 />
               </div>
