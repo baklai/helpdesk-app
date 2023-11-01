@@ -785,5 +785,6 @@
   "Upload": "Завантажити",
   "Pending": "Очікування",
   "Drag and drop files to here to upload": "Перетягніть файли сюди для завантаження",
-  "Upload files": "Завантажте файли"
+  "Upload files": "Завантажте файли",
+  "Incorrect IP address": "Неправильна IP-адреса"
 }
