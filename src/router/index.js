@@ -77,6 +77,15 @@ const router = createRouter({
               component: () => import('@/views/app/network-info/Mailbox.vue')
             },
             {
+              path: 'network-map',
+              name: 'network-map',
+              meta: {
+                title: 'Network map',
+                description: 'Network map of the technical support'
+              },
+              component: () => import('@/views/app/network-info/NetworkMap.vue')
+            },
+            {
               path: 'statistics',
               name: 'network-statistics',
               meta: {
@@ -142,6 +151,35 @@ const router = createRouter({
                 description: 'Statistics of PC SysInspector'
               },
               component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue')
+            }
+          ]
+        },
+        {
+          path: 'onmap-scanner',
+          name: 'onmap-scanner',
+          meta: {
+            title: 'ONMAP Scanner',
+            description: 'Online network mapper scanner of the technical support'
+          },
+          redirect: { name: 'onmap-scanner-statistics' },
+          children: [
+            {
+              path: 'reports',
+              name: 'onmap-scanner-reports',
+              meta: {
+                title: 'ONMAP Scanner',
+                description: 'Online network mapper scanner of the technical support'
+              },
+              component: () => import('@/views/app/onmap-scanner/ONMAPScannerReports.vue')
+            },
+            {
+              path: 'statistics',
+              name: 'onmap-scanner-statistics',
+              meta: {
+                title: 'Service statistics',
+                description: 'Statistics of online network mapper service'
+              },
+              component: () => import('@/views/app/onmap-scanner/ONMAPScanner.vue')
             }
           ]
         },

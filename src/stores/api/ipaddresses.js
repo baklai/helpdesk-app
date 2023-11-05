@@ -46,5 +46,13 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  return { findAll, findOne, createOne, updateOne, removeOne };
+  async function networkMap(params) {
+    try {
+      return await $axios.get('/ipaddresses/networkmap', { params });
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  return { findAll, findOne, createOne, updateOne, removeOne, networkMap };
 });

@@ -30,6 +30,7 @@ export const useSidebar = defineStore('sidebar', () => {
         {
           ...getRoute('network-info'),
           items: [
+            getRoute('network-map'),
             getRoute('network-channels'),
             getRoute('network-ip-address'),
             getRoute('network-mailbox'),
@@ -43,6 +44,10 @@ export const useSidebar = defineStore('sidebar', () => {
         {
           ...getRoute('pc-sys-inspector'),
           items: [getRoute('pc-sys-inspector-reports'), getRoute('pc-sys-inspector-statistics')]
+        },
+        {
+          ...getRoute('onmap-scanner'),
+          items: [getRoute('onmap-scanner-reports'), getRoute('onmap-scanner-statistics')]
         },
         getRoute('ping-icmp')
       ]

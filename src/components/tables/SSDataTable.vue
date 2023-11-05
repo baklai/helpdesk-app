@@ -670,6 +670,8 @@ onMounted(async () => {
             </div>
           </div>
         </div>
+
+        <slot name="subheader" />
       </template>
 
       <template #loading>

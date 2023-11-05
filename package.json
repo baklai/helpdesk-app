@@ -54,6 +54,7 @@
     "qalendar": "^2.5.0",
     "v-clipboard": "^3.0.0-next.1",
     "vee-validate": "^4.11.6",
+    "vis-network": "^9.1.9",
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.5",
