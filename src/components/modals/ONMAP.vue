@@ -4,11 +4,6 @@ import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import Reportmenu from '@/components/partials/onmap/reportmenu.vue';
-import Scansummary from '@/components/partials/onmap/scansummary.vue';
-import Prescript from '@/components/partials/onmap/prescript.vue';
-import Host from '@/components/partials/onmap/host.vue';
-
 import { dateTimeToStr, unixDateTimeToStr } from '@/service/DataFilters';
 
 import { useOnmap } from '@/stores/api/onmaps';
@@ -24,7 +19,6 @@ defineExpose({
     if (id) {
       try {
         record.value = await Onmap.findOne({ id });
-
         visible.value = true;
       } catch (err) {
         visible.value = false;
@@ -106,7 +100,7 @@ const onRemoveRecord = async () => {
 
 const onSaveReport = () => {
   try {
-    const element = document.querySelector('#container');
+    const element = document.querySelector('#report');
     const options = {
       margin: 1,
       filename: `ONMAP_${record.value.target} (${new Date(
@@ -137,6 +131,17 @@ const onSaveReport = () => {
   }
 };
 
+const idHostDots = value => {
+  return 'host_' + value.replace(/\./g, '_');
+};
+
+const scrollTo = href => {
+  const element = document.getElementById(href);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 onMounted(() => {});
 </script>
 
@@ -156,7 +161,7 @@ onMounted(() => {});
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '900px' }"
+    :style="{ width: '960px' }"
     class="p-fluid"
     @hide="onCloseModal"
   >
@@ -192,25 +197,135 @@ onMounted(() => {});
     </template>
 
     <template #default>
-      <div id="container">
-        <h1>
-          Onmap Scan Report - Scanned at
+      <div id="report" class="w-full text-left my-2 mx-auto">
+        <h1 class="mb-4" v-if="record?.item">
+          {{ $t('Onmap Scan Report') }} - {{ $t('Scanned at') }}
           {{ record?.item?.start ? unixDateTimeToStr(record.item.start) : '' }}
         </h1>
 
-        <Reportmenu :hosts="record.host" v-if="record?.host" />
+        <ul v-if="record?.host" class="inline list-none p-0">
+          <li class="inline">
+            <a @click.prevent="scrollTo('scansummary')" class="text-primary">
+              {{ $t('SCAN SUMMARY') }}
+            </a>
+          </li>
 
-        <Scansummary
-          :item="record?.item || null"
-          :runstats="record?.runstats || []"
-          :verbose="record?.verbose || []"
-          :debugging="record?.debugging || []"
-          v-if="record?.item"
-        />
+          <li v-for="host in record.host" class="inline">
+            <span class="font-bold"> | </span>
+            <a
+              v-for="(address, index) in host.address"
+              :class="host.status[index].item.state"
+              @click.prevent="scrollTo(idHostDots(address.item.addr))"
+            >
+              {{ address.item.addr }}
+            </a>
+          </li>
+        </ul>
 
-        <Prescript :prescript="record.prescript" v-if="record?.prescript" />
+        <div v-if="record?.item">
+          <h2 id="scansummary" class="mb-2">{{ $t('Scan Summary') }}</h2>
 
-        <Host :hosts="record.host" v-if="record?.host" />
+          <p>
+            Nmap {{ record?.item?.version || '-' }} was initiated at
+            {{ record?.item?.startstr || '-' }} with these arguments:
+            <br />
+            <i> {{ record?.item?.args || '-' }} </i>
+            <br />
+          </p>
+
+          <p v-for="(ver, index) in record.verbose">
+            Verbosity:
+            {{ ver.item.level }}
+            ; Debug level
+            {{ record.debugging[index]?.item?.level || '-' }}
+          </p>
+
+          <p v-for="runstat in record.runstats">
+            <span v-for="finished in runstat.finished">
+              {{ finished.item.summary }}
+            </span>
+          </p>
+        </div>
+
+        <div v-if="record?.host" v-for="host in record.host">
+          <h2
+            v-for="(status, index) in host.status"
+            :id="idHostDots(host.address[index].item.addr)"
+            :class="['mb-4', status.item.state]"
+          >
+            {{ host.address[index].item.addr }}
+          </h2>
+
+          <div v-if="host?.address" class="px-2">
+            <h3>{{ $t('Address') }}</h3>
+            <ul class="pl-4">
+              <li v-for="item in host.address">{{ item.item.addr }} ({{ item.item.addrtype }})</li>
+            </ul>
+          </div>
+
+          <div v-if="host?.ports" v-for="port in host.ports" class="px-2">
+            <h3>{{ $t('Ports') }}</h3>
+
+            <div v-for="extraport in port.extraports">
+              <p>
+                The {{ extraport.item.count }} ports scanned but not shown below are in state:
+                {{ extraport.item.state }}
+              </p>
+
+              <ul class="pl-4">
+                <li v-for="extrareason in extraport.extrareasons">
+                  {{ extrareason.item.count }} ports replied with: {{ extrareason.item.reason }}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div v-for="ports in host.ports" v-if="host?.ports">
+            <table cellspacing="1" class="w-full px-2 m-0">
+              <tbody>
+                <tr class="head">
+                  <td colspan="2">{{ $t('Port') }}</td>
+                  <td>{{ $t('State') }}</td>
+                  <td>{{ $t('Service') }}</td>
+                  <td>{{ $t('Reason') }}</td>
+                  <td>{{ $t('Product') }}</td>
+                  <td>{{ $t('Version') }}</td>
+                  <td>{{ $t('Extra info') }}</td>
+                </tr>
+
+                <template v-for="{ item, script, service, state } in ports.port">
+                  <tr :class="state[0].item.state">
+                    <td>{{ item?.portid || '-' }}</td>
+                    <td>{{ item?.protocol || '-' }}</td>
+                    <td>{{ state[0]?.item?.state || '-' }}</td>
+                    <td>{{ service[0]?.item?.name || '-' }}</td>
+                    <td>{{ state[0]?.item?.reason || '-' }}</td>
+                    <td>{{ service[0]?.item?.product || '-' }}</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+
+          <div v-if="host?.os" v-for="os in host.os" class="px-2">
+            <h3>{{ $t('Remote Operating System Detection') }}</h3>
+            <p v-if="!os?.osmatch?.length">{{ $t('Unable to identify operating system') }}.</p>
+            <ul class="pl-4">
+              <li v-if="os?.portused" v-for="portused in os.portused">
+                {{ $t('Used port') }}:
+                <b> {{ portused.item.portid }}/{{ portused.item.proto }} </b>
+                <b> ({{ portused.item.state }}) </b>
+              </li>
+              <li v-if="os?.osmatch" v-for="osmatch in os.osmatch">
+                {{ $t('OS match') }}:
+                <b>{{ osmatch.item.name }}</b>
+                <b>({{ osmatch.item.accuracy }}%)</b>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
@@ -224,13 +339,7 @@ onMounted(() => {});
 </template>
 
 <style scoped>
-#container {
-  text-align: left;
-  margin: 10px auto;
-  width: 100%;
-}
-
-#container h1 {
+#report h1 {
   font-weight: bold;
   font-size: 14pt;
   color: #ffffff;
@@ -238,10 +347,11 @@ onMounted(() => {});
   margin: 10px 0px 0px 0px;
   padding: 5px 4px 5px 4px;
   width: 100%;
+  border: 1px solid black;
   text-align: left;
 }
 
-#container h2 {
+#report h2 {
   font-weight: bold;
   font-size: 11pt;
   color: #000000;
@@ -251,117 +361,107 @@ onMounted(() => {});
   background-color: #f0f8ff;
   text-align: left;
 }
-#container h2.green {
+
+#report h2.green {
   color: #000000;
   background-color: #ccffcc;
   border-color: #006400;
 }
-#container h2.red {
+
+#report h2.red {
   color: #000000;
   background-color: #ffcccc;
   border-color: #8b0000;
 }
 
-#container h3 {
+#report h3 {
   font-weight: bold;
   font-size: 10pt;
-  color: #000000;
-  /* background-color: #ffffff; */
-  width: 75%;
   text-align: left;
 }
 
-#container p {
-  font-size: 8pt;
-  color: #000000;
-  /* background-color: #ffffff; */
-  width: 75%;
+#report p {
   text-align: left;
 }
 
-#container p i {
-  font-size: 8pt;
+#report p i {
   color: #000000;
   background-color: #cccccc;
 }
 
-#container a {
+#report a {
   text-decoration: none;
   font-size: 8pt;
   color: #000000;
   font-weight: bold;
-  /* background-color: #ffffff; */
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+#report li a {
+  text-decoration: none;
+  font-size: 10pt;
+  color: #000000;
+  font-weight: bold;
+  background-color: #ffffff;
   color: #000000;
 }
 
-#container a:hover {
-  text-decoration: underline;
-}
-
-#container a.up {
+#report a.up {
   color: #006400;
 }
 
-#container table {
-  width: 80%;
+#report table {
   border: 0px;
   color: #000000;
-  background-color: #000000;
   margin: 10px;
 }
 
-#container tr {
+#report tr {
   vertical-align: top;
   font-size: 8pt;
   color: #000000;
-  /* background-color: #ffffff; */
+  background-color: #ffffff;
 }
 
-#container tr.head {
+#report tr.head {
   background-color: #e1e1e1;
   color: #000000;
   font-weight: bold;
 }
 
-#container tr.open {
+#report tr.open {
   background-color: #ccffcc;
   color: #000000;
 }
 
-#container tr.script {
+#report tr.script {
   background-color: #effff7;
   color: #000000;
 }
 
-#container tr.filtered {
+#report tr.filtered {
   background-color: #f2f2f2;
   color: #000000;
 }
 
-#container tr.closed {
+#report tr.closed {
   background-color: #f2f2f2;
   color: #000000;
 }
 
-#container td {
+#report td {
   padding: 2px;
 }
 
-#container .up {
+#report .up {
   color: #000000;
   background-color: #ccffcc;
 }
 
-#container .down {
+#report .down {
   color: #626262;
   background-color: #f2f2f2;
-}
-
-#container .hidden {
-  display: none;
-}
-
-#container .unhidden {
-  display: block;
 }
 </style>
