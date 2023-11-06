@@ -5,7 +5,7 @@ export const useScope = defineStore('scope', () => {
     return [
       {
         scope: 'user',
-        comment: 'User in database',
+        comment: 'User accounts',
         create: false,
         read: false,
         update: false,
@@ -14,7 +14,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'event',
-        comment: 'Event in database',
+        comment: 'Support events',
         create: false,
         read: true,
         update: false,
@@ -22,8 +22,14 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
+        scope: 'netmap',
+        comment: 'Network maps',
+        read: true
+      },
+
+      {
         scope: 'channel',
-        comment: 'Channel in database',
+        comment: 'Network channels',
         create: false,
         read: true,
         update: false,
@@ -32,7 +38,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'ipaddress',
-        comment: 'Ipaddress in database',
+        comment: 'Network IP Addresses',
         create: false,
         read: true,
         update: false,
@@ -41,7 +47,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'mailbox',
-        comment: 'Mailbox in database',
+        comment: 'Network mailboxes',
         create: false,
         read: true,
         update: false,
@@ -50,7 +56,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'request',
-        comment: 'Request in database',
+        comment: 'Support requests',
         create: false,
         read: true,
         update: false,
@@ -59,14 +65,29 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'inspector',
-        comment: 'SysInspector in database',
+        comment: 'PC SysInspector reports',
         read: true,
         delete: false
       },
 
       {
+        scope: 'onmap',
+        comment: 'Online nmap scanner',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
+        scope: 'report',
+        comment: 'Reports of service',
+        read: false
+      },
+
+      {
         scope: 'company',
-        comment: 'Company in database',
+        comment: 'Company collections',
         create: false,
         read: true,
         update: false,
@@ -75,7 +96,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'branch',
-        comment: 'Branch in database',
+        comment: 'Branch collections',
         create: false,
         read: true,
         update: false,
@@ -84,7 +105,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'enterprise',
-        comment: 'Enterprise in database',
+        comment: 'Enterprise collections',
         create: false,
         read: true,
         update: false,
@@ -93,7 +114,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'department',
-        comment: 'Department in database',
+        comment: 'Department collections',
         create: false,
         read: true,
         update: false,
@@ -102,7 +123,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'location',
-        comment: 'Location in database',
+        comment: 'Location collections',
         create: false,
         read: true,
         update: false,
@@ -111,7 +132,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'position',
-        comment: 'Position in database',
+        comment: 'Position collections',
         create: false,
         read: true,
         update: false,
@@ -120,7 +141,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'unit',
-        comment: 'Unit in database',
+        comment: 'Unit collections',
         create: false,
         read: true,
         update: false,
@@ -128,9 +149,12 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'notice',
-        comment: 'Notice in database',
-        create: false
+        scope: 'filter',
+        comment: 'Filter collections',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
       },
 
       {
@@ -138,16 +162,25 @@ export const useScope = defineStore('scope', () => {
         comment: 'Statistic of network',
         read: true
       },
+
       {
         scope: 'statistic:request',
         comment: 'Statistic of requests',
         read: true
       },
+
       {
         scope: 'statistic:inspector',
-        comment: 'Statistic of SysInspector',
+        comment: 'Statistic of PC SysInspector',
         read: true
       },
+
+      {
+        scope: 'statistic:onmap',
+        comment: 'Statistic of ONMAP Scanner',
+        read: true
+      },
+
       {
         scope: 'statistic:dashboard',
         comment: 'Statistic for dashboard',
@@ -155,23 +188,14 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'report',
-        comment: 'Service reports',
-        read: false
-      },
-
-      {
-        scope: 'filter',
-        comment: 'Filter in database',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
+        scope: 'notice',
+        comment: 'System notices',
+        create: false
       },
 
       {
         scope: 'logger',
-        comment: 'Logs from database',
+        comment: 'System logs',
         read: false,
         delete: false
       }
