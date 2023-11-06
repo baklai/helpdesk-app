@@ -12,9 +12,17 @@ export const useOnmap = defineStore('onmap', () => {
     }
   }
 
-  async function findOne({ id = null, host = null }) {
+  async function findOne({ id }) {
     try {
-      return await $axios.get(`/onmaps/${id || host || '127.0.0.1'}`);
+      return await $axios.get(`/onmaps/${id}`);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  async function createOne({ ...payload }) {
+    try {
+      return await $axios.post('/onmaps', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -28,5 +36,5 @@ export const useOnmap = defineStore('onmap', () => {
     }
   }
 
-  return { findAll, findOne, removeOne };
+  return { findAll, findOne, createOne, removeOne };
 });

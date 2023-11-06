@@ -214,7 +214,7 @@ onMounted(() => {});
             <span class="font-bold"> | </span>
             <a
               v-for="(address, index) in host.address"
-              :class="host.status[index].item.state"
+              :class="host?.status[index]?.item?.state || ''"
               @click.prevent="scrollTo(idHostDots(address.item.addr))"
             >
               {{ address.item.addr }}

@@ -1,6 +1,8 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
+import * as yup from 'yup';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { useForm } from 'vee-validate';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import Panel from 'primevue/panel';
@@ -10,7 +12,7 @@ import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/ONMAP.vue';
 import SidebarRecord from '@/components/sidebar/ONMAP.vue';
 
-import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
+import { dateTimeToStr } from '@/service/DataFilters';
 import { useOnmap } from '@/stores/api/onmaps';
 
 const { t } = useI18n();
@@ -22,59 +24,61 @@ const refMenu = ref();
 const refModal = ref();
 const refSidebar = ref();
 const refDataTable = ref();
-
 const subheader = ref(false);
+
+const { values, errors, handleSubmit, setFieldValue, resetForm, defineComponentBinds } = useForm({
+  validationSchema: yup.object({
+    title: yup.string().required(t('Value is required')),
+    target: yup
+      .string()
+      .required(t('Value is required'))
+      .test('ipaddress', 'Incorrect IP address', value => {
+        const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+        const ipv6Pattern = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
+        return ipv4Pattern.test(value) || ipv6Pattern.test(value);
+      }),
+    command: yup.string().required(t('Value is required'))
+  }),
+  initialValues: {}
+});
+
+const title = defineComponentBinds('title');
+const target = defineComponentBinds('target');
+const command = defineComponentBinds('command');
+const profile = defineComponentBinds('profile');
 
 const SCAN_PROFILES = ref([
   {
-    title: 'Intense scan',
+    name: 'Intense scan',
     flags: ['-T4', '-A', '-v']
   },
   {
-    title: 'Intense scan plus UDP',
+    name: 'Intense scan plus UDP',
     flags: ['-sS', '-sU', '-T4', '-A', '-v']
   },
   {
-    title: 'Intense scan, all TCP ports',
+    name: 'Intense scan, all TCP ports',
     flags: ['-p 1-65535', '-T4', '-A', '-v']
   },
   {
-    title: 'Intense scan, no ping',
+    name: 'Intense scan, no ping',
     flags: ['-T4', '-A', '-v', '-Pn']
   },
   {
-    title: 'Ping scan',
+    name: 'Ping scan',
     flags: ['-sn']
   },
   {
-    title: 'Quick scan',
+    name: 'Quick scan',
     flags: ['-T4', '-F']
   },
   {
-    title: 'Quick scan plus',
+    name: 'Quick scan plus',
     flags: ['-sV', '-T4', '-O', '-F', '--version-light']
   },
   {
-    title: 'Quick traceroute',
+    name: 'Quick traceroute',
     flags: ['-sn', '--traceroute']
-  },
-  {
-    title: 'Slow comprehensive scan',
-    flags: [
-      '-sS',
-      '-sU',
-      '-T4',
-      '-A',
-      '-v',
-      '-PE',
-      '-PP',
-      '-PS80,443',
-      '-PA3389',
-      '-PU40125',
-      '-PY',
-      '-g 53',
-      '--script "default or (discovery and safe)"'
-    ]
   }
 ]);
 
@@ -138,7 +142,7 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: true
+    frozen: false
   },
 
   {
@@ -162,6 +166,27 @@ const columns = ref([
     frozen: false
   }
 ]);
+
+const runTargetScan = handleSubmit(async () => {
+  try {
+    await Onmap.createOne({ title: values.title, target: values.target, profile: values.profile });
+    toast.add({
+      severity: 'success',
+      summary: t('HD Information'),
+      detail: t('Scan is completed'),
+      life: 3000
+    });
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('HD Warning'),
+      detail: t('Scanning interrupted'),
+      life: 3000
+    });
+  } finally {
+    refDataTable.value.update({});
+  }
+});
 </script>
 
 <template>
@@ -213,15 +238,90 @@ const columns = ref([
                 <span class="font-bold">{{ $t('Onmap scanner run') }}</span>
               </div>
             </template>
+
             <template #footer>
-              <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+              <div class="flex flex-wrap align-items-center justify-content-between gap-3 px-2">
                 <div class="flex align-items-center gap-2">
-                  <Button icon="pi pi-bookmark" rounded text></Button>
+                  <Button :label="$t('Scan')" class="w-15rem" @click="runTargetScan" />
+                  <Button
+                    :label="$t('Cancel')"
+                    severity="secondary"
+                    class="w-10rem"
+                    @click="resetForm({ values: {} }, { force: true })"
+                  />
                 </div>
-                <span class="p-text-secondary">Updated 2 hours ago</span>
+                <span class="p-text-secondary">...</span>
               </div>
             </template>
-            <p class="m-0">ONMAP Scanner form</p>
+
+            <div class="formgrid grid p-2">
+              <div class="field col-12 md:col-6">
+                <label for="target">{{ $t('Target') }}</label>
+                <InputText
+                  id="target"
+                  class="w-full"
+                  v-bind="target"
+                  :placeholder="$t('Scan target')"
+                  :class="{ 'p-invalid': !!errors?.target }"
+                  aria-describedby="target-help"
+                />
+                <small id="target-help" class="p-error" v-if="errors?.target">
+                  {{ $t(errors.target) }}
+                </small>
+              </div>
+
+              <div class="field col-12 md:col-6">
+                <label for="title">{{ $t('Title') }}</label>
+                <InputText
+                  id="title"
+                  class="w-full"
+                  v-bind="title"
+                  :placeholder="$t('Scan title')"
+                  :class="{ 'p-invalid': !!errors?.title }"
+                  aria-describedby="title-help"
+                />
+                <small id="title-help" class="p-error" v-if="errors?.title">
+                  {{ $t(errors.title) }}
+                </small>
+              </div>
+
+              <div class="field col-12 md:col-3">
+                <label for="profile">{{ $t('Profile') }}</label>
+                <Dropdown
+                  filter
+                  showClear
+                  autofocus
+                  optionValue="flags"
+                  optionLabel="name"
+                  v-bind="profile"
+                  :options="SCAN_PROFILES"
+                  @change="
+                    event => {
+                      setFieldValue('command', event.value.join(' '));
+                    }
+                  "
+                  :filterPlaceholder="$t('Search in list')"
+                  :placeholder="$t('Select scan profile')"
+                  class="w-full"
+                />
+              </div>
+
+              <div class="field col-12 md:col-9">
+                <label for="command">{{ $t('Command') }}</label>
+                <InputText
+                  id="command"
+                  class="w-full"
+                  v-bind="command"
+                  :readonly="true"
+                  :placeholder="$t('Scan command')"
+                  :class="{ 'p-invalid': !!errors?.command }"
+                  aria-describedby="command-help"
+                />
+                <small id="command-help" class="p-error" v-if="errors?.command">
+                  {{ $t(errors.command) }}
+                </small>
+              </div>
+            </div>
           </Panel>
         </template>
       </SSDataTable>
