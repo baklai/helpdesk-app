@@ -27,7 +27,7 @@ const GROUPS = ref({
   },
 
   Broadcast: {
-    image: '/img/netmap/unknown.png',
+    image: '/img/netmap/gateway.png',
     shape: 'image'
   },
 
@@ -62,12 +62,12 @@ const GROUPS = ref({
   },
 
   Gateway: {
-    image: '/img/netmap/unknown.png',
+    image: '/img/netmap/gateway.png',
     shape: 'image'
   },
 
   'HP Switch': {
-    image: '/img/netmap/unknown.png',
+    image: '/img/netmap/switches.png',
     shape: 'image'
   },
 
