@@ -48,38 +48,14 @@ const command = defineComponentBinds('command');
 const profile = defineComponentBinds('profile');
 
 const SCAN_PROFILES = ref([
-  {
-    name: 'Intense scan',
-    flags: ['-T4', '-A', '-v']
-  },
-  {
-    name: 'Intense scan plus UDP',
-    flags: ['-sS', '-sU', '-T4', '-A', '-v']
-  },
-  {
-    name: 'Intense scan, all TCP ports',
-    flags: ['-p 1-65535', '-T4', '-A', '-v']
-  },
-  {
-    name: 'Intense scan, no ping',
-    flags: ['-T4', '-A', '-v', '-Pn']
-  },
-  {
-    name: 'Ping scan',
-    flags: ['-sn']
-  },
-  {
-    name: 'Quick scan',
-    flags: ['-T4', '-F']
-  },
-  {
-    name: 'Quick scan plus',
-    flags: ['-sV', '-T4', '-O', '-F', '--version-light']
-  },
-  {
-    name: 'Quick traceroute',
-    flags: ['-sn', '--traceroute']
-  }
+  { id: 'prf_1', name: 'Intense scan', flags: ['-T4', '-A', '-v'] },
+  { id: 'prf_2', name: 'Intense scan plus UDP', flags: ['-sS', '-sU', '-T4', '-A', '-v'] },
+  { id: 'prf_3', name: 'Intense scan, all TCP ports', flags: ['-p 1-65535', '-T4', '-A', '-v'] },
+  { id: 'prf_4', name: 'Intense scan, no ping', flags: ['-T4', '-A', '-v', '-Pn'] },
+  { id: 'prf_5', name: 'Ping scan', flags: ['-sn'] },
+  { id: 'prf_7', name: 'Quick scan', flags: ['-T4', '-F'] },
+  { id: 'prf_8', name: 'Quick scan plus', flags: ['-sV', '-T4', '-O', '-F', '--version-light'] },
+  { id: 'prf_9', name: 'Quick traceroute', flags: ['-sn', '--traceroute'] }
 ]);
 
 const globalFilter = ref({
@@ -116,7 +92,7 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: false
+    frozen: true
   },
 
   {
@@ -142,7 +118,7 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: false
+    frozen: true
   },
 
   {
@@ -164,12 +140,61 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: false
+  },
+
+  {
+    header: { text: 'Profile', width: '16rem' },
+    column: {
+      field: 'profile',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'profile' },
+    filter: {
+      field: 'profile',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'name',
+        label: 'name',
+        onRecords: () => {
+          return SCAN_PROFILES.value;
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Flags', width: '15rem' },
+    column: {
+      field: 'flags',
+      render(value) {
+        return <span>{value?.join(' ') || '-'}</span>;
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: false,
+    sortable: false,
+    frozen: false
   }
 ]);
 
 const runTargetScan = handleSubmit(async () => {
   try {
-    await Onmap.createOne({ title: values.title, target: values.target, profile: values.profile });
+    await Onmap.createOne({
+      title: values.title,
+      target: values.target,
+      profile: values.profile.name,
+      flags: values.profile.flags
+    });
     toast.add({
       severity: 'success',
       summary: t('HD Information'),
@@ -291,13 +316,12 @@ const runTargetScan = handleSubmit(async () => {
                   filter
                   showClear
                   autofocus
-                  optionValue="flags"
                   optionLabel="name"
                   v-bind="profile"
                   :options="SCAN_PROFILES"
                   @change="
                     event => {
-                      setFieldValue('command', event.value.join(' '));
+                      setFieldValue('command', event.value.flags.join(' '));
                     }
                   "
                   :filterPlaceholder="$t('Search in list')"
