@@ -12,9 +12,9 @@ export const useRequest = defineStore('request', () => {
     }
   }
 
-  async function findOne({ id, populate = true }) {
+  async function findOne({ id, populate = false, aggregate = false }) {
     try {
-      return await $axios.get(`/requests/${id}`, { params: { populate } });
+      return await $axios.get(`/requests/${id}`, { params: { populate, aggregate } });
     } catch (err) {
       throw new Error(err.message);
     }

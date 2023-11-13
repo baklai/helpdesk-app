@@ -12,10 +12,20 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  async function findOne({ id = null, ipaddress = null, populate = false }) {
+  async function findOne({ id, populate = false, aggregate = false }) {
     try {
-      return await $axios.get(`/ipaddresses/${id || ipaddress || '127.0.0.1'}`, {
-        params: { populate }
+      return await $axios.get(`/ipaddresses/${id}`, {
+        params: { populate, aggregate }
+      });
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  async function findOneByIP({ ipaddress, populate = false, aggregate = false }) {
+    try {
+      return await $axios.get('/ipaddresses/find', {
+        params: { ipaddress, populate, aggregate }
       });
     } catch (err) {
       throw new Error(err.message);
@@ -46,13 +56,5 @@ export const useIPAddress = defineStore('ipaddress', () => {
     }
   }
 
-  async function networkMap(params) {
-    try {
-      return await $axios.get('/ipaddresses/networkmap', { params });
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  }
-
-  return { findAll, findOne, createOne, updateOne, removeOne, networkMap };
+  return { findAll, findOne, findOneByIP, createOne, updateOne, removeOne };
 });

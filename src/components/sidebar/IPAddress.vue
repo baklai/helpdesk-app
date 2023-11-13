@@ -5,10 +5,8 @@ import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
 
 import { useIPAddress } from '@/stores/api/ipaddresses';
-import { useInspector } from '@/stores/api/inspectors';
 import { dateToStr } from '@/service/DataFilters';
 
-const Inspector = useInspector();
 const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
@@ -16,12 +14,7 @@ const emits = defineEmits(['toggleMenu', 'close']);
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await IPAddress.findOne({ id, populate: true });
-      try {
-        recordsysi.value = await Inspector.findOne({
-          host: record.value?.ipaddress
-        });
-      } catch (err) {}
+      record.value = await IPAddress.findOne({ id, populate: true, aggregate: true });
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
@@ -30,9 +23,7 @@ defineExpose({
 });
 
 const visible = ref(false);
-
 const record = ref(null);
-const recordsysi = ref(null);
 
 const toggleMenu = (event, data) => {
   emits('toggleMenu', event, data);
@@ -41,7 +32,6 @@ const toggleMenu = (event, data) => {
 const onCloseSidebar = () => {
   visible.value = false;
   record.value = null;
-  recordsysi.value = null;
   emits('close', {});
 };
 </script>
@@ -56,9 +46,9 @@ const onCloseSidebar = () => {
         <div class="flex align-items-center justify-content-center">
           <AppIcons name="network-ip-address" :size="40" class="mr-2" />
           <div>
-            <p class="text-lg mb-0">IP {{ record?.ipaddress }}</p>
+            <p class="text-lg mb-0">IP {{ record?.ipaddress?.ipaddress }}</p>
             <p class="text-base font-normal">
-              {{ $t('Date open') }} : {{ dateToStr(record?.date) || '-' }}
+              {{ $t('Date open') }} : {{ dateToStr(record?.ipaddress?.date) || '-' }}
             </p>
           </div>
         </div>
@@ -71,7 +61,7 @@ const onCloseSidebar = () => {
             class="w-2rem h-2rem hover:text-color mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
-            @click="toggleMenu($event, record)"
+            @click="toggleMenu($event, record.ipaddress)"
           />
           <Button
             text
@@ -89,8 +79,8 @@ const onCloseSidebar = () => {
 
     <template #content>
       <div class="overflow-y-auto pt-4" style="height: calc(100vh - 20rem)">
-        <IPAddressPartial :record="record" v-if="record" />
-        <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
+        <IPAddressPartial :record="record.ipaddress" v-if="record?.ipaddress" />
+        <SysInspectorPartial :record="record.inspector" v-if="record?.inspector" />
       </div>
     </template>
   </Card>

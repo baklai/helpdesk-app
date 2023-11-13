@@ -9,13 +9,11 @@ import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 import { byteToStr, strToDate, dateTimeToStr } from '@/service/DataFilters';
 
 import { useInspector } from '@/stores/api/inspectors';
-import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useFilter } from '@/stores/api/filters';
 
 const { t } = useI18n();
 const toast = useToast();
 const Inspector = useInspector();
-const IPAddress = useIPAddress();
 const Filter = useFilter();
 
 const emits = defineEmits(['close']);
@@ -24,13 +22,15 @@ defineExpose({
   toggle: async ({ id }) => {
     if (id) {
       try {
-        record.value = await Inspector.findOne({ id });
-        try {
-          recordip.value = await IPAddress.findOne({
-            ipaddress: record.value.host,
-            populate: true
-          });
-        } catch (err) {}
+        const { inspector, ipaddress } = await Inspector.findOne({
+          id,
+          populate: true,
+          aggregate: true
+        });
+
+        record.value = inspector;
+        recordip.value = ipaddress;
+
         filters.value = await Filter.findAll({});
         visible.value = true;
       } catch (err) {

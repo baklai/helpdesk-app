@@ -70,7 +70,7 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        setValues(await IPAddress.findOne({ id, populate: false }));
+        setValues(await IPAddress.findOne({ id }));
       } else {
         resetForm({ values: {} }, { force: true });
       }
@@ -187,10 +187,7 @@ const comment = defineComponentBinds('comment');
 const checkIPAddress = async () => {
   try {
     if (values?.ipaddress) {
-      const currentIP = await IPAddress.findOne({
-        ipaddress: values.ipaddress,
-        populate: false
-      });
+      const currentIP = await IPAddress.findOneByIP({ ipaddress: values.ipaddress });
       if (currentIP?.ipaddress) {
         toast.add({
           severity: 'warn',

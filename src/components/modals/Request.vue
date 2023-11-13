@@ -141,10 +141,7 @@ const onCloseModal = () => {
 const findOneIPAddress = async () => {
   try {
     if (values?.ipaddress) {
-      const record = await IPAddress.findOne({
-        ipaddress: values.ipaddress,
-        populate: false
-      });
+      const record = await IPAddress.findOneByIP({ ipaddress: values.ipaddress });
       if (record?.ipaddress) {
         setValues({
           ipaddress: record?.ipaddress || null,

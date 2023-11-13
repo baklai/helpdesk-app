@@ -10,28 +10,21 @@ import { useIPAddress } from '@/stores/api/ipaddresses';
 import { dateTimeToStr } from '@/service/DataFilters';
 
 const Request = useRequest();
-const Inspector = useInspector();
-const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await Request.findOne({ id, populate: true });
-      try {
-        recordip.value = record.value?.ipaddress
-          ? await IPAddress.findOne({
-              ipaddress: record.value.ipaddress,
-              populate: true
-            })
-          : null;
-      } catch (err) {}
-      try {
-        recordsysi.value = record.value?.ipaddress
-          ? await Inspector.findOne({ host: record.value.ipaddress })
-          : null;
-      } catch (err) {}
+      const { request, ipaddress, inspector } = await Request.findOne({
+        id,
+        populate: true,
+        aggregate: true
+      });
+
+      record.value = request;
+      recordip.value = ipaddress;
+      recordsysi.value = inspector;
 
       visible.value = true;
     } catch (err) {

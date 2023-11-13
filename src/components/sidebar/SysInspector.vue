@@ -5,24 +5,23 @@ import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
 
 import { dateTimeToStr } from '@/service/DataFilters';
-import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useInspector } from '@/stores/api/inspectors';
 
 const Inspector = useInspector();
-const IPAddress = useIPAddress();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await Inspector.findOne({ id });
-      try {
-        recordip.value = await IPAddress.findOne({
-          ipaddress: record.value?.host,
-          populate: true
-        });
-      } catch (err) {}
+      const { inspector, ipaddress } = await Inspector.findOne({
+        id,
+        populate: true,
+        aggregate: true
+      });
+
+      record.value = inspector;
+      recordip.value = ipaddress;
 
       visible.value = true;
     } catch (err) {
