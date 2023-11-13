@@ -280,7 +280,7 @@ const runTargetScan = handleSubmit(async () => {
             </template>
 
             <div class="formgrid grid p-2">
-              <div class="field col-12 md:col-6">
+              <div class="field col-12 md:col-3">
                 <label for="target">{{ $t('Target') }}</label>
                 <InputText
                   id="target"
@@ -295,7 +295,7 @@ const runTargetScan = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field col-12 md:col-6">
+              <div class="field col-12 md:col-9">
                 <label for="title">{{ $t('Title') }}</label>
                 <InputText
                   id="title"
