@@ -7,7 +7,7 @@ import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { useEvent } from '@/stores/api/events';
-import { dateTimeToStr, capitalizeFirstLetter } from '@/service/DataFilters';
+import { capitalizeFirstLetter } from '@/service/DataFilters';
 
 const { t } = useI18n();
 const toast = useToast();
@@ -38,7 +38,8 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        setValues(await findOne({ id }));
+        const event = await findOne({ id });
+        setValues({ ...event, datetime: new Date(event.datetime) });
       }
       visible.value = true;
     } catch (err) {
@@ -247,11 +248,9 @@ const onSaveRecord = handleSubmit(async () => {
           dateFormat="dd.mm.yy"
           inputId="datetime"
           v-bind="datetime"
-          :modelValue="dateTimeToStr(values.datetime)"
           :placeholder="$t('Datetime of event')"
           :class="{ 'p-invalid': !!errors?.datetime }"
           aria-describedby="datetime-help"
-          :disabled="true"
         />
         <small id="datetime-help" class="p-error" v-if="errors?.datetime">
           {{ $t(errors.datetime) }}
