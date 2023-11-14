@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import PrivateLayout from '@/layout/PrivateLayout.vue';
 import PublicLayout from '@/layout/PublicLayout.vue';
@@ -6,7 +6,7 @@ import PublicLayout from '@/layout/PublicLayout.vue';
 import { useApp } from '@/stores/app';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory('hd'),
   routes: [
     {
       path: '/',
@@ -18,8 +18,6 @@ const router = createRouter({
       component: () => import('@/views/Index.vue'),
       beforeEnter: (to, from) => {
         const store = useApp();
-
-        if (to.path === 'docs') return;
         if (!store.loggedIn) {
           return { path: '/auth/signin' };
         } else {
@@ -291,8 +289,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  if (to.path === 'docs') return;
-
   const title = to?.meta?.title;
   if (title) {
     document.title = `HD • ${title}`;
@@ -313,8 +309,6 @@ router.beforeEach((to, from) => {
 
 router.beforeEach(async (to, from) => {
   const store = useApp();
-
-  if (to.path === 'docs') return;
 
   if (store.loggedIn) {
     to.meta.layout = PrivateLayout;

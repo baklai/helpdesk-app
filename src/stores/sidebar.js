@@ -16,7 +16,7 @@ export const useSidebar = defineStore('sidebar', () => {
       items: [
         {
           title: t('Docs of helpdesk'),
-          url: 'docs',
+          url: '/docs/',
           icon: 'docs',
           target: '_blank',
           description: t('Docs of the technical support')
