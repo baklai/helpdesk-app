@@ -96,6 +96,31 @@ const columns = ref([
   },
 
   {
+    header: { text: 'Status', width: '10rem' },
+    column: {
+      field: 'upHost',
+      render(value) {
+        return (
+          <Tag
+            class={
+              value > 0
+                ? 'text-base text-white font-medium w-4 bg-green-500'
+                : 'text-base text-white font-medium w-4 bg-gray-500'
+            }
+            value={value > 0 ? t('UP') : t('DOWN')}
+          />
+        );
+      }
+    },
+    sorter: { field: 'upHost' },
+    selectable: true,
+    exportable: true,
+    filtrable: false,
+    sortable: true,
+    frozen: true
+  },
+
+  {
     header: { text: 'Target', width: '15rem' },
     column: {
       field: 'target',
