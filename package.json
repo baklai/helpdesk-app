@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "vite preview",
-    "build": "vite build && vitepress build docs --minify false",
+    "build": "vite build && vitepress build docs",
     "start:dev": "vite",
     "start:lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "start:format": "prettier --write src/",
