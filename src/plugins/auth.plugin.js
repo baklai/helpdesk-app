@@ -29,6 +29,7 @@ export default {
 
           store.setAccessToken(accessToken);
           store.setRefreshToken(refreshToken);
+          store.setRememberToken(remember);
 
           await this.me();
           $router.push({ name: 'home' });

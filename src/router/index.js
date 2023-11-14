@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { inject } from 'vue';
 
 import PrivateLayout from '@/layout/PrivateLayout.vue';
 import PublicLayout from '@/layout/PublicLayout.vue';
@@ -309,8 +310,13 @@ router.beforeEach((to, from) => {
 
 router.beforeEach(async (to, from) => {
   const store = useApp();
+  const $auth = inject('auth');
 
-  if (store.loggedIn) {
+  if (!store.loggedIn && store.getRefreshToken()) {
+    await $auth.me();
+  }
+
+  if (store.loggedIn && to.name !== 'signin' && to.name !== 'signup') {
     to.meta.layout = PrivateLayout;
   } else {
     to.meta.layout = PublicLayout;
