@@ -3,13 +3,15 @@ import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 
+import Badge from 'primevue/badge';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/IPAddress.vue';
 import SidebarRecord from '@/components/sidebar/IPAddress.vue';
 
-import { dateToStr } from '@/service/DataFilters';
+import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
@@ -124,6 +126,32 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: true
+  },
+
+  {
+    header: { text: 'Last connection', width: '15rem' },
+    column: {
+      field: 'updatedAt',
+      render(value) {
+        return (
+          <div class="w-full">
+            <span class="mr-3">{dateTimeToStr(value)}</span>
+            <Badge severity="success" style={{ minWidth: '.8rem', height: '.8rem' }} />
+          </div>
+        );
+      }
+    },
+    sorter: { field: 'updatedAt' },
+    filter: {
+      field: 'updatedAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
   },
 
   {

@@ -4,6 +4,8 @@ import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
+import Badge from 'primevue/badge';
+
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
@@ -250,6 +252,32 @@ const columns = ref([
     exportable: false,
     filtrable: true,
     sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Last connection', width: '15rem' },
+    column: {
+      field: 'updatedAt',
+      render(value) {
+        return (
+          <div class="w-full">
+            <span class="mr-3">{dateTimeToStr(value)}</span>
+            <Badge severity="success" style={{ minWidth: '.8rem', height: '.8rem' }} />
+          </div>
+        );
+      }
+    },
+    sorter: { field: 'updatedAt' },
+    filter: {
+      field: 'updatedAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
     frozen: false
   },
 
