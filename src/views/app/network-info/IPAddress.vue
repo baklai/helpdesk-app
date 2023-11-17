@@ -147,7 +147,7 @@ const columns = ref([
       value: null,
       matchMode: FilterMatchMode.DATE_IS
     },
-    selectable: true,
+    selectable: false,
     exportable: true,
     filtrable: true,
     sortable: true,
