@@ -4,11 +4,11 @@ import Terminal from 'primevue/terminal';
 import TerminalService from 'primevue/terminalservice';
 import { useI18n } from 'vue-i18n';
 
-import { useTool } from '@/stores/api/systools';
+import { usePing } from '@/stores/api/pings';
 
 const { t } = useI18n();
 
-const Tool = useTool();
+const Ping = usePing();
 
 onMounted(() => {
   TerminalService.on('command', commandHandler);
@@ -31,13 +31,13 @@ const commandHandler = async text => {
       break;
 
     case 'date':
-      response = t('Today is ') + new Date().toLocaleDateString();
+      response = t('Now is ') + new Date().toLocaleString();
       break;
 
     case 'ping':
       response = `ICMP Ping running on ${host}`;
       try {
-        const ping = await Tool.getCommandPING({ host: host });
+        const ping = await Ping.createOne({ host: host });
         if (ping.output) {
           response += ping?.output;
         }
@@ -79,7 +79,7 @@ const commandHandler = async text => {
               text
               plain
               rounded
-              icon="pi pi-filter-slash"
+              icon="pi pi-trash"
               iconClass="text-2xl"
               class="p-button-lg hover:text-color h-3rem w-3rem"
               v-tooltip.bottom="$t('Clear terminal')"
@@ -100,58 +100,23 @@ const commandHandler = async text => {
 
       <Terminal
         :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
-        :prompt="`${$helpdesk?.user?.login}$&nbsp;`"
+        :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
         class="h-30rem text-xl"
         aria-label="Helpdesk Terminal Service"
       />
 
       <div class="px-4 py-4">
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-t</code>
-          <span class="text-lg font-normal line-height-2">
-            : Пинговать целевой хост непрерывно, пока не будет прервано пользователем.
+        <h5>
+          Example:
+          <span class="font-normal text-primary surface-hover border-round p-2">
+            ping 192.168.0.1 -n 3 -w 1000
           </span>
-        </p>
+        </h5>
 
         <p>
           <code class="text-base font-normal text-color surface-hover">-n &lt;число&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Указывает количество отправляемых запросов пинга.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-l &lt;размер&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Задает размер пакета данных пинга в байтах.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-f &lt;количество&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Устанавливает флаг "Фрагментация запрещена" в отправляемых пакетах.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-i &lt;время&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Устанавливает интервал между отправкой пакетов пинга в миллисекундах.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-v &lt;TTL&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Задает значение поля "Time to Live" (TTL) в отправляемых пакетах.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal text-color surface-hover">-r &lt;количество&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Позволяет задать максимальное количество прыжков (просмотров) пакетов пинга.
           </span>
         </p>
 

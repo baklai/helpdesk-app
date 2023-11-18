@@ -6,10 +6,12 @@ import { useToast } from 'primevue/usetoast';
 import { Clipboard } from 'v-clipboard';
 
 import { useTool } from '@/stores/api/systools';
+import { usePing } from '@/stores/api/pings';
 
 const { t } = useI18n();
 const toast = useToast();
 const Tool = useTool();
+const Ping = usePing();
 
 const props = defineProps({
   crud: {
@@ -151,7 +153,7 @@ const onPINGCommand = async value => {
       detail: t(`ICMP Ping running on ${value}`),
       life: 3000
     });
-    const ping = await Tool.getCommandPING({ host: value });
+    const ping = await Ping.createOne({ host: value });
     if (ping.output) {
       toast.add({
         severity: 'success',
