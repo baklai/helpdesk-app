@@ -80,6 +80,14 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
+        scope: 'ping',
+        comment: 'Ping srvice',
+        create: true,
+        read: true,
+        delete: false
+      },
+
+      {
         scope: 'report',
         comment: 'Reports of service',
         read: false
