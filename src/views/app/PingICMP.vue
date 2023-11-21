@@ -42,7 +42,7 @@ const commandHandler = async text => {
           response += ping?.output;
         }
       } catch (err) {
-        response += `ICMP Ping on ${value} does not answer`;
+        response += `ICMP Ping on ${host} does not answer`;
       }
       break;
 

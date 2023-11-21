@@ -4,7 +4,7 @@ import { dateToStr } from '@/service/DataFilters';
 defineProps({
   record: {
     type: Object,
-    default: {},
+    default: () => {},
     required: true
   }
 });

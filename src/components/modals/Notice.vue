@@ -14,15 +14,7 @@ const toast = useToast();
 const { createOne } = useNotice();
 const { find } = useUser();
 
-const {
-  values,
-  errors,
-  handleSubmit,
-  controlledValues,
-  setValues,
-  resetForm,
-  defineComponentBinds
-} = useForm({
+const { values, errors, handleSubmit, resetForm, defineComponentBinds } = useForm({
   validationSchema: yup.object({
     name: yup.string().required(t('Value is required')),
     text: yup.string().required(t('Value is required')),
@@ -34,7 +26,7 @@ const {
 const emits = defineEmits(['close']);
 
 defineExpose({
-  toggle: async ({}) => {
+  toggle: async () => {
     try {
       records.value = await find();
       visible.value = true;

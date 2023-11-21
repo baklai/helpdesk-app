@@ -5,8 +5,6 @@ import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
 
 import { useRequest } from '@/stores/api/requests';
-import { useInspector } from '@/stores/api/inspectors';
-import { useIPAddress } from '@/stores/api/ipaddresses';
 import { dateTimeToStr } from '@/service/DataFilters';
 
 const Request = useRequest();

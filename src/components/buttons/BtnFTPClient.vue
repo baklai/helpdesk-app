@@ -1,7 +1,7 @@
 <script setup>
-const openInNewTab = url => {
-  window.open(url, '_blank', 'noreferrer');
-};
+// const openInNewTab = url => {
+//   window.open(url, '_blank', 'noreferrer');
+// };
 </script>
 
 <template>

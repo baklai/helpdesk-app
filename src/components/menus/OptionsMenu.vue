@@ -20,7 +20,7 @@ const props = defineProps({
   },
   items: {
     type: Array,
-    default: []
+    default: () => []
   },
   hostkey: { type: [String, Boolean], default: false }
 });

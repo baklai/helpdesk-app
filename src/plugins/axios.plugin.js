@@ -4,7 +4,7 @@ import { useApp } from '@/stores/app';
 
 export default {
   install: (app, { baseURL, prefixAPI = '/', options, refresh }) => {
-    const { $error, $router } = app.config.globalProperties;
+    const { $router } = app.config.globalProperties;
     const store = useApp();
 
     const axiosInstance = axios.create({

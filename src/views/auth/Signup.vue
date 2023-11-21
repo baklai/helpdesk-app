@@ -37,7 +37,7 @@ const fullname = defineComponentBinds('fullname');
 const email = defineComponentBinds('email');
 const phone = defineComponentBinds('phone');
 
-const onSignup = handleSubmit(async (values, { resetForm }) => {
+const onSignup = handleSubmit(async values => {
   try {
     await $auth.signup(values);
     toast.add({

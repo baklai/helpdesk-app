@@ -212,7 +212,7 @@ export const useScope = defineStore('scope', () => {
 
   function scopeLength() {
     let count = 0;
-    scope().forEach((item, index, array) => {
+    scope().forEach(item => {
       const keys = Object.keys(item);
       for (const key of keys) {
         if (typeof item[key] === 'boolean') {
