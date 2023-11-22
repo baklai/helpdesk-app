@@ -104,7 +104,7 @@ const columns = ref([
         return (
           <Tag
             class="text-base font-semibold text-white border-1 border-solid surface-border border-round-xs px-2 w-6rem"
-            style={{ background: methodHttpToColor(value) }}
+            style={{ background: `var(${methodHttpToColor(value)})` }}
             value={value}
           />
         );

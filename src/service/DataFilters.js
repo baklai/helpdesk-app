@@ -39,16 +39,16 @@ export const byteToStr = value => {
 export const methodHttpToColor = value => {
   switch (value.toUpperCase()) {
     case 'GET':
-      return 'var(--blue-500)';
+      return '--blue-500';
     case 'POST':
-      return 'var(--green-500)';
+      return '--green-500';
     case 'PUT':
     case 'PUTCH':
-      return 'var(--orange-500)';
+      return '--orange-500';
     case 'DELETE':
-      return 'var(--red-500)';
+      return '--red-500';
     default:
-      return 'var(--gray-500)';
+      return '--gray-500';
   }
 };
 

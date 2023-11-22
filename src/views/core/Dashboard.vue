@@ -2,16 +2,166 @@
 import { onMounted, ref } from 'vue';
 
 import { useStatistic } from '@/stores/api/statistics';
-import { dateToStr } from '@/service/DataFilters';
+import { dateToStr, methodHttpToColor } from '@/service/DataFilters';
 
 const Statistic = useStatistic();
 
 const stats = ref({});
 const currentDate = ref();
+const chartDataActivity = ref();
+const chartDataActivityOptions = ref();
+const chartDataActivityUsers = ref();
+const chartDataActivityUsersOptions = ref();
+
+const setChartDataActivity = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+
+  return {
+    labels: stats.value.activity.map(({ date }) => dateToStr(date)),
+    datasets: [
+      {
+        label: 'API',
+        fill: true,
+        borderColor: documentStyle.getPropertyValue('--orange-500'),
+        tension: 0.4,
+        backgroundColor: 'rgba(255,167,38,0.2)',
+        data: stats.value.activity.map(({ count }) => count)
+      }
+    ]
+  };
+};
+
+const setChartDataActivityOptions = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue('--text-color');
+  const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+  const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+  return {
+    maintainAspectRatio: false,
+    aspectRatio: 0.6,
+    plugins: {
+      legend: {
+        labels: {
+          color: textColor
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      },
+      y: {
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      }
+    }
+  };
+};
+
+const setChartDataActivityUsers = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+
+  return {
+    labels: stats.value.activityUsers.map(({ user }) => user),
+    datasets: [
+      {
+        type: 'bar',
+        label: 'GET',
+        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('GET')),
+        data: stats.value.activityUsers.map(({ methods }) =>
+          methods.filter(({ method }) => method === 'GET').map(({ count }) => count)
+        )
+      },
+      {
+        type: 'bar',
+        label: 'POST',
+        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('POST')),
+        data: stats.value.activityUsers.map(({ methods }) =>
+          methods.filter(({ method }) => method === 'POST').map(({ count }) => count)
+        )
+      },
+      {
+        type: 'bar',
+        label: 'PUT',
+        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('PUT')),
+        data: stats.value.activityUsers.map(({ methods }) =>
+          methods.filter(({ method }) => method === 'PUT').map(({ count }) => count)
+        )
+      },
+      {
+        type: 'bar',
+        label: 'DELETE',
+        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('DELETE')),
+        data: stats.value.activityUsers.map(({ methods }) =>
+          methods.filter(({ method }) => method === 'DELETE').map(({ count }) => count)
+        )
+      }
+    ]
+  };
+};
+
+const setChartDataActivityUsersOptions = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue('--text-color');
+  const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+  const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+  return {
+    maintainAspectRatio: false,
+    aspectRatio: 0.8,
+    plugins: {
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      },
+      legend: {
+        labels: {
+          color: textColor
+        }
+      }
+    },
+    scales: {
+      x: {
+        stacked: true,
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      },
+      y: {
+        stacked: true,
+        ticks: {
+          color: textColorSecondary
+        },
+        grid: {
+          color: surfaceBorder
+        }
+      }
+    }
+  };
+};
 
 onMounted(async () => {
-  stats.value = await Statistic.dashboard();
   currentDate.value = dateToStr(Date.now());
+  stats.value = await Statistic.dashboard();
+
+  chartDataActivity.value = setChartDataActivity();
+  chartDataActivityOptions.value = setChartDataActivityOptions();
+
+  chartDataActivityUsers.value = setChartDataActivityUsers();
+  chartDataActivityUsersOptions.value = setChartDataActivityUsersOptions();
 });
 </script>
 
@@ -30,6 +180,30 @@ onMounted(async () => {
     </div>
 
     <div class="grid align-content-start">
+      <div class="col-12 lg:col-6 xl:col-6">
+        <div class="card surface-50 mb-0">
+          <h5>{{ $t('API Activity for the current month') }}</h5>
+          <Chart
+            type="line"
+            :data="chartDataActivity"
+            :options="chartDataActivityOptions"
+            class="h-30rem"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-6 xl:col-6">
+        <div class="card surface-50 mb-0">
+          <h5>{{ $t('User activity for the current month') }}</h5>
+          <Chart
+            type="bar"
+            :data="chartDataActivityUsers"
+            :options="chartDataActivityUsersOptions"
+            class="h-30rem"
+          />
+        </div>
+      </div>
+
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
           <div class="flex justify-content-between mb-3">
