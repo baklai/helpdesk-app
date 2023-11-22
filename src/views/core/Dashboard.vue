@@ -180,7 +180,7 @@ onMounted(async () => {
     </div>
 
     <div class="grid align-content-start">
-      <div class="col-12 lg:col-6 xl:col-6">
+      <div class="col-12 xl:col-6">
         <div class="card surface-50 mb-0">
           <h5>{{ $t('API Activity for the current month') }}</h5>
           <Chart
@@ -192,7 +192,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-6">
+      <div class="col-12 xl:col-6">
         <div class="card surface-50 mb-0">
           <h5>{{ $t('User activity for the current month') }}</h5>
           <Chart
