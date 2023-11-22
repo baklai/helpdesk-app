@@ -1,331 +1,543 @@
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
+<script setup lang="jsx">
+import { ref } from 'vue';
+import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import { MONTHS_OF_YEAR, DAYS_OF_WEEK } from '@/service/Constants';
-import { dateToStr } from '@/service/DataFilters';
+import SSDataTable from '@/components/tables/SSDataTable.vue';
+import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+import ModalRecord from '@/components/modals/Request.vue';
+import SidebarRecord from '@/components/sidebar/Request.vue';
 
-import { useStatistic } from '@/stores/api/statistics';
+import { dateTimeToStr } from '@/service/DataFilters';
+import { useRequest } from '@/stores/api/requests';
+import { useСompany } from '@/stores/api/companies';
+import { useBranch } from '@/stores/api/branches';
+import { useLocation } from '@/stores/api/locations';
+import { useDepartment } from '@/stores/api/departments';
+import { useEnterprise } from '@/stores/api/enterprises';
+import { usePosition } from '@/stores/api/positions';
+import { useUser } from '@/stores/api/users';
 
-const Statistic = useStatistic();
+const Request = useRequest();
+const Сompany = useСompany();
+const Branch = useBranch();
+const Department = useDepartment();
+const Enterprise = useEnterprise();
+const Position = usePosition();
+const Location = useLocation();
+const User = useUser();
 
-const { t } = useI18n();
-const stats = ref({});
+const refMenu = ref();
+const refModal = ref();
+const refSidebar = ref();
+const refDataTable = ref();
 
-const yearChartData = ref();
-const monthChartData = ref();
-const weekChartData = ref();
-const currentDate = ref(Date.now());
-const chartOptions = ref({
-  plugins: {
-    legend: {
-      display: false
-    }
+const globalFilter = ref({
+  field: 'request',
+  matchMode: FilterMatchMode.CONTAINS,
+  placeholder: 'Search request'
+});
+
+const columns = ref([
+  {
+    header: { text: 'Opened an request', width: '16rem' },
+    column: {
+      field: 'workerOpen.fullname',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'workerOpen.fullname' },
+    filter: {
+      field: 'workerOpen',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'fullname',
+        onRecords: async () => {
+          return await User.find();
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Date opened', width: '15rem' },
+    column: {
+      field: 'createdAt',
+      render(value) {
+        return <span class="cursor-pointer">{dateTimeToStr(value) || '-'}</span>;
+      },
+      action(data) {
+        refSidebar.value.toggle(data);
+      }
+    },
+    sorter: { field: 'createdAt' },
+    filter: {
+      field: 'createdAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Status', width: '12rem' },
+    column: {
+      field: 'status',
+      render(value) {
+        return value ? (
+          <i class="pi pi-check-circle text-green-500 font-bold cursor-pointer" />
+        ) : (
+          <i class="pi pi-info-circle text-orange-500 font-bold cursor-pointer" />
+        );
+      }
+    },
+    sorter: { field: 'status' },
+    filter: {
+      field: 'status',
+      value: null,
+      matchMode: FilterMatchMode.EQUALS,
+      showFilterMatchModes: false
+    },
+    selectable: true,
+    exportable: false,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Request', width: '25rem' },
+    column: {
+      field: 'request',
+      render(value) {
+        return <span class="cursor-pointer">{value}</span>;
+      },
+      action(data) {
+        refSidebar.value.toggle(data);
+      }
+    },
+    sorter: { field: 'request' },
+    filter: {
+      field: 'request',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
+    header: { text: 'Location', width: '15rem' },
+    column: {
+      field: 'location.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'location.name' },
+    filter: {
+      field: 'location',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Location.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Fullname', width: '16rem' },
+    column: {
+      field: 'fullname',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'fullname' },
+    filter: {
+      field: 'fullname',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Phone', width: '15rem' },
+    column: {
+      field: 'phone',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'phone' },
+    filter: {
+      field: 'phone',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Position', width: '16rem' },
+    column: {
+      field: 'position.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'position.name' },
+    filter: {
+      field: 'position',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Position.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'IP Address', width: '16rem' },
+    column: {
+      field: 'ipaddress',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'ipaddress' },
+    filter: {
+      field: 'ipaddress',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Mail', width: '16rem' },
+    column: {
+      field: 'mail',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'mail' },
+    filter: {
+      field: 'mail',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Company', width: '16rem' },
+    column: {
+      field: 'company.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'company.name' },
+    filter: {
+      field: 'company',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Сompany.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Branch', width: '16rem' },
+    column: {
+      field: 'branch.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'branch.name' },
+    filter: {
+      field: 'branch',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Branch.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Enterprise', width: '16rem' },
+    column: {
+      field: 'enterprise.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'enterprise.name' },
+    filter: {
+      field: 'enterprise',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Enterprise.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Department', width: '16rem' },
+    column: {
+      field: 'department.name',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'department.name' },
+    filter: {
+      field: 'department',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Department.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Date closed', width: '15rem' },
+    column: {
+      field: 'updatedAt',
+      render(value) {
+        return <span>{dateTimeToStr(value) || '-'}</span>;
+      }
+    },
+    sorter: { field: 'updatedAt' },
+    filter: {
+      field: 'updatedAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Closed an request', width: '16rem' },
+    column: {
+      field: 'workerClose.fullname',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'workerClose.fullname' },
+    filter: {
+      field: 'workerClose',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'fullname',
+        onRecords: async () => {
+          return await User.find();
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Conclusion for request', width: '25rem' },
+    column: {
+      field: 'conclusion',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: false,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Comment', width: '25rem' },
+    column: {
+      field: 'comment',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    selectable: true,
+    exportable: false,
+    filtrable: false,
+    sortable: false,
+    frozen: false
   }
-});
-
-onMounted(async () => {
-  stats.value = await Statistic.request();
-  yearChartData.value = {
-    labels: MONTHS_OF_YEAR.map(month => t(month.label)),
-    datasets: [
-      {
-        label: t('Count of requests'),
-        data: MONTHS_OF_YEAR.map(
-          month => stats.value.yearchar.find(item => item.month === month.key)?.count || 0
-        )
-      }
-    ]
-  };
-
-  monthChartData.value = {
-    labels: stats.value.monthchar.map(item => item.date),
-    datasets: [
-      {
-        label: t('Count of requests'),
-        data: stats.value.monthchar.map(item => item.count)
-      }
-    ]
-  };
-
-  weekChartData.value = {
-    labels: DAYS_OF_WEEK.map(week => t(week.label)),
-    datasets: [
-      {
-        label: t('Count of requests'),
-        data: DAYS_OF_WEEK.map(
-          day => stats.value.weekchar.find(item => item.day - 1 === day.key)?.count || 0
-        )
-      }
-    ]
-  };
-});
+]);
 </script>
 
 <template>
-  <div className="col-12">
-    <div class="flex align-content-center mb-4">
-      <div class="flex align-items-center justify-content-center mr-2">
-        <AppIcons :name="$route?.name" :size="42" />
-      </div>
-      <div>
-        <h5 class="text-sm text-color-secondary m-0">
+  <div class="col-12">
+    <div class="flex h-full">
+      <OptionsMenu
+        ref="refMenu"
+        hostkey="ipaddress"
+        @view="data => refSidebar.toggle(data)"
+        @create="data => refModal.toggle(data)"
+        @update="data => refModal.toggle(data)"
+        @delete="data => refDataTable.delete(data)"
+      />
+
+      <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
+
+      <SSDataTable
+        ref="refDataTable"
+        :columns="columns"
+        :globalFilter="globalFilter"
+        :storageKey="`app-${$route.name}-datatable`"
+        :exportFileName="$route.name"
+        :onUpdate="Request.findAll"
+        :onDelete="Request.removeOne"
+        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+        @toggle-modal="data => refModal.toggle(data)"
+        @toggle-sidebar="data => refSidebar.toggle(data)"
+      >
+        <template #icon>
+          <i class="mr-2 hidden sm:block">
+            <AppIcons :name="$route?.name" :size="42" />
+          </i>
+        </template>
+
+        <template #title>
           {{ $t($route?.meta?.title) }}
-        </h5>
-        <h3 class="m-0">{{ $t($route?.meta?.description) }}</h3>
-      </div>
-    </div>
+        </template>
 
-    <div class="grid align-content-start" style="height: calc(100vh - 9rem)">
-      <div class="col-12 lg:col-8 xl:col-9">
-        <div class="grid">
-          <div class="col-12 lg:col-6 xl:col-4">
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
-                <div>
-                  <span class="block text-500 font-medium mb-3">
-                    {{ $t('Total number of requests') }}
-                  </span>
-                  <div class="text-900 font-medium text-xl">
-                    {{ stats?.requests || '-' }}
-                  </div>
-                </div>
-                <div
-                  class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>book-open-outline</title>
-                    <path
-                      d="M21,4H3A2,2 0 0,0 1,6V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19V6A2,2 0 0,0 21,4M3,19V6H11V19H3M21,19H13V6H21V19M14,9.5H20V11H14V9.5M14,12H20V13.5H14V12M14,14.5H20V16H14V14.5Z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-            </div>
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
-                <div>
-                  <span class="block text-500 font-medium mb-3">
-                    {{ $t('Total number of closed requests') }}
-                  </span>
-                  <div class="text-900 font-medium text-xl">
-                    {{ stats?.closed || '-' }}
-                  </div>
-                </div>
-                <div
-                  class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2"
-                >
-                  <i class="pi pi-check-circle text-white text-2xl"></i>
-                </div>
-              </div>
-              <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-            </div>
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
-                <div>
-                  <span class="block text-500 font-medium mb-3">
-                    {{ $t('Total number of opened requests') }}
-                  </span>
-                  <div class="text-900 font-medium text-xl">
-                    {{ stats?.opened || '-' }}
-                  </div>
-                </div>
-                <div
-                  class="flex align-items-center justify-content-center bg-orange-500 border-round w-3rem h-3rem p-2"
-                >
-                  <i class="pi pi-info-circle text-white text-2xl"></i>
-                </div>
-              </div>
-              <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-            </div>
-          </div>
+        <template #subtitle>
+          {{ $t($route?.meta?.description) }}
+        </template>
 
-          <div class="col-12 lg:col-6 xl:col-8">
-            <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
-                <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current week') }}</h5>
-              </div>
-              <Chart type="bar" :data="weekChartData" :options="chartOptions" class="w-full" />
-            </div>
-          </div>
+        <template #actions>
+          <BtnDBTables />
+        </template>
+      </SSDataTable>
 
-          <div class="col-12">
-            <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
-                <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current month') }}</h5>
-              </div>
-              <Chart type="bar" :data="monthChartData" :options="chartOptions" class="w-full" />
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
-                <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current year') }}</h5>
-              </div>
-              <Chart type="bar" :data="yearChartData" :options="chartOptions" class="w-full" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 lg:col-4 xl:col-3">
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of companies') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.companies || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>office-building-outline</title>
-                <path
-                  d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of branches') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.branches || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>office-building-outline</title>
-                <path
-                  d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of enterprises') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.enterprises || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>office-building-outline</title>
-                <path
-                  d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of departments') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.departments || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>office-building-outline</title>
-                <path
-                  d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of locations') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.locations || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>map-marker-outline</title>
-                <path
-                  d="M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">
-                {{ $t('Total number of positions') }}
-              </span>
-              <div class="text-900 font-medium text-xl">
-                {{ stats?.positions || '-' }}
-              </div>
-            </div>
-            <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <title>briefcase-account-outline</title>
-                <path
-                  d="M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14M12,9A2.25,2.25 0 0,1 14.25,11.25C14.25,12.5 13.24,13.5 12,13.5A2.25,2.25 0 0,1 9.75,11.25C9.75,10 10.76,9 12,9M16.5,18H7.5V16.88C7.5,15.63 9.5,14.63 12,14.63C14.5,14.63 16.5,15.63 16.5,16.88V18Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
-        </div>
-      </div>
+      <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>
   </div>
 </template>

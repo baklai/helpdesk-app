@@ -93,7 +93,7 @@ const router = createRouter({
                 title: 'Service statistics',
                 description: 'Statistics of network information'
               },
-              component: () => import('@/views/app/network-info/NetworkInfo.vue')
+              component: () => import('@/views/app/network-info/NetworkStatistics.vue')
             }
           ]
         },
@@ -113,7 +113,7 @@ const router = createRouter({
                 title: 'Help Desk Live Log',
                 description: 'HD Live Log of the technical support'
               },
-              component: () => import('@/views/app/hd-live-log/HDLiveLogRequests.vue')
+              component: () => import('@/views/app/hd-live-log/HDLiveLog.vue')
             },
             {
               path: 'statistics',
@@ -122,7 +122,7 @@ const router = createRouter({
                 title: 'Service statistics',
                 description: 'Statistics of Helpdesk Live Log'
               },
-              component: () => import('@/views/app/hd-live-log/HDLiveLog.vue')
+              component: () => import('@/views/app/hd-live-log/HDLiveLogStatistics.vue')
             }
           ]
         },
@@ -142,7 +142,7 @@ const router = createRouter({
                 title: 'PC SysInspector',
                 description: 'PC SysInspector service of the technical support'
               },
-              component: () => import('@/views/app/pc-sys-inspector/PCSysInspectorReports.vue')
+              component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue')
             },
             {
               path: 'statistics',
@@ -151,7 +151,7 @@ const router = createRouter({
                 title: 'Service statistics',
                 description: 'Statistics of PC SysInspector'
               },
-              component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue')
+              component: () => import('@/views/app/pc-sys-inspector/PCSysInspectorStatistics.vue')
             }
           ]
         },
@@ -171,7 +171,7 @@ const router = createRouter({
                 title: 'ONMAP Scanner',
                 description: 'Online network mapper scanner of the technical support'
               },
-              component: () => import('@/views/app/onmap-scanner/ONMAPScannerReports.vue')
+              component: () => import('@/views/app/onmap-scanner/ONMAPScanner.vue')
             },
             {
               path: 'statistics',
@@ -180,7 +180,7 @@ const router = createRouter({
                 title: 'Service statistics',
                 description: 'Statistics of online network mapper service'
               },
-              component: () => import('@/views/app/onmap-scanner/ONMAPScanner.vue')
+              component: () => import('@/views/app/onmap-scanner/ONMAPStatistics.vue')
             }
           ]
         },
