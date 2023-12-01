@@ -238,15 +238,6 @@ const router = createRouter({
           component: () => import('@/views/core/LogAudit.vue')
         },
         {
-          path: 'options',
-          name: 'core-options',
-          meta: {
-            title: 'Configuration',
-            description: 'Configuration of the helpdesk service'
-          },
-          component: () => import('@/views/core/Options.vue')
-        },
-        {
           path: 'users',
           name: 'core-users',
           meta: {

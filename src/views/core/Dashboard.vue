@@ -1,9 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
+import { useTask } from '@/stores/api/tasks';
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr, methodHttpToColor } from '@/service/DataFilters';
 
+const Task = useTask();
 const Statistic = useStatistic();
 
 const stats = ref({});
@@ -180,6 +182,64 @@ onMounted(async () => {
     </div>
 
     <div class="grid align-content-start">
+      <!-- <div class="col-12">
+        <div class="grid">
+          <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card surface-50 mb-0">
+              <div class="flex justify-content-between mb-3">
+                <div>
+                  <span class="block text-xl text-500 font-medium mb-3">
+                    {{ $t('Task') }}: {{ $t('Clear logs') }}
+                  </span>
+                  <div class="text-900 font-medium text-xl">
+                    {{ stats?.requests || '-' }}
+                  </div>
+                </div>
+                <div
+                  class="flex align-items-center justify-content-center bg-primary border-round w-3rem h-3rem p-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>math-log</title>
+                    <path
+                      d="M18 7C16.9 7 16 7.9 16 9V15C16 16.1 16.9 17 18 17H20C21.1 17 22 16.1 22 15V11H20V15H18V9H22V7H18M2 7V17H8V15H4V7H2M11 7C9.9 7 9 7.9 9 9V15C9 16.1 9.9 17 11 17H13C14.1 17 15 16.1 15 15V9C15 7.9 14.1 7 13 7H11M11 9H13V15H11V9Z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <span class="text-green-500 font-medium mr-2">{{ $t('Last run at') }}</span>
+              <span class="text-500">{{ currentDate }}</span>
+            </div>
+          </div>
+
+          <div class="col-12 lg:col-6 xl:col-3">
+            <div class="card surface-50 mb-0">
+              <div class="flex justify-content-between mb-3">
+                <div>
+                  <span class="block text-xl text-500 font-medium mb-3">
+                    {{ $t('Task') }}: {{ $t('Clear logs') }}
+                  </span>
+                  <div class="text-900 font-medium text-xl">
+                    {{ stats?.requests || '-' }}
+                  </div>
+                </div>
+                <div
+                  class="flex align-items-center justify-content-center bg-primary border-round w-3rem h-3rem p-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>math-log</title>
+                    <path
+                      d="M18 7C16.9 7 16 7.9 16 9V15C16 16.1 16.9 17 18 17H20C21.1 17 22 16.1 22 15V11H20V15H18V9H22V7H18M2 7V17H8V15H4V7H2M11 7C9.9 7 9 7.9 9 9V15C9 16.1 9.9 17 11 17H13C14.1 17 15 16.1 15 15V9C15 7.9 14.1 7 13 7H11M11 9H13V15H11V9Z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <span class="text-green-500 font-medium mr-2">{{ $t('Last run at') }}</span>
+              <span class="text-500">{{ currentDate }}</span>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
       <div class="col-12 xl:col-6">
         <div class="card surface-50 mb-0">
           <h5>{{ $t('API Activity for the current month') }}</h5>

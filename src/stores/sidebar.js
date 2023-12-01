@@ -60,12 +60,7 @@ export const useSidebar = defineStore('sidebar', () => {
     {
       title: t('Administration'),
       separator: false,
-      items: [
-        getRoute('core-dashboard'),
-        getRoute('core-log-audit'),
-        getRoute('core-options'),
-        getRoute('core-users')
-      ]
+      items: [getRoute('core-dashboard'), getRoute('core-log-audit'), getRoute('core-users')]
     }
   ]);
 

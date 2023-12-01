@@ -256,6 +256,29 @@ const columns = ref([
   },
 
   {
+    header: { text: 'Fix Update', width: '13rem' },
+    column: {
+      field: 'fixupdate',
+      render(value) {
+        return <Tag class={'text-base text-color font-medium w-3 surface-hover'} value={value} />;
+      }
+    },
+    sorter: { field: 'fixupdate' },
+    filter: {
+      field: 'fixupdate.HotFixID',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: false,
+    exportable: false,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
     header: { text: 'Last connection', width: '15rem' },
     column: {
       field: 'updatedAt',
