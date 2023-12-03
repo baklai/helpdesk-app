@@ -3,8 +3,6 @@ import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-// import ModalRecord from '@/components/modals/Notice.vue';
-
 const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Notice.vue'));
 
 import { dateTimeToStr } from '@/service/DataFilters';
@@ -22,6 +20,8 @@ const refModal = ref();
 const onRecords = async () => {
   try {
     records.value = await findAll({});
+
+    console.log(records.value);
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -96,20 +96,20 @@ onMounted(async () => {
     <Divider />
 
     <DataView v-if="records?.length" :value="records" class="overflow-auto max-h-30rem">
-      <template #list="{ data }">
-        <div class="col-12 border-none py-2">
+      <template #list="{ items }">
+        <div class="col-12 border-none py-2" v-for="(item, index) in items" :key="index">
           <div class="flex flex-row justify-content-start gap-3">
             <div class="flex flex-column align-items-start overflow-auto w-full">
               <div class="w-full flex align-items-center text-color">
                 <Avatar icon="pi pi-bell text-xl" class="text-green-500 mr-2" />
                 <div class="flex flex-column align my-2">
-                  <span class="font-medium text-green-500 text-xl">{{ data?.name }}</span>
+                  <span class="font-medium text-green-500 text-xl">{{ item?.name }}</span>
                   <span class="font-normal text-color-secondary">
-                    {{ dateTimeToStr(data?.createdAt) || '-' }}
+                    {{ dateTimeToStr(item?.createdAt) || '-' }}
                   </span>
                 </div>
               </div>
-              <span class="text-xl">{{ data?.text }}</span>
+              <span class="text-xl">{{ item?.text }}</span>
             </div>
             <div class="flex flex-column align-items-center justify-content-center mr-2">
               <Button
@@ -118,7 +118,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-times text-orange-300"
                 v-tooltip.bottom="$t('Close notice')"
-                @click="onRemoveRecord(data.id)"
+                @click="onRemoveRecord(item.id)"
               />
             </div>
           </div>

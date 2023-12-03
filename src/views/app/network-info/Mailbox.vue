@@ -8,7 +8,7 @@ import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Mailbox.vue';
 import SidebarRecord from '@/components/sidebar/Mailbox.vue';
 
-import { dateToStr } from '@/service/DataFilters';
+import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
@@ -70,7 +70,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start min-w-min w-10 px-4`}
+            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start w-full px-4`}
             value={value}
           />
         );
@@ -136,6 +136,27 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: true
+  },
+
+  {
+    header: { text: 'Updated', width: '15rem' },
+    column: {
+      field: 'updatedAt',
+      render(value) {
+        return <span class="mr-3">{dateTimeToStr(value)}</span>;
+      }
+    },
+    sorter: { field: 'updatedAt' },
+    filter: {
+      field: 'updatedAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: false,
+    exportable: false,
+    filtrable: true,
+    sortable: true,
+    frozen: false
   },
 
   {

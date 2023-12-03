@@ -3,8 +3,6 @@ import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 
-import Badge from 'primevue/badge';
-
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
@@ -103,6 +101,27 @@ const columns = ref([
   },
 
   {
+    header: { text: 'Opened date', width: '16rem' },
+    column: {
+      field: 'date',
+      render(value) {
+        return <span>{dateToStr(value) || '-'}</span>;
+      }
+    },
+    sorter: { field: 'date' },
+    filter: {
+      field: 'date',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
     header: { text: 'IP Address', width: '15rem' },
     column: {
       field: 'ipaddress',
@@ -129,28 +148,40 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Last connection', width: '15rem' },
+    header: { text: 'Internet', width: '12rem' },
     column: {
-      field: 'updatedAt',
+      field: 'inetStatus',
+      dataType: 'boolean',
       render(value) {
-        return (
-          <div class="w-full">
-            <span class="mr-3">{dateTimeToStr(value)}</span>
-            <Badge severity="success" style={{ minWidth: '.8rem', height: '.8rem' }} />
-          </div>
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
+        ) : (
+          <span>-</span>
         );
       }
     },
-    sorter: { field: 'updatedAt' },
+    sorter: { field: 'inetStatus' },
     filter: {
-      field: 'updatedAt',
+      field: 'internet',
       value: null,
-      matchMode: FilterMatchMode.DATE_IS
+      matchMode: FilterMatchMode.EQUALS,
+      options: {
+        key: 'key',
+        value: 'key',
+        label: 'name',
+        onRecords: () => {
+          return [
+            { key: 'opened', name: t('Internet opened') },
+            { key: 'closed', name: t('Internet closed') },
+            { key: 'missing', name: t('Not Internet') }
+          ];
+        }
+      }
     },
-    selectable: false,
+    selectable: true,
     exportable: true,
     filtrable: true,
-    sortable: true,
+    sortable: false,
     frozen: false
   },
 
@@ -181,6 +212,27 @@ const columns = ref([
     exportable: false,
     filtrable: false,
     sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Updated', width: '15rem' },
+    column: {
+      field: 'updatedAt',
+      render(value) {
+        return <span class="mr-3">{dateTimeToStr(value)}</span>;
+      }
+    },
+    sorter: { field: 'updatedAt' },
+    filter: {
+      field: 'updatedAt',
+      value: null,
+      matchMode: FilterMatchMode.DATE_IS
+    },
+    selectable: false,
+    exportable: false,
+    filtrable: true,
+    sortable: true,
     frozen: false
   },
 
@@ -418,65 +470,6 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Date', width: '16rem' },
-    column: {
-      field: 'date',
-      render(value) {
-        return <span>{dateToStr(value) || '-'}</span>;
-      }
-    },
-    sorter: { field: 'date' },
-    filter: {
-      field: 'date',
-      value: null,
-      matchMode: FilterMatchMode.DATE_IS
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Internet', width: '12rem' },
-    column: {
-      field: 'inetStatus',
-      dataType: 'boolean',
-      render(value) {
-        return value ? (
-          <i class={'pi pi-check-circle font-bold text-green-500'}></i>
-        ) : (
-          <span>-</span>
-        );
-      }
-    },
-    sorter: { field: 'inetStatus' },
-    filter: {
-      field: 'internet',
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-      options: {
-        key: 'key',
-        value: 'key',
-        label: 'name',
-        onRecords: () => {
-          return [
-            { key: 'opened', name: t('Internet opened') },
-            { key: 'closed', name: t('Internet closed') },
-            { key: 'missing', name: t('Not Internet') }
-          ];
-        }
-      }
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
     frozen: false
   },
 
