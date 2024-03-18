@@ -141,9 +141,8 @@ const disabledSelectedFromHTML = ref({
 <style scoped>
 .bg-layout {
   background-image: url('/img/bg-app.svg');
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
 }
 </style>
