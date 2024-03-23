@@ -67,7 +67,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('internet-access', 'helpdesk-report-internet-access')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
+            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
@@ -88,7 +88,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('users-email', 'helpdesk-report-users-email')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
+            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
@@ -109,7 +109,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('unwanted-software', 'helpdesk-report-unwanted-software')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
+            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>

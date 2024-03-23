@@ -27,7 +27,7 @@ const toggle = event => {
     rounded
     icon="pi pi-th-large"
     iconClass="text-3xl"
-    class="w-3rem h-3rem text-4xl hover:text-color mx-2"
+    class="w-12 h-12 text-4xl hover:text-color mx-2"
     v-tooltip.bottom="$t('Main menu')"
     @click="toggle"
   />
@@ -62,8 +62,8 @@ const toggle = event => {
     <template #end>
       <div class="flex items-center align-content-center justify-between p-2">
         <BtnToggleLang />
-        <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
-        <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
+        <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
+        <BtnAuth iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
       </div>
     </template>
   </Menu>

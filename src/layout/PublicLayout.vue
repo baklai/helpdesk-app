@@ -115,7 +115,10 @@ const disabledSelectedFromHTML = ref({
                   </ul>
 
                   <p class="text-center my-6">
-                    <RouterLink :to="{ name: 'home' }" class="uppercase text-primary-500">
+                    <RouterLink
+                      :to="{ name: 'home' }"
+                      class="uppercase font-medium text-primary-600 hover:text-primary-500"
+                    >
                       {{ $t('Helpdesk home page') }}
                     </RouterLink>
                   </p>

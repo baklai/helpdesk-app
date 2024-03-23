@@ -79,7 +79,7 @@ const commandHandler = async text => {
               rounded
               icon="pi pi-trash"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-3rem w-3rem"
+              class="p-button-lg hover:text-color h-12 w-12"
               v-tooltip.bottom="$t('Clear terminal')"
             />
 
@@ -89,7 +89,7 @@ const commandHandler = async text => {
               rounded
               icon="pi pi-cog"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-3rem w-3rem"
+              class="p-button-lg hover:text-color h-12 w-12"
               v-tooltip.bottom="$t('Options')"
             />
           </div>

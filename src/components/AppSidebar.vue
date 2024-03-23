@@ -52,8 +52,8 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     <div class="flex items-center align-content-center justify-between flex-wrap p-4">
       <BtnInfoUser />
       <BtnToggleLang />
-      <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
-      <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
+      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
+      <BtnAuth iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
     </div>
   </div>
 </template>

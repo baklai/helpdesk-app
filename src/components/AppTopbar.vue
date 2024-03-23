@@ -80,11 +80,11 @@ const isOutsideClicked = event => {
       <i class="pi pi-ellipsis-v"></i>
     </button>
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color mx-2" />
+      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color mx-2" />
       <BtnToggleLang />
-      <BtnFTPClient iconClass="text-3xl" class="w-3rem h-3rem hover:text-color mx-2" />
+      <BtnFTPClient iconClass="text-3xl" class="w-12 h-12 hover:text-color mx-2" />
       <BtnNotifications />
-      <BtnFullScreen iconClass="text-3xl" class="w-3rem h-3rem text-4xl hover:text-color mx-2" />
+      <BtnFullScreen iconClass="text-3xl" class="w-12 h-12 text-4xl hover:text-color mx-2" />
       <BtnMainMenu />
     </div>
   </div>

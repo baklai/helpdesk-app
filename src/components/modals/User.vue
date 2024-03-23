@@ -484,7 +484,7 @@ const onSaveRecord = handleSubmit(async () => {
                       rounded
                       icon="pi pi-cog"
                       iconClass="text-2xl"
-                      class="p-button-lg hover:text-color h-3rem w-3rem"
+                      class="p-button-lg hover:text-color h-12 w-12"
                       v-tooltip.bottom="$t('Scope option')"
                       @click="event => refSelectMenu.toggle(event)"
                     />

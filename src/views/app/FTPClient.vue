@@ -486,7 +486,7 @@ onMounted(async () => {
                     rounded
                     icon="pi pi-plus-circle"
                     iconClass="text-2xl"
-                    class="p-button-lg mx-2 hover:text-primary h-3rem w-3rem"
+                    class="p-button-lg mx-2 hover:text-primary h-12 w-12"
                     v-tooltip.bottom="$t('Upload files')"
                     @click="showUpload = !showUpload"
                   />
@@ -497,7 +497,7 @@ onMounted(async () => {
                     rounded
                     icon="pi pi-sync"
                     iconClass="text-2xl"
-                    class="p-button-lg hover:text-primary h-3rem w-3rem"
+                    class="p-button-lg hover:text-primary h-12 w-12"
                     v-tooltip.bottom="$t('Update records')"
                     @click="update()"
                   />

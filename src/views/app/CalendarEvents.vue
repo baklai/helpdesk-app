@@ -203,7 +203,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-plus-circle"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="p-button-lg hover:text-color h-12 w-12"
             v-tooltip.bottom="$t('Create record')"
             @click="refModal.toggle({})"
           />
@@ -214,7 +214,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-sync"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="p-button-lg hover:text-color h-12 w-12"
             v-tooltip.bottom="$t('Update records')"
             @click="getDataRecords"
           />
@@ -225,7 +225,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-cog"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="p-button-lg hover:text-color h-12 w-12"
             v-tooltip.bottom="$t('Options')"
           />
         </div>

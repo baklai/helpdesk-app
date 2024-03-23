@@ -516,7 +516,7 @@ const createSysInspectorScript = async () => {
             rounded
             icon="pi pi-bookmark-fill"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-orange-500 h-3rem w-3rem"
+            class="p-button-lg hover:text-orange-500 h-12 w-12"
             v-tooltip.bottom="$t('Show all problems')"
             @click="event => refWarningMenu.toggle(event)"
           />

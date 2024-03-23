@@ -91,7 +91,7 @@ onMounted(async () => {
                   </div>
                 </div>
                 <div
-                  class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <title>book-open-outline</title>
@@ -115,7 +115,7 @@ onMounted(async () => {
                   </div>
                 </div>
                 <div
-                  class="flex items-center justify-center bg-green-500 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-green-500 border-round w-12 h-12 p-2"
                 >
                   <i class="pi pi-check-circle text-white text-2xl"></i>
                 </div>
@@ -134,7 +134,7 @@ onMounted(async () => {
                   </div>
                 </div>
                 <div
-                  class="flex items-center justify-center bg-orange-500 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-orange-500 border-round w-12 h-12 p-2"
                 >
                   <i class="pi pi-info-circle text-white text-2xl"></i>
                 </div>
@@ -186,9 +186,7 @@ onMounted(async () => {
                 {{ stats?.companies || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -211,9 +209,7 @@ onMounted(async () => {
                 {{ stats?.branches || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -236,9 +232,7 @@ onMounted(async () => {
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -261,9 +255,7 @@ onMounted(async () => {
                 {{ stats?.departments || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -286,9 +278,7 @@ onMounted(async () => {
                 {{ stats?.locations || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
                 <path
@@ -311,9 +301,7 @@ onMounted(async () => {
                 {{ stats?.positions || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>briefcase-account-outline</title>
                 <path

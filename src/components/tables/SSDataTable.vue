@@ -625,7 +625,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-filter-slash"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-3rem w-3rem"
+                class="p-button-lg hover:text-color h-12 w-12"
                 :class="params?.filters && Object.keys(params.filters).length ? 'text-primary' : ''"
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
@@ -637,7 +637,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-plus-circle"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-3rem w-3rem"
+                class="p-button-lg hover:text-color h-12 w-12"
                 v-tooltip.bottom="$t('Create record')"
                 @click="emits('toggleModal', {})"
               />
@@ -648,7 +648,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-sync"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-3rem w-3rem"
+                class="p-button-lg hover:text-color h-12 w-12"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -661,7 +661,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-cog"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-3rem w-3rem"
+                class="p-button-lg hover:text-color h-12 w-12"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />

@@ -79,7 +79,7 @@ onMounted(async () => {
           rounded
           icon="pi pi-plus-circle"
           iconClass="text-2xl"
-          class="p-button-lg hover:text-color h-3rem w-3rem"
+          class="p-button-lg hover:text-color h-12 w-12"
           v-tooltip.bottom="$t('Create notice')"
           @click="
             () => {
@@ -141,7 +141,7 @@ onMounted(async () => {
       iconClass="text-3xl"
       aria-haspopup="true"
       aria-controls="notifications-menu"
-      class="w-3rem h-3rem hover:text-color"
+      class="w-12 h-12 hover:text-color"
       v-tooltip.bottom="$t('Notifications')"
       @click="event => refMenu.toggle(event)"
     />
@@ -155,7 +155,7 @@ onMounted(async () => {
     iconClass="text-3xl"
     aria-haspopup="true"
     aria-controls="notifications-menu"
-    class="w-3rem h-3rem hover:text-color mx-2"
+    class="w-12 h-12 hover:text-color mx-2"
     v-tooltip.bottom="$t('Notifications')"
     @click="event => refMenu.toggle(event)"
     v-else

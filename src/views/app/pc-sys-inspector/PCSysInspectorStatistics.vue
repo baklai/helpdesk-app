@@ -77,9 +77,7 @@ onMounted(async () => {
                 {{ stats?.count || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
                 <path
@@ -104,9 +102,7 @@ onMounted(async () => {
                 {{ stats?.count - stats?.warning || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-green-500 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-green-500 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>check-outline</title>
                 <path
@@ -131,9 +127,7 @@ onMounted(async () => {
                 {{ stats?.warning || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-orange-500 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-orange-500 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>alert-octagon-outline</title>
                 <path
@@ -156,9 +150,7 @@ onMounted(async () => {
                 {{ stats?.useraccount || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-orange-300 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>account-key-outline</title>
                 <path
@@ -181,9 +173,7 @@ onMounted(async () => {
                 {{ stats?.product || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-orange-300 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>microsoft</title>
                 <path d="M2,3H11V12H2V3M11,22H2V13H11V22M21,3V12H12V3H21M21,22H12V13H21V22Z" />
@@ -204,9 +194,7 @@ onMounted(async () => {
                 {{ stats?.share || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-orange-300 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>folder-network-outline</title>
                 <path

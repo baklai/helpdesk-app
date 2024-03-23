@@ -23,7 +23,7 @@ defineProps({
       rounded
       :icon="icon"
       iconClass="text-2xl"
-      class="w-3rem h-3rem hover:text-color"
+      class="w-12 h-12 hover:text-primary-50"
       v-tooltip.bottom="tooltip"
     />
   </a>

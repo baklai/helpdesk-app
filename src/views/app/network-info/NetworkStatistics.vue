@@ -90,9 +90,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.ipaddresses || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
                 <path
@@ -115,9 +113,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.channels || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal</title>
                 <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
@@ -138,9 +134,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.units || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>expansion-card-variant</title>
                 <path
@@ -163,9 +157,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.locations || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
                 <path
@@ -188,9 +180,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.companies || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -213,9 +203,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.branches || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -238,9 +226,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -263,9 +249,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.departments || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -288,9 +272,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.internets || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>web</title>
                 <path
@@ -313,9 +295,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.mailboxes || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>at</title>
                 <path
@@ -338,9 +318,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.autoanswers || '-' }}
               </div>
             </div>
-            <div
-              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
-            >
+            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal-bold</title>
                 <path d="M8,10V13H14V18H8V21L2,15.5L8,10M22,8.5L16,3V6H10V11H16V14L22,8.5Z" />
