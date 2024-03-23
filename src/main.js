@@ -38,6 +38,10 @@ import ToastService from 'primevue/toastservice';
 import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
 
+import Lara from '@/presets/lara';
+
+import '@/assets/base.css';
+
 import '@/assets/styles.scss';
 
 import en from '@/locales/en-US';
@@ -58,7 +62,13 @@ app.use(i18n);
 app.use(router);
 app.use(createPinia());
 
-app.use(PrimeVue, { ripple: true, locale: en.primevue });
+app.use(PrimeVue, {
+  locale: en.primevue,
+  unstyled: true,
+  ripple: true,
+  pt: Lara
+});
+
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
