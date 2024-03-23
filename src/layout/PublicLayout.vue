@@ -15,7 +15,9 @@ const disabledSelectedFromHTML = ref({
 <template>
   <main class="min-h-screen min-w-full overflow-hidden" :class="disabledSelectedFromHTML">
     <div class="flex h-screen">
-      <div class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between">
+      <div
+        class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
+      >
         <div class="flex justify-center mb-2">
           <div class="justify-start">
             <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">help</p>
@@ -40,6 +42,7 @@ const disabledSelectedFromHTML = ref({
           and let us help you.
         </p>
       </div>
+
       <div
         class="bg-image w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
       >
@@ -49,15 +52,16 @@ const disabledSelectedFromHTML = ref({
               <header class="flex items-center justify-center">
                 <div class="w-[30rem] h-auto text-center">
                   <div class="flex justify-center mb-6">
-                    <div class="justify-start">
+                    <div class="flex justify-start">
                       <p
-                        class="uppercase font-bold text-8xl text-primary-50"
+                        class="uppercase font-bold text-8xl text-primary-50 m-0"
                         translate="no"
                         lang="en"
                       >
                         help
                       </p>
                     </div>
+
                     <img
                       src="/img/logo-app.webp"
                       alt="HD logo"
@@ -65,9 +69,10 @@ const disabledSelectedFromHTML = ref({
                       height="72"
                       class="mx-2"
                     />
-                    <div class="justify-start">
+
+                    <div class="flex justify-start">
                       <p
-                        class="uppercase font-bold text-8xl text-primary-50"
+                        class="uppercase font-bold text-8xl text-primary-50 m-0"
                         translate="no"
                         lang="en"
                       >
