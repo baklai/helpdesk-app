@@ -409,7 +409,7 @@ onMounted(async () => {
       <div class="flex w-full overflow-x-auto">
         <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">
           <template #message="slotProps">
-            <span class="p-input-icon-left w-30rem">
+            <span class="p-input-icon-left w-[30rem]">
               <i class="pi pi-file-edit" />
               <InputText v-model="newValue" placeholder="Enter new name" class="w-full" />
             </span>
@@ -448,8 +448,8 @@ onMounted(async () => {
           class="text-lg"
         >
           <template #header>
-            <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
-              <div class="flex flex-wrap gap-2 align-items-center">
+            <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
+              <div class="flex flex-wrap gap-2 items-center">
                 <i class="mr-2 hidden sm:block">
                   <AppIcons :name="$route?.name" :size="42" />
                 </i>
@@ -462,10 +462,8 @@ onMounted(async () => {
                   </p>
                 </div>
               </div>
-              <div
-                class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
-              >
-                <div class="flex flex-wrap align-items-center justify-content-between">
+              <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+                <div class="flex flex-wrap items-center justify-between">
                   <span class="p-input-icon-left p-input-icon-right sm:w-max w-full mx-2">
                     <i class="pi pi-search" />
                     <InputText
@@ -504,7 +502,7 @@ onMounted(async () => {
                     @click="update()"
                   />
                 </div>
-                <div class="flex gap-2 sm:w-max w-full justify-content-between"></div>
+                <div class="flex gap-2 sm:w-max w-full justify-between"></div>
               </div>
             </div>
 
@@ -518,8 +516,8 @@ onMounted(async () => {
               @uploader="uploadFile"
             >
               <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
-                <div class="flex justify-content-between flex-wrap w-full">
-                  <div class="flex gap-2 align-items-center justify-content-center">
+                <div class="flex justify-between flex-wrap w-full">
+                  <div class="flex gap-2 items-center justify-center">
                     <Button
                       icon="pi pi-plus"
                       :label="$t('Choose')"
@@ -544,7 +542,7 @@ onMounted(async () => {
                     />
                   </div>
 
-                  <div class="flex gap-2 align-items-center justify-content-center">
+                  <div class="flex gap-2 items-center justify-center">
                     <Button
                       icon="pi pi-folder"
                       class="font-bold"
@@ -599,7 +597,7 @@ onMounted(async () => {
           <template #empty>
             <div
               v-if="!loading && ftpFiles?.length === 0"
-              class="flex flex-column justify-content-center p-datatable-loading-overlay p-component-overlay z-0"
+              class="flex flex-col justify-center p-datatable-loading-overlay p-component-overlay z-0"
             >
               <i class="pi pi-folder-open text-8xl text-color-secondary" />
               <h5>{{ $t('No files found in folder') }}</h5>
@@ -619,7 +617,7 @@ onMounted(async () => {
                 :class="data.type !== 1 ? 'cursor-pointer' : ''"
                 @click="data.type === 2 ? update(data.name) : data.type === 0 ? goToBack() : false"
               >
-                <div class="flex align-items-center justify-content-center mr-4">
+                <div class="flex items-center justify-center mr-4">
                   <i
                     class="pi pi-folder-open text-2xl font-bold text-color-secondary"
                     v-if="data.type === 0"
@@ -630,7 +628,7 @@ onMounted(async () => {
                     v-if="data.type === 2"
                   />
                 </div>
-                <div class="flex align-items-center justify-content-center">
+                <div class="flex items-center justify-center">
                   <span class="text-xl font-bold text-color-secondary" v-if="data.type === 0">
                     {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
                   </span>

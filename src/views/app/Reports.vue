@@ -32,8 +32,8 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-4">
-      <div class="flex align-items-center justify-content-center mr-2">
+    <div class="flex align-content-center mb-6">
+      <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
@@ -52,7 +52,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="() => $helpdesk.notImplemented()"
         >
-          <div class="flex flex-column align-items-center justify-content-center">
+          <div class="flex flex-col items-center justify-center">
             <div class="border-round p-2">
               <i class="pi pi-plus-circle text-6xl" />
             </div>
@@ -67,16 +67,14 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('internet-access', 'helpdesk-report-internet-access')"
         >
           <div class="flex">
-            <div
-              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
-            >
+            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
-              <p class="text-900 font-medium text-xl mb-2">
+              <p class="font-medium text-xl mb-2">
                 {{ $t('List of users with internet access') }}
               </p>
-              <span class="block text-500 font-medium">
+              <span class="block font-medium">
                 {{ $t('Network IP Address of the technical support') }}
               </span>
             </div>
@@ -90,16 +88,14 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('users-email', 'helpdesk-report-users-email')"
         >
           <div class="flex">
-            <div
-              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
-            >
+            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
-              <p class="text-900 font-medium text-xl mb-2">
+              <p class="font-medium text-xl mb-2">
                 {{ $t('List of users with email') }}
               </p>
-              <span class="block text-500 font-medium">
+              <span class="block font-medium">
                 {{ $t('Mailbox of the technical support') }}
               </span>
             </div>
@@ -113,16 +109,14 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
           @click="generateReportToCSV('unwanted-software', 'helpdesk-report-unwanted-software')"
         >
           <div class="flex">
-            <div
-              class="flex align-items-center justify-content-center border-round w-3rem h-3rem mr-4"
-            >
+            <div class="flex items-center justify-center border-round w-3rem h-3rem mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
-              <p class="text-900 font-medium text-xl mb-2">
+              <p class="font-medium text-xl mb-2">
                 {{ $t('List of unwanted software') }}
               </p>
-              <span class="block text-500 font-medium">
+              <span class="block font-medium">
                 {{ $t('PC SysInspector service of the technical support') }}
               </span>
             </div>

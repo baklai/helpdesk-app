@@ -95,7 +95,7 @@ const items = computed(() => [
 <template>
   <Menu ref="refMenu" :model="items" popup class="w-16rem">
     <template #item="{ label, item, props }">
-      <a :href="item.url" v-bind="props.action" class="px-4">
+      <a :href="item.url" v-bind="props.action" class="px-6">
         <span v-bind="props.icon" />
         <span v-bind="props.label">{{ label }}</span>
       </a>

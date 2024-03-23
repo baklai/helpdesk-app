@@ -200,8 +200,8 @@ const validSoftware = value => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
           <AppIcons name="pc-sys-inspector" :size="40" class="mr-2" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">
@@ -216,7 +216,7 @@ const validSoftware = value => {
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
@@ -238,7 +238,7 @@ const validSoftware = value => {
           </div>
           <Divider layout="vertical" class="hidden md:flex" v-if="recordip" />
           <div class="col-12 md:col">
-            <div class="flex align-items-center mb-4">
+            <div class="flex items-center mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -262,10 +262,10 @@ const validSoftware = value => {
               </div>
             </div>
 
-            <div class="flex justify-content-between mb-4">
-              <div class="flex justify-content-cente w-4">
-                <div class="flex flex-column card-container">
-                  <div class="flex align-items-center justify-content-center">
+            <div class="flex justify-between mb-6">
+              <div class="flex justify-content-cente w-1/3">
+                <div class="flex flex-col card-container">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -279,10 +279,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('CPU') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ record?.cpu?.Name || '-' }}
                     </span>
@@ -290,9 +290,9 @@ const validSoftware = value => {
                 </div>
               </div>
 
-              <div class="flex justify-content-center w-4">
-                <div class="flex flex-column">
-                  <div class="flex align-items-center justify-content-center">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -305,10 +305,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('RAM') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ memorySum(record?.memorychip) }}
                     </span>
@@ -316,9 +316,9 @@ const validSoftware = value => {
                 </div>
               </div>
 
-              <div class="flex justify-content-center w-4">
-                <div class="flex flex-column card-container">
-                  <div class="flex align-items-center justify-content-center">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col card-container">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -332,10 +332,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('HDD') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ diskSum(record?.diskdrive) }}
                     </span>
@@ -402,7 +402,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.cpu">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -463,7 +463,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.memorychip?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -515,7 +515,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.diskdrive?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -571,7 +571,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.netadapter?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -642,7 +642,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.display?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -688,7 +688,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.videoadapter?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -743,7 +743,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.sound?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -783,7 +783,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.printer?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -816,7 +816,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.useraccount?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -874,7 +874,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.product?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -923,7 +923,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.share?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -969,7 +969,7 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.fixupdate?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

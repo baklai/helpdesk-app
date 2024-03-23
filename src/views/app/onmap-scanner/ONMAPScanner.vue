@@ -104,8 +104,8 @@ const columns = ref([
           <Tag
             class={
               value > 0
-                ? 'text-base text-white font-medium w-4 bg-green-500'
-                : 'text-base text-white font-medium w-4 bg-gray-500'
+                ? 'text-base text-white font-medium w-1/3 bg-green-500'
+                : 'text-base text-white font-medium w-1/3 bg-gray-500'
             }
             value={value > 0 ? t('UP') : t('DOWN')}
           />
@@ -284,14 +284,14 @@ const runTargetScan = handleSubmit(async () => {
         <template #subheader>
           <Panel class="border-1 border-solid surface-border shadow-none" v-show="subheader">
             <template #header>
-              <div class="flex align-items-center gap-2">
+              <div class="flex items-center gap-2">
                 <span class="font-bold">{{ $t('Onmap scanner run') }}</span>
               </div>
             </template>
 
             <template #footer>
-              <div class="flex flex-wrap align-items-center justify-content-between gap-3 px-2">
-                <div class="flex align-items-center gap-2">
+              <div class="flex flex-wrap items-center justify-between gap-3 px-2">
+                <div class="flex items-center gap-2">
                   <Button :label="$t('Scan')" class="w-15rem" @click="runTargetScan" />
                   <Button
                     :label="$t('Cancel')"

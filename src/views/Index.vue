@@ -4,20 +4,20 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 
 <template>
   <div class="col-12 my-auto">
-    <div class="flex flex-column lg:flex-row justify-content-center">
-      <div class="w-auto flex flex-column align-items-center justify-content-center">
-        <header class="flex align-items-center justify-content-center">
-          <div class="w-30rem h-auto text-center">
-            <div class="flex justify-content-center mb-2">
-              <div class="justify-content-start">
+    <div class="flex flex-col lg:flex-row justify-center">
+      <div class="w-auto flex flex-col items-center justify-center">
+        <header class="flex items-center justify-center">
+          <div class="w-[30rem] h-auto text-center">
+            <div class="flex justify-center mb-2">
+              <div class="justify-start">
                 <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
                   help
                 </p>
               </div>
-              <div class="flex align-items-center justify-content-center">
+              <div class="flex items-center justify-center">
                 <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
               </div>
-              <div class="justify-content-start">
+              <div class="justify-start">
                 <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
                   desk
                 </p>
@@ -25,7 +25,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </div>
 
             <div class="text-center mb-6">
-              <p class="text-600 font-medium">
+              <p class="font-medium">
                 {{ $t('Web Application of technical support') }}
               </p>
             </div>
@@ -36,8 +36,8 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
               </p>
             </div>
 
-            <ul class="list-none flex justify-content-evenly p-0 mb-2">
-              <li class="mx-4">
+            <ul class="list-none flex justify-evenly p-0 mb-2">
+              <li class="mx-6">
                 <BtnSocialMedia
                   icon="pi pi-facebook"
                   :href="$helpdesk?.authorSocial?.facebook"
@@ -45,7 +45,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
                 />
               </li>
 
-              <li class="mx-4">
+              <li class="mx-6">
                 <BtnSocialMedia
                   icon="pi pi-github"
                   :href="$helpdesk?.authorSocial?.github"
@@ -53,7 +53,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
                 />
               </li>
 
-              <li class="mx-4">
+              <li class="mx-6">
                 <BtnSocialMedia
                   icon="pi pi-linkedin"
                   :href="$helpdesk?.authorSocial?.linkedin"
@@ -61,7 +61,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
                 />
               </li>
             </ul>
-            <p class="text-center text-500">
+            <p class="text-center">
               {{ $helpdesk?.copyright }}
             </p>
           </div>
@@ -73,9 +73,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
         <Divider layout="horizontal" class="flex lg:hidden" align="center" />
       </div>
 
-      <div class="w-auto flex align-items-center justify-content-center py-5">
-        <main class="w-30rem justify-content-center align-items-center">
-          <section id="documentation" class="mb-4">
+      <div class="w-auto flex items-center justify-center py-8">
+        <main class="w-[30rem] justify-center items-center">
+          <section id="documentation" class="mb-6">
             <h3 class="mb-1">{{ 'Documentation' }}</h3>
             <span class="text-lg text-color-secondary font-light">
               <RouterLink class="text-blue-500" to="/docs">
@@ -85,7 +85,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </span>
           </section>
 
-          <section id="pc-sys-inspector" class="mb-4">
+          <section id="pc-sys-inspector" class="mb-6">
             <h3 class="mb-1">{{ 'PC SysInspector' }}</h3>
             <span class="text-lg text-color-secondary font-light">
               <RouterLink class="text-blue-500" :to="{ name: 'pc-sys-inspector' }">
@@ -96,7 +96,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </span>
           </section>
 
-          <section id="hd-live-log" class="mb-4">
+          <section id="hd-live-log" class="mb-6">
             <h3 class="mb-1">{{ 'Help Desk Live Log' }}</h3>
             <span class="text-lg text-color-secondary font-light">
               <RouterLink class="text-blue-500" :to="{ name: 'helpdesk-live-log' }">

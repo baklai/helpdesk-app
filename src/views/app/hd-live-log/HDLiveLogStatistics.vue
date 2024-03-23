@@ -64,8 +64,8 @@ onMounted(async () => {
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-4">
-      <div class="flex align-items-center justify-content-center mr-2">
+    <div class="flex align-content-center mb-6">
+      <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
@@ -80,18 +80,18 @@ onMounted(async () => {
       <div class="col-12 lg:col-8 xl:col-9">
         <div class="grid">
           <div class="col-12 lg:col-6 xl:col-4">
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
+            <div class="card surface-50 mb-6">
+              <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block text-500 font-medium mb-3">
+                  <span class="block font-medium mb-3">
                     {{ $t('Total number of requests') }}
                   </span>
-                  <div class="text-900 font-medium text-xl">
+                  <div class="font-medium text-xl">
                     {{ stats?.requests || '-' }}
                   </div>
                 </div>
                 <div
-                  class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <title>book-open-outline</title>
@@ -102,51 +102,51 @@ onMounted(async () => {
                 </div>
               </div>
               <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+              <span class="">{{ dateToStr(currentDate) || '-' }}</span>
             </div>
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
+            <div class="card surface-50 mb-6">
+              <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block text-500 font-medium mb-3">
+                  <span class="block font-medium mb-3">
                     {{ $t('Total number of closed requests') }}
                   </span>
-                  <div class="text-900 font-medium text-xl">
+                  <div class="font-medium text-xl">
                     {{ stats?.closed || '-' }}
                   </div>
                 </div>
                 <div
-                  class="flex align-items-center justify-content-center bg-green-500 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-green-500 border-round w-3rem h-3rem p-2"
                 >
                   <i class="pi pi-check-circle text-white text-2xl"></i>
                 </div>
               </div>
               <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+              <span class="">{{ dateToStr(currentDate) || '-' }}</span>
             </div>
-            <div class="card surface-50 mb-4">
-              <div class="flex justify-content-between mb-3">
+            <div class="card surface-50 mb-6">
+              <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block text-500 font-medium mb-3">
+                  <span class="block font-medium mb-3">
                     {{ $t('Total number of opened requests') }}
                   </span>
-                  <div class="text-900 font-medium text-xl">
+                  <div class="font-medium text-xl">
                     {{ stats?.opened || '-' }}
                   </div>
                 </div>
                 <div
-                  class="flex align-items-center justify-content-center bg-orange-500 border-round w-3rem h-3rem p-2"
+                  class="flex items-center justify-center bg-orange-500 border-round w-3rem h-3rem p-2"
                 >
                   <i class="pi pi-info-circle text-white text-2xl"></i>
                 </div>
               </div>
               <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-              <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+              <span class="">{{ dateToStr(currentDate) || '-' }}</span>
             </div>
           </div>
 
           <div class="col-12 lg:col-6 xl:col-8">
             <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
+              <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current week') }}</h5>
               </div>
@@ -156,7 +156,7 @@ onMounted(async () => {
 
           <div class="col-12">
             <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
+              <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current month') }}</h5>
               </div>
@@ -165,7 +165,7 @@ onMounted(async () => {
           </div>
           <div class="col-12">
             <div class="card surface-50">
-              <div class="flex justify-content-start gap-2 align-items-center mb-6">
+              <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current year') }}</h5>
               </div>
@@ -176,18 +176,18 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-4 xl:col-3">
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of companies') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.companies || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -198,21 +198,21 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of branches') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.branches || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -223,21 +223,21 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of enterprises') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -248,21 +248,21 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of departments') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -273,21 +273,21 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of locations') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
@@ -298,21 +298,21 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="card surface-50 mb-4">
-          <div class="flex justify-content-between mb-3">
+        <div class="card surface-50 mb-6">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of positions') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.positions || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>briefcase-account-outline</title>
@@ -323,7 +323,7 @@ onMounted(async () => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ dateToStr(currentDate) || '-' }}</span>
+          <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
       </div>
     </div>

@@ -501,7 +501,7 @@ onMounted(async () => {
         :filterPlaceholder="$t('Search in list')"
       >
         <template #option="{ index, option }">
-          <div class="flex align-items-center">
+          <div class="flex items-center">
             <Checkbox
               binary
               :inputId="`${option.column.field}${index}`"
@@ -524,7 +524,7 @@ onMounted(async () => {
     </template>
 
     <template #end>
-      <div class="flex justify-content-between gap-3 w-full pt-2">
+      <div class="flex justify-between gap-3 w-full pt-2">
         <Button
           outlined
           :label="$t('Select All')"
@@ -586,8 +586,8 @@ onMounted(async () => {
       @page="onPage"
     >
       <template #header>
-        <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
-          <div class="flex flex-wrap gap-2 align-items-center">
+        <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
+          <div class="flex flex-wrap gap-2 items-center">
             <slot name="icon" />
             <div>
               <h3 class="text-color m-0">
@@ -598,9 +598,7 @@ onMounted(async () => {
               </p>
             </div>
           </div>
-          <div
-            class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
-          >
+          <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
             <span
               v-if="globalFilter && filters['global']"
               class="p-input-icon-left p-input-icon-right sm:w-max w-full"
@@ -620,7 +618,7 @@ onMounted(async () => {
               />
             </span>
 
-            <div class="flex gap-2 sm:w-max w-full justify-content-between">
+            <div class="flex gap-2 sm:w-max w-full justify-between">
               <Button
                 text
                 plain
@@ -682,7 +680,7 @@ onMounted(async () => {
       <template #empty>
         <div
           v-if="!loading && records?.length === 0"
-          class="flex flex-column justify-content-center p-datatable-loading-overlay p-component-overlay z-0"
+          class="flex flex-col justify-center p-datatable-loading-overlay p-component-overlay z-0"
         >
           <i class="pi pi-filter-slash text-color-secondary" style="font-size: 4rem"></i>
           <h5>{{ $t('No records found') }}</h5>
@@ -698,10 +696,8 @@ onMounted(async () => {
       </template>
 
       <template #paginatorstart>
-        <div
-          class="flex flex-wrap gap-4 align-items-center justify-content-evenly xl:justify-content-between p-2"
-        >
-          <div class="flex flex-wrap gap-2 align-items-center justify-content-evenly">
+        <div class="flex flex-wrap gap-4 items-center justify-evenly xl:justify-between p-2">
+          <div class="flex flex-wrap gap-2 items-center justify-evenly">
             <Button
               plain
               outlined
@@ -845,7 +841,7 @@ onMounted(async () => {
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
             <template #option="{ option }">
-              <div class="flex align-items-center">
+              <div class="flex items-center">
                 <Checkbox
                   :inputId="option.key"
                   :value="option[filter.options.value]"
@@ -896,7 +892,7 @@ onMounted(async () => {
           />
 
           <div
-            class="card flex flex-column align-items-center gap-3"
+            class="card flex flex-col items-center gap-3"
             v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
           >
             <TriStateCheckbox v-model="filterModel.value" inputId="verified-filter" />

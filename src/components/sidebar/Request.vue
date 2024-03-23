@@ -53,11 +53,11 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full surface-card sticky shadow-none w-full overflow-y-auto border-left-1 border-noround surface-border px-2 w-4"
+    class="h-full surface-card sticky shadow-none overflow-y-auto border-left-1 border-noround surface-border px-2 w-1/3"
   >
     <template #title>
-      <div class="flex justify-content-between">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between">
+        <div class="flex items-center justify-center">
           <AppIcons name="helpdesk-live-log" :size="40" class="mr-2" />
           <div>
             <p class="text-lg mb-0">{{ $t('Current request') }}</p>
@@ -67,7 +67,7 @@ const onCloseSidebar = () => {
             </p>
           </div>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <Button
             text
             plain
@@ -93,7 +93,7 @@ const onCloseSidebar = () => {
     </template>
 
     <template #content>
-      <div class="overflow-y-auto pt-4" style="height: calc(100vh - 20rem)">
+      <div class="overflow-y-auto pt-6" style="height: calc(100vh - 20rem)">
         <h5>{{ $t('Description') }}</h5>
         <table>
           <tr>

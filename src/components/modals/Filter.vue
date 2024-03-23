@@ -234,8 +234,8 @@ const onSaveRecord = handleSubmit(async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
           <i class="pi pi-filter-fill text-6xl mr-3"></i>
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">
@@ -246,7 +246,7 @@ const onSaveRecord = handleSubmit(async () => {
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
@@ -274,13 +274,13 @@ const onSaveRecord = handleSubmit(async () => {
         class="w-full"
       >
         <template #optiongroup="slotProps">
-          <div class="flex align-items-center">
+          <div class="flex items-center">
             <span class="text-lg font-bold text-primary">{{ slotProps?.option?.label }}</span>
           </div>
         </template>
 
         <template #option="slotProps">
-          <div class="flex align-items-center">
+          <div class="flex items-center">
             <span class="text-base font-semibold">
               {{ slotProps?.option?.regex }}
               <sup
@@ -295,9 +295,9 @@ const onSaveRecord = handleSubmit(async () => {
       </Dropdown>
     </div>
 
-    <Divider type="solid" class="my-4" />
+    <Divider type="solid" class="my-6" />
 
-    <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
+    <form @submit.prevent="onSaveRecord" class="p-fluid mx-6">
       <div class="field">
         <label for="regex">{{ $t('Filter regex') }}</label>
         <InputText

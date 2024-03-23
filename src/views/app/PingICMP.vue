@@ -57,8 +57,8 @@ const commandHandler = async text => {
 <template>
   <div className="col-12">
     <div className="h-full">
-      <div class="flex flex-wrap gap-4 mb-4 align-items-center justify-content-between">
-        <div class="flex flex-wrap gap-2 align-items-center">
+      <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
+        <div class="flex flex-wrap gap-2 items-center">
           <i class="mr-2 hidden sm:block">
             <AppIcons :name="$route?.name" :size="42" />
           </i>
@@ -71,10 +71,8 @@ const commandHandler = async text => {
             </p>
           </div>
         </div>
-        <div
-          class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
-        >
-          <div class="flex gap-2 sm:w-max w-full justify-content-between">
+        <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+          <div class="flex gap-2 sm:w-max w-full justify-between">
             <Button
               text
               plain
@@ -105,7 +103,7 @@ const commandHandler = async text => {
         aria-label="Helpdesk Terminal Service"
       />
 
-      <div class="px-4 py-4">
+      <div class="px-6 py-6">
         <h5>
           Example:
           <span class="font-normal text-primary surface-hover border-round p-2">

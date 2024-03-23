@@ -220,9 +220,9 @@ const getVNClink = async value => {
 <template>
   <Toast position="bottom-right" group="ping" class="z-5 w-auto" v-if="hostkey">
     <template #message="{ message }">
-      <div class="flex flex-column">
+      <div class="flex flex-col">
         <div class="flex align-content-center h-2rem">
-          <div class="flex gap-2 align-items-center justify-content-center">
+          <div class="flex gap-2 items-center justify-center">
             <i class="pi pi-info-circle text-2xl"></i>
             <span class="text-base font-semibold">{{ message.summary }}</span>
           </div>
@@ -242,7 +242,7 @@ const getVNClink = async value => {
       </a>
     </template>
     <template #end v-if="hostkey && record[hostkey]">
-      <div class="flex justify-content-center surface-ground border-round-bottom py-2">
+      <div class="flex justify-center surface-ground border-round-bottom py-2">
         <span class="font-bold"> {{ record[hostkey] }} </span>
       </div>
     </template>

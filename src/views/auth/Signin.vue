@@ -59,8 +59,8 @@ onMounted(() => {
 
 <template>
   <form @submit.prevent="onSignin" class="p-fluid w-25rem">
-    <div class="field mb-4">
-      <label for="login" class="text-900 text-xl font-medium">
+    <div class="field mb-6">
+      <label for="login" class="text-xl font-medium">
         {{ $t('Login') }}
       </label>
       <span class="p-input-icon-left">
@@ -80,7 +80,7 @@ onMounted(() => {
     </div>
 
     <div class="field mb-2">
-      <label for="password" class="text-900 text-xl font-medium">
+      <label for="password" class="text-xl font-medium">
         {{ $t('Password') }}
       </label>
       <Password
@@ -118,8 +118,8 @@ onMounted(() => {
     </div>
 
     <div class="field mb-5">
-      <div class="flex align-items-center justify-content-between">
-        <div class="flex align-items-center">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
           <Checkbox
             binary
             inputId="remember"
@@ -154,7 +154,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <p class="text-600 text-center font-medium">
+    <p class="text-center font-medium">
       {{ $t('Sign In to the application to continue') }}
     </p>
   </form>

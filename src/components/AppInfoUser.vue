@@ -35,8 +35,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     :style="{ maxWidth: '500px' }"
   >
     <template #header>
-      <div class="flex align-items-center">
-        <div class="flex align-items-center">
+      <div class="flex items-center">
+        <div class="flex items-center">
           <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
           <div>
             <p class="font-bold m-0">
@@ -50,7 +50,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
       </div>
     </template>
 
-    <div class="flex my-4 align-items-center">
+    <div class="flex my-6 items-center">
       <div class="formgrid grid">
         <div class="field col-12 xl:col-6 text-center">
           <Avatar
@@ -59,11 +59,11 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
             class="w-4rem h-4rem"
             v-if="$helpdesk?.user?.logo"
           />
-          <div class="flex align-items-center justify-content-center p-3 flex-column" v-else>
+          <div class="flex items-center justify-center p-3 flex-col" v-else>
             <i
               class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-color-secondary"
             />
-            <p class="text-sm mt-4 mb-0 text-color-secondary">
+            <p class="text-sm mt-6 mb-0 text-color-secondary">
               {{ $t('Drag and drop logo to here to upload') }}
             </p>
           </div>

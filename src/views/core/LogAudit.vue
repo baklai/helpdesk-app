@@ -34,7 +34,7 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-4" value={value} />;
+        return <Tag class="text-base font-normal text-color surface-hover px-6" value={value} />;
       }
     },
     sorter: { field: 'host' },
@@ -78,7 +78,7 @@ const columns = ref([
     column: {
       field: 'user',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-4" value={value} />;
+        return <Tag class="text-base font-normal text-color surface-hover px-6" value={value} />;
       }
     },
     sorter: { field: 'user' },
@@ -130,7 +130,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold ${statusCodeToColor(value)} surface-hover px-4`}
+            class={`text-base font-bold ${statusCodeToColor(value)} surface-hover px-6`}
             value={value}
           />
         );

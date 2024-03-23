@@ -66,8 +66,8 @@ const onCountPercentWidth = (count, allCount) => {
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-4">
-      <div class="flex align-items-center justify-content-center mr-2">
+    <div class="flex align-content-center mb-6">
+      <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
@@ -81,17 +81,17 @@ const onCountPercentWidth = (count, allCount) => {
     <div class="grid">
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">
+              <span class="block font-medium mb-3">
                 {{ $t('Total number of ipaddresses') }}
               </span>
-              <div class="text-900 font-medium text-xl">
+              <div class="font-medium text-xl">
                 {{ stats?.ipaddresses || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
@@ -102,23 +102,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of channels')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of channels') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.channels || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal</title>
@@ -127,21 +125,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{ $t('Total number of units') }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of units') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.units || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-green-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-green-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>expansion-card-variant</title>
@@ -152,23 +150,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of locations')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of locations') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
@@ -179,23 +175,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of companies')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of companies') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.companies || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -206,23 +200,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of branches')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of branches') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.branches || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -233,23 +225,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of enterprises')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of enterprises') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -260,23 +250,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of departments')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of departments') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-blue-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-blue-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
@@ -287,23 +275,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of Internets')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of Internets') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.internets || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>web</title>
@@ -314,23 +300,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of E-Mails')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of E-Mails') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.mailboxes || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>at</title>
@@ -341,23 +325,21 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card surface-50 mb-0">
-          <div class="flex justify-content-between mb-3">
+          <div class="flex justify-between mb-3">
             <div>
-              <span class="block text-500 font-medium mb-3">{{
-                $t('Total number of autoanswers')
-              }}</span>
-              <div class="text-900 font-medium text-xl">
+              <span class="block font-medium mb-3">{{ $t('Total number of autoanswers') }}</span>
+              <div class="font-medium text-xl">
                 {{ stats?.autoanswers || '-' }}
               </div>
             </div>
             <div
-              class="flex align-items-center justify-content-center bg-indigo-100 border-round w-3rem h-3rem p-2"
+              class="flex items-center justify-center bg-indigo-100 border-round w-3rem h-3rem p-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal-bold</title>
@@ -366,13 +348,13 @@ const onCountPercentWidth = (count, allCount) => {
             </div>
           </div>
           <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
-          <span class="text-500">{{ currentDate }}</span>
+          <span class="">{{ currentDate }}</span>
         </div>
       </div>
 
       <div class="col-12 xl:col-6">
         <div class="card surface-50 h-30rem">
-          <div class="flex justify-content-between align-items-center mb-5">
+          <div class="flex justify-between items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
             <div>
               <Button
@@ -385,16 +367,16 @@ const onCountPercentWidth = (count, allCount) => {
             <li
               v-for="(item, index) of stats.barUnits"
               :key="index"
-              class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4"
+              class="flex flex-col md:flex-row md:items-center md:justify-between mb-6"
             >
               <div>
-                <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ item.name }}</span>
-                <div class="mt-1 text-600">
+                <span class="font-medium mr-2 mb-1 md:mb-0">{{ item.name }}</span>
+                <div class="mt-1">
                   {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }}
                   {{ stats.ipaddresses }}
                 </div>
               </div>
-              <div class="mt-2 md:mt-0 flex align-items-center">
+              <div class="mt-2 md:mt-0 flex items-center">
                 <div
                   class="surface-300 border-round overflow-hidden w-12rem lg:w-6rem mr-4"
                   style="height: 8px"
@@ -424,13 +406,13 @@ const onCountPercentWidth = (count, allCount) => {
             :globalFilterFields="['name', 'country.name', 'representative.name', 'status']"
           >
             <template #header>
-              <div class="flex flex-wrap gap-4 mb-2 align-items-center justify-content-between">
-                <div class="flex flex-wrap gap-2 align-items-center">
+              <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
+                <div class="flex flex-wrap gap-2 items-center">
                   <h5 class="m-0">
                     {{ $t('Locations status unuts') }}
                   </h5>
                 </div>
-                <div class="flex flex-wrap align-items-center justify-content-between">
+                <div class="flex flex-wrap items-center justify-between">
                   <span class="p-input-icon-left">
                     <i class="pi pi-search" />
                     <InputText

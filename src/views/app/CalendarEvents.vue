@@ -180,8 +180,8 @@ onMounted(async () => {
   <div class="w-full h-full">
     <Modal ref="refModal" @close="async () => await getDataRecords()" />
 
-    <div class="flex justify-content-between flex-wrap mb-2">
-      <div class="flex flex-wrap gap-2 align-items-center">
+    <div class="flex justify-between flex-wrap mb-2">
+      <div class="flex flex-wrap gap-2 items-center">
         <i class="mr-2 hidden sm:block">
           <AppIcons :name="$route?.name" :size="42" />
         </i>
@@ -195,8 +195,8 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full">
-        <div class="flex gap-2 sm:w-max w-full justify-content-between">
+      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+        <div class="flex gap-2 sm:w-max w-full justify-between">
           <Button
             text
             plain
@@ -244,10 +244,8 @@ onMounted(async () => {
           <div v-if="eventDialogData && eventDialogData?.title">
             <Card class="w-full p-2">
               <template #title>
-                <div
-                  class="flex align-content-center align-items-center justify-content-between flex-wrap"
-                >
-                  <div class="flex align-content-center align-items-center">
+                <div class="flex align-content-center items-center justify-between flex-wrap">
+                  <div class="flex align-content-center items-center">
                     <i
                       class="pi pi-circle-fill mr-2"
                       :style="{
@@ -263,11 +261,11 @@ onMounted(async () => {
                       {{ eventDialogData?.title }}
                     </span>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <div
-                      class="flex align-items-center justify-content-center flex-wrap gap-2 align-items-center justify-content-between w-full"
+                      class="flex items-center justify-center flex-wrap gap-2 items-center justify-between w-full"
                     >
-                      <div class="flex gap-2 w-full justify-content-between">
+                      <div class="flex gap-2 w-full justify-between">
                         <Button
                           text
                           plain
@@ -313,7 +311,7 @@ onMounted(async () => {
                 </div>
               </template>
               <template #subtitle>
-                <div class="flex align-content-center align-items-center">
+                <div class="flex align-content-center items-center">
                   <i class="pi pi-clock mr-2"></i>
                   <span>
                     {{ dateTimeToStr(eventDialogData?.datetime) || '-' }}

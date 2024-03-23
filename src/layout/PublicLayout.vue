@@ -13,21 +13,19 @@ const disabledSelectedFromHTML = ref({
 </script>
 
 <template>
-  <main class="min-h-screen min-w-screen overflow-hidden" :class="disabledSelectedFromHTML">
+  <main class="min-h-screen min-w-full overflow-hidden" :class="disabledSelectedFromHTML">
     <div class="flex h-screen">
-      <div class="w-full lg:w-4 h-full px-6 py-6 flex flex-column justify-content-between">
-        <div class="flex justify-content-center mb-2">
-          <div class="justify-content-start">
+      <div class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between">
+        <div class="flex justify-center mb-2">
+          <div class="justify-start">
             <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">help</p>
           </div>
-          <div class="flex align-items-center justify-content-center">
-            <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
-          </div>
-          <div class="justify-content-start">
+          <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
+          <div class="justify-start">
             <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">desk</p>
           </div>
         </div>
-        <div class="flex flex-column align-items-center gap-4">
+        <div class="flex flex-col items-center gap-4">
           <RouterView />
         </div>
         <p class="text-center text-color-secondary font-semibold">
@@ -43,35 +41,33 @@ const disabledSelectedFromHTML = ref({
         </p>
       </div>
       <div
-        class="bg-layout w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat"
+        class="bg-image w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
       >
         <div class="mt-auto mb-auto">
-          <div class="flex flex-column lg:flex-row justify-content-center">
-            <div class="w-auto flex flex-column align-items-center justify-content-center">
-              <header class="flex align-items-center justify-content-center">
-                <div class="w-30rem h-auto text-center">
-                  <div class="flex justify-content-center mb-2">
-                    <div class="justify-content-start">
+          <div class="flex flex-col lg:flex-row justify-center">
+            <div class="w-auto flex flex-col items-center justify-center">
+              <header class="flex items-center justify-center">
+                <div class="w-[30rem] h-auto text-center">
+                  <div class="flex justify-center mb-6">
+                    <div class="justify-start">
                       <p
-                        class="uppercase font-bold text-8xl m-0 text-white-alpha-80"
+                        class="uppercase font-bold text-8xl text-primary-50"
                         translate="no"
                         lang="en"
                       >
                         help
                       </p>
                     </div>
-                    <div class="flex align-items-center justify-content-center">
-                      <img
-                        src="/img/logo-app.webp"
-                        alt="HD logo"
-                        width="72"
-                        height="72"
-                        class="mx-2"
-                      />
-                    </div>
-                    <div class="justify-content-start">
+                    <img
+                      src="/img/logo-app.webp"
+                      alt="HD logo"
+                      width="72"
+                      height="72"
+                      class="mx-2"
+                    />
+                    <div class="justify-start">
                       <p
-                        class="uppercase font-bold text-8xl m-0 text-white-alpha-80"
+                        class="uppercase font-bold text-8xl text-primary-50"
                         translate="no"
                         lang="en"
                       >
@@ -80,20 +76,20 @@ const disabledSelectedFromHTML = ref({
                     </div>
                   </div>
 
-                  <div class="text-center mb-6">
-                    <p class="text-600 text-xl font-medium">
+                  <div class="text-center mb-8">
+                    <p class="text-xl font-medium text-surface-300">
                       {{ $t('Web Application of technical support') }}
                     </p>
                   </div>
 
-                  <div class="text-center mb-3">
-                    <p class="text-xl line-height-2 text-color-secondary">
+                  <div class="text-center mb-8">
+                    <p class="text-xl line-height-2 text-surface-400">
                       {{ $t('Helpdesk technical support') }}
                     </p>
                   </div>
 
-                  <ul class="list-none flex justify-content-evenly p-0 mb-2">
-                    <li class="mx-4">
+                  <ul class="list-none flex justify-evenly p-0 mb-2">
+                    <li class="mx-6">
                       <BtnSocialMedia
                         icon="pi pi-facebook"
                         :href="$helpdesk?.authorSocial?.facebook"
@@ -101,7 +97,7 @@ const disabledSelectedFromHTML = ref({
                       />
                     </li>
 
-                    <li class="mx-4">
+                    <li class="mx-6">
                       <BtnSocialMedia
                         icon="pi pi-github"
                         :href="$helpdesk?.authorSocial?.github"
@@ -109,7 +105,7 @@ const disabledSelectedFromHTML = ref({
                       />
                     </li>
 
-                    <li class="mx-4">
+                    <li class="mx-6">
                       <BtnSocialMedia
                         icon="pi pi-linkedin"
                         :href="$helpdesk?.authorSocial?.linkedin"
@@ -118,8 +114,8 @@ const disabledSelectedFromHTML = ref({
                     </li>
                   </ul>
 
-                  <p class="text-center my-4">
-                    <RouterLink :to="{ name: 'home' }" class="text-primary">
+                  <p class="text-center my-6">
+                    <RouterLink :to="{ name: 'home' }" class="uppercase text-primary-500">
                       {{ $t('Helpdesk home page') }}
                     </RouterLink>
                   </p>
@@ -128,8 +124,8 @@ const disabledSelectedFromHTML = ref({
             </div>
           </div>
         </div>
-        <div class="flex align-items-center gap-5">
-          <p class="text-500 font-semibold">
+        <div class="flex items-center text-surface-300">
+          <p class="font-semibold py-4">
             {{ $helpdesk?.copyright }}
           </p>
         </div>
@@ -139,10 +135,7 @@ const disabledSelectedFromHTML = ref({
 </template>
 
 <style scoped>
-.bg-layout {
+.bg-image {
   background-image: url('/img/bg-app.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 </style>

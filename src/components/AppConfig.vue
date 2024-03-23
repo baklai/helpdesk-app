@@ -24,15 +24,15 @@ const decrementScale = () => {
     :visible="visible"
     position="right"
     transitionOptions=".3s cubic-bezier(0, 0, 0.2, 1)"
-    class="layout-config-sidebar w-30rem"
+    class="layout-config-sidebar w-[30rem]"
     @update:visible="$emit('update:visible', !visible)"
   >
     <template #header>
       <div class="flex align-content-center w-25rem">
-        <div class="flex align-items-center justify-content-center mr-2">
+        <div class="flex items-center justify-center mr-2">
           <i class="pi pi-cog inline-block text-2xl" />
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p class="inline-block text-2xl">{{ $t('HD Options') }}</p>
         </div>
       </div>
@@ -42,9 +42,9 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">{{ $t('Scale') }}</h5>
+        <h5 class="flex items-center h-full">{{ $t('Scale') }}</h5>
       </div>
-      <div class="flex flex-1 align-items-center justify-content-between">
+      <div class="flex flex-1 items-center justify-between">
         <Button
           icon="pi pi-minus"
           type="button"
@@ -52,9 +52,9 @@ const decrementScale = () => {
           class="p-button-text p-button-rounded p-button-plain w-2rem h-2rem mr-2"
           :disabled="$config.scale === scales[0]"
         />
-        <div class="flex gap-2 align-items-center">
+        <div class="flex gap-2 items-center">
           <i
-            class="pi pi-circle-fill text-300"
+            class="pi pi-circle-fill"
             v-for="item in scales"
             :key="item"
             :class="{ 'text-primary-500': item === $config.scale }"
@@ -75,7 +75,7 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">
+        <h5 class="flex items-center h-full">
           {{ $t('Ripple Effect') }}
         </h5>
       </div>
@@ -88,7 +88,7 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">{{ $t('Menu Type') }}</h5>
+        <h5 class="flex items-center h-full">{{ $t('Menu Type') }}</h5>
       </div>
       <div class="flex-1">
         <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
@@ -99,7 +99,7 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">{{ $t('Input Style') }}</h5>
+        <h5 class="flex items-center h-full">{{ $t('Input Style') }}</h5>
       </div>
       <div class="flex-1">
         <SelectButton v-model="$config.inputStyle" :options="['outlined', 'filled']" />
@@ -110,7 +110,7 @@ const decrementScale = () => {
 
     <div class="flex my-3">
       <div class="flex-1">
-        <h5 class="flex align-items-center h-full">{{ $t('Themes style') }}</h5>
+        <h5 class="flex items-center h-full">{{ $t('Themes style') }}</h5>
       </div>
       <div class="flex-1">
         <SelectButton v-model="$config.theme" :options="['light', 'dark']" />

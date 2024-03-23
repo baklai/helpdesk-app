@@ -293,8 +293,8 @@ const onSaveRecord = handleSubmit(async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
           <AppIcons name="core-users" :size="40" class="mr-2" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">
@@ -305,7 +305,7 @@ const onSaveRecord = handleSubmit(async () => {
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
@@ -418,7 +418,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
 
           <div class="field">
-            <div class="flex align-items-center">
+            <div class="flex items-center">
               <Checkbox inputId="isActive" binary v-bind="isActive" />
               <label for="isActive" class="font-bold ml-2">
                 {{ $t('Activated account') }}
@@ -427,7 +427,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
 
           <div class="field">
-            <div class="flex align-items-center">
+            <div class="flex items-center">
               <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
               <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
             </div>
@@ -447,8 +447,8 @@ const onSaveRecord = handleSubmit(async () => {
             style="height: calc(400px)"
           >
             <template #header>
-              <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
-                <div class="flex flex-wrap gap-2 align-items-center">
+              <div class="flex flex-wrap gap-4 items-center justify-between">
+                <div class="flex flex-wrap gap-2 items-center">
                   <i class="pi pi-unlock text-2xl mr-2"></i>
                   <div>
                     <p class="text-color m-0">
@@ -459,7 +459,7 @@ const onSaveRecord = handleSubmit(async () => {
                     </small>
                   </div>
                 </div>
-                <div class="flex gap-2 align-items-center justify-content-between sm:w-max w-full">
+                <div class="flex gap-2 items-center justify-between sm:w-max w-full">
                   <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
                     <i class="pi pi-search" />
                     <InputText
@@ -477,7 +477,7 @@ const onSaveRecord = handleSubmit(async () => {
                     />
                   </span>
 
-                  <div class="flex gap-2 justify-content-between">
+                  <div class="flex gap-2 justify-between">
                     <Button
                       text
                       plain

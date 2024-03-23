@@ -89,8 +89,8 @@ const onCloseModal = () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
           <i class="pi pi-bell text-2xl mr-2"></i>
           <p class="text-lg font-bold line-height-2 mb-2">
             {{ $t('HD Notification') }}
@@ -143,7 +143,7 @@ const onCloseModal = () => {
           aria-describedby="users-help"
         >
           <template #option="slotProps">
-            <div class="flex align-items-center">
+            <div class="flex items-center">
               <Avatar icon="pi pi-user" shape="circle" class="mr-2" />
               <p class="font-semibold">{{ slotProps.option.fullname }}</p>
             </div>

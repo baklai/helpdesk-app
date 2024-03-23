@@ -50,11 +50,11 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full surface-card sticky shadow-none w-full overflow-y-auto border-left-1 border-noround surface-border px-2 w-4"
+    class="h-full surface-card sticky shadow-none overflow-y-auto border-left-1 border-noround surface-border px-2 w-1/3"
   >
     <template #title>
-      <div class="flex justify-content-between mb-4">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between mb-6">
+        <div class="flex items-center justify-center">
           <AppIcons name="pc-sys-inspector" :size="40" class="my-auto mr-2" />
           <div>
             <p class="text-lg mb-0">
@@ -69,7 +69,7 @@ const onCloseSidebar = () => {
             </p>
           </div>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <Button
             text
             plain

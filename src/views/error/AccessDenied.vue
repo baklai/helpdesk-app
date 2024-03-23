@@ -6,8 +6,8 @@ const $config = useConfig();
 
 <template>
   <div class="m-auto">
-    <div class="flex flex-column align-items-center w-full py-8 px-5 sm:px-8">
-      <div class="flex flex-column align-items-center">
+    <div class="flex flex-col items-center w-full py-20 px-8 sm:px-20">
+      <div class="flex flex-col items-center">
         <h1 class="text-6xl font-bold mb-2">
           {{ $t('Access Denied') }}
         </h1>

@@ -166,8 +166,8 @@ onMounted(() => {});
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
           <AppIcons name="onmap-scanner" :size="40" class="mr-2" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">
@@ -182,7 +182,7 @@ onMounted(() => {});
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
@@ -198,7 +198,7 @@ onMounted(() => {});
 
     <template #default>
       <div id="report" class="w-full text-left my-2 mx-auto">
-        <h1 class="mb-4" v-if="record?.item">
+        <h1 class="mb-6" v-if="record?.item">
           {{ $t('Onmap Scan Report') }} - {{ $t('Scanned at') }}
           {{ record?.item?.start ? unixDateTimeToStr(record.item.start) : '' }}
         </h1>
@@ -251,7 +251,7 @@ onMounted(() => {});
           <h2
             v-for="(status, index) in host.status"
             :id="idHostDots(host.address[index].item.addr)"
-            :class="['mb-4', status.item.state]"
+            :class="['mb-6', status.item.state]"
           >
             {{ host.address[index].item.addr }}
           </h2>

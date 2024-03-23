@@ -32,10 +32,10 @@ const toggle = event => {
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-20rem py-2 px-4">
+  <Menu ref="refMenu" popup :model="[]" class="w-20rem py-2 px-6">
     <template #start>
-      <div class="flex my-4 align-items-center">
-        <div class="flex align-items-center">
+      <div class="flex my-6 items-center">
+        <div class="flex items-center">
           <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
           <div>
             <p class="font-bold m-0">
@@ -60,7 +60,7 @@ const toggle = event => {
     </template>
 
     <template #end>
-      <div class="flex align-items-center align-content-center justify-content-between p-2">
+      <div class="flex items-center align-content-center justify-between p-2">
         <BtnToggleLang />
         <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
         <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />

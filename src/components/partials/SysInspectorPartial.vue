@@ -31,7 +31,7 @@ const diskSum = value => {
 </script>
 
 <template>
-  <div class="flex align-items-center mb-4">
+  <div class="flex items-center mb-6">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -55,10 +55,10 @@ const diskSum = value => {
     </div>
   </div>
 
-  <div class="flex justify-content-between mb-4">
-    <div class="flex justify-content-cente w-4">
-      <div class="flex flex-column card-container">
-        <div class="flex align-items-center justify-content-center">
+  <div class="flex justify-between mb-6">
+    <div class="flex justify-content-cente w-1/3">
+      <div class="flex flex-col card-container">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -72,10 +72,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('CPU') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ record?.cpu?.Name || '-' }}
           </span>
@@ -83,9 +83,9 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-content-center w-4">
-      <div class="flex flex-column">
-        <div class="flex align-items-center justify-content-center">
+    <div class="flex justify-center w-1/3">
+      <div class="flex flex-col">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -99,10 +99,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('RAM') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ memorySum(record?.memorychip) }}
           </span>
@@ -110,9 +110,9 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-content-center w-4">
-      <div class="flex flex-column card-container">
-        <div class="flex align-items-center justify-content-center">
+    <div class="flex justify-center w-1/3">
+      <div class="flex flex-col card-container">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -126,10 +126,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('HDD') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ diskSum(record?.diskdrive) }}
           </span>

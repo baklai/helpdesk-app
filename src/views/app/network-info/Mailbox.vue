@@ -70,7 +70,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start w-full px-4`}
+            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-start w-full px-6`}
             value={value}
           />
         );

@@ -20,8 +20,6 @@ const refModal = ref();
 const onRecords = async () => {
   try {
     records.value = await findAll({});
-
-    console.log(records.value);
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -61,9 +59,9 @@ onMounted(async () => {
 <template>
   <ModalRecord ref="refModal" @close="async () => await onRecords()" />
 
-  <OverlayPanel ref="refMenu" appendTo="body" class="w-30rem">
-    <div class="flex justify-content-between px-2 pt-2">
-      <div class="flex align-items-center justify-content-center">
+  <OverlayPanel ref="refMenu" appendTo="body" class="w-[30rem]">
+    <div class="flex justify-between px-2 pt-2">
+      <div class="flex items-center justify-center">
         <Avatar size="large" icon="pi pi-bell text-4xl" class="mr-2" />
         <div>
           <p class="text-lg font-bold line-height-2 mb-2">
@@ -74,7 +72,7 @@ onMounted(async () => {
           </p>
         </div>
       </div>
-      <div class="flex align-items-center justify-content-center">
+      <div class="flex items-center justify-center">
         <Button
           text
           plain
@@ -98,11 +96,11 @@ onMounted(async () => {
     <DataView v-if="records?.length" :value="records" class="overflow-auto max-h-30rem">
       <template #list="{ items }">
         <div class="col-12 border-none py-2" v-for="(item, index) in items" :key="index">
-          <div class="flex flex-row justify-content-start gap-3">
-            <div class="flex flex-column align-items-start overflow-auto w-full">
-              <div class="w-full flex align-items-center text-color">
+          <div class="flex flex-row justify-start gap-3">
+            <div class="flex flex-col align-items-start overflow-auto w-full">
+              <div class="w-full flex items-center text-color">
                 <Avatar icon="pi pi-bell text-xl" class="text-green-500 mr-2" />
-                <div class="flex flex-column align my-2">
+                <div class="flex flex-col align my-2">
                   <span class="font-medium text-green-500 text-xl">{{ item?.name }}</span>
                   <span class="font-normal text-color-secondary">
                     {{ dateTimeToStr(item?.createdAt) || '-' }}
@@ -111,7 +109,7 @@ onMounted(async () => {
               </div>
               <span class="text-xl">{{ item?.text }}</span>
             </div>
-            <div class="flex flex-column align-items-center justify-content-center mr-2">
+            <div class="flex flex-col items-center justify-center mr-2">
               <Button
                 text
                 plain
@@ -127,7 +125,7 @@ onMounted(async () => {
       </template>
     </DataView>
 
-    <div class="flex align-items-center justify-content-center p-2" v-else>
+    <div class="flex items-center justify-center p-2" v-else>
       <p class="font-medium text-lg text-color-secondary mb-0">
         {{ $t('Notifications not found') }}
       </p>

@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex align-items-center mb-4">
+  <div class="flex items-center mb-6">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

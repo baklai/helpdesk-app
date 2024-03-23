@@ -206,7 +206,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <p class="text-600 text-center font-medium py-2">
+    <p class="text-center font-medium py-2">
       {{ $t('Register to the application to continue') }}
     </p>
   </form>
