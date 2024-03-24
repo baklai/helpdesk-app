@@ -205,7 +205,7 @@ const onSaveRecord = handleSubmit(async () => {
     :draggable="false"
     v-model:visible="visible"
     :style="{ width: '600px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -237,8 +237,8 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord">
       <div class="formgrid grid">
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
             <InputText
               id="locationFrom"
@@ -252,7 +252,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
             <InputText
               id="unitFrom"
@@ -267,8 +267,8 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
             <InputText
               id="locationTo"
@@ -282,7 +282,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
             <InputText
               id="unitTo"
@@ -297,8 +297,8 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="field col-12">
-          <div class="field">
+        <div class="col-12">
+          <div class="">
             <label for="level" class="font-bold">{{ $t('Level') }}</label>
             <InputText
               id="level"
@@ -312,7 +312,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="type" class="font-bold">{{ $t('Type') }}</label>
             <InputText
               id="type"
@@ -326,7 +326,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
             <InputText
               id="speed"
@@ -340,7 +340,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="status" class="font-bold">{{ $t('Status') }}</label>
             <InputText
               id="status"
@@ -354,7 +354,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
             <InputText
               id="operator"
@@ -368,7 +368,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="composition" class="font-bold">{{ $t('Composition') }}</label>
             <Textarea
               rows="5"

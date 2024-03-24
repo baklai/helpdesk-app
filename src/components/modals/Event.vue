@@ -193,7 +193,7 @@ const onSaveRecord = handleSubmit(async () => {
     draggable
     v-model:visible="visible"
     :style="{ width: '400px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -224,7 +224,7 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <form @submit.prevent="onSaveRecord">
-      <div class="field">
+      <div class="">
         <label for="title" class="font-bold">{{ $t('Title event') }}</label>
         <InputText
           id="title"
@@ -238,7 +238,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
         <Calendar
           showIcon
@@ -257,7 +257,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="eventType" class="font-bold">{{ $t('Event type') }}</label>
         <Dropdown
           filter
@@ -278,7 +278,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="description" class="font-bold">{{ $t('Description') }}</label>
         <Textarea
           rows="5"

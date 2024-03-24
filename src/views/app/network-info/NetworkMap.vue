@@ -258,7 +258,7 @@ onMounted(async () => {
 
     <div class="flex overflow-hidden" style="height: calc(100vh - 12rem)">
       <div class="flex-none p-2 w-21rem">
-        <div class="field">
+        <div class="">
           <label for="location">{{ $t('Location name') }}</label>
           <Dropdown
             filter

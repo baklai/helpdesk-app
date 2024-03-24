@@ -85,7 +85,7 @@ const onCloseModal = () => {
     draggable
     v-model:visible="visible"
     :style="{ width: '400px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -100,7 +100,7 @@ const onCloseModal = () => {
     </template>
 
     <form @submit.prevent="onSendNotice">
-      <div class="field">
+      <div class="">
         <label for="name">{{ $t('Notification name') }}</label>
         <InputText
           id="name"
@@ -114,7 +114,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="text">{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
@@ -129,7 +129,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="users">{{ $t('Notification users') }}</label>
         <MultiSelect
           id="users"

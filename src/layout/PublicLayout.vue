@@ -20,22 +20,34 @@ const disabledSelectedFromHTML = ref({
       >
         <div class="flex justify-center mb-2">
           <div class="justify-start">
-            <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">help</p>
+            <p
+              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+              translate="no"
+              lang="en"
+            >
+              help
+            </p>
           </div>
           <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
           <div class="justify-start">
-            <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">desk</p>
+            <p
+              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+              translate="no"
+              lang="en"
+            >
+              desk
+            </p>
           </div>
         </div>
         <div class="flex flex-col items-center gap-4">
           <RouterView />
         </div>
-        <p class="text-center text-color-secondary font-semibold">
+        <p class="text-center text-surface-500 font-semibold">
           A problem?
           <a
             target="_blank"
             :href="$helpdesk.authorUrl"
-            class="text-primary hover:underline cursor-pointer font-medium"
+            class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
           >
             Click here
           </a>

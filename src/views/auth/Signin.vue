@@ -58,42 +58,44 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="onSignin" class="p-fluid w-25rem">
-    <div class="field mb-6">
-      <label for="login" class="text-xl font-medium">
+  <form @submit.prevent="onSignin" class="flex flex-col justify-center gap-6 w-[25rem]">
+    <div class="flex flex-col gap-2">
+      <label for="login" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('Login') }}
       </label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-user" />
+      <span class="relative">
+        <i
+          class="pi pi-user absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+        />
         <InputText
           id="login"
           size="large"
+          class="w-full pl-10 text-xl"
           v-bind="login"
           :placeholder="$t('Login')"
-          :class="{ 'p-invalid': !!errors?.login }"
+          :invalid="!!errors?.login"
           aria-describedby="login-help"
         />
       </span>
-      <small id="login-help" class="p-error" v-if="errors?.login">
+      <small id="login-help" class="text-red-500" v-if="errors?.login">
         {{ $t(errors.login) }}
       </small>
     </div>
 
-    <div class="field mb-2">
-      <label for="password" class="text-xl font-medium">
+    <div class="flex flex-col gap-2">
+      <label for="password" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('Password') }}
       </label>
       <Password
         toggleMask
-        inputSize="large"
         inputId="password"
         v-bind="password"
+        :invalid="!!errors?.login"
         :placeholder="$t('Password')"
         :promptLabel="$t('Choose a password')"
         :weakLabel="$t('Too simple')"
         :mediumLabel="$t('Average complexity')"
         :strongLabel="$t('Complex password')"
-        :class="{ 'p-invalid': !!errors?.password }"
         inputClass="text-xl"
         :inputStyle="{ padding: '0.9375rem' }"
         aria-describedby="password-help"
@@ -103,8 +105,8 @@ onMounted(() => {
         </template>
         <template #footer>
           <Divider />
-          <p class="mt-2">{{ $t('Suggestions') }}</p>
-          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+          <p class="mt-2">{{ $t('Suggestions') }}:</p>
+          <ul class="list-disc pl-2 ml-2 mt-0 leading-normal">
             <li>{{ $t('At least one lowercase') }}</li>
             <li>{{ $t('At least one uppercase') }}</li>
             <li>{{ $t('At least one numeric') }}</li>
@@ -112,12 +114,12 @@ onMounted(() => {
           </ul>
         </template>
       </Password>
-      <small id="password-help" class="p-error" v-if="errors?.password">
+      <small id="password-help" class="text-red-500" v-if="errors?.password">
         {{ $t(errors.password) }}
       </small>
     </div>
 
-    <div class="field mb-5">
+    <div class="mb-5">
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <Checkbox
@@ -127,16 +129,21 @@ onMounted(() => {
             class="mr-2"
             @change="onChangeRemember"
           />
-          <label for="remember">{{ $t('Remember me') }}</label>
+          <label for="remember" class="text-surface-950 dark:text-surface-50">
+            {{ $t('Remember me') }}
+          </label>
         </div>
 
-        <RouterLink :to="{ name: 'signup' }" class="text-blue-500">
+        <RouterLink
+          :to="{ name: 'signup' }"
+          class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+        >
           {{ $t('Register in the app') }}
         </RouterLink>
       </div>
     </div>
 
-    <div class="field">
+    <div class="">
       <Button
         type="submit"
         icon="pi pi-sign-in"
@@ -154,15 +161,8 @@ onMounted(() => {
       </small>
     </div>
 
-    <p class="text-center font-medium">
+    <p class="text-center font-medium text-surface-500">
       {{ $t('Sign In to the application to continue') }}
     </p>
   </form>
 </template>
-
-<style scoped>
-::v-deep(.p-input-icon-right > svg) {
-  right: 0.8rem;
-  cursor: pointer;
-}
-</style>

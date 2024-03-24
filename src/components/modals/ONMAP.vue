@@ -162,7 +162,7 @@ onMounted(() => {});
     :draggable="false"
     v-model:visible="visible"
     :style="{ width: '960px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>

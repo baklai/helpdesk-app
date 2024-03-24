@@ -196,7 +196,7 @@ const validSoftware = value => {
     :draggable="false"
     v-model:visible="visible"
     :style="{ width: '900px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>

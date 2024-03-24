@@ -80,7 +80,7 @@ const onCloseModal = () => {
     draggable
     v-model:visible="visible"
     :style="{ width: '400px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -97,8 +97,8 @@ const onCloseModal = () => {
     <!--orange-500
     
     
-         <form @submit.prevent="onSaveRecord" class="p-fluid mx-6 py-6">
-            <div class="field py-2">
+         <form @submit.prevent="onSaveRecord" class=" mx-6 py-6">
+            <div class=" py-2">
               <div class="flex items-center">
                 <InputSwitch
                   v-model="enabled"
@@ -109,7 +109,7 @@ const onCloseModal = () => {
               </div>
             </div>
 
-            <div class="field">
+            <div class="">
               <label for="description">{{ $t('Month offset') }}</label>
               <InputNumber
                 :min="1"
@@ -130,7 +130,7 @@ const onCloseModal = () => {
     -->
 
     <form @submit.prevent="onSendNotice">
-      <div class="field">
+      <div class="">
         <label for="name">{{ $t('Notification name') }}</label>
         <InputText
           id="name"
@@ -144,7 +144,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="text">{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
@@ -159,7 +159,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="users">{{ $t('Notification users') }}</label>
         <MultiSelect
           id="users"

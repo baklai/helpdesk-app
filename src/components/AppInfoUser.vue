@@ -52,7 +52,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
 
     <div class="flex my-6 items-center">
       <div class="formgrid grid">
-        <div class="field col-12 xl:col-6 text-center">
+        <div class="col-12 xl:col-6 text-center">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
@@ -69,32 +69,32 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="field col-12 xl:col-6">
-          <div class="field mb-0">
+        <div class="col-12 xl:col-6">
+          <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Login') }} :
               <span class="text-color">{{ $helpdesk?.user?.login }}</span>
             </p>
           </div>
-          <div class="field mb-0">
+          <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Fullname') }} :
               <span class="text-color">{{ $helpdesk?.user?.fullname }}</span>
             </p>
           </div>
-          <div class="field mb-0">
+          <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('E-Mail') }} :
               <span class="text-color">{{ $helpdesk?.user?.email }}</span>
             </p>
           </div>
-          <div class="field mb-0">
+          <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Phone') }} :
               <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
             </p>
           </div>
-          <div class="field mb-0">
+          <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Is Admin') }} :
               <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
@@ -102,8 +102,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <DataTable
               rowHover
               scrollable

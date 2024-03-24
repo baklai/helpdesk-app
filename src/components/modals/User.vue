@@ -289,7 +289,7 @@ const onSaveRecord = handleSubmit(async () => {
     :draggable="false"
     v-model:visible="visible"
     style="width: 800px"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -321,8 +321,8 @@ const onSaveRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord" autocomplete="off">
       <div class="formgrid grid">
-        <div class="field col-12 xl:col-4">
-          <div class="field">
+        <div class="col-12 xl:col-4">
+          <div class="">
             <label for="login" class="font-bold">{{ $t('User login') }}</label>
             <InputText
               id="login"
@@ -337,7 +337,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="password" class="font-bold">
               {{ $t('User password') }}
             </label>
@@ -373,7 +373,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
             <InputText
               id="fullname"
@@ -387,7 +387,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="email" class="font-bold">{{ $t('User email') }}</label>
             <InputText
               id="email"
@@ -401,7 +401,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
             <InputMask
               date="phone"
@@ -417,7 +417,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <div class="flex items-center">
               <Checkbox inputId="isActive" binary v-bind="isActive" />
               <label for="isActive" class="font-bold ml-2">
@@ -426,7 +426,7 @@ const onSaveRecord = handleSubmit(async () => {
             </div>
           </div>
 
-          <div class="field">
+          <div class="">
             <div class="flex items-center">
               <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
               <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
@@ -434,7 +434,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="field col-12 xl:col-8">
+        <div class="col-12 xl:col-8">
           <DataTable
             rowHover
             scrollable

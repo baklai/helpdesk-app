@@ -65,8 +65,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="onSignup" class="p-fluid w-25rem" autocomplete="off">
-    <div class="field">
+  <form @submit.prevent="onSignup" class="w-[25rem]" autocomplete="off">
+    <div class="">
       <label for="login" class="font-bold">{{ $t('User login') }}</label>
       <span class="p-input-icon-left">
         <i class="pi pi-user" />
@@ -83,7 +83,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="">
       <label for="password" class="font-bold">
         {{ $t('User password') }}
       </label>
@@ -118,7 +118,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="">
       <label for="passwordConfirm" class="font-bold">
         {{ $t('Confirm password') }}
       </label>
@@ -135,7 +135,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="">
       <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
       <span class="p-input-icon-left">
         <i class="pi pi-id-card" />
@@ -152,7 +152,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="">
       <label for="email" class="font-bold">{{ $t('User email') }}</label>
       <span class="p-input-icon-left">
         <i class="pi pi-at" />
@@ -169,7 +169,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field mb-6">
+    <div class="mb-6">
       <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
       <span class="p-input-icon-left">
         <i class="pi pi-phone" />
@@ -188,7 +188,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="field">
+    <div class="">
       <Button
         type="submit"
         icon="pi pi-verified"

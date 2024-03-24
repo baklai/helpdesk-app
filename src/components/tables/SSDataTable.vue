@@ -874,7 +874,7 @@ onMounted(async () => {
 
           <Calendar
             inline
-            class="w-full w-25rem"
+            class="w-full w-[25rem]"
             selectionMode="range"
             dateFormat="dd.mm.yy"
             :placeholder="$t('Select date')"

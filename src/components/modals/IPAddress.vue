@@ -340,7 +340,7 @@ const onCloseModal = () => {
     :draggable="false"
     v-model:visible="visible"
     :style="{ width: '900px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -372,8 +372,8 @@ const onCloseModal = () => {
 
     <form @submit.prevent="onSaveRecord">
       <div class="formgrid grid">
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="date" class="font-bold">{{ $t('Date create') }}</label>
             <Calendar
               showIcon
@@ -391,7 +391,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
               id="reqnum"
@@ -405,7 +405,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="unit" class="font-bold">{{ $t('Unit') }}</label>
             <Dropdown
               filter
@@ -428,7 +428,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
@@ -451,9 +451,9 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
-            <div class="field">
+            <div class="">
               <span class="p-input-icon-right" aria-describedby="ipaddress-help">
                 <i
                   class="pi pi-search cursor-pointer"
@@ -473,7 +473,7 @@ const onCloseModal = () => {
                 {{ $t(errors.ipaddress) }}
               </small>
             </div>
-            <div class="field">
+            <div class="">
               <Dropdown
                 filter
                 autofocus
@@ -494,10 +494,10 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="internet" class="font-bold">{{ $t('Internet') }}</label>
-            <div class="field" id="internet">
-              <div class="field">
+            <div class="" id="internet">
+              <div class="">
                 <InputText
                   id="internetReqnum"
                   v-bind="internetReqnum"
@@ -505,7 +505,7 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="field">
+              <div class="">
                 <Calendar
                   showIcon
                   showButtonBar
@@ -517,7 +517,7 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="field">
+              <div class="">
                 <Calendar
                   showIcon
                   showButtonBar
@@ -529,7 +529,7 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="field">
+              <div class="">
                 <Textarea
                   rows="1"
                   cols="10"
@@ -542,11 +542,11 @@ const onCloseModal = () => {
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="field" id="companies">
-              <div class="field">
+            <div class="" id="companies">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -568,7 +568,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -590,7 +590,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -612,7 +612,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -636,10 +636,10 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div class="field" id="client-info">
-              <div class="field">
+            <div class="" id="client-info">
+              <div class="">
                 <InputText
                   id="fullname"
                   v-bind="fullname"
@@ -652,7 +652,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <InputText
                   id="phone"
                   v-bind="phone"
@@ -665,7 +665,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -689,12 +689,12 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
             <InputText id="autoanswer" v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
               rows="7"

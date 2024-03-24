@@ -201,7 +201,7 @@ const onSaveRecord = handleSubmit(async () => {
     modal
     closable
     draggable
-    class="p-fluid"
+    class=""
     v-model:visible="visible"
     :style="{ width: '480px' }"
     @show="onShowModal"
@@ -235,7 +235,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <div class="field">
+    <div class="">
       <Dropdown
         filter
         autofocus
@@ -250,8 +250,8 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-6" />
 
-    <form @submit.prevent="onSaveRecord" class="p-fluid mx-6">
-      <div class="field">
+    <form @submit.prevent="onSaveRecord" class="mx-6">
+      <div class="">
         <label for="name">{{ $t('Enterprise name') }}</label>
         <InputText
           id="name"
@@ -265,12 +265,12 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="address">{{ $t('Enterprise address') }}</label>
         <InputText id="address" v-bind="address" :placeholder="$t('Enterprise address')" />
       </div>
 
-      <div class="field">
+      <div class="">
         <label for="description">{{ $t('Enterprise comment') }}</label>
         <Textarea
           rows="5"

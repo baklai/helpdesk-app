@@ -28,7 +28,7 @@ const decrementScale = () => {
     @update:visible="$emit('update:visible', !visible)"
   >
     <template #header>
-      <div class="flex align-content-center w-25rem">
+      <div class="flex align-content-center w-[25rem]">
         <div class="flex items-center justify-center mr-2">
           <i class="pi pi-cog inline-block text-2xl" />
         </div>

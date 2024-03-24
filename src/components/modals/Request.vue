@@ -307,7 +307,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
     :draggable="false"
     v-model:visible="visible"
     :style="{ width: '800px' }"
-    class="p-fluid"
+    class=""
     @hide="onCloseModal"
   >
     <template #header>
@@ -346,8 +346,8 @@ const onSaveClosedRecord = handleSubmit(async () => {
 
     <form @submit.prevent="onSaveRecord">
       <div class="formgrid grid">
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="request" class="font-bold">{{ $t('Client request') }}</label>
             <Textarea
               rows="8"
@@ -363,12 +363,12 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText id="reqnum" v-bind="reqnum" :placeholder="$t('Letter number')" />
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
             <span class="p-input-icon-right">
               <i
@@ -390,7 +390,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="conclusion" class="font-bold">{{ $t('Conclusion for request') }}</label>
             <Textarea
               rows="5"
@@ -402,7 +402,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             />
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
               rows="3"
@@ -414,11 +414,11 @@ const onSaveClosedRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
+        <div class="col">
+          <div class="">
             <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div class="field" id="client-info">
-              <div class="field">
+            <div class="" id="client-info">
+              <div class="">
                 <InputText
                   id="fullname"
                   v-bind="fullname"
@@ -431,7 +431,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <InputText
                   id="phone"
                   v-bind="phone"
@@ -444,7 +444,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -468,7 +468,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </div>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
@@ -491,10 +491,10 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="field">
+          <div class="">
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="field" id="companies">
-              <div class="field">
+            <div class="" id="companies">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -516,7 +516,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -538,7 +538,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
@@ -560,7 +560,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="field">
+              <div class="">
                 <Dropdown
                   filter
                   autofocus
