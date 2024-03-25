@@ -192,16 +192,16 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     draggable
     v-model:visible="visible"
-    :style="{ width: '400px' }"
-    class=""
+    :style="{ width: '50rem' }"
+    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex justify-between w-full text-surface-800 dark:text-surface-100">
         <div class="flex items-center justify-center">
           <AppIcons name="calendar-events" :size="40" class="mr-2" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('Calendar event') }}
             </p>
             <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
@@ -223,7 +223,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
+    <form @submit.prevent="onSaveRecord" class="text-surface-800 dark:text-surface-100">
       <div class="">
         <label for="title" class="font-bold">{{ $t('Title event') }}</label>
         <InputText

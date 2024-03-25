@@ -67,7 +67,7 @@ watchEffect(() => {
 <template>
   <div class="layout-wrapper min-h-screen" :class="containerClass">
     <div
-      class="layout-sidebar text-surface-900 dark:text-primary-50 bg-surface-100 dark:bg-surface-800"
+      class="layout-sidebar text-surface-900 dark:text-surface-300 bg-surface-100 dark:bg-surface-800"
     >
       <AppSidebar />
     </div>
