@@ -262,9 +262,7 @@ onMounted(async () => {
                     </span>
                   </div>
                   <div class="flex items-center justify-center">
-                    <div
-                      class="flex items-center justify-center flex-wrap gap-2 items-center justify-between w-full"
-                    >
+                    <div class="flex items-center flex-wrap gap-2 justify-between w-full">
                       <div class="flex gap-2 w-full justify-between">
                         <Button
                           text
@@ -340,7 +338,7 @@ onMounted(async () => {
   padding: 5px 10px;
 }
 ::v-deep(.calendar-month__event:hover) {
-  background-color: var(--surface-hover);
+  /* background-color: var(--surface-hover); */
   padding: 5px 10px;
 }
 
