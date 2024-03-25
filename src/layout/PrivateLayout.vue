@@ -65,12 +65,16 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="layout-wrapper" :class="containerClass">
-    <div class="layout-sidebar surface-50">
+  <div class="layout-wrapper min-h-screen" :class="containerClass">
+    <div
+      class="layout-sidebar text-surface-900 dark:text-primary-50 bg-surface-100 dark:bg-surface-800"
+    >
       <AppSidebar />
     </div>
 
-    <div class="layout-main-container">
+    <div
+      class="layout-main-container text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-900"
+    >
       <AppTopbar />
       <div class="layout-main overflow-auto">
         <div class="grid grid-nogutter" style="height: calc(100vh - 9rem)">

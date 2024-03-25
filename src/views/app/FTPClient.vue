@@ -771,7 +771,7 @@ onMounted(async () => {
 
 <style scoped>
 ::v-deep(.p-datatable-header) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
   padding: 0.75rem 0rem;
 }
 
@@ -782,11 +782,11 @@ onMounted(async () => {
 }
 
 ::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 
 ::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 
 ::v-deep(.p-component-overlay) {

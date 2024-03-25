@@ -146,7 +146,7 @@ table {
 td,
 th {
   font-size: 14px;
-  border-bottom: 1px solid var(--surface-border);
+  /* border-bottom: 1px solid var(--surface-border); */
 }
 
 th {

@@ -350,21 +350,21 @@ onMounted(async () => {
 
 ::v-deep(.event-flyout) {
   color: var(--text-color) !important;
-  background: var(--surface-card) !important;
-  border-color: var(--surface-border) !important;
+  /* background: var(--surface-card) !important; */
+  /* border-color: var(--surface-border) !important; */
 }
 
 ::v-deep(.calendar-root) {
-  background: var(--surface-card) !important;
-  border-color: var(--surface-border) !important;
+  /* background: var(--surface-card) !important; */
+  /* border-color: var(--surface-border) !important; */
 }
 
 ::v-deep(.calendar-month__weekday) {
-  border-color: var(--surface-border) !important;
+  /* border-color: var(--surface-border) !important; */
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
-  border-color: var(--surface-border) !important;
+  /* border-color: var(--surface-border) !important; */
   background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
       fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,

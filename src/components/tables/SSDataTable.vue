@@ -907,71 +907,73 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* bg-surface-0 dark:bg-surface-900 */
+
 ::v-deep(.p-datatable-header) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 
 ::v-deep(.p-paginator) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 ::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 
 ::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-card);
+  /* background: var(--surface-card); */
 }
 
 ::v-deep(.p-component-overlay) {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
 ::v-deep(tr.p-datatable-emptymessage > td) {
-  border: none;
+  /* border: none; */
 }
 
 ::v-deep(tr.p-datatable-emptymessage:hover) {
-  background: none !important;
+  /* background: none !important; */
 }
 
 ::v-deep(.p-datatable-footer) {
-  border: none;
+  /* border: none; */
 }
 
 ::v-deep(.p-paginator) {
-  padding: 0.6rem 0rem;
+  /* padding: 0.6rem 0rem; */
 }
 
 ::v-deep(.p-column-filter-menu-button.p-column-filter-menu-button-active) {
-  background: transparent;
+  /* background: transparent; */
 }
 
 ::v-deep(button.p-paginator-page.p-paginator-element.p-link.p-highlight) {
-  background: var(--surface-card);
-  color: var(--text-color);
+  /* background: var(--surface-card); */
+  /* color: var(--text-color); */
 }
 
 ::v-deep(div.p-paginator-rpp-options) {
-  height: auto;
+  /* height: auto; */
 }
 
 ::v-deep(div.p-paginator-rpp-options > .p-inputtext) {
-  padding: 0.6rem 0.75rem;
+  /* padding: 0.6rem 0.75rem; */
 }
 
 ::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  background: var(--surface-ground);
+  /* background: var(--surface-ground); */
 }
 
 ::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  background-color: var(--surface-ground);
+  /* background-color: var(--surface-ground); */
 }
 
 ::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
-  padding: 0.3rem 0.3rem;
+  /* padding: 0.3rem 0.3rem; */
 }
 
 ::v-deep(.p-column-filter-menu) {
-  margin-left: 0.5rem;
+  /* margin-left: 0.5rem; */
 }
 </style>

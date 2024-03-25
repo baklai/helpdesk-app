@@ -18,27 +18,36 @@ const disabledSelectedFromHTML = ref({
       <div
         class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
       >
-        <div class="flex justify-center mb-2">
-          <div class="justify-start">
-            <p
-              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-              translate="no"
-              lang="en"
-            >
-              help
-            </p>
+        <div class="flex flex-col items-center justify-center mb-2">
+          <div class="flex">
+            <div class="justify-start">
+              <p
+                class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+                translate="no"
+                lang="en"
+              >
+                help
+              </p>
+            </div>
+            <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
+            <div class="justify-start">
+              <p
+                class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+                translate="no"
+                lang="en"
+              >
+                desk
+              </p>
+            </div>
           </div>
-          <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
-          <div class="justify-start">
-            <p
-              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-              translate="no"
-              lang="en"
-            >
-              desk
+
+          <div class="flex text-center">
+            <p class="text-xl font-medium text-surface-500">
+              {{ $t('Web Application of technical support') }}
             </p>
           </div>
         </div>
+
         <div class="flex flex-col items-center gap-4">
           <RouterView />
         </div>

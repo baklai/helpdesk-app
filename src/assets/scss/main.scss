@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 html {
   height: 100%;
   background-color: var(--surface-ground);
@@ -23,8 +19,4 @@ body {
 
 a {
   text-decoration: none;
-}
-
-.layout-wrapper {
-  min-height: 100vh;
 }
