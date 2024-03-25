@@ -65,32 +65,42 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="onSignup" class="w-[25rem]" autocomplete="off">
-    <div class="">
-      <label for="login" class="font-bold">{{ $t('User login') }}</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-user" />
+  <form
+    @submit.prevent="onSignup"
+    class="flex flex-col justify-center gap-2 w-[25rem]"
+    autocomplete="off"
+  >
+    <div class="flex flex-col gap-2">
+      <label for="login" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
+        {{ $t('User login') }}
+      </label>
+      <span class="relative">
+        <i
+          class="pi pi-user absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+        />
         <InputText
           id="login"
           v-bind="login"
+          :invalid="!!errors?.login"
           :placeholder="$t('User login')"
-          :class="{ 'p-invalid': !!errors?.login }"
+          class="w-full pl-10"
           aria-describedby="login-help"
         />
       </span>
-      <small id="login-help" class="p-error" v-if="errors?.login">
+      <small id="login-help" class="text-red-500" v-if="errors?.login">
         {{ $t(errors.login) }}
       </small>
     </div>
 
-    <div class="">
-      <label for="password" class="font-bold">
+    <div class="flex flex-col gap-2">
+      <label for="password" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('User password') }}
       </label>
       <Password
         toggleMask
         id="password"
         v-bind="password"
+        :invalid="!!errors?.password"
         :placeholder="$t('User password')"
         :promptLabel="$t('Choose a password')"
         :weakLabel="$t('Too simple')"
@@ -113,108 +123,115 @@ onMounted(() => {
           </ul>
         </template>
       </Password>
-      <small id="password-help" class="p-error" v-if="errors?.password">
+      <small id="password-help" class="text-red-500" v-if="errors?.password">
         {{ $t(errors.password) }}
       </small>
     </div>
 
-    <div class="">
-      <label for="passwordConfirm" class="font-bold">
+    <div class="flex flex-col gap-2">
+      <label
+        for="passwordConfirm"
+        class="text-lg font-semibold text-surface-950 dark:text-surface-50"
+      >
         {{ $t('Confirm password') }}
       </label>
       <InputText
         type="password"
         id="passwordConfirm"
         v-bind="passwordConfirm"
+        :invalid="!!errors?.passwordConfirm"
         :placeholder="$t('Confirm password')"
-        :class="{ 'p-invalid': !!errors?.passwordConfirm }"
         aria-describedby="passwordConfirm-help"
       />
-      <small id="passwordConfirm-help" class="p-error" v-if="errors?.passwordConfirm">
+      <small id="passwordConfirm-help" class="text-red-500" v-if="errors?.passwordConfirm">
         {{ $t(errors.passwordConfirm) }}
       </small>
     </div>
 
-    <div class="">
-      <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-id-card" />
+    <div class="flex flex-col gap-2">
+      <label for="fullname" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
+        {{ $t('User name') }}
+      </label>
+      <span class="relative">
+        <i
+          class="pi pi-id-card absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+        />
         <InputText
           id="fullname"
           v-bind="fullname"
+          :invalid="!!errors?.fullname"
           :placeholder="$t('User name')"
-          :class="{ 'p-invalid': !!errors?.fullname }"
+          class="w-full pl-10"
           aria-describedby="fullname-help"
         />
       </span>
-      <small id="fullname-help" class="p-error" v-if="errors?.fullname">
+      <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
         {{ $t(errors.fullname) }}
       </small>
     </div>
 
-    <div class="">
-      <label for="email" class="font-bold">{{ $t('User email') }}</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-at" />
+    <div class="flex flex-col gap-2">
+      <label for="email" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
+        {{ $t('User email') }}
+      </label>
+      <span class="relative">
+        <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
         <InputText
           id="email"
           v-bind="email"
+          :invalid="!!errors?.email"
           :placeholder="$t('User email')"
-          :class="{ 'p-invalid': !!errors?.email }"
+          class="w-full pl-10"
           aria-describedby="email-help"
         />
       </span>
-      <small id="email-help" class="p-error" v-if="errors?.email">
+      <small id="email-help" class="text-red-500" v-if="errors?.email">
         {{ $t(errors.email) }}
       </small>
     </div>
 
-    <div class="mb-6">
-      <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-phone" />
+    <div class="flex flex-col gap-2">
+      <label for="phone" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
+        {{ $t('User phone') }}
+      </label>
+      <span class="relative">
+        <i
+          class="pi pi-phone absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+        />
         <InputMask
+          id="phone"
           date="phone"
           mask="+99(999)999-99-99"
-          id="phone"
           v-bind="phone"
+          :invalid="!!errors?.phone"
           :placeholder="$t('User phone')"
-          :class="{ 'p-invalid': !!errors?.phone }"
+          class="w-full pl-10"
           aria-describedby="phone-help"
         />
       </span>
-      <small id="phone-help" class="p-error" v-if="errors?.phone">
+      <small id="phone-help" class="text-red-500" v-if="errors?.phone">
         {{ $t(errors.phone) }}
       </small>
     </div>
 
-    <div class="">
-      <Button
-        type="submit"
-        icon="pi pi-verified"
-        class="block w-full p-3 text-xl text-center"
-        :disabled="submitCount > SUBMIT_COUNT"
-        :label="$t('Register in the application')"
-        aria-describedby="submit-help"
-      />
-      <small
-        id="submit-help"
-        class="p-error block w-full text-center mt-2"
-        v-if="submitCount > SUBMIT_COUNT"
-      >
-        {{ $t('You submitted too many times') }}
-      </small>
-    </div>
+    <Button
+      type="submit"
+      icon="pi pi-verified"
+      class="block w-full mt-4 mb-2 text-xl"
+      :disabled="submitCount > SUBMIT_COUNT"
+      :label="$t('Register in the application')"
+      aria-describedby="submit-help"
+    />
+    <small
+      id="submit-help"
+      class="text-red-500 block w-full text-center"
+      v-if="submitCount > SUBMIT_COUNT"
+    >
+      {{ $t('You submitted too many times') }}
+    </small>
 
-    <p class="text-center font-medium py-2">
+    <p class="text-center font-medium">
       {{ $t('Register to the application to continue') }}
     </p>
   </form>
 </template>
-
-<style scoped>
-::v-deep(.p-input-icon-right > svg) {
-  right: 0.8rem;
-  cursor: pointer;
-}
-</style>

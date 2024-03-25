@@ -58,7 +58,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="onSignin" class="flex flex-col justify-center gap-6 w-[25rem]">
+  <form
+    @submit.prevent="onSignin"
+    class="flex flex-col justify-center gap-6 w-[25rem]"
+    autocomplete="off"
+  >
     <div class="flex flex-col gap-2">
       <label for="login" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('Login') }}
@@ -119,7 +123,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="mb-5">
+    <div class="flex flex-col gap-2 mb-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <Checkbox
@@ -143,7 +147,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="">
+    <div class="flex flex-col gap-2">
       <Button
         type="submit"
         icon="pi pi-sign-in"
@@ -154,7 +158,7 @@ onMounted(() => {
       />
       <small
         id="submit-help"
-        class="p-error block w-full text-center mt-2"
+        class="block w-full text-center text-red-500"
         v-if="submitCount > SUBMIT_COUNT"
       >
         {{ $t('You submitted too many times') }}

@@ -307,7 +307,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.regex }"
           aria-describedby="regex-help"
         />
-        <small id="regex-help" class="p-error" v-if="errors?.regex">
+        <small id="regex-help" class="text-red-500" v-if="errors?.regex">
           {{ $t(errors.regex) }}
         </small>
       </div>
@@ -328,7 +328,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.type }"
           aria-describedby="type-help"
         />
-        <small id="type-help" class="p-error" v-if="errors?.type">
+        <small id="type-help" class="text-red-500" v-if="errors?.type">
           {{ $t(errors.type) }}
         </small>
       </div>
@@ -349,7 +349,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.status }"
           aria-describedby="status-help"
         />
-        <small id="status-help" class="p-error" v-if="errors?.status">
+        <small id="status-help" class="text-red-500" v-if="errors?.status">
           {{ $t(errors.status) }}
         </small>
       </div>

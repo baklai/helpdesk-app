@@ -247,7 +247,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.locationFrom }"
               aria-describedby="locationFrom-help"
             />
-            <small id="locationFrom-help" class="p-error" v-if="errors?.locationFrom">
+            <small id="locationFrom-help" class="text-red-500" v-if="errors?.locationFrom">
               {{ $t(errors.locationFrom) }}
             </small>
           </div>
@@ -261,7 +261,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.unitFrom }"
               aria-describedby="unitFrom-help"
             />
-            <small id="unitFrom-help" class="p-error" v-if="errors?.unitFrom">
+            <small id="unitFrom-help" class="text-red-500" v-if="errors?.unitFrom">
               {{ $t(errors.unitFrom) }}
             </small>
           </div>
@@ -277,7 +277,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.locationTo }"
               aria-describedby="locationTo-help"
             />
-            <small id="locationTo-help" class="p-error" v-if="errors?.locationTo">
+            <small id="locationTo-help" class="text-red-500" v-if="errors?.locationTo">
               {{ $t(errors.locationTo) }}
             </small>
           </div>
@@ -291,7 +291,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.unitTo }"
               aria-describedby="unitTo-help"
             />
-            <small id="unitTo-help" class="p-error" v-if="errors?.unitTo">
+            <small id="unitTo-help" class="text-red-500" v-if="errors?.unitTo">
               {{ $t(errors.unitTo) }}
             </small>
           </div>
@@ -307,7 +307,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.level }"
               aria-describedby="level-help"
             />
-            <small id="level-help" class="p-error" v-if="errors?.level">
+            <small id="level-help" class="text-red-500" v-if="errors?.level">
               {{ $t(errors.level) }}
             </small>
           </div>
@@ -321,7 +321,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.type }"
               aria-describedby="type-help"
             />
-            <small id="type-help" class="p-error" v-if="errors?.type">
+            <small id="type-help" class="text-red-500" v-if="errors?.type">
               {{ $t(errors.type) }}
             </small>
           </div>
@@ -335,7 +335,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.speed }"
               aria-describedby="speed-help"
             />
-            <small id="speed-help" class="p-error" v-if="errors?.speed">
+            <small id="speed-help" class="text-red-500" v-if="errors?.speed">
               {{ $t(errors.speed) }}
             </small>
           </div>
@@ -349,7 +349,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.status }"
               aria-describedby="status-help"
             />
-            <small id="status-help" class="p-error" v-if="errors?.status">
+            <small id="status-help" class="text-red-500" v-if="errors?.status">
               {{ $t(errors.status) }}
             </small>
           </div>
@@ -363,7 +363,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.operator }"
               aria-describedby="operator-help"
             />
-            <small id="operator-help" class="p-error" v-if="errors?.operator">
+            <small id="operator-help" class="text-red-500" v-if="errors?.operator">
               {{ $t(errors.operator) }}
             </small>
           </div>
@@ -379,7 +379,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.composition }"
               aria-describedby="composition-help"
             />
-            <small id="composition-help" class="p-error" v-if="errors?.composition">
+            <small id="composition-help" class="text-red-500" v-if="errors?.composition">
               {{ $t(errors.composition) }}
             </small>
           </div>

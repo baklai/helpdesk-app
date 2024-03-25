@@ -122,7 +122,7 @@ const onCloseModal = () => {
                 aria-describedby="offsetMonth-help"
                 :class="{ 'p-invalid': !!errors?.offsetMonth }"
               />
-              <small id="offsetMonth-help" class="p-error" v-if="errors?.offsetMonth">
+              <small id="offsetMonth-help" class="text-red-500" v-if="errors?.offsetMonth">
                 {{ $t(errors.offsetMonth) }}
               </small>
             </div>
@@ -139,7 +139,7 @@ const onCloseModal = () => {
           :class="{ 'p-invalid': !!errors?.name }"
           aria-describedby="name-help"
         />
-        <small id="name-help" class="p-error" v-if="errors?.name">
+        <small id="name-help" class="text-red-500" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>
@@ -154,7 +154,7 @@ const onCloseModal = () => {
           :class="{ 'p-invalid': !!errors?.text }"
           aria-describedby="text-help"
         />
-        <small id="text-help" class="p-error" v-if="errors?.text">
+        <small id="text-help" class="text-red-500" v-if="errors?.text">
           {{ $t(errors.text) }}
         </small>
       </div>
@@ -179,7 +179,7 @@ const onCloseModal = () => {
             </div>
           </template>
         </MultiSelect>
-        <small id="users-help" class="p-error" v-if="errors?.users">
+        <small id="users-help" class="text-red-500" v-if="errors?.users">
           {{ $t(errors.users) }}
         </small>
       </div>

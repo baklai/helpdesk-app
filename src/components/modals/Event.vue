@@ -233,7 +233,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.title }"
           aria-describedby="title-help"
         />
-        <small id="title-help" class="p-error" v-if="errors?.title">
+        <small id="title-help" class="text-red-500" v-if="errors?.title">
           {{ $t(errors.title) }}
         </small>
       </div>
@@ -252,7 +252,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.datetime }"
           aria-describedby="datetime-help"
         />
-        <small id="datetime-help" class="p-error" v-if="errors?.datetime">
+        <small id="datetime-help" class="text-red-500" v-if="errors?.datetime">
           {{ $t(errors.datetime) }}
         </small>
       </div>
@@ -273,7 +273,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.eventType }"
           aria-describedby="eventType-help"
         />
-        <small id="eventType-help" class="p-error" v-if="errors?.eventType">
+        <small id="eventType-help" class="text-red-500" v-if="errors?.eventType">
           {{ $t(errors.eventType) }}
         </small>
       </div>

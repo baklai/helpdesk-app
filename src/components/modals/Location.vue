@@ -259,7 +259,7 @@ const onSaveRecord = handleSubmit(async () => {
           :class="{ 'p-invalid': !!errors?.name }"
           aria-describedby="name-help"
         />
-        <small id="name-help" class="p-error" v-if="errors?.name">
+        <small id="name-help" class="text-red-500" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>

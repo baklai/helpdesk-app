@@ -315,7 +315,7 @@ const runTargetScan = handleSubmit(async () => {
                   :class="{ 'p-invalid': !!errors?.target }"
                   aria-describedby="target-help"
                 />
-                <small id="target-help" class="p-error" v-if="errors?.target">
+                <small id="target-help" class="text-red-500" v-if="errors?.target">
                   {{ $t(errors.target) }}
                 </small>
               </div>
@@ -330,7 +330,7 @@ const runTargetScan = handleSubmit(async () => {
                   :class="{ 'p-invalid': !!errors?.title }"
                   aria-describedby="title-help"
                 />
-                <small id="title-help" class="p-error" v-if="errors?.title">
+                <small id="title-help" class="text-red-500" v-if="errors?.title">
                   {{ $t(errors.title) }}
                 </small>
               </div>
@@ -366,7 +366,7 @@ const runTargetScan = handleSubmit(async () => {
                   :class="{ 'p-invalid': !!errors?.command }"
                   aria-describedby="command-help"
                 />
-                <small id="command-help" class="p-error" v-if="errors?.command">
+                <small id="command-help" class="text-red-500" v-if="errors?.command">
                   {{ $t(errors.command) }}
                 </small>
               </div>

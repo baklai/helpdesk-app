@@ -332,7 +332,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.login }"
               aria-describedby="login-help"
             />
-            <small id="login-help" class="p-error" v-if="errors?.login">
+            <small id="login-help" class="text-red-500" v-if="errors?.login">
               {{ $t(errors.login) }}
             </small>
           </div>
@@ -368,7 +368,7 @@ const onSaveRecord = handleSubmit(async () => {
                 </ul>
               </template>
             </Password>
-            <small id="password-help" class="p-error" v-if="errors?.password">
+            <small id="password-help" class="text-red-500" v-if="errors?.password">
               {{ $t(errors.password) }}
             </small>
           </div>
@@ -382,7 +382,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.fullname }"
               aria-describedby="fullname-help"
             />
-            <small id="fullname-help" class="p-error" v-if="errors?.fullname">
+            <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
               {{ $t(errors.fullname) }}
             </small>
           </div>
@@ -396,7 +396,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.email }"
               aria-describedby="email-help"
             />
-            <small id="email-help" class="p-error" v-if="errors?.email">
+            <small id="email-help" class="text-red-500" v-if="errors?.email">
               {{ $t(errors.email) }}
             </small>
           </div>
@@ -412,7 +412,7 @@ const onSaveRecord = handleSubmit(async () => {
               :class="{ 'p-invalid': !!errors?.phone }"
               aria-describedby="phone-help"
             />
-            <small id="phone-help" class="p-error" v-if="errors?.phone">
+            <small id="phone-help" class="text-red-500" v-if="errors?.phone">
               {{ $t(errors.phone) }}
             </small>
           </div>

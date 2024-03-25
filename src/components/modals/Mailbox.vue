@@ -292,7 +292,7 @@ const onCloseModal = () => {
               :class="{ 'p-invalid': !!errors?.dateOpen }"
               aria-describedby="dateOpen-help"
             />
-            <small id="dateOpen-help" class="p-error" v-if="errors?.dateOpen">
+            <small id="dateOpen-help" class="text-red-500" v-if="errors?.dateOpen">
               {{ $t(errors.dateOpen) }}
             </small>
           </div>
@@ -306,7 +306,7 @@ const onCloseModal = () => {
               :class="{ 'p-invalid': !!errors?.reqnum }"
               aria-describedby="reqnum-help"
             />
-            <small id="reqnum-help" class="p-error" v-if="errors?.reqnum">
+            <small id="reqnum-help" class="text-red-500" v-if="errors?.reqnum">
               {{ $t(errors.reqnum) }}
             </small>
           </div>
@@ -320,7 +320,7 @@ const onCloseModal = () => {
               :class="{ 'p-invalid': !!errors?.login }"
               aria-describedby="login-help"
             />
-            <small id="login-help" class="p-error" v-if="errors?.login">
+            <small id="login-help" class="text-red-500" v-if="errors?.login">
               {{ $t(errors.login) }}
             </small>
           </div>
@@ -336,7 +336,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.fullname }"
                   aria-describedby="fullname-help"
                 />
-                <small id="fullname-help" class="p-error" v-if="errors?.fullname">
+                <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
                   {{ $t(errors.fullname) }}
                 </small>
               </div>
@@ -349,7 +349,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.phone }"
                   aria-describedby="phone-help"
                 />
-                <small id="phone-help" class="p-error" v-if="errors?.phone">
+                <small id="phone-help" class="text-red-500" v-if="errors?.phone">
                   {{ $t(errors.phone) }}
                 </small>
               </div>
@@ -371,7 +371,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.position }"
                   aria-describedby="position-help"
                 />
-                <small id="position-help" class="p-error" v-if="errors?.position">
+                <small id="position-help" class="text-red-500" v-if="errors?.position">
                   {{ $t(errors.position) }}
                 </small>
               </div>
@@ -412,7 +412,7 @@ const onCloseModal = () => {
               :class="{ 'p-invalid': !!errors?.location }"
               aria-describedby="location-help"
             />
-            <small id="location-help" class="p-error" v-if="errors?.location">
+            <small id="location-help" class="text-red-500" v-if="errors?.location">
               {{ $t(errors.location) }}
             </small>
           </div>
@@ -437,7 +437,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.company }"
                   aria-describedby="company-help"
                 />
-                <small id="company-help" class="p-error" v-if="errors?.company">
+                <small id="company-help" class="text-red-500" v-if="errors?.company">
                   {{ $t(errors.company) }}
                 </small>
               </div>
@@ -459,7 +459,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.branch }"
                   aria-describedby="branch-help"
                 />
-                <small id="branch-help" class="p-error" v-if="errors?.branch">
+                <small id="branch-help" class="text-red-500" v-if="errors?.branch">
                   {{ $t(errors.branch) }}
                 </small>
               </div>
@@ -481,7 +481,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.enterprise }"
                   aria-describedby="enterprise-help"
                 />
-                <small id="enterprise-help" class="p-error" v-if="errors?.enterprise">
+                <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
                   {{ $t(errors.enterprise) }}
                 </small>
               </div>
@@ -503,7 +503,7 @@ const onCloseModal = () => {
                   :class="{ 'p-invalid': !!errors?.department }"
                   aria-describedby="department-help"
                 />
-                <small id="department-help" class="p-error" v-if="errors?.department">
+                <small id="department-help" class="text-red-500" v-if="errors?.department">
                   {{ $t(errors.department) }}
                 </small>
               </div>
