@@ -13,18 +13,25 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
 
 <template>
   <RouterLink :to="{ name: 'home' }" class="flex justify-center layout-topbar-logo py-2 mb-6">
-    <div class="flex justify-center">
-      <div class="justify-start">
-        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
-          h&nbsp;e&nbsp;l&nbsp;p&nbsp;
-        </p>
+    <div class="flex flex-col items-center justify-center mb-2">
+      <div class="flex justify-center">
+        <div class="justify-start">
+          <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+            h&nbsp;e&nbsp;l&nbsp;p&nbsp;
+          </p>
+        </div>
+        <div class="flex items-center justify-center">
+          <img src="/img/logo-app.webp" alt="HD logo" width="32" height="32" class="mx-2" />
+        </div>
+        <div class="justify-start">
+          <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+            &nbsp;d&nbsp;e&nbsp;s&nbsp;k
+          </p>
+        </div>
       </div>
-      <div class="flex items-center justify-center">
-        <img src="/img/logo-app.webp" alt="HD logo" width="32" height="32" class="mx-2" />
-      </div>
-      <div class="justify-start">
-        <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
-          &nbsp;d&nbsp;e&nbsp;s&nbsp;k
+      <div class="flex text-center">
+        <p class="text-base font-medium text-surface-500">
+          {{ $t('Web Application of technical support') }}
         </p>
       </div>
     </div>

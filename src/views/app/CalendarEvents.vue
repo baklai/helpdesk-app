@@ -372,7 +372,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading > span.calendar-month__day-date) {
-  color: var(--text-color-secondary) !important;
+  color: var(--surface-500) !important;
 }
 
 ::v-deep(.calendar-header) {

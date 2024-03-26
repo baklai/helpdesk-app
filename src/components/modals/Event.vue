@@ -299,7 +299,7 @@ const onSaveRecord = handleSubmit(async () => {
 
 <style scoped>
 ::v-deep(.p-calendar-w-btn .p-datepicker-trigger.p-button) {
-  color: var(--text-color-secondary);
+  color: var(--surface-500);
 }
 
 ::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
