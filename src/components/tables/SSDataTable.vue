@@ -487,7 +487,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Menu popup ref="refMenuColumns" class="p-menu-list p-reset w-20rem p-2">
+  <Menu popup ref="refMenuColumns" class="p-menu-list p-reset w-[20rem] p-2">
     <template #start>
       <Listbox
         filter
@@ -579,7 +579,10 @@ onMounted(async () => {
         default:
           'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
       }"
-      class="p-datatable-sm min-w-full overflow-x-auto"
+      class="min-w-full overflow-x-auto"
+      :pt="{
+        header: 'bg-surface-0 dark:bg-surface-900'
+      }"
       @state-restore="onStorage"
       @filter="onFilter"
       @sort="onSort"
@@ -599,20 +602,19 @@ onMounted(async () => {
             </div>
           </div>
           <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-            <span
-              v-if="globalFilter && filters['global']"
-              class="p-input-icon-left p-input-icon-right sm:w-max w-full"
-            >
-              <i class="pi pi-search" />
+            <span v-if="globalFilter && filters['global']" class="relative sm:w-max w-full">
+              <i
+                class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+              />
               <InputText
                 id="name"
-                class="sm:w-max w-full"
+                class="sm:w-max w-full px-10"
                 :placeholder="$t(globalFilter?.placeholder)"
                 v-model="filters['global'].value"
                 @keydown.enter="onFilter({ filters })"
               />
               <i
-                class="pi pi-times cursor-pointer hover:text-color"
+                class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
                 v-tooltip.bottom="$t('Clear global filter')"
                 @click="clearGlobalFilter"
               />
@@ -908,72 +910,4 @@ onMounted(async () => {
 
 <style scoped>
 /* bg-surface-0 dark:bg-surface-900 */
-
-::v-deep(.p-datatable-header) {
-  /* background: var(--surface-card); */
-}
-
-::v-deep(.p-paginator) {
-  /* background: var(--surface-card); */
-}
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  /* background: var(--surface-card); */
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  /* background: var(--surface-card); */
-}
-
-::v-deep(.p-component-overlay) {
-  /* background-color: transparent; */
-}
-
-::v-deep(tr.p-datatable-emptymessage > td) {
-  /* border: none; */
-}
-
-::v-deep(tr.p-datatable-emptymessage:hover) {
-  /* background: none !important; */
-}
-
-::v-deep(.p-datatable-footer) {
-  /* border: none; */
-}
-
-::v-deep(.p-paginator) {
-  /* padding: 0.6rem 0rem; */
-}
-
-::v-deep(.p-column-filter-menu-button.p-column-filter-menu-button-active) {
-  /* background: transparent; */
-}
-
-::v-deep(button.p-paginator-page.p-paginator-element.p-link.p-highlight) {
-  /* background: var(--surface-card); */
-  /* color: var(--text-color); */
-}
-
-::v-deep(div.p-paginator-rpp-options) {
-  /* height: auto; */
-}
-
-::v-deep(div.p-paginator-rpp-options > .p-inputtext) {
-  /* padding: 0.6rem 0.75rem; */
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  /* background: var(--surface-ground); */
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  /* background-color: var(--surface-ground); */
-}
-
-::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
-  /* padding: 0.3rem 0.3rem; */
-}
-
-::v-deep(.p-column-filter-menu) {
-  /* margin-left: 0.5rem; */
-}
 </style>
