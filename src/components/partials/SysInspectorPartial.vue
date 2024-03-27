@@ -37,7 +37,7 @@ const diskSum = value => {
       viewBox="0 0 24 24"
       width="40"
       height="40"
-      class="text-color-secondary mr-2"
+      class="text-surface-500 mr-2"
     >
       <path
         fill="currentColor"
@@ -64,7 +64,7 @@ const diskSum = value => {
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"
@@ -91,7 +91,7 @@ const diskSum = value => {
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"
@@ -118,7 +118,7 @@ const diskSum = value => {
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"

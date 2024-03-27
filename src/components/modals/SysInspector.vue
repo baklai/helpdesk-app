@@ -207,10 +207,10 @@ const validSoftware = value => {
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report host') }}: {{ record?.host || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
@@ -864,7 +864,7 @@ const validSoftware = value => {
                   class="border-1"
                   :class="
                     user?.Disabled
-                      ? 'text-color-secondary surface-border'
+                      ? 'text-surface-500 surface-border'
                       : 'text-green-500 border-green-500 font-bold'
                   "
                 />

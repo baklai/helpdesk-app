@@ -58,7 +58,7 @@ export const statusCodeToColor = value => {
   } else if (value >= 200 && value < 300) {
     return 'text-green-500';
   } else if (value >= 300 && value < 400) {
-    return 'text-color-secondary';
+    return 'text-surface-500';
   } else if (value >= 400 && value < 500) {
     return 'text-orange-500';
   } else {

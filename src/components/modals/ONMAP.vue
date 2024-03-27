@@ -173,10 +173,10 @@ onMounted(() => {});
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ record?.title || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report target') }}: {{ record?.target || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>

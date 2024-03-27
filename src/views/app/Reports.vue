@@ -32,7 +32,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-6">
+    <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
@@ -40,7 +40,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
         <h3 class="my-auto">
           {{ $t($route?.meta?.title) }}
         </h3>
-        <h5 class="text-sm text-color-secondary my-auto">
+        <h5 class="text-sm text-surface-500 my-auto">
           {{ $t($route?.meta?.description) }}
         </h5>
       </div>

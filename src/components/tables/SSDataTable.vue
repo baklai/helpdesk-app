@@ -530,7 +530,7 @@ onMounted(async () => {
           :label="$t('Select All')"
           icon="pi pi-check-square"
           size="small"
-          class="w-full text-color-secondary"
+          class="w-full text-surface-500"
           @click="selectAllColumns"
         />
       </div>
@@ -596,7 +596,7 @@ onMounted(async () => {
               <h3 class="text-color m-0">
                 <slot name="title" />
               </h3>
-              <p class="text-color-secondary">
+              <p class="text-surface-500">
                 <slot name="subtitle" />
               </p>
             </div>
@@ -684,7 +684,7 @@ onMounted(async () => {
           v-if="!loading && records?.length === 0"
           class="flex flex-col justify-center p-datatable-loading-overlay p-component-overlay z-0"
         >
-          <i class="pi pi-filter-slash text-color-secondary" style="font-size: 4rem"></i>
+          <i class="pi pi-filter-slash text-surface-500" style="font-size: 4rem"></i>
           <h5>{{ $t('No records found') }}</h5>
           <p>{{ $t('Try changing the search terms in the filter') }}</p>
           <Button

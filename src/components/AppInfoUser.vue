@@ -42,7 +42,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
             <p class="font-bold m-0">
               {{ $helpdesk?.user?.fullname }}
             </p>
-            <p class="line-height-3 text-color-secondary m-0">
+            <p class="line-height-3 text-surface-500 m-0">
               {{ $helpdesk?.user?.email }}
             </p>
           </div>
@@ -60,10 +60,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
             v-if="$helpdesk?.user?.logo"
           />
           <div class="flex items-center justify-center p-3 flex-col" v-else>
-            <i
-              class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-color-secondary"
-            />
-            <p class="text-sm mt-6 mb-0 text-color-secondary">
+            <i class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-surface-500" />
+            <p class="text-sm mt-6 mb-0 text-surface-500">
               {{ $t('Drag and drop logo to here to upload') }}
             </p>
           </div>
@@ -139,10 +137,10 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
                     :class="
                       data[field]
                         ? 'pi-check-circle text-green-500'
-                        : 'pi-minus-circle text-color-secondary'
+                        : 'pi-minus-circle text-surface-500'
                     "
                   />
-                  <span v-else class="text-color-secondary">-</span>
+                  <span v-else class="text-surface-500">-</span>
                 </template>
               </Column>
             </DataTable>

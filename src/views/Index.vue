@@ -10,33 +10,29 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           <div class="w-[30rem] h-auto text-center">
             <div class="flex justify-center mb-2">
               <div class="justify-start">
-                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
-                  help
-                </p>
+                <p class="uppercase font-bold text-7xl text-color" translate="no" lang="en">help</p>
               </div>
               <div class="flex items-center justify-center">
                 <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
               </div>
               <div class="justify-start">
-                <p class="uppercase font-bold text-7xl m-0 text-color" translate="no" lang="en">
-                  desk
-                </p>
+                <p class="uppercase font-bold text-7xl text-color" translate="no" lang="en">desk</p>
               </div>
             </div>
 
-            <div class="text-center mb-6">
-              <p class="font-medium">
+            <div class="text-center mb-8">
+              <p class="font-medium text-surface-500">
                 {{ $t('Web Application of technical support') }}
               </p>
             </div>
 
-            <div class="text-center mb-3">
-              <p class="text-xl line-height-2 text-color-secondary">
+            <div class="text-center mb-8">
+              <p class="text-xl line-height-2 text-surface-500">
                 {{ $t('Helpdesk technical support') }}
               </p>
             </div>
 
-            <ul class="list-none flex justify-evenly p-0 mb-2">
+            <ul class="list-none flex justify-evenly p-0 mb-8">
               <li class="mx-6">
                 <BtnSocialMedia
                   icon="pi pi-facebook"
@@ -61,7 +57,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
                 />
               </li>
             </ul>
-            <p class="text-center">
+            <p class="text-center text-surface-500">
               {{ $helpdesk?.copyright }}
             </p>
           </div>
@@ -70,15 +66,17 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 
       <div class="w-auto mx-8">
         <Divider layout="vertical" class="hidden lg:flex" />
-        <Divider layout="horizontal" class="flex lg:hidden" align="center" />
+        <Divider layout="horizontal" class="flex lg:hidden" />
       </div>
 
       <div class="w-auto flex items-center justify-center py-8">
-        <main class="w-[30rem] justify-center items-center">
+        <main class="w-[30rem] justify-center items-center text-surface-600 dark:text-surface-300">
           <section id="documentation" class="mb-6">
-            <h3 class="mb-1">{{ 'Documentation' }}</h3>
-            <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" to="/docs">
+            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+              {{ 'Documentation' }}
+            </h3>
+            <span class="text-lg font-light">
+              <RouterLink class="font-semibold text-primary-500 hover:text-primary-400" to="/docs">
                 HD’s official documentation
               </RouterLink>
               provides you with all information you need to get started.
@@ -86,9 +84,14 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="pc-sys-inspector" class="mb-6">
-            <h3 class="mb-1">{{ 'PC SysInspector' }}</h3>
-            <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'pc-sys-inspector' }">
+            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+              {{ 'PC SysInspector' }}
+            </h3>
+            <span class="text-lg font-light">
+              <RouterLink
+                class="font-semibold text-primary-500 hover:text-primary-400"
+                :to="{ name: 'pc-sys-inspector' }"
+              >
                 PC SysInspector service
               </RouterLink>
               aggregates information about computers on the network, which can be useful for
@@ -97,9 +100,14 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="hd-live-log" class="mb-6">
-            <h3 class="mb-1">{{ 'Help Desk Live Log' }}</h3>
-            <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'helpdesk-live-log' }">
+            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+              {{ 'Help Desk Live Log' }}
+            </h3>
+            <span class="text-lg font-light">
+              <RouterLink
+                class="font-semibold text-primary-500 hover:text-primary-400"
+                :to="{ name: 'helpdesk-live-log' }"
+              >
                 Help Desk Live Log
               </RouterLink>
               web service allows users to submit support requests through a web interface, track
@@ -108,9 +116,14 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="network-information">
-            <h3 class="mb-1">{{ 'Network information' }}</h3>
-            <span class="text-lg text-color-secondary font-light">
-              <RouterLink class="text-blue-500" :to="{ name: 'network-info' }">
+            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+              {{ 'Network information' }}
+            </h3>
+            <span class="text-lg font-light">
+              <RouterLink
+                class="font-semibold text-primary-500 hover:text-primary-400"
+                :to="{ name: 'network-info' }"
+              >
                 Network information
               </RouterLink>
               web service is designed for keeping track of IP addresses of network devices and users

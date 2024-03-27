@@ -41,7 +41,7 @@ const toggle = event => {
             <p class="font-bold m-0">
               {{ $helpdesk?.user?.fullname }}
             </p>
-            <p class="line-height-3 text-color-secondary m-0">
+            <p class="line-height-3 text-surface-500 m-0">
               {{ $helpdesk?.user?.email }}
             </p>
           </div>
@@ -60,7 +60,7 @@ const toggle = event => {
     </template>
 
     <template #end>
-      <div class="flex items-center align-content-center justify-between p-2">
+      <div class="flex items-center content-center justify-between p-2">
         <BtnToggleLang />
         <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
         <BtnAuth iconClass="text-2xl" class="w-12 h-12 hover:text-color" />

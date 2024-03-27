@@ -5,28 +5,24 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div class="m-auto">
-    <div class="flex flex-col items-center w-full py-20 px-8 sm:px-20">
-      <div class="flex flex-col items-center">
-        <h1 class="text-6xl font-bold mb-2">
-          {{ $t('Access Denied') }}
-        </h1>
-        <span class="text-color-secondary mb-5">
-          {{ $t('You do not have the necessary permisions') }}
-        </span>
-        <img
-          :src="$config?.theme === 'light' ? '/img/403-dark.webp' : '/img/403-light.webp'"
-          alt="Access denied"
-          width="300"
-          class="mb-5"
-        />
-        <div class="text-center">
-          <i class="pi pi-home text-blue-600 mr-2"></i>
-          <RouterLink :to="{ name: 'home' }" class="text-blue-600">
-            {{ $t('Back to home page') }}
-          </RouterLink>
-        </div>
-      </div>
+  <div class="flex flex-col m-auto items-center text-center w-full py-20 px-8 sm:px-20">
+    <h1 class="text-6xl font-bold mb-2">
+      {{ $t('Access Denied') }}
+    </h1>
+    <span class="text-surface-500 mb-8">
+      {{ $t('You do not have the necessary permisions') }}
+    </span>
+    <img
+      :src="$config?.theme === 'light' ? '/img/403-dark.webp' : '/img/403-light.webp'"
+      alt="Access denied"
+      width="300"
+      class="mb-6"
+    />
+    <div class="uppercase font-semibold text-primary-600 hover:text-primary-500">
+      <i class="pi pi-home mr-2"></i>
+      <RouterLink :to="{ name: 'home' }">
+        {{ $t('Back to home page') }}
+      </RouterLink>
     </div>
   </div>
 </template>

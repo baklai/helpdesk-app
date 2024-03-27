@@ -212,7 +212,7 @@ const onSaveRecord = handleSubmit(async () => {
           <i class="pi pi-desktop text-6xl mr-3"></i>
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Unit') }}</p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>

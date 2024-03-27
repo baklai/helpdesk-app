@@ -189,7 +189,7 @@ onMounted(async () => {
           <h3 class="text-color m-0">
             {{ $t($route?.meta?.title) }}
           </h3>
-          <p class="text-color-secondary">
+          <p class="text-surface-500">
             {{ $t($route?.meta?.description) }}
           </p>
         </div>
@@ -244,8 +244,8 @@ onMounted(async () => {
           <div v-if="eventDialogData && eventDialogData?.title">
             <Card class="w-full p-2">
               <template #title>
-                <div class="flex align-content-center items-center justify-between flex-wrap">
-                  <div class="flex align-content-center items-center">
+                <div class="flex content-center items-center justify-between flex-wrap">
+                  <div class="flex content-center items-center">
                     <i
                       class="pi pi-circle-fill mr-2"
                       :style="{
@@ -309,7 +309,7 @@ onMounted(async () => {
                 </div>
               </template>
               <template #subtitle>
-                <div class="flex align-content-center items-center">
+                <div class="flex content-center items-center">
                   <i class="pi pi-clock mr-2"></i>
                   <span>
                     {{ dateTimeToStr(eventDialogData?.datetime) || '-' }}

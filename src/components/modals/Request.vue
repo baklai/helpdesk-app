@@ -318,13 +318,10 @@ const onSaveClosedRecord = handleSubmit(async () => {
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ $t('Help Desk Live Log') }}
             </p>
-            <p
-              class="text-base font-normal line-height-2 text-color-secondary mb-0"
-              v-show="!isClosed"
-            >
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0" v-show="!isClosed">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Status') }} :
               {{ isClosed ? $t('Request closed') : $t('Request opened') }}
             </p>

@@ -45,7 +45,7 @@ const columns = ref([
         return value ? (
           <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
         ) : (
-          <i class={'pi pi-lock font-bold text-color-secondary ml-4'}></i>
+          <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
         );
       }
     },

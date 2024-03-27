@@ -457,7 +457,7 @@ onMounted(async () => {
                   <h3 class="text-color m-0">
                     {{ $t($route?.meta?.title) }}
                   </h3>
-                  <p class="text-color-secondary">
+                  <p class="text-surface-500">
                     {{ $t($route?.meta?.description) }}
                   </p>
                 </div>
@@ -599,7 +599,7 @@ onMounted(async () => {
               v-if="!loading && ftpFiles?.length === 0"
               class="flex flex-col justify-center p-datatable-loading-overlay p-component-overlay z-0"
             >
-              <i class="pi pi-folder-open text-8xl text-color-secondary" />
+              <i class="pi pi-folder-open text-8xl text-surface-500" />
               <h5>{{ $t('No files found in folder') }}</h5>
             </div>
           </template>
@@ -619,7 +619,7 @@ onMounted(async () => {
               >
                 <div class="flex items-center justify-center mr-4">
                   <i
-                    class="pi pi-folder-open text-2xl font-bold text-color-secondary"
+                    class="pi pi-folder-open text-2xl font-bold text-surface-500"
                     v-if="data.type === 0"
                   />
                   <i :class="filterFileIcon(data.name)" class="text-xl" v-if="data.type === 1" />
@@ -629,7 +629,7 @@ onMounted(async () => {
                   />
                 </div>
                 <div class="flex items-center justify-center">
-                  <span class="text-xl font-bold text-color-secondary" v-if="data.type === 0">
+                  <span class="text-xl font-bold text-surface-500" v-if="data.type === 0">
                     {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
                   </span>
                   <span class="text-xl" v-if="data.type === 1">
@@ -651,7 +651,7 @@ onMounted(async () => {
             headerClass="font-bold text-center uppercase"
           >
             <template #body="{ data }">
-              <span class="text-color-secondary">
+              <span class="text-surface-500">
                 {{ data.size && data.type !== 2 ? byteToStr(data.size) : '' }}
               </span>
             </template>
@@ -665,11 +665,11 @@ onMounted(async () => {
             headerClass="font-bold text-center uppercase"
           >
             <template #body="{ data }">
-              <span class="text-color-secondary" v-if="data.type === 0"> </span>
-              <span class="text-color-secondary" v-if="data.type === 1">
+              <span class="text-surface-500" v-if="data.type === 0"> </span>
+              <span class="text-surface-500" v-if="data.type === 1">
                 {{ $t('File') }}
               </span>
-              <span class="text-color-secondary" v-if="data.type === 2">
+              <span class="text-surface-500" v-if="data.type === 2">
                 {{ $t('Folder') }}
               </span>
             </template>
@@ -683,7 +683,7 @@ onMounted(async () => {
             headerClass="font-bold text-center uppercase"
           >
             <template #body="{ data }">
-              <span class="text-color-secondary">
+              <span class="text-surface-500">
                 {{ data?.modifiedAt ? dateTimeToStr(data.modifiedAt) : data?.rawModifiedAt }}
               </span>
             </template>

@@ -53,12 +53,12 @@ onMounted(async () => {
 
 <template>
   <div className="col-12">
-    <div class="flex align-content-center mb-6">
+    <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
-        <h5 class="text-sm text-color-secondary m-0">
+        <h5 class="text-sm text-surface-500 m-0">
           {{ $t($route?.meta?.title) }}
         </h5>
         <h3 class="m-0">{{ $t($route?.meta?.description) }}</h3>
@@ -248,7 +248,7 @@ onMounted(async () => {
                 />
                 <span class="text-primary font-bold w-8rem">
                   {{ item.count }}
-                  <span class="text-color-secondary font-medium">{{ $t('reports') }}</span>
+                  <span class="text-surface-500 font-medium">{{ $t('reports') }}</span>
                 </span>
               </div>
             </li>

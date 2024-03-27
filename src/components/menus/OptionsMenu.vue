@@ -221,7 +221,7 @@ const getVNClink = async value => {
   <Toast position="bottom-right" group="ping" class="z-5 w-auto" v-if="hostkey">
     <template #message="{ message }">
       <div class="flex flex-col">
-        <div class="flex align-content-center h-2rem">
+        <div class="flex content-center h-2rem">
           <div class="flex gap-2 items-center justify-center">
             <i class="pi pi-info-circle text-2xl"></i>
             <span class="text-base font-semibold">{{ message.summary }}</span>

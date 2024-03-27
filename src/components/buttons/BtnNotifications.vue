@@ -67,7 +67,7 @@ onMounted(async () => {
           <p class="text-lg font-bold line-height-2 mb-2">
             {{ $t('HD Notification') }}
           </p>
-          <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+          <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
             {{ $t('Helpdesk notification system') }}
           </p>
         </div>
@@ -102,7 +102,7 @@ onMounted(async () => {
                 <Avatar icon="pi pi-bell text-xl" class="text-green-500 mr-2" />
                 <div class="flex flex-col align my-2">
                   <span class="font-medium text-green-500 text-xl">{{ item?.name }}</span>
-                  <span class="font-normal text-color-secondary">
+                  <span class="font-normal text-surface-500">
                     {{ dateTimeToStr(item?.createdAt) || '-' }}
                   </span>
                 </div>
@@ -126,7 +126,7 @@ onMounted(async () => {
     </DataView>
 
     <div class="flex items-center justify-center p-2" v-else>
-      <p class="font-medium text-lg text-color-secondary mb-0">
+      <p class="font-medium text-lg text-surface-500 mb-0">
         {{ $t('Notifications not found') }}
       </p>
     </div>

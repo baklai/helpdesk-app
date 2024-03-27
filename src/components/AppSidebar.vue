@@ -44,7 +44,7 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     <div class="flex items-center justify-center">
       <div>
         <span class="text-2xl">{{ $t($route?.meta?.title) }}</span>
-        <p class="text-sm text-color-secondary m-0">
+        <p class="text-sm text-surface-500 m-0">
           {{ $t($route?.meta?.description) }}
         </p>
       </div>
@@ -56,7 +56,7 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
   </div>
 
   <div class="absolute bottom-0 left-0 right-0 w-full">
-    <div class="flex items-center align-content-center justify-between flex-wrap p-4">
+    <div class="flex items-center content-center justify-between flex-wrap p-4">
       <BtnInfoUser />
       <BtnToggleLang />
       <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color" />

@@ -66,7 +66,7 @@ const commandHandler = async text => {
             <h3 class="text-color m-0">
               {{ $t($route?.meta?.title) }}
             </h3>
-            <p class="text-color-secondary">
+            <p class="text-surface-500">
               {{ $t($route?.meta?.description) }}
             </p>
           </div>
