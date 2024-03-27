@@ -3,8 +3,6 @@ import { onMounted } from 'vue';
 
 import BtnConfig from '@/components/buttons/BtnConfig.vue';
 
-import ThemeSwitcher from '@/components/ThemeSwitcher.vue';
-
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
@@ -23,8 +21,6 @@ onMounted(() => {
   </component>
 
   <BtnConfig />
-
-  <ThemeSwitcher />
 
   <Toast position="top-right" class="z-100" />
 </template>

@@ -33,7 +33,7 @@ const setChartDataActivity = () => {
 
 const setChartDataActivityOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
-  // const textColor = documentStyle.getPropertyValue('--text-color');
+  const textColor = documentStyle.getPropertyValue('--text-color');
   const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
   const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
@@ -112,7 +112,7 @@ const setChartDataActivityUsers = () => {
 
 const setChartDataActivityUsersOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
-  // const textColor = documentStyle.getPropertyValue('--text-color');
+  const textColor = documentStyle.getPropertyValue('--text-color');
   const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
   const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 

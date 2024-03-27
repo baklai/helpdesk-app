@@ -53,20 +53,8 @@ export const useConfig = defineStore('config', () => {
   }
 
   function toggleTheme() {
-    const elementId = 'app-theme';
-    const linkElement = document.getElementById(elementId);
-    const cloneLinkElement = linkElement.cloneNode(true);
-    const newThemeUrl =
-      theme.value === 'dark'
-        ? linkElement.getAttribute('href').replace('light', theme.value)
-        : linkElement.getAttribute('href').replace('dark', theme.value);
-    cloneLinkElement.setAttribute('id', elementId + '-clone');
-    cloneLinkElement.setAttribute('href', newThemeUrl);
-    cloneLinkElement.addEventListener('load', () => {
-      linkElement.remove();
-      cloneLinkElement.setAttribute('id', elementId);
-    });
-    linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+    const root = document.getElementsByTagName('html')[0];
+    root.className = theme.value;
   }
 
   function toggleLang(value) {
