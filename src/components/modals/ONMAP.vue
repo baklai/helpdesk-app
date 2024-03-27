@@ -56,7 +56,7 @@ const onRemoveRecord = async () => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (record.value?.id) {

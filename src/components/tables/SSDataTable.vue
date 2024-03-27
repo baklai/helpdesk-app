@@ -114,7 +114,7 @@ const onRemoveRecord = ({ id }) => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (id) {
@@ -593,7 +593,7 @@ onMounted(async () => {
           <div class="flex flex-wrap gap-2 items-center">
             <slot name="icon" />
             <div>
-              <h3 class="text-color m-0">
+              <h3 class="m-0">
                 <slot name="title" />
               </h3>
               <p class="text-surface-500">
@@ -627,7 +627,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-filter-slash"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-12 w-12"
+                class="h-12 w-12"
                 :class="params?.filters && Object.keys(params.filters).length ? 'text-primary' : ''"
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
@@ -639,7 +639,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-plus-circle"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-12 w-12"
+                class="h-12 w-12"
                 v-tooltip.bottom="$t('Create record')"
                 @click="emits('toggleModal', {})"
               />
@@ -650,7 +650,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-sync"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-12 w-12"
+                class="h-12 w-12"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -663,7 +663,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-cog"
                 iconClass="text-2xl"
-                class="p-button-lg hover:text-color h-12 w-12"
+                class="h-12 w-12"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />
@@ -690,7 +690,7 @@ onMounted(async () => {
           <Button
             icon="pi pi-filter-slash"
             iconClass="text-sm"
-            class="p-button-lg"
+            class=""
             :label="$t('Clear filters')"
             @click="clearFilters"
           />
@@ -706,7 +706,7 @@ onMounted(async () => {
               icon="pi pi-refresh"
               iconClass="text-xl"
               style="width: 3rem; height: 2.2rem"
-              class="p-button-lg hover:text-color"
+              class=""
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />
@@ -771,7 +771,7 @@ onMounted(async () => {
             plain
             rounded
             icon="pi pi-cog"
-            class="font-bold hover:text-color"
+            class="font-bold"
             v-tooltip.bottom="$t('Columns option')"
             @click="onColumnsMenu"
           />
@@ -782,7 +782,7 @@ onMounted(async () => {
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="font-bold hover:text-color"
+            class="font-bold"
             v-tooltip.bottom="$t('Optional menu')"
             @click="onOptionsMenu($event, data)"
           />

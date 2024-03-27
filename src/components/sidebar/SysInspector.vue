@@ -75,7 +75,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-2rem h-2rem hover:text-color mx-2"
+            class="w-2rem h-2rem mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
             @click="toggleMenu($event, record)"
@@ -85,7 +85,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-2rem h-2rem hover:text-color mx-2"
+            class="w-2rem h-2rem mx-2"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
             @click="onCloseSidebar"

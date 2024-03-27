@@ -183,7 +183,7 @@ const remove = async (name, type) => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       try {
@@ -454,7 +454,7 @@ onMounted(async () => {
                   <AppIcons :name="$route?.name" :size="42" />
                 </i>
                 <div>
-                  <h3 class="text-color m-0">
+                  <h3 class="m-0">
                     {{ $t($route?.meta?.title) }}
                   </h3>
                   <p class="text-surface-500">
@@ -474,7 +474,7 @@ onMounted(async () => {
                     />
                     <i
                       v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer hover:text-color"
+                      class="pi pi-times cursor-pointer"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"
                     />
@@ -486,7 +486,7 @@ onMounted(async () => {
                     rounded
                     icon="pi pi-plus-circle"
                     iconClass="text-2xl"
-                    class="p-button-lg mx-2 hover:text-primary h-12 w-12"
+                    class="mx-2 hover:text-primary h-12 w-12"
                     v-tooltip.bottom="$t('Upload files')"
                     @click="showUpload = !showUpload"
                   />
@@ -497,7 +497,7 @@ onMounted(async () => {
                     rounded
                     icon="pi pi-sync"
                     iconClass="text-2xl"
-                    class="p-button-lg hover:text-primary h-12 w-12"
+                    class="hover:text-primary h-12 w-12"
                     v-tooltip.bottom="$t('Update records')"
                     @click="update()"
                   />
@@ -701,7 +701,7 @@ onMounted(async () => {
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
-                  class="p-button p-component p-button-icon-only p-button-rounded p-button-text p-button-plain p-button-lg mx-2 text-green-500 h-2rem w-2rem"
+                  class="p-button p-component mx-2 text-green-500 h-2rem w-2rem"
                   v-tooltip.bottom="$t('Download file')"
                   v-if="data.type === 1"
                 >
@@ -714,7 +714,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-copy"
                   iconClass="text-xl"
-                  class="p-button-lg mx-2 text-primary h-2rem w-2rem"
+                  class="mx-2 text-primary h-2rem w-2rem"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
@@ -726,7 +726,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-file-edit"
                   iconClass="text-xl"
-                  class="p-button-lg mx-2 text-yellow-500 h-2rem w-2rem"
+                  class="mx-2 text-yellow-500 h-2rem w-2rem"
                   v-tooltip.bottom="$t('Rename file')"
                   @click="rename(data.name)"
                   v-if="data.type === 1"
@@ -738,7 +738,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-trash"
                   iconClass="text-xl"
-                  class="p-button-lg mx-2 text-red-500 h-2rem w-2rem"
+                  class="mx-2 text-red-500 h-2rem w-2rem"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
                   v-if="data.type === 1"

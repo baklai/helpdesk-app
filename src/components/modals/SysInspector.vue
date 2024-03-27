@@ -72,7 +72,7 @@ const onRemoveRecord = async () => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (record.value?.id) {
@@ -244,7 +244,7 @@ const validSoftware = value => {
                 viewBox="0 0 24 24"
                 width="40"
                 height="40"
-                class="text-color mr-2"
+                class="mr-2"
               >
                 <path
                   fill="currentColor"
@@ -271,7 +271,7 @@ const validSoftware = value => {
                       viewBox="0 0 24 24"
                       width="40"
                       height="40"
-                      class="text-color"
+                      class=""
                     >
                       <path
                         fill="currentColor"
@@ -324,7 +324,7 @@ const validSoftware = value => {
                       viewBox="0 0 24 24"
                       width="40"
                       height="40"
-                      class="text-color"
+                      class=""
                     >
                       <path
                         fill="currentColor"
@@ -408,7 +408,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -469,7 +469,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -521,7 +521,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -577,7 +577,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>expansion-card-variant</title>
               <path
@@ -648,7 +648,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>monitor</title>
               <path
@@ -694,7 +694,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>video-outline</title>
               <path
@@ -749,7 +749,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>volume-high</title>
               <path
@@ -789,7 +789,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -822,7 +822,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -880,7 +880,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -929,7 +929,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -975,7 +975,7 @@ const validSoftware = value => {
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>bug-outline</title>
               <path

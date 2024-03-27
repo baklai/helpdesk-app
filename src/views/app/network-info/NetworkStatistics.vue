@@ -335,10 +335,7 @@ const onCountPercentWidth = (count, allCount) => {
           <div class="flex justify-between items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
             <div>
-              <Button
-                icon="pi pi-ellipsis-v"
-                class="p-button-text p-button-plain p-button-rounded"
-              />
+              <Button icon="pi pi-ellipsis-v" class="" />
             </div>
           </div>
           <ul class="list-none p-0 m-0 overflow-auto" style="height: 80%">

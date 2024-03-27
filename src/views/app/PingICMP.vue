@@ -63,7 +63,7 @@ const commandHandler = async text => {
             <AppIcons :name="$route?.name" :size="42" />
           </i>
           <div>
-            <h3 class="text-color m-0">
+            <h3 class="m-0">
               {{ $t($route?.meta?.title) }}
             </h3>
             <p class="text-surface-500">
@@ -79,7 +79,7 @@ const commandHandler = async text => {
               rounded
               icon="pi pi-trash"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-12 w-12"
+              class="h-12 w-12"
               v-tooltip.bottom="$t('Clear terminal')"
             />
 
@@ -89,7 +89,7 @@ const commandHandler = async text => {
               rounded
               icon="pi pi-cog"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-12 w-12"
+              class="h-12 w-12"
               v-tooltip.bottom="$t('Options')"
             />
           </div>
@@ -112,14 +112,14 @@ const commandHandler = async text => {
         </h5>
 
         <p>
-          <code class="text-base font-normal text-color surface-hover">-n &lt;число&gt;</code>
+          <code class="text-base font-normal surface-hover">-n &lt;число&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Указывает количество отправляемых запросов пинга.
           </span>
         </p>
 
         <p>
-          <code class="text-base font-normal text-color surface-hover">-w &lt;время&gt;</code>
+          <code class="text-base font-normal surface-hover">-w &lt;время&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Устанавливает время ожидания ответа в миллисекундах.
           </span>

@@ -16,7 +16,7 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     <div class="flex flex-col items-center justify-center mb-2">
       <div class="flex justify-center">
         <div class="justify-start">
-          <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+          <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
             h&nbsp;e&nbsp;l&nbsp;p&nbsp;
           </p>
         </div>
@@ -24,7 +24,7 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
           <img src="/img/logo-app.webp" alt="HD logo" width="32" height="32" class="mx-2" />
         </div>
         <div class="justify-start">
-          <p class="uppercase font-bold text-4xl m-0 text-color" translate="no" lang="en">
+          <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
             &nbsp;d&nbsp;e&nbsp;s&nbsp;k
           </p>
         </div>
@@ -59,8 +59,9 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     <div class="flex items-center content-center justify-between flex-wrap p-4">
       <BtnInfoUser />
       <BtnToggleLang />
-      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
-      <BtnAuth iconClass="text-2xl" class="w-12 h-12 hover:text-color" />
+      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12" />
+
+      <BtnAuth iconClass="text-2xl" class="w-12 h-12" />
     </div>
   </div>
 </template>

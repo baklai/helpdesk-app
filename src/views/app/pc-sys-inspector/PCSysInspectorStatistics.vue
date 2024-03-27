@@ -215,7 +215,7 @@ onMounted(async () => {
               <i class="pi pi-history mr-2" style="font-size: 1.5rem"></i>
               <h5 class="my-0">{{ $t('PC SysInspector report date') }}</h5>
             </div>
-            <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" />
+            <Button icon="pi pi-ellipsis-v" class="" />
           </div>
 
           <ul class="max-h-25rem list-none overflow-auto p-0 m-0">

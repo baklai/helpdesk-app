@@ -166,8 +166,8 @@ const columns = ref([
           <Tag
             class={
               value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
+                ? 'text-base  font-medium w-3 bg-orange-500'
+                : 'text-base  font-medium w-3 surface-hover'
             }
             value={value.count}
           />
@@ -198,8 +198,8 @@ const columns = ref([
           <Tag
             class={
               value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
+                ? 'text-base  font-medium w-3 bg-orange-500'
+                : 'text-base  font-medium w-3 surface-hover'
             }
             value={value.count}
           />
@@ -230,8 +230,8 @@ const columns = ref([
           <Tag
             class={
               value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
+                ? 'text-base  font-medium w-3 bg-orange-500'
+                : 'text-base  font-medium w-3 surface-hover'
             }
             value={value.count}
           />
@@ -258,7 +258,7 @@ const columns = ref([
     column: {
       field: 'fixupdate',
       render(value) {
-        return <Tag class={'text-base text-color font-medium w-3 surface-hover'} value={value} />;
+        return <Tag class={'text-base  font-medium w-3 surface-hover'} value={value} />;
       }
     },
     sorter: { field: 'fixupdate' },
@@ -516,7 +516,7 @@ const createSysInspectorScript = async () => {
             rounded
             icon="pi pi-bookmark-fill"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-orange-500 h-12 w-12"
+            class="hover:text-orange-500 h-12 w-12"
             v-tooltip.bottom="$t('Show all problems')"
             @click="event => refWarningMenu.toggle(event)"
           />

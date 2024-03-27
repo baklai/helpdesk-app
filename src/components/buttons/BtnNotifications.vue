@@ -79,7 +79,7 @@ onMounted(async () => {
           rounded
           icon="pi pi-plus-circle"
           iconClass="text-2xl"
-          class="p-button-lg hover:text-color h-12 w-12"
+          class="h-12 w-12"
           v-tooltip.bottom="$t('Create notice')"
           @click="
             () => {
@@ -98,7 +98,7 @@ onMounted(async () => {
         <div class="col-12 border-none py-2" v-for="(item, index) in items" :key="index">
           <div class="flex flex-row justify-start gap-3">
             <div class="flex flex-col align-items-start overflow-auto w-full">
-              <div class="w-full flex items-center text-color">
+              <div class="w-full flex items-center">
                 <Avatar icon="pi pi-bell text-xl" class="text-green-500 mr-2" />
                 <div class="flex flex-col align my-2">
                   <span class="font-medium text-green-500 text-xl">{{ item?.name }}</span>
@@ -141,7 +141,7 @@ onMounted(async () => {
       iconClass="text-3xl"
       aria-haspopup="true"
       aria-controls="notifications-menu"
-      class="w-12 h-12 hover:text-color"
+      class="w-12 h-12"
       v-tooltip.bottom="$t('Notifications')"
       @click="event => refMenu.toggle(event)"
     />
@@ -155,7 +155,7 @@ onMounted(async () => {
     iconClass="text-3xl"
     aria-haspopup="true"
     aria-controls="notifications-menu"
-    class="w-12 h-12 hover:text-color mx-2"
+    class="w-12 h-12 mx-2"
     v-tooltip.bottom="$t('Notifications')"
     @click="event => refMenu.toggle(event)"
     v-else

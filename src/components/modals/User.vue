@@ -178,7 +178,7 @@ const onRemoveRecord = async () => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -451,7 +451,7 @@ const onSaveRecord = handleSubmit(async () => {
                 <div class="flex flex-wrap gap-2 items-center">
                   <i class="pi pi-unlock text-2xl mr-2"></i>
                   <div>
-                    <p class="text-color m-0">
+                    <p class="m-0">
                       {{ $t('Scope list') }}
                     </p>
                     <small class="text-surface-500">
@@ -471,7 +471,7 @@ const onSaveRecord = handleSubmit(async () => {
                     />
                     <i
                       v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer hover:text-color"
+                      class="pi pi-times cursor-pointer"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"
                     />
@@ -484,7 +484,7 @@ const onSaveRecord = handleSubmit(async () => {
                       rounded
                       icon="pi pi-cog"
                       iconClass="text-2xl"
-                      class="p-button-lg hover:text-color h-12 w-12"
+                      class="h-12 w-12"
                       v-tooltip.bottom="$t('Scope option')"
                       @click="event => refSelectMenu.toggle(event)"
                     />

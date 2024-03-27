@@ -95,7 +95,7 @@ const onRemoveRecord = async () => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -298,7 +298,7 @@ const onSaveRecord = handleSubmit(async () => {
 </template>
 
 <style scoped>
-::v-deep(.p-calendar-w-btn .p-datepicker-trigger.p-button) {
+::v-deep(.p-calendar-w-btn .p-datepicker-trigger) {
   color: var(--surface-500);
 }
 

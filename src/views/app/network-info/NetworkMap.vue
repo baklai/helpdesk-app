@@ -195,7 +195,7 @@ const OPTIONS = ref({
     }
   },
   edges: {
-    color: 'var(--text-color);',
+    // color: 'var(--text-color);',
     smooth: false
   },
 

@@ -129,7 +129,7 @@ const confirmDelete = ({ id }) => {
     header: t('HD Confirm delete record'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       try {
@@ -186,7 +186,7 @@ onMounted(async () => {
           <AppIcons :name="$route?.name" :size="42" />
         </i>
         <div>
-          <h3 class="text-color m-0">
+          <h3 class="m-0">
             {{ $t($route?.meta?.title) }}
           </h3>
           <p class="text-surface-500">
@@ -203,7 +203,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-plus-circle"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-12 w-12"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Create record')"
             @click="refModal.toggle({})"
           />
@@ -214,7 +214,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-sync"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-12 w-12"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Update records')"
             @click="getDataRecords"
           />
@@ -225,7 +225,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-cog"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-12 w-12"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Options')"
           />
         </div>
@@ -269,7 +269,7 @@ onMounted(async () => {
                           plain
                           rounded
                           icon="pi pi-trash"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Delete record')"
                           @click="
                             () => {
@@ -284,7 +284,7 @@ onMounted(async () => {
                           plain
                           rounded
                           icon="pi pi-file-edit"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Update record')"
                           @click="
                             () => {
@@ -299,7 +299,7 @@ onMounted(async () => {
                           plain
                           rounded
                           icon="pi pi-times"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Close')"
                           @click="closeEventDialog"
                         />
@@ -347,7 +347,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.event-flyout) {
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
   /* background: var(--surface-card) !important; */
   /* border-color: var(--surface-border) !important; */
 }
@@ -381,7 +381,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-header__period-name) {
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
   font-weight: 700 !important;
 }
 
@@ -394,7 +394,7 @@ onMounted(async () => {
   text-align: center !important;
 
   background-color: var(--surface-50) !important;
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
 }
 
 ::v-deep(.calendar-month__event-wrapper) {
@@ -404,13 +404,13 @@ onMounted(async () => {
 ::v-deep(.calendar-month__day-date) {
   font-size: 1rem !important;
   font-weight: 700 !important;
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
   margin-bottom: 1rem !important;
 }
 
 ::v-deep(.calendar-month__event-title) {
   font-size: 1rem !important;
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
 }
 
 ::v-deep(.calendar-month__event-color) {
@@ -420,7 +420,7 @@ onMounted(async () => {
 
 ::v-deep(.calendar-month__event-time) {
   font-size: 1rem !important;
-  color: var(--text-color) !important;
+  /* color: var(--text-color) !important; */
 }
 
 ::v-deep(div.calendar-month__week:last-child > div.calendar-month__weekday) {

@@ -71,31 +71,31 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Login') }} :
-              <span class="text-color">{{ $helpdesk?.user?.login }}</span>
+              <span class="">{{ $helpdesk?.user?.login }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Fullname') }} :
-              <span class="text-color">{{ $helpdesk?.user?.fullname }}</span>
+              <span class="">{{ $helpdesk?.user?.fullname }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('E-Mail') }} :
-              <span class="text-color">{{ $helpdesk?.user?.email }}</span>
+              <span class="">{{ $helpdesk?.user?.email }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Phone') }} :
-              <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
+              <span class="">{{ $helpdesk?.user?.phone }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Is Admin') }} :
-              <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
+              <span class="">{{ $helpdesk?.user?.isAdmin }}</span>
             </p>
           </div>
         </div>

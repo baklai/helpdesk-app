@@ -34,7 +34,7 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-6" value={value} />;
+        return <Tag class="text-base font-normal  surface-hover px-6" value={value} />;
       }
     },
     sorter: { field: 'host' },
@@ -78,7 +78,7 @@ const columns = ref([
     column: {
       field: 'user',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-6" value={value} />;
+        return <Tag class="text-base font-normal  surface-hover px-6" value={value} />;
       }
     },
     sorter: { field: 'user' },
@@ -197,7 +197,7 @@ const confirmDeleteAll = () => {
     header: t('HD Confirm delete records'),
     icon: 'pi pi-info-circle text-yellow-500',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       await SysLog.removeAll({});
@@ -265,7 +265,7 @@ const confirmDeleteAll = () => {
             rounded
             icon="pi pi-trash"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-12 w-12"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Delete records')"
             @click="confirmDeleteAll"
           />

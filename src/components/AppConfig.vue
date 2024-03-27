@@ -49,7 +49,7 @@ const decrementScale = () => {
             icon="pi pi-minus"
             type="button"
             @click="decrementScale"
-            class="p-button-text p-button-rounded p-button-plain w-2rem h-2rem mr-2"
+            class="w-2rem h-2rem mr-2"
             :disabled="$config.scale === scales[0]"
           />
           <div class="flex gap-2 items-center">
@@ -65,7 +65,7 @@ const decrementScale = () => {
             type="button"
             pButton
             @click="incrementScale"
-            class="p-button-text p-button-rounded p-button-plain w-2rem h-2rem ml-2"
+            class="w-2rem h-2rem ml-2"
             :disabled="$config.scale === scales[scales.length - 1]"
           />
         </div>
@@ -123,11 +123,7 @@ const decrementScale = () => {
 
       <Divider />
 
-      <Button
-        :label="$t('Set default options')"
-        class="p-button-text w-full"
-        @click="$config.setDefault"
-      />
+      <Button :label="$t('Set default options')" class="w-full" @click="$config.setDefault" />
     </div>
   </Sidebar>
 </template>
