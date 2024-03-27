@@ -55,7 +55,7 @@ const commandHandler = async text => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div className="h-full">
       <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
         <div class="flex flex-wrap gap-2 items-center">
@@ -99,14 +99,14 @@ const commandHandler = async text => {
       <Terminal
         :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
         :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
-        class="h-30rem text-xl"
+        class="h-[30rem] text-xl"
         aria-label="Helpdesk Terminal Service"
       />
 
       <div class="px-6 py-6">
         <h5>
           Example:
-          <span class="font-normal text-primary surface-hover border-round p-2">
+          <span class="font-normal text-primary surface-hover rounded p-2">
             ping 192.168.0.1 -n 3 -w 1000
           </span>
         </h5>

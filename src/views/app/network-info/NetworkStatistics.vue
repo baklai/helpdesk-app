@@ -65,7 +65,7 @@ const onCountPercentWidth = (count, allCount) => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
@@ -78,9 +78,11 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
     </div>
 
-    <div class="grid">
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+    <div class="flex flex-wrap">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -90,7 +92,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.ipaddresses || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-green-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
                 <path
@@ -104,8 +106,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of channels') }}</span>
@@ -113,7 +117,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.channels || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-green-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal</title>
                 <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
@@ -125,8 +129,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of units') }}</span>
@@ -134,7 +140,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.units || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-green-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>expansion-card-variant</title>
                 <path
@@ -148,8 +154,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of locations') }}</span>
@@ -157,7 +165,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.locations || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
                 <path
@@ -171,8 +179,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of companies') }}</span>
@@ -180,7 +190,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.companies || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -194,8 +204,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of branches') }}</span>
@@ -203,7 +215,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.branches || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -217,8 +229,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of enterprises') }}</span>
@@ -226,7 +240,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -240,8 +254,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of departments') }}</span>
@@ -249,7 +265,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.departments || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -263,8 +279,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of Internets') }}</span>
@@ -272,7 +290,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.internets || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-indigo-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>web</title>
                 <path
@@ -286,8 +304,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of E-Mails') }}</span>
@@ -295,7 +315,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.mailboxes || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-indigo-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>at</title>
                 <path
@@ -309,8 +329,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of autoanswers') }}</span>
@@ -318,7 +340,7 @@ const onCountPercentWidth = (count, allCount) => {
                 {{ stats?.autoanswers || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-indigo-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-indigo-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>swap-horizontal-bold</title>
                 <path d="M8,10V13H14V18H8V21L2,15.5L8,10M22,8.5L16,3V6H10V11H16V14L22,8.5Z" />
@@ -330,8 +352,10 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 xl:col-6">
-        <div class="surface-50 h-30rem">
+      <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+        >
           <div class="flex justify-between items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
             <div>
@@ -353,7 +377,7 @@ const onCountPercentWidth = (count, allCount) => {
               </div>
               <div class="mt-2 md:mt-0 flex items-center">
                 <div
-                  class="surface-300 border-round overflow-hidden w-12rem lg:w-6rem mr-4"
+                  class="surface-300 rounded overflow-hidden w-12rem lg:w-6rem mr-4"
                   style="height: 8px"
                 >
                   <div
@@ -369,7 +393,9 @@ const onCountPercentWidth = (count, allCount) => {
           </ul>
         </div>
 
-        <div class="surface-50 h-30rem">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+        >
           <DataTable
             scrollable
             removableSort
@@ -413,12 +439,16 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="col-12 xl:col-6">
-        <div class="surface-50 h-30rem">
+      <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+        >
           <h5>{{ $t('Branches status') }}</h5>
           <Chart type="bar" :data="barBranches" :options="basicOptions" />
         </div>
-        <div class="surface-50 h-30rem">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+        >
           <h5>{{ $t('Enterprises status') }}</h5>
           <Chart type="bar" :data="barEnterprises" :options="basicOptions" />
         </div>

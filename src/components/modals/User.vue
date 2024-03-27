@@ -320,8 +320,8 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <form @submit.prevent="onSaveRecord" autocomplete="off">
-      <div class="formgrid grid">
-        <div class="col-12 xl:col-4">
+      <div class="formgridflex flex-wrap">
+        <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
           <div class="">
             <label for="login" class="font-bold">{{ $t('User login') }}</label>
             <InputText
@@ -434,7 +434,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="col-12 xl:col-8">
+        <div class="flex-shrink-0 p-4 w-full xl:w-2/3">
           <DataTable
             rowHover
             scrollable

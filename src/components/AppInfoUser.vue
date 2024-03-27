@@ -51,8 +51,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     </template>
 
     <div class="flex my-6 items-center">
-      <div class="formgrid grid">
-        <div class="col-12 xl:col-6 text-center">
+      <div class="formgridflex flex-wrap">
+        <div class="flex-shrink-0 p-4 w-full xl:w-2/4 text-center">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
@@ -67,7 +67,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="col-12 xl:col-6">
+        <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
           <div class="mb-0">
             <p class="font-bold text-primary text-lg">
               {{ $t('Login') }} :

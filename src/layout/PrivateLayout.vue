@@ -12,8 +12,6 @@ const outsideClickListener = ref(null);
 
 const containerClass = computed(() => {
   return {
-    'layout-theme-light': $config.theme === 'light',
-    'layout-theme-dark': $config.theme === 'dark',
     'layout-overlay': $config.menuMode === 'overlay',
     'layout-static': $config.menuMode === 'static',
     'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static',
@@ -77,7 +75,7 @@ watchEffect(() => {
     >
       <AppTopbar />
       <div class="layout-main flex-auto py-4 px-8 overflow-auto">
-        <div class="grid grid-nogutter" style="height: calc(100vh - 9rem)">
+        <div class="flex flex-wrap m-0" style="height: calc(100vh - 9rem)">
           <RouterView />
         </div>
       </div>
@@ -86,7 +84,7 @@ watchEffect(() => {
 
   <ConfirmDialog :style="{ minWidth: '350px' }">
     <template #message="slotProps">
-      <div class="flex items-center justify-start confirmation-content">
+      <div class="flex items-center justify-start">
         <i class="text-4xl mr-3" :class="slotProps.message.icon" />
         <span class="font-medium">{{ slotProps.message.message }} </span>
       </div>

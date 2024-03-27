@@ -93,9 +93,13 @@ onMounted(async () => {
 
     <Divider />
 
-    <DataView v-if="records?.length" :value="records" class="overflow-auto max-h-30rem">
+    <DataView v-if="records?.length" :value="records" class="overflow-auto max-h-[30rem]">
       <template #list="{ items }">
-        <div class="col-12 border-none py-2" v-for="(item, index) in items" :key="index">
+        <div
+          class="flex-shrink-0 p-4 w-full border-none py-2"
+          v-for="(item, index) in items"
+          :key="index"
+        >
           <div class="flex flex-row justify-start gap-3">
             <div class="flex flex-col align-items-start overflow-auto w-full">
               <div class="w-full flex items-center">

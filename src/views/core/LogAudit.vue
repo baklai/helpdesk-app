@@ -103,7 +103,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="text-base font-semibold text-white border-1 border-solid surface-border border-round-xs px-2 w-6rem"
+            class="text-base font-semibold text-white border-1 border-solid surface-border rounded-xs px-2 w-6rem"
             style={{ background: `var(${methodHttpToColor(value)})` }}
             value={value}
           />
@@ -222,7 +222,7 @@ const confirmDeleteAll = () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-4 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"

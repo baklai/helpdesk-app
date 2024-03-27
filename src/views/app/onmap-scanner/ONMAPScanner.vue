@@ -240,7 +240,7 @@ const runTargetScan = handleSubmit(async () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-4 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -304,8 +304,8 @@ const runTargetScan = handleSubmit(async () => {
               </div>
             </template>
 
-            <div class="formgrid grid p-2">
-              <div class="col-12 md:col-3">
+            <div class="formgrid flex flex-wrapp-2">
+              <div class="flex-shrink-0 p-4 w-full md:w-1/4">
                 <label for="target">{{ $t('Target') }}</label>
                 <InputText
                   id="target"
@@ -320,7 +320,7 @@ const runTargetScan = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="col-12 md:col-9">
+              <div class="flex-shrink-0 p-4 w-full md:w-3/4">
                 <label for="title">{{ $t('Title') }}</label>
                 <InputText
                   id="title"
@@ -335,7 +335,7 @@ const runTargetScan = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="col-12 md:col-3">
+              <div class="flex-shrink-0 p-4 w-full md:w-1/4">
                 <label for="profile">{{ $t('Profile') }}</label>
                 <Dropdown
                   filter
@@ -355,7 +355,7 @@ const runTargetScan = handleSubmit(async () => {
                 />
               </div>
 
-              <div class="col-12 md:col-9">
+              <div class="flex-shrink-0 p-4 w-full md:w-3/4">
                 <label for="command">{{ $t('Command') }}</label>
                 <InputText
                   id="command"

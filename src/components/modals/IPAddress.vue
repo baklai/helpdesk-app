@@ -371,7 +371,7 @@ const onCloseModal = () => {
     </template>
 
     <form @submit.prevent="onSaveRecord">
-      <div class="formgrid grid">
+      <div class="formgridflex flex-wrap">
         <div class="col">
           <div class="">
             <label for="date" class="font-bold">{{ $t('Date create') }}</label>

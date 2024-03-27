@@ -404,7 +404,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-4 w-full">
     <div class="flex h-full">
       <div class="flex w-full overflow-x-auto">
         <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">

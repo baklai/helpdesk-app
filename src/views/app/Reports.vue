@@ -31,7 +31,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
@@ -46,14 +46,14 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
       </div>
     </div>
 
-    <div class="grid align-content-start">
-      <div class="col-12 lg:col-6 xl:col-3">
+    <div class=flex flex-wrap content-start">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
           class="cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="() => $helpdesk.notImplemented()"
         >
           <div class="flex flex-col items-center justify-center">
-            <div class="border-round p-2">
+            <div class="rounded p-2">
               <i class="pi pi-plus-circle text-6xl" />
             </div>
             <p>{{ $t('Create report template') }}</p>
@@ -61,13 +61,13 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
-          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('internet-access', 'helpdesk-report-internet-access')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
+            <div class="flex items-center justify-center rounded w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
@@ -82,13 +82,13 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
-          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('users-email', 'helpdesk-report-users-email')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
+            <div class="flex items-center justify-center rounded w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>
@@ -103,13 +103,13 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-3">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
-          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('unwanted-software', 'helpdesk-report-unwanted-software')"
         >
           <div class="flex">
-            <div class="flex items-center justify-center border-round w-12 h-12 mr-4">
+            <div class="flex items-center justify-center rounded w-12 h-12 mr-4">
               <i class="pi pi-file-excel text-6xl" />
             </div>
             <div>

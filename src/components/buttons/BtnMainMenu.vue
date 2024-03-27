@@ -47,7 +47,7 @@ const toggle = event => {
           </div>
         </div>
       </div>
-      <div class="overflow-scroll w-full max-h-30rem">
+      <div class="overflow-scroll w-full max-h-[30rem]">
         <SidebarMenu />
       </div>
     </template>

@@ -342,7 +342,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
     </template>
 
     <form @submit.prevent="onSaveRecord">
-      <div class="formgrid grid">
+      <div class="formgridflex flex-wrap">
         <div class="col">
           <div class="">
             <label for="request" class="font-bold">{{ $t('Client request') }}</label>

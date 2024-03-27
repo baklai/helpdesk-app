@@ -242,7 +242,7 @@ const getVNClink = async value => {
       </a>
     </template>
     <template #end v-if="hostkey && record[hostkey]">
-      <div class="flex justify-center surface-ground border-round-bottom py-2">
+      <div class="flex justify-center surface-ground rounded-bottom py-2">
         <span class="font-bold"> {{ record[hostkey] }} </span>
       </div>
     </template>

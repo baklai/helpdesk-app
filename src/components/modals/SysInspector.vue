@@ -232,12 +232,12 @@ const validSoftware = value => {
 
     <template #default>
       <div id="report">
-        <div class="grid my-2 mx-2">
-          <div class="col-12 md:col" v-if="recordip">
+        <div class=flex flex-wrap my-2 mx-2">
+          <div class="flex-shrink-0 p-4 w-full md:col" v-if="recordip">
             <IPAddressPartial :record="recordip" v-if="recordip" />
           </div>
           <Divider layout="vertical" class="hidden md:flex" v-if="recordip" />
-          <div class="col-12 md:col">
+          <div class="flex-shrink-0 p-4 w-full md:col">
             <div class="flex items-center mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

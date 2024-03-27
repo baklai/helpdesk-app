@@ -63,7 +63,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
@@ -76,11 +76,13 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="grid align-content-start" style="height: calc(100vh - 9rem)">
-      <div class="col-12 lg:col-8 xl:col-9">
-        <div class="grid">
-          <div class="col-12 lg:col-6 xl:col-4">
-            <div class="surface-50 mb-6">
+    <div class="flex flex-wrap content-start" style="height: calc(100vh - 9rem)">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/3 xl:w-3/4">
+        <div class="flex flex-wrap">
+          <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+            >
               <div class="flex justify-between mb-3">
                 <div>
                   <span class="block font-medium mb-3">
@@ -90,9 +92,7 @@ onMounted(async () => {
                     {{ stats?.requests || '-' }}
                   </div>
                 </div>
-                <div
-                  class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2"
-                >
+                <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <title>book-open-outline</title>
                     <path
@@ -104,7 +104,9 @@ onMounted(async () => {
               <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
               <span class="">{{ dateToStr(currentDate) || '-' }}</span>
             </div>
-            <div class="surface-50 mb-6">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+            >
               <div class="flex justify-between mb-3">
                 <div>
                   <span class="block font-medium mb-3">
@@ -114,16 +116,16 @@ onMounted(async () => {
                     {{ stats?.closed || '-' }}
                   </div>
                 </div>
-                <div
-                  class="flex items-center justify-center bg-green-500 border-round w-12 h-12 p-2"
-                >
+                <div class="flex items-center justify-center bg-green-500 rounded w-12 h-12 p-2">
                   <i class="pi pi-check-circle text-white text-2xl"></i>
                 </div>
               </div>
               <span class="text-green-500 font-medium mr-2">{{ $t('Actual on') }}</span>
               <span class="">{{ dateToStr(currentDate) || '-' }}</span>
             </div>
-            <div class="surface-50 mb-6">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+            >
               <div class="flex justify-between mb-3">
                 <div>
                   <span class="block font-medium mb-3">
@@ -133,9 +135,7 @@ onMounted(async () => {
                     {{ stats?.opened || '-' }}
                   </div>
                 </div>
-                <div
-                  class="flex items-center justify-center bg-orange-500 border-round w-12 h-12 p-2"
-                >
+                <div class="flex items-center justify-center bg-orange-500 rounded w-12 h-12 p-2">
                   <i class="pi pi-info-circle text-white text-2xl"></i>
                 </div>
               </div>
@@ -144,8 +144,10 @@ onMounted(async () => {
             </div>
           </div>
 
-          <div class="col-12 lg:col-6 xl:col-8">
-            <div class="surface-50">
+          <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-2/3">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
+            >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current week') }}</h5>
@@ -154,8 +156,10 @@ onMounted(async () => {
             </div>
           </div>
 
-          <div class="col-12">
-            <div class="surface-50">
+          <div class="flex-shrink-0 p-4 w-full">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
+            >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current month') }}</h5>
@@ -163,8 +167,10 @@ onMounted(async () => {
               <Chart type="bar" :data="monthChartData" :options="chartOptions" class="w-full" />
             </div>
           </div>
-          <div class="col-12">
-            <div class="surface-50">
+          <div class="flex-shrink-0 p-4 w-full">
+            <div
+              class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
+            >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
                 <h5 class="my-0">{{ $t('Requests by current year') }}</h5>
@@ -175,8 +181,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-4 xl:col-3">
-        <div class="surface-50 mb-6">
+      <div class="flex-shrink-0 p-4 w-full lg:w-1/3 xl:w-1/4">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -186,7 +194,7 @@ onMounted(async () => {
                 {{ stats?.companies || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -199,7 +207,9 @@ onMounted(async () => {
           <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="surface-50 mb-6">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -209,7 +219,7 @@ onMounted(async () => {
                 {{ stats?.branches || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -222,7 +232,9 @@ onMounted(async () => {
           <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="surface-50 mb-6">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -232,7 +244,7 @@ onMounted(async () => {
                 {{ stats?.enterprises || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -245,7 +257,9 @@ onMounted(async () => {
           <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="surface-50 mb-6">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -255,7 +269,7 @@ onMounted(async () => {
                 {{ stats?.departments || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>office-building-outline</title>
                 <path
@@ -268,7 +282,9 @@ onMounted(async () => {
           <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="surface-50 mb-6">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -278,7 +294,7 @@ onMounted(async () => {
                 {{ stats?.locations || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>map-marker-outline</title>
                 <path
@@ -291,7 +307,9 @@ onMounted(async () => {
           <span class="">{{ dateToStr(currentDate) || '-' }}</span>
         </div>
 
-        <div class="surface-50 mb-6">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-6"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -301,7 +319,7 @@ onMounted(async () => {
                 {{ stats?.positions || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-blue-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-blue-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>briefcase-account-outline</title>
                 <path

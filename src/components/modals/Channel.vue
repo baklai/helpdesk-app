@@ -236,7 +236,7 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <form @submit.prevent="onSaveRecord">
-      <div class="formgrid grid">
+      <div class="formgridflex flex-wrap">
         <div class="col">
           <div class="">
             <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
@@ -297,7 +297,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="col-12">
+        <div class="flex-shrink-0 p-4 w-full">
           <div class="">
             <label for="level" class="font-bold">{{ $t('Level') }}</label>
             <InputText

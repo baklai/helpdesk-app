@@ -13,7 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
@@ -26,6 +26,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="grid"></div>
+    <div class="flex flex-wrap"></div>
   </div>
 </template>

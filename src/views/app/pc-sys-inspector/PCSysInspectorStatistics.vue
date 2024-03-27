@@ -52,7 +52,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
@@ -65,9 +65,11 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="grid">
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0">
+    <div class="flex flex-wrap">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -77,7 +79,7 @@ onMounted(async () => {
                 {{ stats?.count || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-green-100 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-green-100 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>monitor-cellphone</title>
                 <path
@@ -91,8 +93,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0 border-green-500">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0 border-green-500"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -102,7 +106,7 @@ onMounted(async () => {
                 {{ stats?.count - stats?.warning || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-green-500 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-green-500 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>check-outline</title>
                 <path
@@ -116,8 +120,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0 border-orange-500">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0 border-orange-500"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -127,7 +133,7 @@ onMounted(async () => {
                 {{ stats?.warning || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-orange-500 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-orange-500 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>alert-octagon-outline</title>
                 <path
@@ -141,8 +147,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Administrator rights') }}</span>
@@ -150,7 +158,7 @@ onMounted(async () => {
                 {{ stats?.useraccount || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-orange-300 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>account-key-outline</title>
                 <path
@@ -164,8 +172,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Unwanted software') }}</span>
@@ -173,7 +183,7 @@ onMounted(async () => {
                 {{ stats?.product || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-orange-300 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>microsoft</title>
                 <path d="M2,3H11V12H2V3M11,22H2V13H11V22M21,3V12H12V3H21M21,22H12V13H21V22Z" />
@@ -185,8 +195,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 lg:col-6 xl:col-4">
-        <div class="surface-50 mb-0">
+      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
+        >
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Shared resources') }}</span>
@@ -194,7 +206,7 @@ onMounted(async () => {
                 {{ stats?.share || '-' }}
               </div>
             </div>
-            <div class="flex items-center justify-center bg-orange-300 border-round w-12 h-12 p-2">
+            <div class="flex items-center justify-center bg-orange-300 rounded w-12 h-12 p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>folder-network-outline</title>
                 <path
@@ -208,8 +220,11 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 xl:col-4">
-        <div class="surface-50" style="height: 35rem">
+      <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
+          style="height: 35rem"
+        >
           <div class="flex justify-between items-center mb-5">
             <div class="flex justify-start gap-2 items-center">
               <i class="pi pi-history mr-2" style="font-size: 1.5rem"></i>
@@ -244,7 +259,7 @@ onMounted(async () => {
               <div class="flex items-center my-2">
                 <ProgressBar
                   :value="(item?.count * 100) / stats?.count"
-                  class="surface-300 border-round w-10rem h-1rem mr-4"
+                  class="surface-300 rounded w-10rem h-1rem mr-4"
                 />
                 <span class="text-primary font-bold w-8rem">
                   {{ item.count }}
@@ -256,8 +271,11 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="col-12 xl:col-4">
-        <div class="surface-50" style="height: 35rem">
+      <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
+        <div
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
+          style="height: 35rem"
+        >
           <div class="flex justify-between items-center mb-5">
             <div class="flex justify-start gap-2 items-center">
               <i class="pi pi-desktop mr-2" style="font-size: 1.5rem"></i>
@@ -265,7 +283,7 @@ onMounted(async () => {
             </div>
           </div>
 
-          <Chart type="pie" :data="statusChart" :options="basicOptions" class="max-h-30rem" />
+          <Chart type="pie" :data="statusChart" :options="basicOptions" class="max-h-[30rem]" />
         </div>
       </div>
     </div>

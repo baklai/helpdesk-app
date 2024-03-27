@@ -3,7 +3,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 </script>
 
 <template>
-  <div class="col-12 my-auto">
+  <div class="flex-shrink-0 p-4 w-full my-auto">
     <div class="flex flex-col lg:flex-row justify-center">
       <div class="w-auto flex flex-col items-center justify-center">
         <header class="flex items-center justify-center">
