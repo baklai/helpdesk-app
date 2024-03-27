@@ -80,7 +80,7 @@ const onCountPercentWidth = (count, allCount) => {
 
     <div class="grid">
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -105,7 +105,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of channels') }}</span>
@@ -126,7 +126,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of units') }}</span>
@@ -149,7 +149,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of locations') }}</span>
@@ -172,7 +172,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of companies') }}</span>
@@ -195,7 +195,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of branches') }}</span>
@@ -218,7 +218,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of enterprises') }}</span>
@@ -241,7 +241,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of departments') }}</span>
@@ -264,7 +264,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of Internets') }}</span>
@@ -287,7 +287,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of E-Mails') }}</span>
@@ -310,7 +310,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of autoanswers') }}</span>
@@ -331,7 +331,7 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 xl:col-6">
-        <div class="card surface-50 h-30rem">
+        <div class="surface-50 h-30rem">
           <div class="flex justify-between items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
             <div>
@@ -369,7 +369,7 @@ const onCountPercentWidth = (count, allCount) => {
           </ul>
         </div>
 
-        <div class="card surface-50 h-30rem">
+        <div class="surface-50 h-30rem">
           <DataTable
             scrollable
             removableSort
@@ -414,11 +414,11 @@ const onCountPercentWidth = (count, allCount) => {
       </div>
 
       <div class="col-12 xl:col-6">
-        <div class="card surface-50 h-30rem">
+        <div class="surface-50 h-30rem">
           <h5>{{ $t('Branches status') }}</h5>
           <Chart type="bar" :data="barBranches" :options="basicOptions" />
         </div>
-        <div class="card surface-50 h-30rem">
+        <div class="surface-50 h-30rem">
           <h5>{{ $t('Enterprises status') }}</h5>
           <Chart type="bar" :data="barEnterprises" :options="basicOptions" />
         </div>

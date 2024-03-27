@@ -894,7 +894,7 @@ onMounted(async () => {
           />
 
           <div
-            class="card flex flex-col items-center gap-3"
+            class="flex flex-col items-center gap-3"
             v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
           >
             <TriStateCheckbox v-model="filterModel.value" inputId="verified-filter" />

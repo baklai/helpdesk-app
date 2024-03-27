@@ -49,7 +49,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
     <div class="grid align-content-start">
       <div class="col-12 lg:col-6 xl:col-3">
         <div
-          class="card surface-card cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="() => $helpdesk.notImplemented()"
         >
           <div class="flex flex-col items-center justify-center">
@@ -63,7 +63,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div
-          class="card surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('internet-access', 'helpdesk-report-internet-access')"
         >
           <div class="flex">
@@ -84,7 +84,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div
-          class="card surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('users-email', 'helpdesk-report-users-email')"
         >
           <div class="flex">
@@ -105,7 +105,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div
-          class="card surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
+          class="surface-50 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
           @click="generateReportToCSV('unwanted-software', 'helpdesk-report-unwanted-software')"
         >
           <div class="flex">

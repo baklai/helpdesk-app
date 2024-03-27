@@ -73,10 +73,10 @@ watchEffect(() => {
     </div>
 
     <div
-      class="layout-main-container text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-900"
+      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-900"
     >
       <AppTopbar />
-      <div class="layout-main overflow-auto">
+      <div class="layout-main flex-auto py-4 px-8 overflow-auto">
         <div class="grid grid-nogutter" style="height: calc(100vh - 9rem)">
           <RouterView />
         </div>

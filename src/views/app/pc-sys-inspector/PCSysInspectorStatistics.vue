@@ -67,7 +67,7 @@ onMounted(async () => {
 
     <div class="grid">
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -92,7 +92,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0 border-green-500">
+        <div class="surface-50 mb-0 border-green-500">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -117,7 +117,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0 border-orange-500">
+        <div class="surface-50 mb-0 border-orange-500">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -142,7 +142,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Administrator rights') }}</span>
@@ -165,7 +165,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Unwanted software') }}</span>
@@ -186,7 +186,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Shared resources') }}</span>
@@ -209,7 +209,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 xl:col-4">
-        <div class="card surface-50" style="height: 35rem">
+        <div class="surface-50" style="height: 35rem">
           <div class="flex justify-between items-center mb-5">
             <div class="flex justify-start gap-2 items-center">
               <i class="pi pi-history mr-2" style="font-size: 1.5rem"></i>
@@ -257,7 +257,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 xl:col-4">
-        <div class="card surface-50" style="height: 35rem">
+        <div class="surface-50" style="height: 35rem">
           <div class="flex justify-between items-center mb-5">
             <div class="flex justify-start gap-2 items-center">
               <i class="pi pi-desktop mr-2" style="font-size: 1.5rem"></i>

@@ -263,8 +263,8 @@ const validSoftware = value => {
             </div>
 
             <div class="flex justify-between mb-6">
-              <div class="flex justify-content-cente w-1/3">
-                <div class="flex flex-col card-container">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col">
                   <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +317,7 @@ const validSoftware = value => {
               </div>
 
               <div class="flex justify-center w-1/3">
-                <div class="flex flex-col card-container">
+                <div class="flex flex-col">
                   <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

@@ -181,7 +181,7 @@ onMounted(async () => {
 
     <div class="grid align-content-start">
       <div class="col-12 xl:col-6">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <h5>{{ $t('API Activity for the current month') }}</h5>
           <Chart
             type="line"
@@ -193,7 +193,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 xl:col-6">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <h5>{{ $t('User activity for the current month') }}</h5>
           <Chart
             type="bar"
@@ -205,7 +205,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">{{ $t('Total number of users') }}</span>
@@ -228,7 +228,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -253,7 +253,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -278,7 +278,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -303,7 +303,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -326,7 +326,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -351,7 +351,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -376,7 +376,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -401,7 +401,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -426,7 +426,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -451,7 +451,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
@@ -476,7 +476,7 @@ onMounted(async () => {
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card surface-50 mb-0">
+        <div class="surface-50 mb-0">
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-medium mb-3">
