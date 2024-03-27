@@ -199,7 +199,7 @@ const onSaveRecord = handleSubmit(async () => {
     <template #header>
       <div class="flex justify-between w-full text-surface-800 dark:text-surface-100">
         <div class="flex items-center justify-center">
-          <AppIcons name="calendar-events" :size="40" class="mr-2" />
+          <AppIcons name="calendar-events" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2">
               {{ $t('Calendar event') }}

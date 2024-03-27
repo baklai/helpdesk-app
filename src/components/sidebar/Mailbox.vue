@@ -43,7 +43,7 @@ const onCloseSidebar = () => {
     <template #title>
       <div class="flex justify-between">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-mailbox" :size="40" class="mr-2" />
+          <AppIcons name="network-mailbox" :size="40" class="mr-4" />
           <div>
             <p class="text-lg mb-0">{{ $t('Login') }} : {{ record?.login }}</p>
             <p class="text-base font-normal">

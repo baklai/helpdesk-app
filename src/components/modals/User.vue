@@ -295,7 +295,7 @@ const onSaveRecord = handleSubmit(async () => {
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="core-users" :size="40" class="mr-2" />
+          <AppIcons name="core-users" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">
               {{ $t('User account') }}

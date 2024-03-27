@@ -168,7 +168,7 @@ onMounted(() => {});
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="onmap-scanner" :size="40" class="mr-2" />
+          <AppIcons name="onmap-scanner" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ record?.title || '-' }}

@@ -211,7 +211,7 @@ const onSaveRecord = handleSubmit(async () => {
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-channels" :size="40" class="mr-2" />
+          <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-2">
               {{ $t('Network channel') }}

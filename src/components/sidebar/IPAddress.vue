@@ -44,7 +44,7 @@ const onCloseSidebar = () => {
     <template #title>
       <div class="flex justify-between">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-ip-address" :size="40" class="mr-2" />
+          <AppIcons name="network-ip-address" :size="40" class="mr-4" />
           <div>
             <p class="text-lg mb-0">IP {{ record?.ipaddress?.ipaddress }}</p>
             <p class="text-base font-normal">

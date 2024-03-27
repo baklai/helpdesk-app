@@ -200,9 +200,9 @@ const validSoftware = value => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex justify-between w-full text-surface-100">
         <div class="flex items-center justify-center">
-          <AppIcons name="pc-sys-inspector" :size="40" class="mr-2" />
+          <AppIcons name="pc-sys-inspector" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ record?.os ? record?.os?.CSName : record?.host }}
@@ -232,12 +232,14 @@ const validSoftware = value => {
 
     <template #default>
       <div id="report">
-        <div class=flex flex-wrap my-2 mx-2">
-          <div class="flex-shrink-0 p-4 w-full md:col" v-if="recordip">
+        <div class="flex flex-wrap my-2 mx-2">
+          <div class="flex-shrink-0 p-4 w-full grow basis-0" v-if="recordip">
             <IPAddressPartial :record="recordip" v-if="recordip" />
           </div>
+
           <Divider layout="vertical" class="hidden md:flex" v-if="recordip" />
-          <div class="flex-shrink-0 p-4 w-full md:col">
+
+          <div class="flex-shrink-0 p-4 w-full grow basis-0">
             <div class="flex items-center mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -902,10 +904,10 @@ const validSoftware = value => {
           <table>
             <tr>
               <th></th>
-              <th class="text-uppercase">{{ $t('Name') }}</th>
-              <th class="text-uppercase">{{ $t('Publisher') }}</th>
-              <th class="text-uppercase">{{ $t('Version') }}</th>
-              <th class="text-uppercase">{{ $t('Installed') }}</th>
+              <th class="uppercase">{{ $t('Name') }}</th>
+              <th class="uppercase">{{ $t('Publisher') }}</th>
+              <th class="uppercase">{{ $t('Version') }}</th>
+              <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
             <tr v-for="(product, index) in record?.product || []" :key="`product_${index}`">
               <td class="text-center">
@@ -996,9 +998,9 @@ const validSoftware = value => {
           <table>
             <tr>
               <th></th>
-              <th class="text-uppercase">{{ $t('HotFix') }}</th>
-              <th class="text-uppercase">{{ $t('Description') }}</th>
-              <th class="text-uppercase">{{ $t('Installed') }}</th>
+              <th class="uppercase">{{ $t('HotFix') }}</th>
+              <th class="uppercase">{{ $t('Description') }}</th>
+              <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
             <tr v-for="(fixupdate, index) in record?.fixupdate || []" :key="`fixupdate_${index}`">
               <td width="3%"></td>
@@ -1009,7 +1011,8 @@ const validSoftware = value => {
           </table>
         </div>
       </div>
-      <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
+
+      <ScrollTop target="parent" :threshold="400" behavior="smooth" />
     </template>
 
     <template #footer>
@@ -1045,6 +1048,6 @@ td {
 
 td,
 th {
-  border-bottom: 1px solid var(--surface-100);
+  border-bottom: 1px solid var(--surface-200);
 }
 </style>

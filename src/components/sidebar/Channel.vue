@@ -41,7 +41,7 @@ const onCloseSidebar = () => {
     <template #title>
       <div class="flex justify-between">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-channels" :size="40" class="mr-2" />
+          <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
             <p class="text-lg mb-0">{{ $t('Network channel') }}</p>
             <p class="text-base font-normal">
