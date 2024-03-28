@@ -16,20 +16,6 @@
   padding: 0;
   list-style-type: none;
 
-  .layout-root-menuitem {
-    > .layout-menuitem-root-text {
-      font-size: 0.857rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--surface-900);
-      margin: 0.75rem 0;
-    }
-
-    > a {
-      display: none;
-    }
-  }
-
   a {
     user-select: none;
 
@@ -76,7 +62,7 @@
       }
 
       &:hover {
-        background-color: var(--surface-hover);
+        background-color: var(--surface-400);
       }
 
       &:focus {

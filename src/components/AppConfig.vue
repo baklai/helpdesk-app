@@ -42,14 +42,16 @@ const decrementScale = () => {
     <div class="px-4">
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full">{{ $t('Scale') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Scale') }}</h5>
         </div>
         <div class="flex flex-1 items-center justify-between">
           <Button
+            text
+            rounded
             icon="pi pi-minus"
-            type="button"
+            severity="secondary"
             @click="decrementScale"
-            class="w-2rem h-2rem mr-2"
+            class="mr-2"
             :disabled="$config.scale === scales[0]"
           />
           <div class="flex gap-2 items-center">
@@ -61,11 +63,12 @@ const decrementScale = () => {
             ></i>
           </div>
           <Button
+            text
+            rounded
             icon="pi pi-plus"
-            type="button"
-            pButton
+            severity="secondary"
             @click="incrementScale"
-            class="w-2rem h-2rem ml-2"
+            class="ml-2"
             :disabled="$config.scale === scales[scales.length - 1]"
           />
         </div>
@@ -75,7 +78,7 @@ const decrementScale = () => {
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full">
+          <h5 class="flex items-center h-full text-lg font-semibold">
             {{ $t('Ripple Effect') }}
           </h5>
         </div>
@@ -92,7 +95,7 @@ const decrementScale = () => {
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full">{{ $t('Menu Type') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu Type') }}</h5>
         </div>
         <div class="flex-1">
           <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
@@ -103,7 +106,7 @@ const decrementScale = () => {
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full">{{ $t('Input Style') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Input Style') }}</h5>
         </div>
         <div class="flex-1">
           <SelectButton v-model="$config.inputStyle" :options="['outlined', 'filled']" />
@@ -114,7 +117,7 @@ const decrementScale = () => {
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full">{{ $t('Themes style') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Themes style') }}</h5>
         </div>
         <div class="flex-1">
           <SelectButton v-model="$config.theme" :options="['light', 'dark']" />
