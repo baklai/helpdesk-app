@@ -6,7 +6,7 @@ import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Mailbox.vue';
-import SidebarRecord from '@/components/sidebar/Mailbox.vue';
+import SidebarRecord from '@/components/sidebars/Mailbox.vue';
 
 import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';

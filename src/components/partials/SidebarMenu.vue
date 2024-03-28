@@ -7,7 +7,7 @@ const $sidebar = useSidebar();
 </script>
 
 <template>
-  <ul class="layout-menu">
+  <ul class="layout-menu list-none m-0 p-0">
     <template v-for="(item, index) in $sidebar.links" :key="item">
       <SidebarMenuItem v-if="!item.separator" :item="item" :index="index" />
     </template>

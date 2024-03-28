@@ -7,7 +7,7 @@ import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/IPAddress.vue';
-import SidebarRecord from '@/components/sidebar/IPAddress.vue';
+import SidebarRecord from '@/components/sidebars/IPAddress.vue';
 
 import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useIPAddress } from '@/stores/api/ipaddresses';

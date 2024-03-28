@@ -10,7 +10,7 @@ import Panel from 'primevue/panel';
 import SSDataTable from '@/components/tables/SSDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/ONMAP.vue';
-import SidebarRecord from '@/components/sidebar/ONMAP.vue';
+import SidebarRecord from '@/components/sidebars/ONMAP.vue';
 
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useOnmap } from '@/stores/api/onmaps';

@@ -8,7 +8,7 @@ import SSDataTable from '@/components/tables/SSDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
-import SidebarRecord from '@/components/sidebar/SysInspector.vue';
+import SidebarRecord from '@/components/sidebars/SysInspector.vue';
 
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
