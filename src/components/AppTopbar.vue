@@ -69,7 +69,7 @@ const isOutsideClicked = event => {
 </script>
 
 <template>
-  <div class="layout-topbar">
+  <div class="layout-topbar justify-between">
     <button class="p-link layout-menu-button layout-topbar-button" @click="$config.onMenuToggle()">
       <i class="pi pi-bars"></i>
     </button>
@@ -79,12 +79,12 @@ const isOutsideClicked = event => {
     >
       <i class="pi pi-ellipsis-v"></i>
     </button>
-    <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12 mx-2" />
+    <div class="layout-topbar-menu flex gap-x-2 p-0" :class="topbarMenuClasses">
+      <BtnToggleTheme />
       <BtnToggleLang />
-      <BtnFTPClient iconClass="text-3xl" class="w-12 h-12 mx-2" />
+      <BtnFTPClient />
       <BtnNotifications />
-      <BtnFullScreen iconClass="text-3xl" class="w-12 h-12 text-4xl mx-2" />
+      <BtnFullScreen />
       <BtnMainMenu />
     </div>
   </div>

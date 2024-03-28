@@ -34,8 +34,8 @@
     transition: background-color $transitionDuration;
 
     &:hover {
-      // color: var(--surface-900);
-      // background-color: var(--surface-hover);
+      color: var(--surface-900);
+      background-color: var(--surface-0);
     }
 
     i {
@@ -57,13 +57,13 @@
   }
 
   .layout-topbar-menu {
-    margin: 0 0 0 auto;
-    padding: 0;
-    list-style: none;
-    display: flex;
+    // margin: 0 0 0 auto;
+    // padding: 0;
+    // list-style: none;
+    // display: flex;
 
     .layout-topbar-button {
-      margin-left: 1rem;
+      // margin-left: 1rem;
     }
   }
 }
