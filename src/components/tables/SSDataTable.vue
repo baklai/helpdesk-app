@@ -626,9 +626,10 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-filter-slash"
-                iconClass="text-2xl"
-                class="h-12 w-12"
-                :class="params?.filters && Object.keys(params.filters).length ? 'text-primary' : ''"
+                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+                :class="
+                  params?.filters && Object.keys(params.filters).length ? 'text-primary-500' : ''
+                "
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
               />
@@ -638,8 +639,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-plus-circle"
-                iconClass="text-2xl"
-                class="h-12 w-12"
+                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
                 v-tooltip.bottom="$t('Create record')"
                 @click="emits('toggleModal', {})"
               />
@@ -649,8 +649,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-sync"
-                iconClass="text-2xl"
-                class="h-12 w-12"
+                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -662,8 +661,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-cog"
-                iconClass="text-2xl"
-                class="h-12 w-12"
+                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />
@@ -706,7 +704,6 @@ onMounted(async () => {
               icon="pi pi-refresh"
               iconClass="text-xl"
               style="width: 3rem; height: 2.2rem"
-              class=""
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />
@@ -832,7 +829,7 @@ onMounted(async () => {
           <Listbox
             filter
             multiple
-            class="w-full w-20rem"
+            class="w-[20rem]"
             listStyle="height: 20rem"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
@@ -907,7 +904,3 @@ onMounted(async () => {
     </DataTable>
   </div>
 </template>
-
-<style scoped>
-/* bg-surface-0 dark:bg-surface-900 */
-</style>

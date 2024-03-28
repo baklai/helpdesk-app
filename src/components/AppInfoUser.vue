@@ -37,7 +37,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     <template #header>
       <div class="flex items-center">
         <div class="flex items-center">
-          <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
+          <Avatar icon="pi pi-user" class="mr-4" size="large" />
           <div>
             <p class="font-bold m-0">
               {{ $helpdesk?.user?.fullname }}
@@ -50,17 +50,17 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
       </div>
     </template>
 
-    <div class="flex my-6 items-center">
-      <div class="formgridflex flex-wrap">
+    <div class="flex items-center">
+      <div class="flex flex-wrap">
         <div class="flex-shrink-0 p-4 w-full xl:w-2/4 text-center">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
-            class="w-4rem h-4rem"
+            class="w-16 h-16"
             v-if="$helpdesk?.user?.logo"
           />
           <div class="flex items-center justify-center p-3 flex-col" v-else>
-            <i class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-surface-500" />
+            <i class="pi pi-cloud-upload p-3 text-3xl text-surface-500" />
             <p class="text-sm mt-6 mb-0 text-surface-500">
               {{ $t('Drag and drop logo to here to upload') }}
             </p>
@@ -69,31 +69,31 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
 
         <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
           <div class="mb-0">
-            <p class="font-bold text-primary text-lg">
+            <p class="font-bold text-lg">
               {{ $t('Login') }} :
               <span class="">{{ $helpdesk?.user?.login }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-primary text-lg">
+            <p class="font-bold text-lg">
               {{ $t('Fullname') }} :
               <span class="">{{ $helpdesk?.user?.fullname }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-primary text-lg">
+            <p class="font-bold text-lg">
               {{ $t('E-Mail') }} :
               <span class="">{{ $helpdesk?.user?.email }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-primary text-lg">
+            <p class="font-bold text-lg">
               {{ $t('Phone') }} :
               <span class="">{{ $helpdesk?.user?.phone }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-primary text-lg">
+            <p class="font-bold text-lg">
               {{ $t('Is Admin') }} :
               <span class="">{{ $helpdesk?.user?.isAdmin }}</span>
             </p>
