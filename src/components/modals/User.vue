@@ -329,7 +329,7 @@ const onSaveRecord = handleSubmit(async () => {
               :readonly="readonly"
               v-bind="login"
               :placeholder="$t('User login')"
-              :class="{ 'p-invalid': !!errors?.login }"
+              :invalid="!!errors?.login"
               aria-describedby="login-help"
             />
             <small id="login-help" class="text-red-500" v-if="errors?.login">
@@ -351,7 +351,7 @@ const onSaveRecord = handleSubmit(async () => {
               :weakLabel="$t('Too simple')"
               :mediumLabel="$t('Average complexity')"
               :strongLabel="$t('Complex password')"
-              :class="{ 'p-invalid': !!errors?.password }"
+              :invalid="!!errors?.password"
               aria-describedby="password-help"
             >
               <template #header>
@@ -379,7 +379,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="fullname"
               v-bind="fullname"
               :placeholder="$t('User name')"
-              :class="{ 'p-invalid': !!errors?.fullname }"
+              :invalid="!!errors?.fullname"
               aria-describedby="fullname-help"
             />
             <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
@@ -393,7 +393,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="email"
               v-bind="email"
               :placeholder="$t('User email')"
-              :class="{ 'p-invalid': !!errors?.email }"
+              :invalid="!!errors?.email"
               aria-describedby="email-help"
             />
             <small id="email-help" class="text-red-500" v-if="errors?.email">
@@ -409,7 +409,7 @@ const onSaveRecord = handleSubmit(async () => {
               placeholder="+99(999)999-99-99"
               id="phone"
               v-bind="phone"
-              :class="{ 'p-invalid': !!errors?.phone }"
+              :invalid="!!errors?.phone"
               aria-describedby="phone-help"
             />
             <small id="phone-help" class="text-red-500" v-if="errors?.phone">
@@ -460,7 +460,7 @@ const onSaveRecord = handleSubmit(async () => {
                   </div>
                 </div>
                 <div class="flex gap-2 items-center justify-between sm:w-max w-full">
-                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
+                  <span class="relative sm:w-max w-full">
                     <i class="pi pi-search" />
                     <InputText
                       id="name"
@@ -540,46 +540,3 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-datatable-header) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(tr.p-datatable-emptymessage > td) {
-  border: none;
-}
-
-::v-deep(tr.p-datatable-emptymessage:hover) {
-  background: none !important;
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  background: var(--surface-ground);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  background-color: var(--surface-ground);
-}
-
-::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
-  padding: 0.3rem 0.3rem;
-}
-
-::v-deep(.p-input-icon-right > svg) {
-  right: 0.5rem !important;
-  cursor: pointer;
-}
-
-::v-deep(.p-datatable .p-column-header-content) {
-  display: block;
-}
-</style>

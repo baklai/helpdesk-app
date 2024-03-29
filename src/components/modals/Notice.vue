@@ -106,7 +106,7 @@ const onCloseModal = () => {
           id="name"
           v-bind="name"
           :placeholder="$t('Notification name')"
-          :class="{ 'p-invalid': !!errors?.name }"
+          :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">
@@ -121,7 +121,7 @@ const onCloseModal = () => {
           id="text"
           v-bind="text"
           :placeholder="$t('Notification text')"
-          :class="{ 'p-invalid': !!errors?.text }"
+          :invalid="!!errors?.text"
           aria-describedby="text-help"
         />
         <small id="text-help" class="text-red-500" v-if="errors?.text">
@@ -138,7 +138,7 @@ const onCloseModal = () => {
           optionLabel="fullname"
           :maxSelectedLabels="3"
           :placeholder="$t('Notification users')"
-          :class="{ 'p-invalid': !!errors?.users }"
+          :invalid="!!errors?.users"
           class="w-full"
           aria-describedby="users-help"
         >
@@ -168,9 +168,3 @@ const onCloseModal = () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
-  color: var(--surface-400);
-}
-</style>

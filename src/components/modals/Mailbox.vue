@@ -289,7 +289,7 @@ const onCloseModal = () => {
               v-bind="dateOpen"
               :modelValue="dateToStr(values.dateOpen)"
               :placeholder="$t('Date open')"
-              :class="{ 'p-invalid': !!errors?.dateOpen }"
+              :invalid="!!errors?.dateOpen"
               aria-describedby="dateOpen-help"
             />
             <small id="dateOpen-help" class="text-red-500" v-if="errors?.dateOpen">
@@ -303,7 +303,7 @@ const onCloseModal = () => {
               id="reqnum"
               v-bind="reqnum"
               :placeholder="$t('Letter number')"
-              :class="{ 'p-invalid': !!errors?.reqnum }"
+              :invalid="!!errors?.reqnum"
               aria-describedby="reqnum-help"
             />
             <small id="reqnum-help" class="text-red-500" v-if="errors?.reqnum">
@@ -317,7 +317,7 @@ const onCloseModal = () => {
               id="login"
               v-bind="login"
               :placeholder="$t('Login mailbox')"
-              :class="{ 'p-invalid': !!errors?.login }"
+              :invalid="!!errors?.login"
               aria-describedby="login-help"
             />
             <small id="login-help" class="text-red-500" v-if="errors?.login">
@@ -333,7 +333,7 @@ const onCloseModal = () => {
                   id="fullname"
                   v-bind="fullname"
                   :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!errors?.fullname }"
+                  :invalid="!!errors?.fullname"
                   aria-describedby="fullname-help"
                 />
                 <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
@@ -346,7 +346,7 @@ const onCloseModal = () => {
                   id="phone"
                   v-bind="phone"
                   :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!errors?.phone }"
+                  :invalid="!!errors?.phone"
                   aria-describedby="phone-help"
                 />
                 <small id="phone-help" class="text-red-500" v-if="errors?.phone">
@@ -368,7 +368,7 @@ const onCloseModal = () => {
                   :options="positions"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client position')"
-                  :class="{ 'p-invalid': !!errors?.position }"
+                  :invalid="!!errors?.position"
                   aria-describedby="position-help"
                 />
                 <small id="position-help" class="text-red-500" v-if="errors?.position">
@@ -409,7 +409,7 @@ const onCloseModal = () => {
               :options="locations"
               :filterPlaceholder="$t('Search')"
               :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!errors?.location }"
+              :invalid="!!errors?.location"
               aria-describedby="location-help"
             />
             <small id="location-help" class="text-red-500" v-if="errors?.location">
@@ -434,7 +434,7 @@ const onCloseModal = () => {
                   :options="companies"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client company')"
-                  :class="{ 'p-invalid': !!errors?.company }"
+                  :invalid="!!errors?.company"
                   aria-describedby="company-help"
                 />
                 <small id="company-help" class="text-red-500" v-if="errors?.company">
@@ -456,7 +456,7 @@ const onCloseModal = () => {
                   :options="branches"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client branch')"
-                  :class="{ 'p-invalid': !!errors?.branch }"
+                  :invalid="!!errors?.branch"
                   aria-describedby="branch-help"
                 />
                 <small id="branch-help" class="text-red-500" v-if="errors?.branch">
@@ -478,7 +478,7 @@ const onCloseModal = () => {
                   :options="enterprises"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client enterprise')"
-                  :class="{ 'p-invalid': !!errors?.enterprise }"
+                  :invalid="!!errors?.enterprise"
                   aria-describedby="enterprise-help"
                 />
                 <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
@@ -500,7 +500,7 @@ const onCloseModal = () => {
                   :options="departments"
                   :filterPlaceholder="$t('Search')"
                   :placeholder="$t('Client department')"
-                  :class="{ 'p-invalid': !!errors?.department }"
+                  :invalid="!!errors?.department"
                   aria-describedby="department-help"
                 />
                 <small id="department-help" class="text-red-500" v-if="errors?.department">
@@ -531,19 +531,3 @@ const onCloseModal = () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-calendar-w-btn .p-datepicker-trigger) {
-  color: var(--surface-500);
-}
-::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
-  color: var(--surface-400);
-}
-::v-deep(.p-datatable .p-datatable-header) {
-  background: transparent;
-}
-
-::v-deep(.p-datatable-thead) {
-  display: none;
-}
-</style>

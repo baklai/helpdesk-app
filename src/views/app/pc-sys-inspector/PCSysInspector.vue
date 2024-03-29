@@ -463,7 +463,7 @@ const createSysInspectorScript = async () => {
 <template>
   <div class="flex-shrink-0 p-4 w-full">
     <div class="flex h-full">
-      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-15rem p-2">
+      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-[15rem] p-2">
         <template #item="{ label, item, props }">
           <a :href="item.url" v-bind="props.action">
             <span v-bind="props.icon" />

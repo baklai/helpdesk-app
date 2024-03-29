@@ -46,7 +46,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
       </div>
     </div>
 
-    <div class=flex flex-wrap content-start">
+    <div class="flex flex-wrap content-start">
       <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
           class="cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"

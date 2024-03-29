@@ -134,34 +134,4 @@ code {
   padding: 0.2rem 0.5rem;
   border-radius: 0.3rem;
 }
-
-::v-deep(.p-terminal) {
-  background-color: #212121;
-  color: #adacac;
-}
-
-::v-deep(.p-terminal-content) {
-  margin-top: 2rem;
-}
-
-::v-deep(.p-terminal-prompt) {
-  color: #ffd54f;
-}
-
-::v-deep(.p-terminal-command) {
-  color: #ffffff;
-}
-
-::v-deep(.p-terminal-input) {
-  color: #ffffff;
-  font-size: 1.25rem;
-}
-
-::v-deep(.p-terminal-response) {
-  font-size: 1.12rem;
-  padding: 0.5rem;
-  color: #cac6c6;
-  white-space: pre;
-  font-family: monospace;
-}
 </style>

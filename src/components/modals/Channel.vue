@@ -244,7 +244,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="locationFrom"
               v-bind="locationFrom"
               :placeholder="$t('Location start')"
-              :class="{ 'p-invalid': !!errors?.locationFrom }"
+              :invalid="!!errors?.locationFrom"
               aria-describedby="locationFrom-help"
             />
             <small id="locationFrom-help" class="text-red-500" v-if="errors?.locationFrom">
@@ -258,7 +258,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="unitFrom"
               v-bind="unitFrom"
               :placeholder="$t('Unit start')"
-              :class="{ 'p-invalid': !!errors?.unitFrom }"
+              :invalid="!!errors?.unitFrom"
               aria-describedby="unitFrom-help"
             />
             <small id="unitFrom-help" class="text-red-500" v-if="errors?.unitFrom">
@@ -274,7 +274,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="locationTo"
               v-bind="locationTo"
               :placeholder="$t('Location end')"
-              :class="{ 'p-invalid': !!errors?.locationTo }"
+              :invalid="!!errors?.locationTo"
               aria-describedby="locationTo-help"
             />
             <small id="locationTo-help" class="text-red-500" v-if="errors?.locationTo">
@@ -288,7 +288,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="unitTo"
               v-bind="unitTo"
               :placeholder="$t('Unit end')"
-              :class="{ 'p-invalid': !!errors?.unitTo }"
+              :invalid="!!errors?.unitTo"
               aria-describedby="unitTo-help"
             />
             <small id="unitTo-help" class="text-red-500" v-if="errors?.unitTo">
@@ -304,7 +304,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="level"
               v-bind="level"
               :placeholder="$t('Level')"
-              :class="{ 'p-invalid': !!errors?.level }"
+              :invalid="!!errors?.level"
               aria-describedby="level-help"
             />
             <small id="level-help" class="text-red-500" v-if="errors?.level">
@@ -318,7 +318,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="type"
               v-bind="type"
               :placeholder="$t('Type')"
-              :class="{ 'p-invalid': !!errors?.type }"
+              :invalid="!!errors?.type"
               aria-describedby="type-help"
             />
             <small id="type-help" class="text-red-500" v-if="errors?.type">
@@ -332,7 +332,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="speed"
               v-bind="speed"
               :placeholder="$t('Speed')"
-              :class="{ 'p-invalid': !!errors?.speed }"
+              :invalid="!!errors?.speed"
               aria-describedby="speed-help"
             />
             <small id="speed-help" class="text-red-500" v-if="errors?.speed">
@@ -346,7 +346,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="status"
               v-bind="status"
               :placeholder="$t('Status')"
-              :class="{ 'p-invalid': !!errors?.status }"
+              :invalid="!!errors?.status"
               aria-describedby="status-help"
             />
             <small id="status-help" class="text-red-500" v-if="errors?.status">
@@ -360,7 +360,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="operator"
               v-bind="operator"
               :placeholder="$t('Operator')"
-              :class="{ 'p-invalid': !!errors?.operator }"
+              :invalid="!!errors?.operator"
               aria-describedby="operator-help"
             />
             <small id="operator-help" class="text-red-500" v-if="errors?.operator">
@@ -376,7 +376,7 @@ const onSaveRecord = handleSubmit(async () => {
               id="composition"
               v-bind="composition"
               :placeholder="$t('Composition')"
-              :class="{ 'p-invalid': !!errors?.composition }"
+              :invalid="!!errors?.composition"
               aria-describedby="composition-help"
             />
             <small id="composition-help" class="text-red-500" v-if="errors?.composition">

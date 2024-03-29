@@ -106,7 +106,6 @@ onMounted(() => {
         :weakLabel="$t('Too simple')"
         :mediumLabel="$t('Average complexity')"
         :strongLabel="$t('Complex password')"
-        :class="{ 'p-invalid': !!errors?.password }"
         aria-describedby="password-help"
       >
         <template #header>

@@ -70,13 +70,10 @@ const isOutsideClicked = event => {
 
 <template>
   <div class="layout-topbar justify-between">
-    <button class="p-link layout-menu-button layout-topbar-button" @click="$config.onMenuToggle()">
+    <button class="layout-menu-button layout-topbar-button" @click="$config.onMenuToggle()">
       <i class="pi pi-bars"></i>
     </button>
-    <button
-      class="p-link layout-topbar-menu-button layout-topbar-button"
-      @click="onTopBarMenuButton()"
-    >
+    <button class="layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
       <i class="pi pi-ellipsis-v"></i>
     </button>
     <div class="layout-topbar-menu flex gap-x-2 p-0" :class="topbarMenuClasses">

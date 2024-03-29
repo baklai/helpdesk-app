@@ -102,7 +102,7 @@ const onCloseModal = () => {
               <div class="flex items-center">
                 <InputSwitch
                   v-model="enabled"
-                  :class="{ 'p-invalid': errorMessage }"
+                  :invalid="errorMessage }"
                   aria-describedby="text-error"
                 />
                 <label for="status">{{ $t('Сompany name') }}</label>
@@ -120,7 +120,7 @@ const onCloseModal = () => {
                 v-model="offsetMonth"
                 class="min-w-full"
                 aria-describedby="offsetMonth-help"
-                :class="{ 'p-invalid': !!errors?.offsetMonth }"
+                :invalid="!!errors?.offsetMonth }"
               />
               <small id="offsetMonth-help" class="text-red-500" v-if="errors?.offsetMonth">
                 {{ $t(errors.offsetMonth) }}
@@ -136,7 +136,7 @@ const onCloseModal = () => {
           id="name"
           v-bind="name"
           :placeholder="$t('Notification name')"
-          :class="{ 'p-invalid': !!errors?.name }"
+          :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">
@@ -151,7 +151,7 @@ const onCloseModal = () => {
           id="text"
           v-bind="text"
           :placeholder="$t('Notification text')"
-          :class="{ 'p-invalid': !!errors?.text }"
+          :invalid="!!errors?.text"
           aria-describedby="text-help"
         />
         <small id="text-help" class="text-red-500" v-if="errors?.text">
@@ -168,7 +168,7 @@ const onCloseModal = () => {
           optionLabel="fullname"
           :maxSelectedLabels="3"
           :placeholder="$t('Notification users')"
-          :class="{ 'p-invalid': !!errors?.users }"
+          :invalid="!!errors?.users"
           class="w-full"
           aria-describedby="users-help"
         >

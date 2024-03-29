@@ -304,7 +304,7 @@ const onSaveRecord = handleSubmit(async () => {
           id="regex"
           v-bind="regex"
           :placeholder="$t('Filter regex')"
-          :class="{ 'p-invalid': !!errors?.regex }"
+          :invalid="!!errors?.regex"
           aria-describedby="regex-help"
         />
         <small id="regex-help" class="text-red-500" v-if="errors?.regex">
@@ -325,7 +325,7 @@ const onSaveRecord = handleSubmit(async () => {
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter type')"
-          :class="{ 'p-invalid': !!errors?.type }"
+          :invalid="!!errors?.type"
           aria-describedby="type-help"
         />
         <small id="type-help" class="text-red-500" v-if="errors?.type">
@@ -346,7 +346,7 @@ const onSaveRecord = handleSubmit(async () => {
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Filter status')"
-          :class="{ 'p-invalid': !!errors?.status }"
+          :invalid="!!errors?.status"
           aria-describedby="status-help"
         />
         <small id="status-help" class="text-red-500" v-if="errors?.status">

@@ -292,7 +292,7 @@ const runTargetScan = handleSubmit(async () => {
             <template #footer>
               <div class="flex flex-wrap items-center justify-between gap-3 px-2">
                 <div class="flex items-center gap-2">
-                  <Button :label="$t('Scan')" class="w-15rem" @click="runTargetScan" />
+                  <Button :label="$t('Scan')" class="w-[15rem]" @click="runTargetScan" />
                   <Button
                     :label="$t('Cancel')"
                     severity="secondary"
@@ -312,7 +312,7 @@ const runTargetScan = handleSubmit(async () => {
                   class="w-full"
                   v-bind="target"
                   :placeholder="$t('Scan target')"
-                  :class="{ 'p-invalid': !!errors?.target }"
+                  :invalid="!!errors?.target"
                   aria-describedby="target-help"
                 />
                 <small id="target-help" class="text-red-500" v-if="errors?.target">
@@ -327,7 +327,7 @@ const runTargetScan = handleSubmit(async () => {
                   class="w-full"
                   v-bind="title"
                   :placeholder="$t('Scan title')"
-                  :class="{ 'p-invalid': !!errors?.title }"
+                  :invalid="!!errors?.title"
                   aria-describedby="title-help"
                 />
                 <small id="title-help" class="text-red-500" v-if="errors?.title">
@@ -363,7 +363,7 @@ const runTargetScan = handleSubmit(async () => {
                   v-bind="command"
                   :readonly="true"
                   :placeholder="$t('Scan command')"
-                  :class="{ 'p-invalid': !!errors?.command }"
+                  :invalid="!!errors?.command"
                   aria-describedby="command-help"
                 />
                 <small id="command-help" class="text-red-500" v-if="errors?.command">

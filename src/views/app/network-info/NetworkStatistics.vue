@@ -414,7 +414,7 @@ const onCountPercentWidth = (count, allCount) => {
                   </h5>
                 </div>
                 <div class="flex flex-wrap items-center justify-between">
-                  <span class="p-input-icon-left">
+                  <span class="">
                     <i class="pi pi-search" />
                     <InputText
                       id="name"
@@ -456,20 +456,3 @@ const onCountPercentWidth = (count, allCount) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-::v-deep(.p-datatable .p-datatable-header) {
-  background: transparent;
-}
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-hover);
-  border: 1px solid var(--surface-hover);
-}
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: transparent;
-}
-
-::v-deep(.p-component-overlay) {
-  background-color: transparent;
-}
-</style>

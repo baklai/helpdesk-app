@@ -254,7 +254,7 @@ const onSaveRecord = handleSubmit(async () => {
           id="name"
           v-bind="name"
           :placeholder="$t('Unit name')"
-          :class="{ 'p-invalid': !!errors?.name }"
+          :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">

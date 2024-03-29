@@ -65,13 +65,13 @@ watchEffect(() => {
 <template>
   <div class="layout-wrapper min-h-screen" :class="containerClass">
     <div
-      class="layout-sidebar text-surface-900 dark:text-surface-300 bg-surface-100 dark:bg-surface-800"
+      class="layout-sidebar text-surface-900 dark:text-surface-300 bg-surface-100 dark:bg-surface-900"
     >
       <AppSidebar />
     </div>
 
     <div
-      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-900"
+      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-50 dark:bg-surface-800"
     >
       <AppTopbar />
       <div class="layout-main flex-auto px-8 overflow-auto">

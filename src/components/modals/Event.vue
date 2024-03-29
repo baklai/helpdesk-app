@@ -230,7 +230,7 @@ const onSaveRecord = handleSubmit(async () => {
           id="title"
           v-bind="title"
           :placeholder="$t('Title event')"
-          :class="{ 'p-invalid': !!errors?.title }"
+          :invalid="!!errors?.title"
           aria-describedby="title-help"
         />
         <small id="title-help" class="text-red-500" v-if="errors?.title">
@@ -249,7 +249,7 @@ const onSaveRecord = handleSubmit(async () => {
           inputId="datetime"
           v-bind="datetime"
           :placeholder="$t('Datetime of event')"
-          :class="{ 'p-invalid': !!errors?.datetime }"
+          :invalid="!!errors?.datetime"
           aria-describedby="datetime-help"
         />
         <small id="datetime-help" class="text-red-500" v-if="errors?.datetime">
@@ -270,7 +270,7 @@ const onSaveRecord = handleSubmit(async () => {
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Event type')"
-          :class="{ 'p-invalid': !!errors?.eventType }"
+          :invalid="!!errors?.eventType"
           aria-describedby="eventType-help"
         />
         <small id="eventType-help" class="text-red-500" v-if="errors?.eventType">
@@ -296,13 +296,3 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-calendar-w-btn .p-datepicker-trigger) {
-  color: var(--surface-500);
-}
-
-::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
-  color: var(--surface-400);
-}
-</style>

@@ -136,7 +136,7 @@ onMounted(async () => {
     </div>
   </OverlayPanel>
 
-  <i v-badge.success="records?.length" class="p-overlay-badge mx-2" v-if="records?.length">
+  <i v-badge.success="records?.length" class="mx-2" v-if="records?.length">
     <Button
       text
       plain
@@ -159,10 +159,3 @@ onMounted(async () => {
     v-else
   />
 </template>
-
-<style scoped>
-::v-deep(.p-badge.p-component) {
-  top: 6px;
-  right: 6px;
-}
-</style>

@@ -409,7 +409,7 @@ onMounted(async () => {
       <div class="flex w-full overflow-x-auto">
         <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">
           <template #message="slotProps">
-            <span class="p-input-icon-left w-[30rem]">
+            <span class="w-[30rem]">
               <i class="pi pi-file-edit" />
               <InputText v-model="newValue" placeholder="Enter new name" class="w-full" />
             </span>
@@ -464,7 +464,7 @@ onMounted(async () => {
               </div>
               <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
                 <div class="flex flex-wrap items-center justify-between">
-                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full mx-2">
+                  <span class="relative sm:w-max w-full mx-2">
                     <i class="pi pi-search" />
                     <InputText
                       id="name"
@@ -554,23 +554,16 @@ onMounted(async () => {
               </template>
 
               <template #content="{ files, removeFileCallback }">
-                <div
-                  v-for="(file, index) of files"
-                  :key="file.name + file.type + file.size"
-                  class="p-fileupload-file"
-                >
-                  <i
-                    :class="filterFileIcon(file.name)"
-                    class="text-3xl p-fileupload-file-thumbnail p-2 mr-2"
-                  />
+                <div v-for="(file, index) of files" :key="file.name + file.type + file.size">
+                  <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
 
-                  <div class="p-fileupload-file-details">
-                    <div class="p-fileupload-file-name font-bold">{{ file.name }}</div>
-                    <span class="p-fileupload-file-size">{{ byteToStr(file.size) }}</span>
+                  <div>
+                    <div class="font-bold">{{ file.name }}</div>
+                    <span>{{ byteToStr(file.size) }}</span>
                     <Badge :value="$t('Pending')" severity="warning" />
                   </div>
 
-                  <div class="p-fileupload-file-actions">
+                  <div>
                     <Button
                       text
                       rounded
@@ -595,10 +588,7 @@ onMounted(async () => {
           </template>
 
           <template #empty>
-            <div
-              v-if="!loading && ftpFiles?.length === 0"
-              class="flex flex-col justify-center p-datatable-loading-overlay p-component-overlay z-0"
-            >
+            <div v-if="!loading && ftpFiles?.length === 0" class="flex flex-col justify-center z-0">
               <i class="pi pi-folder-open text-8xl text-surface-500" />
               <h5>{{ $t('No files found in folder') }}</h5>
             </div>
@@ -701,7 +691,7 @@ onMounted(async () => {
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
-                  class="p-button p-component mx-2 text-green-500 h-2rem w-8"
+                  class="mx-2 text-green-500 h-[2rem] w-8"
                   v-tooltip.bottom="$t('Download file')"
                   v-if="data.type === 1"
                 >
@@ -714,7 +704,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-copy"
                   iconClass="text-xl"
-                  class="mx-2 text-primary h-2rem w-8"
+                  class="mx-2 text-primary h-[2rem] w-8"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
@@ -726,7 +716,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-file-edit"
                   iconClass="text-xl"
-                  class="mx-2 text-yellow-500 h-2rem w-8"
+                  class="mx-2 text-yellow-500 h-[2rem] w-8"
                   v-tooltip.bottom="$t('Rename file')"
                   @click="rename(data.name)"
                   v-if="data.type === 1"
@@ -738,7 +728,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-trash"
                   iconClass="text-xl"
-                  class="mx-2 text-red-500 h-2rem w-8"
+                  class="mx-2 text-red-500 h-[2rem] w-8"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
                   v-if="data.type === 1"
@@ -768,48 +758,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-::v-deep(.p-datatable-header) {
-  /* background: var(--surface-card); */
-  padding: 0.75rem 0rem;
-}
-
-::v-deep(.p-datatable-footer) {
-  border: none;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  /* background: var(--surface-card); */
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  /* background: var(--surface-card); */
-}
-
-::v-deep(.p-component-overlay) {
-  background-color: transparent;
-}
-
-::v-deep(tr.p-datatable-emptymessage > td) {
-  border: none;
-}
-
-::v-deep(tr.p-datatable-emptymessage:hover) {
-  background: none !important;
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  background: var(--surface-ground);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  background-color: var(--surface-ground);
-}
-
-::v-deep(.p-datatable.p-datatable-lg .p-datatable-tbody > tr > td) {
-  padding: 0.3rem 0.3rem;
-}
-</style>
