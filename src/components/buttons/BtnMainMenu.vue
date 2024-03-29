@@ -31,7 +31,7 @@ const toggle = event => {
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-20rem py-2 px-6">
+  <Menu ref="refMenu" popup :model="[]" class="w-80 py-2 px-6">
     <template #start>
       <div class="flex my-6 items-center">
         <div class="flex items-center">

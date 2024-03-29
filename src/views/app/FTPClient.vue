@@ -701,7 +701,7 @@ onMounted(async () => {
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
-                  class="p-button p-component mx-2 text-green-500 h-2rem w-2rem"
+                  class="p-button p-component mx-2 text-green-500 h-2rem w-8"
                   v-tooltip.bottom="$t('Download file')"
                   v-if="data.type === 1"
                 >
@@ -714,7 +714,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-copy"
                   iconClass="text-xl"
-                  class="mx-2 text-primary h-2rem w-2rem"
+                  class="mx-2 text-primary h-2rem w-8"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
@@ -726,7 +726,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-file-edit"
                   iconClass="text-xl"
-                  class="mx-2 text-yellow-500 h-2rem w-2rem"
+                  class="mx-2 text-yellow-500 h-2rem w-8"
                   v-tooltip.bottom="$t('Rename file')"
                   @click="rename(data.name)"
                   v-if="data.type === 1"
@@ -738,7 +738,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-trash"
                   iconClass="text-xl"
-                  class="mx-2 text-red-500 h-2rem w-2rem"
+                  class="mx-2 text-red-500 h-2rem w-8"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
                   v-if="data.type === 1"

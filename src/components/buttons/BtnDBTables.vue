@@ -93,7 +93,7 @@ const items = computed(() => [
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" popup class="w-16rem">
+  <Menu ref="refMenu" :model="items" popup class="w-64">
     <template #item="{ label, item, props }">
       <a :href="item.url" v-bind="props.action" class="px-6">
         <span v-bind="props.icon" />

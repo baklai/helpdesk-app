@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { ref, inject, computed, onMounted } from 'vue';
+import { ref, inject, computed, onMounted, onBeforeUnmount } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -57,6 +57,8 @@ const onOptionsMenu = (event, value) => {
   emits('toggleMenu', event, value);
 };
 
+const screenSize = ref('');
+
 const refDataTable = ref();
 const keyDataTable = ref(0);
 const refMenuColumns = ref();
@@ -103,6 +105,10 @@ const menuReports = computed(() => [
     command: () => helpdesk.notImplemented()
   }
 ]);
+
+const screenSizeComputed = computed(() => {
+  return screenSize.value;
+});
 
 const onColumnsMenu = event => {
   refMenuColumns.value.toggle(event);
@@ -465,7 +471,24 @@ const selectAllColumns = () => {
   refMenuColumns.value.hide();
 };
 
+const checkScreenSize = () => {
+  if (window.matchMedia('(max-width: 640px)').matches) {
+    screenSize.value = 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
+  } else if (window.matchMedia('(max-width: 960px)').matches) {
+    screenSize.value =
+      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
+  } else if (window.matchMedia('(max-width: 1300px)').matches) {
+    screenSize.value =
+      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
+  } else {
+    screenSize.value =
+      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown';
+  }
+};
+
 onMounted(async () => {
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize);
   try {
     loading.value = true;
     initColumns();
@@ -484,10 +507,14 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkScreenSize);
+});
 </script>
 
 <template>
-  <Menu popup ref="refMenuColumns" class="p-menu-list p-reset w-[20rem] p-2">
+  <Menu popup ref="refMenuColumns" class="p-menu-list p-reset w-80 p-2">
     <template #start>
       <Listbox
         filter
@@ -556,9 +583,10 @@ onMounted(async () => {
       sortMode="multiple"
       scrollHeight="flex"
       filterDisplay="menu"
+      size="small"
       responsiveLayout="scroll"
       columnResizeMode="expand"
-      style="height: calc(100vh - 6.7rem)"
+      style="height: calc(100vh - 7rem)"
       :value="records"
       :loading="loading"
       v-model:filters="filters"
@@ -571,18 +599,9 @@ onMounted(async () => {
       :currentPageReportTemplate="
         $t('Showing records', { first: '{first}', last: '{last}', totalRecords: '{totalRecords}' })
       "
-      :paginatorTemplate="{
-        '640px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        '960px': 'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        '1300px':
-          'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-        default:
-          'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'
-      }"
+      :paginatorTemplate="screenSizeComputed"
       class="min-w-full overflow-x-auto"
-      :pt="{
-        header: 'bg-surface-0 dark:bg-surface-900'
-      }"
+      :pt="{}"
       @state-restore="onStorage"
       @filter="onFilter"
       @sort="onSort"
@@ -761,7 +780,7 @@ onMounted(async () => {
         </div>
       </template>
 
-      <Column field="options" frozen :exportable="false" :reorderableColumn="false" class="w-2rem">
+      <Column field="options" frozen :exportable="false" :reorderableColumn="false" class="w-6">
         <template #header>
           <Button
             text
@@ -802,7 +821,7 @@ onMounted(async () => {
         :showFilterMatchModes="filter.showFilterMatchModes"
         :style="{ minWidth: header.width }"
         headerClass="font-bold text-center uppercase"
-        class="max-w-20rem"
+        class="max-w-80"
       >
         <template #header>
           <span class="mx-2">
@@ -812,7 +831,7 @@ onMounted(async () => {
         </template>
 
         <template #body="{ data, field }">
-          <div class="white-space-nowrap overflow-hidden text-overflow-ellipsis px-2">
+          <div class="whitespace-nowrap overflow-hidden text-ellipsis px-2">
             <component
               v-if="column?.render"
               :is="column?.render(getObjField(data, field))"
@@ -829,7 +848,7 @@ onMounted(async () => {
           <Listbox
             filter
             multiple
-            class="w-[20rem]"
+            class="w-80"
             listStyle="height: 20rem"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
