@@ -282,7 +282,10 @@ const runTargetScan = handleSubmit(async () => {
         <template #actions> </template>
 
         <template #subheader>
-          <Panel class="border-1 border-solid surface-border shadow-none" v-show="subheader">
+          <Panel
+            class="border-1 border-solid border-surface-200 dark:border-surface-600 shadow-none"
+            v-show="subheader"
+          >
             <template #header>
               <div class="flex items-center gap-2">
                 <span class="font-bold">{{ $t('Onmap scanner run') }}</span>

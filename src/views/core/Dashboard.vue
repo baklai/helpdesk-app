@@ -35,7 +35,9 @@ const setChartDataActivityOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = documentStyle.getPropertyValue('--text-color');
   const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
-  const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+  const surfaceBorder = documentStyle.getPropertyValue(
+    '--border-surface-200 dark:border-surface-600'
+  );
 
   return {
     maintainAspectRatio: false,
@@ -114,7 +116,9 @@ const setChartDataActivityUsersOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = documentStyle.getPropertyValue('--text-color');
   const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
-  const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+  const surfaceBorder = documentStyle.getPropertyValue(
+    '--border-surface-200 dark:border-surface-600'
+  );
 
   return {
     maintainAspectRatio: false,

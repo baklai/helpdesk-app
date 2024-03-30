@@ -139,51 +139,51 @@ const diskSum = value => {
   </div>
 
   <table class="mb-2">
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">
         {{ $t('Baseboard serial number') }}
       </td>
       <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios serial number') }}</td>
       <td>{{ record?.bios?.SerialNumber || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios version') }}</td>
       <td>{{ record?.bios?.Version || '-' }}</td>
     </tr>
   </table>
 
   <table class="mb-2">
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
       <td>{{ $t('Microsoft Windows') }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
       <td>{{ record?.os?.Version || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
       <td>{{ record?.os?.Caption || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
       <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
     </tr>
   </table>
 
   <table>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
       <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
       <td>{{ record?.host || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
       <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
     </tr>
@@ -201,7 +201,7 @@ table {
 td,
 th {
   font-size: 14px;
-  /* border-bottom: 1px solid var(--surface-border); */
+  /* border-bottom: 1px solid var(--border-surface-200 dark:border-surface-600); */
 }
 
 th {

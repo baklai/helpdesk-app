@@ -36,7 +36,7 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full sticky shadow-none overflow-y-auto border-left-1 border-noround surface-border px-2 w-1/3"
+    class="h-full sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 px-2 w-1/3"
   >
     <template #title>
       <div class="flex justify-between">
@@ -55,7 +55,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
             @click="toggleMenu($event, record)"
@@ -65,7 +65,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
             @click="onCloseSidebar"
@@ -78,11 +78,11 @@ const onCloseSidebar = () => {
       <div class="overflow-y-auto" style="height: calc(100vh - 20rem)">
         <h5>{{ $t('Start point') }}</h5>
         <table>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Location start') }} :</td>
             <td>{{ record?.locationFrom || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Unit start') }} :</td>
             <td>{{ record?.unitFrom || '-' }}</td>
           </tr>
@@ -90,11 +90,11 @@ const onCloseSidebar = () => {
 
         <h5>{{ $t('End point') }}</h5>
         <table>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Location end') }} :</td>
             <td>{{ record?.locationTo || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Unit end') }} :</td>
             <td>{{ record?.unitTo || '-' }}</td>
           </tr>
@@ -102,27 +102,27 @@ const onCloseSidebar = () => {
 
         <h5>{{ $t('Channel info') }}</h5>
         <table>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Level') }} :</td>
             <td>{{ record?.level || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Type') }} :</td>
             <td>{{ record?.type || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Speed') }} :</td>
             <td>{{ record?.speed || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Status') }} :</td>
             <td>{{ record?.status || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Operator') }} :</td>
             <td>{{ record?.operator || '-' }}</td>
           </tr>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Composition') }} :</td>
             <td>{{ record?.composition || '-' }}</td>
           </tr>
@@ -143,7 +143,7 @@ table {
 td,
 th {
   font-size: 14px;
-  /* border-bottom: 1px solid var(--surface-border); */
+  /* border-bottom: 1px solid var(--border-surface-200 dark:border-surface-600); */
 }
 
 th {

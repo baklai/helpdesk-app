@@ -66,7 +66,7 @@ export default {
       // Size and Spacing
       'mr-2',
       'last:mr-0',
-      'w-8 h-8',
+      'w-12 h-12',
 
       // Shape
       'border-0',
@@ -81,7 +81,7 @@ export default {
 
       // States
       'hover:text-surface-700 dark:hover:text-white/80',
-      'hover:bg-surface-100 dark:hover:bg-surface-800/80',
+      'hover:bg-surface-100 dark:hover:bg-surface-300/20',
       'focus:outline-none focus:outline-offset-0 focus:ring focus:ring-inset',
       'focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
 

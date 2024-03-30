@@ -31,73 +31,73 @@ defineProps({
       </p>
     </div>
   </div>
-  <table>
-    <tr>
+  <table class="border">
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Location') }} :</td>
       <td>{{ record?.location?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Unit') }} :</td>
       <td>{{ record?.unit?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('IP Address') }} :</td>
       <td>{{ record?.ipaddress || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Mask') }} :</td>
       <td>{{ record?.mask || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Gateway') }} :</td>
       <td>{{ record?.gateway || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Letter number') }} :</td>
       <td>{{ record?.reqnum || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Company') }} :</td>
       <td>{{ record?.company?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Branch') }} :</td>
       <td>{{ record?.branch?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Enterprise') }} :</td>
       <td>{{ record?.enterprise?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Department') }} :</td>
       <td>{{ record?.department?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Fullname') }} :</td>
       <td>{{ record?.fullname || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Position') }} :</td>
       <td>{{ record?.position?.name || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Phone') }} :</td>
       <td>{{ record?.phone || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Autoanswer') }} :</td>
       <td>{{ record?.autoanswer || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Date open') }} :</td>
       <td>{{ dateToStr(record?.date) || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Comment') }} :</td>
       <td>{{ record?.comment }}</td>
     </tr>
 
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-weight-bold" width="50%">{{ $t('Internet') }} :</td>
       <td>
         <i :class="record?.inetStatus ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'" />
@@ -115,19 +115,19 @@ defineProps({
   >
     <h5>{{ $t('Internet') }}</h5>
     <table>
-      <tr>
+      <tr class="border border-surface-200 dark:border-surface-600">
         <td class="font-weight-bold" width="40%">{{ $t('Letter number') }} :</td>
         <td>{{ record?.internet?.reqnum || '-' }}</td>
       </tr>
-      <tr>
+      <tr class="border border-surface-200 dark:border-surface-600">
         <td class="font-weight-bold" width="40%">{{ $t('Date open') }} :</td>
         <td>{{ dateToStr(record?.internet?.dateOpen) || '-' }}</td>
       </tr>
-      <tr>
+      <tr class="border border-surface-200 dark:border-surface-600">
         <td class="font-weight-bold" width="40%">{{ $t('Date close') }} :</td>
         <td>{{ dateToStr(record?.internet?.dateClose) || '-' }}</td>
       </tr>
-      <tr>
+      <tr class="border border-surface-200 dark:border-surface-600">
         <td class="font-weight-bold" width="40%">{{ $t('Comment') }} :</td>
         <td>{{ record?.internet?.comment }}</td>
       </tr>
@@ -146,7 +146,6 @@ table {
 td,
 th {
   font-size: 14px;
-  /* border-bottom: 1px solid var(--surface-border); */
 }
 
 th {

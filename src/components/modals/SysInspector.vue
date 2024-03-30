@@ -200,7 +200,7 @@ const validSoftware = value => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full text-surface-100">
+      <div class="flex justify-between w-full text-black dark:text-white">
         <div class="flex items-center justify-center">
           <AppIcons name="pc-sys-inspector" :size="40" class="mr-4" />
           <div>
@@ -347,19 +347,19 @@ const validSoftware = value => {
             </div>
 
             <table class="mb-2">
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Baseboard serial number') }}
                 </td>
                 <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Bios serial number') }}
                 </td>
                 <td>{{ record?.bios?.SerialNumber || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Bios version') }}
                 </td>
@@ -368,34 +368,34 @@ const validSoftware = value => {
             </table>
 
             <table class="mb-2">
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
                 <td>{{ $t('Microsoft Windows') }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
                 <td>{{ record?.os?.Version || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
                 <td>{{ record?.os?.Caption || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
                 <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
               </tr>
             </table>
 
             <table>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
                 <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
                 <td>{{ record?.host || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
                 <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
               </tr>
@@ -425,37 +425,37 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ record?.cpu?.Name || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Clock frequency') }}
               </td>
               <td>{{ record?.cpu?.CurrentClockSpeed || '-' }} MHz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Number of cores') }}
               </td>
               <td>{{ record?.cpu?.NumberOfCores || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Number of logical cores') }}
               </td>
               <td>{{ record?.cpu?.NumberOfLogicalProcessors || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type of architecture') }}
               </td>
               <td>{{ record?.cpu?.Architecture || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -489,25 +489,25 @@ const validSoftware = value => {
             v-for="(memorychip, index) in record?.memorychip || []"
             :key="`memorychip_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Capacity') }}
               </td>
               <td>{{ byteToStr(memorychip?.Capacity) }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Clock frequency') }}
               </td>
               <td>{{ memorychip?.Speed || '-' }} MHz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ memorychip?.Manufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
@@ -539,31 +539,31 @@ const validSoftware = value => {
             </div>
           </div>
           <table v-for="(diskdrive, index) in record?.diskdrive || []" :key="`diskdrive_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type') }}
               </td>
               <td>{{ diskdrive?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ diskdrive?.Caption || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Capacity') }}
               </td>
               <td>{{ byteToStr(diskdrive?.Size) }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Serial number') }}
               </td>
               <td>{{ diskdrive?.SerialNumber || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -604,37 +604,37 @@ const validSoftware = value => {
             ) || []"
             :key="`netadapter_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Connection name') }}
               </td>
               <td>{{ netadapter?.NetConnectionID || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Adapter type') }}
               </td>
               <td>{{ netadapter?.AdapterType || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Name') }}
               </td>
               <td>{{ netadapter?.Name || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ netadapter?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ netadapter?.Manufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('MAC') }}
               </td>
@@ -668,19 +668,19 @@ const validSoftware = value => {
           </div>
 
           <table v-for="(display, index) in record?.display || []" :key="`display_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ display?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ display?.MonitorManufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type') }}
               </td>
@@ -717,25 +717,25 @@ const validSoftware = value => {
             v-for="(videoadapter, index) in record?.videoadapter || []"
             :key="`videoadapter_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ videoadapter?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Memory') }}
               </td>
               <td>{{ byteToStr(videoadapter?.AdapterRAM) || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Update frequency') }}
               </td>
               <td>{{ videoadapter?.CurrentRefreshRate || '-' }} Hz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Video processor') }}
               </td>
@@ -769,13 +769,13 @@ const validSoftware = value => {
           </div>
 
           <table v-for="(sound, index) in record?.sound || []" :key="`sound_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ sound?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -808,7 +808,11 @@ const validSoftware = value => {
           </div>
 
           <table>
-            <tr v-for="(printer, index) in record?.printer || []" :key="`printer_${index}`">
+            <tr
+              v-for="(printer, index) in record?.printer || []"
+              :key="`printer_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="font-weight-bold" width="30%">
                 {{ $t('Name') }}
               </td>
@@ -844,13 +848,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th>{{ $t('Name') }}</th>
               <th>{{ $t('Description') }}</th>
               <th>{{ $t('Status') }}</th>
             </tr>
-            <tr v-for="(user, index) in record?.useraccount || []" :key="`user_${index}`">
+            <tr
+              v-for="(user, index) in record?.useraccount || []"
+              :key="`user_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i
                   class="pi pi-bookmark-fill text-orange-500"
@@ -866,7 +874,7 @@ const validSoftware = value => {
                   class="border-1"
                   :class="
                     user?.Disabled
-                      ? 'text-surface-500 surface-border'
+                      ? 'text-surface-500 border-surface-200 dark:border-surface-600'
                       : 'text-green-500 border-green-500 font-bold'
                   "
                 />
@@ -902,14 +910,18 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th class="uppercase">{{ $t('Name') }}</th>
               <th class="uppercase">{{ $t('Publisher') }}</th>
               <th class="uppercase">{{ $t('Version') }}</th>
               <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
-            <tr v-for="(product, index) in record?.product || []" :key="`product_${index}`">
+            <tr
+              v-for="(product, index) in record?.product || []"
+              :key="`product_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i
                   class="pi pi-bookmark-fill text-orange-500"
@@ -953,13 +965,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th>{{ $t('Name') }}</th>
               <th>{{ $t('Path') }}</th>
               <th>{{ $t('Description') }}</th>
             </tr>
-            <tr v-for="(share, index) in record?.share || []" :key="`share_${index}`">
+            <tr
+              v-for="(share, index) in record?.share || []"
+              :key="`share_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i class="pi pi-bookmark-fill text-orange-500" v-if="share?.Type === 0" />
               </td>
@@ -996,13 +1012,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th class="uppercase">{{ $t('HotFix') }}</th>
               <th class="uppercase">{{ $t('Description') }}</th>
               <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
-            <tr v-for="(fixupdate, index) in record?.fixupdate || []" :key="`fixupdate_${index}`">
+            <tr
+              v-for="(fixupdate, index) in record?.fixupdate || []"
+              :key="`fixupdate_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td width="3%"></td>
               <td width="35%">{{ fixupdate?.HotFixID }} {{ fixupdate?.ServicePackInEffect }}</td>
               <td>{{ fixupdate?.Description || '-' }}</td>

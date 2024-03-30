@@ -37,7 +37,7 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full sticky shadow-none overflow-y-auto border-left-1 border-noround surface-border px-2 w-1/3"
+    class="h-full sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 px-2 w-1/3"
   >
     <template #title>
       <div class="flex justify-between mb-6">
@@ -62,7 +62,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
             @click="toggleMenu($event, record)"
@@ -72,7 +72,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
             @click="onCloseSidebar"

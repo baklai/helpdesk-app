@@ -38,7 +38,7 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full sticky shadow-none overflow-y-auto border-left-1 border-noround surface-border px-2 w-1/3"
+    class="h-full sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 px-2 w-1/3"
   >
     <template #title>
       <div class="flex justify-between">
@@ -57,7 +57,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
             @click="toggleMenu($event, record)"
@@ -67,7 +67,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="w-8 h-[2rem] mx-2"
+            class="text-2xl w-12 h-12"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
             @click="onCloseSidebar"
@@ -79,67 +79,67 @@ const onCloseSidebar = () => {
     <template #content>
       <div class="overflow-y-auto pt-6" style="height: calc(100vh - 20rem)">
         <table>
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="40%">{{ $t('Login') }} :</td>
             <td>{{ record?.login }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="40%">{{ $t('Letter number') }} :</td>
             <td>{{ record?.reqnum }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="40%">{{ $t('Date open') }} :</td>
             <td>{{ dateToStr(record?.dateOpen) || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="40%">{{ $t('Fullname') }} :</td>
             <td>{{ record?.fullname }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Phone') }} :</td>
             <td>{{ record?.phone || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Location') }} :</td>
             <td>{{ record?.location?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Company') }} :</td>
             <td>{{ record?.company?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Branch') }} :</td>
             <td>{{ record?.branch?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Enterprise') }} :</td>
             <td>{{ record?.enterprise?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Department') }} :</td>
             <td>{{ record?.department?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Position') }} :</td>
             <td>{{ record?.position?.name || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="40%">{{ $t('Date close') }} :</td>
             <td>{{ dateToStr(record?.dateClose) || '-' }}</td>
           </tr>
 
-          <tr>
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-weight-bold" width="50%">{{ $t('Comment') }} :</td>
             <td>{{ record?.comment }}</td>
           </tr>
@@ -160,7 +160,7 @@ table {
 td,
 th {
   font-size: 14px;
-  border-bottom: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--border-surface-200 dark: border-surface-600);
 }
 
 th {
