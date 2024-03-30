@@ -158,10 +158,10 @@ app.component(
   defineAsyncComponent(() => import('primevue/dataview'))
 );
 
-app.component(
-  'DataTable',
-  defineAsyncComponent(() => import('primevue/datatable'))
-);
+// app.component(
+//   'DataTable',
+//   defineAsyncComponent(() => import('primevue/datatable'))
+// );
 
 app.use(ErrorPlugin, { life: 5000 });
 

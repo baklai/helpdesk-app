@@ -11,6 +11,8 @@ import Breadcrumb from 'primevue/breadcrumb';
 import FileUpload from 'primevue/fileupload';
 import Badge from 'primevue/badge';
 
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
+
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useFTPClient } from '@/stores/api/ftpclient';
 

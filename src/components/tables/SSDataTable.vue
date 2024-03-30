@@ -1,9 +1,12 @@
 <script setup lang="jsx">
-import { ref, inject, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, inject, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
+
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
+
 import { getObjField } from '@/service/ObjectMethods';
 
 const { t } = useI18n();

@@ -2,6 +2,8 @@
 import { ref, onMounted } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
+
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
 

@@ -2,6 +2,8 @@
 import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
+
 import { useScope } from '@/stores/scopes';
 
 defineProps(['visible']);

@@ -6,6 +6,8 @@ import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
+
 import { useScope } from '@/stores/scopes';
 import { useUser } from '@/stores/api/users';
 
