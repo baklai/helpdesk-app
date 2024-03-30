@@ -338,7 +338,7 @@ onMounted(async () => {
   padding: 5px 10px;
 }
 ::v-deep(.calendar-month__event:hover) {
-  /* background-color: var(--); */
+  background-color: var(--surface-hover);
   padding: 5px 10px;
 }
 
@@ -347,22 +347,22 @@ onMounted(async () => {
 }
 
 ::v-deep(.event-flyout) {
-  /* color: var(--text-color) !important; */
-  /* background: var(--surface-card) !important; */
-  /* border-color: var(--border-surface-200 dark:border-surface-600) !important; */
+  color: var(--text-color) !important;
+  background: var(--surface-card) !important;
+  border-color: rgb(var(--surface-600)) !important;
 }
 
 ::v-deep(.calendar-root) {
-  /* background: var(--surface-card) !important; */
-  /* border-color: var(--border-surface-200 dark:border-surface-600) !important; */
+  background: var(--surface-card) !important;
+  border-color: rgb(var(--surface-600)) !important;
 }
 
 ::v-deep(.calendar-month__weekday) {
-  /* border-color: var(--border-surface-200 dark:border-surface-600) !important; */
+  border-color: rgb(var(--surface-600)) !important;
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
-  /* border-color: var(--border-surface-200 dark:border-surface-600) !important; */
+  border-color: rgb(var(--surface-600)) !important;
   background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
       fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,
@@ -372,7 +372,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading > span.calendar-month__day-date) {
-  color: var(--surface-500) !important;
+  color: var(--text-color-secondary) !important;
 }
 
 ::v-deep(.calendar-header) {
@@ -381,7 +381,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-header__period-name) {
-  /* color: var(--text-color) !important; */
+  color: var(--text-color) !important;
   font-weight: 700 !important;
 }
 
@@ -394,7 +394,7 @@ onMounted(async () => {
   text-align: center !important;
 
   background-color: var(--surface-50) !important;
-  /* color: var(--text-color) !important; */
+  color: var(--text-color) !important;
 }
 
 ::v-deep(.calendar-month__event-wrapper) {
@@ -404,13 +404,13 @@ onMounted(async () => {
 ::v-deep(.calendar-month__day-date) {
   font-size: 1rem !important;
   font-weight: 700 !important;
-  /* color: var(--text-color) !important; */
+  color: var(--text-color) !important;
   margin-bottom: 1rem !important;
 }
 
 ::v-deep(.calendar-month__event-title) {
   font-size: 1rem !important;
-  /* color: var(--text-color) !important; */
+  color: var(--text-color) !important;
 }
 
 ::v-deep(.calendar-month__event-color) {
@@ -420,7 +420,7 @@ onMounted(async () => {
 
 ::v-deep(.calendar-month__event-time) {
   font-size: 1rem !important;
-  /* color: var(--text-color) !important; */
+  color: var(--text-color) !important;
 }
 
 ::v-deep(div.calendar-month__week:last-child > div.calendar-month__weekday) {
