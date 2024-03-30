@@ -50,7 +50,7 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full px-2 w-1/3 sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 dark:!bg-surface-800"
+    class="h-full px-2 w-1/3 sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 dark:!bg-surface-800 transition-all duration-300"
   >
     <template #title>
       <div class="flex justify-between mb-6">

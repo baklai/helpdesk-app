@@ -83,7 +83,7 @@ const columns = ref([
       field: 'system.csname',
       render(value) {
         return (
-          <div class="font-medium cursor-pointer">
+          <div class="font-semibold cursor-pointer">
             <i class="pi pi-desktop mr-2"></i>
             <span>{value}</span>
           </div>

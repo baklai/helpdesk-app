@@ -118,7 +118,7 @@ export default {
         'border-0 border-b border-solid',
 
         // Spacing
-        context?.size === 'small' ? 'p-2' : context?.size === 'large' ? 'p-5' : 'p-4',
+        context?.size === 'small' ? 'p-0' : context?.size === 'large' ? 'p-5' : 'p-4',
 
         // Color
         (props.sortable === '' || props.sortable) && context.sorted
