@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { ref, computed, inject, onMounted } from 'vue';
+import { ref, computed, inject, onMounted, defineAsyncComponent } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';

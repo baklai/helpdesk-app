@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineAsyncComponent } from 'vue';
 import { useForm, useFieldArray } from 'vee-validate';
 import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';

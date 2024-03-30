@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, inject, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));

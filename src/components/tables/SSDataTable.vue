@@ -698,18 +698,26 @@ onBeforeUnmount(() => {
         <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
       </template>
 
-      <template #empty>
-        <div v-if="!loading && records?.length === 0" class="flex flex-col justify-center z-0">
-          <i class="pi pi-filter-slash text-surface-500" style="font-size: 4rem"></i>
-          <h5>{{ $t('No records found') }}</h5>
-          <p>{{ $t('Try changing the search terms in the filter') }}</p>
-          <Button
-            icon="pi pi-filter-slash"
-            iconClass="text-sm"
-            class=""
-            :label="$t('Clear filters')"
-            @click="clearFilters"
-          />
+      <template #empty class="!border-0">
+        <div
+          v-if="!loading && records?.length === 0"
+          class="flex items-stretch text-center @!border-0"
+          style="height: calc(100vh - 24rem)"
+        >
+          <div class="flex flex-col gap-2 m-auto">
+            <i class="pi pi-filter-slash text-7xl text-surface-500"></i>
+            <h5 class="text-2xl font-semibold">{{ $t('No records found') }}</h5>
+            <p class="text-base text-surface-500">
+              {{ $t('Try changing the search terms in the filter') }}
+            </p>
+            <Button
+              icon="pi pi-filter-slash"
+              iconClass="text-sm"
+              class="max-w-40 m-auto my-4"
+              :label="$t('Clear filters')"
+              @click="clearFilters"
+            />
+          </div>
         </div>
       </template>
 

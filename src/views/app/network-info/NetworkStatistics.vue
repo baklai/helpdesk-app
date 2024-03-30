@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
