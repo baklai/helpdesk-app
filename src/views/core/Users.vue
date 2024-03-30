@@ -167,7 +167,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="text-base font-normal  surface-hover w-7rem px-2"
+            class="text-base font-normal   w-7rem px-2"
             value={value ? `${value?.length} / ${Scope.scopeLength()}` : '-'}
           />
         );

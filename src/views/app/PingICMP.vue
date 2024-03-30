@@ -106,20 +106,18 @@ const commandHandler = async text => {
       <div class="px-6 py-6">
         <h5>
           Example:
-          <span class="font-normal text-primary surface-hover rounded p-2">
-            ping 192.168.0.1 -n 3 -w 1000
-          </span>
+          <span class="font-normal text-primary rounded p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
         </h5>
 
         <p>
-          <code class="text-base font-normal surface-hover">-n &lt;число&gt;</code>
+          <code class="text-base font-normal">-n &lt;число&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Указывает количество отправляемых запросов пинга.
           </span>
         </p>
 
         <p>
-          <code class="text-base font-normal surface-hover">-w &lt;время&gt;</code>
+          <code class="text-base font-normal">-w &lt;время&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Устанавливает время ожидания ответа в миллисекундах.
           </span>

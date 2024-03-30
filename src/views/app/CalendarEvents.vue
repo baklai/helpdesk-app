@@ -338,7 +338,7 @@ onMounted(async () => {
   padding: 5px 10px;
 }
 ::v-deep(.calendar-month__event:hover) {
-  /* background-color: var(--surface-hover); */
+  /* background-color: var(--); */
   padding: 5px 10px;
 }
 
