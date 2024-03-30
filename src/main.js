@@ -26,6 +26,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
 import Divider from 'primevue/divider';
 import InputText from 'primevue/inputtext';
+import InputSwitch from 'primevue/inputswitch';
 import InputMask from 'primevue/inputmask';
 import Password from 'primevue/password';
 import ProgressBar from 'primevue/progressbar';
@@ -65,7 +66,7 @@ app.use(createPinia());
 app.use(PrimeVue, {
   locale: en.primevue,
   unstyled: true,
-  // ripple: true,
+  ripple: false,
   pt: Lara
 });
 
@@ -87,6 +88,7 @@ app.component('Column', Column);
 app.component('Divider', Divider);
 app.component('InputMask', InputMask);
 app.component('InputText', InputText);
+app.component('InputSwitch', InputSwitch);
 app.component('Password', Password);
 app.component('ProgressBar', ProgressBar);
 app.component('ProgressSpinner', ProgressSpinner);

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
@@ -9,18 +9,6 @@ import { useConfig } from '@/stores/config';
 const $config = useConfig();
 
 const outsideClickListener = ref(null);
-
-const containerClass = computed(() => {
-  return {
-    'layout-overlay': $config.menuMode === 'overlay',
-    'layout-static': $config.menuMode === 'static',
-    'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static',
-    'layout-overlay-active': $config.overlayMenuActive,
-    'layout-mobile-active': $config.staticMenuMobileActive,
-    'p-input-filled': $config.inputStyle === 'filled',
-    'p-ripple-disabled': !$config.ripple
-  };
-});
 
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
@@ -63,7 +51,20 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="layout-wrapper min-h-screen" :class="containerClass">
+  <div
+    class="layout-wrapper min-h-screen"
+    :class="[
+      { 'layout-overlay': $config.menuMode === 'overlay' },
+      { 'layout-static': $config.menuMode === 'static' },
+      {
+        'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+      },
+      { 'layout-overlay-active': $config.overlayMenuActive },
+      { 'layout-mobile-active': $config.staticMenuMobileActive },
+      { 'p-input-filled': $config.inputStyle === 'filled' },
+      { 'p-ripple-disabled': !$config.ripple }
+    ]"
+  >
     <div
       class="layout-sidebar text-surface-900 dark:text-surface-300 bg-surface-100 dark:bg-surface-900"
     >
@@ -71,7 +72,7 @@ watchEffect(() => {
     </div>
 
     <div
-      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-50 dark:bg-surface-800"
+      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-800"
     >
       <AppTopbar />
       <div class="layout-main flex-auto px-8 overflow-auto">

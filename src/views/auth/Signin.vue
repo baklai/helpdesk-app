@@ -100,8 +100,6 @@ onMounted(() => {
         :weakLabel="$t('Too simple')"
         :mediumLabel="$t('Average complexity')"
         :strongLabel="$t('Complex password')"
-        inputClass="text-xl"
-        :inputStyle="{ padding: '0.9375rem' }"
         aria-describedby="password-help"
       >
         <template #header>

@@ -13,8 +13,8 @@ const disabledSelectedFromHTML = ref({
 </script>
 
 <template>
-  <main class="min-h-screen min-w-full overflow-hidden" :class="disabledSelectedFromHTML">
-    <div class="flex h-screen">
+  <main class="min-h-screen min-w-full overflow-hidden" :style="disabledSelectedFromHTML">
+    <div class="flex h-screen bg-gradient-to-tr from-surface-950 to-primary-950">
       <div
         class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
       >
@@ -65,7 +65,7 @@ const disabledSelectedFromHTML = ref({
       </div>
 
       <div
-        class="bg-image w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
+        class="bg-[url('/img/bg-app.svg')] w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
       >
         <div class="mt-auto mb-auto">
           <div class="flex flex-col lg:flex-row justify-center">
@@ -75,7 +75,7 @@ const disabledSelectedFromHTML = ref({
                   <div class="flex justify-center mb-6">
                     <div class="flex justify-start">
                       <p
-                        class="uppercase font-bold text-8xl text-primary-50 m-0"
+                        class="uppercase font-bold text-8xl text-surface-50"
                         translate="no"
                         lang="en"
                       >
@@ -93,7 +93,7 @@ const disabledSelectedFromHTML = ref({
 
                     <div class="flex justify-start">
                       <p
-                        class="uppercase font-bold text-8xl text-primary-50 m-0"
+                        class="uppercase font-bold text-8xl text-surface-50"
                         translate="no"
                         lang="en"
                       >
@@ -162,9 +162,3 @@ const disabledSelectedFromHTML = ref({
     </div>
   </main>
 </template>
-
-<style scoped>
-.bg-image {
-  background-image: url('/img/bg-app.svg');
-}
-</style>

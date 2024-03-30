@@ -14,7 +14,7 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
 <template>
   <RouterLink :to="{ name: 'home' }" class="flex justify-center layout-topbar-logo py-2 mb-6">
     <div class="flex flex-col items-center justify-center mb-2">
-      <div class="flex justify-center">
+      <div class="flex justify-center text-surface-950 dark:text-surface-50">
         <div class="justify-start">
           <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
             h&nbsp;e&nbsp;l&nbsp;p&nbsp;
