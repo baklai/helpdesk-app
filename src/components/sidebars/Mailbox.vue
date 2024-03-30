@@ -38,7 +38,7 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 px-2 w-1/3"
+    class="h-full px-2 w-1/3 sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 dark:!bg-surface-800"
   >
     <template #title>
       <div class="flex justify-between">
@@ -160,7 +160,6 @@ table {
 td,
 th {
   font-size: 14px;
-  border-bottom: 1px solid var(--border-surface-200 dark: border-surface-600);
 }
 
 th {
