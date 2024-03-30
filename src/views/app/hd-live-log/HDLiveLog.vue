@@ -493,7 +493,7 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-4 w-full">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"

@@ -589,7 +589,7 @@ onBeforeUnmount(() => {
       size="small"
       responsiveLayout="scroll"
       columnResizeMode="expand"
-      style="height: calc(100vh - 7rem)"
+      style="height: calc(100vh - 6rem)"
       :value="records"
       :loading="loading"
       v-model:filters="filters"
@@ -629,7 +629,7 @@ onBeforeUnmount(() => {
               />
               <InputText
                 id="name"
-                class="sm:w-max w-full px-10"
+                class="sm:w-max w-full px-10 !bg-inherit"
                 :placeholder="$t(globalFilter?.placeholder)"
                 v-model="filters['global'].value"
                 @keydown.enter="onFilter({ filters })"
@@ -722,7 +722,7 @@ onBeforeUnmount(() => {
               outlined
               icon="pi pi-refresh"
               iconClass="text-xl"
-              class="text-2xl w-12 h-12"
+              class="text-2xl w-12 h-10"
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />
@@ -740,7 +740,7 @@ onBeforeUnmount(() => {
               plain
               outlined
               :label="$t('Actions')"
-              class="sm:w-max w-full"
+              class="sm:w-max w-full h-10"
               @click="event => refMenuActions.toggle(event)"
             >
               <template #default>
@@ -765,7 +765,7 @@ onBeforeUnmount(() => {
               plain
               outlined
               :label="$t('Reports')"
-              class="sm:w-max w-full"
+              class="sm:w-max w-full h-10"
               @click="event => refMenuReports.toggle(event)"
             >
               <template #default>

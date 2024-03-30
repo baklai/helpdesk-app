@@ -156,7 +156,7 @@ onMounted(async () => {
             </div>
           </div>
 
-          <div class="flex-shrink-0 p-4 w-full">
+          <div class="flex-shrink-0 p-2 w-full">
             <div
               class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
             >
@@ -167,7 +167,7 @@ onMounted(async () => {
               <Chart type="bar" :data="monthChartData" :options="chartOptions" class="w-full" />
             </div>
           </div>
-          <div class="flex-shrink-0 p-4 w-full">
+          <div class="flex-shrink-0 p-2 w-full">
             <div
               class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
             >

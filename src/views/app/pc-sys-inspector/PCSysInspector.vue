@@ -164,11 +164,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? '!text-base !text-white !font-semibold w-12 h-8 !bg-orange-500/90'
-                : '!text-base !text-black dark:!text-white !font-semibold w-12 h-8 !bg-surface-500/20'
-            }
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
             value={value.count}
           />
         );
@@ -196,11 +195,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? '!text-base !text-white !font-semibold w-12 h-8 !bg-orange-500/90'
-                : '!text-base !text-black dark:!text-white !font-semibold w-12 h-8 !bg-surface-500/20'
-            }
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
             value={value.count}
           />
         );
@@ -228,11 +226,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? '!text-base !text-white !font-semibold w-12 h-8 !bg-orange-500/90'
-                : '!text-base !text-black dark:!text-white !font-semibold w-12 h-8 !bg-surface-500/20'
-            }
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
             value={value.count}
           />
         );
@@ -461,7 +458,7 @@ const createSysInspectorScript = async () => {
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-4 w-full">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-[15rem] p-2">
         <template #item="{ label, item, props }">

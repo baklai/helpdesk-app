@@ -297,7 +297,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="flex-shrink-0 p-4 w-full">
+        <div class="flex-shrink-0 p-2 w-full">
           <div class="">
             <label for="level" class="font-bold">{{ $t('Level') }}</label>
             <InputText

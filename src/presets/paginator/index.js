@@ -5,7 +5,7 @@ export default {
       'flex items-center justify-center flex-wrap',
 
       // Spacing
-      'px-0 py-2',
+      'px-0 py-1',
 
       // Shape
       'border-0',
@@ -160,7 +160,7 @@ export default {
       // Color
       'text-surface-500 dark:text-white/80',
       {
-        'bg-primary-50 border-primary-50 dark:border-transparent text-primary-700 dark:text-surface-0 dark:bg-primary-400/30':
+        'bg-inherit border-primary-50 dark:border-transparent text-primary-700 dark:text-surface-0':
           context.active
       },
 
@@ -194,7 +194,7 @@ export default {
         'mx-2',
 
         // Color and Background
-        'bg-surface-0 dark:bg-surface-900',
+        'bg-inherit',
         'border border-surface-300 dark:border-surface-700',
 
         // Transitions
