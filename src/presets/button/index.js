@@ -34,8 +34,10 @@ export default {
       },
       // Plain Text Button
       {
-        'text-surface-500 hover:text-surface-600 dark:hover:text-surface-300':
-          props.plain && props.text
+        'text-surface-500': props.plain && props.text
+      },
+      {
+        'hover:text-surface-600 dark:hover:text-surface-300': props.plain && props.text
       },
       // Plain Outlined Button
       { 'text-surface-500 border border-gray-500': props.plain && props.outlined },

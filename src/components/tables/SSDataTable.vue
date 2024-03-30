@@ -1601,11 +1601,12 @@ onBeforeUnmount(() => {
         <div class="flex flex-wrap gap-4 items-center justify-evenly xl:justify-between p-2">
           <div class="flex flex-wrap gap-2 items-center justify-evenly">
             <Button
+              text
               plain
               outlined
               icon="pi pi-refresh"
               iconClass="text-xl"
-              style="width: 3rem; height: 2.2rem"
+              class="text-2xl w-12 h-12"
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />

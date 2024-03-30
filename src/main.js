@@ -43,7 +43,7 @@ import '@/assets/base.css';
 
 import '@/assets/styles.scss';
 
-import Lara from '@/presets/lara';
+import Presets from '@/presets';
 
 import en from '@/locales/en-US';
 import uk from '@/locales/uk-UA';
@@ -67,7 +67,7 @@ app.use(PrimeVue, {
   locale: en.primevue,
   unstyled: true,
   ripple: false,
-  pt: Lara
+  pt: Presets
 });
 
 app.use(ToastService);
