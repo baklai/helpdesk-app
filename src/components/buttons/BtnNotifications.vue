@@ -78,7 +78,7 @@ onMounted(async () => {
           plain
           rounded
           icon="pi pi-plus-circle"
-          class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+          class="text-2xl w-12 h-12"
           v-tooltip.bottom="$t('Create notice')"
           @click="
             () => {
@@ -118,7 +118,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-times"
-                class="text-orange-300 hover:text-surface-600 dark:hover:text-surface-300"
+                class="text-orange-300"
                 v-tooltip.bottom="$t('Close notice')"
                 @click="onRemoveRecord(item.id)"
               />
@@ -142,7 +142,7 @@ onMounted(async () => {
       plain
       rounded
       icon="pi pi-bell"
-      class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+      class="text-2xl w-12 h-12"
       v-tooltip.bottom="$t('Notifications')"
       @click="event => refMenu.toggle(event)"
     />
@@ -153,7 +153,7 @@ onMounted(async () => {
     plain
     rounded
     icon="pi pi-bell"
-    class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+    class="text-2xl w-12 h-12"
     v-tooltip.bottom="$t('Notifications')"
     @click="event => refMenu.toggle(event)"
     v-else

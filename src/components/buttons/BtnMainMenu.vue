@@ -26,7 +26,7 @@ const toggle = event => {
     plain
     rounded
     icon="pi pi-th-large"
-    class="text-3xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+    class="text-3xl w-12 h-12"
     v-tooltip.bottom="$t('Main menu')"
     @click="toggle"
   />

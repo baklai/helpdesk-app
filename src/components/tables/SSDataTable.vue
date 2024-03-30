@@ -1531,7 +1531,7 @@ onBeforeUnmount(() => {
                 plain
                 rounded
                 icon="pi pi-filter-slash"
-                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+                class="text-2xl w-12 h-12"
                 :class="
                   params?.filters && Object.keys(params.filters).length ? 'text-primary-500' : ''
                 "
@@ -1544,7 +1544,7 @@ onBeforeUnmount(() => {
                 plain
                 rounded
                 icon="pi pi-plus-circle"
-                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+                class="text-2xl w-12 h-12"
                 v-tooltip.bottom="$t('Create record')"
                 @click="emits('toggleModal', {})"
               />
@@ -1554,7 +1554,7 @@ onBeforeUnmount(() => {
                 plain
                 rounded
                 icon="pi pi-sync"
-                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+                class="text-2xl w-12 h-12"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -1566,7 +1566,7 @@ onBeforeUnmount(() => {
                 plain
                 rounded
                 icon="pi pi-cog"
-                class="text-2xl w-12 h-12 hover:text-surface-600 dark:hover:text-surface-300"
+                class="text-2xl w-12 h-12"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />
