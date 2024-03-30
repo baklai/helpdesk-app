@@ -52,7 +52,7 @@ watchEffect(() => {
 
 <template>
   <div
-    class="layout-wrapper min-h-screen"
+    class="layout-wrapper min-h-screen bg-surface-0 dark:bg-surface-800"
     :class="[
       { 'layout-overlay': $config.menuMode === 'overlay' },
       { 'layout-static': $config.menuMode === 'static' },
