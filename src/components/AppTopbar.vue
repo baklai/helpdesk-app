@@ -4,14 +4,19 @@ import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 
 import { useConfig } from '@/stores/config';
 
 const BtnFTPClient = defineAsyncComponent(() => import('@/components/buttons/BtnFTPClient.vue'));
+
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
 );
+
 const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
+
 const BtnNotifications = defineAsyncComponent(() =>
   import('@/components/buttons/BtnNotifications.vue')
 );
+
 const BtnMainMenu = defineAsyncComponent(() => import('@/components/buttons/BtnMainMenu.vue'));
+
 const BtnFullScreen = defineAsyncComponent(() => import('@/components/buttons/BtnFullScreen.vue'));
 
 const $config = useConfig();
@@ -70,12 +75,24 @@ const isOutsideClicked = event => {
 
 <template>
   <div class="layout-topbar justify-between">
-    <Button class="layout-menu-button layout-topbar-button" @click="$config.onMenuToggle()">
-      <i class="pi pi-bars"></i>
-    </Button>
-    <Button class="layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
-      <i class="pi pi-ellipsis-v"></i>
-    </Button>
+    <Button
+      text
+      plain
+      rounded
+      icon="pi pi-bars"
+      class="layout-menu-button layout-topbar-button text-2xl w-12 h-12"
+      @click="$config.onMenuToggle()"
+    />
+
+    <Button
+      text
+      plain
+      rounded
+      icon="pi pi-ellipsis-v"
+      class="layout-topbar-menu-button layout-topbar-button text-2xl w-12 h-12"
+      @click="onTopBarMenuButton()"
+    />
+
     <div class="layout-topbar-menu flex gap-x-2 p-0" :class="topbarMenuClasses">
       <BtnToggleTheme />
       <BtnToggleLang />
