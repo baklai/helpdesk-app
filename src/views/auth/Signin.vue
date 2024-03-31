@@ -92,6 +92,7 @@ onMounted(() => {
       </label>
       <Password
         toggleMask
+        size="large"
         inputId="password"
         v-bind="password"
         :invalid="!!errors?.login"
@@ -101,6 +102,7 @@ onMounted(() => {
         :mediumLabel="$t('Average complexity')"
         :strongLabel="$t('Complex password')"
         aria-describedby="password-help"
+        inputClass="text-xl px-4 py-4"
       >
         <template #header>
           <h6>{{ $t('Pick a password') }}</h6>
