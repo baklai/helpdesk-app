@@ -242,7 +242,7 @@ onMounted(async () => {
       >
         <template #eventDialog="{ eventDialogData, closeEventDialog }">
           <div v-if="eventDialogData && eventDialogData?.title">
-            <Card class="w-full p-2">
+            <Card class="w-full p-2 border-red-500">
               <template #title>
                 <div class="flex content-center items-center justify-between flex-wrap">
                   <div class="flex content-center items-center">
@@ -331,14 +331,24 @@ onMounted(async () => {
 
 <style>
 @import 'qalendar/dist/style.css';
+
+html.dark {
+  --qalendar-border-color: rgb(var(--surface-600));
+  --qalendar-text-color-secondary: rgb(var(--surface-500));
+}
+
+html.light {
+  --qalendar-border-color: rgb(var(--surface-200));
+  --qalendar-text-color-secondary: rgb(var(--surface-500));
+}
 </style>
 
 <style scoped>
 ::v-deep(.calendar-month__event) {
   padding: 5px 10px;
 }
+
 ::v-deep(.calendar-month__event:hover) {
-  background-color: var(--surface-hover);
   padding: 5px 10px;
 }
 
@@ -347,22 +357,19 @@ onMounted(async () => {
 }
 
 ::v-deep(.event-flyout) {
-  color: var(--text-color) !important;
-  background: var(--surface-card) !important;
-  border-color: rgb(var(--surface-600)) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-root) {
-  background: var(--surface-card) !important;
-  border-color: rgb(var(--surface-600)) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-month__weekday) {
-  border-color: rgb(var(--surface-600)) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
-  border-color: rgb(var(--surface-600)) !important;
+  border-color: var(--qalendar-border-color) !important;
   background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
       fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,
@@ -372,7 +379,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading > span.calendar-month__day-date) {
-  color: var(--text-color-secondary) !important;
+  color: var(--qalendar-text-color-secondary) !important;
 }
 
 ::v-deep(.calendar-header) {
@@ -392,8 +399,6 @@ onMounted(async () => {
   margin: 0 auto !important;
   padding: 0.5rem 0 !important;
   text-align: center !important;
-
-  background-color: var(--surface-50) !important;
   color: var(--text-color) !important;
 }
 
