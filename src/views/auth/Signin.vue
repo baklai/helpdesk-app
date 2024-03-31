@@ -90,34 +90,40 @@ onMounted(() => {
       <label for="password" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('Password') }}
       </label>
-      <Password
-        toggleMask
-        size="large"
-        inputId="password"
-        v-bind="password"
-        :invalid="!!errors?.login"
-        :placeholder="$t('Password')"
-        :promptLabel="$t('Choose a password')"
-        :weakLabel="$t('Too simple')"
-        :mediumLabel="$t('Average complexity')"
-        :strongLabel="$t('Complex password')"
-        aria-describedby="password-help"
-        inputClass="text-xl px-4 py-4"
-      >
-        <template #header>
-          <h6>{{ $t('Pick a password') }}</h6>
-        </template>
-        <template #footer>
-          <Divider />
-          <p class="mt-2">{{ $t('Suggestions') }}:</p>
-          <ul class="list-disc pl-2 ml-2 mt-0 leading-normal">
-            <li>{{ $t('At least one lowercase') }}</li>
-            <li>{{ $t('At least one uppercase') }}</li>
-            <li>{{ $t('At least one numeric') }}</li>
-            <li>{{ $t('Minimum 6 characters') }}</li>
-          </ul>
-        </template>
-      </Password>
+      <span class="relative">
+        <i
+          class="pi pi-lock absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600 z-10"
+        />
+        <Password
+          toggleMask
+          size="large"
+          inputId="password"
+          v-bind="password"
+          :invalid="!!errors?.login"
+          :placeholder="$t('Password')"
+          :promptLabel="$t('Choose a password')"
+          :weakLabel="$t('Too simple')"
+          :mediumLabel="$t('Average complexity')"
+          :strongLabel="$t('Complex password')"
+          aria-describedby="password-help"
+          inputClass="text-xl px-4 py-4 pl-10"
+          class="w-full"
+        >
+          <template #header>
+            <h6>{{ $t('Pick a password') }}</h6>
+          </template>
+          <template #footer>
+            <Divider />
+            <p class="mt-2">{{ $t('Suggestions') }}:</p>
+            <ul class="list-disc pl-2 ml-2 mt-0 leading-normal">
+              <li>{{ $t('At least one lowercase') }}</li>
+              <li>{{ $t('At least one uppercase') }}</li>
+              <li>{{ $t('At least one numeric') }}</li>
+              <li>{{ $t('Minimum 6 characters') }}</li>
+            </ul>
+          </template>
+        </Password>
+      </span>
       <small id="password-help" class="text-red-500" v-if="errors?.password">
         {{ $t(errors.password) }}
       </small>

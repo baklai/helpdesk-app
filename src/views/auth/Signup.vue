@@ -83,8 +83,8 @@ onMounted(() => {
           v-bind="login"
           :invalid="!!errors?.login"
           :placeholder="$t('User login')"
-          class="w-full pl-10"
           aria-describedby="login-help"
+          class="w-full pl-10"
         />
       </span>
       <small id="login-help" class="text-red-500" v-if="errors?.login">
@@ -96,32 +96,39 @@ onMounted(() => {
       <label for="password" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('User password') }}
       </label>
-      <Password
-        toggleMask
-        id="password"
-        v-bind="password"
-        :invalid="!!errors?.password"
-        :placeholder="$t('User password')"
-        :promptLabel="$t('Choose a password')"
-        :weakLabel="$t('Too simple')"
-        :mediumLabel="$t('Average complexity')"
-        :strongLabel="$t('Complex password')"
-        aria-describedby="password-help"
-      >
-        <template #header>
-          <h6>{{ $t('Pick a password') }}</h6>
-        </template>
-        <template #footer>
-          <Divider />
-          <p class="mt-2">{{ $t('Suggestions') }}</p>
-          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-            <li>{{ $t('At least one lowercase') }}</li>
-            <li>{{ $t('At least one uppercase') }}</li>
-            <li>{{ $t('At least one numeric') }}</li>
-            <li>{{ $t('Minimum 6 characters') }}</li>
-          </ul>
-        </template>
-      </Password>
+      <span class="relative">
+        <i
+          class="pi pi-lock absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600 z-10"
+        />
+        <Password
+          toggleMask
+          id="password"
+          v-bind="password"
+          :invalid="!!errors?.password"
+          :placeholder="$t('User password')"
+          :promptLabel="$t('Choose a password')"
+          :weakLabel="$t('Too simple')"
+          :mediumLabel="$t('Average complexity')"
+          :strongLabel="$t('Complex password')"
+          aria-describedby="password-help"
+          inputClass="pl-10"
+          class="w-full"
+        >
+          <template #header>
+            <h6>{{ $t('Pick a password') }}</h6>
+          </template>
+          <template #footer>
+            <Divider />
+            <p class="mt-2">{{ $t('Suggestions') }}</p>
+            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+              <li>{{ $t('At least one lowercase') }}</li>
+              <li>{{ $t('At least one uppercase') }}</li>
+              <li>{{ $t('At least one numeric') }}</li>
+              <li>{{ $t('Minimum 6 characters') }}</li>
+            </ul>
+          </template>
+        </Password>
+      </span>
       <small id="password-help" class="text-red-500" v-if="errors?.password">
         {{ $t(errors.password) }}
       </small>
@@ -134,14 +141,20 @@ onMounted(() => {
       >
         {{ $t('Confirm password') }}
       </label>
-      <InputText
-        type="password"
-        id="passwordConfirm"
-        v-bind="passwordConfirm"
-        :invalid="!!errors?.passwordConfirm"
-        :placeholder="$t('Confirm password')"
-        aria-describedby="passwordConfirm-help"
-      />
+      <span class="relative">
+        <i
+          class="pi pi-unlock absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+        />
+        <InputText
+          type="password"
+          id="passwordConfirm"
+          v-bind="passwordConfirm"
+          :invalid="!!errors?.passwordConfirm"
+          :placeholder="$t('Confirm password')"
+          aria-describedby="passwordConfirm-help"
+          class="w-full pl-10"
+        />
+      </span>
       <small id="passwordConfirm-help" class="text-red-500" v-if="errors?.passwordConfirm">
         {{ $t(errors.passwordConfirm) }}
       </small>
@@ -223,13 +236,13 @@ onMounted(() => {
     />
     <small
       id="submit-help"
-      class="text-red-500 block w-full text-center"
+      class="block w-full text-center text-red-500"
       v-if="submitCount > SUBMIT_COUNT"
     >
       {{ $t('You submitted too many times') }}
     </small>
 
-    <p class="text-center font-medium">
+    <p class="text-center font-medium text-surface-500">
       {{ $t('Register to the application to continue') }}
     </p>
   </form>
