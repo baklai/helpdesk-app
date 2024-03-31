@@ -3,14 +3,14 @@ import { ref } from 'vue';
 
 import { useChannel } from '@/stores/api/channels';
 
-const { $init, findOne } = useChannel();
+const Channel = useChannel();
 
 const emits = defineEmits(['toggleMenu', 'close']);
 
 defineExpose({
   toggle: async ({ id }) => {
     try {
-      record.value = await findOne({ id });
+      record.value = await Channel.findOne({ id });
       visible.value = true;
     } catch (err) {
       onCloseSidebar();
@@ -28,7 +28,7 @@ const toggleMenu = (event, data) => {
 
 const onCloseSidebar = () => {
   visible.value = false;
-  record.value = $init({});
+  record.value = null;
   emits('close', {});
 };
 </script>
