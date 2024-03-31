@@ -89,7 +89,7 @@ const checkActiveRoute = item => {
       @click="!item.url && itemClick($event, item, index)"
       :class="item.class"
       :target="item.target"
-      class="hidden"
+      class="hidden items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-800"
       tabindex="0"
     >
       <AppIcons :name="item.icon" class="mr-2" :size="18" />
@@ -101,6 +101,7 @@ const checkActiveRoute = item => {
       @click="itemClick($event, item, index)"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       :to="{ name: item.name }"
+      class="flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-800"
       tabindex="0"
     >
       <AppIcons :name="item.icon" class="mr-2" :size="18" />

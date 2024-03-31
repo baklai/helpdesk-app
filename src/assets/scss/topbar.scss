@@ -6,21 +6,6 @@
   padding: 0 2rem;
   align-items: center;
 
-  .layout-topbar-logo {
-    display: flex;
-    align-items: center;
-    color: var(--surface-900);
-    font-size: 1.5rem;
-    font-weight: 500;
-    width: 280px;
-    border-radius: 12px;
-
-    img {
-      height: 2.5rem;
-      margin-right: 0.5rem;
-    }
-  }
-
   .layout-topbar-button {
     display: inline-flex;
     justify-content: center;
@@ -71,11 +56,6 @@
 @media (max-width: 991px) {
   .layout-topbar {
     justify-content: space-between;
-
-    .layout-topbar-logo {
-      width: auto;
-      order: 2;
-    }
 
     .layout-menu-button {
       margin-left: 0;

@@ -31,20 +31,20 @@
   }
 
   ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+    // margin: 0;
+    // padding: 0;
+    // list-style-type: none;
 
     a {
       display: flex;
-      align-items: center;
-      position: relative;
-      outline: 0 none;
+      // align-items: center;
+      // position: relative;
+      // outline: 0 none;
       // color: var(--text-color);
-      cursor: pointer;
-      padding: 0.75rem 1rem;
-      border-radius: $borderRadius;
-      transition: background-color $transitionDuration, box-shadow $transitionDuration;
+      // cursor: pointer;
+      // padding: 0.75rem 1rem;
+      // border-radius: $borderRadius;
+      // transition: background-color $transitionDuration, box-shadow $transitionDuration;
 
       .layout-submenu-toggler {
         font-size: 75%;
@@ -55,10 +55,6 @@
       &.active-route {
         font-weight: 700;
         color: var(--primary-color);
-      }
-
-      &:hover {
-        background-color: var(--surface-400);
       }
     }
 

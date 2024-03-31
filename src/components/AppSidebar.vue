@@ -12,9 +12,9 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'home' }" class="flex justify-center layout-topbar-logo py-2 mb-6">
+  <RouterLink :to="{ name: 'home' }" class="flex justify-center py-2 mb-6">
     <div class="flex flex-col items-center justify-center mb-2">
-      <div class="flex justify-center text-surface-950 dark:text-surface-50">
+      <div class="flex justify-center text-surface-900 dark:text-surface-50">
         <div class="justify-start">
           <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
             h&nbsp;e&nbsp;l&nbsp;p&nbsp;
@@ -37,21 +37,24 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     </div>
   </RouterLink>
 
-  <div class="flex justify-start mt-6 mb-6" v-if="$route?.meta?.title">
+  <div class="flex justify-start my-6" v-if="$route?.meta?.title">
     <div class="flex items-center justify-center mr-2">
       <Avatar class="mr-2" size="xlarge"><AppIcons :name="$route?.name" :size="32" /></Avatar>
     </div>
     <div class="flex items-center justify-center">
       <div>
         <span class="text-2xl">{{ $t($route?.meta?.title) }}</span>
-        <p class="text-sm text-surface-500 m-0">
+        <p class="text-sm text-surface-500">
           {{ $t($route?.meta?.description) }}
         </p>
       </div>
     </div>
   </div>
 
-  <div class="sidebar-menu overflow-y-scroll w-full text-base my-6">
+  <div
+    class="overflow-y-scroll w-full text-base my-6"
+    style="height: calc(100vh - 20rem); scrollbar-width: none"
+  >
     <SidebarMenu />
   </div>
 
@@ -59,16 +62,8 @@ const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/Bt
     <div class="flex items-center content-center justify-between flex-wrap p-4">
       <BtnInfoUser />
       <BtnToggleLang />
-      <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12" />
-
-      <BtnAuth iconClass="text-2xl" class="w-12 h-12" />
+      <BtnToggleTheme />
+      <BtnAuth />
     </div>
   </div>
 </template>
-
-<style scoped>
-.sidebar-menu {
-  height: calc(100vh - 20rem);
-  scrollbar-width: none;
-}
-</style>
