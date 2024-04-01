@@ -168,7 +168,7 @@ const columns = ref([
               '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
               value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
             ]}
-            value={value.count}
+            value={value.count || '-'}
           />
         );
       }
@@ -199,7 +199,7 @@ const columns = ref([
               '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
               value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
             ]}
-            value={value.count}
+            value={value.count || '-'}
           />
         );
       }
@@ -230,7 +230,7 @@ const columns = ref([
               '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
               value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
             ]}
-            value={value.count}
+            value={value.count || '-'}
           />
         );
       }
