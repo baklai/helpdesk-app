@@ -358,7 +358,7 @@ const onCountPercentWidth = (count, allCount) => {
 
       <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
         <div
-          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem] mb-6"
         >
           <div class="flex justify-between items-center mb-5">
             <h5>{{ $t('Devices status') }}</h5>
@@ -445,7 +445,7 @@ const onCountPercentWidth = (count, allCount) => {
 
       <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
         <div
-          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem] mb-6"
         >
           <h5>{{ $t('Branches status') }}</h5>
           <Chart type="bar" :data="barBranches" :options="basicOptions" />
