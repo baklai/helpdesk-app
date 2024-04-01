@@ -701,7 +701,15 @@ onBeforeUnmount(() => {
       <template #empty class="!border-0">
         <div
           v-if="!loading && records?.length === 0"
-          class="flex items-stretch text-center @!border-0"
+          :class="[
+            'absolute',
+            'left-0',
+            'z-20',
+            'flex items-center justify-center',
+            'w-full h-full',
+            'bg-none',
+            'flex items-stretch text-center'
+          ]"
           style="height: calc(100vh - 24rem)"
         >
           <div class="flex flex-col gap-2 m-auto">
@@ -711,9 +719,8 @@ onBeforeUnmount(() => {
               {{ $t('Try changing the search terms in the filter') }}
             </p>
             <Button
-              icon="pi pi-filter-slash"
-              iconClass="text-sm"
-              class="max-w-40 m-auto my-4"
+              icon="pi pi-filter-slash text-sm"
+              class="w-max m-auto my-4"
               :label="$t('Clear filters')"
               @click="clearFilters"
             />
