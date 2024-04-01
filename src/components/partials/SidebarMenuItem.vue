@@ -99,7 +99,7 @@ const checkActiveRoute = item => {
     <RouterLink
       v-if="item.name && !item.items && item.visible !== false"
       @click="itemClick($event, item, index)"
-      :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
+      :class="[item.class, { 'text-base font-bold text-primary-500': checkActiveRoute(item) }]"
       :to="{ name: item.name }"
       class="flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-800"
       tabindex="0"

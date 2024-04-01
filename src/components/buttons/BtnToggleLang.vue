@@ -25,22 +25,24 @@ const items = ref([
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" popup>
-    <template #item="{ label, item, props }">
-      <a :href="item.url" v-bind="props.action">
-        <span v-bind="props.icon" />
-        <span v-bind="props.label">{{ label }}</span>
-      </a>
-    </template>
-  </Menu>
+  <div>
+    <Menu ref="refMenu" :model="items" popup>
+      <template #item="{ label, item, props }">
+        <a :href="item.url" v-bind="props.action">
+          <span v-bind="props.icon" />
+          <span v-bind="props.label">{{ label }}</span>
+        </a>
+      </template>
+    </Menu>
 
-  <Button
-    text
-    plain
-    rounded
-    icon="pi pi-language"
-    class="text-2xl w-12 h-12"
-    v-tooltip.bottom="$t('Languages')"
-    @click="event => refMenu.toggle(event)"
-  />
+    <Button
+      text
+      plain
+      rounded
+      icon="pi pi-language"
+      class="text-2xl w-12 h-12"
+      v-tooltip.bottom="$t('Languages')"
+      @click="event => refMenu.toggle(event)"
+    />
+  </div>
 </template>

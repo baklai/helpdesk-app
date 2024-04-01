@@ -51,11 +51,6 @@
         margin-left: auto;
         transition: transform $transitionDuration;
       }
-
-      &.active-route {
-        font-weight: 700;
-        color: var(--primary-color);
-      }
     }
 
     ul {

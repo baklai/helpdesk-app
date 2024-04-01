@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
+import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 
 import { useConfig } from '@/stores/config';
 
@@ -31,16 +31,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   unbindOutsideClickListener();
 });
-
-const topbarMenuClasses = computed(() => {
-  return {
-    'layout-topbar-menu-mobile-active': topbarMenuActive.value
-  };
-});
-
-const onTopBarMenuButton = () => {
-  topbarMenuActive.value = !topbarMenuActive.value;
-};
 
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
@@ -80,25 +70,16 @@ const isOutsideClicked = event => {
       plain
       rounded
       icon="pi pi-bars"
-      class="layout-menu-button layout-topbar-button text-2xl w-12 h-12"
+      class="text-2xl w-12 h-12"
       @click="$config.onMenuToggle()"
     />
 
-    <Button
-      text
-      plain
-      rounded
-      icon="pi pi-ellipsis-v"
-      class="layout-topbar-menu-button layout-topbar-button text-2xl w-12 h-12"
-      @click="onTopBarMenuButton()"
-    />
-
-    <div class="layout-topbar-menu flex gap-x-2 p-0" :class="topbarMenuClasses">
-      <BtnToggleTheme />
-      <BtnToggleLang />
-      <BtnFTPClient />
-      <BtnNotifications />
-      <BtnFullScreen />
+    <div class="flex gap-x-2">
+      <BtnToggleTheme class="hidden md:flex" />
+      <BtnToggleLang class="hidden md:flex" />
+      <BtnFTPClient class="hidden md:flex" />
+      <BtnNotifications class="hidden md:flex" />
+      <BtnFullScreen class="hidden md:flex" />
       <BtnMainMenu />
     </div>
   </div>

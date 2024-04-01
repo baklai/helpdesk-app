@@ -1,17 +1,20 @@
 <script setup>
 import { ref, defineAsyncComponent } from 'vue';
 
-// import AppMenu from '@/components/AppMenu.vue';
-// import BtnAuth from '@/components/buttons/BtnAuth.vue';
-// import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-// import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-
 const SidebarMenu = defineAsyncComponent(() => import('@/components/partials/SidebarMenu.vue'));
 const BtnAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAuth.vue'));
 const BtnToggleTheme = defineAsyncComponent(() =>
   import('@/components/buttons/BtnToggleTheme.vue')
 );
 const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
+
+const BtnFTPClient = defineAsyncComponent(() => import('@/components/buttons/BtnFTPClient.vue'));
+
+const BtnNotifications = defineAsyncComponent(() =>
+  import('@/components/buttons/BtnNotifications.vue')
+);
+
+const BtnFullScreen = defineAsyncComponent(() => import('@/components/buttons/BtnFullScreen.vue'));
 
 const refMenu = ref();
 
@@ -31,9 +34,9 @@ const toggle = event => {
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-80 py-2 px-6">
+  <Menu ref="refMenu" popup :model="[]" class="w-96 py-2 px-4">
     <template #start>
-      <div class="flex my-6 items-center">
+      <div class="flex my-2 items-center">
         <div class="flex items-center">
           <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
           <div>
@@ -46,7 +49,7 @@ const toggle = event => {
           </div>
         </div>
       </div>
-      <div class="overflow-scroll w-full max-h-[30rem]">
+      <div class="overflow-scroll w-full max-h-[30rem] px-4">
         <SidebarMenu />
       </div>
     </template>
@@ -60,9 +63,12 @@ const toggle = event => {
 
     <template #end>
       <div class="flex items-center content-center justify-between p-2">
+        <BtnToggleTheme />
         <BtnToggleLang />
-        <BtnToggleTheme iconClass="text-2xl" class="w-12 h-12" />
-        <BtnAuth iconClass="text-2xl" class="w-12 h-12" />
+        <BtnFTPClient />
+        <BtnNotifications />
+        <BtnFullScreen />
+        <BtnAuth />
       </div>
     </template>
   </Menu>
