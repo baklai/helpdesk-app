@@ -243,7 +243,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full p-4">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />
