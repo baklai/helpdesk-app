@@ -102,11 +102,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value > 0
-                ? 'text-base text-white font-medium w-1/3 bg-green-500'
-                : 'text-base text-white font-medium w-1/3 bg-gray-500'
-            }
+            class={[
+              '!text-base !font-bold !text-white !w-1/3',
+              value > 0 ? '!bg-green-500/80' : '!bg-gray-500/80'
+            ]}
             value={value > 0 ? t('UP') : t('DOWN')}
           />
         );
