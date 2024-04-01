@@ -233,7 +233,7 @@ export default {
       ]
     },
     columnfilter: {
-      class: 'inline-flex items-center ml-auto'
+      class: 'inline-flex items-center'
     },
     filteroverlay: {
       class: [
@@ -673,7 +673,7 @@ export default {
         'rounded-full',
 
         // Color
-        { 'bg-primary-50 text-primary-700': context.active },
+        { 'bg-primary-50 !text-primary-700': context.active },
         'dark:text-white/70 dark:hover:text-white/80 dark:bg-surface-800',
 
         // States
