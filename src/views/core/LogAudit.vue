@@ -34,7 +34,12 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <Tag class="text-base font-normal   px-6" value={value} />;
+        return (
+          <Tag
+            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            value={value}
+          />
+        );
       }
     },
     sorter: { field: 'host' },
@@ -78,7 +83,12 @@ const columns = ref([
     column: {
       field: 'user',
       render(value) {
-        return <Tag class="text-base font-normal   px-6" value={value} />;
+        return (
+          <Tag
+            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            value={value}
+          />
+        );
       }
     },
     sorter: { field: 'user' },
@@ -103,8 +113,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="text-base font-semibold text-white border-1 border-solid border-surface-200 dark:border-surface-600 rounded-xs px-2 w-6rem"
-            style={{ background: `var(${methodHttpToColor(value)})` }}
+            class={[
+              methodHttpToColor(value),
+              '!w-24 !text-base !font-semibold !text-white !rounded px-2'
+            ]}
             value={value}
           />
         );
@@ -129,7 +141,14 @@ const columns = ref([
       field: 'status',
       render(value) {
         return (
-          <Tag class={`text-base font-bold ${statusCodeToColor(value)}  px-6`} value={value} />
+          <Tag
+            class={[
+              statusCodeToColor(value),
+              '!text-base !font-bold !rounded px-6',
+              '!bg-surface-500/20'
+            ]}
+            value={value}
+          />
         );
       }
     },
