@@ -1,16 +1,11 @@
 <script setup lang="jsx">
-import { ref, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-// import SSDataTable from '@/components/tables/SSDataTable.vue';
-// import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-// import ModalRecord from '@/components/modals/Channel.vue';
-// import SidebarRecord from '@/components/sidebars/Channel.vue';
-
-const SSDataTable = defineAsyncComponent(() => import('@/components/tables/SSDataTable.vue'));
-const OptionsMenu = defineAsyncComponent(() => import('@/components/menus/OptionsMenu.vue'));
-const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Channel.vue'));
-const SidebarRecord = defineAsyncComponent(() => import('@/components/sidebars/Channel.vue'));
+import HDDataTable from '@/components/dtables/HDDataTable.vue';
+import OptionsMenu from '@/components/menus/OptionsMenu.vue';
+import ModalRecord from '@/components/modals/Channel.vue';
+import SidebarRecord from '@/components/sidebars/Channel.vue';
 
 import { useChannel } from '@/stores/api/channels';
 
@@ -267,7 +262,7 @@ const columns = ref([
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :storageKey="`app-${$route.name}-datatable`"
@@ -289,7 +284,7 @@ const columns = ref([
         <template #subtitle>
           {{ $t($route?.meta?.description) }}
         </template>
-      </SSDataTable>
+      </HDDataTable>
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

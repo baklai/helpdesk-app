@@ -69,10 +69,12 @@ onMounted(async () => {
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
-        <h5 class="text-sm text-surface-500 m-0">
+        <h3 class="text-2xl">
           {{ $t($route?.meta?.title) }}
-        </h5>
-        <h3 class="m-0">{{ $t($route?.meta?.description) }}</h3>
+        </h3>
+        <p class="text-base text-surface-500">
+          {{ $t($route?.meta?.description) }}
+        </p>
       </div>
     </div>
 

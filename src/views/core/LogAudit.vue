@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/dtables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
 import { dateTimeToStr, methodHttpToColor, statusCodeToColor } from '@/service/DataFilters';
@@ -229,7 +229,7 @@ const confirmDeleteAll = () => {
         @delete="data => refDataTable.delete(data)"
       />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
@@ -267,7 +267,7 @@ const confirmDeleteAll = () => {
             @click="confirmDeleteAll"
           />
         </template>
-      </SSDataTable>
+      </HDDataTable>
     </div>
   </div>
 </template>

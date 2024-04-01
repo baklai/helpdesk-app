@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/dtables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/User.vue';
 
@@ -203,7 +203,7 @@ const columns = ref([
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
@@ -228,7 +228,7 @@ const columns = ref([
         <template #subtitle>
           {{ $t($route?.meta?.description) }}
         </template>
-      </SSDataTable>
+      </HDDataTable>
     </div>
   </div>
 </template>

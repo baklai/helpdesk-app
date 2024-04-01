@@ -614,10 +614,10 @@ onBeforeUnmount(() => {
           <div class="flex flex-wrap gap-1 items-center">
             <slot name="icon" />
             <div class="flex flex-col">
-              <h3 class="text-2xl m-0">
+              <h3 class="text-2xl font-normal text-surface-50">
                 <slot name="title" />
               </h3>
-              <p class="text-base text-surface-500">
+              <p class="text-base font-normal text-surface-500">
                 <slot name="subtitle" />
               </p>
             </div>
