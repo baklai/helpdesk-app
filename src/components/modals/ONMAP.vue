@@ -161,8 +161,7 @@ onMounted(() => {});
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '960px' }"
-    class=""
+    class="w-[80rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -170,25 +169,25 @@ onMounted(() => {});
         <div class="flex items-center justify-center">
           <AppIcons name="onmap-scanner" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">
+            <p class="text-lg font-bold line-height-2">
               {{ record?.title || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Report target') }}: {{ record?.target || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
         </div>
+
         <div class="flex gap-2 items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -328,7 +327,7 @@ onMounted(() => {});
         </div>
       </div>
 
-      <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
+      <ScrollTop target="parent" :threshold="400" behavior="smooth" />
     </template>
 
     <template #footer>

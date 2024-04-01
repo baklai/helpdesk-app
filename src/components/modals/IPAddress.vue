@@ -339,29 +339,28 @@ const onCloseModal = () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '900px' }"
-    class=""
+    class="w-[60rem]"
     @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-ip-address" :size="42" class="mr-2" />
+          <AppIcons name="network-ip-address" :size="42" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('IP Address') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -370,10 +369,13 @@ const onCloseModal = () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
-      <div class="formgridflex flex-wrap">
-        <div class="col">
-          <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-row gap-x-4">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="date" class="font-bold">{{ $t('Date create') }}</label>
             <Calendar
               showIcon
@@ -391,7 +393,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText
               id="reqnum"
@@ -405,7 +407,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="unit" class="font-bold">{{ $t('Unit') }}</label>
             <Dropdown
               filter
@@ -428,7 +430,7 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
@@ -451,29 +453,30 @@ const onCloseModal = () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
-            <div class="">
+            <div class="flex flex-col gap-2">
               <span class="relative" aria-describedby="ipaddress-help">
-                <i
-                  class="pi pi-search cursor-pointer"
-                  v-tooltip.bottom="$t('Check IP Address')"
-                  @click.prevent="checkIPAddress"
-                />
                 <InputText
                   id="ipaddress"
                   v-bind="ipaddress"
                   :disabled="!!values.id"
                   :placeholder="$t('Client IP Address')"
                   :invalid="!!errors?.ipaddress"
+                  class="w-full pr-10"
                   @keypress.prevent.enter="checkIPAddress"
+                />
+                <i
+                  class="pi pi-search cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
+                  v-tooltip.bottom="$t('Check IP Address')"
+                  @click.prevent="checkIPAddress"
                 />
               </span>
               <small id="ipaddress-help" class="text-red-500" v-if="errors?.ipaddress">
                 {{ $t(errors.ipaddress) }}
               </small>
             </div>
-            <div class="">
+            <div class="flex flex-col gap-2">
               <Dropdown
                 filter
                 autofocus
@@ -494,10 +497,10 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="internet" class="font-bold">{{ $t('Internet') }}</label>
-            <div class="" id="internet">
-              <div class="">
+            <div class="flex flex-col gap-2" id="internet">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="internetReqnum"
                   v-bind="internetReqnum"
@@ -505,7 +508,7 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Calendar
                   showIcon
                   showButtonBar
@@ -517,7 +520,7 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Calendar
                   showIcon
                   showButtonBar
@@ -529,10 +532,9 @@ const onCloseModal = () => {
                 />
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Textarea
-                  rows="1"
-                  cols="10"
+                  rows="3"
                   id="internetComment"
                   v-bind="internetComment"
                   :placeholder="$t('Comment')"
@@ -542,11 +544,11 @@ const onCloseModal = () => {
           </div>
         </div>
 
-        <div class="col">
-          <div class="">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="" id="companies">
-              <div class="">
+            <div class="flex flex-col gap-2" id="companies">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -568,7 +570,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -590,7 +592,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -612,7 +614,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -636,10 +638,10 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div class="" id="client-info">
-              <div class="">
+            <div class="flex flex-col gap-2" id="client-info">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="fullname"
                   v-bind="fullname"
@@ -652,7 +654,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="phone"
                   v-bind="phone"
@@ -665,7 +667,7 @@ const onCloseModal = () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -689,16 +691,15 @@ const onCloseModal = () => {
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
             <InputText id="autoanswer" v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
             <Textarea
-              rows="7"
-              cols="10"
+              rows="10"
               class="outline-none"
               id="comment"
               v-bind="comment"

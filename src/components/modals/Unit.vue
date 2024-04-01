@@ -197,34 +197,31 @@ const onSaveRecord = handleSubmit(async () => {
   </Menu>
 
   <Dialog
-    modal
     closable
     draggable
-    class=""
     v-model:visible="visible"
-    :style="{ width: '480px' }"
+    class="w-[40rem]"
     @show="onShowModal"
     @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl mr-3"></i>
+          <i class="pi pi-desktop text-4xl mr-4"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Unit') }}</p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-lg font-bold line-height-2">{{ $t('Unit') }}</p>
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
 
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -232,7 +229,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <div class="">
+    <div class="flex flex-col gap-2">
       <Dropdown
         filter
         autofocus
@@ -241,14 +238,16 @@ const onSaveRecord = handleSubmit(async () => {
         @change="event => setValues({ ...event.value })"
         :filterPlaceholder="$t('Search in list')"
         :placeholder="$t('Search in database')"
-        class="w-full"
       />
     </div>
 
     <Divider type="solid" class="my-6" />
 
-    <form @submit.prevent="onSaveRecord" class="mx-6">
-      <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="name">{{ $t('Unit name') }}</label>
         <InputText
           id="name"
@@ -262,11 +261,10 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="description">{{ $t('Unit description') }}</label>
         <Textarea
           rows="5"
-          class="min-w-full"
           id="description"
           v-bind="description"
           :placeholder="$t('Unit description')"

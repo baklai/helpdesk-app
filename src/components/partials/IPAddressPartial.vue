@@ -17,7 +17,7 @@ defineProps({
       viewBox="0 0 24 24"
       width="40"
       height="40"
-      class="text-surface-500 mr-2"
+      class="text-surface-600 dark:text-surface-300 mr-2"
     >
       <path
         fill="currentColor"
@@ -25,7 +25,7 @@ defineProps({
       />
     </svg>
     <div>
-      <p class="text-lg mb-0">IP {{ record?.ipaddress || '-' }}</p>
+      <p class="text-lg">IP {{ record?.ipaddress || '-' }}</p>
       <p class="text-base font-normal">
         {{ $t('Date open') }} : {{ dateToStr(record?.date) || '-' }}
       </p>

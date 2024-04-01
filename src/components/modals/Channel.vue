@@ -204,8 +204,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '600px' }"
-    class=""
+    class="w-[40rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -213,20 +212,20 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('Network channel') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -235,10 +234,13 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
-      <div class="formgridflex flex-wrap">
-        <div class="col">
-          <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-row gap-x-2">
+        <div class="flex flex-col basis-1/2 gap-y-2">
+          <div class="flex flex-col gap-2">
             <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
             <InputText
               id="locationFrom"
@@ -252,7 +254,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
             <InputText
               id="unitFrom"
@@ -267,8 +269,8 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="col">
-          <div class="">
+        <div class="flex flex-col basis-1/2 gap-y-2">
+          <div class="flex flex-col gap-2">
             <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
             <InputText
               id="locationTo"
@@ -282,7 +284,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
             <InputText
               id="unitTo"
@@ -296,93 +298,92 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
         </div>
+      </div>
 
-        <div class="flex-shrink-0 p-2 w-full">
-          <div class="">
-            <label for="level" class="font-bold">{{ $t('Level') }}</label>
-            <InputText
-              id="level"
-              v-bind="level"
-              :placeholder="$t('Level')"
-              :invalid="!!errors?.level"
-              aria-describedby="level-help"
-            />
-            <small id="level-help" class="text-red-500" v-if="errors?.level">
-              {{ $t(errors.level) }}
-            </small>
-          </div>
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
+          <label for="level" class="font-bold">{{ $t('Level') }}</label>
+          <InputText
+            id="level"
+            v-bind="level"
+            :placeholder="$t('Level')"
+            :invalid="!!errors?.level"
+            aria-describedby="level-help"
+          />
+          <small id="level-help" class="text-red-500" v-if="errors?.level">
+            {{ $t(errors.level) }}
+          </small>
+        </div>
 
-          <div class="">
-            <label for="type" class="font-bold">{{ $t('Type') }}</label>
-            <InputText
-              id="type"
-              v-bind="type"
-              :placeholder="$t('Type')"
-              :invalid="!!errors?.type"
-              aria-describedby="type-help"
-            />
-            <small id="type-help" class="text-red-500" v-if="errors?.type">
-              {{ $t(errors.type) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="type" class="font-bold">{{ $t('Type') }}</label>
+          <InputText
+            id="type"
+            v-bind="type"
+            :placeholder="$t('Type')"
+            :invalid="!!errors?.type"
+            aria-describedby="type-help"
+          />
+          <small id="type-help" class="text-red-500" v-if="errors?.type">
+            {{ $t(errors.type) }}
+          </small>
+        </div>
 
-          <div class="">
-            <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
-            <InputText
-              id="speed"
-              v-bind="speed"
-              :placeholder="$t('Speed')"
-              :invalid="!!errors?.speed"
-              aria-describedby="speed-help"
-            />
-            <small id="speed-help" class="text-red-500" v-if="errors?.speed">
-              {{ $t(errors.speed) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
+          <InputText
+            id="speed"
+            v-bind="speed"
+            :placeholder="$t('Speed')"
+            :invalid="!!errors?.speed"
+            aria-describedby="speed-help"
+          />
+          <small id="speed-help" class="text-red-500" v-if="errors?.speed">
+            {{ $t(errors.speed) }}
+          </small>
+        </div>
 
-          <div class="">
-            <label for="status" class="font-bold">{{ $t('Status') }}</label>
-            <InputText
-              id="status"
-              v-bind="status"
-              :placeholder="$t('Status')"
-              :invalid="!!errors?.status"
-              aria-describedby="status-help"
-            />
-            <small id="status-help" class="text-red-500" v-if="errors?.status">
-              {{ $t(errors.status) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="status" class="font-bold">{{ $t('Status') }}</label>
+          <InputText
+            id="status"
+            v-bind="status"
+            :placeholder="$t('Status')"
+            :invalid="!!errors?.status"
+            aria-describedby="status-help"
+          />
+          <small id="status-help" class="text-red-500" v-if="errors?.status">
+            {{ $t(errors.status) }}
+          </small>
+        </div>
 
-          <div class="">
-            <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
-            <InputText
-              id="operator"
-              v-bind="operator"
-              :placeholder="$t('Operator')"
-              :invalid="!!errors?.operator"
-              aria-describedby="operator-help"
-            />
-            <small id="operator-help" class="text-red-500" v-if="errors?.operator">
-              {{ $t(errors.operator) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
+          <InputText
+            id="operator"
+            v-bind="operator"
+            :placeholder="$t('Operator')"
+            :invalid="!!errors?.operator"
+            aria-describedby="operator-help"
+          />
+          <small id="operator-help" class="text-red-500" v-if="errors?.operator">
+            {{ $t(errors.operator) }}
+          </small>
+        </div>
 
-          <div class="">
-            <label for="composition" class="font-bold">{{ $t('Composition') }}</label>
-            <Textarea
-              rows="5"
-              cols="10"
-              id="composition"
-              v-bind="composition"
-              :placeholder="$t('Composition')"
-              :invalid="!!errors?.composition"
-              aria-describedby="composition-help"
-            />
-            <small id="composition-help" class="text-red-500" v-if="errors?.composition">
-              {{ $t(errors.composition) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="composition" class="font-bold">{{ $t('Composition') }}</label>
+          <Textarea
+            rows="5"
+            id="composition"
+            v-bind="composition"
+            :placeholder="$t('Composition')"
+            :invalid="!!errors?.composition"
+            aria-describedby="composition-help"
+          />
+          <small id="composition-help" class="text-red-500" v-if="errors?.composition">
+            {{ $t(errors.composition) }}
+          </small>
         </div>
       </div>
     </form>

@@ -189,11 +189,11 @@ const onSaveRecord = handleSubmit(async () => {
   </Menu>
 
   <Dialog
+    modal
     closable
-    draggable
+    :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '50rem' }"
-    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+    class="w-[40rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -209,12 +209,11 @@ const onSaveRecord = handleSubmit(async () => {
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -223,8 +222,11 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord" class="text-surface-800 dark:text-surface-100">
-      <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="title" class="font-bold">{{ $t('Title event') }}</label>
         <InputText
           id="title"
@@ -238,7 +240,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
         <Calendar
           showIcon
@@ -257,7 +259,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="eventType" class="font-bold">{{ $t('Event type') }}</label>
         <Dropdown
           filter
@@ -278,7 +280,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="description" class="font-bold">{{ $t('Description') }}</label>
         <Textarea
           rows="5"

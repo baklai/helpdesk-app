@@ -224,35 +224,33 @@ const onSaveRecord = handleSubmit(async () => {
   </Menu>
 
   <Dialog
-    modal
     closable
     draggable
-    class=""
     v-model:visible="visible"
-    :style="{ width: '480px' }"
+    class="w-[40rem]"
     @show="onShowModal"
     @hide="onCloseModal"
   >
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <i class="pi pi-filter-fill text-6xl mr-3"></i>
+          <i class="pi pi-filter-fill text-4xl mr-4"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('System filters') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -260,7 +258,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <div class="">
+    <div class="flex flex-col gap-2">
       <Dropdown
         filter
         autofocus
@@ -271,11 +269,10 @@ const onSaveRecord = handleSubmit(async () => {
         :optionLabel="({ regex }) => regex"
         :filterPlaceholder="$t('Search in list')"
         :placeholder="$t('Search in database')"
-        class="w-full"
       >
         <template #optiongroup="slotProps">
           <div class="flex items-center">
-            <span class="text-lg font-bold text-primary">{{ slotProps?.option?.label }}</span>
+            <span class="text-lg font-bold text-primary-500">{{ slotProps?.option?.label }}</span>
           </div>
         </template>
 
@@ -284,7 +281,7 @@ const onSaveRecord = handleSubmit(async () => {
             <span class="text-base font-semibold">
               {{ slotProps?.option?.regex }}
               <sup
-                class="font-light text-xs"
+                class="font-bold text-xs"
                 :class="slotProps?.option?.status === 'deny' ? 'text-yellow-500' : 'text-green-600'"
               >
                 {{ slotProps?.option?.status?.toUpperCase() }}
@@ -297,8 +294,11 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-6" />
 
-    <form @submit.prevent="onSaveRecord" class="mx-6">
-      <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="regex">{{ $t('Filter regex') }}</label>
         <InputText
           id="regex"
@@ -312,7 +312,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="type">{{ $t('Filter type') }}</label>
         <Dropdown
           filter
@@ -333,7 +333,7 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="status">{{ $t('Filter status') }}</label>
         <Dropdown
           filter
@@ -354,11 +354,10 @@ const onSaveRecord = handleSubmit(async () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="description">{{ $t('Filter description') }}</label>
         <Textarea
           rows="5"
-          class="min-w-full"
           id="description"
           v-bind="description"
           :placeholder="$t('Filter description')"

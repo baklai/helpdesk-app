@@ -195,8 +195,7 @@ const validSoftware = value => {
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '900px' }"
-    class=""
+    class="w-[80rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -216,13 +215,13 @@ const validSoftware = value => {
             </p>
           </div>
         </div>
+
         <div class="flex gap-2 items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -868,15 +867,17 @@ const validSoftware = value => {
               <td>{{ user?.Name || '-' }}</td>
               <td width="50%">{{ user?.Description || '-' }}</td>
               <td>
-                <Chip
-                  :style="{ background: 'transparent' }"
-                  :label="user?.Disabled ? $t('Off') : $t('On')"
-                  class="border-1"
-                  :class="
+                <Tag
+                  :value="user?.Disabled ? $t('Off') : $t('On')"
+                  :class="[
+                    '!bg-transparent',
+                    '!border',
+                    '!text-sm',
+                    '!w-20',
                     user?.Disabled
-                      ? 'text-surface-500 border-surface-200 dark:border-surface-600'
-                      : 'text-green-500 border-green-500 font-bold'
-                  "
+                      ? '!border-surface-600/80 !text-surface-600/80'
+                      : '!border-green-500 !text-green-500'
+                  ]"
                 />
               </td>
             </tr>

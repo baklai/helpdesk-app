@@ -80,27 +80,28 @@ const onCloseModal = () => {
 </script>
 
 <template>
-  <Dialog
-    closable
-    draggable
-    v-model:visible="visible"
-    :style="{ width: '400px' }"
-    class=""
-    @hide="onCloseModal"
-  >
+  <Dialog closable draggable v-model:visible="visible" class="w-[40rem]" @hide="onCloseModal">
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <i class="pi pi-bell text-2xl mr-2"></i>
-          <p class="text-lg font-bold line-height-2 mb-2">
-            {{ $t('HD Notification') }}
-          </p>
+          <i class="pi pi-bell text-4xl mr-4"></i>
+          <div>
+            <p class="text-lg font-bold line-height-2">
+              {{ $t('HD Notification') }}
+            </p>
+            <p class="text-base font-normal line-height-2 text-surface-500">
+              {{ $t('Helpdesk system notifications') }}
+            </p>
+          </div>
         </div>
       </div>
     </template>
 
-    <form @submit.prevent="onSendNotice">
-      <div class="">
+    <form
+      @submit.prevent="onSendNotice"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="name">{{ $t('Notification name') }}</label>
         <InputText
           id="name"
@@ -114,7 +115,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="text">{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
@@ -129,7 +130,7 @@ const onCloseModal = () => {
         </small>
       </div>
 
-      <div class="">
+      <div class="flex flex-col gap-2">
         <label for="users">{{ $t('Notification users') }}</label>
         <MultiSelect
           id="users"
@@ -139,7 +140,6 @@ const onCloseModal = () => {
           :maxSelectedLabels="3"
           :placeholder="$t('Notification users')"
           :invalid="!!errors?.users"
-          class="w-full"
           aria-describedby="users-help"
         >
           <template #option="slotProps">

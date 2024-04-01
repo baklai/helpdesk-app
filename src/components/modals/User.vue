@@ -290,8 +290,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    style="width: 800px"
-    class=""
+    class="w-[70rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -299,20 +298,20 @@ const onSaveRecord = handleSubmit(async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="core-users" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('User account') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -321,10 +320,14 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord" autocomplete="off">
-      <div class="formgridflex flex-wrap">
-        <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
-          <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+      autocomplete="off"
+    >
+      <div class="flex flex-row gap-x-4">
+        <div class="flex flex-col basis-1/3 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="login" class="font-bold">{{ $t('User login') }}</label>
             <InputText
               id="login"
@@ -339,7 +342,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="password" class="font-bold">
               {{ $t('User password') }}
             </label>
@@ -375,7 +378,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
             <InputText
               id="fullname"
@@ -389,7 +392,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="email" class="font-bold">{{ $t('User email') }}</label>
             <InputText
               id="email"
@@ -403,7 +406,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
             <InputMask
               date="phone"
@@ -419,7 +422,7 @@ const onSaveRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <div class="flex items-center">
               <Checkbox inputId="isActive" binary v-bind="isActive" />
               <label for="isActive" class="font-bold ml-2">
@@ -428,7 +431,7 @@ const onSaveRecord = handleSubmit(async () => {
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <div class="flex items-center">
               <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
               <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
@@ -436,7 +439,7 @@ const onSaveRecord = handleSubmit(async () => {
           </div>
         </div>
 
-        <div class="flex-shrink-0 p-4 w-full xl:w-2/3">
+        <div class="flex flex-col basis-2/3 gap-y-4">
           <DataTable
             rowHover
             scrollable
@@ -453,7 +456,7 @@ const onSaveRecord = handleSubmit(async () => {
                 <div class="flex flex-wrap gap-2 items-center">
                   <i class="pi pi-unlock text-2xl mr-2"></i>
                   <div>
-                    <p class="m-0">
+                    <p>
                       {{ $t('Scope list') }}
                     </p>
                     <small class="text-surface-500">
@@ -463,17 +466,18 @@ const onSaveRecord = handleSubmit(async () => {
                 </div>
                 <div class="flex gap-2 items-center justify-between sm:w-max w-full">
                   <span class="relative sm:w-max w-full">
-                    <i class="pi pi-search" />
+                    <i
+                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    />
                     <InputText
                       id="name"
-                      size="small"
-                      class="sm:w-max w-full"
+                      class="sm:w-max w-full px-10 !bg-inherit"
                       :placeholder="$t('Search')"
                       v-model="filters['global'].value"
                     />
                     <i
                       v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer"
+                      class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"
                     />

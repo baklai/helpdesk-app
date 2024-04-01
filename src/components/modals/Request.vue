@@ -306,8 +306,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '800px' }"
-    class=""
+    class="w-[60rem]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -315,24 +314,24 @@ const onSaveClosedRecord = handleSubmit(async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="helpdesk-live-log" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('Help Desk Live Log') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0" v-show="!isClosed">
+            <p class="text-base font-normal line-height-2 text-surface-500" v-show="!isClosed">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Status') }} :
               {{ isClosed ? $t('Request closed') : $t('Request opened') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -341,14 +340,16 @@ const onSaveClosedRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
-      <div class="formgridflex flex-wrap">
-        <div class="col">
-          <div class="">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-row gap-x-4">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="request" class="font-bold">{{ $t('Client request') }}</label>
             <Textarea
               rows="8"
-              cols="10"
               id="request"
               v-bind="request"
               :placeholder="$t('Client request')"
@@ -360,26 +361,27 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText id="reqnum" v-bind="reqnum" :placeholder="$t('Letter number')" />
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
             <span class="relative">
-              <i
-                class="pi pi-search cursor-pointer"
-                v-tooltip.bottom="$t('Find IP Address')"
-                @click.prevent="findOneIPAddress"
-              />
               <InputText
                 id="ipaddress"
                 v-bind="ipaddress"
                 :placeholder="$t('Client IP Address')"
                 :invalid="!!errors?.ipaddress"
+                class="w-full pr-10"
                 @keypress.enter="findOneIPAddress"
                 aria-describedby="ipaddress-help"
+              />
+              <i
+                class="pi pi-search cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
+                v-tooltip.bottom="$t('Find IP Address')"
+                @click.prevent="findOneIPAddress"
               />
             </span>
             <small id="ipaddress-help" class="text-red-500" v-if="errors?.ipaddress">
@@ -387,11 +389,10 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="conclusion" class="font-bold">{{ $t('Conclusion for request') }}</label>
             <Textarea
               rows="5"
-              cols="10"
               aria-describedby="conclusion-help"
               id="conclusion"
               v-bind="conclusion"
@@ -399,23 +400,17 @@ const onSaveClosedRecord = handleSubmit(async () => {
             />
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
-            <Textarea
-              rows="3"
-              cols="10"
-              id="comment"
-              v-bind="comment"
-              :placeholder="$t('Comment')"
-            />
+            <Textarea rows="3" id="comment" v-bind="comment" :placeholder="$t('Comment')" />
           </div>
         </div>
 
-        <div class="col">
-          <div class="">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div class="" id="client-info">
-              <div class="">
+            <div class="flex flex-col gap-2" id="client-info">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="fullname"
                   v-bind="fullname"
@@ -428,7 +423,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="phone"
                   v-bind="phone"
@@ -441,7 +436,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -465,7 +460,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
             <Dropdown
               filter
@@ -488,10 +483,10 @@ const onSaveClosedRecord = handleSubmit(async () => {
             </small>
           </div>
 
-          <div class="">
+          <div class="flex flex-col gap-2">
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="" id="companies">
-              <div class="">
+            <div class="flex flex-col gap-2" id="companies">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -513,7 +508,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -535,7 +530,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
@@ -557,7 +552,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 </small>
               </div>
 
-              <div class="">
+              <div class="flex flex-col gap-2">
                 <Dropdown
                   filter
                   autofocus
