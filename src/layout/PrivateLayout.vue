@@ -83,11 +83,34 @@ watchEffect(() => {
     </div>
   </div>
 
-  <ConfirmDialog :style="{ minWidth: '350px' }">
-    <template #message="slotProps">
-      <div class="flex items-center justify-start">
-        <i class="text-4xl mr-3" :class="slotProps.message.icon" />
-        <span class="font-medium">{{ slotProps.message.message }} </span>
+  <ConfirmDialog class="!w-[30rem]">
+    <template #container="{ message, acceptCallback, rejectCallback }">
+      <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
+        <div
+          class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+        >
+          <i :class="[message?.icon || 'pi pi-question0', 'text-5xl']"></i>
+        </div>
+        <span class="font-bold !text-black dark:!text-white text-2xl block mb-2 mt-4">
+          {{ message.message }}
+        </span>
+        <p class="mb-0 text-surface-500">{{ message.header }}</p>
+        <div class="flex items-center gap-2 mt-4">
+          <Button
+            :label="$t('Yes')"
+            :icon="message.acceptIcon || ''"
+            @click="acceptCallback"
+            class="w-[8rem]"
+          />
+
+          <Button
+            outlined
+            :label="$t('No')"
+            :icon="message.rejectIcon || ''"
+            @click="rejectCallback"
+            class="w-[8rem]"
+          />
+        </div>
       </div>
     </template>
   </ConfirmDialog>
