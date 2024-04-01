@@ -281,98 +281,99 @@ const runTargetScan = handleSubmit(async () => {
         <template #actions> </template>
 
         <template #subheader>
-          <Panel
-            class="border-1 border-solid border-surface-200 dark:border-surface-600 shadow-none"
-            v-show="subheader"
-          >
+          <Panel class="my-4" v-show="subheader">
             <template #header>
-              <div class="flex items-center gap-2">
-                <span class="font-bold">{{ $t('Onmap scanner run') }}</span>
+              <div class="flex items-center">
+                <span class="font-bold uppercase">{{ $t('Onmap scanner run') }}</span>
               </div>
             </template>
 
+            <div class="flex flex-col justify-center gap-4">
+              <div class="flex flex-row gap-4">
+                <div class="flex flex-col md:w-2/5 gap-2">
+                  <label for="target">{{ $t('Target') }}</label>
+                  <InputText
+                    id="target"
+                    class="w-full"
+                    v-bind="target"
+                    :placeholder="$t('Scan target')"
+                    :invalid="!!errors?.target"
+                    aria-describedby="target-help"
+                  />
+                  <small id="target-help" class="text-red-500" v-if="errors?.target">
+                    {{ $t(errors.target) }}
+                  </small>
+                </div>
+
+                <div class="flex flex-col md:w-3/5 gap-2">
+                  <label for="title">{{ $t('Title') }}</label>
+                  <InputText
+                    id="title"
+                    class="w-full"
+                    v-bind="title"
+                    :placeholder="$t('Scan title')"
+                    :invalid="!!errors?.title"
+                    aria-describedby="title-help"
+                  />
+                  <small id="title-help" class="text-red-500" v-if="errors?.title">
+                    {{ $t(errors.title) }}
+                  </small>
+                </div>
+              </div>
+
+              <div class="flex flex-row gap-4">
+                <div class="flex flex-col md:w-2/5 gap-2">
+                  <label for="profile">{{ $t('Profile') }}</label>
+                  <Dropdown
+                    filter
+                    showClear
+                    autofocus
+                    optionLabel="name"
+                    v-bind="profile"
+                    :options="SCAN_PROFILES"
+                    @change="
+                      event => {
+                        setFieldValue('command', event.value.flags.join(' '));
+                      }
+                    "
+                    :filterPlaceholder="$t('Search in list')"
+                    :placeholder="$t('Select scan profile')"
+                    class="w-full"
+                  />
+                </div>
+
+                <div class="flex flex-col md:w-3/5 gap-2">
+                  <label for="command">{{ $t('Command') }}</label>
+                  <InputText
+                    id="command"
+                    class="w-full"
+                    v-bind="command"
+                    :readonly="true"
+                    :placeholder="$t('Scan command')"
+                    :invalid="!!errors?.command"
+                    aria-describedby="command-help"
+                  />
+                  <small id="command-help" class="text-red-500" v-if="errors?.command">
+                    {{ $t(errors.command) }}
+                  </small>
+                </div>
+              </div>
+            </div>
+
             <template #footer>
-              <div class="flex flex-wrap items-center justify-between gap-3 px-2">
+              <div class="flex flex-wrap items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <Button :label="$t('Scan')" class="w-[15rem]" @click="runTargetScan" />
+                  <Button :label="$t('Scan')" class="w-60" @click="runTargetScan" />
                   <Button
-                    :label="$t('Cancel')"
+                    outlined
+                    class="w-40"
                     severity="secondary"
-                    class="w-10rem"
+                    :label="$t('Cancel')"
                     @click="resetForm({ values: {} }, { force: true })"
                   />
                 </div>
-                <span class="p-text-secondary">...</span>
               </div>
             </template>
-
-            <div class="formgrid flex flex-wrapp-2">
-              <div class="flex-shrink-0 p-4 w-full md:w-1/4">
-                <label for="target">{{ $t('Target') }}</label>
-                <InputText
-                  id="target"
-                  class="w-full"
-                  v-bind="target"
-                  :placeholder="$t('Scan target')"
-                  :invalid="!!errors?.target"
-                  aria-describedby="target-help"
-                />
-                <small id="target-help" class="text-red-500" v-if="errors?.target">
-                  {{ $t(errors.target) }}
-                </small>
-              </div>
-
-              <div class="flex-shrink-0 p-4 w-full md:w-3/4">
-                <label for="title">{{ $t('Title') }}</label>
-                <InputText
-                  id="title"
-                  class="w-full"
-                  v-bind="title"
-                  :placeholder="$t('Scan title')"
-                  :invalid="!!errors?.title"
-                  aria-describedby="title-help"
-                />
-                <small id="title-help" class="text-red-500" v-if="errors?.title">
-                  {{ $t(errors.title) }}
-                </small>
-              </div>
-
-              <div class="flex-shrink-0 p-4 w-full md:w-1/4">
-                <label for="profile">{{ $t('Profile') }}</label>
-                <Dropdown
-                  filter
-                  showClear
-                  autofocus
-                  optionLabel="name"
-                  v-bind="profile"
-                  :options="SCAN_PROFILES"
-                  @change="
-                    event => {
-                      setFieldValue('command', event.value.flags.join(' '));
-                    }
-                  "
-                  :filterPlaceholder="$t('Search in list')"
-                  :placeholder="$t('Select scan profile')"
-                  class="w-full"
-                />
-              </div>
-
-              <div class="flex-shrink-0 p-4 w-full md:w-3/4">
-                <label for="command">{{ $t('Command') }}</label>
-                <InputText
-                  id="command"
-                  class="w-full"
-                  v-bind="command"
-                  :readonly="true"
-                  :placeholder="$t('Scan command')"
-                  :invalid="!!errors?.command"
-                  aria-describedby="command-help"
-                />
-                <small id="command-help" class="text-red-500" v-if="errors?.command">
-                  {{ $t(errors.command) }}
-                </small>
-              </div>
-            </div>
           </Panel>
         </template>
       </HDDataTable>
