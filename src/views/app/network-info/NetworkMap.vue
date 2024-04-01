@@ -195,7 +195,7 @@ const OPTIONS = ref({
     }
   },
   edges: {
-    // color: 'var(--text-color);',
+    color: 'rgb(var(--primary-500))',
     smooth: false
   },
 
@@ -280,7 +280,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div id="netmap" class="flex-grow-1 flex items-center justify-center"></div>
+      <div id="netmap" class="flex items-center justify-center w-full h-full"></div>
     </div>
   </div>
 </template>
