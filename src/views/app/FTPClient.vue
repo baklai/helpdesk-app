@@ -464,19 +464,22 @@ onMounted(async () => {
                   </p>
                 </div>
               </div>
+
               <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
                 <div class="flex flex-wrap items-center justify-between">
                   <span class="relative sm:w-max w-full mx-2">
-                    <i class="pi pi-search" />
+                    <i
+                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    />
                     <InputText
                       id="name"
-                      class="sm:w-max w-full"
+                      class="sm:w-max w-full px-10 !bg-inherit"
                       :placeholder="$t('Search')"
                       v-model="filters['global'].value"
                     />
                     <i
                       v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer"
+                      class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"
                     />
@@ -556,16 +559,25 @@ onMounted(async () => {
               </template>
 
               <template #content="{ files, removeFileCallback }">
-                <div v-for="(file, index) of files" :key="file.name + file.type + file.size">
-                  <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
-
-                  <div>
-                    <div class="font-bold">{{ file.name }}</div>
-                    <span>{{ byteToStr(file.size) }}</span>
-                    <Badge :value="$t('Pending')" severity="warning" />
+                <div
+                  v-for="(file, index) of files"
+                  :key="file.name + file.type + file.size"
+                  class="flex flex-wrap items-center justify-between p-4 my-2 border rounded-md border-dashed border-surface-200 dark:border-surface-800"
+                >
+                  <div class="flex flex-wrap items-center">
+                    <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
+                    <div class="flex flex-col">
+                      <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
+                        {{ file.name }}
+                      </h3>
+                      <p class="text-xl font-normal text-surface-500">
+                        <span class="mr-4">{{ byteToStr(file.size) }}</span>
+                        <Tag :value="$t('Pending')" severity="warning" />
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
+                  <div class="flex gap-2 sm:w-max w-full justify-between">
                     <Button
                       text
                       rounded
@@ -585,14 +597,28 @@ onMounted(async () => {
           </template>
 
           <template #loading>
-            <i class="pi pi-spin pi-spinner text-4xl mr-4"></i>
-            <span> {{ $t('Loading records data. Please wait') }}.</span>
+            <i class="pi pi-spin pi-spinner text-3xl mr-4"></i>
+            <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
           </template>
 
           <template #empty>
-            <div v-if="!loading && ftpFiles?.length === 0" class="flex flex-col justify-center z-0">
-              <i class="pi pi-folder-open text-8xl text-surface-500" />
-              <h5>{{ $t('No files found in folder') }}</h5>
+            <div
+              v-if="!loading && ftpFiles?.length === 0"
+              :class="[
+                'absolute',
+                'left-0',
+                'z-20',
+                'flex items-center justify-center',
+                'w-full h-full',
+                'bg-none',
+                'flex items-stretch text-center'
+              ]"
+              style="height: calc(100vh - 34rem)"
+            >
+              <div class="flex flex-col gap-2 m-auto">
+                <i class="pi pi-folder-open text-8xl text-surface-500" />
+                <h5>{{ $t('No files found in folder') }}</h5>
+              </div>
             </div>
           </template>
 
@@ -693,7 +719,7 @@ onMounted(async () => {
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
-                  class="mx-2 text-green-500 h-[2rem] w-8"
+                  class="!text-green-500 h-12 relative items-center inline-flex text-center align-bottom justify-center leading-[normal] px-4 py-3 w-12 p-0 rounded-full text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus:outline-offset-0 focus:ring hover:bg-surface-300/20 focus:ring-primary-400/50 dark:focus:ring-primary-300/50 transition duration-200 ease-in-out cursor-pointer overflow-hidden select-none"
                   v-tooltip.bottom="$t('Download file')"
                   v-if="data.type === 1"
                 >
@@ -706,7 +732,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-copy"
                   iconClass="text-xl"
-                  class="mx-2 text-primary h-[2rem] w-8"
+                  class="!text-gray-500 w-12 h-12"
                   v-tooltip.bottom="$t('Copy file link')"
                   @click="copyLink(data.name)"
                   v-if="data.type === 1"
@@ -718,7 +744,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-file-edit"
                   iconClass="text-xl"
-                  class="mx-2 text-yellow-500 h-[2rem] w-8"
+                  class="!text-yellow-500 w-12 h-12"
                   v-tooltip.bottom="$t('Rename file')"
                   @click="rename(data.name)"
                   v-if="data.type === 1"
@@ -730,7 +756,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-trash"
                   iconClass="text-xl"
-                  class="mx-2 text-red-500 h-[2rem] w-8"
+                  class="!text-red-500 w-12 h-12"
                   v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
                   @click="remove(data.name, data.type)"
                   v-if="data.type === 1"
