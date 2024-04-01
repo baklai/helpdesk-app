@@ -649,7 +649,7 @@ onBeforeUnmount(() => {
                 icon="pi pi-filter-slash"
                 class="text-2xl w-12 h-12"
                 :class="
-                  params?.filters && Object.keys(params.filters).length ? 'text-primary-500' : ''
+                  params?.filters && Object.keys(params.filters).length ? '!text-primary-600' : ''
                 "
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
