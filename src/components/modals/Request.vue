@@ -306,7 +306,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    class="w-[60rem]"
+    class="!w-[60rem]"
     @hide="onCloseModal"
   >
     <template #header>

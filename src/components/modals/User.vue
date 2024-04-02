@@ -292,7 +292,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    class="w-[70rem]"
+    class="!w-[70rem]"
     @hide="onCloseModal"
   >
     <template #header>

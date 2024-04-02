@@ -164,7 +164,7 @@ onMounted(() => {});
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    class="w-[80rem]"
+    class="!w-[80rem]"
     @hide="onCloseModal"
   >
     <template #header>

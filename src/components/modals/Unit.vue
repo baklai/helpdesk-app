@@ -200,7 +200,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     draggable
     v-model:visible="visible"
-    class="w-[40rem]"
+    class="!w-[40rem]"
     @show="onShowModal"
     @hide="onCloseModal"
   >

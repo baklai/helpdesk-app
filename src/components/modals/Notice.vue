@@ -80,7 +80,7 @@ const onCloseModal = () => {
 </script>
 
 <template>
-  <Dialog closable draggable v-model:visible="visible" class="w-[40rem]" @hide="onCloseModal">
+  <Dialog closable draggable v-model:visible="visible" class="!w-[40rem]" @hide="onCloseModal">
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">

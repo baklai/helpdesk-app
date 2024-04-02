@@ -60,7 +60,7 @@ onMounted(async () => {
   <div>
     <ModalRecord ref="refModal" @close="async () => await onRecords()" />
 
-    <OverlayPanel ref="refMenu" appendTo="body" class="w-[40rem]">
+    <OverlayPanel ref="refMenu" appendTo="body" class="w-[35rem]">
       <div class="flex flex-col w-full">
         <div class="flex justify-between px-2 pt-2">
           <div class="flex items-center justify-center">
