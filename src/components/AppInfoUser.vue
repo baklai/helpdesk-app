@@ -33,8 +33,8 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     dismissableMask
     :draggable="false"
     :visible="visible"
+    class="w-4/5 md:max-w-[40rem]"
     @update:visible="$emit('update:visible', !visible)"
-    :style="{ maxWidth: '500px' }"
   >
     <template #header>
       <div class="flex items-center">
@@ -54,7 +54,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
 
     <div class="flex items-center">
       <div class="flex flex-wrap">
-        <div class="flex-shrink-0 p-4 w-full xl:w-2/4 text-center">
+        <div class="flex-shrink-0 p-4 w-full md:w-2/5 text-center">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
@@ -69,7 +69,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
+        <div class="flex-shrink-0 p-4 w-full md:w-3/5">
           <div class="mb-0">
             <p class="font-bold text-lg">
               {{ $t('Login') }} :
@@ -102,51 +102,49 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="col">
-          <div class="">
-            <DataTable
-              rowHover
-              scrollable
-              scrollHeight="flex"
-              responsiveLayout="scroll"
-              v-model:value="scopes"
-              class="min-w-full overflow-x-auto h-20rem"
-            >
-              <template #empty>
-                <div class="text-center">
-                  <h5>{{ $t('No scopes found') }}</h5>
-                </div>
+        <div class="flex w-full max-h-[25rem]">
+          <DataTable
+            rowHover
+            scrollable
+            scrollHeight="flex"
+            responsiveLayout="scroll"
+            v-model:value="scopes"
+            class="w-full overflow-x-auto"
+          >
+            <template #empty>
+              <div class="text-center">
+                <h5>{{ $t('No scopes found') }}</h5>
+              </div>
+            </template>
+
+            <Column frozen field="scope" :header="$t('Scope')" class="font-bold">
+              <template #body="slotProps">
+                {{ slotProps.data.comment }}
               </template>
+            </Column>
 
-              <Column frozen field="scope" :header="$t('Scope')" class="font-bold">
-                <template #body="slotProps">
-                  {{ slotProps.data.comment }}
-                </template>
-              </Column>
-
-              <Column
-                v-for="col of columns"
-                :key="col.field"
-                :field="col.field"
-                :header="col.header"
-                headerClass="text-center"
-                class="text-center"
-              >
-                <template #body="{ data, field }">
-                  <i
-                    v-if="data[field] !== undefined"
-                    class="pi"
-                    :class="
-                      data[field]
-                        ? 'pi-check-circle text-green-500'
-                        : 'pi-minus-circle text-surface-500'
-                    "
-                  />
-                  <span v-else class="text-surface-500">-</span>
-                </template>
-              </Column>
-            </DataTable>
-          </div>
+            <Column
+              v-for="col of columns"
+              :key="col.field"
+              :field="col.field"
+              :header="col.header"
+              headerClass="text-center"
+              class="text-center"
+            >
+              <template #body="{ data, field }">
+                <i
+                  v-if="data[field] !== undefined"
+                  class="pi"
+                  :class="
+                    data[field]
+                      ? 'pi-check-circle text-green-500'
+                      : 'pi-minus-circle text-surface-500'
+                  "
+                />
+                <span v-else class="text-surface-500">-</span>
+              </template>
+            </Column>
+          </DataTable>
         </div>
       </div>
     </div>
