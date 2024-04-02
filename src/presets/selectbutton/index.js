@@ -1,12 +1,15 @@
 export default {
   root: ({ props }) => ({
-    class: [{ 'opacity-60 select-none pointer-events-none cursor-default': props.disabled }]
+    class: ['flex', { 'opacity-60 select-none pointer-events-none cursor-default': props.disabled }]
   }),
   button: ({ context, props }) => ({
     class: [
       'relative',
       // Font
       'leading-none',
+
+      // Size
+      'basis-1/2',
 
       // Flex Alignment
       'inline-flex items-center align-bottom text-center',
@@ -45,6 +48,6 @@ export default {
     ]
   }),
   label: {
-    class: 'font-bold'
+    class: ['font-bold', 'm-auto']
   }
 };

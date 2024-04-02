@@ -42,35 +42,6 @@ const surfaceColors = ref([]);
         <div class="flex flex-1 flex-col justify-center items-center">
           <Knob v-model="$config.scale" :size="100" :step="1" :min="10" :max="18" />
         </div>
-
-        <!-- <div class="flex flex-1 items-center justify-between">
-          <Button
-            text
-            rounded
-            icon="pi pi-minus"
-            severity="secondary"
-            @click="decrementScale"
-            class="mr-2"
-            :disabled="$config.scale === scales[0]"
-          />
-          <div class="flex gap-2 items-center">
-            <i
-              class="pi pi-circle-fill"
-              v-for="item in scales"
-              :key="item"
-              :class="{ 'text-primary-500': item === $config.scale }"
-            ></i>
-          </div>
-          <Button
-            text
-            rounded
-            icon="pi pi-plus"
-            severity="secondary"
-            @click="incrementScale"
-            class="ml-2"
-            :disabled="$config.scale === scales[scales.length - 1]"
-          />
-        </div> -->
       </div>
 
       <Divider />
@@ -237,7 +208,7 @@ const surfaceColors = ref([]);
         <div class="flex-1">
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu Type') }}</h5>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 justify-center">
           <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
         </div>
       </div>
@@ -248,7 +219,7 @@ const surfaceColors = ref([]);
         <div class="flex-1">
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Input Style') }}</h5>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 justify-center">
           <SelectButton v-model="$config.inputStyle" :options="['outlined', 'filled']" />
         </div>
       </div>
@@ -259,7 +230,7 @@ const surfaceColors = ref([]);
         <div class="flex-1">
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Themes style') }}</h5>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 justify-center">
           <SelectButton v-model="$config.theme" :options="['light', 'dark']" />
         </div>
       </div>
