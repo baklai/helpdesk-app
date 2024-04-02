@@ -32,12 +32,12 @@ const surfaceColors = ref([]);
       </div>
     </template>
 
-    <Divider />
+    <Divider class="!m-0 !mb-8" />
 
     <div class="px-4">
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Scale') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Display scale') }}</h5>
         </div>
         <div class="flex flex-1 flex-col justify-center items-center">
           <Knob v-model="$config.scale" :size="100" :step="1" :min="10" :max="18" />
@@ -48,7 +48,7 @@ const surfaceColors = ref([]);
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Primary Colors') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Primary colors') }}</h5>
         </div>
         <div class="flex flex-1 items-center justify-between">
           <!-- <div class="flex gap-2 items-center">
@@ -148,7 +148,7 @@ const surfaceColors = ref([]);
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Surface Colors') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Surface colors') }}</h5>
         </div>
         <div class="flex-1">
           <div class="self-stretch justify-center items-center gap-2 inline-flex">
@@ -194,7 +194,7 @@ const surfaceColors = ref([]);
       <div class="flex my-3">
         <div class="flex-1">
           <h5 class="flex items-center h-full text-lg font-semibold">
-            {{ $t('Ripple Effect') }}
+            {{ $t('Ripple effect') }}
           </h5>
         </div>
         <div class="flex-1">
@@ -206,7 +206,7 @@ const surfaceColors = ref([]);
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu Type') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu type') }}</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
@@ -217,7 +217,7 @@ const surfaceColors = ref([]);
 
       <div class="flex my-3">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Input Style') }}</h5>
+          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Input style') }}</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.inputStyle" :options="['outlined', 'filled']" />
@@ -237,7 +237,7 @@ const surfaceColors = ref([]);
 
       <Divider />
 
-      <Button :label="$t('Set default options')" class="w-full" @click="$config.setDefault" />
+      <Button :label="$t('Set default options')" class="w-full my-6" @click="$config.setDefault" />
     </div>
   </Sidebar>
 </template>
