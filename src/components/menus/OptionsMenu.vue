@@ -234,7 +234,7 @@ const getVNClink = async value => {
     </template>
   </Toast>
 
-  <Menu ref="refMenu" popup :model="options" :class="hostkey ? 'pt-2 pb-0' : 'py-2'">
+  <Menu ref="refMenu" popup :model="options" :class="[hostkey ? 'pt-2 pb-0' : 'py-2']">
     <template #item="{ label, item, props }">
       <a :href="item.url" v-bind="props.action">
         <span v-bind="props.icon" />
@@ -242,7 +242,7 @@ const getVNClink = async value => {
       </a>
     </template>
     <template #end v-if="hostkey && record[hostkey]">
-      <div class="flex justify-center surface-ground rounded-bottom py-2">
+      <div class="flex justify-center bg-surface-300 dark:bg-surface-900 rounded-b py-2">
         <span class="font-bold"> {{ record[hostkey] }} </span>
       </div>
     </template>

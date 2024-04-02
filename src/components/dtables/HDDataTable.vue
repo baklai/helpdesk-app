@@ -602,7 +602,7 @@ onBeforeUnmount(() => {
       :currentPageReportTemplate="
         $t('Showing records', { first: '{first}', last: '{last}', totalRecords: '{totalRecords}' })
       "
-      class="min-w-full overflow-x-auto"
+      class="min-w-full overflow-x-auto text-base"
       :paginatorTemplate="screenSizeComputed"
       @state-restore="onStorage"
       @filter="onFilter"
