@@ -418,10 +418,13 @@ const onCountPercentWidth = (count, allCount) => {
                   </h5>
                 </div>
                 <div class="flex flex-wrap items-center justify-between">
-                  <span class="">
-                    <i class="pi pi-search" />
+                  <span class="relative">
+                    <i
+                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    />
                     <InputText
                       id="name"
+                      class="sm:w-max w-full pl-10 !bg-inherit"
                       v-model="filters['global'].value"
                       :placeholder="$t('Search')"
                     />
