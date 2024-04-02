@@ -13,7 +13,6 @@ export const useConfig = defineStore('config', () => {
   const activeMenuItem = ref(null);
   const scale = ref(useLocalStorage('app-scale', 12));
   const ripple = ref(useLocalStorage('app-ripple', true));
-  const inputStyle = ref(useLocalStorage('app-input-style', 'outlined'));
   const menuMode = ref(useLocalStorage('app-menu-mode', 'static'));
   const theme = ref(useLocalStorage('app-theme', 'light'));
   const language = ref(useLocalStorage('app-lang', navigator.language || fallbackLocale));
@@ -79,15 +78,13 @@ export const useConfig = defineStore('config', () => {
 
   function setDefault() {
     scale.value = 12;
-    ripple.value = true;
-    inputStyle.value = 'outlined';
+    ripple.value = false;
     menuMode.value = 'static';
     theme.value = 'light';
   }
 
   return {
     ripple,
-    inputStyle,
     menuMode,
     theme,
     scale,

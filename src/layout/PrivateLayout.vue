@@ -61,7 +61,6 @@ watchEffect(() => {
       },
       { 'layout-overlay-active': $config.overlayMenuActive },
       { 'layout-mobile-active': $config.staticMenuMobileActive },
-      { 'p-input-filled': $config.inputStyle === 'filled' },
       { 'p-ripple-disabled': !$config.ripple }
     ]"
   >
