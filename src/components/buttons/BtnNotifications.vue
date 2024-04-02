@@ -139,27 +139,19 @@ onMounted(async () => {
       </div>
     </OverlayPanel>
 
-    <i v-badge.success="records?.length" class="mx-2" v-if="records?.length">
-      <Button
-        text
-        plain
-        rounded
-        icon="pi pi-bell"
-        class="text-2xl w-12 h-12"
-        v-tooltip.bottom="$t('Notifications')"
-        @click="event => refMenu.toggle(event)"
-      />
-    </i>
-
-    <Button
-      text
-      plain
-      rounded
-      icon="pi pi-bell"
-      class="text-2xl w-12 h-12"
-      v-tooltip.bottom="$t('Notifications')"
+    <button
+      type="button"
       @click="event => refMenu.toggle(event)"
-      v-else
-    />
+      v-tooltip.bottom="$t('Notifications')"
+      class="relative inline-flex items-center p-3 text-sm font-medium text-center text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 rounded-full hover:bg-surface-300/20 focus:ring-4 focus:outline-none focus:ring-primary-400/50 dark:focus:ring-primary-300/50 select-none"
+    >
+      <i class="pi pi-bell text-2xl"></i>
+      <div
+        v-if="records?.length"
+        class="absolute inline-flex items-center justify-center w-6 h-6 text-sm font-bold text-white dark:text-surface-900 bg-primary-500 rounded-full -top-1 -end-1"
+      >
+        {{ records?.length }}
+      </div>
+    </button>
   </div>
 </template>

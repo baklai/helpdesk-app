@@ -15,6 +15,7 @@ import AppIcons from '@/components/AppIcons.vue';
 
 import PrimeVue from 'primevue/config';
 import Avatar from 'primevue/avatar';
+import Badge from 'primevue/badge';
 import BadgeDirective from 'primevue/badgedirective';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
@@ -81,6 +82,7 @@ app.component('AppIcons', AppIcons);
 app.component('Avatar', Avatar);
 app.component('Button', Button);
 app.component('Card', Card);
+app.component('Badge', Badge);
 app.component('Checkbox', Checkbox);
 app.component('TriStateCheckbox', TriStateCheckbox);
 app.component('Chip', Chip);
