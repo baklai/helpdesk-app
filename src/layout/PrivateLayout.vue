@@ -88,7 +88,7 @@ watchEffect(() => {
         <div
           class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
         >
-          <i :class="[message?.icon || 'pi pi-question0', 'text-5xl']"></i>
+          <i :class="[message?.icon || 'pi pi-question', 'text-5xl']"></i>
         </div>
         <span class="font-bold !text-black dark:!text-white text-2xl block mb-2 mt-4">
           {{ message.message }}

@@ -211,7 +211,7 @@ const confirmDeleteAll = () => {
   confirm.require({
     message: t('Do you want to delete all records?'),
     header: t('HD Confirm delete records'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
     rejectIcon: 'pi pi-times',
