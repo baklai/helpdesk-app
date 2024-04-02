@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import HDDataTable from '@/components/dtables/HDDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Channel.vue';
 import SidebarRecord from '@/components/sidebars/Channel.vue';

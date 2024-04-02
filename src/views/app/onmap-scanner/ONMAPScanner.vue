@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import Panel from 'primevue/panel';
 
-import HDDataTable from '@/components/dtables/HDDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/ONMAP.vue';
 import SidebarRecord from '@/components/sidebars/ONMAP.vue';

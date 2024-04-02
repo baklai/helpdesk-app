@@ -4,7 +4,7 @@ import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import HDDataTable from '@/components/dtables/HDDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
