@@ -1,7 +1,7 @@
 .layout-topbar {
   height: 5rem;
   z-index: 997;
-  transition: left $transitionDuration;
+  // transition: left $transitionDuration;
   display: flex;
   padding: 0 2rem;
   align-items: center;
@@ -16,7 +16,7 @@
     width: 3rem;
     height: 3rem;
     cursor: pointer;
-    transition: background-color $transitionDuration;
+    // transition: background-color $transitionDuration;
 
     // &:hover {
     //   color: var(--surface-900);
