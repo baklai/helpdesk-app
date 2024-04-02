@@ -3,6 +3,7 @@ import html2pdf from 'html2pdf.js';
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import { dateTimeToStr, unixDateTimeToStr } from '@/service/DataFilters';
 
@@ -10,6 +11,8 @@ import { useOnmap } from '@/stores/api/onmaps';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
+
 const Onmap = useOnmap();
 
 const emits = defineEmits(['close']);

@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
@@ -13,6 +14,7 @@ import { useUser } from '@/stores/api/users';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
 
 const { findOne, createOne, updateOne, removeOne } = useUser();
 const { scopeLength, getDefaultScope, getSelectScope } = useScope();

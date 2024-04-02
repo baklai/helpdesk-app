@@ -3,6 +3,7 @@ import html2pdf from 'html2pdf.js';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 
@@ -13,6 +14,8 @@ import { useFilter } from '@/stores/api/filters';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
+
 const Inspector = useInspector();
 const Filter = useFilter();
 
