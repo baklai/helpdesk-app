@@ -81,6 +81,8 @@ export const useConfig = defineStore('config', () => {
     ripple.value = false;
     menuMode.value = 'static';
     theme.value = 'light';
+
+    document.documentElement.style = '';
   }
 
   return {
