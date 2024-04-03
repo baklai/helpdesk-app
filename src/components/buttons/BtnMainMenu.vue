@@ -1,20 +1,13 @@
 <script setup>
-import { ref, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 
-const SidebarMenu = defineAsyncComponent(() => import('@/components/partials/SidebarMenu.vue'));
-const BtnAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAuth.vue'));
-const BtnToggleTheme = defineAsyncComponent(() =>
-  import('@/components/buttons/BtnToggleTheme.vue')
-);
-const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
-
-const BtnFTPClient = defineAsyncComponent(() => import('@/components/buttons/BtnFTPClient.vue'));
-
-const BtnNotifications = defineAsyncComponent(() =>
-  import('@/components/buttons/BtnNotifications.vue')
-);
-
-const BtnFullScreen = defineAsyncComponent(() => import('@/components/buttons/BtnFullScreen.vue'));
+import SidebarMenu from '@/components/partials/SidebarMenu.vue';
+import BtnAuth from '@/components/buttons/BtnAuth.vue';
+import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
+import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+import BtnFTPClient from '@/components/buttons/BtnFTPClient.vue';
+import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
+import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
 const refMenu = ref();
 
