@@ -10,25 +10,27 @@ export const useConfig = defineStore('config', () => {
 
   const { locale, fallbackLocale, availableLocales, tm } = useI18n();
 
-  const activeMenuItem = ref(null);
   const scale = ref(useLocalStorage('app-scale', 12));
-  const ripple = ref(useLocalStorage('app-ripple', true));
+  const ripple = ref(useLocalStorage('app-ripple', false));
   const menuMode = ref(useLocalStorage('app-menu-mode', 'static'));
   const theme = ref(useLocalStorage('app-theme', 'light'));
   const language = ref(useLocalStorage('app-lang', navigator.language || fallbackLocale));
 
-  const staticMenuDesktopInactive = ref(true);
-  const overlayMenuActive = ref(false);
-  const profileSidebarVisible = ref(false);
-  const configSidebarVisible = ref(false);
-  const staticMenuMobileActive = ref(false);
-  const menuHoverActive = ref(false);
+  const activeMenuItem = ref(null);
 
-  watch(scale, applyScale);
-  watch(menuMode, onMenuToggle);
+  // const staticMenuDesktopInactive = ref(true);
+  // const overlayMenuActive = ref(false);
+  // const profileSidebarVisible = ref(false);
+  // const configSidebarVisible = ref(false);
+  // const staticMenuMobileActive = ref(false);
+  // const menuHoverActive = ref(false);
+
+  const sidebarMenu = ref(true);
+
+  watch(scale, toggleScale);
+  watch(menuMode, toggleSidebarMenu);
   watch(theme, toggleTheme);
-
-  const isSidebarActive = computed(() => overlayMenuActive.value || staticMenuMobileActive.value);
+  watch(ripple, toggleRipple);
 
   const isDarkTheme = computed(() => theme.value === 'dark');
 
@@ -36,24 +38,29 @@ export const useConfig = defineStore('config', () => {
     activeMenuItem.value = item.value || item;
   }
 
-  function onMenuToggle() {
-    if (menuMode.value === 'overlay') {
-      overlayMenuActive.value = !overlayMenuActive.value;
-    }
-    if (window.innerWidth > 991) {
-      staticMenuDesktopInactive.value = !staticMenuDesktopInactive.value;
-    } else {
-      staticMenuMobileActive.value = !staticMenuMobileActive.value;
-    }
+  function toggleSidebarMenu() {
+    sidebarMenu.value = !sidebarMenu.value;
+
+    // if (menuMode.value === 'overlay') {
+    //   overlayMenuActive.value = !overlayMenuActive.value;
+    // }
+    // if (window.innerWidth > 991) {
+    //   staticMenuDesktopInactive.value = !staticMenuDesktopInactive.value;
+    // } else {
+    //   staticMenuMobileActive.value = !staticMenuMobileActive.value;
+    // }
   }
 
-  function applyScale() {
-    document.documentElement.style.fontSize = scale.value + 'px';
+  function toggleScale() {
+    document.documentElement.style.fontSize = `${scale.value}px`;
   }
 
   function toggleTheme() {
-    const root = document.getElementsByTagName('html')[0];
-    root.className = theme.value;
+    document.documentElement.className = theme.value;
+  }
+
+  function toggleRipple() {
+    primevue.config.ripple = ripple.value;
   }
 
   function toggleLang(value) {
@@ -76,7 +83,15 @@ export const useConfig = defineStore('config', () => {
     primevue.config.locale = tm('primevue');
   }
 
-  function setDefault() {
+  function initAppConfigs() {
+    toggleScale();
+    toggleSidebarMenu();
+    toggleTheme();
+    toggleRipple();
+    toggleLang();
+  }
+
+  function setDefaultConfigs() {
     scale.value = 12;
     ripple.value = false;
     menuMode.value = 'static';
@@ -86,24 +101,20 @@ export const useConfig = defineStore('config', () => {
   }
 
   return {
-    ripple,
-    menuMode,
     theme,
     scale,
+    ripple,
+    menuMode,
+    sidebarMenu,
     activeMenuItem,
-    staticMenuDesktopInactive,
-    overlayMenuActive,
-    profileSidebarVisible,
-    configSidebarVisible,
-    staticMenuMobileActive,
-    menuHoverActive,
-    applyScale,
-    toggleTheme,
-    setActiveMenuItem,
-    onMenuToggle,
-    isSidebarActive,
     isDarkTheme,
     toggleLang,
-    setDefault
+    toggleScale,
+    toggleTheme,
+    toggleRipple,
+    toggleSidebarMenu,
+    setActiveMenuItem,
+    initAppConfigs,
+    setDefaultConfigs
   };
 });

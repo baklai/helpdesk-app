@@ -24,7 +24,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const IPAddress = useIPAddress();
-const Company = useСompany();
+const Сompany = useСompany();
 const Branch = useBranch();
 const Department = useDepartment();
 const Enterprise = useEnterprise();

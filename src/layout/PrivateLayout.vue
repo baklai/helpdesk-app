@@ -1,6 +1,4 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 
@@ -8,74 +6,92 @@ import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
 
-const outsideClickListener = ref(null);
-
-const bindOutsideClickListener = () => {
-  if (!outsideClickListener.value) {
-    outsideClickListener.value = event => {
-      if (isOutsideClicked(event)) {
-        $config.overlayMenuActive = false;
-        $config.staticMenuMobileActive = false;
-        $config.menuHoverActive = false;
-      }
-    };
-    document.addEventListener('click', outsideClickListener.value);
-  }
-};
-
-const unbindOutsideClickListener = () => {
-  if (outsideClickListener.value) {
-    document.removeEventListener('click', outsideClickListener);
-    outsideClickListener.value = null;
-  }
-};
-
-const isOutsideClicked = event => {
-  const sidebarEl = document.querySelector('.layout-sidebar');
-  const topbarEl = document.querySelector('.layout-menu-button');
-  return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  );
-};
-
-watchEffect(() => {
-  if ($config.isSidebarActive) {
-    bindOutsideClickListener();
-  } else {
-    unbindOutsideClickListener();
-  }
-});
+// $config.overlayMenuActive = false;
+// $config.staticMenuMobileActive = false;
+// $config.menuHoverActive = false;
 </script>
 
 <template>
   <div
-    class="layout-wrapper min-h-screen bg-surface-0 dark:bg-surface-800"
     :class="[
-      { 'layout-overlay': $config.menuMode === 'overlay' },
-      { 'layout-static': $config.menuMode === 'static' },
-      {
-        'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
-      },
-      { 'layout-overlay-active': $config.overlayMenuActive },
-      { 'layout-mobile-active': $config.staticMenuMobileActive },
-      { 'p-ripple-disabled': !$config.ripple }
+      'min-h-screen bg-surface-0 dark:bg-surface-800'
+
+      // { 'layout-overlay': $config.menuMode === 'overlay' },
+      // { 'layout-static': $config.menuMode === 'static' },
+      // {
+      //   'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+      // },
+      // { 'layout-overlay-active': $config.overlayMenuActive },
+      // { 'layout-mobile-active': $config.staticMenuMobileActive },
     ]"
   >
     <div
-      class="layout-sidebar text-surface-900 dark:text-surface-300 bg-surface-100 dark:bg-surface-900"
+      :class="[
+        'z-50',
+        'fixed',
+        'left-0 inset-y-0',
+        'flex justify-start items-center',
+        'h-screen w-screen md:w-[25rem]',
+
+        '-translate-x-full md:translate-x-0',
+
+        $config.sidebarMenu ? '!-translate-x-full' : 'translate-x-0',
+
+        'transition-all duration-200',
+
+        'bg-transparent backdrop-blur-sm md:backdrop-blur-none',
+
+        // 'bg-transparent sm:bg-black/50 backdrop-blur-none sm:backdrop-blur-sm',
+
+        // 'sm:!w-[25rem] sm:!fixed',
+
+        // // 'z-40',
+        // 'absolute',
+        // 'left-0 top-0',
+        // 'py-2 px-6',
+        // 'h-screen w-[25rem]',
+
+        // 'translate-x-0',
+        // 'sm:-translate-x-full',
+        // { fixed: $config.menuMode === 'static' },
+        // {
+        //   '-translate-x-full': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+        // },
+        // 'l-0 t-0 h-screen -translate-x-full',
+        'select-none',
+        // 'overflow-y-auto',
+        // 'transition-left duration-200',
+        'text-surface-900 dark:text-surface-300'
+        // 'bg-surface-100 dark:bg-surface-900'
+      ]"
+      @click.self="$config.toggleSidebarMenu"
     >
       <AppSidebar />
     </div>
 
     <div
-      class="layout-main-container flex flex-col min-h-screen justify-between transition-margin duration-200 text-surface-900 dark:text-primary-50 bg-surface-0 dark:bg-surface-800"
+      :class="[
+        'min-h-screen',
+        'ml-0 md:ml-[25rem]',
+
+        {
+          '!ml-0': $config.sidebarMenu
+        },
+        // {
+        //   'ml-0': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+        // },
+        // { 'ml-[25rem]': $config.menuMode === 'static' && !$config.staticMenuDesktopInactive },
+
+        'flex flex-col justify-between',
+        'transition-margin duration-200',
+        'text-surface-900 dark:text-primary-50',
+        'bg-surface-0 dark:bg-surface-800'
+      ]"
     >
       <AppTopbar />
-      <div class="layout-main flex-auto px-8 overflow-auto">
-        <div class="flex flex-wrap m-0" style="height: calc(100vh - 9rem)">
+
+      <div class="flex-auto px-8 overflow-auto">
+        <div class="flex flex-wrap z-0" style="height: calc(100vh - 9rem)">
           <RouterView />
         </div>
       </div>

@@ -56,9 +56,9 @@ const itemClick = (event, item) => {
     return;
   }
 
-  if ((item.to || item.url) && ($config.staticMenuMobileActive || $config.overlayMenuActive)) {
-    $config.onMenuToggle();
-  }
+  // if ((item.to || item.url) && ($config.staticMenuMobileActive || $config.overlayMenuActive)) {
+  //   $config.toggleSidebarMenu();
+  // }
 
   if (item.command) {
     item.command({ originalEvent: event, item: item });

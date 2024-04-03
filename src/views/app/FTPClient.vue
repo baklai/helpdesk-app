@@ -9,7 +9,6 @@ import { Clipboard } from 'v-clipboard';
 import ContextMenu from 'primevue/contextmenu';
 import Breadcrumb from 'primevue/breadcrumb';
 import FileUpload from 'primevue/fileupload';
-import Badge from 'primevue/badge';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 

@@ -10,7 +10,6 @@ defineEmits(['update:visible']);
 const $config = useConfig();
 
 const primaryColor = ref([]);
-
 const surfaceColor = ref([]);
 
 const primaryColors = ref([
@@ -476,7 +475,11 @@ watchEffect(() => {
 
       <Divider />
 
-      <Button :label="$t('Set default options')" class="w-full my-6" @click="$config.setDefault" />
+      <Button
+        :label="$t('Set default options')"
+        class="w-full my-6"
+        @click="$config.setDefaultConfigs"
+      />
     </div>
   </Sidebar>
 </template>

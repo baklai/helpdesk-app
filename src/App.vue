@@ -5,13 +5,10 @@ import BtnConfig from '@/components/buttons/BtnConfig.vue';
 
 import { useConfig } from '@/stores/config';
 
-const $config = useConfig();
+const { initAppConfigs } = useConfig();
 
 onMounted(() => {
-  $config.applyScale();
-  $config.onMenuToggle();
-  $config.toggleTheme();
-  $config.toggleLang();
+  initAppConfigs();
 });
 </script>
 
