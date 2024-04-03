@@ -24,7 +24,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const IPAddress = useIPAddress();
-const Сompany = useСompany();
+const Company = useСompany();
 const Branch = useBranch();
 const Department = useDepartment();
 const Enterprise = useEnterprise();
@@ -428,6 +428,7 @@ const onCloseModal = () => {
                 :invalid="!!errors?.unit"
                 aria-describedby="unit-help"
                 class="w-full"
+                @before-show="async () => (units = await Unit.findAll({}))"
               />
 
               <BtnDBTable table="unit" />
@@ -457,6 +458,7 @@ const onCloseModal = () => {
                 :invalid="!!errors?.location"
                 aria-describedby="location-help"
                 class="w-full"
+                @before-show="async () => (locations = await Location.findAll({}))"
               />
 
               <BtnDBTable table="location" />
@@ -580,6 +582,7 @@ const onCloseModal = () => {
                     :invalid="!!errors?.company"
                     aria-describedby="company-help"
                     class="w-full"
+                    @before-show="async () => (companies = await Company.findAll({}))"
                   />
 
                   <BtnDBTable table="company" />
@@ -608,6 +611,7 @@ const onCloseModal = () => {
                     :invalid="!!errors?.branch"
                     aria-describedby="branch-help"
                     class="w-full"
+                    @before-show="async () => (branches = await Branch.findAll({}))"
                   />
 
                   <BtnDBTable table="branch" />
@@ -636,6 +640,7 @@ const onCloseModal = () => {
                     :invalid="!!errors?.enterprise"
                     aria-describedby="enterprise-help"
                     class="w-full"
+                    @before-show="async () => (enterprises = await Enterprise.findAll({}))"
                   />
 
                   <BtnDBTable table="enterprise" />
@@ -664,6 +669,7 @@ const onCloseModal = () => {
                     :invalid="!!errors?.department"
                     aria-describedby="department-help"
                     class="w-full"
+                    @before-show="async () => (departments = await Department.findAll({}))"
                   />
 
                   <BtnDBTable table="department" />
@@ -723,6 +729,7 @@ const onCloseModal = () => {
                     :invalid="!!errors?.position"
                     aria-describedby="position-help"
                     class="w-full"
+                    @before-show="async () => (positions = await Position.findAll({}))"
                   />
 
                   <BtnDBTable table="position" />

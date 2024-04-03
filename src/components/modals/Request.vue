@@ -456,6 +456,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                     :invalid="!!errors?.position"
                     aria-describedby="position-help"
                     class="w-full"
+                    @before-show="async () => (positions = await Position.findAll({}))"
                   />
 
                   <BtnDBTable table="position" />
@@ -487,6 +488,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 :invalid="!!errors?.location"
                 aria-describedby="location-help"
                 class="w-full"
+                @before-show="async () => (locations = await Location.findAll({}))"
               />
 
               <BtnDBTable table="location" />
@@ -518,6 +520,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                     :invalid="!!errors?.company"
                     aria-describedby="company-help"
                     class="w-full"
+                    @before-show="async () => (companies = await Company.findAll({}))"
                   />
 
                   <BtnDBTable table="company" />
@@ -546,6 +549,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                     :invalid="!!errors?.branch"
                     aria-describedby="branch-help"
                     class="w-full"
+                    @before-show="async () => (branches = await Branch.findAll({}))"
                   />
 
                   <BtnDBTable table="branch" />
@@ -574,6 +578,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                     :invalid="!!errors?.enterprise"
                     aria-describedby="enterprise-help"
                     class="w-full"
+                    @before-show="async () => (enterprises = await Enterprise.findAll({}))"
                   />
 
                   <BtnDBTable table="enterprise" />
@@ -602,6 +607,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
                     :invalid="!!errors?.department"
                     aria-describedby="department-help"
                     class="w-full"
+                    @before-show="async () => (departments = await Department.findAll({}))"
                   />
 
                   <BtnDBTable table="department" />
