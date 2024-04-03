@@ -6,6 +6,8 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
+import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
+
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
 import { useBranch } from '@/stores/api/branches';
@@ -409,22 +411,28 @@ const onCloseModal = () => {
 
           <div class="flex flex-col gap-2">
             <label for="unit" class="font-bold">{{ $t('Unit') }}</label>
-            <Dropdown
-              filter
-              autofocus
-              showClear
-              resetFilterOnHide
-              dataKey="id"
-              optionValue="id"
-              optionLabel="name"
-              inputId="unit"
-              v-bind="unit"
-              :options="units"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client unit')"
-              :invalid="!!errors?.unit"
-              aria-describedby="unit-help"
-            />
+            <div class="flex flex-row w-full gap-2">
+              <Dropdown
+                filter
+                autofocus
+                showClear
+                resetFilterOnHide
+                dataKey="id"
+                optionValue="id"
+                optionLabel="name"
+                inputId="unit"
+                v-bind="unit"
+                :options="units"
+                :filterPlaceholder="$t('Search')"
+                :placeholder="$t('Client unit')"
+                :invalid="!!errors?.unit"
+                aria-describedby="unit-help"
+                class="w-full"
+              />
+
+              <BtnDBTable table="unit" />
+            </div>
+
             <small id="unit-help" class="text-red-500" v-if="errors?.unit">
               {{ $t(errors.unit) }}
             </small>
@@ -432,22 +440,28 @@ const onCloseModal = () => {
 
           <div class="flex flex-col gap-2">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
-            <Dropdown
-              filter
-              autofocus
-              showClear
-              resetFilterOnHide
-              dataKey="id"
-              optionValue="id"
-              optionLabel="name"
-              inputId="location"
-              v-bind="location"
-              :options="locations"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client location')"
-              :invalid="!!errors?.location"
-              aria-describedby="location-help"
-            />
+            <div class="flex flex-row w-full gap-2">
+              <Dropdown
+                filter
+                autofocus
+                showClear
+                resetFilterOnHide
+                dataKey="id"
+                optionValue="id"
+                optionLabel="name"
+                inputId="location"
+                v-bind="location"
+                :options="locations"
+                :filterPlaceholder="$t('Search')"
+                :placeholder="$t('Client location')"
+                :invalid="!!errors?.location"
+                aria-describedby="location-help"
+                class="w-full"
+              />
+
+              <BtnDBTable table="location" />
+            </div>
+
             <small id="location-help" class="text-red-500" v-if="errors?.location">
               {{ $t(errors.location) }}
             </small>
@@ -549,88 +563,112 @@ const onCloseModal = () => {
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
             <div class="flex flex-col gap-2" id="companies">
               <div class="flex flex-col gap-2">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="company"
-                  v-bind="company"
-                  :options="companies"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client company')"
-                  :invalid="!!errors?.company"
-                  aria-describedby="company-help"
-                />
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="company"
+                    v-bind="company"
+                    :options="companies"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client company')"
+                    :invalid="!!errors?.company"
+                    aria-describedby="company-help"
+                    class="w-full"
+                  />
+
+                  <BtnDBTable table="company" />
+                </div>
+
                 <small id="company-help" class="text-red-500" v-if="errors?.company">
                   {{ $t(errors.company) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="branch"
-                  v-bind="branch"
-                  :options="branches"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client branch')"
-                  :invalid="!!errors?.branch"
-                  aria-describedby="branch-help"
-                />
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="branch"
+                    v-bind="branch"
+                    :options="branches"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client branch')"
+                    :invalid="!!errors?.branch"
+                    aria-describedby="branch-help"
+                    class="w-full"
+                  />
+
+                  <BtnDBTable table="branch" />
+                </div>
+
                 <small id="branch-help" class="text-red-500" v-if="errors?.branch">
                   {{ $t(errors.branch) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="enterprise"
-                  v-bind="enterprise"
-                  :options="enterprises"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client enterprise')"
-                  :invalid="!!errors?.enterprise"
-                  aria-describedby="enterprise-help"
-                />
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="enterprise"
+                    v-bind="enterprise"
+                    :options="enterprises"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client enterprise')"
+                    :invalid="!!errors?.enterprise"
+                    aria-describedby="enterprise-help"
+                    class="w-full"
+                  />
+
+                  <BtnDBTable table="enterprise" />
+                </div>
+
                 <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
                   {{ $t(errors.enterprise) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="department"
-                  v-bind="department"
-                  :options="departments"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client department')"
-                  :invalid="!!errors?.department"
-                  aria-describedby="department-help"
-                />
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="department"
+                    v-bind="department"
+                    :options="departments"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client department')"
+                    :invalid="!!errors?.department"
+                    aria-describedby="department-help"
+                    class="w-full"
+                  />
+
+                  <BtnDBTable table="department" />
+                </div>
+
                 <small id="department-help" class="text-red-500" v-if="errors?.department">
                   {{ $t(errors.department) }}
                 </small>
@@ -668,22 +706,28 @@ const onCloseModal = () => {
               </div>
 
               <div class="flex flex-col gap-2">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="position"
-                  v-bind="position"
-                  :options="positions"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client position')"
-                  :invalid="!!errors?.position"
-                  aria-describedby="position-help"
-                />
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="position"
+                    v-bind="position"
+                    :options="positions"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client position')"
+                    :invalid="!!errors?.position"
+                    aria-describedby="position-help"
+                    class="w-full"
+                  />
+
+                  <BtnDBTable table="position" />
+                </div>
+
                 <small id="position-help" class="text-red-500" v-if="errors?.position">
                   {{ $t(errors.position) }}
                 </small>

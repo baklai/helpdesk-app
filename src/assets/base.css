@@ -39,6 +39,24 @@ html {
   background-color: rgb(var(--surface-500));
   font-family: var(--font-family);
   font-size: var(--font-size);
+
+  --table-bg-hover: rgb(var(--surface-200));
+  --qalendar-border-color: rgb(var(--surface-200));
+  --qalendar-text-color-secondary: rgb(var(--surface-500));
+}
+
+html.light {
+  --table-bg-hover: rgb(var(--surface-200));
+
+  --qalendar-border-color: rgb(var(--surface-200));
+  --qalendar-text-color-secondary: rgb(var(--surface-500));
+}
+
+html.dark {
+  --table-bg-hover: rgb(var(--surface-900));
+
+  --qalendar-border-color: rgb(var(--surface-600));
+  --qalendar-text-color-secondary: rgb(var(--surface-500));
 }
 
 body {

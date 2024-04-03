@@ -331,16 +331,6 @@ onMounted(async () => {
 
 <style>
 @import 'qalendar/dist/style.css';
-
-html.dark {
-  --qalendar-border-color: rgb(var(--surface-600));
-  --qalendar-text-color-secondary: rgb(var(--surface-500));
-}
-
-html.light {
-  --qalendar-border-color: rgb(var(--surface-200));
-  --qalendar-text-color-secondary: rgb(var(--surface-500));
-}
 </style>
 
 <style scoped>

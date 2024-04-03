@@ -106,7 +106,7 @@ const items = computed(() => [
     text
     plain
     rounded
-    icon="pi pi-database"
+    icon="pi pi-table"
     class="text-2xl w-12 h-12"
     v-tooltip.bottom="$t('DB Tables')"
     @click="event => refMenu.toggle(event)"

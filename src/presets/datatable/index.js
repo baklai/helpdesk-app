@@ -1199,11 +1199,6 @@ export default {
         'transition duration-200': (props.selectionMode && !context.selected) || props.rowHover
       },
 
-      // Hover
-      {
-        'hover:!bg-surface-300/20 dark:hover:!bg-surface-900/50': !props.rowHover
-      },
-
       // Misc
       { 'cursor-pointer': props.selectionMode }
     ]

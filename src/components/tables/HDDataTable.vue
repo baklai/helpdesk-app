@@ -846,7 +846,7 @@ onBeforeUnmount(() => {
         </template>
 
         <template #body="{ data, field }">
-          <div class="whitespace-nowrap overflow-hidden text-ellipsis px-2">
+          <div class="whitespace-nowrap text-ellipsis overflow-hidden px-2">
             <component
               v-if="column?.render"
               :is="column?.render(getObjField(data, field))"
@@ -936,3 +936,13 @@ onBeforeUnmount(() => {
     </DataTable>
   </div>
 </template>
+
+<style scoped>
+::v-deep(tr:hover) {
+  background-color: var(--table-bg-hover) !important;
+}
+
+::v-deep(tr:hover > td) {
+  background-color: var(--table-bg-hover) !important;
+}
+</style>

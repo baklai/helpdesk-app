@@ -16,15 +16,10 @@ export default {
       // Invalid State
       { 'border-red-500 dark:border-red-400': props.invalid },
 
-      // Transitions
-      'transition-all',
-      'duration-200',
-
       // States
       { 'hover:border-primary-500 dark:hover:border-primary-300': !props.invalid },
       {
-        'outline-none outline-offset-0 ring ring-primary-400/50 dark:ring-primary-300/50':
-          state.focused
+        'outline-none outline-offset-0': state.focused
       },
 
       // Misc
@@ -172,7 +167,7 @@ export default {
         'hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-surface-600/80':
           context.focused && !context.selected
       },
-      'focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring focus-visible:ring-inset focus-visible:ring-primary-400/50 dark:focus-visible:ring-primary-300/50',
+      'focus-visible:outline-none focus-visible:outline-offset-0',
 
       // Transitions
       'transition-shadow',
