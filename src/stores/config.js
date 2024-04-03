@@ -18,13 +18,6 @@ export const useConfig = defineStore('config', () => {
 
   const activeMenuItem = ref(null);
 
-  // const staticMenuDesktopInactive = ref(true);
-  // const overlayMenuActive = ref(false);
-  // const profileSidebarVisible = ref(false);
-  // const configSidebarVisible = ref(false);
-  // const staticMenuMobileActive = ref(false);
-  // const menuHoverActive = ref(false);
-
   const sidebarMenu = ref(true);
 
   watch(scale, toggleScale);

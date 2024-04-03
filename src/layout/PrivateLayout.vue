@@ -5,10 +5,6 @@ import AppSidebar from '@/components/AppSidebar.vue';
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
-
-// $config.overlayMenuActive = false;
-// $config.staticMenuMobileActive = false;
-// $config.menuHoverActive = false;
 </script>
 
 <template>
