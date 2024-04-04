@@ -12,7 +12,9 @@ const { toggleSidebarMenu } = useConfig();
 </script>
 
 <template>
-  <div class="flex h-20 py-0 px-8 z-10 items-center justify-between transition-left duration-200">
+  <header
+    class="flex h-20 py-0 px-8 z-10 items-center justify-between transition-left duration-200"
+  >
     <Button
       text
       plain
@@ -30,5 +32,5 @@ const { toggleSidebarMenu } = useConfig();
       <BtnFullScreen class="hidden md:flex" />
       <BtnMainMenu />
     </div>
-  </div>
+  </header>
 </template>

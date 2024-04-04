@@ -21,7 +21,7 @@ const $config = useConfig();
       // { 'layout-mobile-active': $config.staticMenuMobileActive },
     ]"
   >
-    <div
+    <aside
       :class="[
         'z-50',
         'fixed',
@@ -63,7 +63,7 @@ const $config = useConfig();
       @click.self="$config.toggleSidebarMenu"
     >
       <AppSidebar />
-    </div>
+    </aside>
 
     <div
       :class="[
@@ -86,11 +86,9 @@ const $config = useConfig();
     >
       <AppTopbar />
 
-      <div class="flex-auto px-8 overflow-auto">
-        <div class="flex flex-wrap z-0" style="height: calc(100vh - 9rem)">
-          <RouterView />
-        </div>
-      </div>
+      <main class="flex flex-auto px-8 overflow-auto flex-wrap" style="height: calc(100vh - 9rem)">
+        <RouterView />
+      </main>
     </div>
   </div>
 

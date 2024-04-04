@@ -13,152 +13,146 @@ const disabledSelectedFromHTML = ref({
 </script>
 
 <template>
-  <main class="min-h-screen min-w-full overflow-hidden" :style="disabledSelectedFromHTML">
-    <div class="flex h-screen bg-gradient-to-tr from-surface-950 to-primary-950">
-      <div
-        class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
-      >
-        <div class="flex flex-col items-center justify-center mb-2">
-          <div class="flex">
-            <div class="justify-start">
-              <p
-                class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-                translate="no"
-                lang="en"
-              >
-                help
-              </p>
-            </div>
-            <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
-            <div class="justify-start">
-              <p
-                class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-                translate="no"
-                lang="en"
-              >
-                desk
-              </p>
-            </div>
+  <div
+    class="flex h-screen min-h-screen min-w-full overflow-hidden bg-gradient-to-tr from-surface-950 to-primary-950"
+    :style="disabledSelectedFromHTML"
+  >
+    <div
+      class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
+    >
+      <div class="flex flex-col items-center justify-center mb-2">
+        <div class="flex">
+          <div class="justify-start">
+            <p
+              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+              translate="no"
+              lang="en"
+            >
+              help
+            </p>
           </div>
-
-          <div class="flex text-center">
-            <p class="text-xl font-medium text-surface-500">
-              {{ $t('Web Application of technical support') }}
+          <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
+          <div class="justify-start">
+            <p
+              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
+              translate="no"
+              lang="en"
+            >
+              desk
             </p>
           </div>
         </div>
 
-        <div class="flex flex-col items-center gap-4">
-          <RouterView />
-        </div>
-        <p class="text-center text-surface-500 font-semibold">
-          A problem?
-          <a
-            target="_blank"
-            :href="$helpdesk.authorUrl"
-            class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
-          >
-            Click here
-          </a>
-          and let us help you.
+        <p class="text-xl font-medium text-surface-500">
+          {{ $t('Web Application of technical support') }}
         </p>
       </div>
 
-      <div
-        class="bg-[url('/img/bg-app.svg')] w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
-      >
-        <div class="mt-auto mb-auto">
-          <div class="flex flex-col lg:flex-row justify-center">
-            <div class="w-auto flex flex-col items-center justify-center">
-              <header class="flex items-center justify-center">
-                <div class="w-[30rem] h-auto text-center">
-                  <div class="flex justify-center mb-6">
-                    <div class="flex justify-start">
-                      <p
-                        class="uppercase font-bold text-8xl text-surface-50"
-                        translate="no"
-                        lang="en"
-                      >
-                        help
-                      </p>
-                    </div>
+      <main class="flex flex-col items-center gap-4">
+        <RouterView />
+      </main>
 
-                    <img
-                      src="/img/logo-app.webp"
-                      alt="HD logo"
-                      width="72"
-                      height="72"
-                      class="mx-2"
-                    />
+      <p class="text-center text-surface-500 font-semibold">
+        A problem?
+        <a
+          target="_blank"
+          :href="$helpdesk.authorUrl"
+          class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+        >
+          Click here
+        </a>
+        and let us help you.
+      </p>
+    </div>
 
-                    <div class="flex justify-start">
-                      <p
-                        class="uppercase font-bold text-8xl text-surface-50"
-                        translate="no"
-                        lang="en"
-                      >
-                        desk
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="text-center mb-8">
-                    <p class="text-xl font-medium text-surface-300">
-                      {{ $t('Web Application of technical support') }}
-                    </p>
-                  </div>
-
-                  <div class="text-center mb-8">
-                    <p class="text-xl line-height-2 text-surface-400">
-                      {{ $t('Helpdesk technical support') }}
-                    </p>
-                  </div>
-
-                  <ul class="list-none flex justify-evenly p-0 mb-2">
-                    <li class="mx-6">
-                      <BtnSocialMedia
-                        icon="pi pi-facebook"
-                        :href="$helpdesk?.authorSocial?.facebook"
-                        tooltip="Facebook"
-                      />
-                    </li>
-
-                    <li class="mx-6">
-                      <BtnSocialMedia
-                        icon="pi pi-github"
-                        :href="$helpdesk?.authorSocial?.github"
-                        tooltip="Github"
-                      />
-                    </li>
-
-                    <li class="mx-6">
-                      <BtnSocialMedia
-                        icon="pi pi-linkedin"
-                        :href="$helpdesk?.authorSocial?.linkedin"
-                        tooltip="Linkedin"
-                      />
-                    </li>
-                  </ul>
-
-                  <p class="text-center my-6">
-                    <RouterLink
-                      :to="{ name: 'home' }"
-                      class="uppercase font-medium text-primary-600 hover:text-primary-500"
+    <div
+      class="bg-[url('/img/bg-app.svg')] w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
+    >
+      <div class="mt-auto mb-auto">
+        <div class="flex flex-col lg:flex-row justify-center">
+          <div class="w-auto flex flex-col items-center justify-center">
+            <div class="flex items-center justify-center">
+              <div class="w-[30rem] h-auto text-center">
+                <div class="flex justify-center mb-6">
+                  <div class="flex justify-start">
+                    <p
+                      class="uppercase font-bold text-8xl text-surface-50"
+                      translate="no"
+                      lang="en"
                     >
-                      {{ $t('Helpdesk home page') }}
-                    </RouterLink>
+                      help
+                    </p>
+                  </div>
+
+                  <img src="/img/logo-app.webp" alt="HD logo" width="72" height="72" class="mx-2" />
+
+                  <div class="flex justify-start">
+                    <p
+                      class="uppercase font-bold text-8xl text-surface-50"
+                      translate="no"
+                      lang="en"
+                    >
+                      desk
+                    </p>
+                  </div>
+                </div>
+
+                <div class="text-center mb-8">
+                  <p class="text-xl font-medium text-surface-300">
+                    {{ $t('Web Application of technical support') }}
                   </p>
                 </div>
-              </header>
+
+                <div class="text-center mb-8">
+                  <p class="text-xl line-height-2 text-surface-400">
+                    {{ $t('Helpdesk technical support') }}
+                  </p>
+                </div>
+
+                <ul class="list-none flex justify-evenly p-0 mb-2">
+                  <li class="mx-6">
+                    <BtnSocialMedia
+                      icon="pi pi-facebook"
+                      :href="$helpdesk?.authorSocial?.facebook"
+                      tooltip="Facebook"
+                    />
+                  </li>
+
+                  <li class="mx-6">
+                    <BtnSocialMedia
+                      icon="pi pi-github"
+                      :href="$helpdesk?.authorSocial?.github"
+                      tooltip="Github"
+                    />
+                  </li>
+
+                  <li class="mx-6">
+                    <BtnSocialMedia
+                      icon="pi pi-linkedin"
+                      :href="$helpdesk?.authorSocial?.linkedin"
+                      tooltip="Linkedin"
+                    />
+                  </li>
+                </ul>
+
+                <p class="text-center my-6">
+                  <RouterLink
+                    :to="{ name: 'home' }"
+                    class="uppercase font-medium text-primary-600 hover:text-primary-500"
+                  >
+                    {{ $t('Helpdesk home page') }}
+                  </RouterLink>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="flex items-center text-surface-300">
-          <p class="font-semibold py-4">
-            {{ $helpdesk?.copyright }}
-          </p>
-        </div>
+      </div>
+      <div class="flex items-center text-surface-300">
+        <p class="font-semibold py-4">
+          {{ $helpdesk?.copyright }}
+        </p>
       </div>
     </div>
-  </main>
+  </div>
 </template>
