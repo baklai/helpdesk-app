@@ -252,7 +252,7 @@ const confirmDeleteAll = () => {
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="SysLog.findAll"
         :onDelete="SysLog.removeOne"

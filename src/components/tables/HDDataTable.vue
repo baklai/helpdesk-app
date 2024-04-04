@@ -477,10 +477,10 @@ const selectAllColumns = () => {
 const checkScreenSize = () => {
   if (window.matchMedia('(max-width: 640px)').matches) {
     screenSize.value = 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
-  } else if (window.matchMedia('(max-width: 960px)').matches) {
+  } else if (window.matchMedia('(max-width: 768px)').matches) {
     screenSize.value =
       'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
-  } else if (window.matchMedia('(max-width: 1300px)').matches) {
+  } else if (window.matchMedia('(max-width: 1024px)').matches) {
     screenSize.value =
       'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
   } else {

@@ -484,7 +484,7 @@ const createSysInspectorScript = async () => {
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Inspector.findAll"
         :onDelete="Inspector.removeOne"

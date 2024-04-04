@@ -256,7 +256,7 @@ const runTargetScan = handleSubmit(async () => {
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Onmap.findAll"
         :onDelete="Onmap.removeOne"

@@ -89,18 +89,24 @@ const checkActiveRoute = item => {
       @click="itemClick($event, item, index)"
       :to="{ name: item.name }"
       :class="[
-        'flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer',
-        'hover:bg-surface-200 dark:hover:bg-surface-800',
         item.class,
-        { 'text-base font-bold text-primary-500': checkActiveRoute(item) }
+        'text-base font-semibold',
+        'flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer',
+        'hover:bg-surface-200 dark:hover:bg-surface-800'
       ]"
       tabindex="0"
     >
-      <AppIcons :name="item.icon" class="mr-2" :size="18" />
-      <span class="text-base font-semibold">{{ item.title }}</span>
+      <AppIcons
+        :name="item.icon"
+        class="mr-2"
+        :size="18"
+        :class="[{ 'text-primary-500': checkActiveRoute(item) }]"
+      />
+      <span :class="[{ '!font-bold text-primary-500': checkActiveRoute(item) }]">
+        {{ item.title }}
+      </span>
       <i
         :class="[
-          'pi pi-angle-down',
           'pi pi-angle-down',
           'text-sm ml-auto',
           'transition transform delay-200',
@@ -137,7 +143,7 @@ const checkActiveRoute = item => {
       />
     </a>
 
-    <Transition v-if="item.items && item.visible !== false">
+    <div v-if="item.items && item.visible !== false">
       <ul v-show="root ? true : isActiveMenu">
         <SidebarMenuItem
           v-for="(child, index) in item.items"
@@ -148,16 +154,12 @@ const checkActiveRoute = item => {
           :root="false"
         />
       </ul>
-    </Transition>
+    </div>
   </li>
 </template>
 
 <style scoped>
-ul > li > a {
-  margin-left: 0rem !important;
-}
-
-ul > li > ul > li > ul > li > a {
-  margin-left: 1.5rem !important;
+ul > li > div > ul > li > div > ul > li > a {
+  margin-left: 1.5rem;
 }
 </style>

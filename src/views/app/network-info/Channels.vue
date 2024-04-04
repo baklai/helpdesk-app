@@ -265,7 +265,7 @@ const columns = ref([
       <HDDataTable
         ref="refDataTable"
         :columns="columns"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Channel.findAll"
         :onDelete="Channel.removeOne"
