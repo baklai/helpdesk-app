@@ -79,37 +79,66 @@ const checkActiveRoute = item => {
 </script>
 
 <template>
-  <li :class="{ 'active-menuitem': isActiveMenu }">
+  <li class="select-none">
     <div v-if="root && item.visible !== false" class="text-sm font-bold uppercase my-4 mx-0">
       {{ item.title }}
     </div>
+
+    <RouterLink
+      v-if="item.name && !item.items && item.visible !== false"
+      @click="itemClick($event, item, index)"
+      :to="{ name: item.name }"
+      :class="[
+        'flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer',
+        'hover:bg-surface-200 dark:hover:bg-surface-800',
+        item.class,
+        { 'text-base font-bold text-primary-500': checkActiveRoute(item) }
+      ]"
+      tabindex="0"
+    >
+      <AppIcons :name="item.icon" class="mr-2" :size="18" />
+      <span class="text-base font-semibold">{{ item.title }}</span>
+      <i
+        :class="[
+          'pi pi-angle-down',
+          'pi pi-angle-down',
+          'text-sm ml-auto',
+          'transition transform delay-200',
+          { ' rotate-180': isActiveMenu }
+        ]"
+        v-if="item.items"
+      />
+    </RouterLink>
+
     <a
       v-if="(!item.name || item.items) && item.visible !== false"
       :href="item.url"
       @click="!item.url && itemClick($event, item, index)"
-      :class="item.class"
       :target="item.target"
-      class="hidden items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-800"
+      :class="[
+        item.class,
+        { flex: !item.visible },
+        { hidden: root && !item.visible },
+        'items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer',
+        'hover:bg-surface-200 dark:hover:bg-surface-800'
+      ]"
       tabindex="0"
     >
       <AppIcons :name="item.icon" class="mr-2" :size="18" />
       <span class="text-base font-semibold">{{ item.title }}</span>
-      <i class="pi pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+      <i
+        :class="[
+          'pi pi-angle-down',
+          'text-sm ml-auto',
+          'transition transform delay-200',
+          { ' rotate-180': isActiveMenu }
+        ]"
+        v-if="item.items"
+      />
     </a>
-    <RouterLink
-      v-if="item.name && !item.items && item.visible !== false"
-      @click="itemClick($event, item, index)"
-      :class="[item.class, { 'text-base font-bold text-primary-500': checkActiveRoute(item) }]"
-      :to="{ name: item.name }"
-      class="flex items-center relative outline-0 py-3 px-4 rounded-xl cursor-pointer hover:bg-surface-200 dark:hover:bg-surface-800"
-      tabindex="0"
-    >
-      <AppIcons :name="item.icon" class="mr-2" :size="18" />
-      <span class="text-base font-semibold">{{ item.title }}</span>
-      <i class="pi pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
-    </RouterLink>
-    <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
-      <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
+
+    <Transition v-if="item.items && item.visible !== false">
+      <ul v-show="root ? true : isActiveMenu">
         <SidebarMenuItem
           v-for="(child, index) in item.items"
           :key="child"
@@ -122,3 +151,13 @@ const checkActiveRoute = item => {
     </Transition>
   </li>
 </template>
+
+<style scoped>
+ul > li > a {
+  margin-left: 0rem !important;
+}
+
+ul > li > ul > li > ul > li > a {
+  margin-left: 1.5rem !important;
+}
+</style>

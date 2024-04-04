@@ -218,7 +218,7 @@ const getVNClink = async value => {
 </script>
 
 <template>
-  <Toast position="bottom-right" group="ping" class="z-5 w-auto" v-if="hostkey">
+  <Toast position="bottom-right" group="ping" class="z-10 w-auto" v-if="hostkey">
     <template #message="{ message }">
       <div class="flex flex-col">
         <div class="flex content-center h-[2rem]">
