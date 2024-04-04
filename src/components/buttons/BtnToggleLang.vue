@@ -9,17 +9,17 @@ const items = ref([
   {
     label: 'English',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('en')
+    command: () => $config.toggleAppLang('en')
   },
   {
     label: 'Українська',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('uk')
+    command: () => $config.toggleAppLang('uk')
   },
   {
     label: 'Русский',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('ru')
+    command: () => $config.toggleAppLang('ru')
   }
 ]);
 </script>

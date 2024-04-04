@@ -718,7 +718,7 @@ onMounted(async () => {
                   download
                   target="_blank"
                   :href="getLinkToFile(data.name)"
-                  class="!text-green-500 h-12 relative items-center inline-flex text-center align-bottom justify-center leading-[normal] px-4 py-3 w-12 p-0 rounded-full text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus:outline-offset-0 focus:ring hover:bg-surface-300/20 focus:ring-primary-400/50 dark:focus:ring-primary-300/50 transition duration-200 ease-in-out cursor-pointer overflow-hidden select-none"
+                  class="!text-green-500 h-12 relative items-center inline-flex text-center align-bottom justify-center leading-normal px-4 py-3 w-12 p-0 rounded-full text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus:outline-offset-0 focus:ring hover:bg-surface-300/20 focus:ring-primary-400/50 dark:focus:ring-primary-300/50 transition duration-200 ease-in-out cursor-pointer overflow-hidden select-none"
                   v-tooltip.bottom="$t('Download file')"
                   v-if="data.type === 1"
                 >

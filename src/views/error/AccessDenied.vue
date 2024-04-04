@@ -13,7 +13,7 @@ const $config = useConfig();
       {{ $t('You do not have the necessary permisions') }}
     </span>
     <img
-      :src="$config?.theme === 'light' ? '/img/403-dark.webp' : '/img/403-light.webp'"
+      :src="$config?.appTheme === 'light' ? '/img/403-dark.webp' : '/img/403-light.webp'"
       alt="Access denied"
       width="300"
       class="mb-6"

@@ -13,7 +13,7 @@ const $config = useConfig();
       {{ $t('Requested resource is not available') }}
     </span>
     <img
-      :src="$config?.theme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
+      :src="$config?.appTheme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
       alt="Not found"
       width="300"
       class="mb-6"

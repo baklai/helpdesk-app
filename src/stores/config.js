@@ -10,66 +10,65 @@ export const useConfig = defineStore('config', () => {
 
   const { locale, fallbackLocale, availableLocales, tm } = useI18n();
 
-  const scale = ref(useLocalStorage('app-scale', 12));
-  const ripple = ref(useLocalStorage('app-ripple', false));
-  const menuMode = ref(useLocalStorage('app-menu-mode', 'static'));
-  const theme = ref(useLocalStorage('app-theme', 'light'));
-  const language = ref(useLocalStorage('app-lang', navigator.language || fallbackLocale));
+  const appScale = ref(useLocalStorage('app-scale', 12));
+  const appRipple = ref(useLocalStorage('app-ripple', false));
+  const appSideBarMode = ref(useLocalStorage('app-sidebar-mode', 'static'));
+  const appTheme = ref(useLocalStorage('app-theme', 'light'));
+  const appLanguage = ref(useLocalStorage('app-language', navigator.language || fallbackLocale));
 
+  const appSideBarVisible = ref(appSideBarMode.value === 'static' ? true : false);
   const activeMenuItem = ref(null);
 
-  const sidebarMenu = ref(true);
+  watch(appTheme, toggleAppTheme);
+  watch(appScale, toggleAppScale);
+  watch(appRipple, toggleAppRipple);
+  watch(appSideBarMode, toggleAppSideBarMode);
 
-  watch(scale, toggleScale);
-  watch(menuMode, toggleSidebarMenu);
-  watch(theme, toggleTheme);
-  watch(ripple, toggleRipple);
-
-  const isDarkTheme = computed(() => theme.value === 'dark');
+  const isDarkAppTheme = computed(() => appTheme.value === 'dark');
 
   function setActiveMenuItem(item) {
     activeMenuItem.value = item.value || item;
   }
 
-  function toggleSidebarMenu() {
-    sidebarMenu.value = !sidebarMenu.value;
-
-    // if (menuMode.value === 'overlay') {
-    //   overlayMenuActive.value = !overlayMenuActive.value;
-    // }
-    // if (window.innerWidth > 991) {
-    //   staticMenuDesktopInactive.value = !staticMenuDesktopInactive.value;
-    // } else {
-    //   staticMenuMobileActive.value = !staticMenuMobileActive.value;
-    // }
+  function toggleAppScale() {
+    document.documentElement.style.fontSize = `${appScale.value}px`;
   }
 
-  function toggleScale() {
-    document.documentElement.style.fontSize = `${scale.value}px`;
+  function toggleAppTheme() {
+    document.documentElement.className = appTheme.value;
   }
 
-  function toggleTheme() {
-    document.documentElement.className = theme.value;
+  function toggleAppRipple() {
+    primevue.config.ripple = appRipple.value;
   }
 
-  function toggleRipple() {
-    primevue.config.ripple = ripple.value;
+  function toggleAppSideBarMode() {
+    if (appSideBarMode.value === 'static') {
+      appSideBarVisible.value = false;
+    }
+    if (appSideBarMode.value === 'overlay') {
+      appSideBarVisible.value = true;
+    }
   }
 
-  function toggleLang(value) {
+  function toggleAppSideBar() {
+    appSideBarVisible.value = !appSideBarVisible.value;
+  }
+
+  function toggleAppLang(value) {
     if (value && availableLocales.includes(value)) {
       locale.value = value;
-      language.value = value;
-    } else if (language.value && availableLocales.includes(language.value)) {
-      locale.value = language.value;
+      appLanguage.value = value;
+    } else if (appLanguage.value && availableLocales.includes(appLanguage.value)) {
+      locale.value = appLanguage.value;
     } else {
       const browserLanguage = navigator.language.slice(0, 2);
       if (availableLocales.includes(browserLanguage)) {
         locale.value = browserLanguage;
-        language.value = browserLanguage;
+        appLanguage.value = browserLanguage;
       } else {
         locale.value = fallbackLocale;
-        language.value = fallbackLocale;
+        appLanguage.value = fallbackLocale;
       }
     }
 
@@ -77,35 +76,34 @@ export const useConfig = defineStore('config', () => {
   }
 
   function initAppConfigs() {
-    toggleScale();
-    toggleSidebarMenu();
-    toggleTheme();
-    toggleRipple();
-    toggleLang();
+    toggleAppLang();
+    toggleAppScale();
+    toggleAppTheme();
+    toggleAppRipple();
+    toggleAppSideBar();
   }
 
   function setDefaultConfigs() {
-    scale.value = 12;
-    ripple.value = false;
-    menuMode.value = 'static';
-    theme.value = 'light';
-
+    appScale.value = 12;
+    appRipple.value = false;
+    appTheme.value = 'light';
+    appSideBarMode.value = 'static';
     document.documentElement.style = '';
   }
 
   return {
-    theme,
-    scale,
-    ripple,
-    menuMode,
-    sidebarMenu,
+    appTheme,
+    appScale,
+    appRipple,
+    appSideBarMode,
+    appSideBarVisible,
     activeMenuItem,
-    isDarkTheme,
-    toggleLang,
-    toggleScale,
-    toggleTheme,
-    toggleRipple,
-    toggleSidebarMenu,
+    isDarkAppTheme,
+    toggleAppLang,
+    toggleAppScale,
+    toggleAppTheme,
+    toggleAppRipple,
+    toggleAppSideBar,
     setActiveMenuItem,
     initAppConfigs,
     setDefaultConfigs

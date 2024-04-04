@@ -24,7 +24,7 @@ const confirm = useConfirm();
 const { findOne, createOne, updateOne, removeOne } = useMailbox();
 
 const Location = useLocation();
-const Company = useСompany();
+const Сompany = useСompany();
 const Branch = useBranch();
 const Enterprise = useEnterprise();
 const Department = useDepartment();

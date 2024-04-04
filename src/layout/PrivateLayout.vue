@@ -12,13 +12,11 @@ const $config = useConfig();
     :class="[
       'min-h-screen bg-surface-0 dark:bg-surface-800'
 
-      // { 'layout-overlay': $config.menuMode === 'overlay' },
-      // { 'layout-static': $config.menuMode === 'static' },
+      // { 'layout-overlay': $config.appSideBarMode === 'overlay' },
+      // { 'layout-static': $config.appSideBarMode === 'static' },
       // {
-      //   'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+      //   'layout-static-inactive': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
       // },
-      // { 'layout-overlay-active': $config.overlayMenuActive },
-      // { 'layout-mobile-active': $config.staticMenuMobileActive },
     ]"
   >
     <aside
@@ -31,7 +29,7 @@ const $config = useConfig();
 
         '-translate-x-full md:translate-x-0',
 
-        $config.sidebarMenu ? '!-translate-x-full' : 'translate-x-0',
+        $config.appSideBarVisible ? '!-translate-x-full' : 'translate-x-0',
 
         'transition-all duration-200',
 
@@ -49,9 +47,9 @@ const $config = useConfig();
 
         // 'translate-x-0',
         // 'sm:-translate-x-full',
-        // { fixed: $config.menuMode === 'static' },
+        // { fixed: $config.appSideBarMode === 'static' },
         // {
-        //   '-translate-x-full': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+        //   '-translate-x-full': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
         // },
         // 'l-0 t-0 h-screen -translate-x-full',
         'select-none',
@@ -60,7 +58,7 @@ const $config = useConfig();
         'text-surface-900 dark:text-surface-300'
         // 'bg-surface-100 dark:bg-surface-900'
       ]"
-      @click.self="$config.toggleSidebarMenu"
+      @click.self="$config.toggleAppSideBar"
     >
       <AppSidebar />
     </aside>
@@ -71,12 +69,12 @@ const $config = useConfig();
         'ml-0 md:ml-[25rem]',
 
         {
-          '!ml-0': $config.sidebarMenu
+          '!ml-0': $config.appSideBarVisible
         },
         // {
-        //   'ml-0': $config.staticMenuDesktopInactive && $config.menuMode === 'static'
+        //   'ml-0': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
         // },
-        // { 'ml-[25rem]': $config.menuMode === 'static' && !$config.staticMenuDesktopInactive },
+        // { 'ml-[25rem]': $config.appSideBarMode === 'static' && !$config.staticMenuDesktopInactive },
 
         'flex flex-col justify-between',
         'transition-margin duration-200',

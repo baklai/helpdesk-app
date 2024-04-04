@@ -8,7 +8,7 @@ import BtnMainMenu from '@/components/buttons/BtnMainMenu.vue';
 
 import { useConfig } from '@/stores/config';
 
-const { toggleSidebarMenu } = useConfig();
+const { toggleAppSideBar } = useConfig();
 </script>
 
 <template>
@@ -21,7 +21,7 @@ const { toggleSidebarMenu } = useConfig();
       rounded
       icon="pi pi-bars"
       class="text-2xl w-12 h-12"
-      @click="toggleSidebarMenu"
+      @click="toggleAppSideBar"
     />
 
     <div class="flex gap-x-2">

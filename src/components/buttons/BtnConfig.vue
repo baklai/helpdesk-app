@@ -9,7 +9,7 @@ const visible = ref(false);
 <template>
   <button
     type="button"
-    class="text-2xl block fixed h-12 px-2.5 z-50 opacity-80 hover:opacity-100 overflow-hidden rounded-none rounded-tl-md rounded-bl-md leading-none bg-surface-600 dark:bg-surface-700 shadow-lg text-white text-center inset-y-1/2 right-0 cursor-pointer"
+    class="text-2xl block fixed h-12 px-2.5 z-50 opacity-80 hover:opacity-100 overflow-hidden rounded-none rounded-tl-md rounded-bl-md bg-surface-600 dark:bg-surface-700 shadow-lg text-white text-center inset-y-1/2 right-0 cursor-pointer"
     v-tooltip.left="$t('HD Options')"
     @click="visible = !visible"
   >

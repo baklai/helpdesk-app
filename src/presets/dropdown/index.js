@@ -53,7 +53,7 @@ export default {
 
       // Sizing and Spacing
       'w-[1%]',
-      'p-3',
+      'p-3 py-3.5',
       { 'pr-7': props.showClear },
 
       //Shape
@@ -86,6 +86,8 @@ export default {
 
       // Size
       'w-12',
+
+      'h-auto',
 
       // Shape
       'rounded-tr-md',

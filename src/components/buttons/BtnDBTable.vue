@@ -67,7 +67,10 @@ const datatables = ref({
 
 <template>
   <Button
-    icon="pi pi-plus-circle text-xl"
+    outlined
+    size="small"
+    severity="secondary"
+    icon="pi pi-plus text-base font-semibold"
     v-tooltip.bottom="$t(datatables[table].label)"
     @click="datatables[table].command"
     v-if="table && datatables[table]"

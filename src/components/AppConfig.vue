@@ -390,7 +390,7 @@ watchEffect(() => {
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Display scale') }}</h5>
         </div>
         <div class="flex flex-1 flex-col justify-center items-center">
-          <Knob v-model="$config.scale" :size="100" :step="1" :min="10" :max="18" />
+          <Knob v-model="$config.appScale" :size="100" :step="1" :min="10" :max="18" />
         </div>
       </div>
 
@@ -447,7 +447,7 @@ watchEffect(() => {
           </h5>
         </div>
         <div class="flex-1">
-          <InputSwitch v-model="$config.ripple" aria-labelledby="single" />
+          <InputSwitch v-model="$config.appRipple" aria-labelledby="single" />
         </div>
       </div>
 
@@ -458,7 +458,7 @@ watchEffect(() => {
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu type') }}</h5>
         </div>
         <div class="flex-1 justify-center">
-          <SelectButton v-model="$config.menuMode" :options="['static', 'overlay']" />
+          <SelectButton v-model="$config.appSideBarMode" :options="['static', 'overlay']" />
         </div>
       </div>
 
@@ -469,7 +469,7 @@ watchEffect(() => {
           <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Themes style') }}</h5>
         </div>
         <div class="flex-1 justify-center">
-          <SelectButton v-model="$config.theme" :options="['light', 'dark']" />
+          <SelectButton v-model="$config.appTheme" :options="['light', 'dark']" />
         </div>
       </div>
 
