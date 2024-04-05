@@ -14,9 +14,7 @@ const $config = useConfig();
 
       // { 'layout-overlay': $config.appSideBarMode === 'overlay' },
       // { 'layout-static': $config.appSideBarMode === 'static' },
-      // {
-      //   'layout-static-inactive': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
-      // },
+      // { 'layout-static-inactive': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static' },
     ]"
   >
     <aside

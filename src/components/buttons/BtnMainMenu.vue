@@ -1,12 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 
-import SidebarMenu from '@/components/partials/SidebarMenu.vue';
+import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnFTPClient from '@/components/buttons/BtnFTPClient.vue';
-import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
 import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
 const refMenu = ref();
@@ -27,7 +26,7 @@ const toggle = event => {
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-96 py-2 px-4">
+  <Menu ref="refMenu" popup :model="[]" class="w-[22rem] py-2 px-4">
     <template #start>
       <div class="flex my-2 items-center">
         <div class="flex items-center">
@@ -42,7 +41,7 @@ const toggle = event => {
           </div>
         </div>
       </div>
-      <div class="overflow-scroll w-full max-h-[30rem] px-4">
+      <div class="overflow-scroll w-full max-h-[30rem] px-2 py-2">
         <SidebarMenu />
       </div>
     </template>
@@ -55,11 +54,10 @@ const toggle = event => {
     </template>
 
     <template #end>
-      <div class="flex items-center content-center justify-between p-2">
+      <div class="flex items-center content-center justify-between py-2">
         <BtnToggleTheme />
         <BtnToggleLang />
         <BtnFTPClient />
-        <BtnNotifications />
         <BtnFullScreen />
         <BtnAuth />
       </div>

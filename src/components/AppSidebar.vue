@@ -1,5 +1,5 @@
 <script setup>
-import SidebarMenu from '@/components/partials/SidebarMenu.vue';
+import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
@@ -9,6 +9,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 <template>
   <div
     :class="[
+      'list-none',
       'pointer-events-auto',
       'flex flex-col relative',
       'w-[25rem] h-full py-2 px-6',
@@ -47,13 +48,11 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
           <AppIcons :name="$route?.name" :size="32" />
         </Avatar>
       </div>
-      <div class="flex items-center justify-center">
-        <div>
-          <span class="text-2xl">{{ $t($route?.meta?.title) }}</span>
-          <p class="text-sm text-surface-500">
-            {{ $t($route?.meta?.description) }}
-          </p>
-        </div>
+      <div class="flex flex-col items-start justify-center">
+        <span class="text-2xl">{{ $t($route?.meta?.title) }}</span>
+        <p class="text-sm text-surface-500">
+          {{ $t($route?.meta?.description) }}
+        </p>
       </div>
     </div>
 
@@ -65,7 +64,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
     </div>
 
     <div class="w-full absolute bottom-0 left-0 right-0">
-      <div class="flex items-center content-center justify-between flex-wrap p-4">
+      <div class="flex items-center content-center justify-between flex-wrap py-2 px-4">
         <BtnInfoUser />
         <BtnToggleLang />
         <BtnToggleTheme />
