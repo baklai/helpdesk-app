@@ -90,9 +90,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -197,34 +197,31 @@ const onSaveRecord = handleSubmit(async () => {
   </Menu>
 
   <Dialog
-    modal
     closable
     draggable
-    class="p-fluid"
     v-model:visible="visible"
-    :style="{ width: '480px' }"
+    class="!w-[40rem]"
     @show="onShowModal"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <i class="pi pi-desktop text-6xl mr-3"></i>
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
+          <i class="pi pi-desktop text-4xl mr-4"></i>
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">{{ $t('Unit') }}</p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-lg font-bold line-height-2">{{ $t('Unit') }}</p>
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
 
-        <div class="flex gap-2 align-items-center">
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -232,7 +229,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <div class="field">
+    <div class="flex flex-col gap-2">
       <Dropdown
         filter
         autofocus
@@ -241,32 +238,33 @@ const onSaveRecord = handleSubmit(async () => {
         @change="event => setValues({ ...event.value })"
         :filterPlaceholder="$t('Search in list')"
         :placeholder="$t('Search in database')"
-        class="w-full"
       />
     </div>
 
-    <Divider type="solid" class="my-4" />
+    <Divider type="solid" class="my-6" />
 
-    <form @submit.prevent="onSaveRecord" class="p-fluid mx-4">
-      <div class="field">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="name">{{ $t('Unit name') }}</label>
         <InputText
           id="name"
           v-bind="name"
           :placeholder="$t('Unit name')"
-          :class="{ 'p-invalid': !!errors?.name }"
+          :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
-        <small id="name-help" class="p-error" v-if="errors?.name">
+        <small id="name-help" class="text-red-500" v-if="errors?.name">
           {{ $t(errors.name) }}
         </small>
       </div>
 
-      <div class="field">
+      <div class="flex flex-col gap-2">
         <label for="description">{{ $t('Unit description') }}</label>
         <Textarea
           rows="5"
-          class="min-w-full"
           id="description"
           v-bind="description"
           :placeholder="$t('Unit description')"

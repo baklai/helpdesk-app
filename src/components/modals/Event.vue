@@ -93,9 +93,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -189,32 +189,31 @@ const onSaveRecord = handleSubmit(async () => {
   </Menu>
 
   <Dialog
+    modal
     closable
-    draggable
+    :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '400px' }"
-    class="p-fluid"
+    class="!w-[40rem]"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <AppIcons name="calendar-events" :size="40" class="mr-2" />
+      <div class="flex justify-between w-full text-surface-800 dark:text-surface-100">
+        <div class="flex items-center justify-center">
+          <AppIcons name="calendar-events" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('Calendar event') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -223,22 +222,25 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
-      <div class="field">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-col gap-2">
         <label for="title" class="font-bold">{{ $t('Title event') }}</label>
         <InputText
           id="title"
           v-bind="title"
           :placeholder="$t('Title event')"
-          :class="{ 'p-invalid': !!errors?.title }"
+          :invalid="!!errors?.title"
           aria-describedby="title-help"
         />
-        <small id="title-help" class="p-error" v-if="errors?.title">
+        <small id="title-help" class="text-red-500" v-if="errors?.title">
           {{ $t(errors.title) }}
         </small>
       </div>
 
-      <div class="field">
+      <div class="flex flex-col gap-2">
         <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
         <Calendar
           showIcon
@@ -249,15 +251,15 @@ const onSaveRecord = handleSubmit(async () => {
           inputId="datetime"
           v-bind="datetime"
           :placeholder="$t('Datetime of event')"
-          :class="{ 'p-invalid': !!errors?.datetime }"
+          :invalid="!!errors?.datetime"
           aria-describedby="datetime-help"
         />
-        <small id="datetime-help" class="p-error" v-if="errors?.datetime">
+        <small id="datetime-help" class="text-red-500" v-if="errors?.datetime">
           {{ $t(errors.datetime) }}
         </small>
       </div>
 
-      <div class="field">
+      <div class="flex flex-col gap-2">
         <label for="eventType" class="font-bold">{{ $t('Event type') }}</label>
         <Dropdown
           filter
@@ -270,15 +272,15 @@ const onSaveRecord = handleSubmit(async () => {
           :optionLabel="item => capitalizeFirstLetter($t(item))"
           :filterPlaceholder="$t('Search')"
           :placeholder="$t('Event type')"
-          :class="{ 'p-invalid': !!errors?.eventType }"
+          :invalid="!!errors?.eventType"
           aria-describedby="eventType-help"
         />
-        <small id="eventType-help" class="p-error" v-if="errors?.eventType">
+        <small id="eventType-help" class="text-red-500" v-if="errors?.eventType">
           {{ $t(errors.eventType) }}
         </small>
       </div>
 
-      <div class="field">
+      <div class="flex flex-col gap-2">
         <label for="description" class="font-bold">{{ $t('Description') }}</label>
         <Textarea
           rows="5"
@@ -296,13 +298,3 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-calendar-w-btn .p-datepicker-trigger.p-button) {
-  color: var(--text-color-secondary);
-}
-
-::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
-  color: var(--surface-400);
-}
-</style>

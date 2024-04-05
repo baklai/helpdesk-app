@@ -1,17 +1,12 @@
 <script setup>
-import { ref, defineAsyncComponent } from 'vue';
+import { ref } from 'vue';
 
-// import AppMenu from '@/components/AppMenu.vue';
-// import BtnAuth from '@/components/buttons/BtnAuth.vue';
-// import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-// import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-
-const SidebarMenu = defineAsyncComponent(() => import('@/components/partials/SidebarMenu.vue'));
-const BtnAuth = defineAsyncComponent(() => import('@/components/buttons/BtnAuth.vue'));
-const BtnToggleTheme = defineAsyncComponent(() =>
-  import('@/components/buttons/BtnToggleTheme.vue')
-);
-const BtnToggleLang = defineAsyncComponent(() => import('@/components/buttons/BtnToggleLang.vue'));
+import SidebarMenu from '@/components/menus/SidebarMenu.vue';
+import BtnAuth from '@/components/buttons/BtnAuth.vue';
+import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
+import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+import BtnFTPClient from '@/components/buttons/BtnFTPClient.vue';
+import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
 const refMenu = ref();
 
@@ -26,28 +21,27 @@ const toggle = event => {
     plain
     rounded
     icon="pi pi-th-large"
-    iconClass="text-3xl"
-    class="w-3rem h-3rem text-4xl hover:text-color mx-2"
+    class="text-3xl w-12 h-12"
     v-tooltip.bottom="$t('Main menu')"
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-20rem py-2 px-4">
+  <Menu ref="refMenu" popup :model="[]" class="w-[22rem] py-2 px-4">
     <template #start>
-      <div class="flex my-4 align-items-center">
-        <div class="flex align-items-center">
+      <div class="flex my-2 items-center">
+        <div class="flex items-center">
           <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
           <div>
             <p class="font-bold m-0">
               {{ $helpdesk?.user?.fullname }}
             </p>
-            <p class="line-height-3 text-color-secondary m-0">
+            <p class="line-height-3 text-surface-500 m-0">
               {{ $helpdesk?.user?.email }}
             </p>
           </div>
         </div>
       </div>
-      <div class="overflow-scroll w-full max-h-30rem">
+      <div class="overflow-scroll w-full max-h-[30rem] px-2 py-2">
         <SidebarMenu />
       </div>
     </template>
@@ -60,10 +54,12 @@ const toggle = event => {
     </template>
 
     <template #end>
-      <div class="flex align-items-center align-content-center justify-content-between p-2">
+      <div class="flex items-center content-center justify-between py-2">
+        <BtnToggleTheme />
         <BtnToggleLang />
-        <BtnToggleTheme iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
-        <BtnAuth iconClass="text-2xl" class="w-3rem h-3rem hover:text-color" />
+        <BtnFTPClient />
+        <BtnFullScreen />
+        <BtnAuth />
       </div>
     </template>
   </Menu>

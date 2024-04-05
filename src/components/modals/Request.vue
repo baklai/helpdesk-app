@@ -6,6 +6,8 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
+import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
+
 import { useRequest } from '@/stores/api/requests';
 import { useIPAddress } from '@/stores/api/ipaddresses';
 import { useСompany } from '@/stores/api/companies';
@@ -194,9 +196,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -306,36 +308,32 @@ const onSaveClosedRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '800px' }"
-    class="p-fluid"
+    class="!w-[60rem]"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <AppIcons name="helpdesk-live-log" :size="40" class="mr-2" />
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
+          <AppIcons name="helpdesk-live-log" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('Help Desk Live Log') }}
             </p>
-            <p
-              class="text-base font-normal line-height-2 text-color-secondary mb-0"
-              v-show="!isClosed"
-            >
+            <p class="text-base font-normal line-height-2 text-surface-500" v-show="!isClosed">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Status') }} :
               {{ isClosed ? $t('Request closed') : $t('Request opened') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -344,57 +342,59 @@ const onSaveClosedRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord">
-      <div class="formgrid grid">
-        <div class="field col">
-          <div class="field">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+    >
+      <div class="flex flex-row gap-x-4">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="request" class="font-bold">{{ $t('Client request') }}</label>
             <Textarea
               rows="8"
-              cols="10"
               id="request"
               v-bind="request"
               :placeholder="$t('Client request')"
-              :class="{ 'p-invalid': !!errors?.request }"
+              :invalid="!!errors?.request"
               aria-describedby="request-help"
             />
-            <small id="request-help" class="p-error" v-if="errors?.request">
+            <small id="request-help" class="text-red-500" v-if="errors?.request">
               {{ $t(errors.request) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
             <InputText id="reqnum" v-bind="reqnum" :placeholder="$t('Letter number')" />
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="ipaddress" class="font-bold">{{ $t('IP Address') }}</label>
-            <span class="p-input-icon-right">
-              <i
-                class="pi pi-search cursor-pointer"
-                v-tooltip.bottom="$t('Find IP Address')"
-                @click.prevent="findOneIPAddress"
-              />
+            <span class="relative">
               <InputText
                 id="ipaddress"
                 v-bind="ipaddress"
                 :placeholder="$t('Client IP Address')"
-                :class="{ 'p-invalid': !!errors?.ipaddress }"
+                :invalid="!!errors?.ipaddress"
+                class="w-full pr-10"
                 @keypress.enter="findOneIPAddress"
                 aria-describedby="ipaddress-help"
               />
+              <i
+                class="pi pi-search cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
+                v-tooltip.bottom="$t('Find IP Address')"
+                @click.prevent="findOneIPAddress"
+              />
             </span>
-            <small id="ipaddress-help" class="p-error" v-if="errors?.ipaddress">
+            <small id="ipaddress-help" class="text-red-500" v-if="errors?.ipaddress">
               {{ $t(errors.ipaddress) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="conclusion" class="font-bold">{{ $t('Conclusion for request') }}</label>
             <Textarea
               rows="5"
-              cols="10"
               aria-describedby="conclusion-help"
               id="conclusion"
               v-bind="conclusion"
@@ -402,182 +402,218 @@ const onSaveClosedRecord = handleSubmit(async () => {
             />
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
-            <Textarea
-              rows="3"
-              cols="10"
-              id="comment"
-              v-bind="comment"
-              :placeholder="$t('Comment')"
-            />
+            <Textarea rows="3" id="comment" v-bind="comment" :placeholder="$t('Comment')" />
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
+        <div class="flex flex-col basis-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
-            <div class="field" id="client-info">
-              <div class="field">
+            <div class="flex flex-col gap-2" id="client-info">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="fullname"
                   v-bind="fullname"
                   :placeholder="$t('Client fullname')"
-                  :class="{ 'p-invalid': !!errors?.fullname }"
+                  :invalid="!!errors?.fullname"
                   aria-describedby="fullname-help"
                 />
-                <small id="fullname-help" class="p-error" v-if="errors?.fullname">
+                <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
                   {{ $t(errors.fullname) }}
                 </small>
               </div>
 
-              <div class="field">
+              <div class="flex flex-col gap-2">
                 <InputText
                   id="phone"
                   v-bind="phone"
                   :placeholder="$t('Client phone')"
-                  :class="{ 'p-invalid': !!errors?.phone }"
+                  :invalid="!!errors?.phone"
                   aria-describedby="phone-help"
                 />
-                <small id="phone-help" class="p-error" v-if="errors?.phone">
+                <small id="phone-help" class="text-red-500" v-if="errors?.phone">
                   {{ $t(errors.phone) }}
                 </small>
               </div>
 
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="position"
-                  v-bind="position"
-                  :options="positions"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client position')"
-                  :class="{ 'p-invalid': !!errors?.position }"
-                  aria-describedby="position-help"
-                />
-                <small id="position-help" class="p-error" v-if="errors?.position">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="position"
+                    v-bind="position"
+                    :options="positions"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client position')"
+                    :invalid="!!errors?.position"
+                    aria-describedby="position-help"
+                    class="w-full"
+                    @before-show="async () => (positions = await Position.findAll({}))"
+                  />
+
+                  <BtnDBTable table="position" />
+                </div>
+
+                <small id="position-help" class="text-red-500" v-if="errors?.position">
                   {{ $t(errors.position) }}
                 </small>
               </div>
             </div>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="location" class="font-bold">{{ $t('Location') }}</label>
-            <Dropdown
-              filter
-              autofocus
-              showClear
-              resetFilterOnHide
-              dataKey="id"
-              optionValue="id"
-              optionLabel="name"
-              inputId="location"
-              v-bind="location"
-              :options="locations"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client location')"
-              :class="{ 'p-invalid': !!errors?.location }"
-              aria-describedby="location-help"
-            />
-            <small id="location-help" class="p-error" v-if="errors?.location">
+            <div class="flex flex-row w-full gap-2">
+              <Dropdown
+                filter
+                autofocus
+                showClear
+                resetFilterOnHide
+                dataKey="id"
+                optionValue="id"
+                optionLabel="name"
+                inputId="location"
+                v-bind="location"
+                :options="locations"
+                :filterPlaceholder="$t('Search')"
+                :placeholder="$t('Client location')"
+                :invalid="!!errors?.location"
+                aria-describedby="location-help"
+                class="w-full"
+                @before-show="async () => (locations = await Location.findAll({}))"
+              />
+
+              <BtnDBTable table="location" />
+            </div>
+
+            <small id="location-help" class="text-red-500" v-if="errors?.location">
               {{ $t(errors.location) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="field" id="companies">
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="company"
-                  v-bind="company"
-                  :options="companies"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client company')"
-                  :class="{ 'p-invalid': !!errors?.company }"
-                  aria-describedby="company-help"
-                />
-                <small id="company-help" class="p-error" v-if="errors?.company">
+            <div class="flex flex-col gap-2" id="companies">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="company"
+                    v-bind="company"
+                    :options="companies"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client company')"
+                    :invalid="!!errors?.company"
+                    aria-describedby="company-help"
+                    class="w-full"
+                    @before-show="async () => (companies = await Company.findAll({}))"
+                  />
+
+                  <BtnDBTable table="company" />
+                </div>
+
+                <small id="company-help" class="text-red-500" v-if="errors?.company">
                   {{ $t(errors.company) }}
                 </small>
               </div>
 
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="branch"
-                  v-bind="branch"
-                  :options="branches"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client branch')"
-                  :class="{ 'p-invalid': !!errors?.branch }"
-                  aria-describedby="branch-help"
-                />
-                <small id="branch-help" class="p-error" v-if="errors?.branch">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="branch"
+                    v-bind="branch"
+                    :options="branches"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client branch')"
+                    :invalid="!!errors?.branch"
+                    aria-describedby="branch-help"
+                    class="w-full"
+                    @before-show="async () => (branches = await Branch.findAll({}))"
+                  />
+
+                  <BtnDBTable table="branch" />
+                </div>
+
+                <small id="branch-help" class="text-red-500" v-if="errors?.branch">
                   {{ $t(errors.branch) }}
                 </small>
               </div>
 
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="enterprise"
-                  v-bind="enterprise"
-                  :options="enterprises"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client enterprise')"
-                  :class="{ 'p-invalid': !!errors?.enterprise }"
-                  aria-describedby="enterprise-help"
-                />
-                <small id="enterprise-help" class="p-error" v-if="errors?.enterprise">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="enterprise"
+                    v-bind="enterprise"
+                    :options="enterprises"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client enterprise')"
+                    :invalid="!!errors?.enterprise"
+                    aria-describedby="enterprise-help"
+                    class="w-full"
+                    @before-show="async () => (enterprises = await Enterprise.findAll({}))"
+                  />
+
+                  <BtnDBTable table="enterprise" />
+                </div>
+
+                <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
                   {{ $t(errors.enterprise) }}
                 </small>
               </div>
 
-              <div class="field">
-                <Dropdown
-                  filter
-                  autofocus
-                  showClear
-                  resetFilterOnHide
-                  dataKey="id"
-                  optionValue="id"
-                  optionLabel="name"
-                  inputId="department"
-                  v-bind="department"
-                  :options="departments"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client department')"
-                  :class="{ 'p-invalid': !!errors?.department }"
-                  aria-describedby="department-help"
-                />
-                <small id="department-help" class="p-error" v-if="errors?.department">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-row w-full gap-2">
+                  <Dropdown
+                    filter
+                    autofocus
+                    showClear
+                    resetFilterOnHide
+                    dataKey="id"
+                    optionValue="id"
+                    optionLabel="name"
+                    inputId="department"
+                    v-bind="department"
+                    :options="departments"
+                    :filterPlaceholder="$t('Search')"
+                    :placeholder="$t('Client department')"
+                    :invalid="!!errors?.department"
+                    aria-describedby="department-help"
+                    class="w-full"
+                    @before-show="async () => (departments = await Department.findAll({}))"
+                  />
+
+                  <BtnDBTable table="department" />
+                </div>
+
+                <small id="department-help" class="text-red-500" v-if="errors?.department">
                   {{ $t(errors.department) }}
                 </small>
               </div>
@@ -620,16 +656,3 @@ const onSaveClosedRecord = handleSubmit(async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-dropdown .p-dropdown-label.p-placeholder) {
-  color: var(--surface-400);
-}
-::v-deep(.p-datatable .p-datatable-header) {
-  background: transparent;
-}
-
-::v-deep(.p-datatable-thead) {
-  display: none;
-}
-</style>

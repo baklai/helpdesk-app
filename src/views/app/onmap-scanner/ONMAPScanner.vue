@@ -7,10 +7,10 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import Panel from 'primevue/panel';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/ONMAP.vue';
-import SidebarRecord from '@/components/sidebar/ONMAP.vue';
+import SidebarRecord from '@/components/sidebars/ONMAP.vue';
 
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useOnmap } from '@/stores/api/onmaps';
@@ -102,11 +102,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value > 0
-                ? 'text-base text-white font-medium w-4 bg-green-500'
-                : 'text-base text-white font-medium w-4 bg-gray-500'
-            }
+            class={[
+              '!text-base !font-bold !text-white !w-1/3',
+              value > 0 ? '!bg-green-500/80' : '!bg-gray-500/80'
+            ]}
             value={value > 0 ? t('UP') : t('DOWN')}
           />
         );
@@ -240,7 +239,7 @@ const runTargetScan = handleSubmit(async () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -253,11 +252,11 @@ const runTargetScan = handleSubmit(async () => {
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Onmap.findAll"
         :onDelete="Onmap.removeOne"
@@ -282,98 +281,102 @@ const runTargetScan = handleSubmit(async () => {
         <template #actions> </template>
 
         <template #subheader>
-          <Panel class="border-1 border-solid surface-border shadow-none" v-show="subheader">
+          <Panel class="my-4" v-show="subheader">
             <template #header>
-              <div class="flex align-items-center gap-2">
-                <span class="font-bold">{{ $t('Onmap scanner run') }}</span>
+              <div class="flex items-center">
+                <span class="font-bold uppercase">{{ $t('Onmap scanner run') }}</span>
               </div>
             </template>
 
+            <div class="flex flex-col justify-center gap-4">
+              <div class="flex flex-row gap-4">
+                <div class="flex flex-col md:w-2/5 gap-2">
+                  <label for="target">{{ $t('Target') }}</label>
+                  <InputText
+                    id="target"
+                    class="w-full"
+                    v-bind="target"
+                    :placeholder="$t('Scan target')"
+                    :invalid="!!errors?.target"
+                    aria-describedby="target-help"
+                  />
+                  <small id="target-help" class="text-red-500" v-if="errors?.target">
+                    {{ $t(errors.target) }}
+                  </small>
+                </div>
+
+                <div class="flex flex-col md:w-3/5 gap-2">
+                  <label for="title">{{ $t('Title') }}</label>
+                  <InputText
+                    id="title"
+                    class="w-full"
+                    v-bind="title"
+                    :placeholder="$t('Scan title')"
+                    :invalid="!!errors?.title"
+                    aria-describedby="title-help"
+                  />
+                  <small id="title-help" class="text-red-500" v-if="errors?.title">
+                    {{ $t(errors.title) }}
+                  </small>
+                </div>
+              </div>
+
+              <div class="flex flex-row gap-4">
+                <div class="flex flex-col md:w-2/5 gap-2">
+                  <label for="profile">{{ $t('Profile') }}</label>
+                  <Dropdown
+                    filter
+                    showClear
+                    autofocus
+                    optionLabel="name"
+                    v-bind="profile"
+                    :options="SCAN_PROFILES"
+                    @change="
+                      event => {
+                        setFieldValue('command', event.value.flags.join(' '));
+                      }
+                    "
+                    :filterPlaceholder="$t('Search in list')"
+                    :placeholder="$t('Select scan profile')"
+                    class="w-full"
+                  />
+                </div>
+
+                <div class="flex flex-col md:w-3/5 gap-2">
+                  <label for="command">{{ $t('Command') }}</label>
+                  <InputText
+                    id="command"
+                    class="w-full"
+                    v-bind="command"
+                    :readonly="true"
+                    :placeholder="$t('Scan command')"
+                    :invalid="!!errors?.command"
+                    aria-describedby="command-help"
+                  />
+                  <small id="command-help" class="text-red-500" v-if="errors?.command">
+                    {{ $t(errors.command) }}
+                  </small>
+                </div>
+              </div>
+            </div>
+
             <template #footer>
-              <div class="flex flex-wrap align-items-center justify-content-between gap-3 px-2">
-                <div class="flex align-items-center gap-2">
-                  <Button :label="$t('Scan')" class="w-15rem" @click="runTargetScan" />
+              <div class="flex flex-wrap items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <Button :label="$t('Scan')" class="w-60" @click="runTargetScan" />
                   <Button
-                    :label="$t('Cancel')"
+                    outlined
+                    class="w-40"
                     severity="secondary"
-                    class="w-10rem"
+                    :label="$t('Cancel')"
                     @click="resetForm({ values: {} }, { force: true })"
                   />
                 </div>
-                <span class="p-text-secondary">...</span>
               </div>
             </template>
-
-            <div class="formgrid grid p-2">
-              <div class="field col-12 md:col-3">
-                <label for="target">{{ $t('Target') }}</label>
-                <InputText
-                  id="target"
-                  class="w-full"
-                  v-bind="target"
-                  :placeholder="$t('Scan target')"
-                  :class="{ 'p-invalid': !!errors?.target }"
-                  aria-describedby="target-help"
-                />
-                <small id="target-help" class="p-error" v-if="errors?.target">
-                  {{ $t(errors.target) }}
-                </small>
-              </div>
-
-              <div class="field col-12 md:col-9">
-                <label for="title">{{ $t('Title') }}</label>
-                <InputText
-                  id="title"
-                  class="w-full"
-                  v-bind="title"
-                  :placeholder="$t('Scan title')"
-                  :class="{ 'p-invalid': !!errors?.title }"
-                  aria-describedby="title-help"
-                />
-                <small id="title-help" class="p-error" v-if="errors?.title">
-                  {{ $t(errors.title) }}
-                </small>
-              </div>
-
-              <div class="field col-12 md:col-3">
-                <label for="profile">{{ $t('Profile') }}</label>
-                <Dropdown
-                  filter
-                  showClear
-                  autofocus
-                  optionLabel="name"
-                  v-bind="profile"
-                  :options="SCAN_PROFILES"
-                  @change="
-                    event => {
-                      setFieldValue('command', event.value.flags.join(' '));
-                    }
-                  "
-                  :filterPlaceholder="$t('Search in list')"
-                  :placeholder="$t('Select scan profile')"
-                  class="w-full"
-                />
-              </div>
-
-              <div class="field col-12 md:col-9">
-                <label for="command">{{ $t('Command') }}</label>
-                <InputText
-                  id="command"
-                  class="w-full"
-                  v-bind="command"
-                  :readonly="true"
-                  :placeholder="$t('Scan command')"
-                  :class="{ 'p-invalid': !!errors?.command }"
-                  aria-describedby="command-help"
-                />
-                <small id="command-help" class="p-error" v-if="errors?.command">
-                  {{ $t(errors.command) }}
-                </small>
-              </div>
-            </div>
           </Panel>
         </template>
-      </SSDataTable>
+      </HDDataTable>
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

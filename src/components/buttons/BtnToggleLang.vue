@@ -9,39 +9,40 @@ const items = ref([
   {
     label: 'English',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('en')
+    command: () => $config.toggleAppLang('en')
   },
   {
     label: 'Українська',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('uk')
+    command: () => $config.toggleAppLang('uk')
   },
   {
     label: 'Русский',
     icon: 'pi pi-language',
-    command: () => $config.toggleLang('ru')
+    command: () => $config.toggleAppLang('ru')
   }
 ]);
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" popup>
-    <template #item="{ label, item, props }">
-      <a :href="item.url" v-bind="props.action">
-        <span v-bind="props.icon" />
-        <span v-bind="props.label">{{ label }}</span>
-      </a>
-    </template>
-  </Menu>
+  <div>
+    <Menu ref="refMenu" :model="items" popup>
+      <template #item="{ label, item, props }">
+        <a :href="item.url" v-bind="props.action">
+          <span v-bind="props.icon" />
+          <span v-bind="props.label">{{ label }}</span>
+        </a>
+      </template>
+    </Menu>
 
-  <Button
-    text
-    plain
-    rounded
-    icon="pi pi-language"
-    iconClass="text-2xl"
-    class="p-button-lg hover:text-color h-3rem w-3rem"
-    v-tooltip.bottom="$t('Languages')"
-    @click="event => refMenu.toggle(event)"
-  />
+    <Button
+      text
+      plain
+      rounded
+      icon="pi pi-language"
+      class="text-2xl w-12 h-12"
+      v-tooltip.bottom="$t('Languages')"
+      @click="event => refMenu.toggle(event)"
+    />
+  </div>
 </template>

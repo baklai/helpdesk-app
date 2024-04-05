@@ -1,6 +1,8 @@
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, inject, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { useScope } from '@/stores/scopes';
 
@@ -31,18 +33,18 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     dismissableMask
     :draggable="false"
     :visible="visible"
+    class="w-4/5 md:max-w-[40rem]"
     @update:visible="$emit('update:visible', !visible)"
-    :style="{ maxWidth: '500px' }"
   >
     <template #header>
-      <div class="flex align-items-center">
-        <div class="flex align-items-center">
-          <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
+      <div class="flex items-center">
+        <div class="flex items-center">
+          <Avatar icon="pi pi-user" class="mr-4" size="large" />
           <div>
             <p class="font-bold m-0">
               {{ $helpdesk?.user?.fullname }}
             </p>
-            <p class="line-height-3 text-color-secondary m-0">
+            <p class="line-height-3 text-surface-500 m-0">
               {{ $helpdesk?.user?.email }}
             </p>
           </div>
@@ -50,143 +52,101 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
       </div>
     </template>
 
-    <div class="flex my-4 align-items-center">
-      <div class="formgrid grid">
-        <div class="field col-12 xl:col-6 text-center">
+    <div class="flex items-center">
+      <div class="flex flex-wrap">
+        <div class="flex-shrink-0 p-4 w-full md:w-2/5 text-center">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
-            class="w-4rem h-4rem"
+            class="w-16 h-16"
             v-if="$helpdesk?.user?.logo"
           />
-          <div class="flex align-items-center justify-content-center p-3 flex-column" v-else>
-            <i
-              class="pi pi-cloud-upload border-2 border-circle p-3 text-3xl text-color-secondary"
-            />
-            <p class="text-sm mt-4 mb-0 text-color-secondary">
+          <div class="flex items-center justify-center p-3 flex-col" v-else>
+            <i class="pi pi-cloud-upload p-3 text-3xl text-surface-500" />
+            <p class="text-sm mt-6 mb-0 text-surface-500">
               {{ $t('Drag and drop logo to here to upload') }}
             </p>
           </div>
         </div>
 
-        <div class="field col-12 xl:col-6">
-          <div class="field mb-0">
-            <p class="font-bold text-primary text-lg">
+        <div class="flex-shrink-0 p-4 w-full md:w-3/5">
+          <div class="mb-0">
+            <p class="font-bold text-lg">
               {{ $t('Login') }} :
-              <span class="text-color">{{ $helpdesk?.user?.login }}</span>
+              <span class="">{{ $helpdesk?.user?.login }}</span>
             </p>
           </div>
-          <div class="field mb-0">
-            <p class="font-bold text-primary text-lg">
+          <div class="mb-0">
+            <p class="font-bold text-lg">
               {{ $t('Fullname') }} :
-              <span class="text-color">{{ $helpdesk?.user?.fullname }}</span>
+              <span class="">{{ $helpdesk?.user?.fullname }}</span>
             </p>
           </div>
-          <div class="field mb-0">
-            <p class="font-bold text-primary text-lg">
+          <div class="mb-0">
+            <p class="font-bold text-lg">
               {{ $t('E-Mail') }} :
-              <span class="text-color">{{ $helpdesk?.user?.email }}</span>
+              <span class="">{{ $helpdesk?.user?.email }}</span>
             </p>
           </div>
-          <div class="field mb-0">
-            <p class="font-bold text-primary text-lg">
+          <div class="mb-0">
+            <p class="font-bold text-lg">
               {{ $t('Phone') }} :
-              <span class="text-color">{{ $helpdesk?.user?.phone }}</span>
+              <span class="">{{ $helpdesk?.user?.phone }}</span>
             </p>
           </div>
-          <div class="field mb-0">
-            <p class="font-bold text-primary text-lg">
+          <div class="mb-0">
+            <p class="font-bold text-lg">
               {{ $t('Is Admin') }} :
-              <span class="text-color">{{ $helpdesk?.user?.isAdmin }}</span>
+              <span class="">{{ $helpdesk?.user?.isAdmin }}</span>
             </p>
           </div>
         </div>
 
-        <div class="field col">
-          <div class="field">
-            <DataTable
-              rowHover
-              scrollable
-              scrollHeight="flex"
-              responsiveLayout="scroll"
-              v-model:value="scopes"
-              class="min-w-full overflow-x-auto h-20rem"
-            >
-              <template #empty>
-                <div class="text-center">
-                  <h5>{{ $t('No scopes found') }}</h5>
-                </div>
+        <div class="flex w-full max-h-[25rem]">
+          <DataTable
+            rowHover
+            scrollable
+            scrollHeight="flex"
+            responsiveLayout="scroll"
+            v-model:value="scopes"
+            class="w-full overflow-x-auto"
+          >
+            <template #empty>
+              <div class="text-center">
+                <h5>{{ $t('No scopes found') }}</h5>
+              </div>
+            </template>
+
+            <Column frozen field="scope" :header="$t('Scope')" class="font-bold">
+              <template #body="slotProps">
+                {{ slotProps.data.comment }}
               </template>
+            </Column>
 
-              <Column frozen field="scope" :header="$t('Scope')" class="font-bold">
-                <template #body="slotProps">
-                  {{ slotProps.data.comment }}
-                </template>
-              </Column>
-
-              <Column
-                v-for="col of columns"
-                :key="col.field"
-                :field="col.field"
-                :header="col.header"
-                headerClass="text-center"
-                class="text-center"
-              >
-                <template #body="{ data, field }">
-                  <i
-                    v-if="data[field] !== undefined"
-                    class="pi"
-                    :class="
-                      data[field]
-                        ? 'pi-check-circle text-green-500'
-                        : 'pi-minus-circle text-color-secondary'
-                    "
-                  />
-                  <span v-else class="text-color-secondary">-</span>
-                </template>
-              </Column>
-            </DataTable>
-          </div>
+            <Column
+              v-for="col of columns"
+              :key="col.field"
+              :field="col.field"
+              :header="col.header"
+              headerClass="text-center"
+              class="text-center"
+            >
+              <template #body="{ data, field }">
+                <i
+                  v-if="data[field] !== undefined"
+                  class="pi"
+                  :class="
+                    data[field]
+                      ? 'pi-check-circle text-green-500'
+                      : 'pi-minus-circle text-surface-500'
+                  "
+                />
+                <span v-else class="text-surface-500">-</span>
+              </template>
+            </Column>
+          </DataTable>
         </div>
       </div>
     </div>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-datatable-header) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(tr.p-datatable-emptymessage > td) {
-  border: none;
-}
-
-::v-deep(tr.p-datatable-emptymessage:hover) {
-  background: none !important;
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  background: var(--surface-ground);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  background-color: var(--surface-ground);
-}
-
-::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
-  padding: 0.3rem 0.3rem;
-}
-
-::v-deep(.p-datatable .p-column-header-content) {
-  display: block;
-}
-</style>

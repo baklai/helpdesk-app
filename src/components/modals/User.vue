@@ -1,16 +1,20 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineAsyncComponent } from 'vue';
 import { useForm, useFieldArray } from 'vee-validate';
 import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
+
+const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { useScope } from '@/stores/scopes';
 import { useUser } from '@/stores/api/users';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
 
 const { findOne, createOne, updateOne, removeOne } = useUser();
 const { scopeLength, getDefaultScope, getSelectScope } = useScope();
@@ -176,9 +180,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (values?.id) {
@@ -288,29 +292,28 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    style="width: 800px"
-    class="p-fluid"
+    class="!w-[70rem]"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <AppIcons name="core-users" :size="40" class="mr-2" />
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
+          <AppIcons name="core-users" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-2">
+            <p class="text-lg font-bold line-height-2">
               {{ $t('User account') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
-            class="mx-2"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -319,25 +322,29 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form @submit.prevent="onSaveRecord" autocomplete="off">
-      <div class="formgrid grid">
-        <div class="field col-12 xl:col-4">
-          <div class="field">
+    <form
+      @submit.prevent="onSaveRecord"
+      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
+      autocomplete="off"
+    >
+      <div class="flex flex-row gap-x-4">
+        <div class="flex flex-col basis-1/3 gap-y-4">
+          <div class="flex flex-col gap-2">
             <label for="login" class="font-bold">{{ $t('User login') }}</label>
             <InputText
               id="login"
               :readonly="readonly"
               v-bind="login"
               :placeholder="$t('User login')"
-              :class="{ 'p-invalid': !!errors?.login }"
+              :invalid="!!errors?.login"
               aria-describedby="login-help"
             />
-            <small id="login-help" class="p-error" v-if="errors?.login">
+            <small id="login-help" class="text-red-500" v-if="errors?.login">
               {{ $t(errors.login) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="password" class="font-bold">
               {{ $t('User password') }}
             </label>
@@ -351,7 +358,7 @@ const onSaveRecord = handleSubmit(async () => {
               :weakLabel="$t('Too simple')"
               :mediumLabel="$t('Average complexity')"
               :strongLabel="$t('Complex password')"
-              :class="{ 'p-invalid': !!errors?.password }"
+              :invalid="!!errors?.password"
               aria-describedby="password-help"
             >
               <template #header>
@@ -368,40 +375,40 @@ const onSaveRecord = handleSubmit(async () => {
                 </ul>
               </template>
             </Password>
-            <small id="password-help" class="p-error" v-if="errors?.password">
+            <small id="password-help" class="text-red-500" v-if="errors?.password">
               {{ $t(errors.password) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
             <InputText
               id="fullname"
               v-bind="fullname"
               :placeholder="$t('User name')"
-              :class="{ 'p-invalid': !!errors?.fullname }"
+              :invalid="!!errors?.fullname"
               aria-describedby="fullname-help"
             />
-            <small id="fullname-help" class="p-error" v-if="errors?.fullname">
+            <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
               {{ $t(errors.fullname) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="email" class="font-bold">{{ $t('User email') }}</label>
             <InputText
               id="email"
               v-bind="email"
               :placeholder="$t('User email')"
-              :class="{ 'p-invalid': !!errors?.email }"
+              :invalid="!!errors?.email"
               aria-describedby="email-help"
             />
-            <small id="email-help" class="p-error" v-if="errors?.email">
+            <small id="email-help" class="text-red-500" v-if="errors?.email">
               {{ $t(errors.email) }}
             </small>
           </div>
 
-          <div class="field">
+          <div class="flex flex-col gap-2">
             <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
             <InputMask
               date="phone"
@@ -409,16 +416,16 @@ const onSaveRecord = handleSubmit(async () => {
               placeholder="+99(999)999-99-99"
               id="phone"
               v-bind="phone"
-              :class="{ 'p-invalid': !!errors?.phone }"
+              :invalid="!!errors?.phone"
               aria-describedby="phone-help"
             />
-            <small id="phone-help" class="p-error" v-if="errors?.phone">
+            <small id="phone-help" class="text-red-500" v-if="errors?.phone">
               {{ $t(errors.phone) }}
             </small>
           </div>
 
-          <div class="field">
-            <div class="flex align-items-center">
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center">
               <Checkbox inputId="isActive" binary v-bind="isActive" />
               <label for="isActive" class="font-bold ml-2">
                 {{ $t('Activated account') }}
@@ -426,15 +433,15 @@ const onSaveRecord = handleSubmit(async () => {
             </div>
           </div>
 
-          <div class="field">
-            <div class="flex align-items-center">
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center">
               <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
               <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
             </div>
           </div>
         </div>
 
-        <div class="field col-12 xl:col-8">
+        <div class="flex flex-col basis-2/3 gap-y-4">
           <DataTable
             rowHover
             scrollable
@@ -447,44 +454,45 @@ const onSaveRecord = handleSubmit(async () => {
             style="height: calc(400px)"
           >
             <template #header>
-              <div class="flex flex-wrap gap-4 align-items-center justify-content-between">
-                <div class="flex flex-wrap gap-2 align-items-center">
+              <div class="flex flex-wrap gap-4 items-center justify-between">
+                <div class="flex flex-wrap gap-2 items-center">
                   <i class="pi pi-unlock text-2xl mr-2"></i>
                   <div>
-                    <p class="text-color m-0">
+                    <p>
                       {{ $t('Scope list') }}
                     </p>
-                    <small class="text-color-secondary">
+                    <small class="text-surface-500">
                       {{ $t('Select scopes', [selectScopeLength, scopeLength()]) }}
                     </small>
                   </div>
                 </div>
-                <div class="flex gap-2 align-items-center justify-content-between sm:w-max w-full">
-                  <span class="p-input-icon-left p-input-icon-right sm:w-max w-full">
-                    <i class="pi pi-search" />
+                <div class="flex gap-2 items-center justify-between sm:w-max w-full">
+                  <span class="relative sm:w-max w-full">
+                    <i
+                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    />
                     <InputText
                       id="name"
-                      size="small"
-                      class="sm:w-max w-full"
+                      class="sm:w-max w-full px-10 !bg-inherit"
                       :placeholder="$t('Search')"
                       v-model="filters['global'].value"
                     />
                     <i
                       v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer hover:text-color"
+                      class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
                       v-tooltip.bottom="$t('Clear filter')"
                       @click="filters['global'].value = null"
                     />
                   </span>
 
-                  <div class="flex gap-2 justify-content-between">
+                  <div class="flex gap-2 justify-between">
                     <Button
                       text
                       plain
                       rounded
                       icon="pi pi-cog"
                       iconClass="text-2xl"
-                      class="p-button-lg hover:text-color h-3rem w-3rem"
+                      class="h-12 w-12"
                       v-tooltip.bottom="$t('Scope option')"
                       @click="event => refSelectMenu.toggle(event)"
                     />
@@ -526,7 +534,7 @@ const onSaveRecord = handleSubmit(async () => {
                   :binary="true"
                   v-if="data.value[field] !== undefined"
                 />
-                <span v-else class="text-color-secondary">-</span>
+                <span v-else class="text-surface-500">-</span>
               </template>
             </Column>
           </DataTable>
@@ -540,46 +548,3 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-::v-deep(.p-datatable-header) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-thead > tr > th) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr) {
-  background: var(--surface-overlay);
-}
-
-::v-deep(tr.p-datatable-emptymessage > td) {
-  border: none;
-}
-
-::v-deep(tr.p-datatable-emptymessage:hover) {
-  background: none !important;
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):hover) {
-  background: var(--surface-ground);
-}
-
-::v-deep(.p-datatable .p-datatable-tbody > tr:not(.p-highlight):focus) {
-  background-color: var(--surface-ground);
-}
-
-::v-deep(.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td) {
-  padding: 0.3rem 0.3rem;
-}
-
-::v-deep(.p-input-icon-right > svg) {
-  right: 0.5rem !important;
-  cursor: pointer;
-}
-
-::v-deep(.p-datatable .p-column-header-content) {
-  display: block;
-}
-</style>

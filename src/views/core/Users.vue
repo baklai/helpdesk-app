@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/User.vue';
 
@@ -121,7 +121,7 @@ const columns = ref([
     column: {
       field: 'isActive',
       render(value) {
-        return value ? <i class={'pi pi-check font-bold text-green-500'}></i> : <span>-</span>;
+        return value ? <i class={'pi pi-check !font-bold text-green-500'}></i> : <span>-</span>;
       }
     },
     sorter: { field: 'isActive' },
@@ -167,7 +167,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="text-base font-normal text-color surface-hover w-7rem px-2"
+            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
             value={value ? `${value?.length} / ${Scope.scopeLength()}` : '-'}
           />
         );
@@ -191,7 +191,7 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -203,11 +203,11 @@ const columns = ref([
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="User.findAll"
         :onDelete="User.removeOne"
@@ -228,7 +228,7 @@ const columns = ref([
         <template #subtitle>
           {{ $t($route?.meta?.description) }}
         </template>
-      </SSDataTable>
+      </HDDataTable>
     </div>
   </div>
 </template>

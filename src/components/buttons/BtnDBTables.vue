@@ -93,9 +93,9 @@ const items = computed(() => [
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="items" popup class="w-16rem">
+  <Menu ref="refMenu" :model="items" popup class="w-64">
     <template #item="{ label, item, props }">
-      <a :href="item.url" v-bind="props.action" class="px-4">
+      <a :href="item.url" v-bind="props.action" class="px-6">
         <span v-bind="props.icon" />
         <span v-bind="props.label">{{ label }}</span>
       </a>
@@ -106,9 +106,8 @@ const items = computed(() => [
     text
     plain
     rounded
-    icon="pi pi-database"
-    iconClass="text-2xl"
-    class="p-button-lg hover:text-color h-3rem w-3rem"
+    icon="pi pi-table"
+    class="text-2xl w-12 h-12"
     v-tooltip.bottom="$t('DB Tables')"
     @click="event => refMenu.toggle(event)"
   />

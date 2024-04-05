@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Mailbox.vue';
-import SidebarRecord from '@/components/sidebar/Mailbox.vue';
+import SidebarRecord from '@/components/sidebars/Mailbox.vue';
 
 import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';
@@ -45,7 +45,7 @@ const columns = ref([
         return value ? (
           <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
         ) : (
-          <i class={'pi pi-lock font-bold text-color-secondary ml-4'}></i>
+          <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
         );
       }
     },
@@ -70,7 +70,11 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold text-primary surface-hover cursor-pointer justify-content-start w-full px-4`}
+            class={[
+              '!text-base font-bold cursor-pointer px-4',
+              '!bg-surface-500/5',
+              '!text-primary-600'
+            ]}
             value={value}
           />
         );
@@ -418,7 +422,7 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -431,11 +435,11 @@ const columns = ref([
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Mailbox.findAll"
         :onDelete="Mailbox.removeOne"
@@ -460,7 +464,7 @@ const columns = ref([
         <template #actions>
           <BtnDBTables />
         </template>
-      </SSDataTable>
+      </HDDataTable>
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

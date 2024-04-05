@@ -195,7 +195,7 @@ const OPTIONS = ref({
     }
   },
   edges: {
-    color: 'var(--text-color);',
+    color: 'rgb(var(--primary-500))',
     smooth: false
   },
 
@@ -243,42 +243,55 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-full">
-    <div class="flex align-content-center mb-4">
-      <div class="flex align-items-center justify-content-center mr-2">
-        <AppIcons :name="$route?.name" :size="42" />
+  <div class="w-full h-full p-4">
+    <div class="flex justify-between flex-wrap mb-2">
+      <div class="flex flex-wrap gap-2 items-center">
+        <i class="mr-2 block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+        <div>
+          <h3 class="text-2xl">
+            {{ $t($route?.meta?.title) }}
+          </h3>
+          <p class="text-base text-surface-500">
+            {{ $t($route?.meta?.description) }}
+          </p>
+        </div>
       </div>
-      <div>
-        <h5 class="text-sm text-color-secondary m-0">
-          {{ $t($route?.meta?.title) }}
-        </h5>
-        <h3 class="m-0">{{ $t($route?.meta?.description) }}</h3>
-      </div>
-    </div>
 
-    <div class="flex overflow-hidden" style="height: calc(100vh - 12rem)">
-      <div class="flex-none p-2 w-21rem">
-        <div class="field">
-          <label for="location">{{ $t('Location name') }}</label>
-          <Dropdown
-            filter
-            autofocus
-            v-model="location"
-            optionValue="id"
-            optionLabel="name"
-            :options="locations"
-            @change="event => onSelectLocation(event.value)"
-            :filterPlaceholder="$t('Search in list')"
-            :placeholder="$t('Select location')"
-            class="w-full"
-          />
-          <small v-if="ipaddreses?.length">
+      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+        <div class="flex flex-col">
+          <div class="flex flex-row w-full gap-2">
+            <Dropdown
+              filter
+              autofocus
+              v-model="location"
+              optionValue="id"
+              optionLabel="name"
+              :options="locations"
+              @change="event => onSelectLocation(event.value)"
+              :filterPlaceholder="$t('Search in list')"
+              :placeholder="$t('Select location')"
+              class="w-80"
+            />
+
+            <Button
+              outlined
+              severity="secondary"
+              icon="pi pi-cog text-2xl"
+              class="h-12 w-12"
+              v-tooltip.bottom="$t('Options')"
+            />
+          </div>
+          <small v-if="ipaddreses?.length" class="text-surface-500">
             {{ $t('Selected units') }}: {{ ipaddreses.length }}
           </small>
         </div>
       </div>
+    </div>
 
-      <div id="netmap" class="flex-grow-1 flex align-items-center justify-content-center"></div>
+    <div class="flex w-full overflow-hidden" style="height: calc(100vh - 13rem)">
+      <div id="netmap" class="flex items-center justify-center w-full h-full"></div>
     </div>
   </div>
 </template>

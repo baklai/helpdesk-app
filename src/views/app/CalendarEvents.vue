@@ -127,9 +127,9 @@ const confirmDelete = ({ id }) => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       try {
@@ -177,33 +177,33 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full p-4">
     <Modal ref="refModal" @close="async () => await getDataRecords()" />
 
-    <div class="flex justify-content-between flex-wrap mb-2">
-      <div class="flex flex-wrap gap-2 align-items-center">
+    <div class="flex justify-between flex-wrap mb-2">
+      <div class="flex flex-wrap gap-2 items-center">
         <i class="mr-2 hidden sm:block">
           <AppIcons :name="$route?.name" :size="42" />
         </i>
         <div>
-          <h3 class="text-color m-0">
+          <h3 class="text-2xl">
             {{ $t($route?.meta?.title) }}
           </h3>
-          <p class="text-color-secondary">
+          <p class="text-base text-surface-500">
             {{ $t($route?.meta?.description) }}
           </p>
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full">
-        <div class="flex gap-2 sm:w-max w-full justify-content-between">
+      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+        <div class="flex gap-2 sm:w-max w-full justify-between">
           <Button
             text
             plain
             rounded
             icon="pi pi-plus-circle"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Create record')"
             @click="refModal.toggle({})"
           />
@@ -214,7 +214,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-sync"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Update records')"
             @click="getDataRecords"
           />
@@ -225,7 +225,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-cog"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Options')"
           />
         </div>
@@ -242,12 +242,10 @@ onMounted(async () => {
       >
         <template #eventDialog="{ eventDialogData, closeEventDialog }">
           <div v-if="eventDialogData && eventDialogData?.title">
-            <Card class="w-full p-2">
+            <Card class="w-full p-2 border-red-500">
               <template #title>
-                <div
-                  class="flex align-content-center align-items-center justify-content-between flex-wrap"
-                >
-                  <div class="flex align-content-center align-items-center">
+                <div class="flex content-center items-center justify-between flex-wrap">
+                  <div class="flex content-center items-center">
                     <i
                       class="pi pi-circle-fill mr-2"
                       :style="{
@@ -263,17 +261,15 @@ onMounted(async () => {
                       {{ eventDialogData?.title }}
                     </span>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
-                    <div
-                      class="flex align-items-center justify-content-center flex-wrap gap-2 align-items-center justify-content-between w-full"
-                    >
-                      <div class="flex gap-2 w-full justify-content-between">
+                  <div class="flex items-center justify-center">
+                    <div class="flex items-center flex-wrap gap-2 justify-between w-full">
+                      <div class="flex gap-2 w-full justify-between">
                         <Button
                           text
                           plain
                           rounded
                           icon="pi pi-trash"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Delete record')"
                           @click="
                             () => {
@@ -288,7 +284,7 @@ onMounted(async () => {
                           plain
                           rounded
                           icon="pi pi-file-edit"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Update record')"
                           @click="
                             () => {
@@ -303,7 +299,7 @@ onMounted(async () => {
                           plain
                           rounded
                           icon="pi pi-times"
-                          class="p-button-lg hover:text-color"
+                          class=""
                           v-tooltip.bottom="$t('Close')"
                           @click="closeEventDialog"
                         />
@@ -313,7 +309,7 @@ onMounted(async () => {
                 </div>
               </template>
               <template #subtitle>
-                <div class="flex align-content-center align-items-center">
+                <div class="flex content-center items-center">
                   <i class="pi pi-clock mr-2"></i>
                   <span>
                     {{ dateTimeToStr(eventDialogData?.datetime) || '-' }}
@@ -341,8 +337,8 @@ onMounted(async () => {
 ::v-deep(.calendar-month__event) {
   padding: 5px 10px;
 }
+
 ::v-deep(.calendar-month__event:hover) {
-  background-color: var(--surface-hover);
   padding: 5px 10px;
 }
 
@@ -351,22 +347,19 @@ onMounted(async () => {
 }
 
 ::v-deep(.event-flyout) {
-  color: var(--text-color) !important;
-  background: var(--surface-card) !important;
-  border-color: var(--surface-border) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-root) {
-  background: var(--surface-card) !important;
-  border-color: var(--surface-border) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-month__weekday) {
-  border-color: var(--surface-border) !important;
+  border-color: var(--qalendar-border-color) !important;
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
-  border-color: var(--surface-border) !important;
+  border-color: var(--qalendar-border-color) !important;
   background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
       fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,
@@ -376,7 +369,7 @@ onMounted(async () => {
 }
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading > span.calendar-month__day-date) {
-  color: var(--text-color-secondary) !important;
+  color: var(--qalendar-text-color-secondary) !important;
 }
 
 ::v-deep(.calendar-header) {
@@ -396,8 +389,6 @@ onMounted(async () => {
   margin: 0 auto !important;
   padding: 0.5rem 0 !important;
   text-align: center !important;
-
-  background-color: var(--surface-50) !important;
   color: var(--text-color) !important;
 }
 

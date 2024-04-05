@@ -218,11 +218,11 @@ const getVNClink = async value => {
 </script>
 
 <template>
-  <Toast position="bottom-right" group="ping" class="z-5 w-auto" v-if="hostkey">
+  <Toast position="bottom-right" group="ping" class="z-10 w-auto" v-if="hostkey">
     <template #message="{ message }">
-      <div class="flex flex-column">
-        <div class="flex align-content-center h-2rem">
-          <div class="flex gap-2 align-items-center justify-content-center">
+      <div class="flex flex-col">
+        <div class="flex content-center h-[2rem]">
+          <div class="flex gap-2 items-center justify-center">
             <i class="pi pi-info-circle text-2xl"></i>
             <span class="text-base font-semibold">{{ message.summary }}</span>
           </div>
@@ -234,15 +234,20 @@ const getVNClink = async value => {
     </template>
   </Toast>
 
-  <Menu ref="refMenu" popup :model="options" :class="hostkey ? 'pt-2 pb-0' : 'py-2'">
+  <Menu
+    ref="refMenu"
+    popup
+    :model="options"
+    :class="[hostkey && record[hostkey] && hostkey !== '-' ? 'pt-2 pb-0' : 'py-2']"
+  >
     <template #item="{ label, item, props }">
       <a :href="item.url" v-bind="props.action">
         <span v-bind="props.icon" />
         <span v-bind="props.label">{{ label }}</span>
       </a>
     </template>
-    <template #end v-if="hostkey && record[hostkey]">
-      <div class="flex justify-content-center surface-ground border-round-bottom py-2">
+    <template #end v-if="hostkey && record[hostkey] && hostkey !== '-'">
+      <div class="flex justify-center bg-surface-300 dark:bg-surface-900 rounded-b py-2">
         <span class="font-bold"> {{ record[hostkey] }} </span>
       </div>
     </template>

@@ -5,28 +5,24 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div class="m-auto">
-    <div class="flex flex-column align-items-center w-full py-8 px-5 sm:px-8">
-      <div class="flex flex-column align-items-center">
-        <h1 class="text-6xl font-bold mb-2">
-          {{ $t('Not Found') }}
-        </h1>
-        <span class="text-color-secondary mb-5">
-          {{ $t('Requested resource is not available') }}
-        </span>
-        <img
-          :src="$config?.theme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
-          alt="Not found"
-          width="300"
-          class="mb-5"
-        />
-        <div class="text-center">
-          <i class="pi pi-home text-blue-600 mr-2"></i>
-          <RouterLink :to="{ name: 'home' }" class="text-blue-600">
-            {{ $t('Back to home page') }}
-          </RouterLink>
-        </div>
-      </div>
+  <div class="flex flex-col m-auto items-center text-center w-full py-20 px-8 sm:px-20">
+    <h1 class="text-6xl font-bold mb-2">
+      {{ $t('Not Found') }}
+    </h1>
+    <span class="text-surface-500 mb-8">
+      {{ $t('Requested resource is not available') }}
+    </span>
+    <img
+      :src="$config?.appTheme === 'light' ? '/img/404-dark.webp' : '/img/404-light.webp'"
+      alt="Not found"
+      width="300"
+      class="mb-6"
+    />
+    <div class="uppercase font-semibold text-primary-600 hover:text-primary-500">
+      <i class="pi pi-home mr-2"></i>
+      <RouterLink :to="{ name: 'home' }">
+        {{ $t('Back to home page') }}
+      </RouterLink>
     </div>
   </div>
 </template>

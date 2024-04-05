@@ -39,30 +39,30 @@ export const byteToStr = value => {
 export const methodHttpToColor = value => {
   switch (value.toUpperCase()) {
     case 'GET':
-      return '--blue-500';
+      return '!bg-blue-500/80';
     case 'POST':
-      return '--green-500';
+      return '!bg-green-500/80';
     case 'PUT':
     case 'PUTCH':
-      return '--orange-500';
+      return '!bg-orange-500/80';
     case 'DELETE':
-      return '--red-500';
+      return '!bg-red-500/80';
     default:
-      return '--gray-500';
+      return '!bg-gray-500/80';
   }
 };
 
 export const statusCodeToColor = value => {
   if (value < 200) {
-    return 'text-blue-500';
+    return '!text-blue-500';
   } else if (value >= 200 && value < 300) {
-    return 'text-green-500';
+    return '!text-green-500';
   } else if (value >= 300 && value < 400) {
-    return 'text-color-secondary';
+    return '!text-gray-500 dark:!text-gray-400';
   } else if (value >= 400 && value < 500) {
-    return 'text-orange-500';
+    return '!text-orange-500';
   } else {
-    return 'text-red-500';
+    return '!text-red-500';
   }
 };
 

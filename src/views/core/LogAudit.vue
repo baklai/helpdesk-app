@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
 import { dateTimeToStr, methodHttpToColor, statusCodeToColor } from '@/service/DataFilters';
@@ -34,7 +34,12 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-4" value={value} />;
+        return (
+          <Tag
+            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            value={value}
+          />
+        );
       }
     },
     sorter: { field: 'host' },
@@ -78,7 +83,12 @@ const columns = ref([
     column: {
       field: 'user',
       render(value) {
-        return <Tag class="text-base font-normal text-color surface-hover px-4" value={value} />;
+        return (
+          <Tag
+            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            value={value}
+          />
+        );
       }
     },
     sorter: { field: 'user' },
@@ -103,8 +113,10 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="text-base font-semibold text-white border-1 border-solid surface-border border-round-xs px-2 w-6rem"
-            style={{ background: `var(${methodHttpToColor(value)})` }}
+            class={[
+              methodHttpToColor(value),
+              '!w-24 !text-base !font-semibold !text-white !rounded px-2'
+            ]}
             value={value}
           />
         );
@@ -130,7 +142,11 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={`text-base font-bold ${statusCodeToColor(value)} surface-hover px-4`}
+            class={[
+              statusCodeToColor(value),
+              '!text-base !font-bold !rounded px-6',
+              '!bg-surface-500/20'
+            ]}
             value={value}
           />
         );
@@ -195,9 +211,9 @@ const confirmDeleteAll = () => {
   confirm.require({
     message: t('Do you want to delete all records?'),
     header: t('HD Confirm delete records'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       await SysLog.removeAll({});
@@ -222,7 +238,7 @@ const confirmDeleteAll = () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -232,11 +248,11 @@ const confirmDeleteAll = () => {
         @delete="data => refDataTable.delete(data)"
       />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="SysLog.findAll"
         :onDelete="SysLog.removeOne"
@@ -265,12 +281,12 @@ const confirmDeleteAll = () => {
             rounded
             icon="pi pi-trash"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-color h-3rem w-3rem"
+            class="h-12 w-12"
             v-tooltip.bottom="$t('Delete records')"
             @click="confirmDeleteAll"
           />
         </template>
-      </SSDataTable>
+      </HDDataTable>
     </div>
   </div>
 </template>

@@ -31,13 +31,13 @@ const diskSum = value => {
 </script>
 
 <template>
-  <div class="flex align-items-center mb-4">
+  <div class="flex items-center mb-6">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="40"
       height="40"
-      class="text-color-secondary mr-2"
+      class="text-surface-500 mr-2"
     >
       <path
         fill="currentColor"
@@ -55,16 +55,16 @@ const diskSum = value => {
     </div>
   </div>
 
-  <div class="flex justify-content-between mb-4">
-    <div class="flex justify-content-cente w-4">
-      <div class="flex flex-column card-container">
-        <div class="flex align-items-center justify-content-center">
+  <div class="flex justify-between mb-6">
+    <div class="flex justify-center w-1/3">
+      <div class="flex flex-col">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"
@@ -72,10 +72,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('CPU') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ record?.cpu?.Name || '-' }}
           </span>
@@ -83,15 +83,15 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-content-center w-4">
-      <div class="flex flex-column">
-        <div class="flex align-items-center justify-content-center">
+    <div class="flex justify-center w-1/3">
+      <div class="flex flex-col">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"
@@ -99,10 +99,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('RAM') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ memorySum(record?.memorychip) }}
           </span>
@@ -110,15 +110,15 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-content-center w-4">
-      <div class="flex flex-column card-container">
-        <div class="flex align-items-center justify-content-center">
+    <div class="flex justify-center w-1/3">
+      <div class="flex flex-col">
+        <div class="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             width="40"
             height="40"
-            class="text-color-secondary"
+            class="text-surface-500"
           >
             <path
               fill="currentColor"
@@ -126,10 +126,10 @@ const diskSum = value => {
             />
           </svg>
         </div>
-        <div class="flex align-items-center justify-content-center">
+        <div class="flex items-center justify-center">
           <p>{{ $t('HDD') }}</p>
         </div>
-        <div class="flex align-items-center justify-content-center text-center">
+        <div class="flex items-center justify-center text-center">
           <span>
             {{ diskSum(record?.diskdrive) }}
           </span>
@@ -139,51 +139,51 @@ const diskSum = value => {
   </div>
 
   <table class="mb-2">
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">
         {{ $t('Baseboard serial number') }}
       </td>
       <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios serial number') }}</td>
       <td>{{ record?.bios?.SerialNumber || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios version') }}</td>
       <td>{{ record?.bios?.Version || '-' }}</td>
     </tr>
   </table>
 
   <table class="mb-2">
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
       <td>{{ $t('Microsoft Windows') }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
       <td>{{ record?.os?.Version || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
       <td>{{ record?.os?.Caption || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
       <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
     </tr>
   </table>
 
   <table>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
       <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
       <td>{{ record?.host || '-' }}</td>
     </tr>
-    <tr>
+    <tr class="border border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
       <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
     </tr>
@@ -201,7 +201,7 @@ table {
 td,
 th {
   font-size: 14px;
-  border-bottom: 1px solid var(--surface-border);
+  /* border-bottom: 1px solid var(--border-surface-200 dark:border-surface-600); */
 }
 
 th {

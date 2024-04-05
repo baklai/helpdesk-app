@@ -15,7 +15,6 @@ import AppIcons from '@/components/AppIcons.vue';
 
 import PrimeVue from 'primevue/config';
 import Avatar from 'primevue/avatar';
-import BadgeDirective from 'primevue/badgedirective';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Checkbox from 'primevue/checkbox';
@@ -26,6 +25,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
 import Divider from 'primevue/divider';
 import InputText from 'primevue/inputtext';
+import InputSwitch from 'primevue/inputswitch';
 import InputMask from 'primevue/inputmask';
 import Password from 'primevue/password';
 import ProgressBar from 'primevue/progressbar';
@@ -38,7 +38,11 @@ import ToastService from 'primevue/toastservice';
 import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
 
+import '@/assets/base.css';
+
 import '@/assets/styles.scss';
+
+import Presets from '@/presets';
 
 import en from '@/locales/en-US';
 import uk from '@/locales/uk-UA';
@@ -58,13 +62,18 @@ app.use(i18n);
 app.use(router);
 app.use(createPinia());
 
-app.use(PrimeVue, { ripple: true, locale: en.primevue });
+app.use(PrimeVue, {
+  locale: en.primevue,
+  unstyled: true,
+  ripple: false,
+  pt: Presets
+});
+
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
 
 app.directive('tooltip', Tooltip);
-app.directive('badge', BadgeDirective);
 
 app.component('AppIcons', AppIcons);
 app.component('Avatar', Avatar);
@@ -77,6 +86,7 @@ app.component('Column', Column);
 app.component('Divider', Divider);
 app.component('InputMask', InputMask);
 app.component('InputText', InputText);
+app.component('InputSwitch', InputSwitch);
 app.component('Password', Password);
 app.component('ProgressBar', ProgressBar);
 app.component('ProgressSpinner', ProgressSpinner);
@@ -146,10 +156,10 @@ app.component(
   defineAsyncComponent(() => import('primevue/dataview'))
 );
 
-app.component(
-  'DataTable',
-  defineAsyncComponent(() => import('primevue/datatable'))
-);
+// app.component(
+//   'DataTable',
+//   defineAsyncComponent(() => import('primevue/datatable'))
+// );
 
 app.use(ErrorPlugin, { life: 5000 });
 

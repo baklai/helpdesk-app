@@ -3,6 +3,7 @@ import html2pdf from 'html2pdf.js';
 import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import { dateTimeToStr, unixDateTimeToStr } from '@/service/DataFilters';
 
@@ -10,6 +11,8 @@ import { useOnmap } from '@/stores/api/onmaps';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
+
 const Onmap = useOnmap();
 
 const emits = defineEmits(['close']);
@@ -54,9 +57,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (record.value?.id) {
@@ -161,34 +164,33 @@ onMounted(() => {});
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '960px' }"
-    class="p-fluid"
+    class="!w-[80rem]"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <AppIcons name="onmap-scanner" :size="40" class="mr-2" />
+      <div class="flex justify-between w-full">
+        <div class="flex items-center justify-center">
+          <AppIcons name="onmap-scanner" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">
+            <p class="text-lg font-bold line-height-2">
               {{ record?.title || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Report target') }}: {{ record?.target || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -198,7 +200,7 @@ onMounted(() => {});
 
     <template #default>
       <div id="report" class="w-full text-left my-2 mx-auto">
-        <h1 class="mb-4" v-if="record?.item">
+        <h1 class="mb-6" v-if="record?.item">
           {{ $t('Onmap Scan Report') }} - {{ $t('Scanned at') }}
           {{ record?.item?.start ? unixDateTimeToStr(record.item.start) : '' }}
         </h1>
@@ -251,7 +253,7 @@ onMounted(() => {});
           <h2
             v-for="(status, index) in host.status"
             :id="idHostDots(host.address[index].item.addr)"
-            :class="['mb-4', status.item.state]"
+            :class="['mb-6', status.item.state]"
           >
             {{ host.address[index].item.addr }}
           </h2>
@@ -328,7 +330,7 @@ onMounted(() => {});
         </div>
       </div>
 
-      <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
+      <ScrollTop target="parent" :threshold="400" behavior="smooth" />
     </template>
 
     <template #footer>

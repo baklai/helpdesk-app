@@ -1,90 +1,121 @@
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
-
 import AppTopbar from '@/components/AppTopbar.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 
 import { useConfig } from '@/stores/config';
 
 const $config = useConfig();
-
-const outsideClickListener = ref(null);
-
-const containerClass = computed(() => {
-  return {
-    'layout-theme-light': $config.theme === 'light',
-    'layout-theme-dark': $config.theme === 'dark',
-    'layout-overlay': $config.menuMode === 'overlay',
-    'layout-static': $config.menuMode === 'static',
-    'layout-static-inactive': $config.staticMenuDesktopInactive && $config.menuMode === 'static',
-    'layout-overlay-active': $config.overlayMenuActive,
-    'layout-mobile-active': $config.staticMenuMobileActive,
-    'p-input-filled': $config.inputStyle === 'filled',
-    'p-ripple-disabled': !$config.ripple
-  };
-});
-
-const bindOutsideClickListener = () => {
-  if (!outsideClickListener.value) {
-    outsideClickListener.value = event => {
-      if (isOutsideClicked(event)) {
-        $config.overlayMenuActive = false;
-        $config.staticMenuMobileActive = false;
-        $config.menuHoverActive = false;
-      }
-    };
-    document.addEventListener('click', outsideClickListener.value);
-  }
-};
-
-const unbindOutsideClickListener = () => {
-  if (outsideClickListener.value) {
-    document.removeEventListener('click', outsideClickListener);
-    outsideClickListener.value = null;
-  }
-};
-
-const isOutsideClicked = event => {
-  const sidebarEl = document.querySelector('.layout-sidebar');
-  const topbarEl = document.querySelector('.layout-menu-button');
-  return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
-  );
-};
-
-watchEffect(() => {
-  if ($config.isSidebarActive) {
-    bindOutsideClickListener();
-  } else {
-    unbindOutsideClickListener();
-  }
-});
 </script>
 
 <template>
-  <div class="layout-wrapper" :class="containerClass">
-    <div class="layout-sidebar surface-50">
-      <AppSidebar />
-    </div>
+  <div
+    :class="[
+      'min-h-screen bg-surface-0 dark:bg-surface-800'
 
-    <div class="layout-main-container">
+      // { 'layout-overlay': $config.appSideBarMode === 'overlay' },
+      // { 'layout-static': $config.appSideBarMode === 'static' },
+      // { 'layout-static-inactive': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static' },
+    ]"
+  >
+    <aside
+      :class="[
+        'z-50',
+        'fixed',
+        'left-0 inset-y-0',
+        'flex justify-start items-center',
+        'h-screen w-screen md:w-[25rem]',
+
+        '-translate-x-full md:translate-x-0',
+
+        $config.appSideBarVisible ? '!-translate-x-full' : 'translate-x-0',
+
+        'transition-all duration-200',
+
+        'bg-transparent backdrop-blur-sm md:backdrop-blur-none',
+
+        // 'bg-transparent sm:bg-black/50 backdrop-blur-none sm:backdrop-blur-sm',
+
+        // 'sm:!w-[25rem] sm:!fixed',
+
+        // // 'z-40',
+        // 'absolute',
+        // 'left-0 top-0',
+        // 'py-2 px-6',
+        // 'h-screen w-[25rem]',
+
+        // 'translate-x-0',
+        // 'sm:-translate-x-full',
+        // { fixed: $config.appSideBarMode === 'static' },
+        // {
+        //   '-translate-x-full': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
+        // },
+        // 'l-0 t-0 h-screen -translate-x-full',
+        'select-none',
+        // 'overflow-y-auto',
+        // 'transition-left duration-200',
+        'text-surface-900 dark:text-surface-300'
+        // 'bg-surface-100 dark:bg-surface-900'
+      ]"
+      @click.self="$config.toggleAppSideBar"
+    >
+      <AppSidebar />
+    </aside>
+
+    <div
+      :class="[
+        'min-h-screen',
+        'ml-0 md:ml-[25rem]',
+
+        {
+          '!ml-0': $config.appSideBarVisible
+        },
+        // {
+        //   'ml-0': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
+        // },
+        // { 'ml-[25rem]': $config.appSideBarMode === 'static' && !$config.staticMenuDesktopInactive },
+
+        'flex flex-col justify-between',
+        'transition-margin duration-200',
+        'text-surface-900 dark:text-primary-50',
+        'bg-surface-0 dark:bg-surface-800'
+      ]"
+    >
       <AppTopbar />
-      <div class="layout-main overflow-auto">
-        <div class="grid grid-nogutter" style="height: calc(100vh - 9rem)">
-          <RouterView />
-        </div>
-      </div>
+
+      <main class="flex flex-auto px-8 overflow-auto flex-wrap" style="height: calc(100vh - 9rem)">
+        <RouterView />
+      </main>
     </div>
   </div>
 
-  <ConfirmDialog :style="{ minWidth: '350px' }">
-    <template #message="slotProps">
-      <div class="flex align-items-center justify-content-start confirmation-content">
-        <i class="text-4xl mr-3" :class="slotProps.message.icon" />
-        <span class="font-medium">{{ slotProps.message.message }} </span>
+  <ConfirmDialog class="!w-[30rem]">
+    <template #container="{ message, acceptCallback, rejectCallback }">
+      <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
+        <div
+          class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+        >
+          <i :class="[message?.icon || 'pi pi-question', 'text-5xl']"></i>
+        </div>
+        <span class="font-bold !text-black dark:!text-white text-2xl block mb-2 mt-4">
+          {{ message.message }}
+        </span>
+        <p class="mb-0 text-surface-500">{{ message.header }}</p>
+        <div class="flex items-center gap-2 mt-4">
+          <Button
+            :label="$t('Yes')"
+            :icon="message.acceptIcon || ''"
+            @click="acceptCallback"
+            class="w-[8rem]"
+          />
+
+          <Button
+            outlined
+            :label="$t('No')"
+            :icon="message.rejectIcon || ''"
+            @click="rejectCallback"
+            class="w-[8rem]"
+          />
+        </div>
       </div>
     </template>
   </ConfirmDialog>

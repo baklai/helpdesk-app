@@ -3,6 +3,7 @@ import html2pdf from 'html2pdf.js';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useConfirm } from 'primevue/useconfirm';
 
 import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
 
@@ -13,6 +14,8 @@ import { useFilter } from '@/stores/api/filters';
 
 const { t } = useI18n();
 const toast = useToast();
+const confirm = useConfirm();
+
 const Inspector = useInspector();
 const Filter = useFilter();
 
@@ -70,9 +73,9 @@ const onRemoveRecord = async () => {
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('HD Confirm delete record'),
-    icon: 'pi pi-info-circle text-yellow-500',
+    icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
-    acceptClass: 'p-button-danger',
+    acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
       if (record.value?.id) {
@@ -195,34 +198,33 @@ const validSoftware = value => {
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    :style="{ width: '900px' }"
-    class="p-fluid"
+    class="!w-[80rem]"
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-content-between w-full">
-        <div class="flex align-items-center justify-content-center">
-          <AppIcons name="pc-sys-inspector" :size="40" class="mr-2" />
+      <div class="flex justify-between w-full text-black dark:text-white">
+        <div class="flex items-center justify-center">
+          <AppIcons name="pc-sys-inspector" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2 mb-0">
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report host') }}: {{ record?.host || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-color-secondary mb-0">
+            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
         </div>
-        <div class="flex gap-2 align-items-center">
+
+        <div class="flex gap-2 items-center">
           <Button
             text
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -232,19 +234,21 @@ const validSoftware = value => {
 
     <template #default>
       <div id="report">
-        <div class="grid my-2 mx-2">
-          <div class="col-12 md:col" v-if="recordip">
+        <div class="flex flex-wrap my-2 mx-2">
+          <div class="flex-shrink-0 p-4 w-full grow basis-0" v-if="recordip">
             <IPAddressPartial :record="recordip" v-if="recordip" />
           </div>
+
           <Divider layout="vertical" class="hidden md:flex" v-if="recordip" />
-          <div class="col-12 md:col">
-            <div class="flex align-items-center mb-4">
+
+          <div class="flex-shrink-0 p-4 w-full grow basis-0">
+            <div class="flex items-center mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 width="40"
                 height="40"
-                class="text-color mr-2"
+                class="mr-2"
               >
                 <path
                   fill="currentColor"
@@ -262,16 +266,16 @@ const validSoftware = value => {
               </div>
             </div>
 
-            <div class="flex justify-content-between mb-4">
-              <div class="flex justify-content-cente w-4">
-                <div class="flex flex-column card-container">
-                  <div class="flex align-items-center justify-content-center">
+            <div class="flex justify-between mb-6">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       width="40"
                       height="40"
-                      class="text-color"
+                      class=""
                     >
                       <path
                         fill="currentColor"
@@ -279,10 +283,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('CPU') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ record?.cpu?.Name || '-' }}
                     </span>
@@ -290,9 +294,9 @@ const validSoftware = value => {
                 </div>
               </div>
 
-              <div class="flex justify-content-center w-4">
-                <div class="flex flex-column">
-                  <div class="flex align-items-center justify-content-center">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -305,10 +309,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('RAM') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ memorySum(record?.memorychip) }}
                     </span>
@@ -316,15 +320,15 @@ const validSoftware = value => {
                 </div>
               </div>
 
-              <div class="flex justify-content-center w-4">
-                <div class="flex flex-column card-container">
-                  <div class="flex align-items-center justify-content-center">
+              <div class="flex justify-center w-1/3">
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       width="40"
                       height="40"
-                      class="text-color"
+                      class=""
                     >
                       <path
                         fill="currentColor"
@@ -332,10 +336,10 @@ const validSoftware = value => {
                       />
                     </svg>
                   </div>
-                  <div class="flex align-items-center justify-content-center">
+                  <div class="flex items-center justify-center">
                     <p>{{ $t('HDD') }}</p>
                   </div>
-                  <div class="flex align-items-center justify-content-center text-center">
+                  <div class="flex items-center justify-center text-center">
                     <span>
                       {{ diskSum(record?.diskdrive) }}
                     </span>
@@ -345,19 +349,19 @@ const validSoftware = value => {
             </div>
 
             <table class="mb-2">
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Baseboard serial number') }}
                 </td>
                 <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Bios serial number') }}
                 </td>
                 <td>{{ record?.bios?.SerialNumber || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">
                   {{ $t('Bios version') }}
                 </td>
@@ -366,34 +370,34 @@ const validSoftware = value => {
             </table>
 
             <table class="mb-2">
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
                 <td>{{ $t('Microsoft Windows') }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
                 <td>{{ record?.os?.Version || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
                 <td>{{ record?.os?.Caption || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
                 <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
               </tr>
             </table>
 
             <table>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
                 <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
                 <td>{{ record?.host || '-' }}</td>
               </tr>
-              <tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
                 <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
                 <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
               </tr>
@@ -402,13 +406,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.cpu">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -423,37 +427,37 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ record?.cpu?.Name || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Clock frequency') }}
               </td>
               <td>{{ record?.cpu?.CurrentClockSpeed || '-' }} MHz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Number of cores') }}
               </td>
               <td>{{ record?.cpu?.NumberOfCores || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Number of logical cores') }}
               </td>
               <td>{{ record?.cpu?.NumberOfLogicalProcessors || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type of architecture') }}
               </td>
               <td>{{ record?.cpu?.Architecture || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -463,13 +467,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.memorychip?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -487,25 +491,25 @@ const validSoftware = value => {
             v-for="(memorychip, index) in record?.memorychip || []"
             :key="`memorychip_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Capacity') }}
               </td>
               <td>{{ byteToStr(memorychip?.Capacity) }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Clock frequency') }}
               </td>
               <td>{{ memorychip?.Speed || '-' }} MHz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ memorychip?.Manufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
@@ -515,13 +519,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.diskdrive?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -537,31 +541,31 @@ const validSoftware = value => {
             </div>
           </div>
           <table v-for="(diskdrive, index) in record?.diskdrive || []" :key="`diskdrive_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type') }}
               </td>
               <td>{{ diskdrive?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ diskdrive?.Caption || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Capacity') }}
               </td>
               <td>{{ byteToStr(diskdrive?.Size) }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Serial number') }}
               </td>
               <td>{{ diskdrive?.SerialNumber || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -571,13 +575,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.netadapter?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>expansion-card-variant</title>
               <path
@@ -602,37 +606,37 @@ const validSoftware = value => {
             ) || []"
             :key="`netadapter_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Connection name') }}
               </td>
               <td>{{ netadapter?.NetConnectionID || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Adapter type') }}
               </td>
               <td>{{ netadapter?.AdapterType || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Name') }}
               </td>
               <td>{{ netadapter?.Name || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ netadapter?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ netadapter?.Manufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('MAC') }}
               </td>
@@ -642,13 +646,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.display?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>monitor</title>
               <path
@@ -666,19 +670,19 @@ const validSoftware = value => {
           </div>
 
           <table v-for="(display, index) in record?.display || []" :key="`display_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ display?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
               <td>{{ display?.MonitorManufacturer || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Type') }}
               </td>
@@ -688,13 +692,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.videoadapter?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>video-outline</title>
               <path
@@ -715,25 +719,25 @@ const validSoftware = value => {
             v-for="(videoadapter, index) in record?.videoadapter || []"
             :key="`videoadapter_${index}`"
           >
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ videoadapter?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Memory') }}
               </td>
               <td>{{ byteToStr(videoadapter?.AdapterRAM) || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Update frequency') }}
               </td>
               <td>{{ videoadapter?.CurrentRefreshRate || '-' }} Hz</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Video processor') }}
               </td>
@@ -743,13 +747,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.sound?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>volume-high</title>
               <path
@@ -767,13 +771,13 @@ const validSoftware = value => {
           </div>
 
           <table v-for="(sound, index) in record?.sound || []" :key="`sound_${index}`">
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Description') }}
               </td>
               <td>{{ sound?.Description || '-' }}</td>
             </tr>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <td class="font-weight-bold" width="30%">
                 {{ $t('Manufacturer') }}
               </td>
@@ -783,13 +787,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.printer?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -806,7 +810,11 @@ const validSoftware = value => {
           </div>
 
           <table>
-            <tr v-for="(printer, index) in record?.printer || []" :key="`printer_${index}`">
+            <tr
+              v-for="(printer, index) in record?.printer || []"
+              :key="`printer_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="font-weight-bold" width="30%">
                 {{ $t('Name') }}
               </td>
@@ -816,13 +824,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.useraccount?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -842,13 +850,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th>{{ $t('Name') }}</th>
               <th>{{ $t('Description') }}</th>
               <th>{{ $t('Status') }}</th>
             </tr>
-            <tr v-for="(user, index) in record?.useraccount || []" :key="`user_${index}`">
+            <tr
+              v-for="(user, index) in record?.useraccount || []"
+              :key="`user_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i
                   class="pi pi-bookmark-fill text-orange-500"
@@ -858,15 +870,17 @@ const validSoftware = value => {
               <td>{{ user?.Name || '-' }}</td>
               <td width="50%">{{ user?.Description || '-' }}</td>
               <td>
-                <Chip
-                  :style="{ background: 'transparent' }"
-                  :label="user?.Disabled ? $t('Off') : $t('On')"
-                  class="border-1"
-                  :class="
+                <Tag
+                  :value="user?.Disabled ? $t('Off') : $t('On')"
+                  :class="[
+                    '!bg-transparent',
+                    '!border',
+                    '!text-sm',
+                    '!w-20',
                     user?.Disabled
-                      ? 'text-color-secondary surface-border'
-                      : 'text-green-500 border-green-500 font-bold'
-                  "
+                      ? '!border-surface-600/80 !text-surface-600/80'
+                      : '!border-green-500 !text-green-500'
+                  ]"
                 />
               </td>
             </tr>
@@ -874,13 +888,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.product?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -900,14 +914,18 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
-              <th class="text-uppercase">{{ $t('Name') }}</th>
-              <th class="text-uppercase">{{ $t('Publisher') }}</th>
-              <th class="text-uppercase">{{ $t('Version') }}</th>
-              <th class="text-uppercase">{{ $t('Installed') }}</th>
+              <th class="uppercase">{{ $t('Name') }}</th>
+              <th class="uppercase">{{ $t('Publisher') }}</th>
+              <th class="uppercase">{{ $t('Version') }}</th>
+              <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
-            <tr v-for="(product, index) in record?.product || []" :key="`product_${index}`">
+            <tr
+              v-for="(product, index) in record?.product || []"
+              :key="`product_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i
                   class="pi pi-bookmark-fill text-orange-500"
@@ -923,13 +941,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.share?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <path
                 fill="currentColor"
@@ -951,13 +969,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
               <th>{{ $t('Name') }}</th>
               <th>{{ $t('Path') }}</th>
               <th>{{ $t('Description') }}</th>
             </tr>
-            <tr v-for="(share, index) in record?.share || []" :key="`share_${index}`">
+            <tr
+              v-for="(share, index) in record?.share || []"
+              :key="`share_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td class="text-center">
                 <i class="pi pi-bookmark-fill text-orange-500" v-if="share?.Type === 0" />
               </td>
@@ -969,13 +991,13 @@ const validSoftware = value => {
         </div>
 
         <div class="my-2 mx-2" v-if="record?.fixupdate?.length">
-          <div class="flex align-items-center mb-2">
+          <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               width="40"
               height="40"
-              class="text-color mr-2"
+              class="mr-2"
             >
               <title>bug-outline</title>
               <path
@@ -994,13 +1016,17 @@ const validSoftware = value => {
             </div>
           </div>
           <table>
-            <tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
               <th></th>
-              <th class="text-uppercase">{{ $t('HotFix') }}</th>
-              <th class="text-uppercase">{{ $t('Description') }}</th>
-              <th class="text-uppercase">{{ $t('Installed') }}</th>
+              <th class="uppercase">{{ $t('HotFix') }}</th>
+              <th class="uppercase">{{ $t('Description') }}</th>
+              <th class="uppercase">{{ $t('Installed') }}</th>
             </tr>
-            <tr v-for="(fixupdate, index) in record?.fixupdate || []" :key="`fixupdate_${index}`">
+            <tr
+              v-for="(fixupdate, index) in record?.fixupdate || []"
+              :key="`fixupdate_${index}`"
+              class="border border-surface-200 dark:border-surface-600"
+            >
               <td width="3%"></td>
               <td width="35%">{{ fixupdate?.HotFixID }} {{ fixupdate?.ServicePackInEffect }}</td>
               <td>{{ fixupdate?.Description || '-' }}</td>
@@ -1009,7 +1035,8 @@ const validSoftware = value => {
           </table>
         </div>
       </div>
-      <ScrollTop target="parent" :threshold="400" behavior="smooth" class="bg-primary" />
+
+      <ScrollTop target="parent" :threshold="400" behavior="smooth" />
     </template>
 
     <template #footer>
@@ -1045,6 +1072,6 @@ td {
 
 td,
 th {
-  border-bottom: 1px solid var(--surface-100);
+  border-bottom: 1px solid var(--surface-200);
 }
 </style>

@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/Request.vue';
-import SidebarRecord from '@/components/sidebar/Request.vue';
+import SidebarRecord from '@/components/sidebars/Request.vue';
 
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useRequest } from '@/stores/api/requests';
@@ -493,7 +493,7 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
       <OptionsMenu
         ref="refMenu"
@@ -506,11 +506,11 @@ const columns = ref([
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Request.findAll"
         :onDelete="Request.removeOne"
@@ -535,7 +535,7 @@ const columns = ref([
         <template #actions>
           <BtnDBTables />
         </template>
-      </SSDataTable>
+      </HDDataTable>
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

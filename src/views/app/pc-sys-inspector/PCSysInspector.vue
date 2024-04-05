@@ -4,11 +4,11 @@ import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import SSDataTable from '@/components/tables/SSDataTable.vue';
+import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 import ModalRecord from '@/components/modals/SysInspector.vue';
-import SidebarRecord from '@/components/sidebar/SysInspector.vue';
+import SidebarRecord from '@/components/sidebars/SysInspector.vue';
 
 import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
@@ -83,7 +83,7 @@ const columns = ref([
       field: 'system.csname',
       render(value) {
         return (
-          <div class="font-medium cursor-pointer">
+          <div class="font-semibold cursor-pointer">
             <i class="pi pi-desktop mr-2"></i>
             <span>{value}</span>
           </div>
@@ -136,7 +136,7 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <span class="font-medium text-primary cursor-pointer">{value}</span>;
+        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
       },
       action(value) {
         refModal.value.toggle(value);
@@ -164,12 +164,11 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
-            }
-            value={value.count}
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
+            value={value.count || '-'}
           />
         );
       }
@@ -196,12 +195,11 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
-            }
-            value={value.count}
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
+            value={value.count || '-'}
           />
         );
       }
@@ -228,12 +226,11 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class={
-              value.warning
-                ? 'text-base text-color font-medium w-3 bg-orange-500'
-                : 'text-base text-color font-medium w-3 surface-hover'
-            }
-            value={value.count}
+            class={[
+              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
+              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+            ]}
+            value={value.count || '-'}
           />
         );
       }
@@ -258,7 +255,7 @@ const columns = ref([
     column: {
       field: 'fixupdate',
       render(value) {
-        return <Tag class={'text-base text-color font-medium w-3 surface-hover'} value={value} />;
+        return <Tag class={'text-base  font-medium w-3 '} value={value} />;
       }
     },
     sorter: { field: 'fixupdate' },
@@ -461,9 +458,9 @@ const createSysInspectorScript = async () => {
 </script>
 
 <template>
-  <div class="col-12">
+  <div class="flex-shrink-0 p-2 w-full">
     <div class="flex h-full">
-      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-15rem p-2">
+      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-[15rem] p-2">
         <template #item="{ label, item, props }">
           <a :href="item.url" v-bind="props.action">
             <span v-bind="props.icon" />
@@ -483,11 +480,11 @@ const createSysInspectorScript = async () => {
 
       <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <SSDataTable
+      <HDDataTable
         ref="refDataTable"
         :columns="columns"
         :globalFilter="globalFilter"
-        :storageKey="`app-${$route.name}-datatable`"
+        :storageKey="`app-datatable-${$route.name}`"
         :exportFileName="$route.name"
         :onUpdate="Inspector.findAll"
         :onDelete="Inspector.removeOne"
@@ -516,14 +513,14 @@ const createSysInspectorScript = async () => {
             rounded
             icon="pi pi-bookmark-fill"
             iconClass="text-2xl"
-            class="p-button-lg hover:text-orange-500 h-3rem w-3rem"
+            class="hover:text-orange-500 h-12 w-12"
             v-tooltip.bottom="$t('Show all problems')"
             @click="event => refWarningMenu.toggle(event)"
           />
 
           <BtnDBTables />
         </template>
-      </SSDataTable>
+      </HDDataTable>
 
       <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
     </div>

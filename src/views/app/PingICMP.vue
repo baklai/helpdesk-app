@@ -55,33 +55,31 @@ const commandHandler = async text => {
 </script>
 
 <template>
-  <div className="col-12">
+  <div className="flex-shrink-0 p-4 w-full">
     <div className="h-full">
-      <div class="flex flex-wrap gap-4 mb-4 align-items-center justify-content-between">
-        <div class="flex flex-wrap gap-2 align-items-center">
+      <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
+        <div class="flex flex-wrap gap-2 items-center">
           <i class="mr-2 hidden sm:block">
             <AppIcons :name="$route?.name" :size="42" />
           </i>
           <div>
-            <h3 class="text-color m-0">
+            <h3 class="text-2xl">
               {{ $t($route?.meta?.title) }}
             </h3>
-            <p class="text-color-secondary">
+            <p class="text-base text-surface-500">
               {{ $t($route?.meta?.description) }}
             </p>
           </div>
         </div>
-        <div
-          class="flex flex-wrap gap-2 align-items-center justify-content-between sm:w-max w-full"
-        >
-          <div class="flex gap-2 sm:w-max w-full justify-content-between">
+        <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+          <div class="flex gap-2 sm:w-max w-full justify-between">
             <Button
               text
               plain
               rounded
               icon="pi pi-trash"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-3rem w-3rem"
+              class="h-12 w-12"
               v-tooltip.bottom="$t('Clear terminal')"
             />
 
@@ -91,7 +89,7 @@ const commandHandler = async text => {
               rounded
               icon="pi pi-cog"
               iconClass="text-2xl"
-              class="p-button-lg hover:text-color h-3rem w-3rem"
+              class="h-12 w-12"
               v-tooltip.bottom="$t('Options')"
             />
           </div>
@@ -101,27 +99,25 @@ const commandHandler = async text => {
       <Terminal
         :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
         :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
-        class="h-30rem text-xl"
+        class="h-[30rem] text-xl"
         aria-label="Helpdesk Terminal Service"
       />
 
-      <div class="px-4 py-4">
+      <div class="px-6 py-6">
         <h5>
           Example:
-          <span class="font-normal text-primary surface-hover border-round p-2">
-            ping 192.168.0.1 -n 3 -w 1000
-          </span>
+          <span class="font-normal text-primary rounded p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
         </h5>
 
         <p>
-          <code class="text-base font-normal text-color surface-hover">-n &lt;число&gt;</code>
+          <code class="text-base font-normal">-n &lt;число&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Указывает количество отправляемых запросов пинга.
           </span>
         </p>
 
         <p>
-          <code class="text-base font-normal text-color surface-hover">-w &lt;время&gt;</code>
+          <code class="text-base font-normal">-w &lt;время&gt;</code>
           <span class="text-lg font-normal line-height-2">
             : Устанавливает время ожидания ответа в миллисекундах.
           </span>
@@ -135,35 +131,5 @@ const commandHandler = async text => {
 code {
   padding: 0.2rem 0.5rem;
   border-radius: 0.3rem;
-}
-
-::v-deep(.p-terminal) {
-  background-color: #212121;
-  color: #adacac;
-}
-
-::v-deep(.p-terminal-content) {
-  margin-top: 2rem;
-}
-
-::v-deep(.p-terminal-prompt) {
-  color: #ffd54f;
-}
-
-::v-deep(.p-terminal-command) {
-  color: #ffffff;
-}
-
-::v-deep(.p-terminal-input) {
-  color: #ffffff;
-  font-size: 1.25rem;
-}
-
-::v-deep(.p-terminal-response) {
-  font-size: 1.12rem;
-  padding: 0.5rem;
-  color: #cac6c6;
-  white-space: pre;
-  font-family: monospace;
 }
 </style>
