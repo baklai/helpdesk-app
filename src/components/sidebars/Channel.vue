@@ -79,11 +79,11 @@ const onCloseSidebar = () => {
         <h5>{{ $t('Start point') }}</h5>
         <table>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Location start') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Location start') }} :</td>
             <td>{{ record?.locationFrom || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Unit start') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Unit start') }} :</td>
             <td>{{ record?.unitFrom || '-' }}</td>
           </tr>
         </table>
@@ -91,11 +91,11 @@ const onCloseSidebar = () => {
         <h5>{{ $t('End point') }}</h5>
         <table>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Location end') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Location end') }} :</td>
             <td>{{ record?.locationTo || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Unit end') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Unit end') }} :</td>
             <td>{{ record?.unitTo || '-' }}</td>
           </tr>
         </table>
@@ -103,27 +103,27 @@ const onCloseSidebar = () => {
         <h5>{{ $t('Channel info') }}</h5>
         <table>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Level') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Level') }} :</td>
             <td>{{ record?.level || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Type') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Type') }} :</td>
             <td>{{ record?.type || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Speed') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Speed') }} :</td>
             <td>{{ record?.speed || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Status') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Status') }} :</td>
             <td>{{ record?.status || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Operator') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Operator') }} :</td>
             <td>{{ record?.operator || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-weight-bold" width="50%">{{ $t('Composition') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Composition') }} :</td>
             <td>{{ record?.composition || '-' }}</td>
           </tr>
         </table>
