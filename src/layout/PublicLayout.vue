@@ -19,22 +19,23 @@ const disabledSelectedFromHTML = ref({
     :style="disabledSelectedFromHTML"
   >
     <div
-      class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
+      :class="[
+        'w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950',
+        'bg-[url(/img/bg-app.svg)] bg-cover bg-center bg-no-repeat lg:bg-none'
+      ]"
     >
       <div class="flex flex-col items-center justify-center mb-2">
         <div class="flex flex-row items-center">
           <p
-            class="uppercase font-bold text-7xl text-surface-950 dark:text-surface-50"
+            class="uppercase font-bold text-6xl text-surface-950 dark:text-surface-50"
             translate="no"
             lang="en"
           >
             help
           </p>
-
           <AppLogo class="mx-2 text-primary-500" :size="60" />
-
           <p
-            class="uppercase font-bold text-7xl text-surface-950 dark:text-surface-50"
+            class="uppercase font-bold text-6xl text-surface-950 dark:text-surface-50"
             translate="no"
             lang="en"
           >
