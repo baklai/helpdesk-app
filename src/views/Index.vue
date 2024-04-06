@@ -9,16 +9,10 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
       <div class="w-auto flex flex-col items-center justify-center">
         <header class="flex items-center justify-center">
           <div class="w-[30rem] h-auto text-center">
-            <div class="flex justify-center mb-2">
-              <div class="justify-start">
-                <p class="uppercase font-bold text-7xl" translate="no" lang="en">help</p>
-              </div>
-              <div class="flex items-center justify-center">
-                <AppLogo class="mx-2 text-primary-500" :size="56" />
-              </div>
-              <div class="justify-start">
-                <p class="uppercase font-bold text-7xl" translate="no" lang="en">desk</p>
-              </div>
+            <div class="flex flex-row items-center mb-2">
+              <p class="uppercase font-bold text-7xl" translate="no" lang="en">help</p>
+              <AppLogo class="mx-2 text-primary-500" :size="56" />
+              <p class="uppercase font-bold text-7xl" translate="no" lang="en">desk</p>
             </div>
 
             <div class="text-center mb-8">

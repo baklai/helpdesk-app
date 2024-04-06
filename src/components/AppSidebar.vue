@@ -20,20 +20,14 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
   >
     <RouterLink :to="{ name: 'home' }" class="flex justify-center py-2 mb-6">
       <div class="flex flex-col items-center justify-center mb-2">
-        <div class="flex justify-center text-surface-900 dark:text-surface-50">
-          <div class="justify-start">
-            <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
-              h&nbsp;e&nbsp;l&nbsp;p&nbsp;
-            </p>
-          </div>
-          <div class="flex items-center justify-center">
-            <AppLogo class="mx-2 text-primary-500" :size="32" />
-          </div>
-          <div class="justify-start">
-            <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
-              &nbsp;d&nbsp;e&nbsp;s&nbsp;k
-            </p>
-          </div>
+        <div class="flex flex-row items-center text-surface-900 dark:text-surface-50">
+          <p class="uppercase font-bold text-4xl" translate="no" lang="en">
+            h&nbsp;e&nbsp;l&nbsp;p&nbsp;
+          </p>
+          <AppLogo class="mx-1 text-primary-500" :size="32" />
+          <p class="uppercase font-bold text-4xl" translate="no" lang="en">
+            &nbsp;d&nbsp;e&nbsp;s&nbsp;k
+          </p>
         </div>
         <div class="flex text-center">
           <p class="text-base font-medium text-surface-500">

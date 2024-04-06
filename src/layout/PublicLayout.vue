@@ -22,26 +22,24 @@ const disabledSelectedFromHTML = ref({
       class="w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950"
     >
       <div class="flex flex-col items-center justify-center mb-2">
-        <div class="flex">
-          <div class="justify-start">
-            <p
-              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-              translate="no"
-              lang="en"
-            >
-              help
-            </p>
-          </div>
+        <div class="flex flex-row items-center">
+          <p
+            class="uppercase font-bold text-7xl text-surface-950 dark:text-surface-50"
+            translate="no"
+            lang="en"
+          >
+            help
+          </p>
+
           <AppLogo class="mx-2 text-primary-500" :size="60" />
-          <div class="justify-start">
-            <p
-              class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
-              translate="no"
-              lang="en"
-            >
-              desk
-            </p>
-          </div>
+
+          <p
+            class="uppercase font-bold text-7xl text-surface-950 dark:text-surface-50"
+            translate="no"
+            lang="en"
+          >
+            desk
+          </p>
         </div>
 
         <p class="text-xl font-medium text-surface-500">
@@ -71,16 +69,8 @@ const disabledSelectedFromHTML = ref({
     >
       <div class="flex flex-col m-auto items-center justify-center">
         <div class="flex flex-row items-center mb-2">
-          <p
-            class="uppercase text-center font-bold text-8xl text-surface-100"
-            translate="no"
-            lang="en"
-          >
-            help
-          </p>
-
+          <p class="uppercase font-bold text-8xl text-surface-100" translate="no" lang="en">help</p>
           <AppLogo class="mx-2 text-primary-500" :size="98" :stroke="'rgb(var(--primary-900))'" />
-
           <p class="uppercase font-bold text-8xl text-surface-100" translate="no" lang="en">desk</p>
         </div>
 
