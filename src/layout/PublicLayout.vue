@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
+import AppLogo from '@/components/AppLogo.vue';
 import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 
 const disabledSelectedFromHTML = ref({
@@ -31,7 +32,7 @@ const disabledSelectedFromHTML = ref({
               help
             </p>
           </div>
-          <img src="/img/logo-app.webp" alt="HD logo" width="56" height="56" class="mx-2" />
+          <AppLogo class="mx-2 text-primary-500" :size="60" />
           <div class="justify-start">
             <p
               class="uppercase font-bold text-7xl m-0 text-surface-950 dark:text-surface-50"
@@ -68,86 +69,69 @@ const disabledSelectedFromHTML = ref({
     <div
       class="bg-[url('/img/bg-app.svg')] w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
     >
-      <div class="mt-auto mb-auto">
-        <div class="flex flex-col lg:flex-row justify-center">
-          <div class="w-auto flex flex-col items-center justify-center">
-            <div class="flex items-center justify-center">
-              <div class="w-[30rem] h-auto text-center">
-                <div class="flex justify-center mb-6">
-                  <div class="flex justify-start">
-                    <p
-                      class="uppercase font-bold text-8xl text-surface-50"
-                      translate="no"
-                      lang="en"
-                    >
-                      help
-                    </p>
-                  </div>
+      <div class="flex flex-col m-auto items-center justify-center">
+        <div class="flex flex-row items-center mb-2">
+          <p
+            class="uppercase text-center font-bold text-8xl text-surface-100"
+            translate="no"
+            lang="en"
+          >
+            help
+          </p>
 
-                  <img src="/img/logo-app.webp" alt="HD logo" width="72" height="72" class="mx-2" />
+          <AppLogo class="mx-2 text-primary-500" :size="98" :stroke="'rgb(var(--primary-900))'" />
 
-                  <div class="flex justify-start">
-                    <p
-                      class="uppercase font-bold text-8xl text-surface-50"
-                      translate="no"
-                      lang="en"
-                    >
-                      desk
-                    </p>
-                  </div>
-                </div>
-
-                <div class="text-center mb-8">
-                  <p class="text-xl font-medium text-surface-300">
-                    {{ $t('Web Application of technical support') }}
-                  </p>
-                </div>
-
-                <div class="text-center mb-8">
-                  <p class="text-xl line-height-2 text-surface-400">
-                    {{ $t('Helpdesk technical support') }}
-                  </p>
-                </div>
-
-                <ul class="list-none flex justify-evenly p-0 mb-2">
-                  <li class="mx-6">
-                    <BtnSocialMedia
-                      icon="pi pi-facebook"
-                      :href="$helpdesk?.authorSocial?.facebook"
-                      tooltip="Facebook"
-                    />
-                  </li>
-
-                  <li class="mx-6">
-                    <BtnSocialMedia
-                      icon="pi pi-github"
-                      :href="$helpdesk?.authorSocial?.github"
-                      tooltip="Github"
-                    />
-                  </li>
-
-                  <li class="mx-6">
-                    <BtnSocialMedia
-                      icon="pi pi-linkedin"
-                      :href="$helpdesk?.authorSocial?.linkedin"
-                      tooltip="Linkedin"
-                    />
-                  </li>
-                </ul>
-
-                <p class="text-center my-6">
-                  <RouterLink
-                    :to="{ name: 'home' }"
-                    class="uppercase font-medium text-primary-600 hover:text-primary-500"
-                  >
-                    {{ $t('Helpdesk home page') }}
-                  </RouterLink>
-                </p>
-              </div>
-            </div>
-          </div>
+          <p class="uppercase font-bold text-8xl text-surface-100" translate="no" lang="en">desk</p>
         </div>
+
+        <div class="text-center mb-8">
+          <p class="text-xl font-medium text-surface-300">
+            {{ $t('Web Application of technical support') }}
+          </p>
+        </div>
+
+        <div class="w-[30rem] text-center mb-8">
+          <p class="text-xl line-height-2 text-surface-400">
+            {{ $t('Helpdesk technical support') }}
+          </p>
+        </div>
+
+        <ul class="flex justify-evenly list-none mb-6">
+          <li class="flex mx-6">
+            <BtnSocialMedia
+              icon="pi pi-facebook"
+              :href="$helpdesk?.authorSocial?.facebook"
+              tooltip="Facebook"
+            />
+          </li>
+
+          <li class="mx-6">
+            <BtnSocialMedia
+              icon="pi pi-github"
+              :href="$helpdesk?.authorSocial?.github"
+              tooltip="Github"
+            />
+          </li>
+
+          <li class="mx-6">
+            <BtnSocialMedia
+              icon="pi pi-linkedin"
+              :href="$helpdesk?.authorSocial?.linkedin"
+              tooltip="Linkedin"
+            />
+          </li>
+        </ul>
+
+        <p class="text-center">
+          <RouterLink
+            :to="{ name: 'home' }"
+            class="uppercase font-medium text-primary-600 hover:text-primary-500"
+          >
+            {{ $t('Helpdesk home page') }}
+          </RouterLink>
+        </p>
       </div>
+
       <div class="flex items-center text-surface-300">
         <p class="font-semibold py-4">
           {{ $helpdesk?.copyright }}

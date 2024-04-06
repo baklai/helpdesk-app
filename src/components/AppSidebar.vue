@@ -1,4 +1,5 @@
 <script setup>
+import AppLogo from '@/components/AppLogo.vue';
 import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
@@ -26,7 +27,7 @@ import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
             </p>
           </div>
           <div class="flex items-center justify-center">
-            <img src="/img/logo-app.webp" alt="HD logo" width="32" height="32" class="mx-2" />
+            <AppLogo class="mx-2 text-primary-500" :size="32" />
           </div>
           <div class="justify-start">
             <p class="uppercase font-bold text-4xl m-0" translate="no" lang="en">
