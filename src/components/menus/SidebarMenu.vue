@@ -45,6 +45,7 @@ const $sidebar = useSidebar();
             'flex items-center',
             'py-2 px-3',
             'rounded-md',
+            'font-semibold',
             'cursor-pointer',
             'text-surface-700 dark:text-surface-0/80',
             'hover:bg-surface-200 dark:hover:bg-surface-800',
