@@ -185,7 +185,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: { src: '/img/logo.webp', alt: 'HD' },
+    logo: { src: '/img/logo.svg', alt: 'HD' },
     outline: [2, 3],
     aside: true,
     search: {
