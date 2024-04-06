@@ -272,7 +272,7 @@ onMounted(async () => {
               @change="event => onSelectLocation(event.value)"
               :filterPlaceholder="$t('Search in list')"
               :placeholder="$t('Select location')"
-              class="w-80"
+              class="w-80 !bg-inherit"
             />
 
             <Button
