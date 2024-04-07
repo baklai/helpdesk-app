@@ -8,53 +8,26 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div
-    :class="[
-      'min-h-screen bg-surface-0 dark:bg-surface-800'
-
-      // { 'layout-overlay': $config.appSideBarMode === 'overlay' },
-      // { 'layout-static': $config.appSideBarMode === 'static' },
-      // { 'layout-static-inactive': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static' },
-    ]"
-  >
+  <div class="min-h-screen bg-surface-0 dark:bg-surface-800">
     <aside
       :class="[
         'z-50',
         'fixed',
-        'left-0 inset-y-0',
-        'flex justify-start items-center',
-        'h-screen w-screen md:w-[25rem]',
-
-        '-translate-x-full md:translate-x-0',
-
-        $config.appSideBarVisible ? '!-translate-x-full' : 'translate-x-0',
-
-        'transition-all duration-200',
-
-        'bg-transparent backdrop-blur-sm md:backdrop-blur-none',
-
-        // 'bg-transparent sm:bg-black/50 backdrop-blur-none sm:backdrop-blur-sm',
-
-        // 'sm:!w-[25rem] sm:!fixed',
-
-        // // 'z-40',
-        // 'absolute',
-        // 'left-0 top-0',
-        // 'py-2 px-6',
-        // 'h-screen w-[25rem]',
-
-        // 'translate-x-0',
-        // 'sm:-translate-x-full',
-        // { fixed: $config.appSideBarMode === 'static' },
-        // {
-        //   '-translate-x-full': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
-        // },
-        // 'l-0 t-0 h-screen -translate-x-full',
         'select-none',
-        // 'overflow-y-auto',
-        // 'transition-left duration-200',
+        'left-0 inset-y-0',
+        'h-screen w-screen',
+        'flex justify-start items-center',
+        '-translate-x-full',
+        'bg-transparent backdrop-blur-sm',
+        {
+          'translate-x-0': $config.appSideBarVisible
+        },
+        {
+          'md:!w-[25rem] md:!backdrop-blur-none':
+            $config.appSideBarMode === 'static' && $config.appSideBarVisible
+        },
+        'transition-all duration-200',
         'text-surface-900 dark:text-surface-300'
-        // 'bg-surface-100 dark:bg-surface-900'
       ]"
       @click.self="$config.toggleAppSideBar"
     >
@@ -63,18 +36,12 @@ const $config = useConfig();
 
     <div
       :class="[
+        'ml-0',
         'min-h-screen',
-        'ml-0 md:ml-[25rem]',
-
-        {
-          '!ml-0': $config.appSideBarVisible
-        },
-        // {
-        //   'ml-0': $config.staticMenuDesktopInactive && $config.appSideBarMode === 'static'
-        // },
-        // { 'ml-[25rem]': $config.appSideBarMode === 'static' && !$config.staticMenuDesktopInactive },
-
         'flex flex-col justify-between',
+        {
+          'md:!ml-[25rem]': $config.appSideBarMode === 'static' && $config.appSideBarVisible
+        },
         'transition-margin duration-200',
         'text-surface-900 dark:text-primary-50',
         'bg-surface-0 dark:bg-surface-800'

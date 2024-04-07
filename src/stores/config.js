@@ -16,7 +16,7 @@ export const useConfig = defineStore('config', () => {
   const appTheme = ref(useLocalStorage('app-theme', 'light'));
   const appLanguage = ref(useLocalStorage('app-language', navigator.language || fallbackLocale));
 
-  const appSideBarVisible = ref(appSideBarMode.value === 'static' ? true : false);
+  const appSideBarVisible = ref(null);
   const activeMenuItem = ref(null);
 
   watch(appTheme, toggleAppTheme);
