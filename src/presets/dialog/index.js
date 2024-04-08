@@ -189,7 +189,7 @@ export default {
     class: [
       // Transitions
       'transition-all',
-      'duration-100',
+      'duration-300',
       { 'p-5': !props.position == 'full' },
 
       // Background and Effects
