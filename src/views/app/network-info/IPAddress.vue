@@ -126,7 +126,7 @@ const columns = ref([
     column: {
       field: 'ipaddress',
       render(value) {
-        return <span class="font-medium text-primary cursor-pointer">{value}</span>;
+        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
       },
       action(data) {
         refSidebar.value.toggle(data);

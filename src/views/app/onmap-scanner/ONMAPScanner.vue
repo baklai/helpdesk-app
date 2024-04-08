@@ -71,7 +71,7 @@ const columns = ref([
       field: 'title',
       render(value) {
         return (
-          <div class="font-medium cursor-pointer">
+          <div class="font-semibold cursor-pointer">
             <span>{value}</span>
           </div>
         );
@@ -124,7 +124,7 @@ const columns = ref([
     column: {
       field: 'target',
       render(value) {
-        return <span class="font-medium text-primary cursor-pointer">{value}</span>;
+        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
       },
       action(value) {
         refModal.value.toggle(value);

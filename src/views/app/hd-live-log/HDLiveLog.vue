@@ -73,7 +73,7 @@ const columns = ref([
     column: {
       field: 'createdAt',
       render(value) {
-        return <span class="cursor-pointer">{dateTimeToStr(value) || '-'}</span>;
+        return <span class="font-semibold cursor-pointer">{dateTimeToStr(value) || '-'}</span>;
       },
       action(data) {
         refSidebar.value.toggle(data);
@@ -123,7 +123,7 @@ const columns = ref([
     column: {
       field: 'request',
       render(value) {
-        return <span class="cursor-pointer">{value}</span>;
+        return <span class="font-semibold cursor-pointer">{value}</span>;
       },
       action(data) {
         refSidebar.value.toggle(data);
