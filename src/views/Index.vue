@@ -4,8 +4,8 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-4 w-full my-auto">
-    <div class="flex flex-col lg:flex-row justify-center">
+  <div class="h-full w-full place-content-center">
+    <div class="flex flex-col my-8 lg:my-0 lg:flex-row place-content-center">
       <div class="w-auto flex flex-col items-center justify-center">
         <header class="flex items-center justify-center">
           <div class="w-[30rem] h-auto text-center">

@@ -238,55 +238,53 @@ const confirmDeleteAll = () => {
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <OptionsMenu
-        ref="refMenu"
-        @view="data => false"
-        @create="data => false"
-        @update="data => false"
-        @delete="data => refDataTable.delete(data)"
-      />
+  <div class="flex h-full w-full">
+    <OptionsMenu
+      ref="refMenu"
+      @view="data => false"
+      @create="data => false"
+      @update="data => false"
+      @delete="data => refDataTable.delete(data)"
+    />
 
-      <HDDataTable
-        ref="refDataTable"
-        :columns="columns"
-        :globalFilter="globalFilter"
-        :storageKey="`app-datatable-${$route.name}`"
-        :exportFileName="$route.name"
-        :onUpdate="SysLog.findAll"
-        :onDelete="SysLog.removeOne"
-        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="data => false"
-        @toggle-sidebar="data => false"
-      >
-        <template #icon>
-          <i class="mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-        </template>
+    <HDDataTable
+      ref="refDataTable"
+      :columns="columns"
+      :globalFilter="globalFilter"
+      :storageKey="`app-datatable-${$route.name}`"
+      :exportFileName="$route.name"
+      :onUpdate="SysLog.findAll"
+      :onDelete="SysLog.removeOne"
+      @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+      @toggle-modal="data => false"
+      @toggle-sidebar="data => false"
+    >
+      <template #icon>
+        <i class="mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+      </template>
 
-        <template #title>
-          {{ $t($route?.meta?.title) }}
-        </template>
+      <template #title>
+        {{ $t($route?.meta?.title) }}
+      </template>
 
-        <template #subtitle>
-          {{ $t($route?.meta?.description) }}
-        </template>
+      <template #subtitle>
+        {{ $t($route?.meta?.description) }}
+      </template>
 
-        <template #actions>
-          <Button
-            text
-            plain
-            rounded
-            icon="pi pi-trash"
-            iconClass="text-2xl"
-            class="h-12 w-12"
-            v-tooltip.bottom="$t('Delete records')"
-            @click="confirmDeleteAll"
-          />
-        </template>
-      </HDDataTable>
-    </div>
+      <template #actions>
+        <Button
+          text
+          plain
+          rounded
+          icon="pi pi-trash"
+          iconClass="text-2xl"
+          class="h-12 w-12"
+          v-tooltip.bottom="$t('Delete records')"
+          @click="confirmDeleteAll"
+        />
+      </template>
+    </HDDataTable>
   </div>
 </template>

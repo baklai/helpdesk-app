@@ -405,383 +405,378 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <div class="flex w-full overflow-x-auto">
-        <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">
-          <template #message="slotProps">
-            <span class="w-[30rem]">
-              <i class="pi pi-file-edit" />
-              <InputText v-model="newValue" placeholder="Enter new name" class="w-full" />
+  <div class="flex h-full w-full">
+    <div class="flex w-full overflow-x-auto">
+      <ConfirmDialog group="prompt-rename" :pt="{ headertitle: 'mr-4' }">
+        <template #message="slotProps">
+          <span class="w-[30rem]">
+            <i class="pi pi-file-edit" />
+            <InputText v-model="newValue" placeholder="Enter new name" class="w-full" />
+          </span>
+        </template>
+      </ConfirmDialog>
+
+      <ContextMenu ref="refContextMenu" :model="ctxMenuOptions">
+        <template #item="{ label, item, props }">
+          <a :href="item.url" v-bind="props.action" :target="item.target || '_self'">
+            <span v-bind="props.icon" />
+            <span v-bind="props.label">{{ label }}</span>
+          </a>
+        </template>
+      </ContextMenu>
+
+      <DataTable
+        rowHover
+        sortable
+        scrollable
+        contextMenu
+        removableSort
+        :value="ftpFiles"
+        :loading="loading"
+        sortField="type"
+        :sortOrder="-1"
+        sortMode="single"
+        scrollHeight="flex"
+        responsiveLayout="scroll"
+        columnResizeMode="expand"
+        v-model:filters="filters"
+        :globalFilterFields="['name']"
+        v-model:contextMenuSelection="selectedRowData"
+        :frozenValue="breadcrumb?.length ? lockedRowBack : null"
+        style="height: calc(100vh - 6rem); width: 100%"
+        @rowContextmenu="onRowContextMenu"
+        class="text-lg"
+      >
+        <template #header>
+          <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
+            <div class="flex flex-wrap gap-2 items-center">
+              <i class="mr-2 hidden sm:block">
+                <AppIcons :name="$route?.name" :size="42" />
+              </i>
+              <div>
+                <h3 class="m-0">
+                  {{ $t($route?.meta?.title) }}
+                </h3>
+                <p class="text-surface-500">
+                  {{ $t($route?.meta?.description) }}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+              <div class="flex flex-wrap items-center justify-between">
+                <span class="relative sm:w-max w-full mx-2">
+                  <i
+                    class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                  />
+                  <InputText
+                    id="name"
+                    class="sm:w-max w-full px-10 !bg-inherit"
+                    :placeholder="$t('Search')"
+                    v-model="filters['global'].value"
+                  />
+                  <i
+                    v-show="!!filters['global'].value"
+                    class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
+                    v-tooltip.bottom="$t('Clear filter')"
+                    @click="filters['global'].value = null"
+                  />
+                </span>
+
+                <Button
+                  text
+                  plain
+                  rounded
+                  icon="pi pi-plus-circle"
+                  iconClass="text-2xl"
+                  class="mx-2 hover:text-primary h-12 w-12"
+                  v-tooltip.bottom="$t('Upload files')"
+                  @click="showUpload = !showUpload"
+                />
+
+                <Button
+                  text
+                  plain
+                  rounded
+                  icon="pi pi-sync"
+                  iconClass="text-2xl"
+                  class="hover:text-primary h-12 w-12"
+                  v-tooltip.bottom="$t('Update records')"
+                  @click="update()"
+                />
+              </div>
+              <div class="flex gap-2 sm:w-max w-full justify-between"></div>
+            </div>
+          </div>
+
+          <FileUpload
+            multiple
+            customUpload
+            :auto="false"
+            name="files[]"
+            v-show="showUpload"
+            @select="onSelectedFiles"
+            @uploader="uploadFile"
+          >
+            <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
+              <div class="flex justify-between flex-wrap w-full">
+                <div class="flex gap-2 items-center justify-center">
+                  <Button
+                    icon="pi pi-plus"
+                    :label="$t('Choose')"
+                    class="font-bold"
+                    @click="chooseCallback()"
+                  />
+
+                  <Button
+                    icon="pi pi-cloud-upload"
+                    :label="$t('Upload')"
+                    class="font-bold"
+                    :disabled="!files || files.length === 0"
+                    @click="uploadEvent(uploadCallback)"
+                  />
+
+                  <Button
+                    icon="pi pi-times"
+                    :label="$t('Cancel')"
+                    class="font-bold"
+                    :disabled="!files || files.length === 0"
+                    @click="clearCallback()"
+                  />
+                </div>
+
+                <div class="flex gap-2 items-center justify-center">
+                  <Button
+                    icon="pi pi-folder"
+                    class="font-bold"
+                    :label="$t('Create folder')"
+                    @click="uploadFolder()"
+                  />
+                </div>
+              </div>
+            </template>
+
+            <template #content="{ files, removeFileCallback }">
+              <div
+                v-for="(file, index) of files"
+                :key="file.name + file.type + file.size"
+                class="flex flex-wrap items-center justify-between p-4 my-2 border rounded-md border-dashed border-surface-200 dark:border-surface-800"
+              >
+                <div class="flex flex-wrap items-center">
+                  <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
+                  <div class="flex flex-col">
+                    <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
+                      {{ file.name }}
+                    </h3>
+                    <p class="text-xl font-normal text-surface-500">
+                      <span class="mr-4">{{ byteToStr(file.size) }}</span>
+                      <Tag :value="$t('Pending')" severity="warning" />
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex gap-2 sm:w-max w-full justify-between">
+                  <Button
+                    text
+                    rounded
+                    icon="pi pi-times"
+                    severity="danger"
+                    @click="onRemoveTemplatingFile(file, removeFileCallback, index)"
+                  />
+                </div>
+              </div>
+            </template>
+
+            <template #empty>
+              <ProgressBar mode="indeterminate" class="h-0.5rem w-full" v-show="uploading" />
+              <p>{{ $t('Drag and drop files to here to upload') }}</p>
+            </template>
+          </FileUpload>
+        </template>
+
+        <template #loading>
+          <i class="pi pi-spin pi-spinner text-3xl mr-4"></i>
+          <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
+        </template>
+
+        <template #empty>
+          <div
+            v-if="!loading && ftpFiles?.length === 0"
+            :class="[
+              'absolute',
+              'left-0',
+              'z-20',
+              'flex items-center justify-center',
+              'w-full h-full',
+              'bg-none',
+              'flex items-stretch text-center'
+            ]"
+            style="height: calc(100vh - 34rem)"
+          >
+            <div class="flex flex-col gap-2 m-auto">
+              <i class="pi pi-folder-open text-8xl text-surface-500" />
+              <h5>{{ $t('No files found in folder') }}</h5>
+            </div>
+          </div>
+        </template>
+
+        <Column
+          sortable
+          field="name"
+          :header="$t('Name')"
+          :style="{ minWidth: '45%' }"
+          headerClass="font-bold text-center uppercase"
+        >
+          <template #body="{ data }">
+            <div
+              class="flex flex-row flex-wrap"
+              :class="data.type !== 1 ? 'cursor-pointer' : ''"
+              @click="data.type === 2 ? update(data.name) : data.type === 0 ? goToBack() : false"
+            >
+              <div class="flex items-center justify-center mr-4">
+                <i
+                  class="pi pi-folder-open text-2xl font-bold text-surface-500"
+                  v-if="data.type === 0"
+                />
+                <i :class="filterFileIcon(data.name)" class="text-xl" v-if="data.type === 1" />
+                <i class="pi pi-folder text-2xl font-bold text-yellow-500" v-if="data.type === 2" />
+              </div>
+              <div class="flex items-center justify-center">
+                <span class="text-xl font-bold text-surface-500" v-if="data.type === 0">
+                  {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
+                </span>
+                <span class="text-xl" v-if="data.type === 1">
+                  {{ data.name }}
+                </span>
+                <span class="text-xl font-bold" v-if="data.type === 2">
+                  {{ data.name }}
+                </span>
+              </div>
+            </div>
+          </template>
+        </Column>
+
+        <Column
+          sortable
+          field="size"
+          :header="$t('Size')"
+          :style="{ minWidth: '15%' }"
+          headerClass="font-bold text-center uppercase"
+        >
+          <template #body="{ data }">
+            <span class="text-surface-500">
+              {{ data.size && data.type !== 2 ? byteToStr(data.size) : '' }}
             </span>
           </template>
-        </ConfirmDialog>
+        </Column>
 
-        <ContextMenu ref="refContextMenu" :model="ctxMenuOptions">
-          <template #item="{ label, item, props }">
-            <a :href="item.url" v-bind="props.action" :target="item.target || '_self'">
-              <span v-bind="props.icon" />
-              <span v-bind="props.label">{{ label }}</span>
-            </a>
-          </template>
-        </ContextMenu>
-
-        <DataTable
-          rowHover
+        <Column
           sortable
-          scrollable
-          contextMenu
-          removableSort
-          :value="ftpFiles"
-          :loading="loading"
-          sortField="type"
-          :sortOrder="-1"
-          sortMode="single"
-          scrollHeight="flex"
-          responsiveLayout="scroll"
-          columnResizeMode="expand"
-          v-model:filters="filters"
-          :globalFilterFields="['name']"
-          v-model:contextMenuSelection="selectedRowData"
-          :frozenValue="breadcrumb?.length ? lockedRowBack : null"
-          style="height: calc(100vh - 6rem); width: 100%"
-          @rowContextmenu="onRowContextMenu"
-          class="text-lg"
+          field="type"
+          :header="$t('Type')"
+          :style="{ minWidth: '10%' }"
+          headerClass="font-bold text-center uppercase"
         >
-          <template #header>
-            <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
-              <div class="flex flex-wrap gap-2 items-center">
-                <i class="mr-2 hidden sm:block">
-                  <AppIcons :name="$route?.name" :size="42" />
-                </i>
-                <div>
-                  <h3 class="m-0">
-                    {{ $t($route?.meta?.title) }}
-                  </h3>
-                  <p class="text-surface-500">
-                    {{ $t($route?.meta?.description) }}
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-                <div class="flex flex-wrap items-center justify-between">
-                  <span class="relative sm:w-max w-full mx-2">
-                    <i
-                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-                    />
-                    <InputText
-                      id="name"
-                      class="sm:w-max w-full px-10 !bg-inherit"
-                      :placeholder="$t('Search')"
-                      v-model="filters['global'].value"
-                    />
-                    <i
-                      v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
-                      v-tooltip.bottom="$t('Clear filter')"
-                      @click="filters['global'].value = null"
-                    />
-                  </span>
-
-                  <Button
-                    text
-                    plain
-                    rounded
-                    icon="pi pi-plus-circle"
-                    iconClass="text-2xl"
-                    class="mx-2 hover:text-primary h-12 w-12"
-                    v-tooltip.bottom="$t('Upload files')"
-                    @click="showUpload = !showUpload"
-                  />
-
-                  <Button
-                    text
-                    plain
-                    rounded
-                    icon="pi pi-sync"
-                    iconClass="text-2xl"
-                    class="hover:text-primary h-12 w-12"
-                    v-tooltip.bottom="$t('Update records')"
-                    @click="update()"
-                  />
-                </div>
-                <div class="flex gap-2 sm:w-max w-full justify-between"></div>
-              </div>
-            </div>
-
-            <FileUpload
-              multiple
-              customUpload
-              :auto="false"
-              name="files[]"
-              v-show="showUpload"
-              @select="onSelectedFiles"
-              @uploader="uploadFile"
-            >
-              <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
-                <div class="flex justify-between flex-wrap w-full">
-                  <div class="flex gap-2 items-center justify-center">
-                    <Button
-                      icon="pi pi-plus"
-                      :label="$t('Choose')"
-                      class="font-bold"
-                      @click="chooseCallback()"
-                    />
-
-                    <Button
-                      icon="pi pi-cloud-upload"
-                      :label="$t('Upload')"
-                      class="font-bold"
-                      :disabled="!files || files.length === 0"
-                      @click="uploadEvent(uploadCallback)"
-                    />
-
-                    <Button
-                      icon="pi pi-times"
-                      :label="$t('Cancel')"
-                      class="font-bold"
-                      :disabled="!files || files.length === 0"
-                      @click="clearCallback()"
-                    />
-                  </div>
-
-                  <div class="flex gap-2 items-center justify-center">
-                    <Button
-                      icon="pi pi-folder"
-                      class="font-bold"
-                      :label="$t('Create folder')"
-                      @click="uploadFolder()"
-                    />
-                  </div>
-                </div>
-              </template>
-
-              <template #content="{ files, removeFileCallback }">
-                <div
-                  v-for="(file, index) of files"
-                  :key="file.name + file.type + file.size"
-                  class="flex flex-wrap items-center justify-between p-4 my-2 border rounded-md border-dashed border-surface-200 dark:border-surface-800"
-                >
-                  <div class="flex flex-wrap items-center">
-                    <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
-                    <div class="flex flex-col">
-                      <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
-                        {{ file.name }}
-                      </h3>
-                      <p class="text-xl font-normal text-surface-500">
-                        <span class="mr-4">{{ byteToStr(file.size) }}</span>
-                        <Tag :value="$t('Pending')" severity="warning" />
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="flex gap-2 sm:w-max w-full justify-between">
-                    <Button
-                      text
-                      rounded
-                      icon="pi pi-times"
-                      severity="danger"
-                      @click="onRemoveTemplatingFile(file, removeFileCallback, index)"
-                    />
-                  </div>
-                </div>
-              </template>
-
-              <template #empty>
-                <ProgressBar mode="indeterminate" class="h-0.5rem w-full" v-show="uploading" />
-                <p>{{ $t('Drag and drop files to here to upload') }}</p>
-              </template>
-            </FileUpload>
+          <template #body="{ data }">
+            <span class="text-surface-500" v-if="data.type === 0"> </span>
+            <span class="text-surface-500" v-if="data.type === 1">
+              {{ $t('File') }}
+            </span>
+            <span class="text-surface-500" v-if="data.type === 2">
+              {{ $t('Folder') }}
+            </span>
           </template>
+        </Column>
 
-          <template #loading>
-            <i class="pi pi-spin pi-spinner text-3xl mr-4"></i>
-            <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
+        <Column
+          sortable
+          field="modifiedAt"
+          :header="$t('Modified time')"
+          :style="{ minWidth: '10%' }"
+          headerClass="font-bold text-center uppercase"
+        >
+          <template #body="{ data }">
+            <span class="text-surface-500">
+              {{ data?.modifiedAt ? dateTimeToStr(data.modifiedAt) : data?.rawModifiedAt }}
+            </span>
           </template>
+        </Column>
 
-          <template #empty>
-            <div
-              v-if="!loading && ftpFiles?.length === 0"
-              :class="[
-                'absolute',
-                'left-0',
-                'z-20',
-                'flex items-center justify-center',
-                'w-full h-full',
-                'bg-none',
-                'flex items-stretch text-center'
-              ]"
-              style="height: calc(100vh - 34rem)"
-            >
-              <div class="flex flex-col gap-2 m-auto">
-                <i class="pi pi-folder-open text-8xl text-surface-500" />
-                <h5>{{ $t('No files found in folder') }}</h5>
-              </div>
-            </div>
-          </template>
-
-          <Column
-            sortable
-            field="name"
-            :header="$t('Name')"
-            :style="{ minWidth: '45%' }"
-            headerClass="font-bold text-center uppercase"
-          >
-            <template #body="{ data }">
-              <div
-                class="flex flex-row flex-wrap"
-                :class="data.type !== 1 ? 'cursor-pointer' : ''"
-                @click="data.type === 2 ? update(data.name) : data.type === 0 ? goToBack() : false"
+        <Column
+          field="options"
+          :header="null"
+          :style="{ minWidth: '15%' }"
+          headerClass="font-bold text-center uppercase"
+        >
+          <template #body="{ data }">
+            <div class="flex justify-content-end flex-wrap">
+              <a
+                download
+                target="_blank"
+                :href="getLinkToFile(data.name)"
+                class="!text-green-500 h-12 relative items-center inline-flex text-center align-bottom justify-center leading-normal px-4 py-3 w-12 p-0 rounded-full text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus:outline-offset-0 focus:ring hover:bg-surface-300/20 focus:ring-primary-400/50 dark:focus:ring-primary-300/50 transition duration-200 ease-in-out cursor-pointer overflow-hidden select-none"
+                v-tooltip.bottom="$t('Download file')"
+                v-if="data.type === 1"
               >
-                <div class="flex items-center justify-center mr-4">
-                  <i
-                    class="pi pi-folder-open text-2xl font-bold text-surface-500"
-                    v-if="data.type === 0"
-                  />
-                  <i :class="filterFileIcon(data.name)" class="text-xl" v-if="data.type === 1" />
-                  <i
-                    class="pi pi-folder text-2xl font-bold text-yellow-500"
-                    v-if="data.type === 2"
-                  />
-                </div>
-                <div class="flex items-center justify-center">
-                  <span class="text-xl font-bold text-surface-500" v-if="data.type === 0">
-                    {{ breadcrumb?.length ? breadcrumb[breadcrumb?.length - 1].label : '' }}
-                  </span>
-                  <span class="text-xl" v-if="data.type === 1">
-                    {{ data.name }}
-                  </span>
-                  <span class="text-xl font-bold" v-if="data.type === 2">
-                    {{ data.name }}
-                  </span>
-                </div>
-              </div>
-            </template>
-          </Column>
+                <i class="pi pi-download text-xl"></i>
+              </a>
 
-          <Column
-            sortable
-            field="size"
-            :header="$t('Size')"
-            :style="{ minWidth: '15%' }"
-            headerClass="font-bold text-center uppercase"
-          >
-            <template #body="{ data }">
-              <span class="text-surface-500">
-                {{ data.size && data.type !== 2 ? byteToStr(data.size) : '' }}
-              </span>
-            </template>
-          </Column>
+              <Button
+                text
+                plain
+                rounded
+                icon="pi pi-copy"
+                iconClass="text-xl"
+                class="!text-gray-500 w-12 h-12"
+                v-tooltip.bottom="$t('Copy file link')"
+                @click="copyLink(data.name)"
+                v-if="data.type === 1"
+              />
 
-          <Column
-            sortable
-            field="type"
-            :header="$t('Type')"
-            :style="{ minWidth: '10%' }"
-            headerClass="font-bold text-center uppercase"
-          >
-            <template #body="{ data }">
-              <span class="text-surface-500" v-if="data.type === 0"> </span>
-              <span class="text-surface-500" v-if="data.type === 1">
-                {{ $t('File') }}
-              </span>
-              <span class="text-surface-500" v-if="data.type === 2">
-                {{ $t('Folder') }}
-              </span>
-            </template>
-          </Column>
+              <Button
+                text
+                plain
+                rounded
+                icon="pi pi-file-edit"
+                iconClass="text-xl"
+                class="!text-yellow-500 w-12 h-12"
+                v-tooltip.bottom="$t('Rename file')"
+                @click="rename(data.name)"
+                v-if="data.type === 1"
+              />
 
-          <Column
-            sortable
-            field="modifiedAt"
-            :header="$t('Modified time')"
-            :style="{ minWidth: '10%' }"
-            headerClass="font-bold text-center uppercase"
-          >
-            <template #body="{ data }">
-              <span class="text-surface-500">
-                {{ data?.modifiedAt ? dateTimeToStr(data.modifiedAt) : data?.rawModifiedAt }}
-              </span>
-            </template>
-          </Column>
+              <Button
+                text
+                plain
+                rounded
+                icon="pi pi-trash"
+                iconClass="text-xl"
+                class="!text-red-500 w-12 h-12"
+                v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
+                @click="remove(data.name, data.type)"
+                v-if="data.type === 1"
+              />
+            </div>
+          </template>
+        </Column>
 
-          <Column
-            field="options"
-            :header="null"
-            :style="{ minWidth: '15%' }"
-            headerClass="font-bold text-center uppercase"
-          >
-            <template #body="{ data }">
-              <div class="flex justify-content-end flex-wrap">
-                <a
-                  download
-                  target="_blank"
-                  :href="getLinkToFile(data.name)"
-                  class="!text-green-500 h-12 relative items-center inline-flex text-center align-bottom justify-center leading-normal px-4 py-3 w-12 p-0 rounded-full text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus:outline-offset-0 focus:ring hover:bg-surface-300/20 focus:ring-primary-400/50 dark:focus:ring-primary-300/50 transition duration-200 ease-in-out cursor-pointer overflow-hidden select-none"
-                  v-tooltip.bottom="$t('Download file')"
-                  v-if="data.type === 1"
-                >
-                  <i class="pi pi-download text-xl"></i>
-                </a>
-
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-copy"
-                  iconClass="text-xl"
-                  class="!text-gray-500 w-12 h-12"
-                  v-tooltip.bottom="$t('Copy file link')"
-                  @click="copyLink(data.name)"
-                  v-if="data.type === 1"
-                />
-
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-file-edit"
-                  iconClass="text-xl"
-                  class="!text-yellow-500 w-12 h-12"
-                  v-tooltip.bottom="$t('Rename file')"
-                  @click="rename(data.name)"
-                  v-if="data.type === 1"
-                />
-
-                <Button
-                  text
-                  plain
-                  rounded
-                  icon="pi pi-trash"
-                  iconClass="text-xl"
-                  class="!text-red-500 w-12 h-12"
-                  v-tooltip.bottom="data.type === 1 ? $t('Remove file') : $t('Remove folder')"
-                  @click="remove(data.name, data.type)"
-                  v-if="data.type === 1"
-                />
-              </div>
-            </template>
-          </Column>
-
-          <template #footer>
-            <Breadcrumb :home="home" :model="breadcrumb" class="py-3">
-              <template #item="{ label, item, props }">
-                <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
-                  <a :href="routerProps.href" v-bind="props.action">
-                    <span v-bind="props.icon" />
-                    <span v-bind="props.label">{{ label }}</span>
-                  </a>
-                </router-link>
-                <a v-else :href="item.url" :target="item.target" v-bind="props.action">
-                  <span v-if="item.icon" v-bind="props.icon" />
+        <template #footer>
+          <Breadcrumb :home="home" :model="breadcrumb" class="py-3">
+            <template #item="{ label, item, props }">
+              <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
+                <a :href="routerProps.href" v-bind="props.action">
+                  <span v-bind="props.icon" />
                   <span v-bind="props.label">{{ label }}</span>
                 </a>
-              </template>
-            </Breadcrumb>
-          </template>
-        </DataTable>
-      </div>
+              </router-link>
+              <a v-else :href="item.url" :target="item.target" v-bind="props.action">
+                <span v-if="item.icon" v-bind="props.icon" />
+                <span v-bind="props.label">{{ label }}</span>
+              </a>
+            </template>
+          </Breadcrumb>
+        </template>
+      </DataTable>
     </div>
   </div>
 </template>

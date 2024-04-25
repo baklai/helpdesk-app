@@ -8,7 +8,7 @@ const $sidebar = useSidebar();
 
 <template>
   <PanelMenu
-    :model="$sidebar.links"
+    :model="$sidebar.navLinks"
     class="w-full"
     :pt="{
       headercontent: ({ context, instance }) => ({
@@ -48,12 +48,12 @@ const $sidebar = useSidebar();
             'font-semibold',
             'cursor-pointer',
             'text-surface-700 dark:text-surface-0/80',
-            'hover:bg-surface-200 dark:hover:bg-surface-800',
+            'hover:bg-surface-100 dark:hover:bg-surface-700',
             'hover:text-surface-900',
             'transition duration-200 ease-in-out',
             'transition-shadow duration-200',
             {
-              'font-bold !text-primary-500': active || item.name === $router.currentRoute.value.name
+              'font-bold !text-primary-500': item.name === $router.currentRoute.value.name
             }
           ]"
           :href="href"
@@ -72,7 +72,7 @@ const $sidebar = useSidebar();
           'rounded-md',
           'cursor-pointer',
           'text-surface-700 dark:text-surface-0/80',
-          'hover:bg-surface-200 dark:hover:bg-surface-800',
+          'hover:bg-surface-100 dark:hover:bg-surface-700',
           'hover:text-surface-900',
           'transition duration-200 ease-in-out',
           'transition-shadow duration-200'

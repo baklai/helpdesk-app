@@ -239,146 +239,144 @@ const runTargetScan = handleSubmit(async () => {
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <OptionsMenu
-        ref="refMenu"
-        hostkey="host"
-        @view="data => refModal.toggle(data)"
-        @create="subheader = !subheader"
-        @update="data => refModal.toggle(data)"
-        @delete="data => refDataTable.delete(data)"
-      />
+  <div class="flex h-full w-full">
+    <OptionsMenu
+      ref="refMenu"
+      hostkey="host"
+      @view="data => refModal.toggle(data)"
+      @create="subheader = !subheader"
+      @update="data => refModal.toggle(data)"
+      @delete="data => refDataTable.delete(data)"
+    />
 
-      <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
+    <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <HDDataTable
-        ref="refDataTable"
-        :columns="columns"
-        :globalFilter="globalFilter"
-        :storageKey="`app-datatable-${$route.name}`"
-        :exportFileName="$route.name"
-        :onUpdate="Onmap.findAll"
-        :onDelete="Onmap.removeOne"
-        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="subheader = !subheader"
-        @toggle-sidebar="data => refSidebar.toggle(data)"
-      >
-        <template #icon>
-          <i class="my-auto mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-        </template>
+    <HDDataTable
+      ref="refDataTable"
+      :columns="columns"
+      :globalFilter="globalFilter"
+      :storageKey="`app-datatable-${$route.name}`"
+      :exportFileName="$route.name"
+      :onUpdate="Onmap.findAll"
+      :onDelete="Onmap.removeOne"
+      @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+      @toggle-modal="subheader = !subheader"
+      @toggle-sidebar="data => refSidebar.toggle(data)"
+    >
+      <template #icon>
+        <i class="my-auto mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+      </template>
 
-        <template #title>
-          {{ $t($route?.meta?.title) }}
-        </template>
+      <template #title>
+        {{ $t($route?.meta?.title) }}
+      </template>
 
-        <template #subtitle>
-          {{ $t($route?.meta?.description) }}
-        </template>
+      <template #subtitle>
+        {{ $t($route?.meta?.description) }}
+      </template>
 
-        <template #actions> </template>
+      <template #actions> </template>
 
-        <template #subheader>
-          <Panel class="my-4" v-show="subheader">
-            <template #header>
-              <div class="flex items-center">
-                <span class="font-bold uppercase">{{ $t('Onmap scanner run') }}</span>
-              </div>
-            </template>
+      <template #subheader>
+        <Panel class="my-4" v-show="subheader">
+          <template #header>
+            <div class="flex items-center">
+              <span class="font-bold uppercase">{{ $t('Onmap scanner run') }}</span>
+            </div>
+          </template>
 
-            <div class="flex flex-col justify-center gap-4">
-              <div class="flex flex-row gap-4">
-                <div class="flex flex-col md:w-2/5 gap-2">
-                  <label for="target">{{ $t('Target') }}</label>
-                  <InputText
-                    id="target"
-                    class="w-full"
-                    v-bind="target"
-                    :placeholder="$t('Scan target')"
-                    :invalid="!!errors?.target"
-                    aria-describedby="target-help"
-                  />
-                  <small id="target-help" class="text-red-500" v-if="errors?.target">
-                    {{ $t(errors.target) }}
-                  </small>
-                </div>
-
-                <div class="flex flex-col md:w-3/5 gap-2">
-                  <label for="title">{{ $t('Title') }}</label>
-                  <InputText
-                    id="title"
-                    class="w-full"
-                    v-bind="title"
-                    :placeholder="$t('Scan title')"
-                    :invalid="!!errors?.title"
-                    aria-describedby="title-help"
-                  />
-                  <small id="title-help" class="text-red-500" v-if="errors?.title">
-                    {{ $t(errors.title) }}
-                  </small>
-                </div>
+          <div class="flex flex-col justify-center gap-4">
+            <div class="flex flex-row gap-4">
+              <div class="flex flex-col md:w-2/5 gap-2">
+                <label for="target">{{ $t('Target') }}</label>
+                <InputText
+                  id="target"
+                  class="w-full"
+                  v-bind="target"
+                  :placeholder="$t('Scan target')"
+                  :invalid="!!errors?.target"
+                  aria-describedby="target-help"
+                />
+                <small id="target-help" class="text-red-500" v-if="errors?.target">
+                  {{ $t(errors.target) }}
+                </small>
               </div>
 
-              <div class="flex flex-row gap-4">
-                <div class="flex flex-col md:w-2/5 gap-2">
-                  <label for="profile">{{ $t('Profile') }}</label>
-                  <Dropdown
-                    filter
-                    showClear
-                    autofocus
-                    optionLabel="name"
-                    v-bind="profile"
-                    :options="SCAN_PROFILES"
-                    @change="
-                      event => {
-                        setFieldValue('command', event.value.flags.join(' '));
-                      }
-                    "
-                    :filterPlaceholder="$t('Search in list')"
-                    :placeholder="$t('Select scan profile')"
-                    class="w-full"
-                  />
-                </div>
-
-                <div class="flex flex-col md:w-3/5 gap-2">
-                  <label for="command">{{ $t('Command') }}</label>
-                  <InputText
-                    id="command"
-                    class="w-full"
-                    v-bind="command"
-                    :readonly="true"
-                    :placeholder="$t('Scan command')"
-                    :invalid="!!errors?.command"
-                    aria-describedby="command-help"
-                  />
-                  <small id="command-help" class="text-red-500" v-if="errors?.command">
-                    {{ $t(errors.command) }}
-                  </small>
-                </div>
+              <div class="flex flex-col md:w-3/5 gap-2">
+                <label for="title">{{ $t('Title') }}</label>
+                <InputText
+                  id="title"
+                  class="w-full"
+                  v-bind="title"
+                  :placeholder="$t('Scan title')"
+                  :invalid="!!errors?.title"
+                  aria-describedby="title-help"
+                />
+                <small id="title-help" class="text-red-500" v-if="errors?.title">
+                  {{ $t(errors.title) }}
+                </small>
               </div>
             </div>
 
-            <template #footer>
-              <div class="flex flex-wrap items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <Button :label="$t('Scan')" class="w-60" @click="runTargetScan" />
-                  <Button
-                    outlined
-                    class="w-40"
-                    severity="secondary"
-                    :label="$t('Cancel')"
-                    @click="resetForm({ values: {} }, { force: true })"
-                  />
-                </div>
+            <div class="flex flex-row gap-4">
+              <div class="flex flex-col md:w-2/5 gap-2">
+                <label for="profile">{{ $t('Profile') }}</label>
+                <Dropdown
+                  filter
+                  showClear
+                  autofocus
+                  optionLabel="name"
+                  v-bind="profile"
+                  :options="SCAN_PROFILES"
+                  @change="
+                    event => {
+                      setFieldValue('command', event.value.flags.join(' '));
+                    }
+                  "
+                  :filterPlaceholder="$t('Search in list')"
+                  :placeholder="$t('Select scan profile')"
+                  class="w-full"
+                />
               </div>
-            </template>
-          </Panel>
-        </template>
-      </HDDataTable>
 
-      <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
-    </div>
+              <div class="flex flex-col md:w-3/5 gap-2">
+                <label for="command">{{ $t('Command') }}</label>
+                <InputText
+                  id="command"
+                  class="w-full"
+                  v-bind="command"
+                  :readonly="true"
+                  :placeholder="$t('Scan command')"
+                  :invalid="!!errors?.command"
+                  aria-describedby="command-help"
+                />
+                <small id="command-help" class="text-red-500" v-if="errors?.command">
+                  {{ $t(errors.command) }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <template #footer>
+            <div class="flex flex-wrap items-center justify-between">
+              <div class="flex items-center gap-2">
+                <Button :label="$t('Scan')" class="w-60" @click="runTargetScan" />
+                <Button
+                  outlined
+                  class="w-40"
+                  severity="secondary"
+                  :label="$t('Cancel')"
+                  @click="resetForm({ values: {} }, { force: true })"
+                />
+              </div>
+            </div>
+          </template>
+        </Panel>
+      </template>
+    </HDDataTable>
+
+    <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
   </div>
 </template>

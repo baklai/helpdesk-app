@@ -589,7 +589,6 @@ onBeforeUnmount(() => {
       size="small"
       responsiveLayout="scroll"
       columnResizeMode="expand"
-      style="height: calc(100vh - 6rem)"
       :value="records"
       :loading="loading"
       v-model:filters="filters"
@@ -600,8 +599,13 @@ onBeforeUnmount(() => {
       :totalRecords="totalRecords"
       :rowsPerPageOptions="recordsPerPageOptions"
       :currentPageReportTemplate="
-        $t('Showing records', { first: '{first}', last: '{last}', totalRecords: '{totalRecords}' })
+        $t('Showing records', {
+          first: '{first}',
+          last: '{last}',
+          totalRecords: '{totalRecords}'
+        })
       "
+      style="height: calc(100vh - 5rem)"
       class="min-w-full overflow-x-auto text-base"
       :paginatorTemplate="screenSizeComputed"
       @state-restore="onStorage"

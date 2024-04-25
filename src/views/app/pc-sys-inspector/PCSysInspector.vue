@@ -458,71 +458,69 @@ const createSysInspectorScript = async () => {
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-[15rem] p-2">
-        <template #item="{ label, item, props }">
-          <a :href="item.url" v-bind="props.action">
-            <span v-bind="props.icon" />
-            <span v-bind="props.label">{{ label }}</span>
-          </a>
-        </template>
-      </Menu>
+  <div class="flex h-full w-full">
+    <Menu ref="refWarningMenu" popup :model="warningOptions" class="w-[15rem] p-2">
+      <template #item="{ label, item, props }">
+        <a :href="item.url" v-bind="props.action">
+          <span v-bind="props.icon" />
+          <span v-bind="props.label">{{ label }}</span>
+        </a>
+      </template>
+    </Menu>
 
-      <OptionsMenu
-        ref="refMenu"
-        hostkey="host"
-        @view="data => refModal.toggle(data)"
-        @create="async () => await createSysInspectorScript()"
-        @update="data => refModal.toggle(data)"
-        @delete="data => refDataTable.delete(data)"
-      />
+    <OptionsMenu
+      ref="refMenu"
+      hostkey="host"
+      @view="data => refModal.toggle(data)"
+      @create="async () => await createSysInspectorScript()"
+      @update="data => refModal.toggle(data)"
+      @delete="data => refDataTable.delete(data)"
+    />
 
-      <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
+    <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <HDDataTable
-        ref="refDataTable"
-        :columns="columns"
-        :globalFilter="globalFilter"
-        :storageKey="`app-datatable-${$route.name}`"
-        :exportFileName="$route.name"
-        :onUpdate="Inspector.findAll"
-        :onDelete="Inspector.removeOne"
-        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="async () => await createSysInspectorScript()"
-        @toggle-sidebar="data => refSidebar.toggle(data)"
-      >
-        <template #icon>
-          <i class="my-auto mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-        </template>
+    <HDDataTable
+      ref="refDataTable"
+      :columns="columns"
+      :globalFilter="globalFilter"
+      :storageKey="`app-datatable-${$route.name}`"
+      :exportFileName="$route.name"
+      :onUpdate="Inspector.findAll"
+      :onDelete="Inspector.removeOne"
+      @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+      @toggle-modal="async () => await createSysInspectorScript()"
+      @toggle-sidebar="data => refSidebar.toggle(data)"
+    >
+      <template #icon>
+        <i class="my-auto mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+      </template>
 
-        <template #title>
-          {{ $t($route?.meta?.title) }}
-        </template>
+      <template #title>
+        {{ $t($route?.meta?.title) }}
+      </template>
 
-        <template #subtitle>
-          {{ $t($route?.meta?.description) }}
-        </template>
+      <template #subtitle>
+        {{ $t($route?.meta?.description) }}
+      </template>
 
-        <template #actions>
-          <Button
-            text
-            plain
-            rounded
-            icon="pi pi-bookmark-fill"
-            iconClass="text-2xl"
-            class="hover:text-orange-500 h-12 w-12"
-            v-tooltip.bottom="$t('Show all problems')"
-            @click="event => refWarningMenu.toggle(event)"
-          />
+      <template #actions>
+        <Button
+          text
+          plain
+          rounded
+          icon="pi pi-bookmark-fill"
+          iconClass="text-2xl"
+          class="hover:text-orange-500 h-12 w-12"
+          v-tooltip.bottom="$t('Show all problems')"
+          @click="event => refWarningMenu.toggle(event)"
+        />
 
-          <BtnDBTables />
-        </template>
-      </HDDataTable>
+        <BtnDBTables />
+      </template>
+    </HDDataTable>
 
-      <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
-    </div>
+    <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
   </div>
 </template>

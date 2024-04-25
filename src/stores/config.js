@@ -12,6 +12,7 @@ export const useConfig = defineStore('config', () => {
 
   const appScale = ref(useLocalStorage('app-scale', 12));
   const appRipple = ref(useLocalStorage('app-ripple', false));
+  const appSideBarMini = ref(useLocalStorage('app-sidebar-mini', false));
   const appSideBarMode = ref(useLocalStorage('app-sidebar-mode', 'static'));
   const appTheme = ref(useLocalStorage('app-theme', 'light'));
   const appLanguage = ref(useLocalStorage('app-language', navigator.language || fallbackLocale));
@@ -95,6 +96,7 @@ export const useConfig = defineStore('config', () => {
     appTheme,
     appScale,
     appRipple,
+    appSideBarMini,
     appSideBarMode,
     appSideBarVisible,
     activeMenuItem,

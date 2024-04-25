@@ -31,7 +31,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
 </script>
 
 <template>
-  <div className="flex-shrink-0 p-4 w-full">
+  <div className="h-full w-full">
     <div class="flex content-center mb-6">
       <div class="flex items-center justify-center mr-2">
         <AppIcons :name="$route?.name" :size="42" />

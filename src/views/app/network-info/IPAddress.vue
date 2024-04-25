@@ -491,51 +491,49 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <OptionsMenu
-        ref="refMenu"
-        hostkey="ipaddress"
-        @view="data => refSidebar.toggle(data)"
-        @create="data => refModal.toggle(data)"
-        @update="data => refModal.toggle(data)"
-        @delete="data => refDataTable.delete(data)"
-      />
+  <div class="flex h-full w-full">
+    <OptionsMenu
+      ref="refMenu"
+      hostkey="ipaddress"
+      @view="data => refSidebar.toggle(data)"
+      @create="data => refModal.toggle(data)"
+      @update="data => refModal.toggle(data)"
+      @delete="data => refDataTable.delete(data)"
+    />
 
-      <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
+    <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <HDDataTable
-        ref="refDataTable"
-        :columns="columns"
-        :globalFilter="globalFilter"
-        :storageKey="`app-datatable-${$route.name}`"
-        :exportFileName="$route.name"
-        :onUpdate="IPAddress.findAll"
-        :onDelete="IPAddress.removeOne"
-        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="data => refModal.toggle(data)"
-        @toggle-sidebar="data => refSidebar.toggle(data)"
-      >
-        <template #icon>
-          <i class="mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-        </template>
+    <HDDataTable
+      ref="refDataTable"
+      :columns="columns"
+      :globalFilter="globalFilter"
+      :storageKey="`app-datatable-${$route.name}`"
+      :exportFileName="$route.name"
+      :onUpdate="IPAddress.findAll"
+      :onDelete="IPAddress.removeOne"
+      @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+      @toggle-modal="data => refModal.toggle(data)"
+      @toggle-sidebar="data => refSidebar.toggle(data)"
+    >
+      <template #icon>
+        <i class="mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+      </template>
 
-        <template #title>
-          {{ $t($route?.meta?.title) }}
-        </template>
+      <template #title>
+        {{ $t($route?.meta?.title) }}
+      </template>
 
-        <template #subtitle>
-          {{ $t($route?.meta?.description) }}
-        </template>
+      <template #subtitle>
+        {{ $t($route?.meta?.description) }}
+      </template>
 
-        <template #actions>
-          <BtnDBTables />
-        </template>
-      </HDDataTable>
+      <template #actions>
+        <BtnDBTables />
+      </template>
+    </HDDataTable>
 
-      <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
-    </div>
+    <SidebarRecord ref="refSidebar" @toggle-menu="(event, data) => refMenu.toggle(event, data)" />
   </div>
 </template>

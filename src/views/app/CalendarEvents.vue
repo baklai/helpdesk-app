@@ -177,7 +177,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-full p-4">
+  <div>
     <Modal ref="refModal" @close="async () => await getDataRecords()" />
 
     <div class="flex justify-between flex-wrap mb-2">

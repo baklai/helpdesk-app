@@ -8,48 +8,29 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-0 dark:bg-surface-800">
+  <div class="flex h-screen">
     <aside
       :class="[
         'z-50',
-        'fixed',
+        'h-screen',
         'select-none',
-        'left-0 inset-y-0',
-        'h-screen w-screen',
-        'flex justify-start items-center',
-        '-translate-x-full',
-        'bg-transparent backdrop-blur-sm',
-        {
-          'translate-x-0': $config.appSideBarVisible
-        },
-        {
-          'md:!w-[25rem] md:!backdrop-blur-none':
-            $config.appSideBarMode === 'static' && $config.appSideBarVisible
-        },
-        'transition-all duration-200',
+        'flex absolute',
+        { 'md:w-auto md:max-w-md': $config.appSideBarMode === 'static' },
+        { 'md:flex-none md:static': $config.appSideBarMode === 'static' },
+        { 'w-full': $config.appSideBarVisible },
+        { 'bg-transparent backdrop-blur-sm': $config.appSideBarVisible },
+        'transition-transform duration-300 pointer-events-auto',
         'text-surface-900 dark:text-surface-300'
       ]"
       @click.self="$config.toggleAppSideBar"
     >
-      <AppSidebar />
+      <AppSidebar v-if="$config.appSideBarVisible" />
     </aside>
 
-    <div
-      :class="[
-        'ml-0',
-        'min-h-screen',
-        'flex flex-col justify-between',
-        {
-          'md:!ml-[25rem]': $config.appSideBarMode === 'static' && $config.appSideBarVisible
-        },
-        'transition-margin duration-200',
-        'text-surface-900 dark:text-primary-50',
-        'bg-surface-0 dark:bg-surface-800'
-      ]"
-    >
+    <div :class="['flex flex-col flex-1', 'overflow-hidden', 'transition-margin duration-200']">
       <AppTopbar />
 
-      <main class="flex flex-auto px-8 overflow-auto flex-wrap" style="height: calc(100vh - 9rem)">
+      <main class="flex-1 px-8 overflow-y-auto">
         <RouterView />
       </main>
     </div>

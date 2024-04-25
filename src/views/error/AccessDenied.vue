@@ -5,7 +5,7 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div class="flex flex-col m-auto items-center text-center w-full py-20 px-8 sm:px-20">
+  <div class="flex flex-col h-full w-full items-center place-content-center">
     <h1 class="text-6xl font-bold mb-2">
       {{ $t('Access Denied') }}
     </h1>

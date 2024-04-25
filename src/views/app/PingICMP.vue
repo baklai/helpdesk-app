@@ -55,74 +55,72 @@ const commandHandler = async text => {
 </script>
 
 <template>
-  <div className="flex-shrink-0 p-4 w-full">
-    <div className="h-full">
-      <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
-        <div class="flex flex-wrap gap-2 items-center">
-          <i class="mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-          <div>
-            <h3 class="text-2xl">
-              {{ $t($route?.meta?.title) }}
-            </h3>
-            <p class="text-base text-surface-500">
-              {{ $t($route?.meta?.description) }}
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-          <div class="flex gap-2 sm:w-max w-full justify-between">
-            <Button
-              text
-              plain
-              rounded
-              icon="pi pi-trash"
-              iconClass="text-2xl"
-              class="h-12 w-12"
-              v-tooltip.bottom="$t('Clear terminal')"
-            />
-
-            <Button
-              text
-              plain
-              rounded
-              icon="pi pi-cog"
-              iconClass="text-2xl"
-              class="h-12 w-12"
-              v-tooltip.bottom="$t('Options')"
-            />
-          </div>
+  <div class="h-full w-full">
+    <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
+      <div class="flex flex-wrap gap-2 items-center">
+        <i class="mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+        <div>
+          <h3 class="text-2xl">
+            {{ $t($route?.meta?.title) }}
+          </h3>
+          <p class="text-base text-surface-500">
+            {{ $t($route?.meta?.description) }}
+          </p>
         </div>
       </div>
+      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+        <div class="flex gap-2 sm:w-max w-full justify-between">
+          <Button
+            text
+            plain
+            rounded
+            icon="pi pi-trash"
+            iconClass="text-2xl"
+            class="h-12 w-12"
+            v-tooltip.bottom="$t('Clear terminal')"
+          />
 
-      <Terminal
-        :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
-        :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
-        class="h-[30rem] text-xl"
-        aria-label="Helpdesk Terminal Service"
-      />
-
-      <div class="px-6 py-6">
-        <h5>
-          Example:
-          <span class="font-normal text-primary rounded p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
-        </h5>
-
-        <p>
-          <code class="text-base font-normal">-n &lt;число&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Указывает количество отправляемых запросов пинга.
-          </span>
-        </p>
-
-        <p>
-          <code class="text-base font-normal">-w &lt;время&gt;</code>
-          <span class="text-lg font-normal line-height-2">
-            : Устанавливает время ожидания ответа в миллисекундах.
-          </span>
-        </p>
+          <Button
+            text
+            plain
+            rounded
+            icon="pi pi-cog"
+            iconClass="text-2xl"
+            class="h-12 w-12"
+            v-tooltip.bottom="$t('Options')"
+          />
+        </div>
       </div>
+    </div>
+
+    <Terminal
+      :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
+      :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
+      class="h-[30rem] text-xl"
+      aria-label="Helpdesk Terminal Service"
+    />
+
+    <div class="px-6 py-6">
+      <h5>
+        Example:
+        <span class="font-normal text-primary rounded p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
+      </h5>
+
+      <p>
+        <code class="text-base font-normal">-n &lt;число&gt;</code>
+        <span class="text-lg font-normal line-height-2">
+          : Указывает количество отправляемых запросов пинга.
+        </span>
+      </p>
+
+      <p>
+        <code class="text-base font-normal">-w &lt;время&gt;</code>
+        <span class="text-lg font-normal line-height-2">
+          : Устанавливает время ожидания ответа в миллисекундах.
+        </span>
+      </p>
     </div>
   </div>
 </template>

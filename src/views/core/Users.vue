@@ -25,7 +25,7 @@ const globalFilter = ref({
 
 const columns = ref([
   {
-    header: { text: 'Fullname', icon: 'pi pi-id-card', width: '15rem' },
+    header: { text: 'Fullname', icon: 'pi pi-id-card', width: '14rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -191,44 +191,42 @@ const columns = ref([
 </script>
 
 <template>
-  <div class="flex-shrink-0 p-2 w-full">
-    <div class="flex h-full">
-      <OptionsMenu
-        ref="refMenu"
-        @view="data => refModal.toggle(data)"
-        @create="data => refModal.toggle(data)"
-        @update="data => refModal.toggle(data)"
-        @delete="data => refDataTable.delete(data)"
-      />
+  <div class="flex h-full w-full">
+    <OptionsMenu
+      ref="refMenu"
+      @view="data => refModal.toggle(data)"
+      @create="data => refModal.toggle(data)"
+      @update="data => refModal.toggle(data)"
+      @delete="data => refDataTable.delete(data)"
+    />
 
-      <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
+    <ModalRecord ref="refModal" @close="() => refDataTable.update({})" />
 
-      <HDDataTable
-        ref="refDataTable"
-        :columns="columns"
-        :globalFilter="globalFilter"
-        :storageKey="`app-datatable-${$route.name}`"
-        :exportFileName="$route.name"
-        :onUpdate="User.findAll"
-        :onDelete="User.removeOne"
-        @toggle-menu="(event, data) => refMenu.toggle(event, data)"
-        @toggle-modal="data => refModal.toggle(data)"
-        @toggle-sidebar="data => refSidebar.toggle(data)"
-      >
-        <template #icon>
-          <i class="mr-2 hidden sm:block">
-            <AppIcons :name="$route?.name" :size="42" />
-          </i>
-        </template>
+    <HDDataTable
+      ref="refDataTable"
+      :columns="columns"
+      :globalFilter="globalFilter"
+      :storageKey="`app-datatable-${$route.name}`"
+      :exportFileName="$route.name"
+      :onUpdate="User.findAll"
+      :onDelete="User.removeOne"
+      @toggle-menu="(event, data) => refMenu.toggle(event, data)"
+      @toggle-modal="data => refModal.toggle(data)"
+      @toggle-sidebar="data => refSidebar.toggle(data)"
+    >
+      <template #icon>
+        <i class="mr-2 hidden sm:block">
+          <AppIcons :name="$route?.name" :size="42" />
+        </i>
+      </template>
 
-        <template #title>
-          {{ $t($route?.meta?.title) }}
-        </template>
+      <template #title>
+        {{ $t($route?.meta?.title) }}
+      </template>
 
-        <template #subtitle>
-          {{ $t($route?.meta?.description) }}
-        </template>
-      </HDDataTable>
-    </div>
+      <template #subtitle>
+        {{ $t($route?.meta?.description) }}
+      </template>
+    </HDDataTable>
   </div>
 </template>

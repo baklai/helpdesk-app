@@ -7,7 +7,7 @@ export const useSidebar = defineStore('sidebar', () => {
   const Router = useRouter();
   const { t } = useI18n();
 
-  const links = computed(() => [
+  const navLinks = computed(() => [
     { ...getRoute('home') },
 
     t('Documentation'),
@@ -59,6 +59,15 @@ export const useSidebar = defineStore('sidebar', () => {
     { ...getRoute('core-users') }
   ]);
 
+  const miniNavLinks = computed(() => [
+    { ...getRoute('calendar-events') },
+    { ...getRoute('network-ip-address') },
+    { ...getRoute('network-mailbox') },
+    { ...getRoute('helpdesk-live-log-requests') },
+    { ...getRouteLabel('pc-sys-inspector-reports') },
+    { ...getRouteLabel('onmap-scanner-reports') }
+  ]);
+
   function getRoute(name) {
     const routes = Router.getRoutes();
     const route = routes.find(item => item.name === name);
@@ -82,5 +91,5 @@ export const useSidebar = defineStore('sidebar', () => {
     };
   }
 
-  return { links, getRoute };
+  return { navLinks, miniNavLinks, getRoute };
 });

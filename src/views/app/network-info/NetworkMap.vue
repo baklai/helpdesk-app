@@ -243,7 +243,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-full p-4">
+  <div class="h-full w-full py-4">
     <div class="flex justify-between flex-wrap mb-2">
       <div class="flex flex-wrap gap-2 items-center">
         <i class="mr-2 block">
