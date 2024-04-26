@@ -15,19 +15,20 @@ const $config = useConfig();
         'h-screen',
         'select-none',
         'flex absolute',
+        { 'w-full': $config.appSideBarVisible },
         { 'md:w-auto md:max-w-md': $config.appSideBarMode === 'static' },
         { 'md:flex-none md:static': $config.appSideBarMode === 'static' },
-        { 'w-full': $config.appSideBarVisible },
         { 'bg-transparent backdrop-blur-sm': $config.appSideBarVisible },
-        'transition-transform duration-300 pointer-events-auto',
         'text-surface-900 dark:text-surface-300'
       ]"
       @click.self="$config.toggleAppSideBar"
     >
-      <AppSidebar v-if="$config.appSideBarVisible" />
+      <transition name="slide">
+        <AppSidebar v-if="$config.appSideBarVisible" />
+      </transition>
     </aside>
 
-    <div :class="['flex flex-col flex-1', 'overflow-hidden', 'transition-margin duration-200']">
+    <div class="flex flex-col flex-1 overflow-hidden">
       <AppTopbar />
 
       <main class="flex-1 px-8 overflow-y-auto">
@@ -36,7 +37,7 @@ const $config = useConfig();
     </div>
   </div>
 
-  <ConfirmDialog class="!w-[30rem]">
+  <ConfirmDialog class="max-w-md">
     <template #container="{ message, acceptCallback, rejectCallback }">
       <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
         <div
@@ -68,3 +69,15 @@ const $config = useConfig();
     </template>
   </ConfirmDialog>
 </template>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+</style>
