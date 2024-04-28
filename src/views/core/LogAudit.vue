@@ -210,7 +210,7 @@ const columns = ref([
 const confirmDeleteAll = () => {
   confirm.require({
     message: t('Do you want to delete all records?'),
-    header: t('HD Confirm delete records'),
+    header: t('Confirm delete records'),
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',

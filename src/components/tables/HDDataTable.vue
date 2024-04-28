@@ -120,7 +120,7 @@ const onColumnsMenu = event => {
 const onRemoveRecord = ({ id }) => {
   confirm.require({
     message: t('Do you want to delete this record?'),
-    header: t('HD Confirm delete record'),
+    header: t('Confirm delete record'),
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
