@@ -33,27 +33,24 @@ const items = computed(() => [
     ]
   },
   {
-    label: t('Companies records'),
+    label: t('Organizations records'),
     items: [
       {
-        label: t('Company'),
+        label: t('Organization'),
         icon: 'pi pi-building',
         command: () => {
-          refModal.value = defineAsyncComponent(() => import('@/components/modals/Сompany.vue'));
+          refModal.value = defineAsyncComponent(() =>
+            import('@/components/modals/Organization.vue')
+          );
         }
       },
       {
-        label: t('Branch'),
+        label: t('Subdivision'),
         icon: 'pi pi-building',
         command: () => {
-          refModal.value = defineAsyncComponent(() => import('@/components/modals/Branch.vue'));
-        }
-      },
-      {
-        label: t('Enterprise'),
-        icon: 'pi pi-building',
-        command: () => {
-          refModal.value = defineAsyncComponent(() => import('@/components/modals/Enterprise.vue'));
+          refModal.value = defineAsyncComponent(() =>
+            import('@/components/modals/Subdivision.vue')
+          );
         }
       },
       {

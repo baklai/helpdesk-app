@@ -6,13 +6,17 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
-import { useBranch } from '@/stores/api/branches';
+import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
+
+import { useSubdivision } from '@/stores/api/subdivisions';
+import { useOrganization } from '@/stores/api/organizations';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, createOne, updateOne, removeOne } = useBranch();
+const { findAll, createOne, updateOne, removeOne } = useSubdivision();
+const Organization = useOrganization();
 
 const {
   values,
@@ -24,7 +28,8 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required(t('Value is required'))
+    name: yup.string().required(t('Value is required')),
+    organization: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });
@@ -50,14 +55,18 @@ const options = ref([
   }
 ]);
 
-const records = ref([]);
+const organizations = ref([]);
+const subdivisions = ref([]);
 
+const code = defineComponentBinds('code');
 const name = defineComponentBinds('name');
 const address = defineComponentBinds('address');
 const description = defineComponentBinds('description');
+const organization = defineComponentBinds('organization');
 
 const onShowModal = async () => {
-  records.value = await findAll({});
+  organizations.value = await Organization.findAll({});
+  subdivisions.value = await findAll({});
 };
 
 const onCloseModal = () => {
@@ -66,7 +75,7 @@ const onCloseModal = () => {
 
 const onRecords = async () => {
   try {
-    records.value = await findAll({});
+    organizations.value = await Organization.findAll({});
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -211,7 +220,7 @@ const onSaveRecord = handleSubmit(async () => {
           <i class="pi pi-building text-4xl mr-4"></i>
           <div>
             <p class="text-lg font-bold line-height-2">
-              {{ $t('Branch') }}
+              {{ $t('Subdivision') }}
             </p>
             <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
@@ -237,10 +246,20 @@ const onSaveRecord = handleSubmit(async () => {
         filter
         autofocus
         optionLabel="name"
-        :options="records"
+        :options="organizations"
         @change="event => setValues({ ...event.value })"
         :filterPlaceholder="$t('Search in list')"
-        :placeholder="$t('Search in database')"
+        :placeholder="$t('Search organizations in database')"
+      />
+
+      <Dropdown
+        filter
+        autofocus
+        optionLabel="name"
+        :options="subdivisions"
+        @change="event => setValues({ ...event.value })"
+        :filterPlaceholder="$t('Search in list')"
+        :placeholder="$t('Search subdivisions in database')"
       />
     </div>
 
@@ -251,11 +270,55 @@ const onSaveRecord = handleSubmit(async () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-col gap-2">
-        <label for="name">{{ $t('Branch name') }}</label>
+        <label for="organization" class="font-bold">{{ $t('Organization') }}</label>
+        <div class="flex flex-row w-full gap-2">
+          <Dropdown
+            filter
+            autofocus
+            showClear
+            resetFilterOnHide
+            dataKey="id"
+            optionValue="id"
+            optionLabel="name"
+            inputId="organization"
+            v-bind="organization"
+            :options="organizations"
+            :filterPlaceholder="$t('Search')"
+            :placeholder="$t('Organization')"
+            :invalid="!!errors?.organization"
+            aria-describedby="organization-help"
+            class="w-full"
+            @before-show="async () => (organizations = await Organization.findAll({}))"
+          />
+
+          <BtnDBTable table="organization" />
+        </div>
+
+        <small id="organization-help" class="text-red-500" v-if="errors?.organization">
+          {{ $t(errors.organization) }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="code">{{ $t('Subdivision code') }}</label>
+        <InputText
+          id="code"
+          v-bind="code"
+          :placeholder="$t('Subdivision code')"
+          :invalid="!!errors?.code"
+          aria-describedby="code-help"
+        />
+        <small id="code-help" class="text-red-500" v-if="errors?.code">
+          {{ $t(errors.code) }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="name">{{ $t('Subdivision name') }}</label>
         <InputText
           id="name"
           v-bind="name"
-          :placeholder="$t('Branch name')"
+          :placeholder="$t('Subdivision name')"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
@@ -265,17 +328,17 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="address">{{ $t('Branch address') }}</label>
-        <InputText id="address" v-bind="address" :placeholder="$t('Branch address')" />
+        <label for="address">{{ $t('Subdivision address') }}</label>
+        <InputText id="address" v-bind="address" :placeholder="$t('Subdivision address')" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description">{{ $t('Branch description') }}</label>
+        <label for="description">{{ $t('Subdivision description') }}</label>
         <Textarea
           id="description"
           rows="5"
           v-bind="description"
-          :placeholder="$t('Branch description')"
+          :placeholder="$t('Subdivision description')"
         />
       </div>
     </form>

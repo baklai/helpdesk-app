@@ -159,21 +159,15 @@ const onCloseSidebar = () => {
             <td>{{ record?.mail || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Company') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Organization') }} :</td>
             <td>
-              {{ record?.company ? record?.company?.title : '-' }}
+              {{ record?.organization ? record?.organization?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Branch') }} :</td>
+            <td class="font-bold" width="50%">{{ $t('Subdivision') }} :</td>
             <td>
-              {{ record?.branch ? record?.branch?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Enterprise') }} :</td>
-            <td>
-              {{ record?.enterprise ? record?.enterprise?.title : '-' }}
+              {{ record?.subdivision ? record?.subdivision?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">

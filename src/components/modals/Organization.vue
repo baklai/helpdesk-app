@@ -6,13 +6,13 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
-import { useEnterprise } from '@/stores/api/enterprises';
+import { useOrganization } from '@/stores/api/organizations';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, createOne, updateOne, removeOne } = useEnterprise();
+const { findAll, createOne, updateOne, removeOne } = useOrganization();
 
 const {
   values,
@@ -211,7 +211,7 @@ const onSaveRecord = handleSubmit(async () => {
           <i class="pi pi-building text-4xl mr-4"></i>
           <div>
             <p class="text-lg font-bold line-height-2">
-              {{ $t('Enterprise') }}
+              {{ $t('Organization') }}
             </p>
             <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
@@ -251,11 +251,11 @@ const onSaveRecord = handleSubmit(async () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-col gap-2">
-        <label for="name">{{ $t('Enterprise name') }}</label>
+        <label for="name">{{ $t('Organization name') }}</label>
         <InputText
           id="name"
           v-bind="name"
-          :placeholder="$t('Enterprise name')"
+          :placeholder="$t('Organization name')"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
@@ -265,17 +265,17 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="address">{{ $t('Enterprise address') }}</label>
-        <InputText id="address" v-bind="address" :placeholder="$t('Enterprise address')" />
+        <label for="address">{{ $t('Organization address') }}</label>
+        <InputText id="address" v-bind="address" :placeholder="$t('Organization address')" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description">{{ $t('Enterprise comment') }}</label>
+        <label for="description">{{ $t('Organization description') }}</label>
         <Textarea
-          rows="5"
           id="description"
+          rows="5"
           v-bind="description"
-          :placeholder="$t('Enterprise comment')"
+          :placeholder="$t('Organization description')"
         />
       </div>
     </form>

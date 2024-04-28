@@ -9,11 +9,10 @@ import { useConfirm } from 'primevue/useconfirm';
 import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
 
 import { useIPAddress } from '@/stores/api/ipaddresses';
-import { useСompany } from '@/stores/api/companies';
-import { useBranch } from '@/stores/api/branches';
-import { useLocation } from '@/stores/api/locations';
+import { useOrganization } from '@/stores/api/organizations';
+import { useSubdivision } from '@/stores/api/subdivisions';
 import { useDepartment } from '@/stores/api/departments';
-import { useEnterprise } from '@/stores/api/enterprises';
+import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 import { useUnit } from '@/stores/api/units';
 
@@ -24,10 +23,9 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const IPAddress = useIPAddress();
-const Сompany = useСompany();
-const Branch = useBranch();
+const Organization = useOrganization();
+const Subdivision = useSubdivision();
 const Department = useDepartment();
-const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
 const Unit = useUnit();
@@ -60,9 +58,8 @@ const {
     fullname: yup.string().required(t('Value is required')),
     phone: yup.string().required(t('Value is required')),
     position: yup.string().required(t('Value is required')),
-    company: yup.string().required(t('Value is required')),
-    branch: yup.string().required(t('Value is required')),
-    enterprise: yup.string().required(t('Value is required')),
+    organization: yup.string().required(t('Value is required')),
+    subdivision: yup.string().required(t('Value is required')),
     department: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
@@ -76,21 +73,19 @@ defineExpose({
       } else {
         resetForm({ values: {} }, { force: true });
       }
-      const [unit, location, company, branch, enterprise, department, position] =
+      const [unit, location, organization, subdivision, department, position] =
         await Promise.allSettled([
           Unit.findAll({}),
           Location.findAll({}),
-          Сompany.findAll({}),
-          Branch.findAll({}),
-          Enterprise.findAll({}),
+          Organization.findAll({}),
+          Subdivision.findAll({}),
           Department.findAll({}),
           Position.findAll({})
         ]);
       units.value = unit.value;
       locations.value = location.value;
-      companies.value = company.value;
-      branches.value = branch.value;
-      enterprises.value = enterprise.value;
+      organizations.value = organization.value;
+      subdivisions.value = subdivision.value;
       departments.value = department.value;
       positions.value = position.value;
 
@@ -158,10 +153,9 @@ const options = ref([
   }
 ]);
 
-const companies = ref([]);
-const branches = ref([]);
+const organizations = ref([]);
+const subdivisions = ref([]);
 const departments = ref([]);
-const enterprises = ref([]);
 const positions = ref([]);
 const locations = ref([]);
 const units = ref([]);
@@ -175,9 +169,8 @@ const location = defineComponentBinds('location');
 const fullname = defineComponentBinds('fullname');
 const phone = defineComponentBinds('phone');
 const position = defineComponentBinds('position');
-const company = defineComponentBinds('company');
-const branch = defineComponentBinds('branch');
-const enterprise = defineComponentBinds('enterprise');
+const organization = defineComponentBinds('organization');
+const subdivision = defineComponentBinds('subdivision');
 const department = defineComponentBinds('department');
 const autoanswer = defineComponentBinds('autoanswer');
 const internetReqnum = defineComponentBinds('internet.reqnum');
@@ -562,8 +555,8 @@ const onCloseModal = () => {
 
         <div class="flex flex-col basis-1/2 gap-y-4">
           <div class="flex flex-col gap-2">
-            <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="flex flex-col gap-2" id="companies">
+            <label for="organizations" class="font-bold">{{ $t('Organization') }}</label>
+            <div class="flex flex-col gap-2" id="organizations">
               <div class="flex flex-col gap-2">
                 <div class="flex flex-row w-full gap-2">
                   <Dropdown
@@ -574,22 +567,22 @@ const onCloseModal = () => {
                     dataKey="id"
                     optionValue="id"
                     optionLabel="name"
-                    inputId="company"
-                    v-bind="company"
-                    :options="companies"
+                    inputId="organization"
+                    v-bind="organization"
+                    :options="organizations"
                     :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client company')"
-                    :invalid="!!errors?.company"
-                    aria-describedby="company-help"
+                    :placeholder="$t('Client organization')"
+                    :invalid="!!errors?.organization"
+                    aria-describedby="organization-help"
                     class="w-full"
-                    @before-show="async () => (companies = await Company.findAll({}))"
+                    @before-show="async () => (organizations = await Organization.findAll({}))"
                   />
 
-                  <BtnDBTable table="company" />
+                  <BtnDBTable table="organization" />
                 </div>
 
-                <small id="company-help" class="text-red-500" v-if="errors?.company">
-                  {{ $t(errors.company) }}
+                <small id="organization-help" class="text-red-500" v-if="errors?.organization">
+                  {{ $t(errors.organization) }}
                 </small>
               </div>
 
@@ -603,51 +596,22 @@ const onCloseModal = () => {
                     dataKey="id"
                     optionValue="id"
                     optionLabel="name"
-                    inputId="branch"
-                    v-bind="branch"
-                    :options="branches"
+                    inputId="subdivision"
+                    v-bind="subdivision"
+                    :options="subdivisions"
                     :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client branch')"
-                    :invalid="!!errors?.branch"
-                    aria-describedby="branch-help"
+                    :placeholder="$t('Client subdivision')"
+                    :invalid="!!errors?.subdivision"
+                    aria-describedby="subdivision-help"
                     class="w-full"
-                    @before-show="async () => (branches = await Branch.findAll({}))"
+                    @before-show="async () => (subdivisions = await Subdivision.findAll({}))"
                   />
 
-                  <BtnDBTable table="branch" />
+                  <BtnDBTable table="subdivision" />
                 </div>
 
-                <small id="branch-help" class="text-red-500" v-if="errors?.branch">
-                  {{ $t(errors.branch) }}
-                </small>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
-                  <Dropdown
-                    filter
-                    autofocus
-                    showClear
-                    resetFilterOnHide
-                    dataKey="id"
-                    optionValue="id"
-                    optionLabel="name"
-                    inputId="enterprise"
-                    v-bind="enterprise"
-                    :options="enterprises"
-                    :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client enterprise')"
-                    :invalid="!!errors?.enterprise"
-                    aria-describedby="enterprise-help"
-                    class="w-full"
-                    @before-show="async () => (enterprises = await Enterprise.findAll({}))"
-                  />
-
-                  <BtnDBTable table="enterprise" />
-                </div>
-
-                <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
-                  {{ $t(errors.enterprise) }}
+                <small id="subdivision-help" class="text-red-500" v-if="errors?.subdivision">
+                  {{ $t(errors.subdivision) }}
                 </small>
               </div>
 

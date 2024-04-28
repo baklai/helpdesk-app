@@ -26,22 +26,16 @@ const datatables = ref({
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Location.vue'));
     }
   },
-  company: {
-    label: t('Company'),
+  organization: {
+    label: t('Organization'),
     command: () => {
-      refModal.value = defineAsyncComponent(() => import('@/components/modals/Сompany.vue'));
+      refModal.value = defineAsyncComponent(() => import('@/components/modals/Organization.vue'));
     }
   },
-  branch: {
-    label: t('Branch'),
+  subdivision: {
+    label: t('Subdivision'),
     command: () => {
-      refModal.value = defineAsyncComponent(() => import('@/components/modals/Branch.vue'));
-    }
-  },
-  enterprise: {
-    label: t('Enterprise'),
-    command: () => {
-      refModal.value = defineAsyncComponent(() => import('@/components/modals/Enterprise.vue'));
+      refModal.value = defineAsyncComponent(() => import('@/components/modals/Subdivision.vue'));
     }
   },
   department: {

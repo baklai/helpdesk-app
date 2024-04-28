@@ -10,18 +10,16 @@ import SidebarRecord from '@/components/sidebars/Mailbox.vue';
 
 import { dateToStr, dateTimeToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';
-import { useСompany } from '@/stores/api/companies';
-import { useBranch } from '@/stores/api/branches';
-import { useEnterprise } from '@/stores/api/enterprises';
+import { useOrganization } from '@/stores/api/organizations';
+import { useSubdivision } from '@/stores/api/subdivisions';
 import { useDepartment } from '@/stores/api/departments';
 import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 
 const Mailbox = useMailbox();
-const Сompany = useСompany();
-const Branch = useBranch();
+const Organization = useOrganization();
+const Subdivision = useSubdivision();
 const Department = useDepartment();
-const Enterprise = useEnterprise();
 const Position = usePosition();
 const Location = useLocation();
 
@@ -216,16 +214,16 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Company', width: '16rem' },
+    header: { text: 'Organization', width: '16rem' },
     column: {
-      field: 'company.name',
+      field: 'organization.name',
       render(value) {
         return <span>{value}</span>;
       }
     },
-    sorter: { field: 'company.name' },
+    sorter: { field: 'organization.name' },
     filter: {
-      field: 'company',
+      field: 'organization',
       value: null,
       matchMode: FilterMatchMode.IN,
       options: {
@@ -233,7 +231,7 @@ const columns = ref([
         value: 'id',
         label: 'name',
         onRecords: async () => {
-          return await Сompany.findAll({});
+          return await Organization.findAll({});
         }
       }
     },
@@ -245,16 +243,16 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Branch', width: '16rem' },
+    header: { text: 'Subdivision', width: '16rem' },
     column: {
-      field: 'branch.name',
+      field: 'subdivision.name',
       render(value) {
         return <span>{value}</span>;
       }
     },
-    sorter: { field: 'branch.name' },
+    sorter: { field: 'subdivision.name' },
     filter: {
-      field: 'branch',
+      field: 'subdivision',
       value: null,
       matchMode: FilterMatchMode.IN,
       options: {
@@ -262,36 +260,7 @@ const columns = ref([
         value: 'id',
         label: 'name',
         onRecords: async () => {
-          return await Branch.findAll({});
-        }
-      }
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Enterprise', width: '16rem' },
-    column: {
-      field: 'enterprise.name',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'enterprise.name' },
-    filter: {
-      field: 'enterprise',
-      value: null,
-      matchMode: FilterMatchMode.IN,
-      options: {
-        key: 'id',
-        value: 'id',
-        label: 'name',
-        onRecords: async () => {
-          return await Enterprise.findAll({});
+          return await Subdivision.findAll({});
         }
       }
     },

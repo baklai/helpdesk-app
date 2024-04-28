@@ -10,11 +10,10 @@ import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
 
 import { dateToStr } from '@/service/DataFilters';
 import { useMailbox } from '@/stores/api/mailboxes';
-import { useСompany } from '@/stores/api/companies';
-import { useBranch } from '@/stores/api/branches';
-import { useLocation } from '@/stores/api/locations';
+import { useOrganization } from '@/stores/api/organizations';
+import { useSubdivision } from '@/stores/api/subdivisions';
 import { useDepartment } from '@/stores/api/departments';
-import { useEnterprise } from '@/stores/api/enterprises';
+import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 
 const { t } = useI18n();
@@ -24,9 +23,8 @@ const confirm = useConfirm();
 const { findOne, createOne, updateOne, removeOne } = useMailbox();
 
 const Location = useLocation();
-const Сompany = useСompany();
-const Branch = useBranch();
-const Enterprise = useEnterprise();
+const Organization = useOrganization();
+const Subdivision = useSubdivision();
 const Department = useDepartment();
 const Position = usePosition();
 
@@ -46,9 +44,8 @@ const {
     phone: yup.string().required(t('Value is required')),
     dateOpen: yup.string().required(t('Value is required')),
     location: yup.string().required(t('Value is required')),
-    company: yup.string().required(t('Value is required')),
-    branch: yup.string().required(t('Value is required')),
-    enterprise: yup.string().required(t('Value is required')),
+    organization: yup.string().required(t('Value is required')),
+    subdivision: yup.string().required(t('Value is required')),
     department: yup.string().required(t('Value is required')),
     position: yup.string().required(t('Value is required'))
   }),
@@ -63,19 +60,16 @@ defineExpose({
       if (id) {
         setValues(await findOne({ id, populate: false }));
       }
-      const [location, company, branch, enterprise, department, position] =
-        await Promise.allSettled([
-          Location.findAll({}),
-          Сompany.findAll({}),
-          Branch.findAll({}),
-          Enterprise.findAll({}),
-          Department.findAll({}),
-          Position.findAll({})
-        ]);
+      const [location, organization, subdivision, department, position] = await Promise.allSettled([
+        Location.findAll({}),
+        Organization.findAll({}),
+        Subdivision.findAll({}),
+        Department.findAll({}),
+        Position.findAll({})
+      ]);
       locations.value = location.value;
-      companies.value = company.value;
-      branches.value = branch.value;
-      enterprises.value = enterprise.value;
+      organizations.value = organization.value;
+      subdivisions.value = subdivision.value;
       departments.value = department.value;
       positions.value = position.value;
 
@@ -108,9 +102,8 @@ const options = ref([
 ]);
 
 const locations = ref([]);
-const companies = ref([]);
-const branches = ref([]);
-const enterprises = ref([]);
+const organizations = ref([]);
+const subdivisions = ref([]);
 const departments = ref([]);
 const positions = ref([]);
 
@@ -121,9 +114,8 @@ const phone = defineComponentBinds('phone');
 const dateOpen = defineComponentBinds('dateOpen');
 const dateClose = defineComponentBinds('dateClose');
 const location = defineComponentBinds('location');
-const company = defineComponentBinds('company');
-const branch = defineComponentBinds('branch');
-const enterprise = defineComponentBinds('enterprise');
+const organization = defineComponentBinds('organization');
+const subdivision = defineComponentBinds('subdivision');
 const department = defineComponentBinds('department');
 const position = defineComponentBinds('position');
 const comment = defineComponentBinds('comment');
@@ -436,8 +428,8 @@ const onCloseModal = () => {
           </div>
 
           <div class="flex flex-col gap-2">
-            <label for="companies" class="font-bold">{{ $t('Company') }}</label>
-            <div class="flex flex-col gap-2" id="companies">
+            <label for="organizations" class="font-bold">{{ $t('Organization') }}</label>
+            <div class="flex flex-col gap-2" id="organizations">
               <div class="flex flex-col gap-2">
                 <div class="flex flex-row w-full gap-2">
                   <Dropdown
@@ -448,22 +440,22 @@ const onCloseModal = () => {
                     dataKey="id"
                     optionValue="id"
                     optionLabel="name"
-                    inputId="company"
-                    v-bind="company"
-                    :options="companies"
+                    inputId="organization"
+                    v-bind="organization"
+                    :options="organizations"
                     :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client company')"
-                    :invalid="!!errors?.company"
-                    aria-describedby="company-help"
+                    :placeholder="$t('Client organization')"
+                    :invalid="!!errors?.organization"
+                    aria-describedby="organization-help"
                     class="w-full"
-                    @before-show="async () => (companies = await Company.findAll({}))"
+                    @before-show="async () => (organizations = await Organization.findAll({}))"
                   />
 
-                  <BtnDBTable table="company" />
+                  <BtnDBTable table="organization" />
                 </div>
 
-                <small id="company-help" class="text-red-500" v-if="errors?.company">
-                  {{ $t(errors.company) }}
+                <small id="organization-help" class="text-red-500" v-if="errors?.organization">
+                  {{ $t(errors.organization) }}
                 </small>
               </div>
 
@@ -477,51 +469,22 @@ const onCloseModal = () => {
                     dataKey="id"
                     optionValue="id"
                     optionLabel="name"
-                    inputId="branch"
-                    v-bind="branch"
-                    :options="branches"
+                    inputId="subdivision"
+                    v-bind="subdivision"
+                    :options="subdivisions"
                     :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client branch')"
-                    :invalid="!!errors?.branch"
-                    aria-describedby="branch-help"
+                    :placeholder="$t('Client subdivision')"
+                    :invalid="!!errors?.subdivision"
+                    aria-describedby="subdivision-help"
                     class="w-full"
-                    @before-show="async () => (branches = await Branch.findAll({}))"
+                    @before-show="async () => (subdivisions = await Subdivision.findAll({}))"
                   />
 
-                  <BtnDBTable table="branch" />
+                  <BtnDBTable table="subdivision" />
                 </div>
 
-                <small id="branch-help" class="text-red-500" v-if="errors?.branch">
-                  {{ $t(errors.branch) }}
-                </small>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
-                  <Dropdown
-                    filter
-                    autofocus
-                    showClear
-                    resetFilterOnHide
-                    dataKey="id"
-                    optionValue="id"
-                    optionLabel="name"
-                    inputId="enterprise"
-                    v-bind="enterprise"
-                    :options="enterprises"
-                    :filterPlaceholder="$t('Search')"
-                    :placeholder="$t('Client enterprise')"
-                    :invalid="!!errors?.enterprise"
-                    aria-describedby="enterprise-help"
-                    class="w-full"
-                    @before-show="async () => (enterprises = await Enterprise.findAll({}))"
-                  />
-
-                  <BtnDBTable table="enterprise" />
-                </div>
-
-                <small id="enterprise-help" class="text-red-500" v-if="errors?.enterprise">
-                  {{ $t(errors.enterprise) }}
+                <small id="subdivision-help" class="text-red-500" v-if="errors?.subdivision">
+                  {{ $t(errors.subdivision) }}
                 </small>
               </div>
 

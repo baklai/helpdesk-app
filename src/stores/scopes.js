@@ -94,8 +94,8 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'company',
-        comment: 'Company collections',
+        scope: 'organization',
+        comment: 'Organization collections',
         create: false,
         read: true,
         update: false,
@@ -103,17 +103,8 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'branch',
-        comment: 'Branch collections',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
-        scope: 'enterprise',
-        comment: 'Enterprise collections',
+        scope: 'subdivision',
+        comment: 'Subdivision collections',
         create: false,
         read: true,
         update: false,

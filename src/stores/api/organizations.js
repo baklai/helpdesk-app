@@ -1,12 +1,12 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useСompany = defineStore('company', () => {
+export const useOrganization = defineStore('organization', () => {
   const $axios = inject('axios');
 
   async function findAll(params) {
     try {
-      return await $axios.get('/companies', { params });
+      return await $axios.get('/organizations', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -14,7 +14,7 @@ export const useСompany = defineStore('company', () => {
 
   async function findOne({ id }) {
     try {
-      return await $axios.get(`/companies/${id}`);
+      return await $axios.get(`/organizations/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
@@ -22,7 +22,7 @@ export const useСompany = defineStore('company', () => {
 
   async function createOne({ ...payload }) {
     try {
-      return await $axios.post('/companies', { ...payload });
+      return await $axios.post('/organizations', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -30,7 +30,7 @@ export const useСompany = defineStore('company', () => {
 
   async function updateOne(id, { ...payload }) {
     try {
-      return await $axios.put(`/companies/${id}`, { ...payload });
+      return await $axios.put(`/organizations/${id}`, { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -38,7 +38,7 @@ export const useСompany = defineStore('company', () => {
 
   async function removeOne({ id }) {
     try {
-      return await $axios.delete(`/companies/${id}`);
+      return await $axios.delete(`/organizations/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
