@@ -868,7 +868,7 @@ onBeforeUnmount(() => {
             filter
             multiple
             class="min-w-80 max-w-xl"
-            listStyle="height: 20rem"
+            listStyle="height: 25rem"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
