@@ -867,7 +867,7 @@ onBeforeUnmount(() => {
           <Listbox
             filter
             multiple
-            class="w-80"
+            class="min-w-80 max-w-xl"
             listStyle="height: 20rem"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
