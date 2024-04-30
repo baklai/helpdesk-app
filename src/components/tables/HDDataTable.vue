@@ -376,7 +376,9 @@ const filterConverter = object => {
         ...object[prop]?.constraints
           ?.filter(item => item?.value && item?.value !== null)
           ?.map(item => {
-            return { [prop]: filterMode(item.matchMode, item.value) };
+            return {
+              [prop]: filterMode(item.matchMode, item.value)
+            };
           })
       );
     }
@@ -386,7 +388,9 @@ const filterConverter = object => {
         ...object[prop]?.constraints
           ?.filter(item => item?.value && item?.value !== null)
           ?.map(item => {
-            return { [prop]: filterMode(item.matchMode, item.value) };
+            return {
+              [prop]: filterMode(item.matchMode, item.value)
+            };
           })
       );
     }
@@ -873,9 +877,18 @@ onBeforeUnmount(() => {
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
             :optionLabel="filter?.options?.label || 'label'"
-            :options="filter?.options?.records || []"
+            :options="
+              filter?.options?.records
+                ? [
+                    {
+                      [filter?.options?.value || 'id']: 'null',
+                      [filter?.options?.label || 'label']: '-'
+                    },
+                    ...filter?.options?.records
+                  ]
+                : []
+            "
             :filterPlaceholder="$t('Search in list')"
-            :virtualScrollerOptions="{ itemSize: 36 }"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
             <template #option="{ option }">

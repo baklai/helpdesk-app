@@ -17,7 +17,7 @@ export default {
       if (config?.params?.filters) {
         config.params.filters =
           config?.params?.filters && Object.keys(config.params.filters).length
-            ? JSON.stringify(config.params.filters)
+            ? JSON.stringify(config.params.filters).replaceAll('"null"', null)
             : null;
       }
 
