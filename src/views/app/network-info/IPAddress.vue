@@ -287,7 +287,7 @@ const columns = ref([
     },
     selectable: true,
     exportable: true,
-    filtrable: true,
+    filtrable: false,
     sortable: false,
     frozen: false
   },
@@ -397,7 +397,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Autoanswer', width: '12rem' },
+    header: { text: 'Autoanswer', width: '14rem' },
     column: {
       field: 'autoanswer',
       render(value) {

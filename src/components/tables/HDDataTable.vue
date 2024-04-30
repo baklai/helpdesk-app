@@ -867,7 +867,7 @@ onBeforeUnmount(() => {
           <Listbox
             filter
             multiple
-            class="min-w-80 max-w-xl"
+            class="min-w-96 max-w-xl"
             listStyle="height: 25rem"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
@@ -875,6 +875,7 @@ onBeforeUnmount(() => {
             :optionLabel="filter?.options?.label || 'label'"
             :options="filter?.options?.records || []"
             :filterPlaceholder="$t('Search in list')"
+            :virtualScrollerOptions="{ itemSize: 36 }"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
             <template #option="{ option }">
