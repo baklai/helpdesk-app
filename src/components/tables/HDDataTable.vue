@@ -949,4 +949,16 @@ onBeforeUnmount(() => {
 ::v-deep(tr:hover > td) {
   background-color: var(--table-bg-hover) !important;
 }
+
+::v-deep(tr[data-pc-section='emptymessage']:hover) {
+  background-color: transparent !important;
+}
+
+::v-deep(tr[data-pc-section='emptymessage']:hover > td) {
+  background-color: transparent !important;
+}
+
+::v-deep(tr[data-pc-section='emptymessage'] > td) {
+  border: none !important;
+}
 </style>
