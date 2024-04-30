@@ -13,6 +13,24 @@ export default {
       headers: options.headers
     });
 
+    axiosInstance.interceptors.request.use(config => {
+      if (config?.params?.filters) {
+        config.params.filters =
+          config?.params?.filters && Object.keys(config.params.filters).length
+            ? JSON.stringify(config.params.filters)
+            : null;
+      }
+
+      if (config?.params?.sort) {
+        config.params.sort =
+          config?.params?.sort && Object.keys(config.params.sort).length
+            ? JSON.stringify(config.params.sort)
+            : null;
+      }
+
+      return config;
+    });
+
     axiosInstance.interceptors.request.use(
       async config => {
         const token = store.getAccessToken();
