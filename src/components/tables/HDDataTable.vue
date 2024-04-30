@@ -910,7 +910,7 @@ onBeforeUnmount(() => {
 
           <Calendar
             inline
-            class="w-[25rem]"
+            class="w-full"
             selectionMode="range"
             dateFormat="dd.mm.yy"
             :placeholder="$t('Select date')"
