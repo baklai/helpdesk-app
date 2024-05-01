@@ -881,7 +881,7 @@ onBeforeUnmount(() => {
               filter?.options?.records
                 ? [
                     {
-                      [filter?.options?.value || 'id']: 'null',
+                      [filter?.options?.value || 'id']: null,
                       [filter?.options?.label || 'label']: '-'
                     },
                     ...filter?.options?.records
@@ -894,9 +894,8 @@ onBeforeUnmount(() => {
             <template #option="{ option }">
               <div class="flex items-center">
                 <Checkbox
-                  :inputId="option.key"
-                  :value="option[filter.options.value]"
-                  :modelValue="filterModel.value"
+                  :binary="true"
+                  :modelValue="filterModel.value?.includes(option[filter.options.value])"
                   class="mr-2"
                 />
                 <label :for="option.key">
