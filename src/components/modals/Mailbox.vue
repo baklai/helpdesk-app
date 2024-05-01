@@ -42,12 +42,7 @@ const {
     login: yup.string().required(t('Value is required')),
     fullname: yup.string().required(t('Value is required')),
     phone: yup.string().required(t('Value is required')),
-    dateOpen: yup.string().required(t('Value is required')),
-    location: yup.string().required(t('Value is required')),
-    organization: yup.string().required(t('Value is required')),
-    subdivision: yup.string().required(t('Value is required')),
-    department: yup.string().required(t('Value is required')),
-    position: yup.string().required(t('Value is required'))
+    dateOpen: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });
@@ -60,16 +55,14 @@ defineExpose({
       if (id) {
         setValues(await findOne({ id, populate: false }));
       }
-      const [location, organization, subdivision, department, position] = await Promise.allSettled([
+      const [location, organization, department, position] = await Promise.allSettled([
         Location.findAll({}),
         Organization.findAll({}),
-        Subdivision.findAll({}),
         Department.findAll({}),
         Position.findAll({})
       ]);
       locations.value = location.value;
       organizations.value = organization.value;
-      subdivisions.value = subdivision.value;
       departments.value = department.value;
       positions.value = position.value;
 
@@ -120,6 +113,17 @@ const department = defineComponentBinds('department');
 const position = defineComponentBinds('position');
 const comment = defineComponentBinds('comment');
 
+const onSubdivisionsUpdate = async event => {
+  if (event?.value) {
+    subdivisions.value = await Subdivision.findAllByOrganizationId({ id: event.value });
+  } else {
+    setValues({
+      organization: null,
+      subdivision: null
+    });
+    subdivisions.value = [];
+  }
+};
 const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
@@ -368,7 +372,6 @@ const onCloseModal = () => {
                     :invalid="!!errors?.position"
                     aria-describedby="position-help"
                     class="w-full"
-                    @before-show="async () => (positions = await Position.findAll({}))"
                   />
 
                   <BtnDBTable table="position" />
@@ -416,7 +419,6 @@ const onCloseModal = () => {
                 :invalid="!!errors?.location"
                 aria-describedby="location-help"
                 class="w-full"
-                @before-show="async () => (locations = await Location.findAll({}))"
               />
 
               <BtnDBTable table="location" />
@@ -431,7 +433,7 @@ const onCloseModal = () => {
             <label for="organizations" class="font-bold">{{ $t('Organization') }}</label>
             <div class="flex flex-col gap-2" id="organizations">
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
+                <div class="flex flex-row gap-2">
                   <Dropdown
                     filter
                     autofocus
@@ -447,20 +449,18 @@ const onCloseModal = () => {
                     :placeholder="$t('Client organization')"
                     :invalid="!!errors?.organization"
                     aria-describedby="organization-help"
-                    class="w-full"
-                    @before-show="async () => (organizations = await Organization.findAll({}))"
+                    class="w-[25rem]"
+                    @change="onSubdivisionsUpdate"
                   />
-
                   <BtnDBTable table="organization" />
                 </div>
-
                 <small id="organization-help" class="text-red-500" v-if="errors?.organization">
                   {{ $t(errors.organization) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
+                <div class="flex flex-row gap-2">
                   <Dropdown
                     filter
                     autofocus
@@ -476,13 +476,10 @@ const onCloseModal = () => {
                     :placeholder="$t('Client subdivision')"
                     :invalid="!!errors?.subdivision"
                     aria-describedby="subdivision-help"
-                    class="w-full"
-                    @before-show="async () => (subdivisions = await Subdivision.findAll({}))"
+                    class="w-[25rem]"
                   />
-
                   <BtnDBTable table="subdivision" />
                 </div>
-
                 <small id="subdivision-help" class="text-red-500" v-if="errors?.subdivision">
                   {{ $t(errors.subdivision) }}
                 </small>
@@ -505,8 +502,7 @@ const onCloseModal = () => {
                     :placeholder="$t('Client department')"
                     :invalid="!!errors?.department"
                     aria-describedby="department-help"
-                    class="w-full"
-                    @before-show="async () => (departments = await Department.findAll({}))"
+                    class="w-[25rem]"
                   />
 
                   <BtnDBTable table="department" />

@@ -15,7 +15,7 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, createOne, updateOne, removeOne } = useSubdivision();
+const { findAll, findAllByOrganizationId, createOne, updateOne, removeOne } = useSubdivision();
 const Organization = useOrganization();
 
 const {
@@ -28,6 +28,7 @@ const {
   defineComponentBinds
 } = useForm({
   validationSchema: yup.object({
+    code: yup.string().required(t('Value is required')),
     name: yup.string().required(t('Value is required')),
     organization: yup.string().required(t('Value is required'))
   }),
@@ -66,7 +67,15 @@ const organization = defineComponentBinds('organization');
 
 const onShowModal = async () => {
   organizations.value = await Organization.findAll({});
-  subdivisions.value = await findAll({});
+};
+
+const onSubdivisionsUpdate = async event => {
+  if (event?.value) {
+    subdivisions.value = await findAllByOrganizationId({ id: event.value });
+  } else {
+    subdivisions.value = [];
+    resetForm({ values: {} }, { force: true });
+  }
 };
 
 const onCloseModal = () => {
@@ -242,25 +251,50 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <div class="flex flex-col gap-2">
-      <Dropdown
-        filter
-        autofocus
-        optionLabel="name"
-        :options="organizations"
-        @change="event => setValues({ ...event.value })"
-        :filterPlaceholder="$t('Search in list')"
-        :placeholder="$t('Search organizations in database')"
-      />
+      <div class="flex flex-col gap-1">
+        <label for="organization" class="font-bold">{{ $t('Organization') }}</label>
+        <div class="flex flex-row w-full gap-2">
+          <Dropdown
+            filter
+            showClear
+            autofocus
+            resetFilterOnHide
+            class="w-full"
+            inputId="organization"
+            dataKey="id"
+            optionValue="id"
+            optionLabel="name"
+            v-bind="organization"
+            :options="organizations"
+            :invalid="!!errors?.organization"
+            :filterPlaceholder="$t('Search in list')"
+            :placeholder="$t('Search in database')"
+            @change="onSubdivisionsUpdate"
+          />
 
-      <Dropdown
-        filter
-        autofocus
-        optionLabel="name"
-        :options="subdivisions"
-        @change="event => setValues({ ...event.value })"
-        :filterPlaceholder="$t('Search in list')"
-        :placeholder="$t('Search subdivisions in database')"
-      />
+          <BtnDBTable table="organization" />
+        </div>
+        <small id="organizations-help" class="text-red-500" v-if="errors?.organization">
+          {{ $t(errors.organization) }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="subdivisions" class="font-bold">{{ $t('Subdivision') }}</label>
+        <Dropdown
+          filter
+          showClear
+          autofocus
+          resetFilterOnHide
+          inputId="subdivisions"
+          optionLabel="name"
+          panelClass="w-5"
+          :options="subdivisions"
+          @change="event => setValues({ ...event.value })"
+          :filterPlaceholder="$t('Search in list')"
+          :placeholder="$t('Search in database')"
+        />
+      </div>
     </div>
 
     <Divider type="solid" class="my-6" />
@@ -269,36 +303,6 @@ const onSaveRecord = handleSubmit(async () => {
       @submit.prevent="onSaveRecord"
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
-      <div class="flex flex-col gap-2">
-        <label for="organization" class="font-bold">{{ $t('Organization') }}</label>
-        <div class="flex flex-row w-full gap-2">
-          <Dropdown
-            filter
-            autofocus
-            showClear
-            resetFilterOnHide
-            dataKey="id"
-            optionValue="id"
-            optionLabel="name"
-            inputId="organization"
-            v-bind="organization"
-            :options="organizations"
-            :filterPlaceholder="$t('Search')"
-            :placeholder="$t('Organization')"
-            :invalid="!!errors?.organization"
-            aria-describedby="organization-help"
-            class="w-full"
-            @before-show="async () => (organizations = await Organization.findAll({}))"
-          />
-
-          <BtnDBTable table="organization" />
-        </div>
-
-        <small id="organization-help" class="text-red-500" v-if="errors?.organization">
-          {{ $t(errors.organization) }}
-        </small>
-      </div>
-
       <div class="flex flex-col gap-2">
         <label for="code" class="font-bold">{{ $t('Subdivision code') }}</label>
         <InputText

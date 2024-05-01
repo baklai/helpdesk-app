@@ -53,14 +53,8 @@ const {
         return ipv4Pattern.test(value) || ipv6Pattern.test(value);
       }),
     cidr: yup.object().required(t('Value is required')),
-    unit: yup.string().required(t('Value is required')),
-    location: yup.string().required(t('Value is required')),
     fullname: yup.string().required(t('Value is required')),
-    phone: yup.string().required(t('Value is required')),
-    position: yup.string().required(t('Value is required')),
-    organization: yup.string().required(t('Value is required')),
-    subdivision: yup.string().required(t('Value is required')),
-    department: yup.string().required(t('Value is required'))
+    phone: yup.string().required(t('Value is required'))
   }),
   initialValues: {}
 });
@@ -73,19 +67,16 @@ defineExpose({
       } else {
         resetForm({ values: {} }, { force: true });
       }
-      const [unit, location, organization, subdivision, department, position] =
-        await Promise.allSettled([
-          Unit.findAll({}),
-          Location.findAll({}),
-          Organization.findAll({}),
-          Subdivision.findAll({}),
-          Department.findAll({}),
-          Position.findAll({})
-        ]);
+      const [unit, location, organization, department, position] = await Promise.allSettled([
+        Unit.findAll({}),
+        Location.findAll({}),
+        Organization.findAll({}),
+        Department.findAll({}),
+        Position.findAll({})
+      ]);
       units.value = unit.value;
       locations.value = location.value;
       organizations.value = organization.value;
-      subdivisions.value = subdivision.value;
       departments.value = department.value;
       positions.value = position.value;
 
@@ -178,6 +169,18 @@ const internetDateOpen = defineComponentBinds('internet.dateOpen');
 const internetDateClose = defineComponentBinds('internet.dateClose');
 const internetComment = defineComponentBinds('internet.comment');
 const comment = defineComponentBinds('comment');
+
+const onSubdivisionsUpdate = async event => {
+  if (event?.value) {
+    subdivisions.value = await Subdivision.findAllByOrganizationId({ id: event.value });
+  } else {
+    setValues({
+      organization: null,
+      subdivision: null
+    });
+    subdivisions.value = [];
+  }
+};
 
 const checkIPAddress = async () => {
   try {
@@ -369,7 +372,7 @@ const onCloseModal = () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-row gap-x-4">
-        <div class="flex flex-col basis-1/2 gap-y-4">
+        <div class="flex flex-col w-1/2 gap-y-4">
           <div class="flex flex-col gap-2">
             <label for="date" class="font-bold">{{ $t('Date create') }}</label>
             <Calendar
@@ -421,7 +424,6 @@ const onCloseModal = () => {
                 :invalid="!!errors?.unit"
                 aria-describedby="unit-help"
                 class="w-full"
-                @before-show="async () => (units = await Unit.findAll({}))"
               />
 
               <BtnDBTable table="unit" />
@@ -429,36 +431,6 @@ const onCloseModal = () => {
 
             <small id="unit-help" class="text-red-500" v-if="errors?.unit">
               {{ $t(errors.unit) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="location" class="font-bold">{{ $t('Location') }}</label>
-            <div class="flex flex-row w-full gap-2">
-              <Dropdown
-                filter
-                autofocus
-                showClear
-                resetFilterOnHide
-                dataKey="id"
-                optionValue="id"
-                optionLabel="name"
-                inputId="location"
-                v-bind="location"
-                :options="locations"
-                :filterPlaceholder="$t('Search')"
-                :placeholder="$t('Client location')"
-                :invalid="!!errors?.location"
-                aria-describedby="location-help"
-                class="w-full"
-                @before-show="async () => (locations = await Location.findAll({}))"
-              />
-
-              <BtnDBTable table="location" />
-            </div>
-
-            <small id="location-help" class="text-red-500" v-if="errors?.location">
-              {{ $t(errors.location) }}
             </small>
           </div>
 
@@ -504,6 +476,11 @@ const onCloseModal = () => {
                 {{ $t(errors.cidr) }}
               </small>
             </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
+            <InputText id="autoanswer" v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
           <div class="flex flex-col gap-2">
@@ -553,12 +530,41 @@ const onCloseModal = () => {
           </div>
         </div>
 
-        <div class="flex flex-col basis-1/2 gap-y-4">
+        <div class="flex flex-col w-1/2 gap-y-4">
+          <div class="flex flex-col gap-2">
+            <label for="location" class="font-bold">{{ $t('Location') }}</label>
+            <div class="flex flex-row w-full gap-2">
+              <Dropdown
+                filter
+                autofocus
+                showClear
+                resetFilterOnHide
+                dataKey="id"
+                optionValue="id"
+                optionLabel="name"
+                inputId="location"
+                v-bind="location"
+                :options="locations"
+                :filterPlaceholder="$t('Search')"
+                :placeholder="$t('Client location')"
+                :invalid="!!errors?.location"
+                aria-describedby="location-help"
+                class="w-[25rem]"
+              />
+
+              <BtnDBTable table="location" />
+            </div>
+
+            <small id="location-help" class="text-red-500" v-if="errors?.location">
+              {{ $t(errors.location) }}
+            </small>
+          </div>
+
           <div class="flex flex-col gap-2">
             <label for="organizations" class="font-bold">{{ $t('Organization') }}</label>
             <div class="flex flex-col gap-2" id="organizations">
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
+                <div class="flex flex-row gap-2">
                   <Dropdown
                     filter
                     autofocus
@@ -574,20 +580,18 @@ const onCloseModal = () => {
                     :placeholder="$t('Client organization')"
                     :invalid="!!errors?.organization"
                     aria-describedby="organization-help"
-                    class="w-full"
-                    @before-show="async () => (organizations = await Organization.findAll({}))"
+                    class="w-[25rem]"
+                    @change="onSubdivisionsUpdate"
                   />
-
                   <BtnDBTable table="organization" />
                 </div>
-
                 <small id="organization-help" class="text-red-500" v-if="errors?.organization">
                   {{ $t(errors.organization) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
+                <div class="flex flex-row gap-2">
                   <Dropdown
                     filter
                     autofocus
@@ -603,20 +607,17 @@ const onCloseModal = () => {
                     :placeholder="$t('Client subdivision')"
                     :invalid="!!errors?.subdivision"
                     aria-describedby="subdivision-help"
-                    class="w-full"
-                    @before-show="async () => (subdivisions = await Subdivision.findAll({}))"
+                    class="w-[25rem]"
                   />
-
                   <BtnDBTable table="subdivision" />
                 </div>
-
                 <small id="subdivision-help" class="text-red-500" v-if="errors?.subdivision">
                   {{ $t(errors.subdivision) }}
                 </small>
               </div>
 
               <div class="flex flex-col gap-2">
-                <div class="flex flex-row w-full gap-2">
+                <div class="flex flex-row gap-2">
                   <Dropdown
                     filter
                     autofocus
@@ -632,10 +633,8 @@ const onCloseModal = () => {
                     :placeholder="$t('Client department')"
                     :invalid="!!errors?.department"
                     aria-describedby="department-help"
-                    class="w-full"
-                    @before-show="async () => (departments = await Department.findAll({}))"
+                    class="w-[25rem]"
                   />
-
                   <BtnDBTable table="department" />
                 </div>
 
@@ -692,8 +691,7 @@ const onCloseModal = () => {
                     :placeholder="$t('Client position')"
                     :invalid="!!errors?.position"
                     aria-describedby="position-help"
-                    class="w-full"
-                    @before-show="async () => (positions = await Position.findAll({}))"
+                    class="w-[25rem]"
                   />
 
                   <BtnDBTable table="position" />
@@ -704,11 +702,6 @@ const onCloseModal = () => {
                 </small>
               </div>
             </div>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="autoanswer" class="font-bold">{{ $t('Autoanswer') }}</label>
-            <InputText id="autoanswer" v-bind="autoanswer" :placeholder="$t('Client autoanswer')" />
           </div>
 
           <div class="flex flex-col gap-2">

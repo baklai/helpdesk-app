@@ -12,6 +12,14 @@ export const useSubdivision = defineStore('subdivision', () => {
     }
   }
 
+  async function findAllByOrganizationId({ id }) {
+    try {
+      return await $axios.get(`/subdivisions/organization/${id}`);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
   async function findOne({ id }) {
     try {
       return await $axios.get(`/subdivisions/${id}`);
@@ -44,5 +52,5 @@ export const useSubdivision = defineStore('subdivision', () => {
     }
   }
 
-  return { findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findAllByOrganizationId, findOne, createOne, updateOne, removeOne };
 });
