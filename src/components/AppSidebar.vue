@@ -37,7 +37,7 @@ const $config = useConfig();
 
     <transition name="slide">
       <div
-        :class="['flex flex-col', 'h-full w-full px-6', 'bg-surface-100/20 dark:bg-surface-900/20']"
+        :class="['flex flex-col', 'h-full w-full px-6', 'bg-surface-100/50 dark:bg-surface-900/50']"
         v-if="!$config.appSideBarMini"
       >
         <RouterLink :to="{ name: 'home' }" class="flex justify-center py-4 mb-6">
