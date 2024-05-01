@@ -234,7 +234,7 @@ const onSaveRecord = handleSubmit(async () => {
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <i class="pi pi-filter-fill text-4xl mr-4"></i>
+          <i class="pi pi-filter text-4xl mr-4"></i>
           <div>
             <p class="text-lg font-bold line-height-2">
               {{ $t('System filters') }}
@@ -299,7 +299,7 @@ const onSaveRecord = handleSubmit(async () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-col gap-2">
-        <label for="regex">{{ $t('Filter regex') }}</label>
+        <label for="regex" class="font-bold">{{ $t('Filter regex') }}</label>
         <InputText
           id="regex"
           v-bind="regex"
@@ -313,7 +313,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="type">{{ $t('Filter type') }}</label>
+        <label for="type" class="font-bold">{{ $t('Filter type') }}</label>
         <Dropdown
           filter
           autofocus
@@ -334,7 +334,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="status">{{ $t('Filter status') }}</label>
+        <label for="status" class="font-bold">{{ $t('Filter status') }}</label>
         <Dropdown
           filter
           autofocus
@@ -355,7 +355,7 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description">{{ $t('Filter description') }}</label>
+        <label for="description" class="font-bold">{{ $t('Filter description') }}</label>
         <Textarea
           rows="5"
           id="description"

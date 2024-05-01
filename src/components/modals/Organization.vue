@@ -251,7 +251,7 @@ const onSaveRecord = handleSubmit(async () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-col gap-2">
-        <label for="name">{{ $t('Organization name') }}</label>
+        <label for="name" class="font-bold">{{ $t('Organization name') }}</label>
         <InputText
           id="name"
           v-bind="name"
@@ -265,12 +265,12 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="address">{{ $t('Organization address') }}</label>
+        <label for="address" class="font-bold">{{ $t('Organization address') }}</label>
         <InputText id="address" v-bind="address" :placeholder="$t('Organization address')" />
       </div>
 
-      <div class="flex flex-col gap-2">
-        <label for="description">{{ $t('Organization description') }}</label>
+      <div class="flex flex-col mb-2">
+        <label for="description" class="font-bold">{{ $t('Organization description') }}</label>
         <Textarea
           id="description"
           rows="5"

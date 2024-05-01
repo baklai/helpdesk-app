@@ -79,7 +79,7 @@ const items = computed(() => [
     items: [
       {
         label: t('PC SysInspector'),
-        icon: 'pi pi-filter-fill',
+        icon: 'pi pi-filter',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Filter.vue'));
         }

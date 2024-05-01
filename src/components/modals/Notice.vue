@@ -102,7 +102,7 @@ const onCloseModal = () => {
       class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
     >
       <div class="flex flex-col gap-2">
-        <label for="name">{{ $t('Notification name') }}</label>
+        <label for="name" class="font-bold">{{ $t('Notification name') }}</label>
         <InputText
           id="name"
           v-bind="name"
@@ -116,7 +116,7 @@ const onCloseModal = () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="text">{{ $t('Notification text') }}</label>
+        <label for="text" class="font-bold">{{ $t('Notification text') }}</label>
         <Textarea
           rows="5"
           id="text"
@@ -131,7 +131,7 @@ const onCloseModal = () => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="users">{{ $t('Notification users') }}</label>
+        <label for="users" class="font-bold">{{ $t('Notification users') }}</label>
         <MultiSelect
           id="users"
           v-bind="users"
