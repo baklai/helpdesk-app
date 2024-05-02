@@ -113,7 +113,7 @@ const router = createRouter({
                 title: 'Technical support',
                 description: 'Technical support log of the clients'
               },
-              component: () => import('@/views/app/hd-live-log/HDLiveLog.vue')
+              component: () => import('@/views/app/technical-support/TechnicalSupport.vue')
             },
             {
               path: 'statistics',
@@ -122,7 +122,8 @@ const router = createRouter({
                 title: 'Service statistics',
                 description: 'Statistics of technical support'
               },
-              component: () => import('@/views/app/hd-live-log/HDLiveLogStatistics.vue')
+              component: () =>
+                import('@/views/app/technical-support/TechnicalSupportStatistics.vue')
             }
           ]
         },
