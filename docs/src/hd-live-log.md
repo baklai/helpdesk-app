@@ -1,11 +1,11 @@
 ---
-title: Help Desk Live Log
-description: Operational Technical Support Journal
+title: Technical support
+description: Technical support log of the clients
 ---
 
-# Help Desk Live Log
+# Technical support
 
-The **"Help Desk Live Log"** service is an operational journal where user requests coming into the technical support service are recorded.
+The **"Technical support"** service is an operational journal where user requests coming into the technical support service are recorded.
 
 ## Key Features
 

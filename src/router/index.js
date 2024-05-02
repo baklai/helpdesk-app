@@ -98,29 +98,29 @@ const router = createRouter({
           ]
         },
         {
-          path: 'helpdesk-live-log',
-          name: 'helpdesk-live-log',
+          path: 'technical-support',
+          name: 'technical-support',
           meta: {
-            title: 'Help Desk Live Log',
-            description: 'HD Live Log of the technical support'
+            title: 'Technical support',
+            description: 'Technical support log of the clients'
           },
-          redirect: { name: 'helpdesk-live-log-statistics' },
+          redirect: { name: 'technical-support-statistics' },
           children: [
             {
               path: 'requests',
-              name: 'helpdesk-live-log-requests',
+              name: 'technical-support-requests',
               meta: {
-                title: 'Help Desk Live Log',
-                description: 'HD Live Log of the technical support'
+                title: 'Technical support',
+                description: 'Technical support log of the clients'
               },
               component: () => import('@/views/app/hd-live-log/HDLiveLog.vue')
             },
             {
               path: 'statistics',
-              name: 'helpdesk-live-log-statistics',
+              name: 'technical-support-statistics',
               meta: {
                 title: 'Service statistics',
-                description: 'Statistics of Helpdesk Live Log'
+                description: 'Statistics of technical support'
               },
               component: () => import('@/views/app/hd-live-log/HDLiveLogStatistics.vue')
             }

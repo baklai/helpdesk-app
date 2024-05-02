@@ -96,14 +96,14 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 
           <section id="hd-live-log" class="mb-6">
             <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
-              {{ 'Help Desk Live Log' }}
+              {{ 'Technical support' }}
             </h3>
             <span class="text-lg font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
-                :to="{ name: 'helpdesk-live-log' }"
+                :to="{ name: 'technical-support' }"
               >
-                Help Desk Live Log
+                Technical support
               </RouterLink>
               web service allows users to submit support requests through a web interface, track
               request status, and provide statistics and analytics on Help Desk performance.

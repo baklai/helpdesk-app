@@ -44,7 +44,7 @@ export default defineConfig({
             items: [
               { text: 'Calendar of events', link: '/calendar-events' },
               { text: 'Network information', link: '/network-info' },
-              { text: 'Help Desk Live Log', link: '/hd-live-log' },
+              { text: 'Technical support', link: '/technical-support' },
               { text: 'PC SysInspector', link: '/pc-sys-inspector' }
             ]
           }

@@ -34,8 +34,8 @@ export const useSidebar = defineStore('sidebar', () => {
       ]
     },
     {
-      ...getRouteLabel('helpdesk-live-log'),
-      items: [getRoute('helpdesk-live-log-requests'), getRoute('helpdesk-live-log-statistics')]
+      ...getRouteLabel('technical-support'),
+      items: [getRoute('technical-support-requests'), getRoute('technical-support-statistics')]
     },
     {
       ...getRouteLabel('pc-sys-inspector'),
@@ -63,7 +63,7 @@ export const useSidebar = defineStore('sidebar', () => {
     { ...getRoute('calendar-events') },
     { ...getRoute('network-ipaddress') },
     { ...getRoute('network-mailbox') },
-    { ...getRoute('helpdesk-live-log-requests') },
+    { ...getRoute('technical-support-requests') },
     { ...getRouteLabel('pc-sys-inspector-reports') },
     { ...getRouteLabel('onmap-scanner-reports') }
   ]);
