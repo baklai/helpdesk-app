@@ -45,7 +45,7 @@ const columns = ref([
     column: {
       field: 'location.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'location.name' },
@@ -74,7 +74,7 @@ const columns = ref([
     column: {
       field: 'unit.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'unit.name' },
@@ -239,7 +239,7 @@ const columns = ref([
     column: {
       field: 'organization.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'organization.name' },
@@ -268,7 +268,7 @@ const columns = ref([
     column: {
       field: 'subdivision.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'subdivision.name' },
@@ -297,7 +297,7 @@ const columns = ref([
     column: {
       field: 'department.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'department.name' },
@@ -349,7 +349,7 @@ const columns = ref([
     column: {
       field: 'position.name',
       render(value) {
-        return <span>{value}</span>;
+        return <span>{value || '-'}</span>;
       }
     },
     sorter: { field: 'position.name' },
