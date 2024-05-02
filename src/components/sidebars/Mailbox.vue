@@ -120,6 +120,11 @@ const onCloseSidebar = () => {
           </tr>
 
           <tr class="border border-surface-200 dark:border-surface-600">
+            <td class="font-bold" width="50%">{{ $t('Department') }} :</td>
+            <td>{{ record?.department?.name || '-' }}</td>
+          </tr>
+
+          <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-bold" width="50%">{{ $t('Position') }} :</td>
             <td>{{ record?.position?.name || '-' }}</td>
           </tr>
