@@ -60,8 +60,8 @@ const router = createRouter({
               component: () => import('@/views/app/network-info/Channels.vue')
             },
             {
-              path: 'ip-address',
-              name: 'network-ip-address',
+              path: 'ipaddress',
+              name: 'network-ipaddress',
               meta: {
                 title: 'Network IP Address',
                 description: 'Network IP Address of the technical support'

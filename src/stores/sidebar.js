@@ -28,7 +28,7 @@ export const useSidebar = defineStore('sidebar', () => {
       items: [
         getRoute('network-map'),
         getRoute('network-channels'),
-        getRoute('network-ip-address'),
+        getRoute('network-ipaddress'),
         getRoute('network-mailbox'),
         getRoute('network-statistics')
       ]
@@ -61,7 +61,7 @@ export const useSidebar = defineStore('sidebar', () => {
 
   const miniNavLinks = computed(() => [
     { ...getRoute('calendar-events') },
-    { ...getRoute('network-ip-address') },
+    { ...getRoute('network-ipaddress') },
     { ...getRoute('network-mailbox') },
     { ...getRoute('helpdesk-live-log-requests') },
     { ...getRouteLabel('pc-sys-inspector-reports') },

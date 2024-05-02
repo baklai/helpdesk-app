@@ -343,7 +343,7 @@ const onCloseModal = () => {
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="network-ip-address" :size="42" class="mr-4" />
+          <AppIcons name="network-ipaddress" :size="42" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2">
               {{ $t('IP Address') }}
