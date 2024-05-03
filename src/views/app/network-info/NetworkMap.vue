@@ -234,7 +234,20 @@ const onSelectLocation = async id => {
 };
 
 onMounted(async () => {
-  locations.value = await Location.findAll({});
+  const response = await Location.findAll({});
+
+  locations.value = response.reduce((acc, current) => {
+    const regionIndex = acc.findIndex(item => item.region === current.region);
+    if (regionIndex !== -1) {
+      acc[regionIndex].items.push({ id: current.id, name: current.name, region: current.region });
+    } else {
+      acc.push({
+        region: current.region,
+        items: [{ id: current.id, name: current.name, region: current.region }]
+      });
+    }
+    return acc;
+  }, []);
 
   const container = document.getElementById('netmap');
 
@@ -265,15 +278,39 @@ onMounted(async () => {
             <Dropdown
               filter
               autofocus
+              resetFilterOnHide
               v-model="location"
               optionValue="id"
               optionLabel="name"
+              optionGroupLabel="region"
+              optionGroupChildren="items"
               :options="locations"
               @change="event => onSelectLocation(event.value)"
               :filterPlaceholder="$t('Search in list')"
               :placeholder="$t('Select location')"
               class="w-80 !bg-inherit"
-            />
+              :virtualScrollerOptions="{ itemSize: 32 }"
+              :pt="{
+                itemgroup: {
+                  class: [
+                    'font-bold m-0 py-3 px-5 cursor-auto',
+                    'text-surface-800 dark:text-white/80',
+                    'bg-surface-200 dark:bg-surface-900/80'
+                  ]
+                }
+              }"
+            >
+              <template #optiongroup="{ option }">
+                <div class="flex items-center h-full justify-center text-base uppercase">
+                  {{ option.region }}
+                </div>
+              </template>
+              <template #option="{ option }">
+                <div class="flex items-center h-full text-base">
+                  {{ option.name }}
+                </div>
+              </template>
+            </Dropdown>
 
             <Button
               outlined
