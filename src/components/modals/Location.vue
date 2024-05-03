@@ -70,8 +70,6 @@ const onShowModal = async () => {
     }
     return acc;
   }, []);
-
-  console.log(records.value);
 };
 
 const onCloseModal = () => {
@@ -251,13 +249,14 @@ const onSaveRecord = handleSubmit(async () => {
         filter
         showClear
         autofocus
+        resetFilterOnHide
         optionLabel="name"
         optionGroupLabel="region"
         optionGroupChildren="items"
         :options="records"
         :filterPlaceholder="$t('Search in list')"
         :placeholder="$t('Search in database')"
-        :virtualScrollerOptions="{ itemSize: 34 }"
+        :virtualScrollerOptions="{ itemSize: 32 }"
         :pt="{
           itemgroup: {
             class: [

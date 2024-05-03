@@ -15,7 +15,7 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findAll, findAllByOrganizationId, createOne, updateOne, removeOne } = useSubdivision();
+const { findAllByOrganizationId, createOne, updateOne, removeOne } = useSubdivision();
 const Organization = useOrganization();
 
 const {
@@ -269,8 +269,15 @@ const onSaveRecord = handleSubmit(async () => {
             :invalid="!!errors?.organization"
             :filterPlaceholder="$t('Search in list')"
             :placeholder="$t('Search in database')"
+            :virtualScrollerOptions="{ itemSize: 32 }"
             @change="onSubdivisionsUpdate"
-          />
+          >
+            <template #option="{ option }">
+              <div class="flex items-center h-full text-base">
+                {{ option.name }}
+              </div>
+            </template>
+          </Dropdown>
 
           <BtnDBTable table="organization" />
         </div>
@@ -290,10 +297,17 @@ const onSaveRecord = handleSubmit(async () => {
           optionLabel="name"
           panelClass="w-5"
           :options="subdivisions"
-          @change="event => setValues({ ...event.value })"
           :filterPlaceholder="$t('Search in list')"
           :placeholder="$t('Search in database')"
-        />
+          :virtualScrollerOptions="{ itemSize: 32 }"
+          @change="event => setValues({ ...event.value })"
+        >
+          <template #option="{ option }">
+            <div class="flex items-center h-full text-base">
+              {{ option.name }}
+            </div>
+          </template>
+        </Dropdown>
       </div>
     </div>
 

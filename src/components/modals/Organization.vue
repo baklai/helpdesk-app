@@ -235,13 +235,22 @@ const onSaveRecord = handleSubmit(async () => {
     <div class="flex flex-col gap-2">
       <Dropdown
         filter
+        showClear
         autofocus
+        resetFilterOnHide
         optionLabel="name"
         :options="records"
-        @change="event => setValues({ ...event.value })"
         :filterPlaceholder="$t('Search in list')"
         :placeholder="$t('Search in database')"
-      />
+        :virtualScrollerOptions="{ itemSize: 32 }"
+        @change="event => setValues({ ...event.value })"
+      >
+        <template #option="{ option }">
+          <div class="flex items-center h-full text-base">
+            {{ option.name }}
+          </div>
+        </template>
+      </Dropdown>
     </div>
 
     <Divider type="solid" class="my-6" />
