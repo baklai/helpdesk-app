@@ -75,7 +75,24 @@ defineExpose({
         Position.findAll({})
       ]);
       units.value = unit.value;
-      locations.value = location.value;
+
+      locations.value = location.value.reduce((acc, current) => {
+        const regionIndex = acc.findIndex(item => item.region === current.region);
+        if (regionIndex !== -1) {
+          acc[regionIndex].items.push({
+            id: current.id,
+            name: current.name,
+            region: current.region
+          });
+        } else {
+          acc.push({
+            region: current.region,
+            items: [{ id: current.id, name: current.name, region: current.region }]
+          });
+        }
+        return acc;
+      }, []);
+
       organizations.value = organization.value;
       departments.value = department.value;
       positions.value = position.value;
@@ -542,6 +559,8 @@ const onCloseModal = () => {
                 dataKey="id"
                 optionValue="id"
                 optionLabel="name"
+                optionGroupLabel="region"
+                optionGroupChildren="items"
                 inputId="location"
                 v-bind="location"
                 :options="locations"
@@ -550,7 +569,28 @@ const onCloseModal = () => {
                 :invalid="!!errors?.location"
                 aria-describedby="location-help"
                 class="w-[25rem]"
-              />
+                :virtualScrollerOptions="{ itemSize: 32 }"
+                :pt="{
+                  itemgroup: {
+                    class: [
+                      'font-bold m-0 py-3 px-5 cursor-auto',
+                      'text-surface-800 dark:text-white/80',
+                      'bg-surface-200 dark:bg-surface-900/80'
+                    ]
+                  }
+                }"
+              >
+                <template #optiongroup="{ option }">
+                  <div class="flex items-center h-full justify-center text-base uppercase">
+                    {{ option.region }}
+                  </div>
+                </template>
+                <template #option="{ option }">
+                  <div class="flex items-center h-full text-base">
+                    {{ option.name }}
+                  </div>
+                </template>
+              </Dropdown>
 
               <BtnDBTable table="location" />
             </div>

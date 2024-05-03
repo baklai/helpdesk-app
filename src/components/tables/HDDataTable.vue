@@ -888,6 +888,7 @@ onBeforeUnmount(() => {
                   ]
                 : []
             "
+            :virtualScrollerOptions="{ itemSize: 32 }"
             :filterPlaceholder="$t('Search in list')"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
