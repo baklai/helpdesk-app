@@ -871,8 +871,7 @@ onBeforeUnmount(() => {
           <Listbox
             filter
             multiple
-            class="min-w-96 max-w-xl"
-            listStyle="height: 25rem"
+            listStyle="height: 24rem; width: 22rem;"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
@@ -893,7 +892,7 @@ onBeforeUnmount(() => {
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
             <template #option="{ option }">
-              <div class="flex items-center">
+              <div class="flex items-center h-full">
                 <Checkbox
                   :binary="true"
                   :modelValue="filterModel.value?.includes(option[filter.options.value])"
