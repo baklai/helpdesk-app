@@ -60,8 +60,6 @@ const onOptionsMenu = (event, value) => {
   emits('toggleMenu', event, value);
 };
 
-const screenSize = ref('');
-
 const refDataTable = ref();
 const keyDataTable = ref(0);
 const refMenuColumns = ref();
@@ -566,7 +564,7 @@ onMounted(async () => {
       ref="refDataTable"
       :key="keyDataTable"
       dataKey="id"
-      :stateKey="storageKey"
+      :stateKey="!storageKey || null"
       stateStorage="local"
       csvSeparator=";"
       sortMode="multiple"
