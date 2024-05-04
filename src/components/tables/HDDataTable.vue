@@ -841,121 +841,144 @@ onMounted(async () => {
           </div>
         </template>
 
-        <template #filter="{ filterModel, filterCallback }">
-          <MultiSelect
-            filter
-            display="chip"
-            autoFilterFocus
-            resetFilterOnHide
-            :selectionLimit="10"
-            :maxSelectedLabels="3"
-            filterMatchMode="contains"
-            v-model="filterModel.value"
-            :dataKey="filter?.options?.key || 'id'"
-            :optionValue="filter?.options?.value || 'id'"
-            :optionLabel="filter?.options?.label || 'label'"
-            :options="filter?.options?.records || []"
-            :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
-            :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
-            :placeholder="$t('Select records')"
-            :filterPlaceholder="$t('Search in list')"
-            :virtualScrollerOptions="{ itemSize: 32 }"
-            class="w-96 my-4"
-            :pt="{
-              itemgroup: {
-                class: [
-                  'font-bold m-0 py-3 px-5 cursor-auto',
-                  'text-surface-800 dark:text-white/80',
-                  'bg-surface-200 dark:bg-surface-900/80'
-                ]
-              }
-            }"
-            @change="filterCallback"
-            @before-show="
-              async () => {
-                if (filter?.options?.records?.length) return;
-                const response = await filter.options.onRecords();
-                filter.options.records = [
-                  {
-                    group: $t('Empty values'),
-                    records: [
-                      {
-                        [filter?.options?.value || 'id']: null,
-                        [filter?.options?.label || 'label']: '-'
-                      }
-                    ]
-                  },
-                  ...response
-                ];
-              }
-            "
-            v-if="filter?.matchMode === FilterMatchMode.IN"
-          >
-            <template #optiongroup="{ option }">
-              <div class="flex items-center h-full justify-center text-base uppercase">
-                {{ option.group }}
-              </div>
-            </template>
+        <template #filter="{ filterModel, applyFilter, filterCallback }">
+          <div class="flex flex-col gap-2">
+            <div
+              class="flex items-center justify-between"
+              v-if="
+                filter?.matchMode === FilterMatchMode.IN ||
+                filter?.matchMode === FilterMatchMode.EQUALS
+              "
+            >
+              <label class="font-bold">
+                <span class="uppercase">{{ $t(header?.text) }}</span>
+              </label>
 
-            <template #option="{ option }">
-              <div class="flex items-center h-full text-base">
-                {{ option[filter?.options?.label] }}
-              </div>
-            </template>
-          </MultiSelect>
+              <Button
+                text
+                plain
+                rounded
+                icon="pi pi-times"
+                class="font-bold w-8 h-8"
+                @click="applyFilter"
+              />
+            </div>
 
-          <Dropdown
-            showClear
-            v-model="filterModel.value"
-            :optionValue="filter.options.value || 'id'"
-            :optionLabel="filter.options.label || 'id'"
-            :options="filter?.options?.records || []"
-            :placeholder="$t('Select one record')"
-            style="min-width: 12rem"
-            @change="filterCallback"
-            @before-show="
-              async () => {
-                if (filter?.options?.records?.length) return;
-                filter.options.records = await filter.options.onRecords();
-              }
-            "
-            v-else-if="filter?.matchMode === FilterMatchMode.EQUALS && filter?.options"
-          >
-            <template #option="slotProps">
-              <Chip :label="slotProps.option[filter?.options?.label]" />
-            </template>
-          </Dropdown>
-
-          <Calendar
-            inline
-            class="w-full"
-            selectionMode="range"
-            dateFormat="dd.mm.yy"
-            :placeholder="$t('Select date')"
-            v-model="filterModel.value"
-            v-else-if="filter?.matchMode === FilterMatchMode.DATE_IS"
-          />
-
-          <InputText
-            type="text"
-            v-model="filterModel.value"
-            :placeholder="$t('Search by column')"
-            @keydown.enter="filterCallback()"
-            v-else-if="filter?.matchMode === FilterMatchMode.CONTAINS"
-          />
-
-          <div
-            class="flex flex-col items-center gap-3"
-            v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
-          >
-            <TriStateCheckbox
+            <MultiSelect
+              filter
+              display="chip"
+              autoFilterFocus
+              resetFilterOnHide
+              :selectionLimit="10"
+              :maxSelectedLabels="3"
+              filterMatchMode="contains"
               v-model="filterModel.value"
-              inputId="verified-filter"
+              :dataKey="filter?.options?.key || 'id'"
+              :optionValue="filter?.options?.value || 'id'"
+              :optionLabel="filter?.options?.label || 'label'"
+              :options="filter?.options?.records || []"
+              :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
+              :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
+              :placeholder="$t('Search in database')"
+              :filterPlaceholder="$t('Search in list')"
+              :virtualScrollerOptions="{ itemSize: 32 }"
+              class="w-96 my-4"
+              :pt="{
+                itemgroup: {
+                  class: [
+                    'font-bold m-0 py-3 px-5 cursor-auto',
+                    'text-surface-800 dark:text-white/80',
+                    'bg-surface-200 dark:bg-surface-900/80'
+                  ]
+                }
+              }"
               @change="filterCallback"
+              @before-show="
+                async () => {
+                  if (filter?.options?.records?.length) return;
+                  const response = await filter.options.onRecords();
+                  filter.options.records = [
+                    {
+                      group: $t('Empty values'),
+                      records: [
+                        {
+                          [filter?.options?.value || 'id']: null,
+                          [filter?.options?.label || 'label']: '-'
+                        }
+                      ]
+                    },
+                    ...response
+                  ];
+                }
+              "
+              v-if="filter?.matchMode === FilterMatchMode.IN"
+            >
+              <template #optiongroup="{ option }">
+                <div class="flex items-center h-full justify-center text-base uppercase">
+                  {{ option.group }}
+                </div>
+              </template>
+
+              <template #option="{ option }">
+                <div class="flex items-center h-full text-base">
+                  {{ option[filter?.options?.label] }}
+                </div>
+              </template>
+            </MultiSelect>
+
+            <Dropdown
+              showClear
+              v-model="filterModel.value"
+              :optionValue="filter.options.value || 'id'"
+              :optionLabel="filter.options.label || 'id'"
+              :options="filter?.options?.records || []"
+              :placeholder="$t('Select one record')"
+              style="min-width: 12rem"
+              @change="filterCallback"
+              @before-show="
+                async () => {
+                  if (filter?.options?.records?.length) return;
+                  filter.options.records = await filter.options.onRecords();
+                }
+              "
+              v-else-if="filter?.matchMode === FilterMatchMode.EQUALS && filter?.options"
+            >
+              <template #option="slotProps">
+                <Chip :label="slotProps.option[filter?.options?.label]" />
+              </template>
+            </Dropdown>
+
+            <Calendar
+              inline
+              class="w-full"
+              selectionMode="range"
+              dateFormat="dd.mm.yy"
+              :placeholder="$t('Select date')"
+              v-model="filterModel.value"
+              v-else-if="filter?.matchMode === FilterMatchMode.DATE_IS"
             />
-            <label for="verified-filter" class="font-bold">
-              {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
-            </label>
+
+            <InputText
+              type="text"
+              v-model="filterModel.value"
+              :placeholder="$t('Search by column')"
+              @keydown.enter="filterCallback()"
+              v-else-if="filter?.matchMode === FilterMatchMode.CONTAINS"
+            />
+
+            <div
+              class="flex flex-col items-center gap-3"
+              v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
+            >
+              <TriStateCheckbox
+                v-model="filterModel.value"
+                inputId="verified-filter"
+                @change="filterCallback"
+              />
+              <label for="verified-filter" class="font-bold">
+                {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
+              </label>
+            </div>
           </div>
         </template>
       </Column>
