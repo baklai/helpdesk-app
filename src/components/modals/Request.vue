@@ -54,9 +54,14 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        setValues(await findOne({ id, populate: false }));
+        const response = await findOne({ id, populate: false });
+        setValues(response);
+        if (response.organization) {
+          subdivisions.value = await Subdivision.findAllByOrganizationId({
+            id: response.organization
+          });
+        }
       }
-
       const [organization, department, position, location] = await Promise.allSettled([
         Organization.findAll({}),
         Department.findAll({}),

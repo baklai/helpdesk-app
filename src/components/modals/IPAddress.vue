@@ -63,7 +63,13 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        setValues(await IPAddress.findOne({ id }));
+        const response = await IPAddress.findOne({ id, populate: false });
+        setValues(response);
+        if (response.organization) {
+          subdivisions.value = await Subdivision.findAllByOrganizationId({
+            id: response.organization
+          });
+        }
       } else {
         resetForm({ values: {} }, { force: true });
       }
