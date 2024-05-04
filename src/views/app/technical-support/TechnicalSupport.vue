@@ -159,8 +159,9 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
+        grouped: true,
         onRecords: async () => {
-          return await Location.findAll({});
+          return await Location.findAllGroured({});
         }
       }
     },
