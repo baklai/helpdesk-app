@@ -234,10 +234,11 @@ const initColumns = async () => {
                   value: filter?.options?.value ? filter?.options?.value : 'id',
                   label: filter?.options?.label ? filter?.options?.label : 'title',
                   grouped: filter?.options?.grouped ? filter?.options?.grouped : null,
-                  records:
+                  records: filter?.options?.records || [],
+                  onRecords:
                     typeof filter?.options?.onRecords === 'function'
-                      ? await filter?.options?.onRecords()
-                      : []
+                      ? filter?.options?.onRecords
+                      : () => []
                 }
               : null
           },
@@ -439,6 +440,10 @@ const onFilter = async event => {
   await onUpdateRecords();
 };
 
+const onFilterOpened = event => {
+  console.log(event);
+};
+
 const onStorage = async event => {
   const { rows, first } = event;
   params.value.limit = rows;
@@ -593,6 +598,7 @@ onMounted(async () => {
       @filter="onFilter"
       @sort="onSort"
       @page="onPage"
+      @onFilterOpened="onFilterOpened"
     >
       <template #header>
         <div class="flex flex-wrap gap-4 items-center justify-between">
@@ -848,22 +854,7 @@ onMounted(async () => {
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
             :optionLabel="filter?.options?.label || 'label'"
-            :options="
-              filter?.options?.records?.length
-                ? [
-                    {
-                      group: $t('Empty values'),
-                      records: [
-                        {
-                          [filter?.options?.value || 'id']: null,
-                          [filter?.options?.label || 'label']: '-'
-                        }
-                      ]
-                    },
-                    ...filter?.options?.records
-                  ]
-                : []
-            "
+            :options="filter?.options?.records || []"
             :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
             :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
             :placeholder="$t('Select records')"
@@ -880,6 +871,24 @@ onMounted(async () => {
               }
             }"
             @change="filterCallback"
+            @before-show="
+              async () => {
+                if (filter?.options?.records?.length) return;
+                const response = await filter.options.onRecords();
+                filter.options.records = [
+                  {
+                    group: $t('Empty values'),
+                    records: [
+                      {
+                        [filter?.options?.value || 'id']: null,
+                        [filter?.options?.label || 'label']: '-'
+                      }
+                    ]
+                  },
+                  ...response
+                ];
+              }
+            "
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
             <template #optiongroup="{ option }">
@@ -900,9 +909,16 @@ onMounted(async () => {
             v-model="filterModel.value"
             :optionValue="filter.options.value || 'id'"
             :optionLabel="filter.options.label || 'id'"
-            :options="filter.options.records || []"
+            :options="filter?.options?.records || []"
             :placeholder="$t('Select one record')"
             style="min-width: 12rem"
+            @change="filterCallback"
+            @before-show="
+              async () => {
+                if (filter?.options?.records?.length) return;
+                filter.options.records = await filter.options.onRecords();
+              }
+            "
             v-else-if="filter?.matchMode === FilterMatchMode.EQUALS && filter?.options"
           >
             <template #option="slotProps">
