@@ -61,28 +61,12 @@ defineExpose({
         Organization.findAll({}),
         Department.findAll({}),
         Position.findAll({}),
-        Location.findAll({})
+        Location.findAllGroured({})
       ]);
       organizations.value = organization.value;
       departments.value = department.value;
       positions.value = position.value;
-
-      locations.value = location.value.reduce((acc, current) => {
-        const regionIndex = acc.findIndex(item => item.region === current.region);
-        if (regionIndex !== -1) {
-          acc[regionIndex].items.push({
-            id: current.id,
-            name: current.name,
-            region: current.region
-          });
-        } else {
-          acc.push({
-            region: current.region,
-            items: [{ id: current.id, name: current.name, region: current.region }]
-          });
-        }
-        return acc;
-      }, []);
+      locations.value = location.value;
 
       visible.value = true;
     } catch (err) {
@@ -491,8 +475,8 @@ const onSaveClosedRecord = handleSubmit(async () => {
                 dataKey="id"
                 optionValue="id"
                 optionLabel="name"
-                optionGroupLabel="region"
-                optionGroupChildren="items"
+                optionGroupLabel="group"
+                optionGroupChildren="records"
                 inputId="location"
                 v-bind="location"
                 :options="locations"
@@ -514,7 +498,7 @@ const onSaveClosedRecord = handleSubmit(async () => {
               >
                 <template #optiongroup="{ option }">
                   <div class="flex items-center h-full justify-center text-base uppercase">
-                    {{ option.region }}
+                    {{ option.group }}
                   </div>
                 </template>
                 <template #option="{ option }">

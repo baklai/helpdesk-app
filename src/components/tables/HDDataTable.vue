@@ -109,10 +109,6 @@ const menuReports = computed(() => [
   }
 ]);
 
-const screenSizeComputed = computed(() => {
-  return screenSize.value;
-});
-
 const onColumnsMenu = event => {
   refMenuColumns.value.toggle(event);
 };
@@ -231,11 +227,13 @@ const initColumns = async () => {
               filter?.showFilterMatchModes === undefined
                 ? FilterOperator.AND
                 : filter?.filterOperator,
+
             options: filter?.options
               ? {
                   key: filter?.options?.key ? filter?.options?.key : 'id',
                   value: filter?.options?.value ? filter?.options?.value : 'id',
                   label: filter?.options?.label ? filter?.options?.label : 'title',
+                  grouped: filter?.options?.grouped ? filter?.options?.grouped : null,
                   records:
                     typeof filter?.options?.onRecords === 'function'
                       ? await filter?.options?.onRecords()
@@ -478,24 +476,7 @@ const selectAllColumns = () => {
   refMenuColumns.value.hide();
 };
 
-const checkScreenSize = () => {
-  if (window.matchMedia('(max-width: 640px)').matches) {
-    screenSize.value = 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
-  } else if (window.matchMedia('(max-width: 768px)').matches) {
-    screenSize.value =
-      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
-  } else if (window.matchMedia('(max-width: 1024px)').matches) {
-    screenSize.value =
-      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink';
-  } else {
-    screenSize.value =
-      'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown';
-  }
-};
-
 onMounted(async () => {
-  checkScreenSize();
-  window.addEventListener('resize', checkScreenSize);
   try {
     loading.value = true;
     initColumns();
@@ -513,10 +494,6 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkScreenSize);
 });
 </script>
 
@@ -611,7 +588,7 @@ onBeforeUnmount(() => {
       "
       style="height: calc(100vh - 5rem)"
       class="min-w-full overflow-x-auto text-base"
-      :paginatorTemplate="screenSizeComputed"
+      :paginatorTemplate="'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'"
       @state-restore="onStorage"
       @filter="onFilter"
       @sort="onSort"
@@ -706,18 +683,10 @@ onBeforeUnmount(() => {
         <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
       </template>
 
-      <template #empty class="!border-0">
+      <template #empty>
         <div
-          v-if="!loading && records?.length === 0"
-          :class="[
-            'absolute',
-            'left-0',
-            'z-20',
-            'flex items-center justify-center',
-            'w-full h-full',
-            'bg-none',
-            'flex items-stretch text-center'
-          ]"
+          v-if="!loading && !records?.length"
+          class="absolute left-0 z-20 flex items-stretch text-center justify-center w-full h-full bg-none"
           style="height: calc(100vh - 24rem)"
         >
           <div class="flex flex-col gap-2 m-auto">
@@ -840,6 +809,8 @@ onBeforeUnmount(() => {
         :sortable="sortable"
         :exportable="exportable"
         :frozen="frozen"
+        :maxConstraints="3"
+        :showFilterMenu="filtrable"
         :filterField="filter.field"
         :showFilterMatchModes="filter.showFilterMatchModes"
         :style="{ minWidth: header.width }"
@@ -864,46 +835,65 @@ onBeforeUnmount(() => {
           </div>
         </template>
 
-        <template
-          #filter="{ filterModel, filterCallback }"
-          v-if="filtrable === undefined ? false : filtrable"
-        >
-          <Listbox
+        <template #filter="{ filterModel, filterCallback }">
+          <MultiSelect
             filter
-            multiple
-            listStyle="height: 24rem; width: 22rem;"
+            display="chip"
+            autoFilterFocus
+            resetFilterOnHide
+            :selectionLimit="10"
+            :maxSelectedLabels="3"
+            filterMatchMode="contains"
             v-model="filterModel.value"
             :dataKey="filter?.options?.key || 'id'"
             :optionValue="filter?.options?.value || 'id'"
             :optionLabel="filter?.options?.label || 'label'"
             :options="
-              filter?.options?.records
+              filter?.options?.records?.length
                 ? [
                     {
-                      [filter?.options?.value || 'id']: null,
-                      [filter?.options?.label || 'label']: '-'
+                      group: $t('Empty values'),
+                      records: [
+                        {
+                          [filter?.options?.value || 'id']: null,
+                          [filter?.options?.label || 'label']: '-'
+                        }
+                      ]
                     },
                     ...filter?.options?.records
                   ]
                 : []
             "
-            :virtualScrollerOptions="{ itemSize: 32 }"
+            :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
+            :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
+            :placeholder="$t('Select records')"
             :filterPlaceholder="$t('Search in list')"
+            :virtualScrollerOptions="{ itemSize: 32 }"
+            class="w-96 my-4"
+            :pt="{
+              itemgroup: {
+                class: [
+                  'font-bold m-0 py-3 px-5 cursor-auto',
+                  'text-surface-800 dark:text-white/80',
+                  'bg-surface-200 dark:bg-surface-900/80'
+                ]
+              }
+            }"
+            @change="filterCallback"
             v-if="filter?.matchMode === FilterMatchMode.IN"
           >
-            <template #option="{ option }">
-              <div class="flex items-center h-full">
-                <Checkbox
-                  :binary="true"
-                  :modelValue="filterModel.value?.includes(option[filter.options.value])"
-                  class="mr-2"
-                />
-                <label :for="option.key">
-                  {{ option[filter?.options?.label] }}
-                </label>
+            <template #optiongroup="{ option }">
+              <div class="flex items-center h-full justify-center text-base uppercase">
+                {{ option.group }}
               </div>
             </template>
-          </Listbox>
+
+            <template #option="{ option }">
+              <div class="flex items-center h-full text-base">
+                {{ option[filter?.options?.label] }}
+              </div>
+            </template>
+          </MultiSelect>
 
           <Dropdown
             showClear
@@ -913,7 +903,6 @@ onBeforeUnmount(() => {
             :options="filter.options.records || []"
             :placeholder="$t('Select one record')"
             style="min-width: 12rem"
-            @change="filterCallback()"
             v-else-if="filter?.matchMode === FilterMatchMode.EQUALS && filter?.options"
           >
             <template #option="slotProps">

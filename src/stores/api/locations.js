@@ -44,5 +44,30 @@ export const useLocation = defineStore('location', () => {
     }
   }
 
-  return { findAll, findOne, createOne, updateOne, removeOne };
+  async function findAllGroured(params) {
+    try {
+      const locations = await $axios.get('/locations', { params });
+
+      return locations.reduce((acc, current) => {
+        const regionIndex = acc.findIndex(item => item.group === current.region);
+        if (regionIndex !== -1) {
+          acc[regionIndex].records.push({
+            id: current.id,
+            name: current.name,
+            region: current.region
+          });
+        } else {
+          acc.push({
+            group: current.region,
+            records: [{ id: current.id, name: current.name, region: current.region }]
+          });
+        }
+        return acc;
+      }, []);
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  return { findAll, findAllGroured, findOne, createOne, updateOne, removeOne };
 });

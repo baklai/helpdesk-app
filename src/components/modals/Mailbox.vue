@@ -56,28 +56,12 @@ defineExpose({
         setValues(await findOne({ id, populate: false }));
       }
       const [location, organization, department, position] = await Promise.allSettled([
-        Location.findAll({}),
+        Location.findAllGroured({}),
         Organization.findAll({}),
         Department.findAll({}),
         Position.findAll({})
       ]);
-      locations.value = location.value.reduce((acc, current) => {
-        const regionIndex = acc.findIndex(item => item.region === current.region);
-        if (regionIndex !== -1) {
-          acc[regionIndex].items.push({
-            id: current.id,
-            name: current.name,
-            region: current.region
-          });
-        } else {
-          acc.push({
-            region: current.region,
-            items: [{ id: current.id, name: current.name, region: current.region }]
-          });
-        }
-        return acc;
-      }, []);
-
+      locations.value = location.value;
       organizations.value = organization.value;
       departments.value = department.value;
       positions.value = position.value;
@@ -427,8 +411,8 @@ const onCloseModal = () => {
                 dataKey="id"
                 optionValue="id"
                 optionLabel="name"
-                optionGroupLabel="region"
-                optionGroupChildren="items"
+                optionGroupLabel="group"
+                optionGroupChildren="records"
                 inputId="location"
                 v-bind="location"
                 :options="locations"
@@ -450,7 +434,7 @@ const onCloseModal = () => {
               >
                 <template #optiongroup="{ option }">
                   <div class="flex items-center h-full justify-center text-base uppercase">
-                    {{ option.region }}
+                    {{ option.group }}
                   </div>
                 </template>
                 <template #option="{ option }">
