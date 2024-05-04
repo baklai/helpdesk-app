@@ -948,7 +948,11 @@ onMounted(async () => {
             class="flex flex-col items-center gap-3"
             v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
           >
-            <TriStateCheckbox v-model="filterModel.value" inputId="verified-filter" />
+            <TriStateCheckbox
+              v-model="filterModel.value"
+              inputId="verified-filter"
+              @change="filterCallback"
+            />
             <label for="verified-filter" class="font-bold">
               {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
             </label>
