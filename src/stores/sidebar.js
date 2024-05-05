@@ -22,7 +22,7 @@ export const useSidebar = defineStore('sidebar', () => {
 
     t('Applications'),
 
-    { ...getRoute('calendar-events') },
+    { ...getRoute('events-calendar') },
     {
       ...getRouteLabel('network-info'),
       items: [
@@ -60,7 +60,7 @@ export const useSidebar = defineStore('sidebar', () => {
   ]);
 
   const miniNavLinks = computed(() => [
-    { ...getRoute('calendar-events') },
+    { ...getRoute('events-calendar') },
     { ...getRoute('network-ipaddress') },
     { ...getRoute('network-mailbox') },
     { ...getRoute('technical-support-requests') },

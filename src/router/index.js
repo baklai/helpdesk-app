@@ -33,13 +33,13 @@ const router = createRouter({
       redirect: { name: 'home' },
       children: [
         {
-          name: 'calendar-events',
-          path: 'calendar-events',
+          name: 'events-calendar',
+          path: 'events-calendar',
           meta: {
             title: 'Calendar of events',
             description: 'Сalendar of events of the technical support'
           },
-          component: () => import('@/views/app/CalendarEvents.vue')
+          component: () => import('@/views/app/EventsCalendar.vue')
         },
         {
           path: 'network-info',

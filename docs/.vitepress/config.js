@@ -42,7 +42,7 @@ export default defineConfig({
           {
             text: 'Helpdesk service',
             items: [
-              { text: 'Calendar of events', link: '/calendar-events' },
+              { text: 'Calendar of events', link: '/events-calendar' },
               { text: 'Network information', link: '/network-info' },
               { text: 'Technical support', link: '/technical-support' },
               { text: 'PC SysInspector', link: '/pc-sys-inspector' }
@@ -93,9 +93,9 @@ export default defineConfig({
           {
             text: 'Helpdesk service',
             items: [
-              { text: 'Календар подій', link: '/ua/calendar-events' },
+              { text: 'Календар подій', link: '/ua/events-calendar' },
               { text: 'Мережева інформація', link: '/ua/network-info' },
-              { text: 'Журнал техпідтримки', link: '/ua/hd-live-log' },
+              { text: 'Журнал техпідтримки', link: '/ua/technical-support' },
               { text: 'ПК SysInspector', link: '/ua/pc-sys-inspector' }
             ]
           }
@@ -144,9 +144,9 @@ export default defineConfig({
           {
             text: 'Helpdesk service',
             items: [
-              { text: 'Календарь событий', link: '/ru/calendar-events' },
+              { text: 'Календарь событий', link: '/ru/events-calendar' },
               { text: 'Сетевая информация', link: '/ru/network-info' },
-              { text: 'Журнал техподдержки', link: '/ru/hd-live-log' },
+              { text: 'Журнал техподдержки', link: '/ru/technical-support' },
               { text: 'ПК SysInspector', link: '/ru/pc-sys-inspector' }
             ]
           }
