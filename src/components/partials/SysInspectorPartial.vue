@@ -113,81 +113,54 @@ const diskSum = value => {
     </div>
   </div>
 
-  <table class="mb-2">
-    <tr class="border border-surface-200 dark:border-surface-600">
-      <td class="font-medium" width="40%">
+  <table class="w-full text-lg font-normal my-4">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
+      <td class="font-normal" width="40%">
         {{ $t('Baseboard serial number') }}
       </td>
       <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios serial number') }}</td>
       <td>{{ record?.bios?.SerialNumber || '-' }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-none border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Bios version') }}</td>
       <td>{{ record?.bios?.Version || '-' }}</td>
     </tr>
   </table>
 
-  <table class="mb-2">
-    <tr class="border border-surface-200 dark:border-surface-600">
+  <table class="w-full text-lg font-normal my-4">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
       <td>{{ $t('Microsoft Windows') }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
       <td>{{ record?.os?.Version || '-' }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
       <td>{{ record?.os?.Caption || '-' }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-none border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
       <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
     </tr>
   </table>
 
-  <table>
-    <tr class="border border-surface-200 dark:border-surface-600">
+  <table class="w-full text-lg font-normal my-4">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
       <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
       <td>{{ record?.host || '-' }}</td>
     </tr>
-    <tr class="border border-surface-200 dark:border-surface-600">
+    <tr class="border-none border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
       <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
     </tr>
   </table>
 </template>
-
-<style scoped>
-table {
-  width: 100%;
-  border: 15px solid transparent;
-  border-top: 5px solid transparent;
-  border-collapse: collapse;
-}
-
-td,
-th {
-  font-size: 14px;
-  /* border-bottom: 1px solid var(--border-surface-200 dark:border-surface-600); */
-}
-
-th {
-  font-weight: bold;
-  text-align: left;
-  background: transparent;
-  text-transform: uppercase;
-  padding: 5px;
-}
-
-td {
-  padding: 3px;
-}
-</style>

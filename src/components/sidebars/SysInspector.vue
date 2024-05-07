@@ -96,8 +96,13 @@ const onCloseSidebar = () => {
 
     <template #content>
       <div class="overflow-y-auto" style="height: calc(100vh - 20rem)">
-        <IPAddressPartial :record="recordip" v-if="recordip" />
-        <SysInspectorPartial :record="record" v-if="record" />
+        <div class="w-full py-4">
+          <IPAddressPartial :record="recordip" v-if="recordip" />
+        </div>
+
+        <div class="w-full py-4">
+          <SysInspectorPartial :record="record" v-if="record" />
+        </div>
       </div>
     </template>
   </Card>

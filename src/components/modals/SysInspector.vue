@@ -237,7 +237,7 @@ const onCloseModal = () => {
       <div id="report" class="flex flex-col gap-y-4 lg:flex-row lg:flex-wrap">
         <div class="flex flex-wrap w-full lg:flex-row lg:flex-nowrap">
           <div :class="['flex flex-col w-full', record && 'lg:w-1/2 p-4']" v-if="recordip">
-            <IPAddressPartial :record="recordip" v-if="recordip" />
+            <IPAddressPartial :record="recordip" :internet="false" v-if="recordip" />
           </div>
 
           <Divider layout="vertical" class="hidden lg:flex" v-if="recordip && record" />

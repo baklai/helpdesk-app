@@ -93,9 +93,8 @@ const onCloseSidebar = () => {
     </template>
 
     <template #content>
-      <div class="overflow-y-auto pt-6" style="height: calc(100vh - 20rem)">
-        <h5>{{ $t('Description') }}</h5>
-        <table>
+      <div class="overflow-y-auto py-6" style="height: calc(100vh - 20rem)">
+        <table class="w-full">
           <tr class="border border-surface-200 dark:border-surface-600">
             <td class="font-bold" width="50%">{{ $t('Opened an request') }} :</td>
             <td>
@@ -202,8 +201,13 @@ const onCloseSidebar = () => {
           </tr>
         </table>
 
-        <IPAddressPartial :record="recordip" v-if="recordip" />
-        <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
+        <div class="w-full py-4">
+          <IPAddressPartial :record="recordip" v-if="recordip" />
+        </div>
+
+        <div class="w-full py-4">
+          <SysInspectorPartial :record="recordsysi" v-if="recordsysi" />
+        </div>
       </div>
     </template>
   </Card>
