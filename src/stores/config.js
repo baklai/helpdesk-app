@@ -44,12 +44,7 @@ export const useConfig = defineStore('config', () => {
   }
 
   function toggleAppSideBarMode() {
-    if (appSideBarMode.value === 'static') {
-      appSideBarVisible.value = false;
-    }
-    if (appSideBarMode.value === 'overlay') {
-      appSideBarVisible.value = true;
-    }
+    appSideBarVisible.value = true;
   }
 
   function toggleAppSideBar() {
