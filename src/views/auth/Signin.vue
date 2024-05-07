@@ -14,7 +14,7 @@ const toast = useToast();
 
 const $auth = inject('auth');
 
-const { values, errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
+const { values, errors, submitCount, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
     login: yup.string().required(t('Value is required')),
     password: yup.string().min(6).required(t('Value is required'))
@@ -24,9 +24,9 @@ const { values, errors, submitCount, handleSubmit, resetForm, defineComponentBin
   }
 });
 
-const login = defineComponentBinds('login');
-const password = defineComponentBinds('password');
-const remember = defineComponentBinds('remember');
+const [login, loginAttrs] = defineField('login');
+const [password, passwordAttrs] = defineField('password');
+const [remember, rememberAttrs] = defineField('remember');
 
 const onSignin = handleSubmit(async values => {
   try {
@@ -75,7 +75,8 @@ onMounted(() => {
           id="login"
           size="large"
           class="w-full pl-10 text-xl"
-          v-bind="login"
+          v-model="login"
+          v-bind="loginAttrs"
           :placeholder="$t('Login')"
           :invalid="!!errors?.login"
           aria-describedby="login-help"
@@ -98,7 +99,8 @@ onMounted(() => {
           toggleMask
           size="large"
           inputId="password"
-          v-bind="password"
+          v-model="password"
+          v-bind="passwordAttrs"
           :invalid="!!errors?.login"
           :placeholder="$t('Password')"
           :promptLabel="$t('Choose a password')"
@@ -135,7 +137,8 @@ onMounted(() => {
           <Checkbox
             binary
             inputId="remember"
-            v-bind="remember"
+            v-model="remember"
+            v-bind="rememberAttrs"
             class="mr-2"
             @change="onChangeRemember"
           />

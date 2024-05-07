@@ -7,14 +7,12 @@ import { useToast } from 'primevue/usetoast';
 
 import { AutocompleteOffForms } from '@/service/ReadonlyForms';
 
-const SUBMIT_COUNT = 5;
-
 const { t } = useI18n();
 const toast = useToast();
 
 const $auth = inject('auth');
 
-const { errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = useForm({
+const { errors, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
     login: yup.string().required(t('Value is required')),
     password: yup.string().min(6).required(t('Value is required')),
@@ -30,12 +28,12 @@ const { errors, submitCount, handleSubmit, resetForm, defineComponentBinds } = u
   initialValues: {}
 });
 
-const login = defineComponentBinds('login');
-const password = defineComponentBinds('password');
-const passwordConfirm = defineComponentBinds('passwordConfirm');
-const fullname = defineComponentBinds('fullname');
-const email = defineComponentBinds('email');
-const phone = defineComponentBinds('phone');
+const [login, loginAttrs] = defineField('login');
+const [password, passwordAttrs] = defineField('password');
+const [passwordConfirm, passwordConfirmAttrs] = defineField('passwordConfirm');
+const [fullname, fullnameAttrs] = defineField('fullname');
+const [email, emailAttrs] = defineField('email');
+const [phone, phoneAttrs] = defineField('phone');
 
 const onSignup = handleSubmit(async values => {
   try {
@@ -80,7 +78,8 @@ onMounted(() => {
         />
         <InputText
           id="login"
-          v-bind="login"
+          v-model="login"
+          v-bind="loginAttrs"
           :invalid="!!errors?.login"
           :placeholder="$t('User login')"
           aria-describedby="login-help"
@@ -103,7 +102,8 @@ onMounted(() => {
         <Password
           toggleMask
           id="password"
-          v-bind="password"
+          v-model="password"
+          v-bind="passwordAttrs"
           :invalid="!!errors?.password"
           :placeholder="$t('User password')"
           :promptLabel="$t('Choose a password')"
@@ -148,7 +148,8 @@ onMounted(() => {
         <InputText
           type="password"
           id="passwordConfirm"
-          v-bind="passwordConfirm"
+          v-model="passwordConfirm"
+          v-bind="passwordConfirmAttrs"
           :invalid="!!errors?.passwordConfirm"
           :placeholder="$t('Confirm password')"
           aria-describedby="passwordConfirm-help"
@@ -170,7 +171,8 @@ onMounted(() => {
         />
         <InputText
           id="fullname"
-          v-bind="fullname"
+          v-model="fullname"
+          v-bind="fullnameAttrs"
           :invalid="!!errors?.fullname"
           :placeholder="$t('User name')"
           class="w-full pl-10"
@@ -190,7 +192,8 @@ onMounted(() => {
         <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
         <InputText
           id="email"
-          v-bind="email"
+          v-model="email"
+          v-bind="emailAttrs"
           :invalid="!!errors?.email"
           :placeholder="$t('User email')"
           class="w-full pl-10"
@@ -214,7 +217,8 @@ onMounted(() => {
           id="phone"
           date="phone"
           mask="+99(999)999-99-99"
-          v-bind="phone"
+          v-model="phone"
+          v-bind="phoneAttrs"
           :invalid="!!errors?.phone"
           :placeholder="$t('User phone')"
           class="w-full pl-10"
@@ -230,17 +234,9 @@ onMounted(() => {
       type="submit"
       icon="pi pi-verified"
       class="block w-full mt-4 mb-2 text-xl"
-      :disabled="submitCount > SUBMIT_COUNT"
       :label="$t('Register in the application')"
       aria-describedby="submit-help"
     />
-    <small
-      id="submit-help"
-      class="block w-full text-center text-red-500"
-      v-if="submitCount > SUBMIT_COUNT"
-    >
-      {{ $t('You submitted too many times') }}
-    </small>
 
     <p class="text-center font-medium text-surface-500">
       {{ $t('Register to the application to continue') }}
