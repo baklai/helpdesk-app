@@ -345,7 +345,7 @@ const onCloseModal = async () => {
     </template>
 
     <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
-      <div class="flex flex-col space-y-4 md:!w-1/2 md:pr-2">
+      <div class="flex flex-col space-y-4 md:w-1/2 md:pr-2">
         <div class="flex flex-col gap-2">
           <label for="date" class="font-bold">{{ $t('Date create') }}</label>
           <Calendar
@@ -560,7 +560,7 @@ const onCloseModal = async () => {
         </div>
       </div>
 
-      <div class="flex flex-col space-y-4 md:!w-1/2 md:pl-2">
+      <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
           <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
           <InputText

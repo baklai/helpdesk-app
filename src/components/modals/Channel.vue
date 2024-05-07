@@ -212,7 +212,7 @@ const onCloseModal = async () => {
     </template>
 
     <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
-      <div class="flex flex-col space-y-4 md:!w-1/2 md:pr-2">
+      <div class="flex flex-col space-y-4 md:w-1/2 md:pr-2">
         <div class="flex flex-col gap-2">
           <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
           <InputText
@@ -244,7 +244,7 @@ const onCloseModal = async () => {
         </div>
       </div>
 
-      <div class="flex flex-col space-y-4 md:!w-1/2 md:pl-2">
+      <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
           <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
           <InputText

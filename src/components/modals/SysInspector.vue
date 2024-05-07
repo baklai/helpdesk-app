@@ -6,6 +6,7 @@ import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import IPAddressPartial from '@/components/partials/IPAddressPartial.vue';
+import SysInspectorPartial from '@/components/partials/SysInspectorPartial.vue';
 
 import { byteToStr, strToDate, dateTimeToStr } from '@/service/DataFilters';
 
@@ -197,7 +198,7 @@ const onCloseModal = () => {
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    class="mx-auto w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]"
+    class="mx-auto w-[90vw] md:w-[80vw] lg:w-[80vw] xl:w-[60vw] 2xl:w-[45vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -233,179 +234,20 @@ const onCloseModal = () => {
     </template>
 
     <template #default>
-      <div id="report">
-        <div class="flex flex-wrap my-2 mx-2">
-          <div class="flex-shrink-0 p-4 w-full grow basis-0" v-if="recordip">
+      <div id="report" class="flex flex-col gap-y-4 lg:flex-row lg:flex-wrap">
+        <div class="flex flex-wrap w-full lg:flex-row lg:flex-nowrap">
+          <div :class="['flex flex-col w-full', record && 'lg:w-1/2 p-4']" v-if="recordip">
             <IPAddressPartial :record="recordip" v-if="recordip" />
           </div>
 
-          <Divider layout="vertical" class="hidden md:flex" v-if="recordip" />
+          <Divider layout="vertical" class="hidden lg:flex" v-if="recordip && record" />
 
-          <div class="flex-shrink-0 p-4 w-full grow basis-0">
-            <div class="flex items-center mb-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="40"
-                height="40"
-                class="mr-2"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3,12V6.75L9,5.43V11.91L3,12M20,3V11.75L10,11.9V5.21L20,3M3,13L9,13.09V19.9L3,18.75V13M20,13.25V22L10,20.09V13.1L20,13.25Z"
-                />
-              </svg>
-              <div>
-                <p class="text-base font-normal mb-0">
-                  {{ record?.os ? record?.os?.Caption : '-' }}
-                </p>
-                <p class="text-base font-normal mb-0">
-                  {{ record?.os ? record?.os?.OSArchitecture : '32-bit' }}
-                  {{ record?.os ? record?.os?.Version : '-' }}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex justify-between mb-6">
-              <div class="flex justify-center w-1/3">
-                <div class="flex flex-col">
-                  <div class="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="40"
-                      height="40"
-                      class=""
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M17,17H7V7H17M21,11V9H19V7C19,5.89 18.1,5 17,5H15V3H13V5H11V3H9V5H7C5.89,5 5,5.89 5,7V9H3V11H5V13H3V15H5V17A2,2 0 0,0 7,19H9V21H11V19H13V21H15V19H17A2,2 0 0,0 19,17V15H21V13H19V11M13,13H11V11H13M15,9H9V15H15V9Z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="flex items-center justify-center">
-                    <p>{{ $t('CPU') }}</p>
-                  </div>
-                  <div class="flex items-center justify-center text-center">
-                    <span>
-                      {{ record?.cpu?.Name || '-' }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex justify-center w-1/3">
-                <div class="flex flex-col">
-                  <div class="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="40"
-                      height="40"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M2 7H4.5V17H3V8.5H2M22 7V16H14V17H7V16H6V7M10 9H8V12H10M13 9H11V12H13M20 9H15V14H20V9Z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="flex items-center justify-center">
-                    <p>{{ $t('RAM') }}</p>
-                  </div>
-                  <div class="flex items-center justify-center text-center">
-                    <span>
-                      {{ memorySum(record?.memorychip) }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex justify-center w-1/3">
-                <div class="flex flex-col">
-                  <div class="flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="40"
-                      height="40"
-                      class=""
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M6,2H18A2,2 0 0,1 20,4V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M12,4A6,6 0 0,0 6,10C6,13.31 8.69,16 12.1,16L11.22,13.77C10.95,13.29 11.11,12.68 11.59,12.4L12.45,11.9C12.93,11.63 13.54,11.79 13.82,12.27L15.74,14.69C17.12,13.59 18,11.9 18,10A6,6 0 0,0 12,4M12,9A1,1 0 0,1 13,10A1,1 0 0,1 12,11A1,1 0 0,1 11,10A1,1 0 0,1 12,9M7,18A1,1 0 0,0 6,19A1,1 0 0,0 7,20A1,1 0 0,0 8,19A1,1 0 0,0 7,18M12.09,13.27L14.58,19.58L17.17,18.08L12.95,12.77L12.09,13.27Z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="flex items-center justify-center">
-                    <p>{{ $t('HDD') }}</p>
-                  </div>
-                  <div class="flex items-center justify-center text-center">
-                    <span>
-                      {{ diskSum(record?.diskdrive) }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <table class="mb-2">
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">
-                  {{ $t('Baseboard serial number') }}
-                </td>
-                <td>{{ record?.baseboard?.SerialNumber || '-' }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">
-                  {{ $t('Bios serial number') }}
-                </td>
-                <td>{{ record?.bios?.SerialNumber || '-' }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">
-                  {{ $t('Bios version') }}
-                </td>
-                <td>{{ record?.bios?.Version || '-' }}</td>
-              </tr>
-            </table>
-
-            <table class="mb-2">
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
-                <td>{{ $t('Microsoft Windows') }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('OS Version') }}</td>
-                <td>{{ record?.os?.Version || '-' }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('OS Name') }}</td>
-                <td>{{ record?.os?.Caption || '-' }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('OS Platform') }}</td>
-                <td>{{ record?.os?.OSArchitecture || '32-bit' }}</td>
-              </tr>
-            </table>
-
-            <table>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
-                <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('IP Address') }}</td>
-                <td>{{ record?.host || '-' }}</td>
-              </tr>
-              <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-medium" width="40%">{{ $t('Report date') }}</td>
-                <td>{{ dateTimeToStr(record?.updatedAt) || '-' }}</td>
-              </tr>
-            </table>
+          <div :class="['flex flex-col w-full', recordip && 'lg:w-1/2 p-4']" v-if="record">
+            <SysInspectorPartial :record="record" v-if="record" />
           </div>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.cpu">
+        <div class="w-full my-2 mx-2" v-if="record?.cpu">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -466,7 +308,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.memorychip?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.memorychip?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -518,7 +360,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.diskdrive?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.diskdrive?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -574,7 +416,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.netadapter?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.netadapter?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -645,7 +487,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.display?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.display?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -691,7 +533,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.videoadapter?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.videoadapter?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -746,7 +588,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.sound?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.sound?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -786,7 +628,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.printer?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.printer?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -823,7 +665,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.useraccount?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.useraccount?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -887,7 +729,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.product?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.product?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -940,7 +782,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.share?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.share?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -990,7 +832,7 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="my-2 mx-2" v-if="record?.fixupdate?.length">
+        <div class="w-full my-2 mx-2" v-if="record?.fixupdate?.length">
           <div class="flex items-center mb-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
