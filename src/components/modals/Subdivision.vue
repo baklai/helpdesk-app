@@ -18,22 +18,17 @@ const confirm = useConfirm();
 const { findAllByOrganizationId, createOne, updateOne, removeOne } = useSubdivision();
 const Organization = useOrganization();
 
-const {
-  values,
-  errors,
-  handleSubmit,
-  controlledValues,
-  setValues,
-  resetForm,
-  defineComponentBinds
-} = useForm({
-  validationSchema: yup.object({
-    code: yup.string().required(t('Value is required')),
-    name: yup.string().required(t('Value is required')),
-    organization: yup.string().required(t('Value is required'))
-  }),
-  initialValues: {}
-});
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
+  useForm({
+    validationSchema: yup.object({
+      code: yup.string().required(t('Value is required')),
+      name: yup.string().required(t('Value is required')),
+      organization: yup.string().required(t('Value is required'))
+    }),
+    initialValues: {}
+  });
+
+const emits = defineEmits(['close']);
 
 const visible = ref(true);
 
@@ -59,11 +54,11 @@ const options = ref([
 const organizations = ref([]);
 const subdivisions = ref([]);
 
-const code = defineComponentBinds('code');
-const name = defineComponentBinds('name');
-const address = defineComponentBinds('address');
-const description = defineComponentBinds('description');
-const organization = defineComponentBinds('organization');
+const [code, codeAttrs] = defineField('code');
+const [name, nameAttrs] = defineField('name');
+const [address, addressAttrs] = defineField('address');
+const [description, descriptionAttrs] = defineField('description');
+const [organization, organizationAttrs] = defineField('organization');
 
 const onShowModal = async () => {
   organizations.value = await Organization.findAll({});
@@ -78,17 +73,20 @@ const onSubdivisionsUpdate = async event => {
   }
 };
 
-const onCloseModal = () => {
+const onUpdateRecords = async () => {
   resetForm({ values: {} }, { force: true });
-};
-
-const onRecords = async () => {
   try {
     organizations.value = await Organization.findAll({});
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: t('Records is updated'),
+      life: 3000
+    });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Records not updated'),
       life: 3000
     });
@@ -99,13 +97,21 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('Input new record'),
-    life: 3000
+    life: 5000
   });
 };
 
 const onRemoveRecord = async () => {
+  if (!values?.id) {
+    return toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: t('Record not selected'),
+      life: 5000
+    });
+  }
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('Confirm delete record'),
@@ -114,95 +120,64 @@ const onRemoveRecord = async () => {
     acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (values?.id) {
-        try {
-          await removeOne(values);
-          toast.add({
-            severity: 'success',
-            summary: t('HD Information'),
-            detail: t('Record is removed'),
-            life: 3000
-          });
-        } catch (err) {
-          toast.add({
-            severity: 'warn',
-            summary: t('HD Warning'),
-            detail: t('Record not removed'),
-            life: 3000
-          });
-        } finally {
-          visible.value = false;
-        }
-      } else {
+      try {
+        await removeOne(values);
+        toast.add({
+          severity: 'success',
+          summary: t('Information'),
+          detail: t('Record is removed'),
+          life: 5000
+        });
+      } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not selected'),
-          life: 3000
+          summary: t('Warning'),
+          detail: t('Record not removed'),
+          life: 5000
         });
+      } finally {
+        visible.value = false;
       }
     },
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
-        life: 3000
+        life: 5000
       });
     }
   });
 };
 
-const onUpdateRecords = async () => {
-  resetForm({ values: {} }, { force: true });
-  await onRecords();
-  toast.add({
-    severity: 'success',
-    summary: t('HD Information'),
-    detail: t('Records is updated'),
-    life: 3000
-  });
-};
-
-const onSaveRecord = handleSubmit(async () => {
-  if (values?.id) {
-    try {
+const onSaveRecord = handleSubmit(async values => {
+  try {
+    if (values?.id) {
       await updateOne(values.id, controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not updated'),
-        life: 3000
-      });
-    }
-  } else {
-    try {
+    } else {
       await createOne(controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not created'),
-        life: 3000
-      });
     }
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      life: 5000
+    });
+    visible.value = false;
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      life: 5000
+    });
   }
 });
+
+const onCloseModal = async () => {
+  resetForm({ values: {} }, { force: true });
+  emits('close', {});
+};
 </script>
 
 <template>
@@ -219,7 +194,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     draggable
     v-model:visible="visible"
-    class="!w-[40rem]"
+    class="mx-auto w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[40vw] 2xl:w-[30vw]"
     @show="onShowModal"
     @hide="onCloseModal"
   >
@@ -242,6 +217,7 @@ const onSaveRecord = handleSubmit(async () => {
             text
             plain
             rounded
+            class="h-12 w-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -251,25 +227,30 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-2">
         <label for="organization" class="font-bold">{{ $t('Organization') }}</label>
-        <div class="flex flex-row w-full gap-2">
+        <div class="flex flex-row gap-2">
           <Dropdown
             filter
             showClear
             autofocus
             resetFilterOnHide
-            class="w-full"
             inputId="organization"
             dataKey="id"
             optionValue="id"
             optionLabel="name"
-            v-bind="organization"
+            v-model="organization"
+            v-bind="organizationAttrs"
             :options="organizations"
             :invalid="!!errors?.organization"
             :filterPlaceholder="$t('Search in list')"
             :placeholder="$t('Search in database')"
             :virtualScrollerOptions="{ itemSize: 32 }"
+            :ptOptions="{ mergeSections: true, mergeProps: true }"
+            :pt="{
+              root: { class: ['w-full'] },
+              input: { class: ['!whitespace-normal'] }
+            }"
             @change="onSubdivisionsUpdate"
           >
             <template #option="{ option }">
@@ -281,12 +262,13 @@ const onSaveRecord = handleSubmit(async () => {
 
           <BtnDBTable table="organization" />
         </div>
+
         <small id="organizations-help" class="text-red-500" v-if="errors?.organization">
           {{ $t(errors.organization) }}
         </small>
       </div>
 
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-2">
         <label for="subdivisions" class="font-bold">{{ $t('Subdivision') }}</label>
         <Dropdown
           filter
@@ -295,11 +277,15 @@ const onSaveRecord = handleSubmit(async () => {
           resetFilterOnHide
           inputId="subdivisions"
           optionLabel="name"
-          panelClass="w-5"
           :options="subdivisions"
           :filterPlaceholder="$t('Search in list')"
           :placeholder="$t('Search in database')"
           :virtualScrollerOptions="{ itemSize: 32 }"
+          :ptOptions="{ mergeSections: true, mergeProps: true }"
+          :pt="{
+            root: { class: ['w-full'] },
+            input: { class: ['!whitespace-normal'] }
+          }"
           @change="event => setValues({ ...event.value })"
         >
           <template #option="{ option }">
@@ -313,15 +299,13 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-6" />
 
-    <form
-      @submit.prevent="onSaveRecord"
-      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
-    >
+    <form class="flex flex-col gap-y-4" @submit.prevent="onSaveRecord">
       <div class="flex flex-col gap-2">
         <label for="code" class="font-bold">{{ $t('Subdivision code') }}</label>
         <InputText
           id="code"
-          v-bind="code"
+          v-model="code"
+          v-bind="codeAttrs"
           :placeholder="$t('Subdivision code')"
           :invalid="!!errors?.code"
           aria-describedby="code-help"
@@ -335,7 +319,8 @@ const onSaveRecord = handleSubmit(async () => {
         <label for="name" class="font-bold">{{ $t('Subdivision name') }}</label>
         <InputText
           id="name"
-          v-bind="name"
+          v-model="name"
+          v-bind="nameAttrs"
           :placeholder="$t('Subdivision name')"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
@@ -347,7 +332,12 @@ const onSaveRecord = handleSubmit(async () => {
 
       <div class="flex flex-col gap-2">
         <label for="address" class="font-bold">{{ $t('Subdivision address') }}</label>
-        <InputText id="address" v-bind="address" :placeholder="$t('Subdivision address')" />
+        <InputText
+          id="address"
+          v-model="address"
+          v-bind="addressAttrs"
+          :placeholder="$t('Subdivision address')"
+        />
       </div>
 
       <div class="flex flex-col gap-2">
@@ -355,14 +345,15 @@ const onSaveRecord = handleSubmit(async () => {
         <Textarea
           id="description"
           rows="5"
-          v-bind="description"
+          v-model="description"
+          v-bind="descriptionAttrs"
           :placeholder="$t('Subdivision description')"
         />
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

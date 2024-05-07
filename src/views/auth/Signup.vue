@@ -42,7 +42,7 @@ const onSignup = handleSubmit(async values => {
     await $auth.signup(values);
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t(
         'Your account is registered. Please contact with administrator for activation of account.'
       ),
@@ -51,7 +51,7 @@ const onSignup = handleSubmit(async values => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err.message),
       life: 3000
     });

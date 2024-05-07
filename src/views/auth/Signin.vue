@@ -33,14 +33,14 @@ const onSignin = handleSubmit(async values => {
     await $auth.signin(values);
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Authorization passed'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err.message),
       life: 3000
     });

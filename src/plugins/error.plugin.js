@@ -17,7 +17,7 @@ export default {
       }
       $toast.add({
         severity: 'error',
-        summary: $t('HD Error'),
+        summary: $t('Error'),
         detail: message,
         life: life || DEFAULT_LIFE
       });

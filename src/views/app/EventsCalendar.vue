@@ -101,14 +101,14 @@ const getDataRecords = async () => {
     });
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Records is updated'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Records not updated'),
       life: 3000
     });
@@ -136,14 +136,14 @@ const confirmDelete = ({ id }) => {
         await removeOne({ id });
         toast.add({
           severity: 'success',
-          summary: t('HD Information'),
+          summary: t('Information'),
           detail: t('Record is removed'),
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
+          summary: t('Warning'),
           detail: t('Record not removed'),
           life: 3000
         });
@@ -154,7 +154,7 @@ const confirmDelete = ({ id }) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
         life: 3000
       });
@@ -168,7 +168,7 @@ onMounted(async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err.message),
       life: 3000
     });

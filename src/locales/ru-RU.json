@@ -144,9 +144,9 @@
     }
   },
 
-  "HD Error": "HD Ошибка",
-  "HD Information": "HD Информация",
-  "HD Warning": "HD Предупреждение",
+  "Error": "Ошибка",
+  "Information": "Информация",
+  "Warning": "Предупреждение",
   "Logout successfully completed": "Вы успешно вышли",
   "Sign Out": "Выйти",
   "Sign In": "Войти",

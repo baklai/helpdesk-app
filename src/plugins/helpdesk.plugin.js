@@ -34,7 +34,7 @@ export default {
       notImplemented() {
         $toast.add({
           severity: 'info',
-          summary: $t('HD Information'),
+          summary: $t('Information'),
           detail: $t('This functionality has not yet been implemented'),
           life: 5000
         });

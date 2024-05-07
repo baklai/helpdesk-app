@@ -12,9 +12,9 @@ const { t } = useI18n();
 const toast = useToast();
 
 const { createOne } = useNotice();
-const { find } = useUser();
+const User = useUser();
 
-const { values, errors, handleSubmit, resetForm, defineComponentBinds } = useForm({
+const { values, errors, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
     name: yup.string().required(t('Value is required')),
     text: yup.string().required(t('Value is required')),
@@ -28,7 +28,7 @@ const emits = defineEmits(['close']);
 defineExpose({
   toggle: async () => {
     try {
-      records.value = await find();
+      records.value = await User.find({});
       visible.value = true;
     } catch (err) {
       visible.value = false;
@@ -40,9 +40,9 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const name = defineComponentBinds('name');
-const text = defineComponentBinds('text');
-const users = defineComponentBinds('users');
+const [name, nameAttrs] = defineField('name');
+const [text, textAttrs] = defineField('text');
+const [users, usersAttrs] = defineField('users');
 
 const onSendNotice = handleSubmit(async () => {
   try {
@@ -57,14 +57,14 @@ const onSendNotice = handleSubmit(async () => {
     ];
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('All messages have been sent'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err?.message),
       life: 3000
     });
@@ -80,7 +80,13 @@ const onCloseModal = () => {
 </script>
 
 <template>
-  <Dialog closable draggable v-model:visible="visible" class="!w-[40rem]" @hide="onCloseModal">
+  <Dialog
+    closable
+    draggable
+    v-model:visible="visible"
+    class="mx-auto w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[40vw] 2xl:w-[30vw]"
+    @hide="onCloseModal"
+  >
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
@@ -97,15 +103,13 @@ const onCloseModal = () => {
       </div>
     </template>
 
-    <form
-      @submit.prevent="onSendNotice"
-      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
-    >
+    <form class="flex flex-col gap-y-4" @submit.prevent="onSendNotice">
       <div class="flex flex-col gap-2">
         <label for="name" class="font-bold">{{ $t('Notification name') }}</label>
         <InputText
           id="name"
-          v-bind="name"
+          v-model="name"
+          v-bind="nameAttrs"
           :placeholder="$t('Notification name')"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
@@ -120,7 +124,8 @@ const onCloseModal = () => {
         <Textarea
           rows="5"
           id="text"
-          v-bind="text"
+          v-model="text"
+          v-bind="textAttrs"
           :placeholder="$t('Notification text')"
           :invalid="!!errors?.text"
           aria-describedby="text-help"
@@ -134,7 +139,9 @@ const onCloseModal = () => {
         <label for="users" class="font-bold">{{ $t('Notification users') }}</label>
         <MultiSelect
           id="users"
-          v-bind="users"
+          filter
+          v-model="users"
+          v-bind="usersAttrs"
           :options="records"
           optionLabel="fullname"
           :maxSelectedLabels="3"
@@ -156,7 +163,7 @@ const onCloseModal = () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
       <Button
         text
         plain

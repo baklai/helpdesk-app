@@ -144,9 +144,9 @@
     }
   },
 
-  "HD Error": "HD Помилка",
-  "HD Information": "HD Інформація",
-  "HD Warning": "HD Попередження",
+  "Error": "Помилка",
+  "Information": "Інформація",
+  "Warning": "Попередження",
   "Logout successfully completed": "Вихід успішно завершено",
   "Sign Out": "Вийти",
   "Sign In": "Увійти",

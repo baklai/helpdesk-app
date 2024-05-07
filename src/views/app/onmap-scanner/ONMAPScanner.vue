@@ -221,14 +221,14 @@ const runTargetScan = handleSubmit(async () => {
     });
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Scan is completed'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Scanning interrupted'),
       life: 3000
     });

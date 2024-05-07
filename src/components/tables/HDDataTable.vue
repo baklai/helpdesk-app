@@ -124,7 +124,7 @@ const onRemoveRecord = ({ id }) => {
         await props.onDelete({ id });
         toast.add({
           severity: 'success',
-          summary: t('HD Information'),
+          summary: t('Information'),
           detail: t('Record is removed'),
           life: 3000
         });
@@ -132,7 +132,7 @@ const onRemoveRecord = ({ id }) => {
       } else {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
+          summary: t('Warning'),
           detail: t('Record not selected'),
           life: 3000
         });
@@ -141,7 +141,7 @@ const onRemoveRecord = ({ id }) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
         life: 3000
       });
@@ -161,7 +161,7 @@ const onUpdateRecords = async () => {
     records.value = [];
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err.message),
       life: 3000
     });
@@ -459,14 +459,14 @@ const resetLocalStorage = async () => {
       keyDataTable.value += 1;
       toast.add({
         severity: 'success',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Datatable reset to default'),
         life: 3000
       });
     } catch (err) {
       toast.add({
         severity: 'warn',
-        summary: t('HD Warning'),
+        summary: t('Warning'),
         detail: t('Datatable not reset to default'),
         life: 3000
       });
@@ -490,7 +490,7 @@ onMounted(async () => {
     records.value = [];
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(err.message),
       life: 3000
     });

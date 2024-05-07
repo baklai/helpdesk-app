@@ -21,32 +21,25 @@ const { scopeLength, getDefaultScope, getSelectScope } = useScope();
 
 const emits = defineEmits(['close']);
 
-const {
-  values,
-  errors,
-  handleSubmit,
-  controlledValues,
-  setValues,
-  resetForm,
-  defineComponentBinds
-} = useForm({
-  validationSchema: yup.object({
-    login: yup.string().required(t('Value is required')),
-    fullname: yup.string().required(t('Value is required')),
-    email: yup.string().email().required(t('Value is required')),
-    phone: yup.string().required(t('Value is required'))
-    // password: yup.string().when('$exist', {
-    //   is: exist => exist,
-    //   then: yup.string().min(6).required(t('Value is required')),
-    //   otherwise: yup.string()
-    // })
-  }),
-  initialValues: {
-    isActive: false,
-    isAdmin: false,
-    scope: getDefaultScope()
-  }
-});
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
+  useForm({
+    validationSchema: yup.object({
+      login: yup.string().required(t('Value is required')),
+      fullname: yup.string().required(t('Value is required')),
+      email: yup.string().email().required(t('Value is required')),
+      phone: yup.string().required(t('Value is required'))
+      // password: yup.string().when('$exist', {
+      //   is: exist => exist,
+      //   then: yup.string().min(6).required(t('Value is required')),
+      //   otherwise: yup.string()
+      // })
+    }),
+    initialValues: {
+      isActive: false,
+      isAdmin: false,
+      scope: getDefaultScope()
+    }
+  });
 
 const { fields } = useFieldArray('scope');
 
@@ -81,13 +74,13 @@ defineExpose({
 const readonly = ref(true);
 const visible = ref(false);
 
-const login = defineComponentBinds('login');
-const password = defineComponentBinds('password');
-const fullname = defineComponentBinds('fullname');
-const email = defineComponentBinds('email');
-const phone = defineComponentBinds('phone');
-const isActive = defineComponentBinds('isActive');
-const isAdmin = defineComponentBinds('isAdmin');
+const [login, loginAttrs] = defineField('login');
+const [password, passwordAttrs] = defineField('password');
+const [fullname, fullnameAttrs] = defineField('fullname');
+const [email, emailAttrs] = defineField('email');
+const [phone, phoneAttrs] = defineField('phone');
+const [isActive, isActiveAttrs] = defineField('isActive');
+const [isAdmin, isAdminAttrs] = defineField('isAdmin');
 
 const refMenu = ref();
 const options = ref([
@@ -160,23 +153,25 @@ const selectScopeLength = computed(() => {
   return count;
 });
 
-const onCloseModal = () => {
-  resetForm({ values: {} }, { force: true });
-  readonly.value = true;
-  emits('close', {});
-};
-
 const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('Input new record'),
     life: 3000
   });
 };
 
 const onRemoveRecord = async () => {
+  if (!values?.id) {
+    return toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: t('Record not selected'),
+      life: 5000
+    });
+  }
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('Confirm delete record'),
@@ -185,87 +180,68 @@ const onRemoveRecord = async () => {
     acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (values?.id) {
-        try {
-          await removeOne(values);
-          toast.add({
-            severity: 'success',
-            summary: t('HD Information'),
-            detail: t('Record is removed'),
-            life: 3000
-          });
-        } catch (err) {
-          toast.add({
-            severity: 'warn',
-            summary: t('HD Warning'),
-            detail: t('Record not removed'),
-            life: 3000
-          });
-        } finally {
-          visible.value = false;
-        }
-      } else {
+      try {
+        await removeOne(values);
+        toast.add({
+          severity: 'success',
+          summary: t('Information'),
+          detail: t('Record is removed'),
+          life: 5000
+        });
+      } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not selected'),
-          life: 3000
+          summary: t('Warning'),
+          detail: t('Record not removed'),
+          life: 5000
         });
+      } finally {
+        visible.value = false;
       }
     },
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
-        life: 3000
+        life: 5000
       });
     }
   });
 };
 
 const onSaveRecord = handleSubmit(async () => {
-  if (values?.id) {
-    try {
+  try {
+    if (values?.id) {
       await updateOne(values.id, {
         ...controlledValues.value,
         scope: values.scope
       });
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not updated'),
-        life: 3000
-      });
-    }
-  } else {
-    try {
+    } else {
       await createOne({ ...controlledValues.value, scope: values.scope });
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not created'),
-        life: 3000
-      });
     }
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      life: 5000
+    });
+    visible.value = false;
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      life: 5000
+    });
   }
 });
+
+const onCloseModal = () => {
+  resetForm({ values: {} }, { force: true });
+  readonly.value = true;
+  emits('close', {});
+};
 </script>
 
 <template>
@@ -292,7 +268,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    class="!w-[70rem]"
+    class="mx-auto w-[90vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -314,6 +290,7 @@ const onSaveRecord = handleSubmit(async () => {
             text
             plain
             rounded
+            class="h-12 w-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -323,227 +300,222 @@ const onSaveRecord = handleSubmit(async () => {
     </template>
 
     <form
-      @submit.prevent="onSaveRecord"
-      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
       autocomplete="off"
+      class="flex flex-col gap-y-4 md:flex-row md:flex-wrap"
+      @submit.prevent="onSaveRecord"
     >
-      <div class="flex flex-row gap-x-4">
-        <div class="flex flex-col basis-1/3 gap-y-4">
-          <div class="flex flex-col gap-2">
-            <label for="login" class="font-bold">{{ $t('User login') }}</label>
-            <InputText
-              id="login"
-              :readonly="readonly"
-              v-bind="login"
-              :placeholder="$t('User login')"
-              :invalid="!!errors?.login"
-              aria-describedby="login-help"
-            />
-            <small id="login-help" class="text-red-500" v-if="errors?.login">
-              {{ $t(errors.login) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="password" class="font-bold">
-              {{ $t('User password') }}
-            </label>
-            <Password
-              toggleMask
-              :readonly="readonly"
-              id="password"
-              v-bind="password"
-              :placeholder="$t('User password')"
-              :promptLabel="$t('Choose a password')"
-              :weakLabel="$t('Too simple')"
-              :mediumLabel="$t('Average complexity')"
-              :strongLabel="$t('Complex password')"
-              :invalid="!!errors?.password"
-              aria-describedby="password-help"
-            >
-              <template #header>
-                <h6>{{ $t('Pick a password') }}</h6>
-              </template>
-              <template #footer>
-                <Divider />
-                <p class="mt-2">{{ $t('Suggestions') }}</p>
-                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                  <li>{{ $t('At least one lowercase') }}</li>
-                  <li>{{ $t('At least one uppercase') }}</li>
-                  <li>{{ $t('At least one numeric') }}</li>
-                  <li>{{ $t('Minimum 6 characters') }}</li>
-                </ul>
-              </template>
-            </Password>
-            <small id="password-help" class="text-red-500" v-if="errors?.password">
-              {{ $t(errors.password) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
-            <InputText
-              id="fullname"
-              v-bind="fullname"
-              :placeholder="$t('User name')"
-              :invalid="!!errors?.fullname"
-              aria-describedby="fullname-help"
-            />
-            <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
-              {{ $t(errors.fullname) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="email" class="font-bold">{{ $t('User email') }}</label>
-            <InputText
-              id="email"
-              v-bind="email"
-              :placeholder="$t('User email')"
-              :invalid="!!errors?.email"
-              aria-describedby="email-help"
-            />
-            <small id="email-help" class="text-red-500" v-if="errors?.email">
-              {{ $t(errors.email) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
-            <InputMask
-              date="phone"
-              mask="+99(999)999-99-99"
-              placeholder="+99(999)999-99-99"
-              id="phone"
-              v-bind="phone"
-              :invalid="!!errors?.phone"
-              aria-describedby="phone-help"
-            />
-            <small id="phone-help" class="text-red-500" v-if="errors?.phone">
-              {{ $t(errors.phone) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <div class="flex items-center">
-              <Checkbox inputId="isActive" binary v-bind="isActive" />
-              <label for="isActive" class="font-bold ml-2">
-                {{ $t('Activated account') }}
-              </label>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <div class="flex items-center">
-              <Checkbox inputId="isAdmin" binary v-bind="isAdmin" />
-              <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
-            </div>
-          </div>
+      <div class="flex flex-col space-y-4 md:!w-1/3 md:pr-2">
+        <div class="flex flex-col gap-2">
+          <label for="login" class="font-bold">{{ $t('User login') }}</label>
+          <InputText
+            id="login"
+            :readonly="readonly"
+            v-model="login"
+            v-bind="loginAttrs"
+            :placeholder="$t('User login')"
+            :invalid="!!errors?.login"
+            aria-describedby="login-help"
+          />
+          <small id="login-help" class="text-red-500" v-if="errors?.login">
+            {{ $t(errors.login) }}
+          </small>
         </div>
 
-        <div class="flex flex-col basis-2/3 gap-y-4">
-          <DataTable
-            rowHover
-            scrollable
-            scrollHeight="flex"
-            responsiveLayout="scroll"
-            :value="fields"
-            v-model:filters="filters"
-            :globalFilterFields="['scope']"
-            class="min-w-full overflow-x-auto"
-            style="height: calc(400px)"
+        <div class="flex flex-col gap-2">
+          <label for="password" class="font-bold">
+            {{ $t('User password') }}
+          </label>
+          <Password
+            toggleMask
+            :readonly="readonly"
+            id="password"
+            v-model="password"
+            v-bind="passwordAttrs"
+            :placeholder="$t('User password')"
+            :promptLabel="$t('Choose a password')"
+            :weakLabel="$t('Too simple')"
+            :mediumLabel="$t('Average complexity')"
+            :strongLabel="$t('Complex password')"
+            :invalid="!!errors?.password"
+            aria-describedby="password-help"
           >
             <template #header>
-              <div class="flex flex-wrap gap-4 items-center justify-between">
-                <div class="flex flex-wrap gap-2 items-center">
-                  <i class="pi pi-unlock text-2xl mr-2"></i>
-                  <div>
-                    <p>
-                      {{ $t('Scope list') }}
-                    </p>
-                    <small class="text-surface-500">
-                      {{ $t('Select scopes', [selectScopeLength, scopeLength()]) }}
-                    </small>
-                  </div>
-                </div>
-                <div class="flex gap-2 items-center justify-between sm:w-max w-full">
-                  <span class="relative sm:w-max w-full">
-                    <i
-                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-                    />
-                    <InputText
-                      id="name"
-                      class="sm:w-max w-full px-10 !bg-inherit"
-                      :placeholder="$t('Search')"
-                      v-model="filters['global'].value"
-                    />
-                    <i
-                      v-show="!!filters['global'].value"
-                      class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
-                      v-tooltip.bottom="$t('Clear filter')"
-                      @click="filters['global'].value = null"
-                    />
-                  </span>
-
-                  <div class="flex gap-2 justify-between">
-                    <Button
-                      text
-                      plain
-                      rounded
-                      icon="pi pi-cog"
-                      iconClass="text-2xl"
-                      class="h-12 w-12"
-                      v-tooltip.bottom="$t('Scope option')"
-                      @click="event => refSelectMenu.toggle(event)"
-                    />
-                  </div>
-                </div>
-              </div>
+              <h6>{{ $t('Pick a password') }}</h6>
             </template>
-
-            <template #empty>
-              <div class="text-center">
-                <h5>{{ $t('No records found') }}</h5>
-                <p>{{ $t('Try changing the search terms in the filter') }}</p>
-              </div>
+            <template #footer>
+              <Divider />
+              <p class="mt-2">{{ $t('Suggestions') }}</p>
+              <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                <li>{{ $t('At least one lowercase') }}</li>
+                <li>{{ $t('At least one uppercase') }}</li>
+                <li>{{ $t('At least one numeric') }}</li>
+                <li>{{ $t('Minimum 6 characters') }}</li>
+              </ul>
             </template>
-
-            <Column
-              frozen
-              field="scope"
-              filterField="scope"
-              :header="$t('Scope')"
-              class="font-bold"
-            >
-              <template #body="{ data }">
-                {{ data.value.comment }}
-              </template>
-            </Column>
-
-            <Column
-              v-for="col of columns"
-              :key="col.field"
-              :field="col.field"
-              :header="col.header"
-              headerClass="text-center"
-              class="text-center"
-            >
-              <template #body="{ data, field }">
-                <Checkbox
-                  v-model="data.value[field]"
-                  :binary="true"
-                  v-if="data.value[field] !== undefined"
-                />
-                <span v-else class="text-surface-500">-</span>
-              </template>
-            </Column>
-          </DataTable>
+          </Password>
+          <small id="password-help" class="text-red-500" v-if="errors?.password">
+            {{ $t(errors.password) }}
+          </small>
         </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
+          <InputText
+            id="fullname"
+            v-model="fullname"
+            v-bind="fullnameAttrs"
+            :placeholder="$t('User name')"
+            :invalid="!!errors?.fullname"
+            aria-describedby="fullname-help"
+          />
+          <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
+            {{ $t(errors.fullname) }}
+          </small>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="email" class="font-bold">{{ $t('User email') }}</label>
+          <InputText
+            id="email"
+            v-model="email"
+            v-bind="emailAttrs"
+            :placeholder="$t('User email')"
+            :invalid="!!errors?.email"
+            aria-describedby="email-help"
+          />
+          <small id="email-help" class="text-red-500" v-if="errors?.email">
+            {{ $t(errors.email) }}
+          </small>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
+          <InputMask
+            date="phone"
+            mask="+99(999)999-99-99"
+            placeholder="+99(999)999-99-99"
+            id="phone"
+            v-model="phone"
+            v-bind="phoneAttrs"
+            :invalid="!!errors?.phone"
+            aria-describedby="phone-help"
+          />
+          <small id="phone-help" class="text-red-500" v-if="errors?.phone">
+            {{ $t(errors.phone) }}
+          </small>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center">
+            <Checkbox inputId="isActive" binary v-model="isActive" v-bind="isActiveAttrs" />
+            <label for="isActive" class="font-bold ml-2">
+              {{ $t('Activated account') }}
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center">
+            <Checkbox inputId="isAdmin" binary v-model="isAdmin" v-bind="isAdminAttrs" />
+            <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col space-y-4 md:!w-2/3 md:pl-2">
+        <DataTable
+          rowHover
+          scrollable
+          scrollHeight="flex"
+          responsiveLayout="scroll"
+          :value="fields"
+          v-model:filters="filters"
+          :globalFilterFields="['scope']"
+          class="min-w-full overflow-x-auto"
+          style="height: calc(400px)"
+        >
+          <template #header>
+            <div class="flex flex-wrap gap-4 items-center justify-between">
+              <div class="flex flex-wrap gap-2 items-center">
+                <i class="pi pi-unlock text-2xl mr-2"></i>
+                <div>
+                  <p>
+                    {{ $t('Scope list') }}
+                  </p>
+                  <small class="text-surface-500">
+                    {{ $t('Select scopes', [selectScopeLength, scopeLength()]) }}
+                  </small>
+                </div>
+              </div>
+              <div class="flex gap-2 items-center justify-between sm:w-max w-full">
+                <span class="relative sm:w-max w-full">
+                  <i
+                    class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                  />
+                  <InputText
+                    id="name"
+                    class="sm:w-max w-full px-10 !bg-inherit"
+                    :placeholder="$t('Search')"
+                    v-model="filters['global'].value"
+                  />
+                  <i
+                    v-show="!!filters['global'].value"
+                    class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
+                    v-tooltip.bottom="$t('Clear filter')"
+                    @click="filters['global'].value = null"
+                  />
+                </span>
+
+                <div class="flex gap-2 justify-between">
+                  <Button
+                    text
+                    plain
+                    icon="pi pi-cog"
+                    class="h-12 w-12 text-2xl"
+                    v-tooltip.bottom="$t('Scope option')"
+                    @click="event => refSelectMenu.toggle(event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template #empty>
+            <div class="text-center">
+              <h5>{{ $t('No records found') }}</h5>
+              <p>{{ $t('Try changing the search terms in the filter') }}</p>
+            </div>
+          </template>
+
+          <Column frozen field="scope" filterField="scope" :header="$t('Scope')" class="font-bold">
+            <template #body="{ data }">
+              {{ data.value.comment }}
+            </template>
+          </Column>
+
+          <Column
+            v-for="col of columns"
+            :key="col.field"
+            :field="col.field"
+            :header="col.header"
+            headerClass="text-center"
+            class="text-center"
+          >
+            <template #body="{ data, field }">
+              <Checkbox
+                v-model="data.value[field]"
+                :binary="true"
+                v-if="data.value[field] !== undefined"
+              />
+              <span v-else class="text-surface-500">-</span>
+            </template>
+          </Column>
+        </DataTable>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

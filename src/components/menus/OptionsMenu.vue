@@ -131,14 +131,14 @@ const copyIPtoClipboard = async value => {
     await Clipboard.copy(value);
     toast.add({
       severity: 'info',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t(`IP ${value} copied to clipboard`),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(`IP ${value} not copied to clipboard`),
       life: 3000
     });
@@ -149,7 +149,7 @@ const onPINGCommand = async value => {
   try {
     toast.add({
       severity: 'info',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t(`ICMP Ping running on ${value}`),
       life: 3000
     });
@@ -165,7 +165,7 @@ const onPINGCommand = async value => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t(`ICMP Ping on ${value} does not answer`)
     });
   }
@@ -179,7 +179,7 @@ const getPINGLink = async value => {
   link.setAttribute('download', `PING_${value}.cmd`);
   toast.add({
     severity: 'info',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('PING File created'),
     life: 3000
   });
@@ -194,7 +194,7 @@ const getRDPLink = async value => {
   link.setAttribute('download', `RDP_${value}.rdp`);
   toast.add({
     severity: 'info',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('RDP File created'),
     life: 3000
   });
@@ -209,7 +209,7 @@ const getVNClink = async value => {
   link.setAttribute('download', `VNC_${value}.vnc`);
   toast.add({
     severity: 'info',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('VNC File created'),
     life: 3000
   });

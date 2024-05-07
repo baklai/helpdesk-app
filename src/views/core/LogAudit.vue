@@ -220,7 +220,7 @@ const confirmDeleteAll = () => {
       await refDataTable.value.update({});
       toast.add({
         severity: 'success',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('All records deleted'),
         life: 3000
       });
@@ -228,7 +228,7 @@ const confirmDeleteAll = () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Records deletion not confirmed'),
         life: 3000
       });

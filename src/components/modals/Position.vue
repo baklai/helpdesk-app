@@ -14,26 +14,17 @@ const confirm = useConfirm();
 
 const { findAll, createOne, updateOne, removeOne } = usePosition();
 
-const {
-  values,
-  errors,
-  handleSubmit,
-  controlledValues,
-  setValues,
-  resetForm,
-  defineComponentBinds
-} = useForm({
-  validationSchema: yup.object({
-    name: yup.string().required(t('Value is required'))
-  }),
-  initialValues: {}
-});
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
+  useForm({
+    validationSchema: yup.object({
+      name: yup.string().required(t('Value is required'))
+    }),
+    initialValues: {}
+  });
+
+const emits = defineEmits(['close']);
 
 const visible = ref(true);
-
-const records = ref([]);
-
-const name = defineComponentBinds('name');
 
 const refMenu = ref();
 const options = ref([
@@ -54,21 +45,28 @@ const options = ref([
   }
 ]);
 
+const records = ref([]);
+
+const [name, nameAttrs] = defineField('name');
+
 const onShowModal = async () => {
   records.value = await findAll({});
 };
 
-const onCloseModal = () => {
+const onUpdateRecords = async () => {
   resetForm({ values: {} }, { force: true });
-};
-
-const onRecords = async () => {
   try {
     records.value = await findAll({});
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: t('Records is updated'),
+      life: 3000
+    });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Records not updated'),
       life: 3000
     });
@@ -79,13 +77,21 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('Input new record'),
-    life: 3000
+    life: 5000
   });
 };
 
 const onRemoveRecord = async () => {
+  if (!values?.id) {
+    return toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: t('Record not selected'),
+      life: 5000
+    });
+  }
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('Confirm delete record'),
@@ -94,95 +100,64 @@ const onRemoveRecord = async () => {
     acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (values?.id) {
-        try {
-          await removeOne(values);
-          toast.add({
-            severity: 'success',
-            summary: t('HD Information'),
-            detail: t('Record is removed'),
-            life: 3000
-          });
-        } catch (err) {
-          toast.add({
-            severity: 'warn',
-            summary: t('HD Warning'),
-            detail: t('Record not removed'),
-            life: 3000
-          });
-        } finally {
-          visible.value = false;
-        }
-      } else {
+      try {
+        await removeOne(values);
+        toast.add({
+          severity: 'success',
+          summary: t('Information'),
+          detail: t('Record is removed'),
+          life: 5000
+        });
+      } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not selected'),
-          life: 3000
+          summary: t('Warning'),
+          detail: t('Record not removed'),
+          life: 5000
         });
+      } finally {
+        visible.value = false;
       }
     },
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
-        life: 3000
+        life: 5000
       });
     }
   });
 };
 
-const onUpdateRecords = async () => {
-  resetForm({ values: {} }, { force: true });
-  await onRecords();
-  toast.add({
-    severity: 'success',
-    summary: t('HD Information'),
-    detail: t('Records is updated'),
-    life: 3000
-  });
-};
-
-const onSaveRecord = handleSubmit(async () => {
-  if (values?.id) {
-    try {
+const onSaveRecord = handleSubmit(async values => {
+  try {
+    if (values?.id) {
       await updateOne(values.id, controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not updated'),
-        life: 3000
-      });
-    }
-  } else {
-    try {
+    } else {
       await createOne(controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not created'),
-        life: 3000
-      });
     }
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      life: 5000
+    });
+    visible.value = false;
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      life: 5000
+    });
   }
 });
+
+const onCloseModal = async () => {
+  resetForm({ values: {} }, { force: true });
+  emits('close', {});
+};
 </script>
 
 <template>
@@ -199,7 +174,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     draggable
     v-model:visible="visible"
-    class="!w-[40rem]"
+    class="mx-auto w-[90vw] md:w-[50vw] lg:w-[45vw] xl:w-[35vw] 2xl:w-[25vw]"
     @show="onShowModal"
     @hide="onCloseModal"
   >
@@ -222,8 +197,8 @@ const onSaveRecord = handleSubmit(async () => {
             text
             plain
             rounded
+            class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            class="mx-2"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
           />
@@ -245,15 +220,13 @@ const onSaveRecord = handleSubmit(async () => {
 
     <Divider type="solid" class="my-6" />
 
-    <form
-      @submit.prevent="onSaveRecord"
-      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
-    >
+    <form class="flex flex-col gap-y-4" @submit.prevent="onSaveRecord">
       <div class="flex flex-col gap-2">
         <label for="name" class="font-bold">{{ $t('Position name') }}</label>
         <InputText
           id="name"
-          v-bind="name"
+          v-model="name"
+          v-bind="nameAttrs"
           :placeholder="$t('Position name')"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
@@ -265,7 +238,7 @@ const onSaveRecord = handleSubmit(async () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
+      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
     </template>
   </Dialog>

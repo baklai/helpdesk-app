@@ -23,7 +23,7 @@ const onRecords = async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Records not updated'),
       life: 3000
     });
@@ -35,14 +35,14 @@ const onRemoveRecord = async id => {
     await removeOne({ id });
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Record is removed'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Record not removed'),
       life: 3000
     });

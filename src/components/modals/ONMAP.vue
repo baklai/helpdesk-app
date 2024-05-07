@@ -1,6 +1,6 @@
 <script setup>
 import html2pdf from 'html2pdf.js';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
@@ -13,7 +13,7 @@ const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const Onmap = useOnmap();
+const { findOne, removeOne } = useOnmap();
 
 const emits = defineEmits(['close']);
 
@@ -21,7 +21,7 @@ defineExpose({
   toggle: async ({ id }) => {
     if (id) {
       try {
-        record.value = await Onmap.findOne({ id });
+        record.value = await findOne({ id });
         visible.value = true;
       } catch (err) {
         visible.value = false;
@@ -31,8 +31,6 @@ defineExpose({
 });
 
 const visible = ref(false);
-
-const record = ref(null);
 
 const refMenu = ref();
 const options = ref([
@@ -48,58 +46,7 @@ const options = ref([
   }
 ]);
 
-const onCloseModal = () => {
-  record.value = null;
-  emits('close', {});
-};
-
-const onRemoveRecord = async () => {
-  confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
-    icon: 'pi pi-question',
-    acceptIcon: 'pi pi-check',
-    acceptClass: '',
-    rejectIcon: 'pi pi-times',
-    accept: async () => {
-      if (record.value?.id) {
-        try {
-          await Onmap.removeOne(record.value);
-          toast.add({
-            severity: 'success',
-            summary: t('HD Information'),
-            detail: t('Record is removed'),
-            life: 3000
-          });
-        } catch (err) {
-          toast.add({
-            severity: 'warn',
-            summary: t('HD Warning'),
-            detail: t('Record not removed'),
-            life: 3000
-          });
-        } finally {
-          visible.value = false;
-        }
-      } else {
-        toast.add({
-          severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not selected'),
-          life: 3000
-        });
-      }
-    },
-    reject: () => {
-      toast.add({
-        severity: 'info',
-        summary: t('HD Information'),
-        detail: t('Record deletion not confirmed'),
-        life: 3000
-      });
-    }
-  });
-};
+const record = ref(null);
 
 const onSaveReport = () => {
   try {
@@ -120,14 +67,14 @@ const onSaveReport = () => {
 
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Report created successfully'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('An unexpected error has occurred'),
       life: 3000
     });
@@ -145,7 +92,57 @@ const scrollTo = href => {
   }
 };
 
-onMounted(() => {});
+const onRemoveRecord = async () => {
+  if (!record.value?.id) {
+    return toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: t('Record not selected'),
+      life: 5000
+    });
+  }
+  confirm.require({
+    message: t('Do you want to delete this record?'),
+    header: t('Confirm delete record'),
+    icon: 'pi pi-question',
+    acceptIcon: 'pi pi-check',
+    acceptClass: '',
+    rejectIcon: 'pi pi-times',
+    accept: async () => {
+      try {
+        await removeOne(record.value);
+        toast.add({
+          severity: 'success',
+          summary: t('Information'),
+          detail: t('Record is removed'),
+          life: 5000
+        });
+      } catch (err) {
+        toast.add({
+          severity: 'warn',
+          summary: t('Warning'),
+          detail: t('Record not removed'),
+          life: 5000
+        });
+      } finally {
+        visible.value = false;
+      }
+    },
+    reject: () => {
+      toast.add({
+        severity: 'info',
+        summary: t('Information'),
+        detail: t('Record deletion not confirmed'),
+        life: 5000
+      });
+    }
+  });
+};
+
+const onCloseModal = async () => {
+  record.value = null;
+  emits('close', {});
+};
 </script>
 
 <template>
@@ -164,7 +161,7 @@ onMounted(() => {});
     dismissableMask
     :draggable="false"
     v-model:visible="visible"
-    class="!w-[80rem]"
+    class="mx-auto w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -185,11 +182,12 @@ onMounted(() => {});
           </div>
         </div>
 
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center">
           <Button
             text
             plain
             rounded
+            class="h-12 w-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -334,7 +332,7 @@ onMounted(() => {});
     </template>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Close')" @click="visible = false" />
+      <Button text plain icon="pi pi-times" :label="$t('Close')" @click="visible = !visible" />
       <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveReport" />
     </template>
   </Dialog>

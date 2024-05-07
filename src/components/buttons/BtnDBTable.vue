@@ -62,9 +62,13 @@ const datatables = ref({
 <template>
   <Button
     outlined
-    size="small"
-    severity="secondary"
-    icon="pi pi-plus text-base font-semibold"
+    icon="pi pi-plus"
+    :class="[
+      'w-12 min-h-12 h-fill min-w-12',
+      'text-surface-500 dark:text-surface-300',
+      'border-surface-300 dark:border-surface-600',
+      'hover:bg-surface-300/20 hover:dark:bg-surface-600/20'
+    ]"
     v-tooltip.bottom="$t(datatables[table].label)"
     @click="datatables[table].command"
     v-if="table && datatables[table]"

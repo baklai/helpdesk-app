@@ -59,7 +59,7 @@ export default {
         $router.push({ name: 'signin' });
         $toast.add({
           severity: 'info',
-          summary: $t('HD Information'),
+          summary: $t('Information'),
           detail: $t('Logout successfully completed'),
           life: 3000
         });

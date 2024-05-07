@@ -14,29 +14,22 @@ const confirm = useConfirm();
 
 const { findOne, createOne, updateOne, removeOne } = useChannel();
 
-const {
-  values,
-  errors,
-  handleSubmit,
-  controlledValues,
-  setValues,
-  resetForm,
-  defineComponentBinds
-} = useForm({
-  validationSchema: yup.object({
-    locationFrom: yup.string().required(t('Value is required')),
-    unitFrom: yup.string().required(t('Value is required')),
-    locationTo: yup.string().required(t('Value is required')),
-    unitTo: yup.string().required(t('Value is required')),
-    level: yup.string().required(t('Value is required')),
-    type: yup.string().required(t('Value is required')),
-    speed: yup.string().required(t('Value is required')),
-    status: yup.string().required(t('Value is required')),
-    operator: yup.string().required(t('Value is required')),
-    composition: yup.string().required(t('Value is required'))
-  }),
-  initialValues: {}
-});
+const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
+  useForm({
+    validationSchema: yup.object({
+      locationFrom: yup.string().required(t('Value is required')),
+      unitFrom: yup.string().required(t('Value is required')),
+      locationTo: yup.string().required(t('Value is required')),
+      unitTo: yup.string().required(t('Value is required')),
+      level: yup.string().required(t('Value is required')),
+      type: yup.string().required(t('Value is required')),
+      speed: yup.string().required(t('Value is required')),
+      status: yup.string().required(t('Value is required')),
+      operator: yup.string().required(t('Value is required')),
+      composition: yup.string().required(t('Value is required'))
+    }),
+    initialValues: {}
+  });
 
 const emits = defineEmits(['close']);
 
@@ -54,17 +47,6 @@ defineExpose({
 });
 
 const visible = ref(false);
-
-const locationFrom = defineComponentBinds('locationFrom');
-const unitFrom = defineComponentBinds('unitFrom');
-const locationTo = defineComponentBinds('locationTo');
-const unitTo = defineComponentBinds('unitTo');
-const level = defineComponentBinds('level');
-const type = defineComponentBinds('type');
-const speed = defineComponentBinds('speed');
-const status = defineComponentBinds('status');
-const operator = defineComponentBinds('operator');
-const composition = defineComponentBinds('composition');
 
 const refMenu = ref();
 const options = ref([
@@ -85,22 +67,36 @@ const options = ref([
   }
 ]);
 
-const onCloseModal = () => {
-  resetForm({ values: {} }, { force: true });
-  emits('close', {});
-};
+const [locationFrom, locationFromAttrs] = defineField('locationFrom');
+const [unitFrom, unitFromAttrs] = defineField('unitFrom');
+const [locationTo, locationToAttrs] = defineField('locationTo');
+const [unitTo, unitToAttrs] = defineField('unitTo');
+const [level, levelAttrs] = defineField('level');
+const [type, typeAttrs] = defineField('type');
+const [speed, speedAttrs] = defineField('speed');
+const [status, statusAttrs] = defineField('status');
+const [operator, operatorAttrs] = defineField('operator');
+const [composition, compositionAttrs] = defineField('composition');
 
 const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('HD Information'),
+    summary: t('Information'),
     detail: t('Input new record'),
-    life: 3000
+    life: 5000
   });
 };
 
 const onRemoveRecord = async () => {
+  if (!values?.id) {
+    return toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: t('Record not selected'),
+      life: 5000
+    });
+  }
   confirm.require({
     message: t('Do you want to delete this record?'),
     header: t('Confirm delete record'),
@@ -109,84 +105,64 @@ const onRemoveRecord = async () => {
     acceptClass: '',
     rejectIcon: 'pi pi-times',
     accept: async () => {
-      if (values?.id) {
-        try {
-          await removeOne(values);
-          toast.add({
-            severity: 'success',
-            summary: t('HD Information'),
-            detail: t('Record is removed'),
-            life: 3000
-          });
-        } catch (err) {
-          toast.add({
-            severity: 'warn',
-            summary: t('HD Warning'),
-            detail: t('Record not removed'),
-            life: 3000
-          });
-        } finally {
-          visible.value = false;
-        }
-      } else {
+      try {
+        await removeOne(values);
+        toast.add({
+          severity: 'success',
+          summary: t('Information'),
+          detail: t('Record is removed'),
+          life: 5000
+        });
+      } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
-          detail: t('Record not selected'),
-          life: 3000
+          summary: t('Warning'),
+          detail: t('Record not removed'),
+          life: 5000
         });
+      } finally {
+        visible.value = false;
       }
     },
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
-        life: 3000
+        life: 5000
       });
     }
   });
 };
 
-const onSaveRecord = handleSubmit(async () => {
-  if (values?.id) {
-    try {
+const onSaveRecord = handleSubmit(async values => {
+  try {
+    if (values?.id) {
       await updateOne(values.id, controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is updated'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not updated'),
-        life: 3000
-      });
-    }
-  } else {
-    try {
+    } else {
       await createOne(controlledValues.value);
-      visible.value = false;
-      toast.add({
-        severity: 'success',
-        summary: t('HD Information'),
-        detail: t('Record is created'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('HD Warning'),
-        detail: t('Record not created'),
-        life: 3000
-      });
     }
+    toast.add({
+      severity: 'success',
+      summary: t('Information'),
+      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      life: 5000
+    });
+    visible.value = false;
+  } catch (err) {
+    toast.add({
+      severity: 'warn',
+      summary: t('Warning'),
+      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      life: 5000
+    });
   }
 });
+
+const onCloseModal = async () => {
+  resetForm({ values: {} }, { force: true });
+  emits('close', {});
+};
 </script>
 
 <template>
@@ -204,7 +180,7 @@ const onSaveRecord = handleSubmit(async () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    class="!w-[50rem]"
+    class="mx-auto w-[90vw] md:w-[80vw] lg:w-[60vw] xl:w-[50vw] 2xl:w-[40vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -226,6 +202,7 @@ const onSaveRecord = handleSubmit(async () => {
             text
             plain
             rounded
+            class="h-12 w-12"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Options menu')"
             @click="event => refMenu.toggle(event)"
@@ -234,78 +211,78 @@ const onSaveRecord = handleSubmit(async () => {
       </div>
     </template>
 
-    <form
-      @submit.prevent="onSaveRecord"
-      class="flex flex-col justify-center gap-3 text-surface-800 dark:text-surface-100"
-    >
-      <div class="flex flex-row gap-x-2">
-        <div class="flex flex-col basis-1/2 gap-y-2">
-          <div class="flex flex-col gap-2">
-            <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
-            <InputText
-              id="locationFrom"
-              v-bind="locationFrom"
-              :placeholder="$t('Location start')"
-              :invalid="!!errors?.locationFrom"
-              aria-describedby="locationFrom-help"
-            />
-            <small id="locationFrom-help" class="text-red-500" v-if="errors?.locationFrom">
-              {{ $t(errors.locationFrom) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
-            <InputText
-              id="unitFrom"
-              v-bind="unitFrom"
-              :placeholder="$t('Unit start')"
-              :invalid="!!errors?.unitFrom"
-              aria-describedby="unitFrom-help"
-            />
-            <small id="unitFrom-help" class="text-red-500" v-if="errors?.unitFrom">
-              {{ $t(errors.unitFrom) }}
-            </small>
-          </div>
+    <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
+      <div class="flex flex-col space-y-4 md:!w-1/2 md:pr-2">
+        <div class="flex flex-col gap-2">
+          <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
+          <InputText
+            id="locationFrom"
+            v-model="locationFrom"
+            v-bind="locationFromAttrs"
+            :placeholder="$t('Location start')"
+            :invalid="!!errors?.locationFrom"
+            aria-describedby="locationFrom-help"
+          />
+          <small id="locationFrom-help" class="text-red-500" v-if="errors?.locationFrom">
+            {{ $t(errors.locationFrom) }}
+          </small>
         </div>
 
-        <div class="flex flex-col basis-1/2 gap-y-2">
-          <div class="flex flex-col gap-2">
-            <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
-            <InputText
-              id="locationTo"
-              v-bind="locationTo"
-              :placeholder="$t('Location end')"
-              :invalid="!!errors?.locationTo"
-              aria-describedby="locationTo-help"
-            />
-            <small id="locationTo-help" class="text-red-500" v-if="errors?.locationTo">
-              {{ $t(errors.locationTo) }}
-            </small>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
-            <InputText
-              id="unitTo"
-              v-bind="unitTo"
-              :placeholder="$t('Unit end')"
-              :invalid="!!errors?.unitTo"
-              aria-describedby="unitTo-help"
-            />
-            <small id="unitTo-help" class="text-red-500" v-if="errors?.unitTo">
-              {{ $t(errors.unitTo) }}
-            </small>
-          </div>
+        <div class="flex flex-col gap-2">
+          <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
+          <InputText
+            id="unitFrom"
+            v-model="unitFrom"
+            v-bind="unitFromAttrs"
+            :placeholder="$t('Unit start')"
+            :invalid="!!errors?.unitFrom"
+            aria-describedby="unitFrom-help"
+          />
+          <small id="unitFrom-help" class="text-red-500" v-if="errors?.unitFrom">
+            {{ $t(errors.unitFrom) }}
+          </small>
         </div>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col space-y-4 md:!w-1/2 md:pl-2">
+        <div class="flex flex-col gap-2">
+          <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
+          <InputText
+            id="locationTo"
+            v-model="locationTo"
+            v-bind="locationToAttrs"
+            :placeholder="$t('Location end')"
+            :invalid="!!errors?.locationTo"
+            aria-describedby="locationTo-help"
+          />
+          <small id="locationTo-help" class="text-red-500" v-if="errors?.locationTo">
+            {{ $t(errors.locationTo) }}
+          </small>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
+          <InputText
+            id="unitTo"
+            v-model="unitTo"
+            v-bind="unitToAttrs"
+            :placeholder="$t('Unit end')"
+            :invalid="!!errors?.unitTo"
+            aria-describedby="unitTo-help"
+          />
+          <small id="unitTo-help" class="text-red-500" v-if="errors?.unitTo">
+            {{ $t(errors.unitTo) }}
+          </small>
+        </div>
+      </div>
+
+      <div class="flex flex-col w-full space-y-4">
         <div class="flex flex-col gap-2">
           <label for="level" class="font-bold">{{ $t('Level') }}</label>
           <InputText
             id="level"
-            v-bind="level"
+            v-model="level"
+            v-bind="levelAttrs"
             :placeholder="$t('Level')"
             :invalid="!!errors?.level"
             aria-describedby="level-help"
@@ -319,7 +296,8 @@ const onSaveRecord = handleSubmit(async () => {
           <label for="type" class="font-bold">{{ $t('Type') }}</label>
           <InputText
             id="type"
-            v-bind="type"
+            v-model="type"
+            v-bind="typeAttrs"
             :placeholder="$t('Type')"
             :invalid="!!errors?.type"
             aria-describedby="type-help"
@@ -333,7 +311,8 @@ const onSaveRecord = handleSubmit(async () => {
           <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
           <InputText
             id="speed"
-            v-bind="speed"
+            v-model="speed"
+            v-bind="speedAttrs"
             :placeholder="$t('Speed')"
             :invalid="!!errors?.speed"
             aria-describedby="speed-help"
@@ -347,7 +326,8 @@ const onSaveRecord = handleSubmit(async () => {
           <label for="status" class="font-bold">{{ $t('Status') }}</label>
           <InputText
             id="status"
-            v-bind="status"
+            v-model="status"
+            v-bind="statusAttrs"
             :placeholder="$t('Status')"
             :invalid="!!errors?.status"
             aria-describedby="status-help"
@@ -361,7 +341,8 @@ const onSaveRecord = handleSubmit(async () => {
           <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
           <InputText
             id="operator"
-            v-bind="operator"
+            v-model="operator"
+            v-bind="operatorAttrs"
             :placeholder="$t('Operator')"
             :invalid="!!errors?.operator"
             aria-describedby="operator-help"
@@ -376,7 +357,8 @@ const onSaveRecord = handleSubmit(async () => {
           <Textarea
             rows="5"
             id="composition"
-            v-bind="composition"
+            v-model="composition"
+            v-bind="compositionAttrs"
             :placeholder="$t('Composition')"
             :invalid="!!errors?.composition"
             aria-describedby="composition-help"

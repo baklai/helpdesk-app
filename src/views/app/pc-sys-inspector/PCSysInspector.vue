@@ -442,7 +442,7 @@ const createSysInspectorScript = async () => {
     link.setAttribute('download', 'inspector.vbs');
     toast.add({
       severity: 'info',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('SysInspector script file created'),
       life: 3000
     });
@@ -450,7 +450,7 @@ const createSysInspectorScript = async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('SysInspector script file not created')
     });
   }

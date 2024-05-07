@@ -144,10 +144,10 @@
     }
   },
 
-  "HD Error": "HD Error",
-  "HD Information": "HD Information",
+  "Error": "Error",
+  "Information": "Information",
   "Logout successfully completed": "Logout successfully completed",
-  "HD Warning": "HD Warning",
+  "Warning": "Warning",
   "Sign Out": "Sign Out",
   "Sign In": "Sign In",
   "HD File Hosting": "HD File Hosting",

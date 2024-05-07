@@ -124,7 +124,7 @@ const update = async path => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Record not updated'),
       life: 3000
     });
@@ -150,14 +150,14 @@ const rename = async value => {
         });
         toast.add({
           severity: 'success',
-          summary: t('HD Information'),
+          summary: t('Information'),
           detail: t('Record is renamed'),
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
+          summary: t('Warning'),
           detail: t('Record not renamed'),
           life: 3000
         });
@@ -170,7 +170,7 @@ const rename = async value => {
       newValue.value = null;
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record rename not confirmed'),
         life: 3000
       });
@@ -194,14 +194,14 @@ const remove = async (name, type) => {
         });
         toast.add({
           severity: 'success',
-          summary: t('HD Information'),
+          summary: t('Information'),
           detail: t('Record is removed'),
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('HD Warning'),
+          summary: t('Warning'),
           detail: t('Record not removed'),
           life: 3000
         });
@@ -212,7 +212,7 @@ const remove = async (name, type) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('HD Information'),
+        summary: t('Information'),
         detail: t('Record deletion not confirmed'),
         life: 3000
       });
@@ -239,14 +239,14 @@ const download = async filename => {
 
     toast.add({
       severity: 'info',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('FTP File download'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('File not downloaded'),
       life: 3000
     });
@@ -268,14 +268,14 @@ const uploadFile = async event => {
     );
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('File is uploaded'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('File not uploaded'),
       life: 3000
     });
@@ -293,14 +293,14 @@ const uploadFolder = async () => {
     });
     toast.add({
       severity: 'success',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t('Folder is created'),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('HD Warning'),
+      summary: t('Warning'),
       detail: t('Folder not created'),
       life: 3000
     });
@@ -321,7 +321,7 @@ const copyLink = async filename => {
     await Clipboard.copy(encodedLink);
     toast.add({
       severity: 'info',
-      summary: t('HD Information'),
+      summary: t('Information'),
       detail: t(`Link copied to clipboard`),
       life: 3000
     });
