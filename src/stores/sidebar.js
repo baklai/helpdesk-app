@@ -41,10 +41,6 @@ export const useSidebar = defineStore('sidebar', () => {
       ...getRouteLabel('pc-sys-inspector'),
       items: [getRoute('pc-sys-inspector-reports'), getRoute('pc-sys-inspector-statistics')]
     },
-    {
-      ...getRouteLabel('onmap-scanner'),
-      items: [getRoute('onmap-scanner-reports'), getRoute('onmap-scanner-statistics')]
-    },
 
     { ...getRoute('ping-icmp') },
 
@@ -64,8 +60,7 @@ export const useSidebar = defineStore('sidebar', () => {
     { ...getRoute('network-ipaddress') },
     { ...getRoute('network-mailbox') },
     { ...getRoute('technical-support-requests') },
-    { ...getRouteLabel('pc-sys-inspector-reports') },
-    { ...getRouteLabel('onmap-scanner-reports') }
+    { ...getRouteLabel('pc-sys-inspector-reports') }
   ]);
 
   function getRoute(name) {

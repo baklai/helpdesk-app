@@ -157,35 +157,6 @@ const router = createRouter({
           ]
         },
         {
-          path: 'onmap-scanner',
-          name: 'onmap-scanner',
-          meta: {
-            title: 'ONMAP Scanner',
-            description: 'Online network mapper scanner of the technical support'
-          },
-          redirect: { name: 'onmap-scanner-statistics' },
-          children: [
-            {
-              path: 'reports',
-              name: 'onmap-scanner-reports',
-              meta: {
-                title: 'ONMAP Scanner',
-                description: 'Online network mapper scanner of the technical support'
-              },
-              component: () => import('@/views/app/onmap-scanner/ONMAPScanner.vue')
-            },
-            {
-              path: 'statistics',
-              name: 'onmap-scanner-statistics',
-              meta: {
-                title: 'Service statistics',
-                description: 'Statistics of online network mapper service'
-              },
-              component: () => import('@/views/app/onmap-scanner/ONMAPStatistics.vue')
-            }
-          ]
-        },
-        {
           path: 'ping-icmp',
           name: 'ping-icmp',
           meta: {

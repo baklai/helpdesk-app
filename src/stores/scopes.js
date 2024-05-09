@@ -71,15 +71,6 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
-        scope: 'onmap',
-        comment: 'Online nmap scanner',
-        create: false,
-        read: true,
-        update: false,
-        delete: false
-      },
-
-      {
         scope: 'ping',
         comment: 'Ping srvice',
         create: true,
@@ -171,12 +162,6 @@ export const useScope = defineStore('scope', () => {
       {
         scope: 'statistic:inspector',
         comment: 'Statistic of PC SysInspector',
-        read: true
-      },
-
-      {
-        scope: 'statistic:onmap',
-        comment: 'Statistic of ONMAP Scanner',
         read: true
       },
 
