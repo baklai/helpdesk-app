@@ -64,7 +64,7 @@ onMounted(async () => {
       <div class="flex flex-col w-full">
         <div class="flex justify-between px-2 pt-2">
           <div class="flex items-center justify-center">
-            <Avatar size="large" icon="pi pi-bell text-4xl" class="mr-4" />
+            <Avatar size="xlarge" icon="pi pi-bell text-4xl" class="mr-4" />
             <div>
               <p class="text-lg font-bold line-height-2 mb-2">
                 {{ $t('HD Notification') }}
@@ -104,9 +104,9 @@ onMounted(async () => {
               <div class="flex flex-row justify-start gap-3">
                 <div class="flex flex-col align-items-start overflow-auto w-full">
                   <div class="w-full flex items-center">
-                    <Avatar icon="pi pi-bell" class="text-green-500 mr-2" />
+                    <Avatar icon="pi pi-bell text-xl" size="large" class="text-green-500 mr-2" />
                     <div class="flex flex-col align my-2">
-                      <span class="font-medium text-green-500 text-xl">{{ item?.name }}</span>
+                      <span class="font-medium text-green-500 text-xl">{{ item?.title }}</span>
                       <span class="font-normal text-surface-500">
                         {{ dateTimeToStr(item?.createdAt) || '-' }}
                       </span>

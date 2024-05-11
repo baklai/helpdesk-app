@@ -12,9 +12,9 @@ export const useNotice = defineStore('notice', () => {
     }
   }
 
-  async function createOne({ name, text, userId }) {
+  async function createOne({ title, text, users }) {
     try {
-      return await $axios.post('/notices', { name, text, userId });
+      return await $axios.post('/notices', { title, text, users });
     } catch (err) {
       throw new Error(err.message);
     }

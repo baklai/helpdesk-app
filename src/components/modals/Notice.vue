@@ -16,7 +16,7 @@ const User = useUser();
 
 const { values, errors, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required(t('Value is required')),
+    title: yup.string().required(t('Value is required')),
     text: yup.string().required(t('Value is required')),
     users: yup.array().required(t('Value is required'))
   }),
@@ -40,21 +40,17 @@ const visible = ref(false);
 
 const records = ref([]);
 
-const [name, nameAttrs] = defineField('name');
+const [title, titleAttrs] = defineField('title');
 const [text, textAttrs] = defineField('text');
 const [users, usersAttrs] = defineField('users');
 
 const onSendNotice = handleSubmit(async () => {
   try {
-    await Promise.allSettled[
-      values.users.map(({ id }) =>
-        createOne({
-          name: values.name,
-          text: values.text,
-          userId: id
-        })
-      )
-    ];
+    await createOne({
+      title: values.title,
+      text: values.text,
+      users: values.users.map(({ id }) => id)
+    });
     toast.add({
       severity: 'success',
       summary: t('Information'),
@@ -84,7 +80,7 @@ const onCloseModal = () => {
     closable
     draggable
     v-model:visible="visible"
-    class="mx-auto w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[40vw] 2xl:w-[30vw]"
+    class="mx-auto w-[90vw] md:w-[60vw] lg:w-[50vw] xl:w-[35vw] 2xl:w-[25vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -104,37 +100,6 @@ const onCloseModal = () => {
     </template>
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSendNotice">
-      <div class="flex flex-col gap-2">
-        <label for="name" class="font-bold">{{ $t('Notification name') }}</label>
-        <InputText
-          id="name"
-          v-model="name"
-          v-bind="nameAttrs"
-          :placeholder="$t('Notification name')"
-          :invalid="!!errors?.name"
-          aria-describedby="name-help"
-        />
-        <small id="name-help" class="text-red-500" v-if="errors?.name">
-          {{ $t(errors.name) }}
-        </small>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label for="text" class="font-bold">{{ $t('Notification text') }}</label>
-        <Textarea
-          rows="5"
-          id="text"
-          v-model="text"
-          v-bind="textAttrs"
-          :placeholder="$t('Notification text')"
-          :invalid="!!errors?.text"
-          aria-describedby="text-help"
-        />
-        <small id="text-help" class="text-red-500" v-if="errors?.text">
-          {{ $t(errors.text) }}
-        </small>
-      </div>
-
       <div class="flex flex-col gap-2">
         <label for="users" class="font-bold">{{ $t('Notification users') }}</label>
         <MultiSelect
@@ -158,6 +123,37 @@ const onCloseModal = () => {
         </MultiSelect>
         <small id="users-help" class="text-red-500" v-if="errors?.users">
           {{ $t(errors.users) }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="title" class="font-bold">{{ $t('Notification title') }}</label>
+        <InputText
+          id="title"
+          v-model="title"
+          v-bind="titleAttrs"
+          :placeholder="$t('Notification title')"
+          :invalid="!!errors?.title"
+          aria-describedby="title-help"
+        />
+        <small id="title-help" class="text-red-500" v-if="errors?.title">
+          {{ $t(errors.title) }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="text" class="font-bold">{{ $t('Notification text') }}</label>
+        <Textarea
+          rows="10"
+          id="text"
+          v-model="text"
+          v-bind="textAttrs"
+          :placeholder="$t('Notification text')"
+          :invalid="!!errors?.text"
+          aria-describedby="text-help"
+        />
+        <small id="text-help" class="text-red-500" v-if="errors?.text">
+          {{ $t(errors.text) }}
         </small>
       </div>
     </form>
