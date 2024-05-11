@@ -193,7 +193,6 @@ app.use(HelpdeskPlugin, {
     github: author.social.github,
     linkedin: author.social.linkedin
   },
-  ftpUrl: import.meta.env.VITE_FTP_BASE_URL || null,
   copyright: `Copyright © ${new Date().getFullYear()} ${author.name}. All rights reserved.`
 });
 

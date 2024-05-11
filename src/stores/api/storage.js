@@ -1,12 +1,12 @@
 import { inject } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useFTPClient = defineStore('ftpclient', () => {
+export const useStorage = defineStore('storage', () => {
   const $axios = inject('axios');
 
   async function update(params) {
     try {
-      return await $axios.get('/ftp', { params });
+      return await $axios.get('/storage', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -14,7 +14,7 @@ export const useFTPClient = defineStore('ftpclient', () => {
 
   async function download(params) {
     try {
-      return await $axios.get('/ftp/download', {
+      return await $axios.get('/storage/download', {
         params,
         responseType: 'blob',
         timeout: 0
@@ -24,9 +24,9 @@ export const useFTPClient = defineStore('ftpclient', () => {
     }
   }
 
-  async function uploadFile(payload) {
+  async function uploadFiles(payload) {
     try {
-      return await $axios.post('/ftp/upload/file', payload, {
+      return await $axios.post('/storage/upload/file', payload, {
         headers: {
           'Content-Type': `multipart/form-data;`
         },
@@ -39,7 +39,7 @@ export const useFTPClient = defineStore('ftpclient', () => {
 
   async function uploadFolder({ ...payload }) {
     try {
-      return await $axios.post('/ftp/upload/folder', { ...payload });
+      return await $axios.post('/storage/upload/folder', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -47,7 +47,7 @@ export const useFTPClient = defineStore('ftpclient', () => {
 
   async function rename({ ...payload }) {
     try {
-      return await $axios.put('/ftp', { ...payload });
+      return await $axios.put('/storage', { ...payload });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -55,11 +55,11 @@ export const useFTPClient = defineStore('ftpclient', () => {
 
   async function remove(params) {
     try {
-      return await $axios.delete('/ftp', { params });
+      return await $axios.delete('/storage', { params });
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { update, download, uploadFile, uploadFolder, rename, remove };
+  return { update, download, uploadFiles, uploadFolder, rename, remove };
 });

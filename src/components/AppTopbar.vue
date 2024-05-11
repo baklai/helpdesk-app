@@ -1,5 +1,5 @@
 <script setup>
-import BtnFTPClient from '@/components/buttons/BtnFTPClient.vue';
+import BtnStorageClient from '@/components/buttons/BtnStorageClient.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnNotifications from '@/components/buttons/BtnNotifications.vue';
@@ -27,7 +27,7 @@ const { toggleAppSideBar } = useConfig();
     <div class="flex gap-x-2">
       <BtnToggleTheme class="hidden md:flex" />
       <BtnToggleLang class="hidden md:flex" />
-      <BtnFTPClient class="hidden md:flex" />
+      <BtnStorageClient class="hidden md:flex" />
       <BtnNotifications class="hidden md:flex" />
       <BtnFullScreen class="hidden md:flex" />
       <BtnMainMenu />

@@ -438,10 +438,6 @@ const onFilter = async event => {
   await onUpdateRecords();
 };
 
-const onFilterOpened = event => {
-  console.log(event);
-};
-
 const onStorage = async event => {
   const { rows, first } = event;
   params.value.limit = rows;
@@ -596,7 +592,6 @@ onMounted(async () => {
       @filter="onFilter"
       @sort="onSort"
       @page="onPage"
-      @onFilterOpened="onFilterOpened"
     >
       <template #header>
         <div class="flex flex-wrap gap-4 items-center justify-between">

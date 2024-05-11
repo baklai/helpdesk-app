@@ -5,7 +5,7 @@ import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
-import BtnFTPClient from '@/components/buttons/BtnFTPClient.vue';
+import BtnStorageClient from '@/components/buttons/BtnStorageClient.vue';
 import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
 const refMenu = ref();
@@ -57,7 +57,7 @@ const toggle = event => {
       <div class="flex items-center content-center justify-between py-2">
         <BtnToggleTheme />
         <BtnToggleLang />
-        <BtnFTPClient />
+        <BtnStorageClient />
         <BtnFullScreen />
         <BtnAuth />
       </div>
