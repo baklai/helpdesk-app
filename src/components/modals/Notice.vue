@@ -6,19 +6,19 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { useNotice } from '@/stores/api/notices';
-import { useUser } from '@/stores/api/users';
+import { useProfile } from '@/stores/api/profiles';
 
 const { t } = useI18n();
 const toast = useToast();
 
 const { createOne } = useNotice();
-const User = useUser();
+const Profile = useProfile();
 
 const { values, errors, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
     title: yup.string().required(t('Value is required')),
     text: yup.string().required(t('Value is required')),
-    users: yup.array().required(t('Value is required'))
+    profiles: yup.array().required(t('Value is required'))
   }),
   initialValues: {}
 });
@@ -28,7 +28,13 @@ const emits = defineEmits(['close']);
 defineExpose({
   toggle: async () => {
     try {
-      records.value = await User.find({});
+      const { docs } = await Profile.findAll({
+        offset: 0,
+        limit: 50,
+        sort: { fullname: 1 },
+        filters: { isActivated: true }
+      });
+      records.value = docs;
       visible.value = true;
     } catch (err) {
       visible.value = false;
@@ -42,14 +48,14 @@ const records = ref([]);
 
 const [title, titleAttrs] = defineField('title');
 const [text, textAttrs] = defineField('text');
-const [users, usersAttrs] = defineField('users');
+const [profiles, profilesAttrs] = defineField('profiles');
 
 const onSendNotice = handleSubmit(async () => {
   try {
     await createOne({
       title: values.title,
       text: values.text,
-      users: values.users.map(({ id }) => id)
+      profiles: values.profiles.map(({ id }) => id)
     });
     toast.add({
       severity: 'success',
@@ -101,18 +107,18 @@ const onCloseModal = () => {
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSendNotice">
       <div class="flex flex-col gap-2">
-        <label for="users" class="font-bold">{{ $t('Notification users') }}</label>
+        <label for="profiles" class="font-bold">{{ $t('Notification profiles') }}</label>
         <MultiSelect
-          id="users"
+          id="profiles"
           filter
-          v-model="users"
-          v-bind="usersAttrs"
+          v-model="profiles"
+          v-bind="profilesAttrs"
           :options="records"
           optionLabel="fullname"
           :maxSelectedLabels="3"
-          :placeholder="$t('Notification users')"
-          :invalid="!!errors?.users"
-          aria-describedby="users-help"
+          :placeholder="$t('Notification profiles')"
+          :invalid="!!errors?.profiles"
+          aria-describedby="profiles-help"
         >
           <template #option="slotProps">
             <div class="flex items-center">
@@ -121,8 +127,8 @@ const onCloseModal = () => {
             </div>
           </template>
         </MultiSelect>
-        <small id="users-help" class="text-red-500" v-if="errors?.users">
-          {{ $t(errors.users) }}
+        <small id="profiles-help" class="text-red-500" v-if="errors?.profiles">
+          {{ $t(errors.profiles) }}
         </small>
       </div>
 

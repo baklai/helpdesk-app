@@ -9,22 +9,22 @@ export default {
     app.config.globalProperties.$auth = {
       async me() {
         try {
-          const user = await $axios({
-            method: endpoints.user.method,
-            url: endpoints.user.url
+          const profile = await $axios({
+            method: endpoints.profile.method,
+            url: endpoints.profile.url
           });
-          store.setUser(user);
+          store.setProfile(profile);
         } catch (err) {
           $error(err);
         }
       },
 
-      async signin({ login, password, remember = false }) {
+      async signin({ email, password, remember = false }) {
         try {
           const { accessToken, refreshToken } = await $axios({
             method: endpoints.signin.method,
             url: endpoints.signin.url,
-            data: { login, password }
+            data: { email, password }
           });
 
           store.setAccessToken(accessToken);
@@ -39,12 +39,12 @@ export default {
         }
       },
 
-      async signup({ login, password, fullname, email, phone }) {
+      async signup({ email, fullname, phone }) {
         try {
           await $axios({
             method: endpoints.signup.method,
             url: endpoints.signup.url,
-            data: { login, password, fullname, email, phone }
+            data: { email, fullname, phone }
           });
           $router.push({ name: 'home' });
         } catch (err) {
@@ -63,6 +63,21 @@ export default {
           detail: $t('Logout successfully completed'),
           life: 3000
         });
+      },
+
+      async reset({ email }) {
+        try {
+          await $axios({
+            method: endpoints.reset.method,
+            url: endpoints.reset.url,
+            data: { email }
+          });
+
+          $router.push({ name: 'home' });
+        } catch (err) {
+          $error(err);
+          throw err;
+        }
       },
 
       async refresh() {

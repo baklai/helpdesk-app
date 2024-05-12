@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineAsyncComponent } from 'vue';
 
-const AppInfoUser = defineAsyncComponent(() => import('@/components/AppInfoUser.vue'));
+const AppProfile = defineAsyncComponent(() => import('@/components/AppProfile.vue'));
 
 const visible = ref(false);
 </script>
@@ -13,9 +13,9 @@ const visible = ref(false);
     rounded
     icon="pi pi-user"
     class="text-2xl w-12 h-12"
-    v-tooltip.top="$t('User account')"
+    v-tooltip.top="$t('Profile account')"
     @click="visible = !visible"
   />
 
-  <AppInfoUser v-model:visible="visible" v-if="visible" />
+  <AppProfile v-model:visible="visible" v-if="visible" />
 </template>

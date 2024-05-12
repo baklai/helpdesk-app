@@ -313,8 +313,9 @@ onMounted(async () => {
             </Dropdown>
 
             <Button
+              text
+              plain
               outlined
-              severity="secondary"
               icon="pi pi-cog text-2xl"
               class="h-12 w-12"
               v-tooltip.bottom="$t('Options')"
@@ -328,7 +329,14 @@ onMounted(async () => {
     </div>
 
     <div class="flex w-full overflow-hidden" style="height: calc(100vh - 13rem)">
-      <div id="netmap" class="flex items-center justify-center w-full h-full"></div>
+      <div
+        id="netmap"
+        :class="[
+          'flex items-center justify-center',
+          'w-full h-full',
+          'border rounded-sm border-dashed border-surface-100 dark:border-surface-700'
+        ]"
+      ></div>
     </div>
   </div>
 </template>

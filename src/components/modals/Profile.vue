@@ -10,13 +10,13 @@ import { useConfirm } from 'primevue/useconfirm';
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { useScope } from '@/stores/scopes';
-import { useUser } from '@/stores/api/users';
+import { useProfile } from '@/stores/api/profiles';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
-const { findOne, createOne, updateOne, removeOne } = useUser();
+const { findOne, createOne, updateOne, removeOne } = useProfile();
 const { scopeLength, getDefaultScope, getSelectScope } = useScope();
 
 const emits = defineEmits(['close']);
@@ -24,19 +24,13 @@ const emits = defineEmits(['close']);
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      login: yup.string().required(t('Value is required')),
       fullname: yup.string().required(t('Value is required')),
       email: yup.string().email().required(t('Value is required')),
       phone: yup.string().required(t('Value is required'))
-      // password: yup.string().when('$exist', {
-      //   is: exist => exist,
-      //   then: yup.string().min(6).required(t('Value is required')),
-      //   otherwise: yup.string()
-      // })
     }),
     initialValues: {
-      isActive: false,
       isAdmin: false,
+      isActivated: false,
       scope: getDefaultScope()
     }
   });
@@ -47,14 +41,14 @@ defineExpose({
   toggle: async ({ id }) => {
     try {
       if (id) {
-        const user = await findOne({ id });
-        setValues({ ...user });
+        const profile = await findOne({ id });
+        setValues({ ...profile });
       } else {
         resetForm(
           {
             values: {
-              isActive: false,
               isAdmin: false,
+              isActivated: false,
               scope: getDefaultScope()
             }
           },
@@ -62,25 +56,19 @@ defineExpose({
         );
       }
       visible.value = true;
-      setTimeout(() => {
-        readonly.value = false;
-      }, 500);
     } catch (err) {
       visible.value = false;
     }
   }
 });
 
-const readonly = ref(true);
 const visible = ref(false);
 
-const [login, loginAttrs] = defineField('login');
-const [password, passwordAttrs] = defineField('password');
 const [fullname, fullnameAttrs] = defineField('fullname');
 const [email, emailAttrs] = defineField('email');
 const [phone, phoneAttrs] = defineField('phone');
-const [isActive, isActiveAttrs] = defineField('isActive');
 const [isAdmin, isAdminAttrs] = defineField('isAdmin');
+const [isActivated, isActivatedAttrs] = defineField('isActivated');
 
 const refMenu = ref();
 const options = ref([
@@ -131,7 +119,8 @@ const columns = ref([
   { field: 'create', header: t('Create') },
   { field: 'read', header: t('Read') },
   { field: 'update', header: t('Update') },
-  { field: 'delete', header: t('Delete') }
+  { field: 'delete', header: t('Delete') },
+  { field: 'notice', header: t('Notice') }
 ]);
 
 const filters = ref({
@@ -239,7 +228,6 @@ const onSaveRecord = handleSubmit(async () => {
 
 const onCloseModal = () => {
   resetForm({ values: {} }, { force: true });
-  readonly.value = true;
   emits('close', {});
 };
 </script>
@@ -274,10 +262,10 @@ const onCloseModal = () => {
     <template #header>
       <div class="flex justify-between w-full">
         <div class="flex items-center justify-center">
-          <AppIcons name="core-users" :size="40" class="mr-4" />
+          <AppIcons name="core-profiles" :size="40" class="mr-4" />
           <div>
             <p class="text-lg font-bold line-height-2">
-              {{ $t('User account') }}
+              {{ $t('Profile account') }}
             </p>
             <p class="text-base font-normal line-height-2 text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
@@ -305,59 +293,6 @@ const onCloseModal = () => {
       @submit.prevent="onSaveRecord"
     >
       <div class="flex flex-col space-y-4 md:!w-1/3 md:pr-2">
-        <div class="flex flex-col gap-2">
-          <label for="login" class="font-bold">{{ $t('User login') }}</label>
-          <InputText
-            id="login"
-            :readonly="readonly"
-            v-model="login"
-            v-bind="loginAttrs"
-            :placeholder="$t('User login')"
-            :invalid="!!errors?.login"
-            aria-describedby="login-help"
-          />
-          <small id="login-help" class="text-red-500" v-if="errors?.login">
-            {{ $t(errors.login) }}
-          </small>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label for="password" class="font-bold">
-            {{ $t('User password') }}
-          </label>
-          <Password
-            toggleMask
-            :readonly="readonly"
-            id="password"
-            v-model="password"
-            v-bind="passwordAttrs"
-            :placeholder="$t('User password')"
-            :promptLabel="$t('Choose a password')"
-            :weakLabel="$t('Too simple')"
-            :mediumLabel="$t('Average complexity')"
-            :strongLabel="$t('Complex password')"
-            :invalid="!!errors?.password"
-            aria-describedby="password-help"
-          >
-            <template #header>
-              <h6>{{ $t('Pick a password') }}</h6>
-            </template>
-            <template #footer>
-              <Divider />
-              <p class="mt-2">{{ $t('Suggestions') }}</p>
-              <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                <li>{{ $t('At least one lowercase') }}</li>
-                <li>{{ $t('At least one uppercase') }}</li>
-                <li>{{ $t('At least one numeric') }}</li>
-                <li>{{ $t('Minimum 6 characters') }}</li>
-              </ul>
-            </template>
-          </Password>
-          <small id="password-help" class="text-red-500" v-if="errors?.password">
-            {{ $t(errors.password) }}
-          </small>
-        </div>
-
         <div class="flex flex-col gap-2">
           <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
           <InputText
@@ -407,8 +342,13 @@ const onCloseModal = () => {
 
         <div class="flex flex-col gap-2">
           <div class="flex items-center">
-            <Checkbox inputId="isActive" binary v-model="isActive" v-bind="isActiveAttrs" />
-            <label for="isActive" class="font-bold ml-2">
+            <Checkbox
+              inputId="isActivated"
+              binary
+              v-model="isActivated"
+              v-bind="isActivatedAttrs"
+            />
+            <label for="isActivated" class="font-bold ml-2">
               {{ $t('Activated account') }}
             </label>
           </div>
@@ -472,7 +412,7 @@ const onCloseModal = () => {
                     plain
                     icon="pi pi-cog"
                     class="h-12 w-12 text-2xl"
-                    v-tooltip.bottom="$t('Scope option')"
+                    v-tooltip.bottom="$t('Options')"
                     @click="event => refSelectMenu.toggle(event)"
                   />
                 </div>

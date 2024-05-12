@@ -4,26 +4,31 @@ import { defineStore } from 'pinia';
 import useLocalStorage from '@/service/LocalStorage';
 
 export const useApp = defineStore('app', () => {
-  const user = ref(null);
+  const profile = ref(null);
 
   const accessToken = ref(null);
   const refreshToken = ref(null);
   const rememberToken = ref(useLocalStorage('app-auth-remember', false));
 
   const loggedIn = computed(() => {
-    return user.value !== null && accessToken.value !== null && refreshToken.value !== null;
+    return (
+      profile.value !== null &&
+      profile.value?.isActivated &&
+      accessToken.value !== null &&
+      refreshToken.value !== null
+    );
   });
 
-  const isActive = computed(() => {
-    return user.value?.isActive;
+  const isActivated = computed(() => {
+    return profile.value?.isActivated;
   });
 
   const isAdmin = computed(() => {
-    return user.value?.isAdmin;
+    return profile.value?.isAdmin;
   });
 
-  function setUser(value) {
-    user.value = value;
+  function setProfile(value) {
+    profile.value = value;
   }
 
   function getAccessToken() {
@@ -53,18 +58,18 @@ export const useApp = defineStore('app', () => {
   }
 
   function resetAccessRefreshToken() {
-    user.value = null;
+    profile.value = null;
     accessToken.value = null;
     refreshToken.value = null;
     localStorage.removeItem('app-auth-token');
   }
 
   return {
-    user,
+    profile,
     isAdmin,
-    isActive,
+    isActivated,
     loggedIn,
-    setUser,
+    setProfile,
     getAccessToken,
     setAccessToken,
     getRefreshToken,

@@ -175,10 +175,11 @@ app.use(AxiosPlugin, {
 
 app.use(AuthPlugin, {
   endpoints: {
-    user: { url: '/auth/me', method: 'get' },
+    profile: { url: '/auth/me', method: 'get' },
     signin: { url: '/auth/signin', method: 'post' },
     signup: { url: '/auth/signup', method: 'post' },
     signout: { url: '/auth/signout', method: 'get' },
+    reset: { url: '/auth/reset', method: 'post' },
     refresh: { url: '/auth/refresh', method: 'get' }
   }
 });

@@ -81,8 +81,8 @@ const router = createRouter({
               path: 'network-map',
               name: 'network-map',
               meta: {
-                title: 'Network map',
-                description: 'Network map of the technical support'
+                title: 'Network maps',
+                description: 'Network maps of the technical support'
               },
               component: () => import('@/views/app/network-info/NetworkMap.vue')
             },
@@ -210,13 +210,13 @@ const router = createRouter({
           component: () => import('@/views/core/LogAudit.vue')
         },
         {
-          path: 'users',
-          name: 'core-users',
+          path: 'profiles',
+          name: 'core-profiles',
           meta: {
-            title: 'User accounts',
-            description: 'User accounts of the helpdesk service'
+            title: 'Profile accounts',
+            description: 'Profile accounts of the helpdesk service'
           },
-          component: () => import('@/views/core/Users.vue')
+          component: () => import('@/views/core/Profiles.vue')
         }
       ]
     },
@@ -234,6 +234,11 @@ const router = createRouter({
           path: 'signup',
           name: 'signup',
           component: () => import('@/views/auth/Signup.vue')
+        },
+        {
+          path: 'resetpassword',
+          name: 'resetpassword',
+          component: () => import('@/views/auth/ResetPass.vue')
         }
       ]
     },
@@ -287,7 +292,7 @@ router.beforeEach(async (to, from) => {
 
   if (to.name !== 'signin' && to.name !== 'signup' && to?.meta?.auth && !store.loggedIn) {
     return { name: 'signin' };
-  } else if (to?.meta?.admin && !store?.user?.isAdmin) {
+  } else if (to?.meta?.admin && !store.isAdmin) {
     return { name: 'access-denied' };
   } else {
     return;

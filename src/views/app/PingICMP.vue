@@ -97,7 +97,7 @@ const commandHandler = async text => {
 
     <Terminal
       :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
-      :prompt="`${$helpdesk?.user?.login || 'helpdesk'}$&nbsp;`"
+      :prompt="`${'root'}$&nbsp;`"
       class="h-[30rem] text-xl"
       aria-label="Helpdesk Terminal Service"
     />
