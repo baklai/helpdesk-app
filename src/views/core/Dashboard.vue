@@ -10,8 +10,8 @@ const stats = ref({});
 const currentDate = ref();
 const chartDataActivity = ref();
 const chartDataActivityOptions = ref();
-const chartDataActivityUsers = ref();
-const chartDataActivityUsersOptions = ref();
+const chartDataActivityProfiles = ref();
+const chartDataActivityProfilesOptions = ref();
 
 const setChartDataActivity = () => {
   const documentStyle = getComputedStyle(document.documentElement);
@@ -70,17 +70,17 @@ const setChartDataActivityOptions = () => {
   };
 };
 
-const setChartDataActivityUsers = () => {
+const setChartDataActivityProfiles = () => {
   const documentStyle = getComputedStyle(document.documentElement);
 
   return {
-    labels: stats.value.activityUsers.map(({ user }) => user),
+    labels: stats.value.activityProfiles.map(({ profile }) => profile),
     datasets: [
       {
         type: 'bar',
         label: 'GET',
         backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('GET')),
-        data: stats.value.activityUsers.map(({ methods }) =>
+        data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'GET').map(({ count }) => count)
         )
       },
@@ -88,7 +88,7 @@ const setChartDataActivityUsers = () => {
         type: 'bar',
         label: 'POST',
         backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('POST')),
-        data: stats.value.activityUsers.map(({ methods }) =>
+        data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'POST').map(({ count }) => count)
         )
       },
@@ -96,7 +96,7 @@ const setChartDataActivityUsers = () => {
         type: 'bar',
         label: 'PUT',
         backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('PUT')),
-        data: stats.value.activityUsers.map(({ methods }) =>
+        data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'PUT').map(({ count }) => count)
         )
       },
@@ -104,7 +104,7 @@ const setChartDataActivityUsers = () => {
         type: 'bar',
         label: 'DELETE',
         backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('DELETE')),
-        data: stats.value.activityUsers.map(({ methods }) =>
+        data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'DELETE').map(({ count }) => count)
         )
       }
@@ -112,7 +112,7 @@ const setChartDataActivityUsers = () => {
   };
 };
 
-const setChartDataActivityUsersOptions = () => {
+const setChartDataActivityProfilesOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = documentStyle.getPropertyValue('--text-color');
   const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
@@ -164,8 +164,8 @@ onMounted(async () => {
   chartDataActivity.value = setChartDataActivity();
   chartDataActivityOptions.value = setChartDataActivityOptions();
 
-  chartDataActivityUsers.value = setChartDataActivityUsers();
-  chartDataActivityUsersOptions.value = setChartDataActivityUsersOptions();
+  chartDataActivityProfiles.value = setChartDataActivityProfiles();
+  chartDataActivityProfilesOptions.value = setChartDataActivityProfilesOptions();
 });
 </script>
 
@@ -204,11 +204,11 @@ onMounted(async () => {
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
-          <h5>{{ $t('User activity for the current month') }}</h5>
+          <h5>{{ $t('Profile activity for the current month') }}</h5>
           <Chart
             type="bar"
-            :data="chartDataActivityUsers"
-            :options="chartDataActivityUsersOptions"
+            :data="chartDataActivityProfiles"
+            :options="chartDataActivityProfilesOptions"
             class="h-[30rem]"
           />
         </div>
@@ -220,9 +220,9 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of users') }}</span>
+              <span class="block font-medium mb-3">{{ $t('Total number of profiles') }}</span>
               <div class="font-medium text-xl">
-                {{ stats?.users || '-' }}
+                {{ stats?.profiles || '-' }}
               </div>
             </div>
             <div class="flex items-center justify-center bg-green-100 rounded w-12 h-12 p-2">

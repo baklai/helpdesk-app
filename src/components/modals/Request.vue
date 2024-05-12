@@ -230,7 +230,7 @@ const onRemoveRecord = async () => {
 
 const onSaveClosedRecord = handleSubmit(async () => {
   setValues({
-    workerClose: $helpdesk?.user?.id || undefined
+    workerClose: $helpdesk?.profile?.id || undefined
   });
 
   await onSaveRecord();
@@ -259,7 +259,7 @@ const onSaveRecord = handleSubmit(async () => {
     try {
       await createOne({
         ...controlledValues.value,
-        workerOpen: $helpdesk?.user?.id || undefined,
+        workerOpen: $helpdesk?.profile?.id || undefined,
         workerClose: values.workerClose || undefined
       });
       visible.value = false;

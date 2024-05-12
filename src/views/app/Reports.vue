@@ -46,21 +46,7 @@ const generateReportToCSV = async (path, filename = `report-at-${dateToStr(new D
       </div>
     </div>
 
-    <div class="flex flex-wrap content-start">
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
-        <div
-          class="cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"
-          @click="() => $helpdesk.notImplemented()"
-        >
-          <div class="flex flex-col items-center justify-center">
-            <div class="rounded p-2">
-              <i class="pi pi-plus-circle text-6xl" />
-            </div>
-            <p>{{ $t('Create report template') }}</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="flex flex-wrap justify-start">
       <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 cursor-pointer h-full w-full hover:shadow-5 hover:text-green-500"

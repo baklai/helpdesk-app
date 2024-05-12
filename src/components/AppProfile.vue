@@ -19,10 +19,11 @@ const columns = ref([
   { field: 'create', header: t('Create') },
   { field: 'read', header: t('Read') },
   { field: 'update', header: t('Update') },
-  { field: 'delete', header: t('Delete') }
+  { field: 'delete', header: t('Delete') },
+  { field: 'notice', header: t('Notice') }
 ]);
 
-const scopes = ref(getCustomScope($helpdesk.user.scope));
+const scopes = ref(getCustomScope($helpdesk.profile.scope));
 </script>
 
 <template>
@@ -33,7 +34,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
     dismissableMask
     :draggable="false"
     :visible="visible"
-    class="w-4/5 md:max-w-[40rem]"
+    class="w-4/5 md:max-w-3xl"
     @update:visible="$emit('update:visible', !visible)"
   >
     <template #header>
@@ -42,10 +43,10 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           <Avatar icon="pi pi-user" class="mr-4" size="large" />
           <div>
             <p class="font-bold m-0">
-              {{ $helpdesk?.user?.fullname }}
+              {{ $helpdesk?.profile?.fullname }}
             </p>
             <p class="line-height-3 text-surface-500 m-0">
-              {{ $helpdesk?.user?.email }}
+              {{ $helpdesk?.profile?.email }}
             </p>
           </div>
         </div>
@@ -59,7 +60,7 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
             image="/img/user-logo.png"
             shape="circle"
             class="w-16 h-16"
-            v-if="$helpdesk?.user?.logo"
+            v-if="$helpdesk?.profile?.logo"
           />
           <div class="flex items-center justify-center p-3 flex-col" v-else>
             <i class="pi pi-cloud-upload p-3 text-3xl text-surface-500" />
@@ -69,35 +70,23 @@ const scopes = ref(getCustomScope($helpdesk.user.scope));
           </div>
         </div>
 
-        <div class="flex-shrink-0 p-4 w-full md:w-3/5">
-          <div class="mb-0">
-            <p class="font-bold text-lg">
-              {{ $t('Login') }} :
-              <span class="">{{ $helpdesk?.user?.login }}</span>
-            </p>
-          </div>
+        <div class="w-full md:w-3/5 p-4 space-y-2">
           <div class="mb-0">
             <p class="font-bold text-lg">
               {{ $t('Fullname') }} :
-              <span class="">{{ $helpdesk?.user?.fullname }}</span>
+              <span class="">{{ $helpdesk?.profile?.fullname }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-lg">
-              {{ $t('E-Mail') }} :
-              <span class="">{{ $helpdesk?.user?.email }}</span>
+              {{ $t('Email') }} :
+              <span class="">{{ $helpdesk?.profile?.email }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="font-bold text-lg">
               {{ $t('Phone') }} :
-              <span class="">{{ $helpdesk?.user?.phone }}</span>
-            </p>
-          </div>
-          <div class="mb-0">
-            <p class="font-bold text-lg">
-              {{ $t('Is Admin') }} :
-              <span class="">{{ $helpdesk?.user?.isAdmin }}</span>
+              <span class="">{{ $helpdesk?.profile?.phone }}</span>
             </p>
           </div>
         </div>

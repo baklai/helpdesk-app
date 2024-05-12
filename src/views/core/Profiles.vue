@@ -4,12 +4,12 @@ import { FilterMatchMode, FilterOperator } from 'primevue/api';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
-import ModalRecord from '@/components/modals/User.vue';
+import ModalRecord from '@/components/modals/Profile.vue';
 
 import { useScope } from '@/stores/scopes';
-import { useUser } from '@/stores/api/users';
+import { useProfile } from '@/stores/api/profiles';
 
-const User = useUser();
+const Profile = useProfile();
 const Scope = useScope();
 
 const refMenu = ref();
@@ -48,30 +48,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Login', icon: 'pi pi-user', width: '12rem' },
-    column: {
-      field: 'login',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'login' },
-    filter: {
-      field: 'login',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: true
-  },
-
-  {
-    header: { text: 'E-mail', icon: 'pi pi-envelope', width: '16rem' },
+    header: { text: 'Email', icon: 'pi pi-envelope', width: '16rem' },
     column: {
       field: 'email',
       render(value) {
@@ -117,16 +94,16 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Active', icon: 'pi pi-check', width: '12rem' },
+    header: { text: 'Activated', icon: 'pi pi-check', width: '12rem' },
     column: {
-      field: 'isActive',
+      field: 'isActivated',
       render(value) {
         return value ? <i class={'pi pi-check !font-bold text-green-500'}></i> : <span>-</span>;
       }
     },
-    sorter: { field: 'isActive' },
+    sorter: { field: 'isActivated' },
     filter: {
-      field: 'isActive',
+      field: 'isActivated',
       value: null,
       matchMode: FilterMatchMode.EQUALS,
       showFilterMatchModes: false
@@ -208,8 +185,8 @@ const columns = ref([
       :globalFilter="globalFilter"
       :storageKey="`app-datatable-${$route.name}`"
       :exportFileName="$route.name"
-      :onUpdate="User.findAll"
-      :onDelete="User.removeOne"
+      :onUpdate="Profile.findAll"
+      :onDelete="Profile.removeOne"
       @toggle-menu="(event, data) => refMenu.toggle(event, data)"
       @toggle-modal="data => refModal.toggle(data)"
       @toggle-sidebar="data => refSidebar.toggle(data)"

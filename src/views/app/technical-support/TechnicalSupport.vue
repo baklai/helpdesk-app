@@ -15,7 +15,7 @@ import { useOrganization } from '@/stores/api/organizations';
 import { useSubdivision } from '@/stores/api/subdivisions';
 import { useDepartment } from '@/stores/api/departments';
 import { usePosition } from '@/stores/api/positions';
-import { useUser } from '@/stores/api/users';
+import { useProfile } from '@/stores/api/profiles';
 
 const Request = useRequest();
 const Organization = useOrganization();
@@ -23,7 +23,7 @@ const Subdivision = useSubdivision();
 const Department = useDepartment();
 const Position = usePosition();
 const Location = useLocation();
-const User = useUser();
+const Profile = useProfile();
 
 const refMenu = ref();
 const refModal = ref();
@@ -55,7 +55,7 @@ const columns = ref([
         value: 'id',
         label: 'fullname',
         onRecords: async () => {
-          return await User.find();
+          return await Profile.find();
         }
       }
     },

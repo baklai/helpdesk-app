@@ -89,7 +89,7 @@ npm run lint
 npm run format
 ```
 
-## Default login to the application
+## Default email to the application
 
 The service administrator is created during the first registration on the service
 

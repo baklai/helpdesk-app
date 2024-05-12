@@ -3,7 +3,7 @@ import AppLogo from '@/components/AppLogo.vue';
 import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import SidebarMiniMenu from '@/components/menus/SidebarMiniMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
-import BtnInfoUser from '@/components/buttons/BtnInfoUser.vue';
+import BtnInfoProfile from '@/components/buttons/BtnInfoProfile.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
 import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 
@@ -78,7 +78,7 @@ const $config = useConfig();
         </div>
 
         <div class="flex flex-row flex-none items-center content-center justify-between py-2">
-          <BtnInfoUser />
+          <BtnInfoProfile />
           <BtnToggleLang />
           <BtnToggleTheme />
           <BtnAuth />

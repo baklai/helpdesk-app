@@ -10,14 +10,14 @@ import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
 import { dateTimeToStr, methodHttpToColor, statusCodeToColor } from '@/service/DataFilters';
 import { useSyslog } from '@/stores/api/syslogs';
-import { useUser } from '@/stores/api/users';
+import { useProfile } from '@/stores/api/profiles';
 
 const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
 const SysLog = useSyslog();
-const User = useUser();
+const Profile = useProfile();
 
 const refMenu = ref();
 const refDataTable = ref();
@@ -79,9 +79,9 @@ const columns = ref([
   },
 
   {
-    header: { text: 'User', width: '12rem' },
+    header: { text: 'Profile', width: '12rem' },
     column: {
-      field: 'user',
+      field: 'profile',
       render(value) {
         return (
           <Tag
@@ -91,9 +91,9 @@ const columns = ref([
         );
       }
     },
-    sorter: { field: 'user' },
+    sorter: { field: 'profile' },
     filter: {
-      field: 'user',
+      field: 'profile',
       value: null,
       matchMode: FilterMatchMode.CONTAINS,
       filterOperator: FilterOperator.AND,

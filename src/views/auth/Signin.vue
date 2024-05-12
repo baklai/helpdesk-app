@@ -5,8 +5,6 @@ import * as yup from 'yup';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import { AutocompleteOffForms } from '@/service/ReadonlyForms';
-
 const SUBMIT_COUNT = 3;
 
 const { t } = useI18n();
@@ -16,7 +14,7 @@ const $auth = inject('auth');
 
 const { values, errors, submitCount, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
-    login: yup.string().required(t('Value is required')),
+    email: yup.string().email().required(t('Value is required')),
     password: yup.string().min(6).required(t('Value is required'))
   }),
   initialValues: {
@@ -24,7 +22,7 @@ const { values, errors, submitCount, handleSubmit, resetForm, defineField } = us
   }
 });
 
-const [login, loginAttrs] = defineField('login');
+const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
 const [remember, rememberAttrs] = defineField('remember');
 
@@ -53,7 +51,6 @@ const onChangeRemember = () => {
 
 onMounted(() => {
   resetForm();
-  AutocompleteOffForms();
 });
 </script>
 
@@ -64,26 +61,24 @@ onMounted(() => {
     autocomplete="off"
   >
     <div class="flex flex-col gap-2">
-      <label for="login" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
-        {{ $t('Login') }}
+      <label for="email" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
+        {{ $t('Email') }}
       </label>
       <span class="relative">
-        <i
-          class="pi pi-user absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-        />
+        <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
         <InputText
-          id="login"
+          id="email"
           size="large"
           class="w-full pl-10 text-xl"
-          v-model="login"
-          v-bind="loginAttrs"
-          :placeholder="$t('Login')"
-          :invalid="!!errors?.login"
-          aria-describedby="login-help"
+          v-model="email"
+          v-bind="emailAttrs"
+          :placeholder="$t('Email')"
+          :invalid="!!errors?.email"
+          aria-describedby="email-help"
         />
       </span>
-      <small id="login-help" class="text-red-500" v-if="errors?.login">
-        {{ $t(errors.login) }}
+      <small id="email-help" class="text-red-500" v-if="errors?.email">
+        {{ $t(errors.email) }}
       </small>
     </div>
 
@@ -101,7 +96,7 @@ onMounted(() => {
           inputId="password"
           v-model="password"
           v-bind="passwordAttrs"
-          :invalid="!!errors?.login"
+          :invalid="!!errors?.password"
           :placeholder="$t('Password')"
           :promptLabel="$t('Choose a password')"
           :weakLabel="$t('Too simple')"
@@ -148,10 +143,10 @@ onMounted(() => {
         </div>
 
         <RouterLink
-          :to="{ name: 'signup' }"
+          :to="{ name: 'resetpassword' }"
           class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
         >
-          {{ $t('Register in the app') }}
+          {{ $t('Forgot password') }}?
         </RouterLink>
       </div>
     </div>
@@ -177,5 +172,12 @@ onMounted(() => {
     <p class="text-center font-medium text-surface-500">
       {{ $t('Sign In to the application to continue') }}
     </p>
+
+    <RouterLink
+      :to="{ name: 'signup' }"
+      class="text-center font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+    >
+      {{ $t('Register in the application') }}
+    </RouterLink>
   </form>
 </template>

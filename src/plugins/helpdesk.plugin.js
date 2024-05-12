@@ -9,8 +9,8 @@ export default {
     app.config.globalProperties.$helpdesk = {
       ...options,
 
-      get user() {
-        return store?.user;
+      get profile() {
+        return store?.profile;
       },
 
       get loggedIn() {
@@ -18,17 +18,17 @@ export default {
       },
 
       get isAdmin() {
-        return store?.isActive;
+        return store?.isAdmin;
       },
 
-      get isActive() {
-        return store?.isActive;
+      get isActivated() {
+        return store?.isActivated;
       },
 
       hasScope(scope) {
         if (store?.isAdmin) return true;
         if (options?.unless?.includes(scope)) return true;
-        return store?.user?.scope?.includes(scope);
+        return store?.profile?.scope?.includes(scope);
       },
 
       notImplemented() {

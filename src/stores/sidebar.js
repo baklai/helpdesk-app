@@ -52,7 +52,7 @@ export const useSidebar = defineStore('sidebar', () => {
 
     { ...getRoute('core-dashboard') },
     { ...getRoute('core-log-audit') },
-    { ...getRoute('core-users') }
+    { ...getRoute('core-profiles') }
   ]);
 
   const miniNavLinks = computed(() => [

@@ -3,21 +3,13 @@ import { defineStore } from 'pinia';
 
 import { useScope } from '@/stores/scopes';
 
-export const useUser = defineStore('user', () => {
+export const useProfile = defineStore('profile', () => {
   const $axios = inject('axios');
   const $scope = useScope();
 
-  async function find() {
-    try {
-      return await $axios.get('/users/me');
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  }
-
   async function findAll(params) {
     try {
-      return await $axios.get('/users', { params });
+      return await $axios.get('/profiles', { params });
     } catch (err) {
       throw new Error(err.message);
     }
@@ -25,10 +17,10 @@ export const useUser = defineStore('user', () => {
 
   async function findOne({ id }) {
     try {
-      const user = await $axios.get(`/users/${id}`);
+      const profile = await $axios.get(`/profiles/${id}`);
       return {
-        ...user,
-        scope: $scope.getCustomScope(user.scope)
+        ...profile,
+        scope: $scope.getCustomScope(profile.scope)
       };
     } catch (err) {
       throw new Error(err);
@@ -37,7 +29,7 @@ export const useUser = defineStore('user', () => {
 
   async function createOne({ scope, ...payload }) {
     try {
-      return await $axios.post('/users', {
+      return await $axios.post('/profiles', {
         ...payload,
         scope: $scope.getScopeKeyList(scope)
       });
@@ -48,7 +40,7 @@ export const useUser = defineStore('user', () => {
 
   async function updateOne(id, { scope, ...payload }) {
     try {
-      return await $axios.put(`/users/${id}`, {
+      return await $axios.put(`/profiles/${id}`, {
         ...payload,
         scope: $scope.getScopeKeyList(scope)
       });
@@ -59,11 +51,11 @@ export const useUser = defineStore('user', () => {
 
   async function removeOne({ id }) {
     try {
-      return await $axios.delete(`/users/${id}`);
+      return await $axios.delete(`/profiles/${id}`);
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  return { find, findAll, findOne, createOne, updateOne, removeOne };
+  return { findAll, findOne, createOne, updateOne, removeOne };
 });

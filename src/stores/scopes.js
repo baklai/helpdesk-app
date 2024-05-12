@@ -4,21 +4,13 @@ export const useScope = defineStore('scope', () => {
   function scope() {
     return [
       {
-        scope: 'user',
-        comment: 'User accounts',
-        create: false,
-        read: false,
-        update: false,
-        delete: false
-      },
-
-      {
         scope: 'event',
-        comment: 'Support events',
+        comment: 'Calendar of events',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
@@ -33,7 +25,8 @@ export const useScope = defineStore('scope', () => {
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
@@ -42,120 +35,131 @@ export const useScope = defineStore('scope', () => {
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'mailbox',
-        comment: 'Network mailboxes',
+        comment: 'Mailbox addresses',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'request',
-        comment: 'Support requests',
+        comment: 'Technical support',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'inspector',
-        comment: 'PC SysInspector reports',
-        read: true,
-        delete: false
-      },
-
-      {
-        scope: 'ping',
-        comment: 'Ping srvice',
-        create: true,
-        read: true,
-        delete: false
+        comment: 'PC SysInspector',
+        read: true
       },
 
       {
         scope: 'report',
-        comment: 'Reports of service',
+        comment: 'HD Reports of Service',
         read: false
       },
 
       {
+        scope: 'ping',
+        comment: 'ICMP Ping Service',
+        create: true,
+        read: true,
+        update: false,
+        delete: false,
+        notice: false
+      },
+
+      {
         scope: 'organization',
-        comment: 'Organization collections',
+        comment: 'Organizations',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'subdivision',
-        comment: 'Subdivision collections',
+        comment: 'Subdivisions',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'department',
-        comment: 'Department collections',
+        comment: 'Departments',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'location',
-        comment: 'Location collections',
+        comment: 'Locations',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'position',
-        comment: 'Position collections',
+        comment: 'Positions',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'unit',
-        comment: 'Unit collections',
+        comment: 'Units',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'filter',
-        comment: 'Filter collections',
+        comment: 'Filters',
         create: false,
         read: true,
         update: false,
-        delete: false
+        delete: false,
+        notice: false
       },
 
       {
         scope: 'statistic:network',
-        comment: 'Statistic of network',
+        comment: 'Statistic of Network',
         read: true
       },
 
       {
         scope: 'statistic:request',
-        comment: 'Statistic of requests',
+        comment: 'Statistic of Requests',
         read: true
       },
 
@@ -163,25 +167,6 @@ export const useScope = defineStore('scope', () => {
         scope: 'statistic:inspector',
         comment: 'Statistic of PC SysInspector',
         read: true
-      },
-
-      {
-        scope: 'statistic:dashboard',
-        comment: 'Statistic for dashboard',
-        read: true
-      },
-
-      {
-        scope: 'notice',
-        comment: 'System notices',
-        create: false
-      },
-
-      {
-        scope: 'logger',
-        comment: 'System logs',
-        read: false,
-        delete: false
       }
     ];
   }
