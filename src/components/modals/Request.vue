@@ -583,7 +583,13 @@ const onCloseModal = async () => {
                   resetFilterOnHide
                   dataKey="id"
                   optionValue="id"
-                  optionLabel="name"
+                  :optionLabel="
+                    option => {
+                      return option.code && option.code !== option.name
+                        ? `${option.code} - ${option.name}`
+                        : option.name;
+                    }
+                  "
                   inputId="subdivision"
                   v-model="subdivision"
                   v-bind="subdivisionAttrs"
