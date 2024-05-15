@@ -718,5 +718,9 @@
   "Back to home page": "Back to home page",
   "Enter your email to reset your password": "Enter your email to reset your password",
   "Reset password": "Reset password",
-  "Sign In the application": "Sign In the application"
+  "Sign In the application": "Sign In the application",
+  "Example": "Example",
+  "number": "number",
+  "number of requests sent": "number of requests sent",
+  "response time in milliseconds": "response time in milliseconds"
 }

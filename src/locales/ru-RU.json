@@ -715,5 +715,10 @@
   "Back to home page": "Вернуться на главную страницу",
   "Enter your email to reset your password": "Введите ваш email для сброса пароля",
   "Reset password": "Сбросить пароль",
-  "Sign In the application": "Войти в приложение"
+  "Sign In the application": "Войти в приложение",
+  "Example": "Пример",
+  "number": "номер",
+  "number of requests sent": "количество отправленных запросов",
+  "response time in milliseconds": "время ответа в миллисекундах",
+  "Profile account": "Профиль учетной записи"
 }

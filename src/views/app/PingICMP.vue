@@ -96,29 +96,55 @@ const commandHandler = async text => {
     </div>
 
     <Terminal
+      prompt="helpdesk$&nbsp;"
       :welcomeMessage="`Helpdesk [ Version ${$helpdesk?.version} ] ${$helpdesk?.copyright}`"
-      :prompt="`${'root'}$&nbsp;`"
-      class="h-[30rem] text-xl"
+      :pt="{
+        prompt: {
+          class: ['text-green-500 font-bold']
+        },
+        commandtext: {
+          class: [
+            'flex-1 shrink grow-0',
+            'text-white-500 font-bold',
+            'border-0',
+            'p-0',
+            'bg-transparent text-inherit',
+            'outline-none'
+          ]
+        },
+        command: {
+          class: ['text-white-500 font-bold']
+        },
+        response: {
+          class: ['text-primary-500 py-2']
+        }
+      }"
+      class="h-1/2 text-base"
       aria-label="Helpdesk Terminal Service"
     />
 
     <div class="px-6 py-6">
-      <h5>
-        Example:
-        <span class="font-normal text-primary rounded p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
+      <h5 class="font-bold">
+        {{ $t('Example') }}:
+        <span class="font-normal p-2"> ping 192.168.0.1 </span>
+      </h5>
+
+      <h5 class="font-bold">
+        {{ $t('Example') }}:
+        <span class="font-normal p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
       </h5>
 
       <p>
-        <code class="text-base font-normal">-n &lt;число&gt;</code>
+        <code class="text-base font-normal">-n &lt;{{ $t('number') }}&gt;</code>
         <span class="text-lg font-normal line-height-2">
-          : Указывает количество отправляемых запросов пинга.
+          : {{ $t('number of requests sent') }}
         </span>
       </p>
 
       <p>
-        <code class="text-base font-normal">-w &lt;время&gt;</code>
+        <code class="text-base font-normal">-w &lt;{{ $t('number') }}&gt;</code>
         <span class="text-lg font-normal line-height-2">
-          : Устанавливает время ожидания ответа в миллисекундах.
+          : {{ $t('response time in milliseconds') }}
         </span>
       </p>
     </div>
@@ -129,5 +155,10 @@ const commandHandler = async text => {
 code {
   padding: 0.2rem 0.5rem;
   border-radius: 0.3rem;
+}
+
+::v-deep([data-pc-section='welcomemessage']) {
+  color: #71717a;
+  padding-bottom: 4px;
 }
 </style>
