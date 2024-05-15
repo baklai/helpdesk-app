@@ -119,7 +119,7 @@ const commandHandler = async text => {
           class: ['text-primary-500 py-2']
         }
       }"
-      class="h-1/2 text-base"
+      class="h-1/2 text-base whitespace-pre-wrap"
       aria-label="Helpdesk Terminal Service"
     />
 
