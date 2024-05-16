@@ -63,7 +63,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(59, 130, 246, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'GET').map(({ count }) => count)
-        )[0]
+        )
       },
       {
         type: 'bar',
@@ -75,7 +75,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(34, 197, 94, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'POST').map(({ count }) => count)
-        )[0]
+        )
       },
       {
         type: 'bar',
@@ -87,7 +87,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(249, 115, 22, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'PUT').map(({ count }) => count)
-        )[0]
+        )
       },
       {
         type: 'bar',
@@ -99,7 +99,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(239, 68, 68, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'DELETE').map(({ count }) => count)
-        )[0]
+        )
       }
     ]
   };
@@ -111,8 +111,6 @@ onMounted(async () => {
 
   chartDataActivity.value = setChartDataActivity();
   chartDataActivityProfiles.value = setChartDataActivityProfiles();
-
-  console.log(chartDataActivityProfiles.value);
 });
 </script>
 
