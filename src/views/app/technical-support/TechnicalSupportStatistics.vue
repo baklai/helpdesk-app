@@ -1,11 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { MONTHS_OF_YEAR, DAYS_OF_WEEK } from '@/service/Constants';
 import { dateToStr } from '@/service/DataFilters';
 
 import { useStatistic } from '@/stores/api/statistics';
+
+const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
 const Statistic = useStatistic();
 

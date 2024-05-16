@@ -1,85 +1,60 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 
 import { useStatistic } from '@/stores/api/statistics';
-import { dateToStr, methodHttpToColor } from '@/service/DataFilters';
+import { dateToStr } from '@/service/DataFilters';
+
+const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
 const Statistic = useStatistic();
 
 const stats = ref({});
 const currentDate = ref();
 const chartDataActivity = ref();
-const chartDataActivityOptions = ref();
+const chartDataActivityOptions = ref({});
 const chartDataActivityProfiles = ref();
-const chartDataActivityProfilesOptions = ref();
+const chartDataActivityProfilesOptions = ref({
+  maintainAspectRatio: false,
+  aspectRatio: 0.8,
+  scales: {
+    x: {
+      stacked: true
+    },
+    y: {
+      stacked: true
+    }
+  }
+});
 
 const setChartDataActivity = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-
   return {
     labels: stats.value.activity.map(({ date }) => dateToStr(date)),
     datasets: [
       {
         label: 'API',
         fill: true,
-        borderColor: documentStyle.getPropertyValue('--orange-500'),
         tension: 0.4,
-        backgroundColor: 'rgba(255,167,38,0.2)',
+        color: '#666',
+        borderColor: 'rgb(34,197,94,0.5)',
+        backgroundColor: 'rgba(34,197,94,0.2)',
         data: stats.value.activity.map(({ count }) => count)
       }
     ]
   };
 };
 
-const setChartDataActivityOptions = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-  const textColor = documentStyle.getPropertyValue('--text-color');
-  const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
-  const surfaceBorder = documentStyle.getPropertyValue(
-    '--border-surface-200 dark:border-surface-600'
-  );
-
-  return {
-    maintainAspectRatio: false,
-    aspectRatio: 0.6,
-    plugins: {
-      legend: {
-        labels: {
-          color: textColor
-        }
-      }
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      },
-      y: {
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      }
-    }
-  };
-};
-
 const setChartDataActivityProfiles = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-
   return {
     labels: stats.value.activityProfiles.map(({ profile }) => profile),
     datasets: [
       {
         type: 'bar',
         label: 'GET',
-        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('GET')),
+        fill: true,
+        tension: 0.4,
+        color: '#666',
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: 'rgb(59, 130, 246, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'GET').map(({ count }) => count)
         )
@@ -87,7 +62,11 @@ const setChartDataActivityProfiles = () => {
       {
         type: 'bar',
         label: 'POST',
-        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('POST')),
+        fill: true,
+        tension: 0.4,
+        color: '#666',
+        borderColor: 'rgb(34, 197, 94)',
+        backgroundColor: 'rgb(34, 197, 94, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'POST').map(({ count }) => count)
         )
@@ -95,7 +74,11 @@ const setChartDataActivityProfiles = () => {
       {
         type: 'bar',
         label: 'PUT',
-        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('PUT')),
+        fill: true,
+        tension: 0.4,
+        color: '#666',
+        borderColor: 'rgb(249, 115, 22)',
+        backgroundColor: 'rgb(249, 115, 22, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'PUT').map(({ count }) => count)
         )
@@ -103,7 +86,11 @@ const setChartDataActivityProfiles = () => {
       {
         type: 'bar',
         label: 'DELETE',
-        backgroundColor: documentStyle.getPropertyValue(methodHttpToColor('DELETE')),
+        fill: true,
+        tension: 0.4,
+        color: '#666',
+        borderColor: 'rgb(239, 68, 68)',
+        backgroundColor: 'rgb(239, 68, 68, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'DELETE').map(({ count }) => count)
         )
@@ -112,60 +99,12 @@ const setChartDataActivityProfiles = () => {
   };
 };
 
-const setChartDataActivityProfilesOptions = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-  const textColor = documentStyle.getPropertyValue('--text-color');
-  const textColorSecondary = documentStyle.getPropertyValue('--surface-500');
-  const surfaceBorder = documentStyle.getPropertyValue(
-    '--border-surface-200 dark:border-surface-600'
-  );
-
-  return {
-    maintainAspectRatio: false,
-    aspectRatio: 0.8,
-    plugins: {
-      tooltips: {
-        mode: 'index',
-        intersect: false
-      },
-      legend: {
-        labels: {
-          color: textColor
-        }
-      }
-    },
-    scales: {
-      x: {
-        stacked: true,
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      },
-      y: {
-        stacked: true,
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      }
-    }
-  };
-};
-
 onMounted(async () => {
   currentDate.value = dateToStr(Date.now());
   stats.value = await Statistic.dashboard();
 
   chartDataActivity.value = setChartDataActivity();
-  chartDataActivityOptions.value = setChartDataActivityOptions();
-
   chartDataActivityProfiles.value = setChartDataActivityProfiles();
-  chartDataActivityProfilesOptions.value = setChartDataActivityProfilesOptions();
 });
 </script>
 
@@ -190,7 +129,7 @@ onMounted(async () => {
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
-          <h5>{{ $t('API Activity for the current month') }}</h5>
+          <h5 class="font-bold">{{ $t('API Activity for the current month') }}</h5>
           <Chart
             type="line"
             :data="chartDataActivity"
@@ -204,7 +143,7 @@ onMounted(async () => {
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
-          <h5>{{ $t('Profile activity for the current month') }}</h5>
+          <h5 class="font-bold">{{ $t('Profile activity for the current week') }}</h5>
           <Chart
             type="bar"
             :data="chartDataActivityProfiles"
@@ -220,8 +159,8 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of profiles') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of profiles') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.profiles || '-' }}
               </div>
             </div>
@@ -245,10 +184,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of requests') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.requests || '-' }}
               </div>
             </div>
@@ -272,10 +211,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of PC SysInspector reports') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.inspectors || '-' }}
               </div>
             </div>
@@ -299,10 +238,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of IP Addresses') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.ipaddress || '-' }}
               </div>
             </div>
@@ -326,10 +265,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of channels') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.channels || '-' }}
               </div>
             </div>
@@ -351,10 +290,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of units') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.units || '-' }}
               </div>
             </div>
@@ -378,10 +317,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of positions') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.positions || '-' }}
               </div>
             </div>
@@ -405,10 +344,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of locations') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
@@ -432,10 +371,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of organizations') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.organizations || '-' }}
               </div>
             </div>
@@ -459,10 +398,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of subdivisions') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.subdivisions || '-' }}
               </div>
             </div>
@@ -486,10 +425,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of departments') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>

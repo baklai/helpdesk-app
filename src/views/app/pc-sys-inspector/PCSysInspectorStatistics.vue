@@ -1,8 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
+
+const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
 const Statistic = useStatistic();
 

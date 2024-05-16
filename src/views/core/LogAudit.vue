@@ -8,7 +8,7 @@ import { useConfirm } from 'primevue/useconfirm';
 import HDDataTable from '@/components/tables/HDDataTable.vue';
 import OptionsMenu from '@/components/menus/OptionsMenu.vue';
 
-import { dateTimeToStr, methodHttpToColor, statusCodeToColor } from '@/service/DataFilters';
+import { dateTimeToStr } from '@/service/DataFilters';
 import { useSyslog } from '@/stores/api/syslogs';
 import { useProfile } from '@/stores/api/profiles';
 
@@ -114,7 +114,15 @@ const columns = ref([
         return (
           <Tag
             class={[
-              methodHttpToColor(value),
+              { 'bg-gray-500/80': value },
+              { '!bg-blue-500/80': value.toUpperCase() === 'GET' },
+              { '!bg-green-500/80': value.toUpperCase() === 'POST' },
+              {
+                '!bg-orange-500/80':
+                  value.toUpperCase() === 'PUT' || value.toUpperCase() === 'PUTCH'
+              },
+              { '!bg-red-500/80': value.toUpperCase() === 'DELETE' },
+
               '!w-24 !text-base !font-semibold !text-white !rounded px-2'
             ]}
             value={value}
@@ -143,7 +151,12 @@ const columns = ref([
         return (
           <Tag
             class={[
-              statusCodeToColor(value),
+              { '!text-blue-500': value < 200 },
+              { '!text-green-500': value >= 200 && value < 300 },
+              { '!text-gray-500': value >= 300 && value < 400 },
+              { '!text-orange-500': value >= 400 && value < 500 },
+              { '!text-red-500': value >= 500 },
+
               '!text-base !font-bold !rounded px-6',
               '!bg-surface-500/20'
             ]}

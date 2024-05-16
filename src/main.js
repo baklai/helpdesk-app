@@ -146,21 +146,6 @@ app.component(
   defineAsyncComponent(() => import('primevue/confirmdialog'))
 );
 
-app.component(
-  'Chart',
-  defineAsyncComponent(() => import('primevue/chart'))
-);
-
-app.component(
-  'DataView',
-  defineAsyncComponent(() => import('primevue/dataview'))
-);
-
-// app.component(
-//   'DataTable',
-//   defineAsyncComponent(() => import('primevue/datatable'))
-// );
-
 app.use(ErrorPlugin, { life: 5000 });
 
 app.use(AxiosPlugin, {

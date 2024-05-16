@@ -3,6 +3,8 @@ import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
+const DataView = defineAsyncComponent(() => import('primevue/dataview'));
+
 const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Notice.vue'));
 
 import { dateTimeToStr } from '@/service/DataFilters';
