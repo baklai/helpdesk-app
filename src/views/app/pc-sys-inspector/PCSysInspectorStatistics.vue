@@ -264,7 +264,7 @@ onMounted(async () => {
                   ></div>
                 </div>
                 <span class="text-primary-500 font-bold w-2/5">
-                  {{ Math.round((item?.count * 100) / stats?.count) }}
+                  {{ item?.count }}
                   <span class="text-surface-500 font-medium">{{ $t('reports') }}</span>
                 </span>
               </div>
