@@ -89,10 +89,10 @@ onMounted(async () => {
             >
               <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block font-medium mb-3">
+                  <span class="block font-bold mb-3">
                     {{ $t('Total number of requests') }}
                   </span>
-                  <div class="font-medium text-xl">
+                  <div class="font-bold text-primary-500 text-xl">
                     {{ stats?.requests || '-' }}
                   </div>
                 </div>
@@ -113,10 +113,10 @@ onMounted(async () => {
             >
               <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block font-medium mb-3">
+                  <span class="block font-bold mb-3">
                     {{ $t('Total number of closed requests') }}
                   </span>
-                  <div class="font-medium text-xl">
+                  <div class="font-bold text-primary-500 text-xl">
                     {{ stats?.closed || '-' }}
                   </div>
                 </div>
@@ -132,10 +132,10 @@ onMounted(async () => {
             >
               <div class="flex justify-between mb-3">
                 <div>
-                  <span class="block font-medium mb-3">
+                  <span class="block font-bold mb-3">
                     {{ $t('Total number of opened requests') }}
                   </span>
-                  <div class="font-medium text-xl">
+                  <div class="font-bold text-primary-500 text-xl">
                     {{ stats?.opened || '-' }}
                   </div>
                 </div>
@@ -154,7 +154,7 @@ onMounted(async () => {
             >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current week') }}</h5>
+                <h5 class="font-bold">{{ $t('Requests by current week') }}</h5>
               </div>
               <Chart type="bar" :data="weekChartData" :options="chartOptions" class="w-full" />
             </div>
@@ -166,7 +166,7 @@ onMounted(async () => {
             >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current month') }}</h5>
+                <h5 class="font-bold">{{ $t('Requests by current month') }}</h5>
               </div>
               <Chart type="bar" :data="monthChartData" :options="chartOptions" class="w-full" />
             </div>
@@ -177,7 +177,7 @@ onMounted(async () => {
             >
               <div class="flex justify-start gap-2 items-center mb-6">
                 <i class="pi pi-chart-bar text-2xl mr-2"></i>
-                <h5 class="my-0">{{ $t('Requests by current year') }}</h5>
+                <h5 class="font-bold">{{ $t('Requests by current year') }}</h5>
               </div>
               <Chart type="bar" :data="yearChartData" :options="chartOptions" class="w-full" />
             </div>
@@ -191,10 +191,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of organizations') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.organizations || '-' }}
               </div>
             </div>
@@ -216,10 +216,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of subdivisions') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.subdivisions || '-' }}
               </div>
             </div>
@@ -241,10 +241,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of departments') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>
@@ -266,10 +266,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of locations') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
@@ -291,10 +291,10 @@ onMounted(async () => {
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of positions') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.positions || '-' }}
               </div>
             </div>

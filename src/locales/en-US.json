@@ -410,7 +410,7 @@
   "Total number of autoanswers": "Total number of autoanswers",
   "Devices status": "Devices status",
   "Count devices": "Count devices",
-  "Locations status unuts": "Locations status unuts",
+  "Locations status": "Locations status",
   "Subdivisions status": "Subdivisions status",
   "VPN Address": "VPN Address",
   "Service": "Service",
@@ -722,5 +722,10 @@
   "Example": "Example",
   "number": "number",
   "number of requests sent": "number of requests sent",
-  "response time in milliseconds": "response time in milliseconds"
+  "response time in milliseconds": "response time in milliseconds",
+  "Good PC": "Good PC",
+  "Warning Users": "Warning Users",
+  "Warning Products": "Warning Products",
+  "Warning Shares": "Warning Shares",
+  "Count of PC status": "Count of PC status"
 }

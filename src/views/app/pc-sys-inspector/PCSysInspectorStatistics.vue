@@ -1,40 +1,37 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
 
 const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
+const { t } = useI18n();
 const Statistic = useStatistic();
 
 const stats = ref({});
 const currentDate = ref();
 const statusChart = ref(null);
-
 const basicOptions = ref({
   plugins: {
     legend: {
-      position: 'left',
-      labels: {
-        color: '#495057'
-      }
+      position: 'top'
     }
   }
 });
 
 onMounted(async () => {
-  stats.value = await Statistic.inspector();
-
-  const documentStyle = getComputedStyle(document.documentElement);
   currentDate.value = dateToStr(Date.now());
 
+  stats.value = await Statistic.inspector();
+
   statusChart.value = {
-    labels: ['Good PC', 'Warning Users', 'Warning Products', 'Warning Shares'],
+    labels: [t('Good PC'), t('Warning Users'), t('Warning Products'), t('Warning Shares')],
     datasets: [
       {
         type: 'pie',
-        label: 'Count of PC status',
+        label: t('Count of PC status'),
         data: [
           stats.value.count - stats.value.share - stats.value.product - stats.value.useraccount,
           stats.value.useraccount,
@@ -42,10 +39,10 @@ onMounted(async () => {
           stats.value.share
         ],
         backgroundColor: [
-          documentStyle.getPropertyValue('--green-500'),
-          documentStyle.getPropertyValue('--red-500'),
-          documentStyle.getPropertyValue('--orange-500'),
-          documentStyle.getPropertyValue('--yellow-500')
+          'rgb(34, 197, 94, 0.8)',
+          'rgb(239, 68, 68, 0.8)',
+          'rgb(249, 115, 22, 0.8)',
+          'rgb(234, 179, 8, 0.8)'
         ]
       }
     ]
@@ -70,16 +67,16 @@ onMounted(async () => {
     </div>
 
     <div class="flex flex-wrap">
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of reports') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.count || '-' }}
               </div>
             </div>
@@ -97,16 +94,16 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0 border-green-500"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of success') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.count - stats?.warning || '-' }}
               </div>
             </div>
@@ -124,16 +121,16 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0 border-orange-500"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of warnings') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.warning || '-' }}
               </div>
             </div>
@@ -151,14 +148,14 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Administrator rights') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Administrator rights') }}</span>
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.useraccount || '-' }}
               </div>
             </div>
@@ -176,14 +173,14 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Unwanted software') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Unwanted software') }}</span>
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.product || '-' }}
               </div>
             </div>
@@ -199,14 +196,14 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/3">
+      <div class="p-4 w-full lg:w-2/4 xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Shared resources') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Shared resources') }}</span>
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.share || '-' }}
               </div>
             </div>
@@ -224,28 +221,27 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
+      <div class="p-4 w-full xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
-          style="height: 35rem"
         >
           <div class="flex justify-between items-center mb-5">
             <div class="flex justify-start gap-2 items-center">
-              <i class="pi pi-history mr-2" style="font-size: 1.5rem"></i>
-              <h5 class="my-0">{{ $t('PC SysInspector report date') }}</h5>
+              <i class="pi pi-history text-2xl mr-2" />
+              <h5 class="font-bold">{{ $t('PC SysInspector report date') }}</h5>
             </div>
-            <Button icon="pi pi-ellipsis-v" class="" />
+            <Button text plain rounded icon="pi pi-ellipsis-v" class="w-12 h-12" />
           </div>
 
-          <ul class="max-h-25rem list-none overflow-auto p-0 m-0">
+          <ul class="list-none overflow-auto">
             <li
               class="flex flex-col md:flex-row md:items-center md:justify-between mb-6"
               v-for="(item, index) of stats?.days"
               :key="index"
             >
-              <div>
-                <span class="font-medium mr-2 mb-1 md:mb-0">
-                  <span v-if="index === 0" class="font-medium">
+              <div class="w-4/5">
+                <span class="font-bold text-primary-500 mr-2">
+                  <span v-if="index === 0">
                     &lt; {{ Math.round(item?.days) }} {{ $t('days') }}
                   </span>
                   <span v-else-if="index === stats?.days?.length - 1">
@@ -257,16 +253,18 @@ onMounted(async () => {
                     {{ $t('days') }}
                   </span>
                 </span>
-                <div class="text-sm my-1">{{ $t('Actual on') }} {{ currentDate }}</div>
+                <div class="text-base">{{ $t('Actual on') }} {{ currentDate }}</div>
               </div>
 
-              <div class="flex items-center my-2">
-                <ProgressBar
-                  :value="(item?.count * 100) / stats?.count"
-                  class="surface-300 rounded w-10rem h-1rem mr-4"
-                />
-                <span class="text-primary font-bold w-8rem">
-                  {{ item.count }}
+              <div class="flex items-center w-full">
+                <div class="bg-surface-500/20 rounded overflow-hidden w-4/5 h-6 mr-6">
+                  <div
+                    class="bg-primary-300 h-full"
+                    :style="`width: ${(item?.count * 100) / stats?.count}px`"
+                  ></div>
+                </div>
+                <span class="text-primary-500 font-bold w-2/5">
+                  {{ Math.round((item?.count * 100) / stats?.count) }}
                   <span class="text-surface-500 font-medium">{{ $t('reports') }}</span>
                 </span>
               </div>
@@ -275,19 +273,18 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full xl:w-1/3">
+      <div class="p-4 w-full xl:w-1/3">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6"
-          style="height: 35rem"
         >
-          <div class="flex justify-between items-center mb-5">
+          <div class="flex justify-between items-center h-12">
             <div class="flex justify-start gap-2 items-center">
-              <i class="pi pi-desktop mr-2" style="font-size: 1.5rem"></i>
-              <h5 class="my-0">{{ $t('PC SysInspector statuses') }}</h5>
+              <i class="pi pi-desktop text-2xl mr-2"></i>
+              <h5 class="font-bold">{{ $t('PC SysInspector statuses') }}</h5>
             </div>
           </div>
 
-          <Chart type="pie" :data="statusChart" :options="basicOptions" class="max-h-[30rem]" />
+          <Chart type="pie" :data="statusChart" :options="basicOptions" />
         </div>
       </div>
     </div>

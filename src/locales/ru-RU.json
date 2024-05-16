@@ -410,7 +410,7 @@
   "Total number of autoanswers": "Общее количество автоответов",
   "Devices status": "Статус устройств",
   "Count devices": "Количество устройств",
-  "Locations status unuts": "Статус подразделений местоположений",
+  "Locations status": "Статус местоположений",
   "Subdivision status": "Статус подразделений",
   "VPN Address": "VPN Адрес",
   "Service": "Сервис",
@@ -720,5 +720,10 @@
   "number": "номер",
   "number of requests sent": "количество отправленных запросов",
   "response time in milliseconds": "время ответа в миллисекундах",
-  "Profile account": "Профиль учетной записи"
+  "Profile account": "Профиль учетной записи",
+  "Good PC": "Хороший ПК",
+  "Warning Users": "Предупреждение пользователям",
+  "Warning Products": "Предупреждение продуктам",
+  "Warning Shares": "Предупреждение шарам",
+  "Count of PC status": "Количество статусов ПК"
 }

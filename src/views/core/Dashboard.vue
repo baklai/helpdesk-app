@@ -1,17 +1,23 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
 
+const Chart = defineAsyncComponent(() => import('primevue/chart'));
+
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
-
-const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
 const Statistic = useStatistic();
 
 const stats = ref({});
 const currentDate = ref();
 const chartDataActivity = ref();
-const chartDataActivityOptions = ref({});
+const chartDataActivityOptions = ref({
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+});
 const chartDataActivityProfiles = ref();
 const chartDataActivityProfilesOptions = ref({
   maintainAspectRatio: false,
@@ -57,7 +63,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(59, 130, 246, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'GET').map(({ count }) => count)
-        )
+        )[0]
       },
       {
         type: 'bar',
@@ -69,7 +75,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(34, 197, 94, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'POST').map(({ count }) => count)
-        )
+        )[0]
       },
       {
         type: 'bar',
@@ -81,7 +87,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(249, 115, 22, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'PUT').map(({ count }) => count)
-        )
+        )[0]
       },
       {
         type: 'bar',
@@ -93,7 +99,7 @@ const setChartDataActivityProfiles = () => {
         backgroundColor: 'rgb(239, 68, 68, 0.5)',
         data: stats.value.activityProfiles.map(({ methods }) =>
           methods.filter(({ method }) => method === 'DELETE').map(({ count }) => count)
-        )
+        )[0]
       }
     ]
   };
@@ -105,6 +111,8 @@ onMounted(async () => {
 
   chartDataActivity.value = setChartDataActivity();
   chartDataActivityProfiles.value = setChartDataActivityProfiles();
+
+  console.log(chartDataActivityProfiles.value);
 });
 </script>
 
@@ -125,11 +133,13 @@ onMounted(async () => {
     </div>
 
     <div class="flex flex-wrap content-start">
-      <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
+      <div class="p-4 w-full xl:w-2/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
-          <h5 class="font-bold">{{ $t('API Activity for the current month') }}</h5>
+          <h5 class="font-bold text-xl text-center">
+            {{ $t('API Activity for the current month') }}
+          </h5>
           <Chart
             type="line"
             :data="chartDataActivity"
@@ -139,11 +149,13 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
+      <div class="p-4 w-full xl:w-2/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
-          <h5 class="font-bold">{{ $t('Profile activity for the current week') }}</h5>
+          <h5 class="font-bold text-center text-xl">
+            {{ $t('Profile activity for the current week') }}
+          </h5>
           <Chart
             type="bar"
             :data="chartDataActivityProfiles"
@@ -160,7 +172,7 @@ onMounted(async () => {
           <div class="flex justify-between mb-3">
             <div>
               <span class="block font-bold mb-3">{{ $t('Total number of profiles') }}</span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.profiles || '-' }}
               </div>
             </div>
@@ -187,7 +199,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of requests') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.requests || '-' }}
               </div>
             </div>
@@ -214,7 +226,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of PC SysInspector reports') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.inspectors || '-' }}
               </div>
             </div>
@@ -241,7 +253,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of IP Addresses') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.ipaddress || '-' }}
               </div>
             </div>
@@ -268,7 +280,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of channels') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.channels || '-' }}
               </div>
             </div>
@@ -293,7 +305,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of units') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.units || '-' }}
               </div>
             </div>
@@ -320,7 +332,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of positions') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.positions || '-' }}
               </div>
             </div>
@@ -347,7 +359,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of locations') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
@@ -374,7 +386,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of organizations') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.organizations || '-' }}
               </div>
             </div>
@@ -401,7 +413,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of subdivisions') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.subdivisions || '-' }}
               </div>
             </div>
@@ -428,7 +440,7 @@ onMounted(async () => {
               <span class="block font-bold mb-3">
                 {{ $t('Total number of departments') }}
               </span>
-              <div class="font-bold text-xl">
+              <div class="font-bold text-primary-500 text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>
