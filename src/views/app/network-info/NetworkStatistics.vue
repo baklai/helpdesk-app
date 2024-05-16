@@ -48,16 +48,16 @@ const onCountPercentWidth = (count, allCount) => {
     </div>
 
     <div class="flex flex-wrap">
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">
+              <span class="block font-bold mb-3">
                 {{ $t('Total number of ipaddresses') }}
               </span>
-              <div class="font-medium text-xl">
+              <div class="font-bold text-xl">
                 {{ stats?.ipaddresses || '-' }}
               </div>
             </div>
@@ -75,14 +75,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of channels') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of channels') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.channels || '-' }}
               </div>
             </div>
@@ -98,14 +98,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of units') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of units') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.units || '-' }}
               </div>
             </div>
@@ -123,14 +123,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of locations') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of locations') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.locations || '-' }}
               </div>
             </div>
@@ -148,14 +148,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of organizations') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of organizations') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.organizations || '-' }}
               </div>
             </div>
@@ -173,14 +173,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of subdivisions') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of subdivisions') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.subdivisions || '-' }}
               </div>
             </div>
@@ -198,14 +198,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of departments') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of departments') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.departments || '-' }}
               </div>
             </div>
@@ -223,14 +223,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of Internets') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of Internets') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.internets || '-' }}
               </div>
             </div>
@@ -248,14 +248,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of E-Mails') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of E-Mails') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.mailboxes || '-' }}
               </div>
             </div>
@@ -273,14 +273,14 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full lg:w-2/4 xl:w-1/4">
+      <div class="w-full p-4 lg:w-2/4 xl:w-1/4">
         <div
           class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 mb-0"
         >
           <div class="flex justify-between mb-3">
             <div>
-              <span class="block font-medium mb-3">{{ $t('Total number of autoanswers') }}</span>
-              <div class="font-medium text-xl">
+              <span class="block font-bold mb-3">{{ $t('Total number of autoanswers') }}</span>
+              <div class="font-bold text-xl">
                 {{ stats?.autoanswers || '-' }}
               </div>
             </div>
@@ -296,93 +296,98 @@ const onCountPercentWidth = (count, allCount) => {
         </div>
       </div>
 
-      <div class="flex-shrink-0 p-4 w-full xl:w-2/4">
-        <div
-          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem] mb-6"
-        >
-          <div class="flex justify-between items-center mb-5">
-            <h5>{{ $t('Devices status') }}</h5>
-            <div>
-              <Button icon="pi pi-ellipsis-v" class="" />
-            </div>
-          </div>
-          <ul class="list-none p-0 m-0 overflow-auto" style="height: 80%">
-            <li
-              v-for="(item, index) of stats.barUnits"
-              :key="index"
-              class="flex flex-col md:flex-row md:items-center md:justify-between mb-6"
+      <div class="flex flex-wrap w-full">
+        <div class="p-4 w-full lg:w-1/2">
+          <div
+            class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
+          >
+            <DataTable
+              scrollable
+              removableSort
+              scrollHeight="flex"
+              :value="stats.barLocations"
+              responsiveLayout="scroll"
+              style="height: 90%"
+              v-model:filters="filters"
+              :globalFilterFields="['name', 'country.name', 'representative.name', 'status']"
             >
-              <div>
-                <span class="font-medium mr-2 mb-1 md:mb-0">{{ item.name }}</span>
-                <div class="mt-1">
-                  {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }}
-                  {{ stats.ipaddresses }}
+              <template #header>
+                <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
+                  <div class="flex flex-wrap gap-2 items-center">
+                    <h5 class="font-bold text-xl m-0">
+                      {{ $t('Locations status unuts') }}
+                    </h5>
+                  </div>
+                  <div class="flex flex-wrap items-center justify-between">
+                    <span class="relative">
+                      <i
+                        class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                      />
+                      <InputText
+                        id="name"
+                        class="sm:w-max w-full pl-10 !bg-inherit"
+                        v-model="filters['global'].value"
+                        :placeholder="$t('Search')"
+                      />
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-2 md:mt-0 flex items-center">
-                <div
-                  class="surface-300 rounded overflow-hidden w-12rem lg:w-6rem mr-4"
-                  style="height: 8px"
-                >
-                  <div
-                    class="bg-yellow-300 h-full"
-                    :style="`width: ${onCountPercentWidth(item.count, stats.ipaddresses)}px`"
-                  ></div>
-                </div>
-                <span class="text-yellow-500 font-medium w-6rem">
-                  {{ onCountPercent(item.count, stats.ipaddresses) }} %
-                </span>
-              </div>
-            </li>
-          </ul>
+              </template>
+              <Column field="name" :header="$t('Location')" sortable style="width: 70%">
+                <template #body="{ data }">
+                  <span class="font-bold text-primary-500">
+                    {{ data.name }}
+                  </span>
+                </template>
+              </Column>
+              <Column field="count" :header="$t('Count units')" sortable style="width: 30%">
+                <template #body="{ data }">
+                  <span class="font-bold text-xl text-green-300">{{ data.count }}</span>
+                </template>
+              </Column>
+            </DataTable>
+          </div>
         </div>
 
-        <div
-          class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem]"
-        >
-          <DataTable
-            scrollable
-            removableSort
-            scrollHeight="flex"
-            :value="stats.barLocations"
-            responsiveLayout="scroll"
-            style="height: 90%"
-            v-model:filters="filters"
-            :globalFilterFields="['name', 'country.name', 'representative.name', 'status']"
+        <div class="p-4 w-full lg:w-1/2">
+          <div
+            class="bg-surface-50 dark:bg-surface-800 rounded-lg border border-surface-300 dark:border-surface-600 p-6 h-[30rem] mb-6"
           >
-            <template #header>
-              <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
-                <div class="flex flex-wrap gap-2 items-center">
-                  <h5 class="m-0">
-                    {{ $t('Locations status unuts') }}
-                  </h5>
+            <div class="flex justify-between items-center mb-5">
+              <h5 class="font-bold text-xl">{{ $t('Devices status') }}</h5>
+              <div>
+                <Button text plain outline rounded icon="pi pi-ellipsis-v" class="w-12 h-12" />
+              </div>
+            </div>
+            <ul class="list-none h-80 px-4 m-0 overflow-auto">
+              <li
+                v-for="(item, index) of stats.barUnits"
+                :key="index"
+                class="flex flex-col md:flex-row md:items-center md:justify-between mb-6"
+              >
+                <div>
+                  <span class="text-primary-500 font-bold text-xl">
+                    {{ item?.name || '-' }}
+                  </span>
+                  <div>
+                    {{ $t('Count devices') }} {{ item.count }} {{ $t('of') }}
+                    {{ stats.ipaddresses }}
+                  </div>
                 </div>
-                <div class="flex flex-wrap items-center justify-between">
-                  <span class="relative">
-                    <i
-                      class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-                    />
-                    <InputText
-                      id="name"
-                      class="sm:w-max w-full pl-10 !bg-inherit"
-                      v-model="filters['global'].value"
-                      :placeholder="$t('Search')"
-                    />
+                <div class="flex items-center w-1/3">
+                  <div class="bg-surface-500 rounded overflow-hidden w-48 h-6 lg:w-w-60 mr-6">
+                    <div
+                      class="bg-yellow-300 h-full"
+                      :style="`width: ${onCountPercentWidth(item.count, stats.ipaddresses)}px`"
+                    ></div>
+                  </div>
+                  <span class="text-yellow-500 font-medium w-6rem">
+                    {{ onCountPercent(item.count, stats.ipaddresses) }} %
                   </span>
                 </div>
-              </div>
-            </template>
-            <Column field="name" :header="$t('Location')" sortable style="width: 70%">
-              <template #body="{ data }">
-                <span class="font-bold text-blue-500">{{ data.name }}</span>
-              </template>
-            </Column>
-            <Column field="count" :header="$t('Count units')" sortable style="width: 30%">
-              <template #body="{ data }">
-                <span class="font-bold text-green-300">{{ data.count }}</span>
-              </template>
-            </Column>
-          </DataTable>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
