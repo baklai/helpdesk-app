@@ -711,9 +711,8 @@ onMounted(async () => {
               text
               plain
               outlined
-              icon="pi pi-refresh"
-              iconClass="text-xl"
-              class="text-2xl w-12 h-10"
+              icon="pi pi-refresh text-xl"
+              class="sm:w-max w-full h-10"
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />
