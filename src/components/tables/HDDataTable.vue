@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
+import AppLoading from '@/components/AppLoading.vue';
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { getObjField } from '@/service/ObjectMethods';
@@ -678,8 +679,9 @@ onMounted(async () => {
       </template>
 
       <template #loading>
-        <i class="pi pi-spin pi-spinner text-3xl mr-4"></i>
-        <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
+        <div class="flex justify-center items-center">
+          <AppLoading />
+        </div>
       </template>
 
       <template #empty>

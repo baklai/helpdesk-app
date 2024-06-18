@@ -1,77 +1,46 @@
+<script setup>
+import { ref } from 'vue';
+
+const animation = ref([0.2, 0.3, 0.4, 0.1, 0.2, 0.3, 0, 0.1, 0.2]);
+</script>
+
 <template>
-  <div class="w-10rem h-20rem bg-blue-500">
-    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="4" width="6" height="14" opacity="1">
-        <animate
-          id="spinner_aqiq"
-          begin="0;spinner_xVBj.end-0.25s"
-          attributeName="y"
-          dur="0.75s"
-          values="1;5"
-          fill="freeze"
-        />
-        <animate
-          begin="0;spinner_xVBj.end-0.25s"
-          attributeName="height"
-          dur="0.75s"
-          values="22;14"
-          fill="freeze"
-        />
-        <animate
-          begin="0;spinner_xVBj.end-0.25s"
-          attributeName="opacity"
-          dur="0.75s"
-          values="1;.2"
-          fill="freeze"
-        />
-      </rect>
-      <rect x="9" y="4" width="6" height="14" opacity=".4">
-        <animate
-          begin="spinner_aqiq.begin+0.15s"
-          attributeName="y"
-          dur="0.75s"
-          values="1;5"
-          fill="freeze"
-        />
-        <animate
-          begin="spinner_aqiq.begin+0.15s"
-          attributeName="height"
-          dur="0.75s"
-          values="22;14"
-          fill="freeze"
-        />
-        <animate
-          begin="spinner_aqiq.begin+0.15s"
-          attributeName="opacity"
-          dur="0.75s"
-          values="1;.2"
-          fill="freeze"
-        />
-      </rect>
-      <rect x="17" y="4" width="6" height="14" opacity=".3">
-        <animate
-          id="spinner_xVBj"
-          begin="spinner_aqiq.begin+0.3s"
-          attributeName="y"
-          dur="0.75s"
-          values="1;5"
-          fill="freeze"
-        />
-        <animate
-          begin="spinner_aqiq.begin+0.3s"
-          attributeName="height"
-          dur="0.75s"
-          values="22;14"
-          fill="freeze"
-        />
-        <animate
-          begin="spinner_aqiq.begin+0.3s"
-          attributeName="opacity"
-          dur="0.75s"
-          values="1;.2"
-          fill="freeze"
-        />
-      </rect>
-    </svg>
+  <div class="spin-grid">
+    <div
+      class="spin-grid-cube"
+      v-for="(item, index) in animation"
+      :key="`${anim}-${index}`"
+      :style="{ animationDelay: `${item}s` }"
+    ></div>
   </div>
 </template>
+
+<style scoped>
+.spin-grid {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+}
+
+.spin-grid-cube {
+  float: left;
+  width: 33.33%;
+  height: 33.33%;
+  background-color: rgb(var(--primary-500));
+  animation: spin 1.3s infinite ease-in-out;
+}
+
+@keyframes spin {
+  0%,
+  70%,
+  100% {
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    transform: scale3D(0, 0, 1);
+  }
+}
+</style>
