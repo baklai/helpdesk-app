@@ -259,6 +259,81 @@ const columns = ref([
   },
 
   {
+    header: { text: 'Fullname', width: '16rem' },
+    column: {
+      field: 'fullname',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'fullname' },
+    filter: {
+      field: 'fullname',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Position', width: '16rem' },
+    column: {
+      field: 'position.name',
+      render(value) {
+        return <span>{value || '-'}</span>;
+      }
+    },
+    sorter: { field: 'position.name' },
+    filter: {
+      field: 'position',
+      value: null,
+      matchMode: FilterMatchMode.IN,
+      options: {
+        key: 'id',
+        value: 'id',
+        label: 'name',
+        onRecords: async () => {
+          return await Position.findAll({});
+        }
+      }
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: false,
+    frozen: false
+  },
+
+  {
+    header: { text: 'Phone', width: '12rem' },
+    column: {
+      field: 'phone',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'phone' },
+    filter: {
+      field: 'phone',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
     header: { text: 'Organization', width: '16rem' },
     column: {
       field: 'organization.name',
@@ -342,81 +417,6 @@ const columns = ref([
     exportable: true,
     filtrable: true,
     sortable: false,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Fullname', width: '16rem' },
-    column: {
-      field: 'fullname',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'fullname' },
-    filter: {
-      field: 'fullname',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Position', width: '16rem' },
-    column: {
-      field: 'position.name',
-      render(value) {
-        return <span>{value || '-'}</span>;
-      }
-    },
-    sorter: { field: 'position.name' },
-    filter: {
-      field: 'position',
-      value: null,
-      matchMode: FilterMatchMode.IN,
-      options: {
-        key: 'id',
-        value: 'id',
-        label: 'name',
-        onRecords: async () => {
-          return await Position.findAll({});
-        }
-      }
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: false,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Phone', width: '12rem' },
-    column: {
-      field: 'phone',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'phone' },
-    filter: {
-      field: 'phone',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
     frozen: false
   },
 
