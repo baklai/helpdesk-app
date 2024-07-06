@@ -36,32 +36,6 @@ const globalFilter = ref({
 
 const columns = ref([
   {
-    header: { text: 'Status', width: '10rem' },
-    column: {
-      field: 'status',
-      render(value) {
-        return value ? (
-          <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
-        ) : (
-          <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
-        );
-      }
-    },
-    sorter: { field: 'status' },
-    filter: {
-      field: 'status',
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-      showFilterMatchModes: false
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: true
-  },
-
-  {
     header: { text: 'Login', width: '14rem' },
     column: {
       field: 'login',
@@ -159,6 +133,32 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: false
+  },
+
+  {
+    header: { text: 'Status', width: '10rem' },
+    column: {
+      field: 'status',
+      render(value) {
+        return value ? (
+          <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
+        ) : (
+          <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
+        );
+      }
+    },
+    sorter: { field: 'status' },
+    filter: {
+      field: 'status',
+      value: null,
+      matchMode: FilterMatchMode.EQUALS,
+      showFilterMatchModes: false
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
   },
 
   {
