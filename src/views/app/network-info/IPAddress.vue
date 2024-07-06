@@ -100,6 +100,29 @@ const columns = ref([
   },
 
   {
+    header: { text: 'Letter number', width: '16rem' },
+    column: {
+      field: 'reqnum',
+      render(value) {
+        return <span>{value}</span>;
+      }
+    },
+    sorter: { field: 'reqnum' },
+    filter: {
+      field: 'reqnum',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: false
+  },
+
+  {
     header: { text: 'Opened date', width: '16rem' },
     column: {
       field: 'date',
@@ -408,29 +431,6 @@ const columns = ref([
     sorter: { field: 'autoanswer' },
     filter: {
       field: 'autoanswer',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: false
-  },
-
-  {
-    header: { text: 'Mail', width: '16rem' },
-    column: {
-      field: 'mail',
-      render(value) {
-        return <span>{value}</span>;
-      }
-    },
-    sorter: { field: 'mail' },
-    filter: {
-      field: 'mail',
       value: null,
       matchMode: FilterMatchMode.CONTAINS,
       filterOperator: FilterOperator.AND,
