@@ -421,7 +421,6 @@ const onCloseModal = async () => {
                 id="ipaddress"
                 v-model="ipaddress"
                 v-bind="ipaddressAttrs"
-                :disabled="!!values.id"
                 :placeholder="$t('Client IP Address')"
                 :invalid="!!errors?.ipaddress"
                 class="w-full"
