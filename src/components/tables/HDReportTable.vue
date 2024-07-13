@@ -1,137 +1,57 @@
 <script setup lang="jsx">
-import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
+import { ref, watch, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { useConfirm } from 'primevue/useconfirm';
 
-import AppLoading from '@/components/AppLoading.vue';
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { getObjField } from '@/service/ObjectMethods';
 
 const { t } = useI18n();
 const toast = useToast();
-const confirm = useConfirm();
 
 const props = defineProps({
   columns: {
     type: Array,
     default: []
   },
-  globalFilter: {
-    type: [Object, Boolean],
-    default: false
+  fields: {
+    type: Object,
+    default: null
   },
-  storageKey: {
-    type: String,
-    default: 'datatable-config'
+  filters: {
+    type: Object,
+    default: null
   },
-  exportFileName: {
-    type: String,
-    default: 'datatable-export'
+  sorts: {
+    type: Object,
+    default: null
   },
   onUpdate: {
     type: Function,
     required: true
-  },
-  onDelete: {
-    type: Function,
-    required: true
   }
 });
 
-const emits = defineEmits(['toggleMenu', 'toggleModal', 'toggleSidebar']);
-
-defineExpose({
-  update: async ({ filters }) => {
-    if (filters) {
-      params.value.filters = { ...params.value.filters, ...filters };
-    }
-    await onUpdateRecords();
-  },
-  delete: async data => {
-    await onRemoveRecord(data);
-  }
-});
-
-const onOptionsMenu = (event, value) => {
-  emits('toggleMenu', event, value);
-};
+const emits = defineEmits(['updateFields', 'updateSorts', 'updateFilters']);
 
 const refDataTable = ref();
 const keyDataTable = ref(0);
 const refMenuColumns = ref();
 
-const cols = ref([]);
+const columns = ref([]);
 const params = ref({});
+const fields = ref([]);
 const filters = ref({});
 const records = ref([]);
 const loading = ref(false);
 const totalRecords = ref();
 const offsetRecords = ref(0);
-const recordsPerPage = ref(15);
-const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
-
-const refMenuActions = ref();
-const menuActions = computed(() => [
-  {
-    label: t('Clear filters'),
-    icon: 'pi pi-filter-slash',
-    command: () => clearFilters()
-  },
-  {
-    label: t('Create record'),
-    icon: 'pi pi-plus-circle',
-    command: () => emits('toggleModal', {})
-  },
-  {
-    label: t('Update records'),
-    icon: 'pi pi-sync',
-    command: () => onUpdateRecords()
-  }
-]);
+const recordsPerPage = ref(5);
 
 const onColumnsMenu = event => {
   refMenuColumns.value.toggle(event);
-};
-
-const onRemoveRecord = ({ id }) => {
-  confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
-    icon: 'pi pi-question',
-    acceptIcon: 'pi pi-check',
-    acceptClass: '',
-    rejectIcon: 'pi pi-times',
-    accept: async () => {
-      if (id) {
-        await props.onDelete({ id });
-        toast.add({
-          severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
-          life: 3000
-        });
-        await onUpdateRecords();
-      } else {
-        toast.add({
-          severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not selected'),
-          life: 3000
-        });
-      }
-    },
-    reject: () => {
-      toast.add({
-        severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
-        life: 3000
-      });
-    }
-  });
 };
 
 const onUpdateRecords = async () => {
@@ -166,24 +86,13 @@ const initParams = () => {
 };
 
 const initColumns = async () => {
-  const columns = props.columns
-    .filter(({ column }) => column?.field)
-    .map(
-      async ({
-        header,
-        column,
-        sorter,
-        filter,
-        selectable,
-        exportable,
-        filtrable,
-        sortable,
-        frozen
-      }) => {
+  columns.value = await Promise.all(
+    props.columns
+      .filter(({ column }) => column?.field)
+      .map(async ({ header, column, sorter, filter }) => {
         return {
           header: {
             text: header?.text || column.field,
-            icon: header?.icon || null,
             width: header?.width || '15rem'
           },
           column: {
@@ -192,11 +101,8 @@ const initColumns = async () => {
               return typeof column?.render === 'function' ? (
                 column?.render(value)
               ) : (
-                <span>{value}</span>
+                <span>{value || '-'}</span>
               );
-            },
-            action(value) {
-              return typeof column?.action === 'function' ? column?.action(value) : null;
             }
           },
           sorter: { field: sorter?.field || column.field },
@@ -225,28 +131,28 @@ const initColumns = async () => {
                 }
               : null
           },
-          selectable: selectable === undefined ? true : selectable,
-          exportable: exportable === undefined ? false : exportable,
-          filtrable: filtrable === undefined ? false : filtrable,
-          sortable: sortable === undefined ? false : sortable,
-          frozen: frozen === undefined ? false : frozen
+          selectable: true,
+          filtrable: filter ? true : false,
+          sortable: sorter ? true : false
         };
-      }
-    );
+      })
+  );
+};
 
-  cols.value = await Promise.all(columns);
+const initFields = () => {
+  fields.value = columns.value
+    .filter(item => item.selectable)
+    .reduce((acc, item) => {
+      acc[item.column.field] = t(item.header.text);
+      return acc;
+    }, {});
+  emits('updateFields', fields.value);
 };
 
 const initFilters = async () => {
   filters.value = {
-    global: {
-      value: null,
-      matchMode: props?.globalFilter?.matchMode
-        ? props?.globalFilter?.matchMode
-        : FilterMatchMode.CONTAINS
-    },
     ...props.columns
-      .filter(column => column?.filtrable)
+      .filter(column => column?.filter)
       .reduce((previousObject, currentObject) => {
         return Object.assign(previousObject, {
           [currentObject.filter.field]: currentObject?.filter?.showFilterMatchModes
@@ -272,14 +178,6 @@ const clearFilters = async () => {
   initFilters();
   params.value.filters = filterConverter(filters.value);
   await onUpdateRecords();
-};
-
-const clearGlobalFilter = async () => {
-  if (filters.value?.global) {
-    filters.value['global'].value = null;
-    params.value.filters = filterConverter(filters.value);
-    await onUpdateRecords();
-  }
 };
 
 const filterConverter = object => {
@@ -339,16 +237,6 @@ const filterConverter = object => {
   const filterOR = [];
 
   for (const prop in object) {
-    if (prop === 'global') {
-      if (object['global']?.value !== null) {
-        filterObject[props.globalFilter.field] = filterMode(
-          object['global'].matchMode,
-          object['global'].value
-        );
-      }
-      continue;
-    }
-
     if (object[prop]?.value !== undefined && object[prop]?.value !== null) {
       filterObject[prop] = filterMode(object[prop].matchMode, object[prop].value);
     }
@@ -401,80 +289,64 @@ const sortConverter = value => {
   return sortObject;
 };
 
-const onPage = async event => {
-  const { rows, first } = event;
-  params.value.limit = rows;
-  params.value.offset = first;
-  await onUpdateRecords();
-};
-
 const onSort = async event => {
   params.value.sort = sortConverter(event.multiSortMeta);
+  emits('updateSorts', params.value.sort);
   await onUpdateRecords();
 };
 
 const onFilter = async event => {
   params.value.offset = 0;
   params.value.filters = filterConverter(event.filters);
+  emits('updateFilters', params.value.filters);
   await onUpdateRecords();
 };
 
-const onStorage = async event => {
-  const { rows, first } = event;
-  params.value.limit = rows;
-  params.value.offset = first;
-  // params.value.sort = sortConverter(event.multiSortMeta);
-  // params.value.filters = filterConverter(event.filters);
-  await onUpdateRecords();
+const onReorder = event => {
+  const { dragIndex, dropIndex } = event;
+  if (dropIndex < 0 || dropIndex >= columns.value.length) return;
+  const item = columns.value.splice(dragIndex, 1)[0];
+  columns.value.splice(dropIndex, 0, item);
+  initFields();
 };
 
-const resetLocalStorage = async () => {
-  if (props.storageKey) {
-    try {
-      localStorage.removeItem(props.storageKey);
-      refMenuColumns.value.hide();
-      keyDataTable.value += 1;
-      toast.add({
-        severity: 'success',
-        summary: t('Information'),
-        detail: t('Datatable reset to default'),
-        life: 3000
-      });
-    } catch (err) {
-      toast.add({
-        severity: 'warn',
-        summary: t('Warning'),
-        detail: t('Datatable not reset to default'),
-        life: 3000
-      });
-    }
-  }
+const onField = async () => {
+  initFields();
 };
 
 const selectAllColumns = () => {
-  cols.value.filter(col => !col.selectable).forEach(col => (col.selectable = true));
-  refMenuColumns.value.hide();
+  columns.value
+    .filter(col => !col.selectable)
+    .forEach(col => {
+      col.selectable = true;
+    });
+  initFields();
 };
 
-onMounted(async () => {
-  try {
+watch(
+  () => props.columns,
+  async (newValue, oldValue) => {
     loading.value = true;
-    initColumns();
-    initFilters();
-    initParams();
-    await onUpdateRecords();
-  } catch (err) {
-    records.value = [];
-    toast.add({
-      severity: 'warn',
-      summary: t('Warning'),
-      detail: t(err.message),
-      life: 3000
-    });
-  } finally {
-    loading.value = false;
-  }
-});
+    try {
+      await initColumns();
+      await initFilters();
+      initParams();
+      initFields();
+      await onUpdateRecords();
+    } catch (err) {
+      records.value = [];
+      toast.add({
+        severity: 'warn',
+        summary: t('Warning'),
+        detail: t(err.message),
+        life: 3000
+      });
+    } finally {
+      loading.value = false;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -484,7 +356,7 @@ onMounted(async () => {
         filter
         multiple
         class="w-full"
-        :options="cols"
+        :options="columns"
         listStyle="height: 21rem"
         dataKey="selectable"
         optionValue="selectable"
@@ -498,6 +370,7 @@ onMounted(async () => {
               :inputId="`${option.column.field}${index}`"
               v-model="option.selectable"
               class="mr-2"
+              @change="onField"
             />
             <label :for="`${option.column.field}${index}`">
               {{ $t(option.header.text) }}
@@ -532,54 +405,33 @@ onMounted(async () => {
     <DataTable
       lazy
       rowHover
-      paginator
       scrollable
       removableSort
       resizableColumns
       reorderableColumns
-      alwaysShowPaginator
       ref="refDataTable"
       :key="keyDataTable"
       dataKey="id"
-      :stateKey="!storageKey || null"
-      stateStorage="local"
-      csvSeparator=";"
       sortMode="multiple"
       scrollHeight="flex"
       filterDisplay="menu"
-      size="small"
       responsiveLayout="scroll"
       columnResizeMode="expand"
       :value="records"
       :loading="loading"
       v-model:filters="filters"
-      :exportFilename="exportFileName"
-      :pageLinkSize="1"
-      :first="offsetRecords"
-      :rows="recordsPerPage"
-      :totalRecords="totalRecords"
-      :rowsPerPageOptions="recordsPerPageOptions"
-      :currentPageReportTemplate="
-        $t('Showing records', {
-          first: '{first}',
-          last: '{last}',
-          totalRecords: '{totalRecords}'
-        })
-      "
-      style="height: calc(100vh - 5rem)"
-      class="min-w-full overflow-x-auto text-base"
-      :paginatorTemplate="'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'"
-      @state-restore="onStorage"
+      style="min-height: 350px"
+      class="min-w-full overflow-x-auto text-base py-2 px-4"
+      @column-reorder="onReorder"
       @filter="onFilter"
       @sort="onSort"
-      @page="onPage"
     >
       <template #header>
         <div class="flex flex-wrap gap-4 items-center justify-between">
           <div class="flex flex-wrap gap-1 items-center">
             <slot name="icon" />
             <div class="flex flex-col">
-              <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
+              <h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">
                 <slot name="title" />
               </h3>
               <p class="text-base font-normal text-surface-500">
@@ -588,24 +440,6 @@ onMounted(async () => {
             </div>
           </div>
           <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-            <span v-if="globalFilter && filters['global']" class="relative sm:w-max w-full">
-              <i
-                class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
-              />
-              <InputText
-                id="name"
-                class="sm:w-max w-full px-10 !bg-inherit"
-                :placeholder="$t(globalFilter?.placeholder)"
-                v-model="filters['global'].value"
-                @keydown.enter="onFilter({ filters })"
-              />
-              <i
-                class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
-                v-tooltip.bottom="$t('Clear global filter')"
-                @click="clearGlobalFilter"
-              />
-            </span>
-
             <div class="flex gap-2 sm:w-max w-full justify-between">
               <Button
                 text
@@ -614,20 +448,10 @@ onMounted(async () => {
                 icon="pi pi-filter-slash"
                 class="text-2xl w-12 h-12"
                 :class="
-                  params?.filters && Object.keys(params.filters).length ? '!text-primary-600' : ''
+                  params?.filters && Object.keys(params.filters)?.length ? '!text-primary-600' : ''
                 "
                 v-tooltip.bottom="$t('Clear filters')"
                 @click="clearFilters"
-              />
-
-              <Button
-                text
-                plain
-                rounded
-                icon="pi pi-plus-circle"
-                class="text-2xl w-12 h-12"
-                v-tooltip.bottom="$t('Create record')"
-                @click="emits('toggleModal', {})"
               />
 
               <Button
@@ -639,8 +463,6 @@ onMounted(async () => {
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
-
-              <slot name="actions" />
 
               <Button
                 text
@@ -654,29 +476,22 @@ onMounted(async () => {
             </div>
           </div>
         </div>
-
-        <slot name="subheader" />
-      </template>
-
-      <template #loading>
-        <div class="flex justify-center items-center">
-          <AppLoading />
-        </div>
       </template>
 
       <template #empty>
         <div
           v-if="!loading && !records?.length"
           class="absolute left-0 z-20 flex items-stretch text-center justify-center w-full h-full bg-none"
-          style="height: calc(100vh - 24rem)"
+          style="height: calc(100vh - 65rem)"
         >
           <div class="flex flex-col gap-2 m-auto">
-            <i class="pi pi-filter-slash text-7xl text-surface-500"></i>
-            <h5 class="text-2xl font-semibold">{{ $t('No records found') }}</h5>
+            <i class="pi pi-filter-slash text-4xl text-surface-500"></i>
+            <h5 class="text-xl font-semibold">{{ $t('No records found') }}</h5>
             <p class="text-base text-surface-500">
               {{ $t('Try changing the search terms in the filter') }}
             </p>
             <Button
+              size="small"
               icon="pi pi-filter-slash text-sm"
               class="w-max m-auto my-4"
               :label="$t('Clear filters')"
@@ -686,84 +501,13 @@ onMounted(async () => {
         </div>
       </template>
 
-      <template #paginatorstart>
-        <div class="flex flex-wrap gap-4 items-center justify-evenly xl:justify-between p-2">
-          <div class="flex flex-wrap gap-2 items-center justify-evenly">
-            <Button
-              text
-              plain
-              outlined
-              icon="pi pi-refresh text-xl"
-              class="sm:w-max w-full h-10"
-              v-tooltip.bottom="$t('Reset to default')"
-              @click="resetLocalStorage"
-            />
-
-            <Menu ref="refMenuActions" :model="menuActions" popup>
-              <template #item="{ label, item, props }">
-                <a :href="item.url" v-bind="props.action">
-                  <span v-bind="props.icon" />
-                  <span v-bind="props.label">{{ label }}</span>
-                </a>
-              </template>
-            </Menu>
-            <Button
-              text
-              plain
-              outlined
-              :label="$t('Actions')"
-              class="sm:w-max w-full h-10"
-              @click="event => refMenuActions.toggle(event)"
-            >
-              <template #default>
-                <i class="pi pi-sliders-h" />
-                <span class="mx-2">
-                  {{ $t('Actions') }}
-                </span>
-                <i class="pi pi-chevron-down" />
-              </template>
-            </Button>
-          </div>
-        </div>
-      </template>
-
-      <Column field="options" frozen :exportable="false" :reorderableColumn="false" class="w-6">
-        <template #header>
-          <Button
-            text
-            plain
-            rounded
-            icon="pi pi-cog"
-            class="font-bold w-8 h-8 m-2"
-            v-tooltip.bottom="$t('Columns option')"
-            @click="onColumnsMenu"
-          />
-        </template>
-        <template #body="{ data }">
-          <Button
-            text
-            plain
-            rounded
-            icon="pi pi-ellipsis-v"
-            class="font-bold w-8 h-8 m-2"
-            v-tooltip.bottom="$t('Optional menu')"
-            @click="onOptionsMenu($event, data)"
-          />
-        </template>
-      </Column>
-
       <Column
-        v-for="(
-          { header, column, filter, sortable, filtrable, selectable, exportable, frozen }, index
-        ) of cols"
+        v-for="({ header, column, filter, sortable, filtrable, selectable }, index) of columns"
+        reorderableColumn
         :hidden="!selectable"
         :key="`${column.field}-${index}`"
         :field="column.field"
-        :reorderableColumn="!frozen"
-        :exportHeader="header.text"
         :sortable="sortable"
-        :exportable="exportable"
-        :frozen="frozen"
         :maxConstraints="3"
         :showFilterMenu="filtrable"
         :filterField="filter.field"
@@ -774,18 +518,13 @@ onMounted(async () => {
       >
         <template #header>
           <span class="mx-2">
-            <i v-if="header?.icon" :class="header.icon" class="mr-2" />
             {{ $t(header?.text) }}
           </span>
         </template>
 
         <template #body="{ data, field }">
           <div class="whitespace-nowrap text-ellipsis overflow-hidden px-2">
-            <component
-              v-if="column?.render"
-              :is="column?.render(getObjField(data, field))"
-              @click="column?.action ? column?.action(data) : false"
-            />
+            <component v-if="column?.render" :is="column?.render(getObjField(data, field))" />
             <span v-else>{{ getObjField(data, field) }}</span>
           </div>
         </template>

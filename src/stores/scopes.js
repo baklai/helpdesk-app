@@ -68,7 +68,11 @@ export const useScope = defineStore('scope', () => {
       {
         scope: 'report',
         comment: 'HD Reports of Service',
-        read: false
+        create: false,
+        read: true,
+        update: false,
+        delete: false,
+        notice: false
       },
 
       {

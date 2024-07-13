@@ -9,7 +9,7 @@ const animation = ref([0.2, 0.3, 0.4, 0.1, 0.2, 0.3, 0, 0.1, 0.2]);
     <div
       class="spin-grid-cube"
       v-for="(item, index) in animation"
-      :key="`${anim}-${index}`"
+      :key="`cube-${index}`"
       :style="{ animationDelay: `${item}s` }"
     ></div>
   </div>
