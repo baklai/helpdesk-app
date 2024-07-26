@@ -34,6 +34,8 @@
   "scripts": {
     "start": "vite preview",
     "build": "vite build && vitepress build docs",
+    "build:docker": "docker compose build",
+    "build:docker:multibuilder": "docker compose build --builder multibuilder --push",
     "start:dev": "vite",
     "start:lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "start:format": "prettier --write src/",
