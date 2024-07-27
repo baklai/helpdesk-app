@@ -58,4 +58,4 @@ COPY --from=development /app/dist/ ./dist/
 EXPOSE 5173
 
 # Start application
-CMD [ "http-server", "dist -p 5173 -a 0.0.0.0 -g --cors --log-ip" ]
+CMD [ "http-server", "dist", "-p", "5173", "-a", "127.0.0.1", "-g", "--cors", "--log-ip" ]
