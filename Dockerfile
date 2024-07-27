@@ -38,15 +38,15 @@ FROM node:${NODE_VERSION}-alpine AS production
 
 WORKDIR /app
 
+# Install global dependencies
+RUN npm i -g http-server
+
 # Copy dependecies files
 COPY package*.json ./
 COPY postcss.config.js ./
 COPY pwa-assets.config.js ./
 COPY tailwind.config.js ./
 COPY vite.config.js ./
-
-# Install global dependecies
-RUN npm i -g http-server
 
 # Install runtime dependecies (without dev/test dependecies)
 RUN npm i --omit=dev
@@ -58,4 +58,4 @@ COPY --from=development /app/dist/ ./dist/
 EXPOSE 5173
 
 # Start application
-CMD [ "http-server", "dist", "-p", "5173", "-a", "127.0.0.1", "-g", "--cors", "--log-ip" ]
+CMD [ "http-server", "dist", "-p", "5173", "-a", "0.0.0.0", "-g", "--cors", "--log-ip" ]
