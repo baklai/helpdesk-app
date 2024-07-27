@@ -5,7 +5,7 @@
 ARG NODE_VERSION=18.17.1
 
 # Building layer
-FROM node:${NODE_VERSION}-alpine AS development
+FROM node:${NODE_VERSION}-alpine AS build
 
 WORKDIR /app
 
@@ -38,9 +38,6 @@ FROM node:${NODE_VERSION}-alpine AS production
 
 WORKDIR /app
 
-# Install global dependencies
-RUN npm i -g http-server
-
 # Copy dependecies files
 COPY package*.json ./
 COPY postcss.config.js ./
@@ -52,10 +49,19 @@ COPY vite.config.js ./
 RUN npm i --omit=dev
 
 # Copy production build
-COPY --from=development /app/dist/ ./dist/
+COPY --from=build /app/dist/ ./dist/
 
-# Expose application port
-EXPOSE 5173
+# Используем nginx для сервировки собранных файлов
+FROM nginx:stable-alpine AS application
 
-# Start application
-CMD [ "http-server", "dist", "-p", "5173", "-a", "0.0.0.0", "-g", "--cors", "--log-ip" ]
+# Копируем собранные файлы в nginx
+COPY --from=production /app/dist /usr/share/nginx/html
+
+# Копируем nginx конфигурацию
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Открываем порт
+EXPOSE 80
+
+# Запускаем nginx
+CMD ["nginx", "-g", "daemon off;"]

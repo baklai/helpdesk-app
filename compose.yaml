@@ -9,7 +9,7 @@
 # https://github.com/docker/awesome-compose
 
 services:
-  api:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ services:
     environment:
       - NODE_ENV=production
     ports:
-      - 5173:5173
+      - 80:80
     restart: unless-stopped
     container_name: helpdesk-app
     image: baklai/helpdesk-app-v1:latest

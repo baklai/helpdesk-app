@@ -149,7 +149,7 @@ app.component(
 app.use(ErrorPlugin, { life: 5000 });
 
 app.use(AxiosPlugin, {
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL || window.env.API_BASE_URL,
   prefixAPI: '/api/v1',
   options: {
     timeout: 10000,

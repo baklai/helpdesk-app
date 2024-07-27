@@ -16,7 +16,7 @@ export default defineConfig({
       minify: true,
       inject: {
         data: {
-          APP_BASE_URL: VITE_APP_BASE_URL ? VITE_APP_BASE_URL : '/',
+          APP_BASE_URL: VITE_APP_BASE_URL || '/',
           APP_BASE_IMG: VITE_APP_BASE_URL
             ? `${VITE_APP_BASE_URL}/img/preview.png`
             : '/img/preview.png'

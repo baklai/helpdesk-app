@@ -149,13 +149,20 @@ pm2 logs helpdesk-app
 services:
   app:
     image: baklai/helpdesk-app-v1:latest
-    env_file: .env
-    environment:
-      - NODE_ENV=production
     ports:
-      - 5173:5173
+      - 80:80
+    volumes:
+      - ./env.config.js:/usr/share/nginx/html/env.config.js
     restart: unless-stopped
     container_name: helpdesk-app
+```
+
+```js
+// Create custom config file env.config.js
+window.env = {
+  APP_BASE_URL: 'http://localhost',
+  API_BASE_URL: 'http://localhost:8080'
+};
 ```
 
 ```bash
