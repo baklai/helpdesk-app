@@ -11,14 +11,24 @@ WORKDIR /app
 
 # Copy configuration files
 COPY index.html ./
-COPY tailwind.config.js ./
 COPY package*.json ./
+COPY postcss.config.js ./
+COPY pwa-assets.config.js ./
+COPY tailwind.config.js ./
+COPY vite.config.js ./
+
 
 # Install dependecies from package.json
 RUN npm install
 
 # Copy application sources (.ts, .tsx, js)
 COPY src/ src/
+
+# Copy public sources (.ts, .tsx, js)
+COPY public/ public/
+
+# Copy docs sources (.ts, .tsx, js, md)
+COPY docs/ /docs
 
 # Build application (produces dist/ folder)
 RUN npm run build
@@ -30,6 +40,10 @@ WORKDIR /app
 
 # Copy dependecies files
 COPY package*.json ./
+COPY postcss.config.js ./
+COPY pwa-assets.config.js ./
+COPY tailwind.config.js ./
+COPY vite.config.js ./
 
 # Install global dependecies
 RUN npm i -g http-server

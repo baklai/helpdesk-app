@@ -56,6 +56,16 @@ export default defineConfig({
       '@@': fileURLToPath(new URL('./', import.meta.url))
     }
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue', 'vue-router', 'axios', 'chart.js', 'dayjs', 'html2pdf.js', 'qalendar']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  },
   preview: {
     port: 80,
     host: true,
