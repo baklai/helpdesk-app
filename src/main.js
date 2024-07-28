@@ -148,6 +148,10 @@ app.component(
 
 app.use(ErrorPlugin, { life: 5000 });
 
+console.log('window', `${window.location.protocol}//${window.location.host}`);
+
+console.log('meta', import.meta.env.VITE_API_BASE_URL);
+
 app.use(AxiosPlugin, {
   baseURL:
     import.meta.env.VITE_API_BASE_URL || `${window.location.protocol}//${window.location.host}`,
