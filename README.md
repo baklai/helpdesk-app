@@ -89,9 +89,5 @@ npm run lint
 npm run format
 ```
 
-## Default email to the application
-
-The service administrator is created during the first registration on the service
-
 After starting the app on port (5173 as default) you can open
 in your browser helpdesk by typing http://localhost:5173/.
