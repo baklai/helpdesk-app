@@ -1,12 +1,10 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
-
-const { VITE_APP_BASE_URL } = loadEnv('', process.cwd());
 
 export default defineConfig({
   plugins: [
@@ -16,10 +14,8 @@ export default defineConfig({
       minify: true,
       inject: {
         data: {
-          APP_BASE_URL: VITE_APP_BASE_URL || '/',
-          APP_BASE_IMG: VITE_APP_BASE_URL
-            ? `${VITE_APP_BASE_URL}/img/preview.png`
-            : '/img/preview.png'
+          APP_BASE_URL: '/',
+          APP_BASE_IMG: '/img/preview.png'
         }
       }
     }),
@@ -57,17 +53,10 @@ export default defineConfig({
     }
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['vue', 'vue-router', 'axios', 'chart.js', 'dayjs', 'html2pdf.js', 'qalendar']
-        }
-      }
-    },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1500
   },
   preview: {
-    port: 80,
+    port: 5173,
     host: true,
     cors: true,
     open: false,
