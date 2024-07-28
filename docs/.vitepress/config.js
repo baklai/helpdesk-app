@@ -258,16 +258,7 @@ export default defineConfig({
       }
     },
     externalLinkIcon: false,
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/baklai' },
-      {
-        icon: 'linkedin',
-        link: 'https://www.linkedin.com/in/baklai/'
-      },
-      { icon: 'twitter', link: 'https://twitter.com/baklaiDi' },
-      { icon: 'facebook', link: 'https://www.facebook.com/dmitrii.baklai' },
-      { icon: 'instagram', link: 'https://www.instagram.com/baklai.di/' }
-    ]
+    socialLinks: [{ icon: 'github', link: 'https://github.com/baklai' }]
   },
 
   srcExclude: ['**/README.md']
