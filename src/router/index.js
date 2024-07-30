@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { inject } from 'vue';
 
 import PrivateLayout from '@/layout/PrivateLayout.vue';
@@ -7,7 +7,7 @@ import PublicLayout from '@/layout/PublicLayout.vue';
 import { useApp } from '@/stores/app';
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
