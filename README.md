@@ -12,8 +12,6 @@ Web application of technical support
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/dayjs)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/html2pdf.js)
 
-## Demo application: [Helpdesk service](https://helpdesk-service.netlify.app)
-
 ## Prerequisites
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
