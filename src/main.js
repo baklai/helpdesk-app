@@ -40,7 +40,7 @@ import Tooltip from 'primevue/tooltip';
 
 import '@/assets/base.css';
 
-import '@/assets/styles.scss';
+import 'primeicons/primeicons.css';
 
 import Presets from '@/presets';
 
