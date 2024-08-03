@@ -403,6 +403,7 @@ onMounted(async () => {
         scrollable
         contextMenu
         removableSort
+        resizableColumns
         :value="storageFiles"
         :loading="loading"
         sortField="type"
@@ -417,7 +418,7 @@ onMounted(async () => {
         :frozenValue="breadcrumb?.length ? lockedRowBack : null"
         style="height: calc(100vh - 6rem); width: 100%"
         @rowContextmenu="onRowContextMenu"
-        class="text-lg"
+        class="min-w-full overflow-x-auto text-lg"
       >
         <template #header>
           <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
@@ -685,9 +686,11 @@ onMounted(async () => {
         </Column>
 
         <Column
+          frozen
           field="options"
           :header="null"
-          :style="{ minWidth: '12%', padding: 0 }"
+          alignFrozen="right"
+          :style="{ minWidth: '3rem', padding: 0 }"
           headerClass="font-bold text-center uppercase"
         >
           <template #body="{ data }">
