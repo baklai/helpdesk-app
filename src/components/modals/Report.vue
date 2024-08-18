@@ -62,7 +62,7 @@ const {
   validationSchema: yup.object({
     name: yup.string().required(t('Value is required')),
     description: yup.string().required(t('Value is required')),
-    collection: yup.string().required(t('Value is required')),
+    datacollection: yup.string().required(t('Value is required')),
     fields: yup.string(),
     filters: yup.string(),
     sorts: yup.string()
@@ -79,14 +79,14 @@ defineExpose({
         const {
           name,
           description,
-          collection,
+          datacollection,
           sorts = null,
           filters = null,
           fields = null
         } = await findOne({ id });
         setFieldValue('name', name);
         setFieldValue('description', description);
-        setFieldValue('collection', collection);
+        setFieldValue('datacollection', datacollection);
         setFieldValue('fields', fields);
         setFieldValue('filters', filters);
         setFieldValue('sorts', sorts);
@@ -115,7 +115,7 @@ const options = ref([
   }
 ]);
 
-const collections = ref([
+const datacollections = ref([
   {
     name: 'ipaddresses',
     label: 'Network IP Address',
@@ -1178,15 +1178,15 @@ const collections = ref([
 
 const [name, titleAttrs] = defineField('name');
 const [description, descriptionAttrs] = defineField('description');
-const [collection, collectionAttrs] = defineField('collection');
+const [datacollection, datacollectionAttrs] = defineField('datacollection');
 const [sorts, sortsAttrs] = defineField('sorts');
 const [fields, fieldsAttrs] = defineField('fields');
 const [filters, filtersAttrs] = defineField('filters');
 
 const datatable = computed(() => {
-  return collection.value
+  return datacollection.value
     ? {
-        ...collections.value.find(({ name }) => name === collection.value),
+        ...datacollections.value.find(({ name }) => name === datacollection.value),
         fields: fields?.value ? JSON.parse(fields.value) : null,
         filters: filters?.value ? JSON.parse(filters.value) : null,
         sorts: sorts?.value ? JSON.parse(sorts.value) : null
@@ -1440,10 +1440,10 @@ const onCloseModal = async () => {
                     autofocus
                     optionValue="name"
                     optionLabel="label"
-                    inputId="collection"
-                    v-model="collection"
-                    v-bind="collectionAttrs"
-                    :options="collections"
+                    inputId="datacollection"
+                    v-model="datacollection"
+                    v-bind="datacollectionAttrs"
+                    :options="datacollections"
                     :filterPlaceholder="$t('Search in list')"
                     :placeholder="$t('Select collection')"
                   >
@@ -1456,8 +1456,12 @@ const onCloseModal = async () => {
                       </div>
                     </template>
                   </Dropdown>
-                  <small id="collection-help" class="text-red-500" v-if="errors?.collection">
-                    {{ $t(errors.collection) }}
+                  <small
+                    id="datacollection-help"
+                    class="text-red-500"
+                    v-if="errors?.datacollection"
+                  >
+                    {{ $t(errors.datacollection) }}
                   </small>
                 </div>
               </div>
@@ -1469,7 +1473,7 @@ const onCloseModal = async () => {
               :label="$t('Next')"
               @click="
                 async () => {
-                  const { valid: isCollectionValid } = await validateField('collection');
+                  const { valid: isCollectionValid } = await validateField('datacollection');
                   if (isCollectionValid) {
                     nextCallback();
                   }
