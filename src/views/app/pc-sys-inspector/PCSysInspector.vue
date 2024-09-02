@@ -28,6 +28,16 @@ const refDataTable = ref();
 const refWarningMenu = ref();
 const warningOptions = ref([
   {
+    label: t('Show missing IP Addresses'),
+    icon: 'pi pi-desktop',
+    command: async () =>
+      await refDataTable.value.update({
+        filters: {
+          warning: 'ipaddress'
+        }
+      })
+  },
+  {
     label: t('Show user account warnings'),
     icon: 'pi pi-users',
     command: async () =>
@@ -158,9 +168,9 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Status', width: '13rem' },
+    header: { text: 'IP Status', width: '10rem' },
     column: {
-      field: 'isIPAddress',
+      field: 'ipaddress',
       render(value) {
         return (
           <span class="font-bold text-primary-500 cursor-pointer">
@@ -173,17 +183,10 @@ const columns = ref([
         );
       }
     },
-    sorter: { field: 'isIPAddress' },
-    filter: {
-      field: 'isIPAddress',
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-      showFilterMatchModes: false
-    },
     selectable: true,
     exportable: true,
     filtrable: false,
-    sortable: true,
+    sortable: false,
     frozen: false
   },
 
