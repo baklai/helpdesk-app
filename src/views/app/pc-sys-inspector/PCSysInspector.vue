@@ -158,6 +158,36 @@ const columns = ref([
   },
 
   {
+    header: { text: 'IP Status', width: '13rem' },
+    column: {
+      field: 'isIPAddress',
+      render(value) {
+        return (
+          <span class="font-bold text-primary-500 cursor-pointer">
+            {value ? (
+              <i class="pi pi-verified text-green-500"></i>
+            ) : (
+              <i class="pi pi-exclamation-triangle text-red-500"></i>
+            )}
+          </span>
+        );
+      }
+    },
+    sorter: { field: 'isIPAddress' },
+    filter: {
+      field: 'isIPAddress',
+      value: null,
+      matchMode: FilterMatchMode.EQUALS,
+      showFilterMatchModes: false
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: false,
+    sortable: true,
+    frozen: false
+  },
+
+  {
     header: { text: 'Users', width: '13rem' },
     column: {
       field: 'inspector.useraccount',
