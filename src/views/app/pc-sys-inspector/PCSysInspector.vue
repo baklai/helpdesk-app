@@ -173,7 +173,7 @@ const columns = ref([
       field: 'ipaddress',
       render(value) {
         return (
-          <span class="font-bold text-primary-500 cursor-pointer">
+          <span class="font-bold text-primary-500 cursor-pointer pl-6">
             {value ? (
               <i class="pi pi-verified text-green-500"></i>
             ) : (
