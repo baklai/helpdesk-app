@@ -100,6 +100,32 @@ const columns = ref([
   },
 
   {
+    header: { text: 'IP Address', width: '15rem' },
+    column: {
+      field: 'ipaddress',
+      render(value) {
+        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
+      },
+      action(data) {
+        refSidebar.value.toggle(data);
+      }
+    },
+    sorter: { field: 'indexip' },
+    filter: {
+      field: 'ipaddress',
+      value: null,
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    selectable: true,
+    exportable: true,
+    filtrable: true,
+    sortable: true,
+    frozen: true
+  },
+
+  {
     header: { text: 'Letter number', width: '16rem' },
     column: {
       field: 'reqnum',
@@ -141,32 +167,6 @@ const columns = ref([
     filtrable: true,
     sortable: true,
     frozen: false
-  },
-
-  {
-    header: { text: 'IP Address', width: '15rem' },
-    column: {
-      field: 'ipaddress',
-      render(value) {
-        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
-      },
-      action(data) {
-        refSidebar.value.toggle(data);
-      }
-    },
-    sorter: { field: 'indexip' },
-    filter: {
-      field: 'ipaddress',
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS,
-      filterOperator: FilterOperator.AND,
-      showFilterMatchModes: true
-    },
-    selectable: true,
-    exportable: true,
-    filtrable: true,
-    sortable: true,
-    frozen: true
   },
 
   {
