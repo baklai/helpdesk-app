@@ -113,7 +113,7 @@ const onRemoveRecord = async () => {
     rejectIcon: 'pi pi-times',
     accept: async () => {
       try {
-        await removeOne(record.value);
+        await Inspector.removeOne(record.value);
         toast.add({
           severity: 'success',
           summary: t('Information'),
