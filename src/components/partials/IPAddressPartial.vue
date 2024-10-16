@@ -16,7 +16,7 @@ defineProps({
 
 <template>
   <div class="my-3" v-if="record">
-    <div class="flex items-center mb-6">
+    <div class="mb-6 flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -108,7 +108,7 @@ defineProps({
   </div>
 
   <div class="my-3" v-if="internet">
-    <div class="flex items-center mb-6">
+    <div class="mb-6 flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -139,19 +139,19 @@ defineProps({
           record?.internet?.comment)
       "
     >
-      <tr class="border-b py-2 border-surface-200 dark:border-surface-600">
+      <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
         <td class="font-medium" width="40%">{{ $t('Letter number') }} :</td>
         <td>{{ record?.internet?.reqnum || '-' }}</td>
       </tr>
-      <tr class="border-b py-2 border-surface-200 dark:border-surface-600">
+      <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
         <td class="font-medium" width="40%">{{ $t('Date open') }} :</td>
         <td>{{ dateToStr(record?.internet?.dateOpen) || '-' }}</td>
       </tr>
-      <tr class="border-b py-2 border-surface-200 dark:border-surface-600">
+      <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
         <td class="font-medium" width="40%">{{ $t('Date close') }} :</td>
         <td>{{ dateToStr(record?.internet?.dateClose) || '-' }}</td>
       </tr>
-      <tr class="border-b py-2 border-surface-200 dark:border-surface-600">
+      <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
         <td class="font-medium" width="40%">{{ $t('Comment') }} :</td>
         <td>{{ record?.internet?.comment }}</td>
       </tr>

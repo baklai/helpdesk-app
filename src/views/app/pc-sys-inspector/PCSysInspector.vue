@@ -93,7 +93,7 @@ const columns = ref([
       field: 'system.csname',
       render(value) {
         return (
-          <div class="font-semibold cursor-pointer">
+          <div class="cursor-pointer font-semibold">
             <i class="pi pi-desktop mr-2"></i>
             <span>{value}</span>
           </div>
@@ -146,7 +146,7 @@ const columns = ref([
     column: {
       field: 'host',
       render(value) {
-        return <span class="font-bold text-primary-500 cursor-pointer">{value}</span>;
+        return <span class="cursor-pointer font-bold text-primary-500">{value}</span>;
       },
       action(value) {
         refModal.value.toggle(value);
@@ -173,7 +173,7 @@ const columns = ref([
       field: 'ipaddress',
       render(value) {
         return (
-          <span class="font-bold text-primary-500 cursor-pointer pl-6">
+          <span class="cursor-pointer pl-6 font-bold text-primary-500">
             {value ? (
               <i class="pi pi-verified text-green-500"></i>
             ) : (
@@ -198,8 +198,8 @@ const columns = ref([
         return (
           <Tag
             class={[
-              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+              'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+              value.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
             ]}
             value={value.count || '-'}
           />
@@ -229,8 +229,8 @@ const columns = ref([
         return (
           <Tag
             class={[
-              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+              'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+              value.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
             ]}
             value={value.count || '-'}
           />
@@ -260,8 +260,8 @@ const columns = ref([
         return (
           <Tag
             class={[
-              '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-              value.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+              'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+              value.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
             ]}
             value={value.count || '-'}
           />
@@ -288,7 +288,7 @@ const columns = ref([
     column: {
       field: 'fixupdate',
       render(value) {
-        return <Tag class={'text-base  font-medium w-3 '} value={value} />;
+        return <Tag class={'w-3 text-base font-medium'} value={value} />;
       }
     },
     sorter: { field: 'fixupdate' },
@@ -545,7 +545,7 @@ const createSysInspectorScript = async () => {
           rounded
           icon="pi pi-bookmark-fill"
           iconClass="text-2xl"
-          class="hover:text-orange-500 h-12 w-12"
+          class="h-12 w-12 hover:text-orange-500"
           v-tooltip.bottom="$t('Show all problems')"
           @click="event => refWarningMenu.toggle(event)"
         />

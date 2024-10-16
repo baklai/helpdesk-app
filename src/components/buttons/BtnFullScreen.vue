@@ -48,7 +48,7 @@ watchEffect(() => {
     text
     plain
     rounded
-    class="text-2xl w-12 h-12"
+    class="h-12 w-12 text-2xl"
     :icon="`pi ${isFullScreen ? 'pi-window-minimize' : 'pi-window-maximize'}`"
     v-tooltip.bottom="$t('Maximize/Minimize')"
     @click="toggleFullScreen"

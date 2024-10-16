@@ -317,14 +317,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="network-ipaddress" :size="42" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Network IP Address') }}
             </p>
-            <p class="text-base font-semibold line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-semibold text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -432,7 +432,7 @@ const onCloseModal = async () => {
                 outlined
                 icon="pi pi-search"
                 :class="[
-                  'w-12 h-12',
+                  'h-12 w-12',
                   'text-surface-500 dark:text-surface-300',
                   'border-surface-300 dark:border-surface-600',
                   'hover:bg-surface-300/20 hover:dark:bg-surface-600/20'
@@ -611,12 +611,12 @@ const onCloseModal = async () => {
               }"
             >
               <template #optiongroup="{ option }">
-                <div class="flex items-center h-full justify-center text-base uppercase">
+                <div class="flex h-full items-center justify-center text-base uppercase">
                   {{ option.group }}
                 </div>
               </template>
               <template #option="{ option }">
-                <div class="flex items-center h-full text-base">
+                <div class="flex h-full items-center text-base">
                   {{ option.name }}
                 </div>
               </template>

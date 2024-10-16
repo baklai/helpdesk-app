@@ -207,14 +207,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
-          <i class="pi pi-filter text-4xl mr-4"></i>
+          <i class="pi pi-filter mr-4 text-4xl"></i>
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('System filters') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -257,7 +257,7 @@ const onCloseModal = async () => {
             <span class="text-base font-semibold">
               {{ slotProps?.option?.regex }}
               <sup
-                class="font-bold text-xs"
+                class="text-xs font-bold"
                 :class="slotProps?.option?.status === 'deny' ? 'text-yellow-500' : 'text-green-600'"
               >
                 {{ slotProps?.option?.status?.toUpperCase() }}

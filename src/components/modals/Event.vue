@@ -173,14 +173,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="events-calendar" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Calendar event') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>

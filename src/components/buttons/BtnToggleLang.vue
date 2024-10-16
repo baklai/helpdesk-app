@@ -40,7 +40,7 @@ const items = ref([
       plain
       rounded
       icon="pi pi-language"
-      class="text-2xl w-12 h-12"
+      class="h-12 w-12 text-2xl"
       v-tooltip.bottom="$t('Languages')"
       @click="event => refMenu.toggle(event)"
     />

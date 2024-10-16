@@ -6,5 +6,6 @@
   "singleQuote": true,
   "trailingComma": "none",
   "arrowParens": "avoid",
-  "vueIndentScriptAndStyle": false
+  "vueIndentScriptAndStyle": false,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

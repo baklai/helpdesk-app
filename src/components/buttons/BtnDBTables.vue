@@ -39,8 +39,8 @@ const items = computed(() => [
         label: t('Organization'),
         icon: 'pi pi-building',
         command: () => {
-          refModal.value = defineAsyncComponent(() =>
-            import('@/components/modals/Organization.vue')
+          refModal.value = defineAsyncComponent(
+            () => import('@/components/modals/Organization.vue')
           );
         }
       },
@@ -48,8 +48,8 @@ const items = computed(() => [
         label: t('Subdivision'),
         icon: 'pi pi-building',
         command: () => {
-          refModal.value = defineAsyncComponent(() =>
-            import('@/components/modals/Subdivision.vue')
+          refModal.value = defineAsyncComponent(
+            () => import('@/components/modals/Subdivision.vue')
           );
         }
       },
@@ -104,7 +104,7 @@ const items = computed(() => [
     plain
     rounded
     icon="pi pi-table"
-    class="text-2xl w-12 h-12"
+    class="h-12 w-12 text-2xl"
     v-tooltip.bottom="$t('DB Tables')"
     @click="event => refMenu.toggle(event)"
   />

@@ -36,14 +36,14 @@ const onCloseSidebar = () => {
 <template>
   <Card
     v-if="visible"
-    class="h-full px-2 w-1/3 sticky shadow-none overflow-y-auto border-l rounded-none border-surface-200 dark:border-surface-600 dark:!bg-surface-800"
+    class="sticky h-full w-1/3 overflow-y-auto rounded-none border-l border-surface-200 px-2 shadow-none dark:border-surface-600 dark:!bg-surface-800"
   >
     <template #title>
       <div class="flex justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg mb-0">{{ $t('Network channel') }}</p>
+            <p class="mb-0 text-lg">{{ $t('Network channel') }}</p>
             <p class="text-base font-normal">
               {{ record?.locationFrom }} - {{ record?.locationTo }}
             </p>
@@ -55,7 +55,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="text-2xl w-12 h-12"
+            class="h-12 w-12 text-2xl"
             icon="pi pi-ellipsis-v"
             v-tooltip.bottom="$t('Menu')"
             @click="toggleMenu($event, record)"
@@ -65,7 +65,7 @@ const onCloseSidebar = () => {
             plain
             rounded
             iconClass="text-xl"
-            class="text-2xl w-12 h-12"
+            class="h-12 w-12 text-2xl"
             icon="pi pi-times"
             v-tooltip.bottom="$t('Close')"
             @click="onCloseSidebar"

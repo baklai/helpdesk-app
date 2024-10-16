@@ -230,14 +230,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="network-mailbox" :size="42" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Mailbox') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -438,12 +438,12 @@ const onCloseModal = async () => {
               }"
             >
               <template #optiongroup="{ option }">
-                <div class="flex items-center h-full justify-center text-base uppercase">
+                <div class="flex h-full items-center justify-center text-base uppercase">
                   {{ option.group }}
                 </div>
               </template>
               <template #option="{ option }">
-                <div class="flex items-center h-full text-base">
+                <div class="flex h-full items-center text-base">
                   {{ option.name }}
                 </div>
               </template>
@@ -532,7 +532,7 @@ const onCloseModal = async () => {
             </div>
 
             <div class="flex flex-col gap-2">
-              <div class="flex flex-row w-full gap-2">
+              <div class="flex w-full flex-row gap-2">
                 <Dropdown
                   filter
                   autofocus

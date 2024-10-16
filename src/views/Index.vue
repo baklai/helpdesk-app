@@ -5,29 +5,29 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
 
 <template>
   <div class="h-full w-full place-content-center">
-    <div class="flex flex-col my-8 lg:my-0 lg:flex-row place-content-center">
-      <div class="w-auto flex flex-col items-center justify-center">
+    <div class="my-8 flex flex-col place-content-center lg:my-0 lg:flex-row">
+      <div class="flex w-auto flex-col items-center justify-center">
         <header class="flex items-center justify-center">
-          <div class="w-[30rem] h-auto text-center">
-            <div class="flex flex-row items-center mb-2">
-              <p class="uppercase font-bold text-7xl" translate="no" lang="en">help</p>
+          <div class="h-auto w-[30rem] text-center">
+            <div class="mb-2 flex flex-row items-center">
+              <p class="text-7xl font-bold uppercase" translate="no" lang="en">help</p>
               <AppLogo class="mx-2 text-primary-500" :size="56" />
-              <p class="uppercase font-bold text-7xl" translate="no" lang="en">desk</p>
+              <p class="text-7xl font-bold uppercase" translate="no" lang="en">desk</p>
             </div>
 
-            <div class="text-center mb-8">
+            <div class="mb-8 text-center">
               <p class="font-medium text-surface-500">
                 {{ $t('Web Application of technical support') }}
               </p>
             </div>
 
-            <div class="text-center mb-8">
-              <p class="text-xl line-height-2 text-surface-500">
+            <div class="mb-8 text-center">
+              <p class="line-height-2 text-xl text-surface-500">
                 {{ $t('Helpdesk technical support') }}
               </p>
             </div>
 
-            <ul class="list-none flex justify-evenly p-0 mb-8">
+            <ul class="mb-8 flex list-none justify-evenly p-0">
               <li class="mx-6">
                 <BtnSocialMedia
                   icon="pi pi-facebook"
@@ -59,15 +59,15 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
         </header>
       </div>
 
-      <div class="w-auto mx-8">
+      <div class="mx-8 w-auto">
         <Divider layout="vertical" class="hidden lg:flex" />
         <Divider layout="horizontal" class="flex lg:hidden" />
       </div>
 
-      <div class="w-auto flex items-center justify-center py-8">
-        <main class="w-[30rem] justify-center items-center text-surface-600 dark:text-surface-300">
+      <div class="flex w-auto items-center justify-center py-8">
+        <main class="w-[30rem] items-center justify-center text-surface-600 dark:text-surface-300">
           <section id="documentation" class="mb-6">
-            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+            <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               {{ 'Documentation' }}
             </h3>
             <span class="text-lg font-light">
@@ -79,7 +79,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="pc-sys-inspector" class="mb-6">
-            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+            <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               {{ 'PC SysInspector' }}
             </h3>
             <span class="text-lg font-light">
@@ -95,7 +95,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="hd-live-log" class="mb-6">
-            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+            <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               {{ 'Technical support' }}
             </h3>
             <span class="text-lg font-light">
@@ -111,7 +111,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
           </section>
 
           <section id="network-information">
-            <h3 class="text-2xl mb-2 font-semibold text-surface-600 dark:text-surface-100">
+            <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               {{ 'Network information' }}
             </h3>
             <span class="text-lg font-light">

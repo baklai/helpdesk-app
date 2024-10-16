@@ -13,7 +13,7 @@ const $config = useConfig();
 </script>
 
 <template>
-  <div class="flex flex-row h-full list-none">
+  <div class="flex h-full list-none flex-row">
     <nav
       :class="[
         'z-10',
@@ -22,12 +22,12 @@ const $config = useConfig();
         'border-r border-solid border-r-surface-200 dark:border-r-surface-700'
       ]"
     >
-      <div class="flex flex-col h-full">
+      <div class="flex h-full flex-col">
         <RouterLink :to="{ name: 'home' }" class="flex flex-none justify-center py-4">
           <AppLogo class="text-surface-500" :size="32" />
         </RouterLink>
 
-        <SidebarMiniMenu class="flex flex-col flex-auto justify-center" />
+        <SidebarMiniMenu class="flex flex-auto flex-col justify-center" />
 
         <div class="flex flex-none justify-center py-2">
           <BtnAuth />
@@ -40,14 +40,14 @@ const $config = useConfig();
         :class="['flex flex-col', 'h-full w-full px-6', 'bg-surface-100/50 dark:bg-surface-900/50']"
         v-if="!$config.appSideBarMini"
       >
-        <RouterLink :to="{ name: 'home' }" class="flex justify-center py-4 mb-6">
-          <div class="flex flex-col items-center justify-center mb-2">
+        <RouterLink :to="{ name: 'home' }" class="mb-6 flex justify-center py-4">
+          <div class="mb-2 flex flex-col items-center justify-center">
             <div class="flex flex-row items-center text-surface-900 dark:text-surface-50">
-              <p class="uppercase font-bold text-4xl" translate="no" lang="en">
+              <p class="text-4xl font-bold uppercase" translate="no" lang="en">
                 h&nbsp;e&nbsp;l&nbsp;p&nbsp;
               </p>
               <AppLogo class="mx-1 text-primary-500" :size="32" />
-              <p class="uppercase font-bold text-4xl" translate="no" lang="en">
+              <p class="text-4xl font-bold uppercase" translate="no" lang="en">
                 &nbsp;d&nbsp;e&nbsp;s&nbsp;k
               </p>
             </div>
@@ -59,8 +59,8 @@ const $config = useConfig();
           </div>
         </RouterLink>
 
-        <div class="flex justify-start mt-2 mb-10" v-if="$route?.meta?.title">
-          <div class="flex items-center justify-center mr-2">
+        <div class="mb-10 mt-2 flex justify-start" v-if="$route?.meta?.title">
+          <div class="mr-2 flex items-center justify-center">
             <Avatar class="mr-2" size="xlarge">
               <AppIcons :name="$route?.name" :size="32" />
             </Avatar>
@@ -73,11 +73,11 @@ const $config = useConfig();
           </div>
         </div>
 
-        <div class="flex flex-col flex-auto overflow-y-scroll" style="scrollbar-width: none">
+        <div class="flex flex-auto flex-col overflow-y-scroll" style="scrollbar-width: none">
           <SidebarMenu />
         </div>
 
-        <div class="flex flex-row flex-none items-center content-center justify-between py-2">
+        <div class="flex flex-none flex-row content-center items-center justify-between py-2">
           <BtnInfoProfile />
           <BtnToggleLang />
           <BtnToggleTheme />

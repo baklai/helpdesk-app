@@ -180,8 +180,8 @@ onMounted(async () => {
   <div>
     <Modal ref="refModal" @close="async () => await getDataRecords()" />
 
-    <div class="flex justify-between flex-wrap mb-2">
-      <div class="flex flex-wrap gap-2 items-center">
+    <div class="mb-2 flex flex-wrap justify-between">
+      <div class="flex flex-wrap items-center gap-2">
         <i class="mr-2 hidden sm:block">
           <AppIcons :name="$route?.name" :size="42" />
         </i>
@@ -195,8 +195,8 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-        <div class="flex gap-2 sm:w-max w-full justify-between">
+      <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
+        <div class="flex w-full justify-between gap-2 sm:w-max">
           <Button
             text
             plain
@@ -242,9 +242,9 @@ onMounted(async () => {
       >
         <template #eventDialog="{ eventDialogData, closeEventDialog }">
           <div v-if="eventDialogData && eventDialogData?.title">
-            <Card class="w-full p-2 border-red-500">
+            <Card class="w-full border-red-500 p-2">
               <template #title>
-                <div class="flex content-center items-center justify-between flex-wrap">
+                <div class="flex flex-wrap content-center items-center justify-between">
                   <div class="flex content-center items-center">
                     <i
                       class="pi pi-circle-fill mr-2"
@@ -262,8 +262,8 @@ onMounted(async () => {
                     </span>
                   </div>
                   <div class="flex items-center justify-center">
-                    <div class="flex items-center flex-wrap gap-2 justify-between w-full">
-                      <div class="flex gap-2 w-full justify-between">
+                    <div class="flex w-full flex-wrap items-center justify-between gap-2">
+                      <div class="flex w-full justify-between gap-2">
                         <Button
                           text
                           plain
@@ -360,8 +360,8 @@ onMounted(async () => {
 
 ::v-deep(.calendar-month__weekday.trailing-or-leading) {
   border-color: var(--qalendar-border-color) !important;
-  background: linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0)
-      fixed,
+  background:
+    linear-gradient(45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0) fixed,
     linear-gradient(45deg, #80808010 10%, transparent 0) fixed,
     linear-gradient(-45deg, transparent 49.9%, #80808010 0, #80808010 60%, transparent 0) fixed,
     linear-gradient(-45deg, #80808010 10%, transparent 0) fixed !important;

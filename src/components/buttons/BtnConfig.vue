@@ -9,11 +9,11 @@ const visible = ref(false);
 <template>
   <button
     type="button"
-    class="text-2xl block fixed h-12 px-2.5 z-50 opacity-80 hover:opacity-100 overflow-hidden rounded-none rounded-tl-md rounded-bl-md bg-surface-600 dark:bg-surface-700 shadow-lg text-white text-center inset-y-1/2 right-0 cursor-pointer"
+    class="fixed inset-y-1/2 right-0 z-50 block h-12 cursor-pointer overflow-hidden rounded-none rounded-bl-md rounded-tl-md bg-surface-600 px-2.5 text-center text-2xl text-white opacity-80 shadow-lg hover:opacity-100 dark:bg-surface-700"
     v-tooltip.left="$t('HD Options')"
     @click="visible = !visible"
   >
-    <i class="pi pi-cog transition duration-1000 rotate-0 hover:rotate-45"></i>
+    <i class="pi pi-cog rotate-0 transition duration-1000 hover:rotate-45"></i>
   </button>
 
   <AppConfig v-model:visible="visible" />

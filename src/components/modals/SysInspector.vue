@@ -202,17 +202,17 @@ const onCloseModal = () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="pc-sys-inspector" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2 mb-0">
+            <p class="line-height-2 mb-0 text-lg font-bold">
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
               {{ $t('Report host') }}: {{ record?.host || '-' }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+            <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
               {{ $t('Report date') }}:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
@@ -235,20 +235,20 @@ const onCloseModal = () => {
 
     <template #default>
       <div id="report" class="flex flex-col gap-y-4 lg:flex-row lg:flex-wrap">
-        <div class="flex flex-wrap w-full lg:flex-row lg:flex-nowrap">
-          <div :class="['flex flex-col w-full', record && 'lg:w-1/2 p-4']" v-if="recordip">
+        <div class="flex w-full flex-wrap lg:flex-row lg:flex-nowrap">
+          <div :class="['flex w-full flex-col', record && 'p-4 lg:w-1/2']" v-if="recordip">
             <IPAddressPartial :record="recordip" :internet="false" v-if="recordip" />
           </div>
 
           <Divider layout="vertical" class="hidden lg:flex" v-if="recordip && record" />
 
-          <div :class="['flex flex-col w-full', recordip && 'lg:w-1/2 p-4']" v-if="record">
+          <div :class="['flex w-full flex-col', recordip && 'p-4 lg:w-1/2']" v-if="record">
             <SysInspectorPartial :record="record" v-if="record" />
           </div>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.cpu">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.cpu">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -262,8 +262,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('CPU') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('CPU') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Central processing unit') }}
               </p>
             </div>
@@ -308,8 +308,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.memorychip?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.memorychip?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -323,8 +323,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('RAM') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('RAM') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Random access memory') }}
               </p>
             </div>
@@ -360,8 +360,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.diskdrive?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.diskdrive?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -375,8 +375,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('HDD') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('HDD') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of harddisk') }} :
                 {{ record?.diskdrive?.length || '-' }}
               </p>
@@ -416,8 +416,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.netadapter?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.netadapter?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -433,10 +433,10 @@ const onCloseModal = () => {
             </svg>
 
             <div>
-              <p class="text-base font-bold mb-0">
+              <p class="mb-0 text-base font-bold">
                 {{ $t('Network adapters') }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of network adapters') }} :
                 {{ record?.netadapter?.filter(item => item?.NetConnectionID)?.length || '-' }}
               </p>
@@ -487,8 +487,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.display?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.display?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -503,8 +503,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Display') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Display') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of displays') }} :
                 {{ record?.display?.length || '-' }}
               </p>
@@ -533,8 +533,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.videoadapter?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.videoadapter?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -549,8 +549,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Video adapter') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Video adapter') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of video adapters') }} :
                 {{ record?.videoadapter?.length || '-' }}
               </p>
@@ -588,8 +588,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.sound?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.sound?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -604,8 +604,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Sound device') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Sound device') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of sound devices') }} :
                 {{ record?.sound?.length || '-' }}
               </p>
@@ -628,8 +628,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.printer?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.printer?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -643,8 +643,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Printers') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Printers') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of printers') }} :
                 {{ record?.printer?.length || '-' }}
               </p>
@@ -665,8 +665,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.useraccount?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.useraccount?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -680,12 +680,12 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Local users') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Local users') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of users') }} :
                 {{ record?.useraccount?.length || '-' }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
                 {{ $t('Account have administrator rights') }}
               </p>
@@ -729,8 +729,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.product?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.product?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -744,12 +744,12 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">{{ $t('Installed apps') }}</p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-bold">{{ $t('Installed apps') }}</p>
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of applications') }} :
                 {{ record?.product?.length || '-' }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
                 {{ $t('Unwanted software') }}
               </p>
@@ -782,8 +782,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.share?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.share?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -797,14 +797,14 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">
+              <p class="mb-0 text-base font-bold">
                 {{ $t('Shared resources') }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of resources') }} :
                 {{ record?.share?.length || '-' }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
                 {{ $t('Shared resources') }}
               </p>
@@ -832,8 +832,8 @@ const onCloseModal = () => {
           </table>
         </div>
 
-        <div class="w-full my-2 mx-2" v-if="record?.fixupdate?.length">
-          <div class="flex items-center mb-2">
+        <div class="mx-2 my-2 w-full" v-if="record?.fixupdate?.length">
+          <div class="mb-2 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -848,10 +848,10 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="text-base font-bold mb-0">
+              <p class="mb-0 text-base font-bold">
                 {{ $t('Fixes and updates') }}
               </p>
-              <p class="text-base font-normal mb-0">
+              <p class="mb-0 text-base font-normal">
                 {{ $t('Number of updates') }} :
                 {{ record?.fixupdate?.length || '-' }}
               </p>

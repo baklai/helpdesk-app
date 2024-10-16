@@ -373,7 +373,7 @@ watchEffect(() => {
   >
     <template #header>
       <div class="flex content-center font-semibold text-surface-900 dark:text-surface-100">
-        <div class="flex items-center justify-center mr-2">
+        <div class="mr-2 flex items-center justify-center">
           <i class="pi pi-cog inline-block text-2xl" />
         </div>
         <div class="flex items-center justify-center">
@@ -385,27 +385,27 @@ watchEffect(() => {
     <Divider class="!m-0 !mb-8" />
 
     <div class="px-4">
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Display scale') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Display scale') }}</h5>
         </div>
-        <div class="flex flex-1 flex-col justify-center items-center">
+        <div class="flex flex-1 flex-col items-center justify-center">
           <Knob v-model="$config.appScale" :size="100" :step="1" :min="10" :max="18" />
         </div>
       </div>
 
       <Divider />
 
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Primary colors') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Primary colors') }}</h5>
         </div>
         <div class="flex flex-1 items-center justify-center">
-          <div class="self-stretch justify-center items-center gap-2 inline-flex flex-wrap">
+          <div class="inline-flex flex-wrap items-center justify-center gap-2 self-stretch">
             <button
               type="button"
               :class="[
-                'w-4 h-4 rounded-full cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-offset-surface-800'
+                'h-4 w-4 cursor-pointer rounded-full hover:ring-2 hover:ring-offset-2 hover:ring-offset-surface-800'
               ]"
               v-for="item in primaryColors"
               :key="item.color"
@@ -418,16 +418,16 @@ watchEffect(() => {
 
       <Divider />
 
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Surface colors') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Surface colors') }}</h5>
         </div>
         <div class="flex flex-1 items-center justify-center">
-          <div class="self-stretch justify-center items-center gap-2 inline-flex flex-wrap">
+          <div class="inline-flex flex-wrap items-center justify-center gap-2 self-stretch">
             <button
               type="button"
               :class="[
-                'w-4 h-4 rounded-full cursor-pointer hover:ring-2 hover:ring-offset-2 hover:ring-offset-surface-800'
+                'h-4 w-4 cursor-pointer rounded-full hover:ring-2 hover:ring-offset-2 hover:ring-offset-surface-800'
               ]"
               v-for="item in surfaceColors"
               :key="item.color"
@@ -440,9 +440,9 @@ watchEffect(() => {
 
       <Divider />
 
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">
+          <h5 class="flex h-full items-center text-lg font-semibold">
             {{ $t('Ripple effect') }}
           </h5>
         </div>
@@ -453,9 +453,9 @@ watchEffect(() => {
 
       <Divider />
 
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Menu type') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Menu type') }}</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.appSideBarMode" :options="['static', 'overlay']" />
@@ -464,9 +464,9 @@ watchEffect(() => {
 
       <Divider />
 
-      <div class="flex my-3">
+      <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex items-center h-full text-lg font-semibold">{{ $t('Themes style') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Themes style') }}</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.appTheme" :options="['light', 'dark']" />
@@ -477,7 +477,7 @@ watchEffect(() => {
 
       <Button
         :label="$t('Set default options')"
-        class="w-full my-6"
+        class="my-6 w-full"
         @click="$config.setDefaultConfigs"
       />
     </div>

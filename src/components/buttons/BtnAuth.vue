@@ -5,7 +5,7 @@
     text
     plain
     rounded
-    class="text-2xl w-12 h-12"
+    class="h-12 w-12 text-2xl"
     :icon="$helpdesk.loggedIn ? 'pi pi-sign-out' : 'pi pi-sign-in'"
     v-tooltip.top="$helpdesk.loggedIn ? $t('Sign Out') : $t('Sign In')"
     @click="$helpdesk.loggedIn ? $auth.signout() : $router.push({ name: 'signin' })"

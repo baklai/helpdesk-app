@@ -64,7 +64,7 @@ const datatables = ref({
     outlined
     icon="pi pi-plus"
     :class="[
-      'w-12 min-h-12 h-fill min-w-12',
+      'h-fill min-h-12 w-12 min-w-12',
       'text-surface-500 dark:text-surface-300',
       'border-surface-300 dark:border-surface-600',
       'hover:bg-surface-300/20 hover:dark:bg-surface-600/20'

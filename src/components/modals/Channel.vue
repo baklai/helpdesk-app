@@ -184,14 +184,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Network channel') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -276,7 +276,7 @@ const onCloseModal = async () => {
         </div>
       </div>
 
-      <div class="flex flex-col w-full space-y-4">
+      <div class="flex w-full flex-col space-y-4">
         <div class="flex flex-col gap-2">
           <label for="level" class="font-bold">{{ $t('Level') }}</label>
           <InputText

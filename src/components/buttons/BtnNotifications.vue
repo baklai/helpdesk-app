@@ -63,15 +63,15 @@ onMounted(async () => {
     <ModalRecord ref="refModal" @close="async () => await onRecords()" />
 
     <OverlayPanel ref="refMenu" appendTo="body" class="w-[35rem]">
-      <div class="flex flex-col w-full">
+      <div class="flex w-full flex-col">
         <div class="flex justify-between px-2 pt-2">
           <div class="flex items-center justify-center">
             <Avatar size="xlarge" icon="pi pi-bell text-4xl" class="mr-4" />
             <div>
-              <p class="text-lg font-bold line-height-2 mb-2">
+              <p class="line-height-2 mb-2 text-lg font-bold">
                 {{ $t('HD Notification') }}
               </p>
-              <p class="text-base font-normal line-height-2 text-surface-500 mb-0">
+              <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
                 {{ $t('Helpdesk notification system') }}
               </p>
             </div>
@@ -82,7 +82,7 @@ onMounted(async () => {
               plain
               rounded
               icon="pi pi-plus-circle"
-              class="text-2xl w-12 h-12"
+              class="h-12 w-12 text-2xl"
               v-tooltip.bottom="$t('Create notice')"
               @click="
                 () => {
@@ -96,19 +96,19 @@ onMounted(async () => {
 
         <Divider />
 
-        <DataView v-if="records?.length" :value="records" class="overflow-auto max-h-[30rem]">
+        <DataView v-if="records?.length" :value="records" class="max-h-[30rem] overflow-auto">
           <template #list="{ items }">
             <div
-              class="flex-shrink-0 p-4 w-full border-none py-2"
+              class="w-full flex-shrink-0 border-none p-4 py-2"
               v-for="(item, index) in items"
               :key="index"
             >
               <div class="flex flex-row justify-start gap-3">
-                <div class="flex flex-col align-items-start overflow-auto w-full">
-                  <div class="w-full flex items-center">
-                    <Avatar icon="pi pi-bell text-xl" size="large" class="text-green-500 mr-2" />
-                    <div class="flex flex-col align my-2">
-                      <span class="font-medium text-green-500 text-xl">{{ item?.title }}</span>
+                <div class="align-items-start flex w-full flex-col overflow-auto">
+                  <div class="flex w-full items-center">
+                    <Avatar icon="pi pi-bell text-xl" size="large" class="mr-2 text-green-500" />
+                    <div class="align my-2 flex flex-col">
+                      <span class="text-xl font-medium text-green-500">{{ item?.title }}</span>
                       <span class="font-normal text-surface-500">
                         {{ dateTimeToStr(item?.createdAt) || '-' }}
                       </span>
@@ -116,7 +116,7 @@ onMounted(async () => {
                   </div>
                   <span class="text-xl">{{ item?.text }}</span>
                 </div>
-                <div class="flex flex-col items-center justify-center mr-2">
+                <div class="mr-2 flex flex-col items-center justify-center">
                   <Button
                     text
                     plain
@@ -134,7 +134,7 @@ onMounted(async () => {
         </DataView>
 
         <div class="flex flex-col items-center justify-center p-2" v-else>
-          <p class="font-medium text-lg text-surface-500 mb-0">
+          <p class="mb-0 text-lg font-medium text-surface-500">
             {{ $t('Notifications not found') }}
           </p>
         </div>
@@ -145,12 +145,12 @@ onMounted(async () => {
       type="button"
       @click="event => refMenu.toggle(event)"
       v-tooltip.bottom="$t('Notifications')"
-      class="relative inline-flex items-center p-3 text-sm font-medium text-center text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 rounded-full hover:bg-surface-300/20 focus:ring-4 focus:outline-none focus:ring-primary-400/50 dark:focus:ring-primary-300/50 select-none"
+      class="relative inline-flex select-none items-center rounded-full p-3 text-center text-sm font-medium text-surface-500 hover:bg-surface-300/20 hover:text-surface-600 focus:outline-none focus:ring-4 focus:ring-primary-400/50 dark:hover:text-surface-300 dark:focus:ring-primary-300/50"
     >
       <i class="pi pi-bell text-2xl"></i>
       <div
         v-if="records?.length"
-        class="absolute inline-flex items-center justify-center w-6 h-6 text-sm font-bold text-white dark:text-surface-900 bg-primary-500 rounded-full -top-1 -end-1"
+        class="absolute -end-1 -top-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-500 text-sm font-bold text-white dark:text-surface-900"
       >
         {{ records?.length }}
       </div>

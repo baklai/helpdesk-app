@@ -36,7 +36,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            class="!bg-surface-500/20 px-6 !text-base !font-normal !text-black dark:!text-white"
             value={value}
           />
         );
@@ -85,7 +85,7 @@ const columns = ref([
       render(value) {
         return (
           <Tag
-            class="!text-base !font-normal !bg-surface-500/20 !text-black dark:!text-white px-6"
+            class="!bg-surface-500/20 px-6 !text-base !font-normal !text-black dark:!text-white"
             value={value}
           />
         );
@@ -123,7 +123,7 @@ const columns = ref([
               },
               { '!bg-red-500/80': value.toUpperCase() === 'DELETE' },
 
-              '!w-24 !text-base !font-semibold !text-white !rounded px-2'
+              '!w-24 !rounded px-2 !text-base !font-semibold !text-white'
             ]}
             value={value}
           />
@@ -157,7 +157,7 @@ const columns = ref([
               { '!text-orange-500': value >= 400 && value < 500 },
               { '!text-red-500': value >= 500 },
 
-              '!text-base !font-bold !rounded px-6',
+              '!rounded px-6 !text-base !font-bold',
               '!bg-surface-500/20'
             ]}
             value={value}

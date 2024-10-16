@@ -131,25 +131,25 @@ export default {
           leaveToClass: 'translate-x-0 -translate-y-full translate-z-0 mask-active'
         }
       : props.position === 'bottom'
-      ? {
-          enterFromClass: 'translate-x-0 translate-y-full translate-z-0 mask-active',
-          leaveToClass: 'translate-x-0 translate-y-full translate-z-0 mask-active'
-        }
-      : props.position === 'left'
-      ? {
-          enterFromClass: '-translate-x-full translate-y-0 translate-z-0 mask-active',
-          leaveToClass: '-translate-x-full translate-y-0 translate-z-0 mask-active'
-        }
-      : props.position === 'right'
-      ? {
-          enterFromClass: 'translate-x-full translate-y-0 translate-z-0 mask-active',
-          leaveToClass: 'translate-x-full translate-y-0 translate-z-0 mask-active'
-        }
-      : {
-          enterFromClass: 'opacity-0 mask-active',
-          enterActiveClass: 'transition-opacity duration-400 ease-in',
-          leaveActiveClass: 'transition-opacity duration-400 ease-in',
-          leaveToClass: 'opacity-0 mask-active'
-        };
+        ? {
+            enterFromClass: 'translate-x-0 translate-y-full translate-z-0 mask-active',
+            leaveToClass: 'translate-x-0 translate-y-full translate-z-0 mask-active'
+          }
+        : props.position === 'left'
+          ? {
+              enterFromClass: '-translate-x-full translate-y-0 translate-z-0 mask-active',
+              leaveToClass: '-translate-x-full translate-y-0 translate-z-0 mask-active'
+            }
+          : props.position === 'right'
+            ? {
+                enterFromClass: 'translate-x-full translate-y-0 translate-z-0 mask-active',
+                leaveToClass: 'translate-x-full translate-y-0 translate-z-0 mask-active'
+              }
+            : {
+                enterFromClass: 'opacity-0 mask-active',
+                enterActiveClass: 'transition-opacity duration-400 ease-in',
+                leaveActiveClass: 'transition-opacity duration-400 ease-in',
+                leaveToClass: 'opacity-0 mask-active'
+              };
   }
 };

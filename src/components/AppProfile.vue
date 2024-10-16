@@ -42,10 +42,10 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
         <div class="flex items-center">
           <Avatar icon="pi pi-user" class="mr-4" size="large" />
           <div>
-            <p class="font-bold m-0">
+            <p class="m-0 font-bold">
               {{ $helpdesk?.profile?.fullname }}
             </p>
-            <p class="line-height-3 text-surface-500 m-0">
+            <p class="line-height-3 m-0 text-surface-500">
               {{ $helpdesk?.profile?.email }}
             </p>
           </div>
@@ -55,43 +55,43 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
 
     <div class="flex items-center">
       <div class="flex flex-wrap">
-        <div class="flex-shrink-0 p-4 w-full md:w-2/5 text-center">
+        <div class="w-full flex-shrink-0 p-4 text-center md:w-2/5">
           <Avatar
             image="/img/user-logo.png"
             shape="circle"
-            class="w-16 h-16"
+            class="h-16 w-16"
             v-if="$helpdesk?.profile?.logo"
           />
-          <div class="flex items-center justify-center p-3 flex-col" v-else>
+          <div class="flex flex-col items-center justify-center p-3" v-else>
             <i class="pi pi-cloud-upload p-3 text-3xl text-surface-500" />
-            <p class="text-sm mt-6 mb-0 text-surface-500">
+            <p class="mb-0 mt-6 text-sm text-surface-500">
               {{ $t('Drag and drop logo to here to upload') }}
             </p>
           </div>
         </div>
 
-        <div class="w-full md:w-3/5 p-4 space-y-2">
+        <div class="w-full space-y-2 p-4 md:w-3/5">
           <div class="mb-0">
-            <p class="font-bold text-lg">
+            <p class="text-lg font-bold">
               {{ $t('Fullname') }} :
               <span class="">{{ $helpdesk?.profile?.fullname }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-lg">
+            <p class="text-lg font-bold">
               {{ $t('Email') }} :
               <span class="">{{ $helpdesk?.profile?.email }}</span>
             </p>
           </div>
           <div class="mb-0">
-            <p class="font-bold text-lg">
+            <p class="text-lg font-bold">
               {{ $t('Phone') }} :
               <span class="">{{ $helpdesk?.profile?.phone }}</span>
             </p>
           </div>
         </div>
 
-        <div class="flex w-full max-h-[25rem]">
+        <div class="flex max-h-[25rem] w-full">
           <DataTable
             rowHover
             scrollable

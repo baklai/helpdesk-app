@@ -71,7 +71,7 @@ const columns = ref([
     column: {
       field: 'createdAt',
       render(value) {
-        return <span class="font-semibold cursor-pointer">{dateTimeToStr(value) || '-'}</span>;
+        return <span class="cursor-pointer font-semibold">{dateTimeToStr(value) || '-'}</span>;
       },
       action(data) {
         refSidebar.value.toggle(data);
@@ -96,9 +96,9 @@ const columns = ref([
       field: 'status',
       render(value) {
         return value ? (
-          <i class="pi pi-check-circle text-green-500 font-bold cursor-pointer" />
+          <i class="pi pi-check-circle cursor-pointer font-bold text-green-500" />
         ) : (
-          <i class="pi pi-info-circle text-orange-500 font-bold cursor-pointer" />
+          <i class="pi pi-info-circle cursor-pointer font-bold text-orange-500" />
         );
       }
     },
@@ -144,7 +144,7 @@ const columns = ref([
     column: {
       field: 'request',
       render(value) {
-        return <span class="font-semibold cursor-pointer">{value}</span>;
+        return <span class="cursor-pointer font-semibold">{value}</span>;
       },
       action(data) {
         refSidebar.value.toggle(data);

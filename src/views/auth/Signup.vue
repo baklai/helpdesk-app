@@ -52,7 +52,7 @@ onMounted(() => {
 <template>
   <form
     @submit.prevent="onSignup"
-    class="flex flex-col justify-center gap-6 w-[25rem]"
+    class="flex w-[25rem] flex-col justify-center gap-6"
     autocomplete="off"
   >
     <div class="flex flex-col gap-2">
@@ -61,7 +61,7 @@ onMounted(() => {
       </label>
       <span class="relative">
         <i
-          class="pi pi-id-card absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+          class="pi pi-id-card absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
         />
         <InputText
           id="fullname"
@@ -69,7 +69,7 @@ onMounted(() => {
           v-bind="fullnameAttrs"
           :invalid="!!errors?.fullname"
           :placeholder="$t('User name')"
-          class="w-full text-xl pl-10"
+          class="w-full pl-10 text-xl"
           aria-describedby="fullname-help"
         />
       </span>
@@ -83,7 +83,7 @@ onMounted(() => {
         {{ $t('User email') }}
       </label>
       <span class="relative">
-        <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
+        <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />
         <InputText
           id="email"
           v-model="email"
@@ -99,13 +99,13 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="flex flex-col gap-2 mb-4">
+    <div class="mb-4 flex flex-col gap-2">
       <label for="phone" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
         {{ $t('User phone') }}
       </label>
       <span class="relative">
         <i
-          class="pi pi-phone absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+          class="pi pi-phone absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
         />
         <InputMask
           id="phone"
@@ -115,7 +115,7 @@ onMounted(() => {
           v-bind="phoneAttrs"
           :invalid="!!errors?.phone"
           :placeholder="$t('User phone')"
-          class="w-full text-xl pl-10"
+          class="w-full pl-10 text-xl"
           aria-describedby="phone-help"
         />
       </span>
@@ -127,7 +127,7 @@ onMounted(() => {
     <Button
       type="submit"
       icon="pi pi-verified"
-      class="block w-full p-3 text-xl text-center"
+      class="block w-full p-3 text-center text-xl"
       :label="$t('Sign Up')"
       aria-describedby="submit-help"
     />
@@ -138,7 +138,7 @@ onMounted(() => {
 
     <RouterLink
       :to="{ name: 'signin' }"
-      class="text-center font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+      class="cursor-pointer text-center font-semibold text-primary-600 hover:text-primary-500"
     >
       {{ $t('Sign In the application') }}
     </RouterLink>

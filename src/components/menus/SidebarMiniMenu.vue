@@ -13,7 +13,7 @@ const $config = useConfig();
         text
         plain
         :class="[
-          'w-full text-xl rounded-none',
+          'w-full rounded-none text-xl',
           'text-primary-300',
           {
             '!text-primary-500': item.name === $router.currentRoute.value.name
@@ -26,12 +26,12 @@ const $config = useConfig();
       </Button>
     </li>
 
-    <li class="flex justify-center flex-none">
+    <li class="flex flex-none justify-center">
       <Button
         text
         plain
         rounded
-        class="w-12 h-12 text-xl my-2"
+        class="my-2 h-12 w-12 text-xl"
         icon="pi pi-arrow-right-arrow-left"
         v-tooltip.rigth="$t('Toggle sidebar')"
         @click="$config.appSideBarMini = !$config.appSideBarMini"

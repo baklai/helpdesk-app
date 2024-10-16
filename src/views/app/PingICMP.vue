@@ -56,8 +56,8 @@ const commandHandler = async text => {
 
 <template>
   <div class="h-full w-full">
-    <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
-      <div class="flex flex-wrap gap-2 items-center">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-2">
         <i class="mr-2 hidden sm:block">
           <AppIcons :name="$route?.name" :size="42" />
         </i>
@@ -70,8 +70,8 @@ const commandHandler = async text => {
           </p>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-        <div class="flex gap-2 sm:w-max w-full justify-between">
+      <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
+        <div class="flex w-full justify-between gap-2 sm:w-max">
           <Button
             text
             plain
@@ -119,31 +119,31 @@ const commandHandler = async text => {
           class: ['text-primary-500 py-2']
         }
       }"
-      class="!h-2/3 text-base whitespace-pre-wrap"
+      class="!h-2/3 whitespace-pre-wrap text-base"
       aria-label="Helpdesk Terminal Service"
     />
 
     <div class="px-6 py-6">
       <h5 class="font-bold">
         {{ $t('Example') }}:
-        <span class="font-normal p-2"> ping 192.168.0.1 </span>
+        <span class="p-2 font-normal"> ping 192.168.0.1 </span>
       </h5>
 
       <h5 class="font-bold">
         {{ $t('Example') }}:
-        <span class="font-normal p-2"> ping 192.168.0.1 -n 3 -w 1000 </span>
+        <span class="p-2 font-normal"> ping 192.168.0.1 -n 3 -w 1000 </span>
       </h5>
 
       <p>
         <code class="text-base font-normal">-n &lt;{{ $t('number') }}&gt;</code>
-        <span class="text-lg font-normal line-height-2">
+        <span class="line-height-2 text-lg font-normal">
           : {{ $t('number of requests sent') }}
         </span>
       </p>
 
       <p>
         <code class="text-base font-normal">-w &lt;{{ $t('number') }}&gt;</code>
-        <span class="text-lg font-normal line-height-2">
+        <span class="line-height-2 text-lg font-normal">
           : {{ $t('response time in milliseconds') }}
         </span>
       </p>

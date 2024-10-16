@@ -14,10 +14,10 @@ const $config = useConfig();
         'z-50',
         'h-screen',
         'select-none',
-        'flex absolute',
+        'absolute flex',
         { 'w-full': $config.appSideBarVisible },
         { 'md:w-auto md:max-w-md': $config.appSideBarMode === 'static' },
-        { 'md:flex-none md:static': $config.appSideBarMode === 'static' },
+        { 'md:static md:flex-none': $config.appSideBarMode === 'static' },
         { 'bg-transparent backdrop-blur-sm': $config.appSideBarVisible },
         'text-surface-900 dark:text-surface-300'
       ]"
@@ -28,10 +28,10 @@ const $config = useConfig();
       </transition>
     </aside>
 
-    <div class="flex flex-col flex-1 overflow-hidden">
+    <div class="flex flex-1 flex-col overflow-hidden">
       <AppTopbar />
 
-      <main class="flex-1 px-8 overflow-y-auto">
+      <main class="flex-1 overflow-y-auto px-8">
         <RouterView />
       </main>
     </div>
@@ -39,17 +39,17 @@ const $config = useConfig();
 
   <ConfirmDialog class="max-w-md">
     <template #container="{ message, acceptCallback, rejectCallback }">
-      <div class="flex flex-col items-center p-5 bg-surface-0 dark:bg-surface-700 rounded-md">
+      <div class="flex flex-col items-center rounded-md bg-surface-0 p-5 dark:bg-surface-700">
         <div
-          class="rounded-full bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900 inline-flex justify-center items-center h-[6rem] w-[6rem] -mt-[3rem]"
+          class="-mt-[3rem] inline-flex h-[6rem] w-[6rem] items-center justify-center rounded-full bg-primary-500 text-surface-0 dark:bg-primary-400 dark:text-surface-900"
         >
           <i :class="[message?.icon || 'pi pi-question', 'text-5xl']"></i>
         </div>
-        <span class="font-bold !text-black dark:!text-white text-2xl block mb-2 mt-4">
+        <span class="mb-2 mt-4 block text-2xl font-bold !text-black dark:!text-white">
           {{ message.message }}
         </span>
         <p class="mb-0 text-surface-500">{{ message.header }}</p>
-        <div class="flex items-center gap-2 mt-4">
+        <div class="mt-4 flex items-center gap-2">
           <Button
             :label="$t('Yes')"
             :icon="message.acceptIcon || ''"

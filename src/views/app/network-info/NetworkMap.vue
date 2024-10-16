@@ -257,8 +257,8 @@ onMounted(async () => {
 
 <template>
   <div class="h-full w-full py-4">
-    <div class="flex justify-between flex-wrap mb-2">
-      <div class="flex flex-wrap gap-2 items-center">
+    <div class="mb-2 flex flex-wrap justify-between">
+      <div class="flex flex-wrap items-center gap-2">
         <i class="mr-2 block">
           <AppIcons :name="$route?.name" :size="42" />
         </i>
@@ -272,9 +272,9 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+      <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
         <div class="flex flex-col">
-          <div class="flex flex-row w-full gap-2">
+          <div class="flex w-full flex-row gap-2">
             <Dropdown
               filter
               autofocus
@@ -301,12 +301,12 @@ onMounted(async () => {
               }"
             >
               <template #optiongroup="{ option }">
-                <div class="flex items-center h-full justify-center text-base uppercase">
+                <div class="flex h-full items-center justify-center text-base uppercase">
                   {{ option.region }}
                 </div>
               </template>
               <template #option="{ option }">
-                <div class="flex items-center h-full text-base">
+                <div class="flex h-full items-center text-base">
                   {{ option.name }}
                 </div>
               </template>
@@ -333,8 +333,8 @@ onMounted(async () => {
         id="netmap"
         :class="[
           'flex items-center justify-center',
-          'w-full h-full',
-          'border rounded-sm border-dashed border-surface-100 dark:border-surface-700'
+          'h-full w-full',
+          'rounded-sm border border-dashed border-surface-100 dark:border-surface-700'
         ]"
       ></div>
     </div>

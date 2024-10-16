@@ -260,14 +260,14 @@ const onCloseModal = () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="core-profiles" :size="40" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Profile account') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -348,7 +348,7 @@ const onCloseModal = () => {
               v-model="isActivated"
               v-bind="isActivatedAttrs"
             />
-            <label for="isActivated" class="font-bold ml-2">
+            <label for="isActivated" class="ml-2 font-bold">
               {{ $t('Activated account') }}
             </label>
           </div>
@@ -357,7 +357,7 @@ const onCloseModal = () => {
         <div class="flex flex-col gap-2">
           <div class="flex items-center">
             <Checkbox inputId="isAdmin" binary v-model="isAdmin" v-bind="isAdminAttrs" />
-            <label for="isAdmin" class="font-bold ml-2"> {{ $t('Admin account') }} </label>
+            <label for="isAdmin" class="ml-2 font-bold"> {{ $t('Admin account') }} </label>
           </div>
         </div>
       </div>
@@ -375,9 +375,9 @@ const onCloseModal = () => {
           style="height: calc(400px)"
         >
           <template #header>
-            <div class="flex flex-wrap gap-4 items-center justify-between">
-              <div class="flex flex-wrap gap-2 items-center">
-                <i class="pi pi-unlock text-2xl mr-2"></i>
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div class="flex flex-wrap items-center gap-2">
+                <i class="pi pi-unlock mr-2 text-2xl"></i>
                 <div>
                   <p>
                     {{ $t('Scope list') }}
@@ -387,26 +387,26 @@ const onCloseModal = () => {
                   </small>
                 </div>
               </div>
-              <div class="flex gap-2 items-center justify-between sm:w-max w-full">
-                <span class="relative sm:w-max w-full">
+              <div class="flex w-full items-center justify-between gap-2 sm:w-max">
+                <span class="relative w-full sm:w-max">
                   <i
-                    class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    class="pi pi-search absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
                   />
                   <InputText
                     id="name"
-                    class="sm:w-max w-full px-10 !bg-inherit"
+                    class="w-full !bg-inherit px-10 sm:w-max"
                     :placeholder="$t('Search')"
                     v-model="filters['global'].value"
                   />
                   <i
                     v-show="!!filters['global'].value"
-                    class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:!text-primary-500"
+                    class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:!text-primary-500 dark:text-surface-600"
                     v-tooltip.bottom="$t('Clear filter')"
                     @click="filters['global'].value = null"
                   />
                 </span>
 
-                <div class="flex gap-2 justify-between">
+                <div class="flex justify-between gap-2">
                   <Button
                     text
                     plain

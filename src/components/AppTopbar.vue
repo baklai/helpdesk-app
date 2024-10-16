@@ -13,14 +13,14 @@ const { toggleAppSideBar } = useConfig();
 
 <template>
   <header
-    class="flex h-20 py-0 px-8 z-10 items-center justify-between transition-left duration-200"
+    class="transition-left z-10 flex h-20 items-center justify-between px-8 py-0 duration-200"
   >
     <Button
       text
       plain
       rounded
       icon="pi pi-bars"
-      class="text-2xl w-12 h-12"
+      class="h-12 w-12 text-2xl"
       @click="toggleAppSideBar"
     />
 

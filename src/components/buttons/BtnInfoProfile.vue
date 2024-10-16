@@ -12,7 +12,7 @@ const visible = ref(false);
     plain
     rounded
     icon="pi pi-user"
-    class="text-2xl w-12 h-12"
+    class="h-12 w-12 text-2xl"
     v-tooltip.top="$t('Profile account')"
     @click="visible = !visible"
   />

@@ -221,8 +221,8 @@ const getVNClink = async value => {
   <Toast position="bottom-right" group="ping" class="z-10 w-auto" v-if="hostkey">
     <template #message="{ message }">
       <div class="flex flex-col">
-        <div class="flex content-center h-[2rem]">
-          <div class="flex gap-2 items-center justify-center">
+        <div class="flex h-[2rem] content-center">
+          <div class="flex items-center justify-center gap-2">
             <i class="pi pi-info-circle text-2xl"></i>
             <span class="text-base font-semibold">{{ message.summary }}</span>
           </div>
@@ -238,7 +238,7 @@ const getVNClink = async value => {
     ref="refMenu"
     popup
     :model="options"
-    :class="[hostkey && record[hostkey] && hostkey !== '-' ? 'pt-2 pb-0' : 'py-2']"
+    :class="[hostkey && record[hostkey] && hostkey !== '-' ? 'pb-0 pt-2' : 'py-2']"
   >
     <template #item="{ label, item, props }">
       <a :href="item.url" v-bind="props.action">
@@ -247,7 +247,7 @@ const getVNClink = async value => {
       </a>
     </template>
     <template #end v-if="hostkey && record[hostkey] && hostkey !== '-'">
-      <div class="flex justify-center bg-surface-300 dark:bg-surface-900 rounded-b py-2">
+      <div class="flex justify-center rounded-b bg-surface-300 py-2 dark:bg-surface-900">
         <span class="font-bold"> {{ record[hostkey] }} </span>
       </div>
     </template>

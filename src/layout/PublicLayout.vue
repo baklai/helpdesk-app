@@ -20,14 +20,14 @@ const disabledSelectedFromHTML = ref({
   >
     <div
       :class="[
-        'w-full lg:w-1/3 h-full px-6 py-6 flex flex-col justify-between bg-surface-100 dark:bg-surface-950',
+        'flex h-full w-full flex-col justify-between bg-surface-100 px-6 py-6 dark:bg-surface-950 lg:w-1/3',
         'bg-[url(/img/bg-app.svg)] bg-cover bg-center bg-no-repeat lg:bg-none'
       ]"
     >
-      <div class="flex flex-col items-center justify-center mb-2">
+      <div class="mb-2 flex flex-col items-center justify-center">
         <div class="flex flex-row items-center">
           <p
-            class="uppercase font-bold text-6xl text-surface-950 dark:text-surface-50"
+            class="text-6xl font-bold uppercase text-surface-950 dark:text-surface-50"
             translate="no"
             lang="en"
           >
@@ -35,7 +35,7 @@ const disabledSelectedFromHTML = ref({
           </p>
           <AppLogo class="mx-2 text-primary-500" :size="60" />
           <p
-            class="uppercase font-bold text-6xl text-surface-950 dark:text-surface-50"
+            class="text-6xl font-bold uppercase text-surface-950 dark:text-surface-50"
             translate="no"
             lang="en"
           >
@@ -52,12 +52,12 @@ const disabledSelectedFromHTML = ref({
         <RouterView />
       </main>
 
-      <p class="text-center text-surface-500 font-semibold">
+      <p class="text-center font-semibold text-surface-500">
         A problem?
         <a
           target="_blank"
           :href="$helpdesk.authorUrl"
-          class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+          class="cursor-pointer font-semibold text-primary-600 hover:text-primary-500"
         >
           Click here
         </a>
@@ -66,29 +66,29 @@ const disabledSelectedFromHTML = ref({
     </div>
 
     <div
-      class="bg-[url('/img/bg-app.svg')] w-2/3 hidden lg:flex flex-col justify-between items-center px-6 py-6 bg-cover bg-center bg-no-repeat"
+      class="hidden w-2/3 flex-col items-center justify-between bg-[url('/img/bg-app.svg')] bg-cover bg-center bg-no-repeat px-6 py-6 lg:flex"
     >
-      <div class="flex flex-col m-auto items-center justify-center">
-        <div class="flex flex-row items-center mb-2">
-          <p class="uppercase font-bold text-8xl text-surface-100" translate="no" lang="en">help</p>
+      <div class="m-auto flex flex-col items-center justify-center">
+        <div class="mb-2 flex flex-row items-center">
+          <p class="text-8xl font-bold uppercase text-surface-100" translate="no" lang="en">help</p>
           <AppLogo class="mx-2 text-primary-500" :size="98" :stroke="'rgb(var(--primary-900))'" />
-          <p class="uppercase font-bold text-8xl text-surface-100" translate="no" lang="en">desk</p>
+          <p class="text-8xl font-bold uppercase text-surface-100" translate="no" lang="en">desk</p>
         </div>
 
-        <div class="text-center mb-8">
+        <div class="mb-8 text-center">
           <p class="text-xl font-medium text-surface-300">
             {{ $t('Web Application of technical support') }}
           </p>
         </div>
 
-        <div class="w-[30rem] text-center mb-8">
-          <p class="text-xl line-height-2 text-surface-400">
+        <div class="mb-8 w-[30rem] text-center">
+          <p class="line-height-2 text-xl text-surface-400">
             {{ $t('Helpdesk technical support') }}
           </p>
         </div>
 
-        <ul class="flex justify-evenly list-none mb-6">
-          <li class="flex mx-6">
+        <ul class="mb-6 flex list-none justify-evenly">
+          <li class="mx-6 flex">
             <BtnSocialMedia
               icon="pi pi-facebook"
               :href="$helpdesk?.authorSocial?.facebook"
@@ -116,7 +116,7 @@ const disabledSelectedFromHTML = ref({
         <p class="text-center">
           <RouterLink
             :to="{ name: 'home' }"
-            class="uppercase font-medium text-primary-600 hover:text-primary-500"
+            class="font-medium uppercase text-primary-600 hover:text-primary-500"
           >
             {{ $t('Helpdesk home page') }}
           </RouterLink>
@@ -124,7 +124,7 @@ const disabledSelectedFromHTML = ref({
       </div>
 
       <div class="flex items-center text-surface-300">
-        <p class="font-semibold py-4">
+        <p class="py-4 font-semibold">
           {{ $helpdesk?.copyright }}
         </p>
       </div>

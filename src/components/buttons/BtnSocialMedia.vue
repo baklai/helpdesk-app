@@ -17,6 +17,6 @@ defineProps({
 
 <template>
   <a :href="href" target="_blank">
-    <Button text plain rounded :icon="icon" class="text-2xl w-12 h-12" v-tooltip.bottom="tooltip" />
+    <Button text plain rounded :icon="icon" class="h-12 w-12 text-2xl" v-tooltip.bottom="tooltip" />
   </a>
 </template>

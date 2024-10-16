@@ -515,7 +515,7 @@ onMounted(async () => {
     </template>
 
     <template #end>
-      <div class="flex justify-between gap-3 w-full pt-2">
+      <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
           :label="$t('Select All')"
@@ -575,8 +575,8 @@ onMounted(async () => {
       @page="onPage"
     >
       <template #header>
-        <div class="flex flex-wrap gap-4 items-center justify-between">
-          <div class="flex flex-wrap gap-1 items-center">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-1">
             <slot name="icon" />
             <div class="flex flex-col">
               <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
@@ -587,32 +587,32 @@ onMounted(async () => {
               </p>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-            <span v-if="globalFilter && filters['global']" class="relative sm:w-max w-full">
+          <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
+            <span v-if="globalFilter && filters['global']" class="relative w-full sm:w-max">
               <i
-                class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                class="pi pi-search absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
               />
               <InputText
                 id="name"
-                class="sm:w-max w-full px-10 !bg-inherit"
+                class="w-full !bg-inherit px-10 sm:w-max"
                 :placeholder="$t(globalFilter?.placeholder)"
                 v-model="filters['global'].value"
                 @keydown.enter="onFilter({ filters })"
               />
               <i
-                class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
+                class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:text-surface-900 dark:text-surface-600 dark:hover:text-surface-300"
                 v-tooltip.bottom="$t('Clear global filter')"
                 @click="clearGlobalFilter"
               />
             </span>
 
-            <div class="flex gap-2 sm:w-max w-full justify-between">
+            <div class="flex w-full justify-between gap-2 sm:w-max">
               <Button
                 text
                 plain
                 rounded
                 icon="pi pi-filter-slash"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 :class="
                   params?.filters && Object.keys(params.filters).length ? '!text-primary-600' : ''
                 "
@@ -625,7 +625,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-plus-circle"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 v-tooltip.bottom="$t('Create record')"
                 @click="emits('toggleModal', {})"
               />
@@ -635,7 +635,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-sync"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -647,7 +647,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-cog"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />
@@ -659,7 +659,7 @@ onMounted(async () => {
       </template>
 
       <template #loading>
-        <div class="flex justify-center items-center">
+        <div class="flex items-center justify-center">
           <AppLoading />
         </div>
       </template>
@@ -667,10 +667,10 @@ onMounted(async () => {
       <template #empty>
         <div
           v-if="!loading && !records?.length"
-          class="absolute left-0 z-20 flex items-stretch text-center justify-center w-full h-full bg-none"
+          class="absolute left-0 z-20 flex h-full w-full items-stretch justify-center bg-none text-center"
           style="height: calc(100vh - 24rem)"
         >
-          <div class="flex flex-col gap-2 m-auto">
+          <div class="m-auto flex flex-col gap-2">
             <i class="pi pi-filter-slash text-7xl text-surface-500"></i>
             <h5 class="text-2xl font-semibold">{{ $t('No records found') }}</h5>
             <p class="text-base text-surface-500">
@@ -678,7 +678,7 @@ onMounted(async () => {
             </p>
             <Button
               icon="pi pi-filter-slash text-sm"
-              class="w-max m-auto my-4"
+              class="m-auto my-4 w-max"
               :label="$t('Clear filters')"
               @click="clearFilters"
             />
@@ -687,14 +687,14 @@ onMounted(async () => {
       </template>
 
       <template #paginatorstart>
-        <div class="flex flex-wrap gap-4 items-center justify-evenly xl:justify-between p-2">
-          <div class="flex flex-wrap gap-2 items-center justify-evenly">
+        <div class="flex flex-wrap items-center justify-evenly gap-4 p-2 xl:justify-between">
+          <div class="flex flex-wrap items-center justify-evenly gap-2">
             <Button
               text
               plain
               outlined
               icon="pi pi-refresh text-xl"
-              class="sm:w-max w-full h-10"
+              class="h-10 w-full sm:w-max"
               v-tooltip.bottom="$t('Reset to default')"
               @click="resetLocalStorage"
             />
@@ -712,7 +712,7 @@ onMounted(async () => {
               plain
               outlined
               :label="$t('Actions')"
-              class="sm:w-max w-full h-10"
+              class="h-10 w-full sm:w-max"
               @click="event => refMenuActions.toggle(event)"
             >
               <template #default>
@@ -734,7 +734,7 @@ onMounted(async () => {
             plain
             rounded
             icon="pi pi-cog"
-            class="font-bold w-8 h-8 m-2"
+            class="m-2 h-8 w-8 font-bold"
             v-tooltip.bottom="$t('Columns option')"
             @click="onColumnsMenu"
           />
@@ -745,7 +745,7 @@ onMounted(async () => {
             plain
             rounded
             icon="pi pi-ellipsis-v"
-            class="font-bold w-8 h-8 m-2"
+            class="m-2 h-8 w-8 font-bold"
             v-tooltip.bottom="$t('Optional menu')"
             @click="onOptionsMenu($event, data)"
           />
@@ -780,7 +780,7 @@ onMounted(async () => {
         </template>
 
         <template #body="{ data, field }">
-          <div class="whitespace-nowrap text-ellipsis overflow-hidden px-2">
+          <div class="overflow-hidden text-ellipsis whitespace-nowrap px-2">
             <component
               v-if="column?.render"
               :is="column?.render(getObjField(data, field))"
@@ -808,7 +808,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-times"
-                class="font-bold w-8 h-8"
+                class="h-8 w-8 font-bold"
                 @click="applyFilter"
               />
             </div>
@@ -831,7 +831,7 @@ onMounted(async () => {
               :placeholder="$t('Search in database')"
               :filterPlaceholder="$t('Search in list')"
               :virtualScrollerOptions="{ itemSize: 32 }"
-              class="w-96 my-4"
+              class="my-4 w-96"
               :pt="{
                 itemgroup: {
                   class: [
@@ -863,13 +863,13 @@ onMounted(async () => {
               v-if="filter?.matchMode === FilterMatchMode.IN"
             >
               <template #optiongroup="{ option }">
-                <div class="flex items-center h-full justify-center text-base uppercase">
+                <div class="flex h-full items-center justify-center text-base uppercase">
                   {{ option.group }}
                 </div>
               </template>
 
               <template #option="{ option }">
-                <div class="flex items-center h-full text-base">
+                <div class="flex h-full items-center text-base">
                   {{ option[filter?.options?.label] }}
                 </div>
               </template>

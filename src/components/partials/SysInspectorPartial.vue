@@ -49,7 +49,7 @@ const diskSum = value => {
   </div>
 
   <div class="flex justify-between py-6">
-    <div class="flex justify-center w-1/3">
+    <div class="flex w-1/3 justify-center">
       <div class="flex flex-col">
         <div class="flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
@@ -70,7 +70,7 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-center w-1/3">
+    <div class="flex w-1/3 justify-center">
       <div class="flex flex-col">
         <div class="flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
@@ -91,7 +91,7 @@ const diskSum = value => {
       </div>
     </div>
 
-    <div class="flex justify-center w-1/3">
+    <div class="flex w-1/3 justify-center">
       <div class="flex flex-col">
         <div class="flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
@@ -113,7 +113,7 @@ const diskSum = value => {
     </div>
   </div>
 
-  <table class="w-full text-lg font-normal my-4">
+  <table class="my-4 w-full text-lg font-normal">
     <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-normal" width="40%">
         {{ $t('Baseboard serial number') }}
@@ -130,7 +130,7 @@ const diskSum = value => {
     </tr>
   </table>
 
-  <table class="w-full text-lg font-normal my-4">
+  <table class="my-4 w-full text-lg font-normal">
     <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('OS Type') }}</td>
       <td>{{ $t('Microsoft Windows') }}</td>
@@ -149,7 +149,7 @@ const diskSum = value => {
     </tr>
   </table>
 
-  <table class="w-full text-lg font-normal my-4">
+  <table class="my-4 w-full text-lg font-normal">
     <tr class="border-b border-surface-200 dark:border-surface-600">
       <td class="font-medium" width="40%">{{ $t('PC Name') }}</td>
       <td>{{ record?.os ? record?.os?.CSName : record?.host }}</td>

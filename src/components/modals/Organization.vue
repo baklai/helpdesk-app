@@ -181,14 +181,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
-          <i class="pi pi-building text-4xl mr-4"></i>
+          <i class="pi pi-building mr-4 text-4xl"></i>
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Organization') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -222,7 +222,7 @@ const onCloseModal = async () => {
         @change="event => setValues({ ...event.value })"
       >
         <template #option="{ option }">
-          <div class="flex items-center h-full text-base">
+          <div class="flex h-full items-center text-base">
             {{ option.name }}
           </div>
         </template>

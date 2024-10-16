@@ -403,7 +403,7 @@ const datacollections = ref([
             return (
               <Tag
                 class={[
-                  '!text-base font-bold cursor-pointer px-4',
+                  'cursor-pointer px-4 !text-base font-bold',
                   '!bg-surface-500/5',
                   '!text-primary-600'
                 ]}
@@ -473,9 +473,9 @@ const datacollections = ref([
           field: 'status',
           render(value) {
             return value ? (
-              <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
+              <i class={'pi pi-check-circle ml-4 font-bold text-green-500'}></i>
             ) : (
-              <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
+              <i class={'pi pi-lock ml-4 font-bold text-surface-500'}></i>
             );
           }
         },
@@ -680,9 +680,9 @@ const datacollections = ref([
           field: 'status',
           render(value) {
             return value ? (
-              <i class="pi pi-check-circle text-green-500 font-bold" />
+              <i class="pi pi-check-circle font-bold text-green-500" />
             ) : (
-              <i class="pi pi-info-circle text-orange-500 font-bold" />
+              <i class="pi pi-info-circle font-bold text-orange-500" />
             );
           }
         },
@@ -976,8 +976,8 @@ const datacollections = ref([
             return (
               <Tag
                 class={[
-                  '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-                  value?.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+                  'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+                  value?.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
                 ]}
                 value={value?.count || '-'}
               />
@@ -1002,8 +1002,8 @@ const datacollections = ref([
             return (
               <Tag
                 class={[
-                  '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-                  value?.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+                  'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+                  value?.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
                 ]}
                 value={value?.count || '-'}
               />
@@ -1028,8 +1028,8 @@ const datacollections = ref([
             return (
               <Tag
                 class={[
-                  '!text-base !text-black dark:!text-white !font-semibold w-12 h-8',
-                  value?.warning ? ' !bg-orange-500/90' : '!bg-surface-500/20'
+                  'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+                  value?.warning ? '!bg-orange-500/90' : '!bg-surface-500/20'
                 ]}
                 value={value?.count || '-'}
               />
@@ -1051,7 +1051,7 @@ const datacollections = ref([
         column: {
           field: 'fixupdate',
           render(value) {
-            return <Tag class={'text-base  font-medium w-3 '} value={value} />;
+            return <Tag class={'w-3 text-base font-medium'} value={value} />;
           }
         },
         sorter: { field: 'fixupdate' },
@@ -1298,14 +1298,14 @@ const onCloseModal = async () => {
     @hide="onCloseModal"
   >
     <template #header>
-      <div class="flex justify-between w-full">
+      <div class="flex w-full justify-between">
         <div class="flex items-center justify-center">
           <AppIcons name="reports" :size="42" class="mr-4" />
           <div>
-            <p class="text-lg font-bold line-height-2">
+            <p class="line-height-2 text-lg font-bold">
               {{ $t('Report template') }}
             </p>
-            <p class="text-base font-normal line-height-2 text-surface-500">
+            <p class="line-height-2 text-base font-normal text-surface-500">
               {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
             </p>
           </div>
@@ -1331,7 +1331,7 @@ const onCloseModal = async () => {
           <i
             :class="[
               'pi pi-info-circle',
-              'text-3xl mr-2',
+              'mr-2 text-3xl',
               {
                 'text-primary-400': props.active
               }
@@ -1344,15 +1344,15 @@ const onCloseModal = async () => {
           </span>
         </template>
         <template #content="{ nextCallback }">
-          <div class="flex flex-col min-h-60">
+          <div class="flex min-h-60 flex-col">
             <div
-              class="border border-dashed border-surface-200 dark:border-surface-700 rounded-md flex-auto flex font-medium"
+              class="flex flex-auto rounded-md border border-dashed border-surface-200 font-medium dark:border-surface-700"
             >
-              <div class="flex flex-col w-full md:w-3/5 p-6">
-                <p class="text-2xl block mb-6">
+              <div class="flex w-full flex-col p-6 md:w-3/5">
+                <p class="mb-6 block text-2xl">
                   {{ $t('Basics') }}
                 </p>
-                <div class="flex flex-col gap-2 mb-4">
+                <div class="mb-4 flex flex-col gap-2">
                   <label for="name" class="font-semibold">
                     {{ $t('Report name') }}
                   </label>
@@ -1368,7 +1368,7 @@ const onCloseModal = async () => {
                     {{ $t(errors.name) }}
                   </small>
                 </div>
-                <div class="flex flex-col gap-2 mb-4">
+                <div class="mb-4 flex flex-col gap-2">
                   <label for="description" class="font-semibold">
                     {{ $t('Report description') }}
                   </label>
@@ -1409,7 +1409,7 @@ const onCloseModal = async () => {
           <i
             :class="[
               'pi pi-database',
-              'text-3xl mr-2',
+              'mr-2 text-3xl',
               {
                 'text-primary-400': props.active
               }
@@ -1423,15 +1423,15 @@ const onCloseModal = async () => {
         </template>
 
         <template #content="{ prevCallback, nextCallback }">
-          <div class="flex flex-col min-h-60">
+          <div class="flex min-h-60 flex-col">
             <div
-              class="border border-dashed border-surface-200 dark:border-surface-700 rounded-md flex-auto flex font-medium"
+              class="flex flex-auto rounded-md border border-dashed border-surface-200 font-medium dark:border-surface-700"
             >
-              <div class="flex flex-col w-full md:w-3/5 p-6">
-                <p class="text-2xl block mb-6">
+              <div class="flex w-full flex-col p-6 md:w-3/5">
+                <p class="mb-6 block text-2xl">
                   {{ $t('Data table collection') }}
                 </p>
-                <div class="flex flex-col gap-2 mb-4">
+                <div class="mb-4 flex flex-col gap-2">
                   <label for="collection" class="font-semibold">
                     {{ $t('Data table collection') }}
                   </label>
@@ -1467,7 +1467,7 @@ const onCloseModal = async () => {
               </div>
             </div>
           </div>
-          <div class="flex py-4 gap-2">
+          <div class="flex gap-2 py-4">
             <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
             <Button
               :label="$t('Next')"
@@ -1489,7 +1489,7 @@ const onCloseModal = async () => {
           <i
             :class="[
               'pi pi-table',
-              'text-3xl mr-2',
+              'mr-2 text-3xl',
               {
                 'text-primary-400': props.active
               }
@@ -1503,9 +1503,9 @@ const onCloseModal = async () => {
         </template>
 
         <template #content="{ prevCallback, nextCallback }">
-          <div class="flex flex-col min-h-60">
+          <div class="flex min-h-60 flex-col">
             <div
-              class="border border-dashed border-surface-200 dark:border-surface-700 rounded-md flex-auto flex font-medium"
+              class="flex flex-auto rounded-md border border-dashed border-surface-200 font-medium dark:border-surface-700"
             >
               <HDReportTable
                 :columns="datatable?.columns"
@@ -1518,7 +1518,7 @@ const onCloseModal = async () => {
                 @update-fields="data => setFieldValue('fields', JSON.stringify(data))"
               >
                 <template #icon>
-                  <i class="pi pi-table text-5xl mr-2 block" />
+                  <i class="pi pi-table mr-2 block text-5xl" />
                 </template>
 
                 <template #title>
@@ -1531,7 +1531,7 @@ const onCloseModal = async () => {
               </HDReportTable>
             </div>
           </div>
-          <div class="flex py-4 gap-2">
+          <div class="flex gap-2 py-4">
             <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
             <Button :label="$t('Next')" @click="nextCallback" />
           </div>
@@ -1543,7 +1543,7 @@ const onCloseModal = async () => {
           <i
             :class="[
               'pi pi-chart-bar',
-              'text-3xl mr-2',
+              'mr-2 text-3xl',
               {
                 'text-primary-400': slotProps.active
               }
@@ -1560,7 +1560,7 @@ const onCloseModal = async () => {
         </template>
 
         <template #content="{ prevCallback }">
-          <div class="flex flex-col min-h-60">
+          <div class="flex min-h-60 flex-col">
             <div class="flex flex-col gap-2 py-4 pl-8">
               <p class="text-xl font-bold">
                 {{ $t('Report name') }} : <span class="font-normal">{{ name }}</span>
@@ -1569,7 +1569,7 @@ const onCloseModal = async () => {
                 {{ $t('Report description') }} : <span class="font-normal">{{ description }}</span>
               </p>
 
-              <div class="flex text-xl font-bold py-4">
+              <div class="flex py-4 text-xl font-bold">
                 {{ $t('Data collection') }} :
                 <div class="px-2">
                   <p class="font-normal">{{ datatable?.label }}</p>
@@ -1585,7 +1585,7 @@ const onCloseModal = async () => {
               </p>
             </div>
           </div>
-          <div class="flex py-4 gap-2">
+          <div class="flex gap-2 py-4">
             <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
             <Button :label="$t('Save')" @click="onSaveRecord" />
           </div>

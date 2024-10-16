@@ -57,7 +57,7 @@ onMounted(() => {
 <template>
   <form
     @submit.prevent="onSignin"
-    class="flex flex-col justify-center gap-6 w-[25rem]"
+    class="flex w-[25rem] flex-col justify-center gap-6"
     autocomplete="off"
   >
     <div class="flex flex-col gap-2">
@@ -65,7 +65,7 @@ onMounted(() => {
         {{ $t('Email') }}
       </label>
       <span class="relative">
-        <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
+        <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />
         <InputText
           id="email"
           size="large"
@@ -88,7 +88,7 @@ onMounted(() => {
       </label>
       <span class="relative">
         <i
-          class="pi pi-lock absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600 z-10"
+          class="pi pi-lock absolute left-3 top-2/4 z-10 -mt-2 text-surface-400 dark:text-surface-600"
         />
         <Password
           toggleMask
@@ -112,7 +112,7 @@ onMounted(() => {
           <template #footer>
             <Divider />
             <p class="mt-2">{{ $t('Suggestions') }}:</p>
-            <ul class="list-disc pl-2 ml-2 mt-0 leading-normal">
+            <ul class="ml-2 mt-0 list-disc pl-2 leading-normal">
               <li>{{ $t('At least one lowercase') }}</li>
               <li>{{ $t('At least one uppercase') }}</li>
               <li>{{ $t('At least one numeric') }}</li>
@@ -126,7 +126,7 @@ onMounted(() => {
       </small>
     </div>
 
-    <div class="flex flex-col gap-2 mb-4">
+    <div class="mb-4 flex flex-col gap-2">
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <Checkbox
@@ -144,7 +144,7 @@ onMounted(() => {
 
         <RouterLink
           :to="{ name: 'resetpassword' }"
-          class="font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+          class="cursor-pointer font-semibold text-primary-600 hover:text-primary-500"
         >
           {{ $t('Forgot password') }}?
         </RouterLink>
@@ -155,7 +155,7 @@ onMounted(() => {
       <Button
         type="submit"
         icon="pi pi-sign-in"
-        class="block w-full p-3 text-xl text-center"
+        class="block w-full p-3 text-center text-xl"
         :disabled="submitCount > SUBMIT_COUNT"
         :label="$t('Sign In')"
         aria-describedby="submit-help"
@@ -175,7 +175,7 @@ onMounted(() => {
 
     <RouterLink
       :to="{ name: 'signup' }"
-      class="text-center font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+      class="cursor-pointer text-center font-semibold text-primary-600 hover:text-primary-500"
     >
       {{ $t('Register in the application') }}
     </RouterLink>

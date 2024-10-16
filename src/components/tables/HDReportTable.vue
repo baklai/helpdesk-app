@@ -388,7 +388,7 @@ watch(
     </template>
 
     <template #end>
-      <div class="flex justify-between gap-3 w-full pt-2">
+      <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
           :label="$t('Select All')"
@@ -421,14 +421,14 @@ watch(
       :loading="loading"
       v-model:filters="filters"
       style="min-height: 350px"
-      class="min-w-full overflow-x-auto text-base py-2 px-4"
+      class="min-w-full overflow-x-auto px-4 py-2 text-base"
       @column-reorder="onReorder"
       @filter="onFilter"
       @sort="onSort"
     >
       <template #header>
-        <div class="flex flex-wrap gap-4 items-center justify-between">
-          <div class="flex flex-wrap gap-1 items-center">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-1">
             <slot name="icon" />
             <div class="flex flex-col">
               <h3 class="text-xl font-bold text-surface-900 dark:text-surface-50">
@@ -439,14 +439,14 @@ watch(
               </p>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
-            <div class="flex gap-2 sm:w-max w-full justify-between">
+          <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
+            <div class="flex w-full justify-between gap-2 sm:w-max">
               <Button
                 text
                 plain
                 rounded
                 icon="pi pi-filter-slash"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 :class="
                   params?.filters && Object.keys(params.filters)?.length ? '!text-primary-600' : ''
                 "
@@ -459,7 +459,7 @@ watch(
                 plain
                 rounded
                 icon="pi pi-sync"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 v-tooltip.bottom="$t('Update records')"
                 @click="onUpdateRecords"
               />
@@ -469,7 +469,7 @@ watch(
                 plain
                 rounded
                 icon="pi pi-cog"
-                class="text-2xl w-12 h-12"
+                class="h-12 w-12 text-2xl"
                 v-tooltip.bottom="$t('Columns option')"
                 @click="onColumnsMenu"
               />
@@ -481,10 +481,10 @@ watch(
       <template #empty>
         <div
           v-if="!loading && !records?.length"
-          class="absolute left-0 z-20 flex items-stretch text-center justify-center w-full h-full bg-none"
+          class="absolute left-0 z-20 flex h-full w-full items-stretch justify-center bg-none text-center"
           style="height: calc(100vh - 65rem)"
         >
-          <div class="flex flex-col gap-2 m-auto">
+          <div class="m-auto flex flex-col gap-2">
             <i class="pi pi-filter-slash text-4xl text-surface-500"></i>
             <h5 class="text-xl font-semibold">{{ $t('No records found') }}</h5>
             <p class="text-base text-surface-500">
@@ -493,7 +493,7 @@ watch(
             <Button
               size="small"
               icon="pi pi-filter-slash text-sm"
-              class="w-max m-auto my-4"
+              class="m-auto my-4 w-max"
               :label="$t('Clear filters')"
               @click="clearFilters"
             />
@@ -523,7 +523,7 @@ watch(
         </template>
 
         <template #body="{ data, field }">
-          <div class="whitespace-nowrap text-ellipsis overflow-hidden px-2">
+          <div class="overflow-hidden text-ellipsis whitespace-nowrap px-2">
             <component v-if="column?.render" :is="column?.render(getObjField(data, field))" />
             <span v-else>{{ getObjField(data, field) }}</span>
           </div>
@@ -547,7 +547,7 @@ watch(
                 plain
                 rounded
                 icon="pi pi-times"
-                class="font-bold w-8 h-8"
+                class="h-8 w-8 font-bold"
                 @click="applyFilter"
               />
             </div>
@@ -570,7 +570,7 @@ watch(
               :placeholder="$t('Search in database')"
               :filterPlaceholder="$t('Search in list')"
               :virtualScrollerOptions="{ itemSize: 32 }"
-              class="w-96 my-4"
+              class="my-4 w-96"
               :pt="{
                 itemgroup: {
                   class: [
@@ -602,13 +602,13 @@ watch(
               v-if="filter?.matchMode === FilterMatchMode.IN"
             >
               <template #optiongroup="{ option }">
-                <div class="flex items-center h-full justify-center text-base uppercase">
+                <div class="flex h-full items-center justify-center text-base uppercase">
                   {{ option.group }}
                 </div>
               </template>
 
               <template #option="{ option }">
-                <div class="flex items-center h-full text-base">
+                <div class="flex h-full items-center text-base">
                   {{ option[filter?.options?.label] }}
                 </div>
               </template>

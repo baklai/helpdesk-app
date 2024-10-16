@@ -43,7 +43,7 @@ const columns = ref([
         return (
           <Tag
             class={[
-              '!text-base font-bold cursor-pointer px-4',
+              'cursor-pointer px-4 !text-base font-bold',
               '!bg-surface-500/5',
               '!text-primary-600'
             ]}
@@ -141,9 +141,9 @@ const columns = ref([
       field: 'status',
       render(value) {
         return value ? (
-          <i class={'pi pi-check-circle font-bold text-green-500 ml-4'}></i>
+          <i class={'pi pi-check-circle ml-4 font-bold text-green-500'}></i>
         ) : (
-          <i class={'pi pi-lock font-bold text-surface-500 ml-4'}></i>
+          <i class={'pi pi-lock ml-4 font-bold text-surface-500'}></i>
         );
       }
     },

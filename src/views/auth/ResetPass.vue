@@ -48,7 +48,7 @@ onMounted(() => {
 <template>
   <form
     @submit.prevent="onReset"
-    class="flex flex-col justify-center gap-6 w-[25rem]"
+    class="flex w-[25rem] flex-col justify-center gap-6"
     autocomplete="off"
   >
     <div class="flex flex-col gap-2">
@@ -59,7 +59,7 @@ onMounted(() => {
         {{ $t('Enter your email to reset your password') }}
       </p>
       <span class="relative">
-        <i class="pi pi-at absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
+        <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />
         <InputText
           id="email"
           size="large"
@@ -80,7 +80,7 @@ onMounted(() => {
       <Button
         type="submit"
         icon="pi pi-lock-open"
-        class="block w-full p-3 text-xl text-center"
+        class="block w-full p-3 text-center text-xl"
         :disabled="submitCount > SUBMIT_COUNT"
         :label="$t('Reset password')"
         aria-describedby="submit-help"
@@ -96,7 +96,7 @@ onMounted(() => {
 
     <RouterLink
       :to="{ name: 'signin' }"
-      class="text-center font-semibold cursor-pointer text-primary-600 hover:text-primary-500"
+      class="cursor-pointer text-center font-semibold text-primary-600 hover:text-primary-500"
     >
       {{ $t('Sign In the application') }}
     </RouterLink>

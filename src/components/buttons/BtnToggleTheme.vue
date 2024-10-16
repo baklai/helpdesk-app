@@ -9,7 +9,7 @@ const $config = useConfig();
     text
     plain
     rounded
-    class="text-2xl w-12 h-12"
+    class="h-12 w-12 text-2xl"
     :icon="$config.isDarkAppTheme ? 'pi pi-sun' : 'pi pi-moon'"
     v-tooltip.bottom="$config.isDarkAppTheme ? $t('Theme Light') : $t('Theme Dark')"
     @click="$config.isDarkAppTheme ? ($config.appTheme = 'light') : ($config.appTheme = 'dark')"

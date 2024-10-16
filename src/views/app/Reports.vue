@@ -156,8 +156,8 @@ onMounted(async () => {
   </Menu>
 
   <div class="h-full w-full">
-    <div class="flex content-center mb-6">
-      <div class="flex items-center justify-center mr-2">
+    <div class="mb-6 flex content-center">
+      <div class="mr-2 flex items-center justify-center">
         <AppIcons :name="$route?.name" :size="42" />
       </div>
       <div>
@@ -170,15 +170,15 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="flex flex-wrap gap-6 justify-start p-8">
+    <div class="flex flex-wrap justify-start gap-6 p-8">
       <Card
-        class="flex w-full lg:w-2/4 xl:w-1/4 items-center justify-center cursor-pointer hover:shadow-xl"
+        class="flex w-full cursor-pointer items-center justify-center hover:shadow-xl lg:w-2/4 xl:w-1/4"
         @click="refModal.toggle({})"
       >
         <template #content>
-          <div class="flex flex-col gap-4 items-center justify-center">
+          <div class="flex flex-col items-center justify-center gap-4">
             <i class="pi pi-plus-circle text-5xl" />
-            <p class="font-medium text-xl">
+            <p class="text-xl font-medium">
               {{ $t('Create a report template') }}
             </p>
           </div>
@@ -186,22 +186,22 @@ onMounted(async () => {
       </Card>
 
       <Card
-        class="w-full lg:w-2/4 xl:w-1/4 hover:shadow-xl"
+        class="w-full hover:shadow-xl lg:w-2/4 xl:w-1/4"
         v-for="item in reports"
         :key="`report-${item.id}`"
       >
         <template #title>
-          <div class="flex justify-between w-full">
+          <div class="flex w-full justify-between">
             <div class="flex items-center justify-center">
-              <i class="pi pi-file-excel text-6xl mr-4" />
+              <i class="pi pi-file-excel mr-4 text-6xl" />
               <div>
-                <p class="text-lg font-bold line-height-2">
+                <p class="line-height-2 text-lg font-bold">
                   {{ item?.name || '-' }}
                 </p>
-                <p class="text-sm font-normal line-height-2 text-surface-500">
+                <p class="line-height-2 text-sm font-normal text-surface-500">
                   {{ $t('Report created by') }} {{ item?.creator }}
                 </p>
-                <p class="text-sm font-normal line-height-2 text-surface-500">
+                <p class="line-height-2 text-sm font-normal text-surface-500">
                   {{ $t('Created at') }} {{ dateToStr(item?.updatedAt) || '-' }}
                 </p>
               </div>

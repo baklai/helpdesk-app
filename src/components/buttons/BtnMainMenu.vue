@@ -21,27 +21,27 @@ const toggle = event => {
     plain
     rounded
     icon="pi pi-th-large"
-    class="text-3xl w-12 h-12"
+    class="h-12 w-12 text-3xl"
     v-tooltip.bottom="$t('Main menu')"
     @click="toggle"
   />
 
-  <Menu ref="refMenu" popup :model="[]" class="w-[22rem] py-2 px-4">
+  <Menu ref="refMenu" popup :model="[]" class="w-[22rem] px-4 py-2">
     <template #start>
-      <div class="flex my-2 items-center">
+      <div class="my-2 flex items-center">
         <div class="flex items-center">
-          <Avatar icon="pi pi-user text-4xl" class="text-4xl mr-3" size="large" />
+          <Avatar icon="pi pi-user text-4xl" class="mr-3 text-4xl" size="large" />
           <div>
-            <p class="font-bold m-0">
+            <p class="m-0 font-bold">
               {{ $helpdesk?.profile?.fullname }}
             </p>
-            <p class="line-height-3 text-surface-500 m-0">
+            <p class="line-height-3 m-0 text-surface-500">
               {{ $helpdesk?.profile?.email }}
             </p>
           </div>
         </div>
       </div>
-      <div class="overflow-scroll w-full max-h-[30rem] px-2 py-2">
+      <div class="max-h-[30rem] w-full overflow-scroll px-2 py-2">
         <SidebarMenu />
       </div>
     </template>
@@ -54,7 +54,7 @@ const toggle = event => {
     </template>
 
     <template #end>
-      <div class="flex items-center content-center justify-between py-2">
+      <div class="flex content-center items-center justify-between py-2">
         <BtnToggleTheme />
         <BtnToggleLang />
         <BtnStorageClient />

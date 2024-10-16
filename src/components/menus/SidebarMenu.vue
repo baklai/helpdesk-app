@@ -29,7 +29,7 @@ const $sidebar = useSidebar();
     <template #item="{ item, active }">
       <span
         v-if="typeof item === 'string'"
-        :class="['flex items-center', 'my-2 mx-0', 'font-bold', 'uppercase']"
+        :class="['flex items-center', 'mx-0 my-2', 'font-bold', 'uppercase']"
       >
         {{ item }}
       </span>
@@ -43,7 +43,7 @@ const $sidebar = useSidebar();
         <a
           :class="[
             'flex items-center',
-            'py-2 px-3',
+            'px-3 py-2',
             'rounded-md',
             'font-semibold',
             'cursor-pointer',
@@ -60,7 +60,7 @@ const $sidebar = useSidebar();
           @click="navigate"
         >
           <AppIcons :name="item.icon" class="mr-2" :size="18" />
-          <span class="ml-2 text-color">{{ item.label }}</span>
+          <span class="text-color ml-2">{{ item.label }}</span>
         </a>
       </router-link>
 
@@ -68,7 +68,7 @@ const $sidebar = useSidebar();
         v-else
         :class="[
           'flex items-center',
-          'py-2 px-3',
+          'px-3 py-2',
           'rounded-md',
           'cursor-pointer',
           'text-surface-700 dark:text-surface-0/80',
@@ -86,8 +86,8 @@ const $sidebar = useSidebar();
           v-if="item.items"
           :class="[
             'pi pi-angle-down',
-            'text-sm ml-auto',
-            'transition transform delay-200',
+            'ml-auto text-sm',
+            'transform transition delay-200',
             { 'rotate-180': active }
           ]"
         />

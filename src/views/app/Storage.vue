@@ -377,7 +377,7 @@ onMounted(async () => {
         <template #message="slotProps">
           <span class="relative">
             <i
-              class="pi pi-file-edit absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+              class="pi pi-file-edit absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
             />
             <InputText
               v-model="newValue"
@@ -421,8 +421,8 @@ onMounted(async () => {
         class="min-w-full overflow-x-auto text-lg"
       >
         <template #header>
-          <div class="flex flex-wrap gap-4 mb-2 items-center justify-between">
-            <div class="flex flex-wrap gap-2 items-center">
+          <div class="mb-2 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
               <i class="mr-2 hidden sm:block">
                 <AppIcons :name="$route?.name" :size="42" />
               </i>
@@ -436,21 +436,21 @@ onMounted(async () => {
               </div>
             </div>
 
-            <div class="flex flex-wrap gap-2 items-center justify-between sm:w-max w-full">
+            <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
               <div class="flex flex-wrap items-center justify-between">
-                <span class="relative sm:w-max w-full mx-2">
+                <span class="relative mx-2 w-full sm:w-max">
                   <i
-                    class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600"
+                    class="pi pi-search absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
                   />
                   <InputText
                     id="name"
-                    class="sm:w-max w-full px-10 !bg-inherit"
+                    class="w-full !bg-inherit px-10 sm:w-max"
                     :placeholder="$t('Search')"
                     v-model="filters['global'].value"
                   />
                   <i
                     v-show="!!filters['global'].value"
-                    class="pi pi-times cursor-pointer absolute top-2/4 -mt-2 right-3 text-surface-400 dark:text-surface-600 hover:text-surface-900 dark:hover:text-surface-300"
+                    class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:text-surface-900 dark:text-surface-600 dark:hover:text-surface-300"
                     v-tooltip.bottom="$t('Clear filter')"
                     @click="filters['global'].value = null"
                   />
@@ -462,7 +462,7 @@ onMounted(async () => {
                   rounded
                   icon="pi pi-plus-circle"
                   iconClass="text-2xl"
-                  class="mx-2 hover:text-primary h-12 w-12"
+                  class="hover:text-primary mx-2 h-12 w-12"
                   v-tooltip.bottom="$t('Upload files')"
                   @click="showUpload = !showUpload"
                 />
@@ -478,7 +478,7 @@ onMounted(async () => {
                   @click="update()"
                 />
               </div>
-              <div class="flex gap-2 sm:w-max w-full justify-between"></div>
+              <div class="flex w-full justify-between gap-2 sm:w-max"></div>
             </div>
           </div>
 
@@ -492,8 +492,8 @@ onMounted(async () => {
             @uploader="uploadFiles"
           >
             <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
-              <div class="flex justify-between flex-wrap w-full">
-                <div class="flex gap-2 items-center justify-center">
+              <div class="flex w-full flex-wrap justify-between">
+                <div class="flex items-center justify-center gap-2">
                   <Button
                     icon="pi pi-plus"
                     :label="$t('Choose')"
@@ -518,7 +518,7 @@ onMounted(async () => {
                   />
                 </div>
 
-                <div class="flex gap-2 items-center justify-center">
+                <div class="flex items-center justify-center gap-2">
                   <Button
                     icon="pi pi-folder"
                     class="font-bold"
@@ -533,10 +533,10 @@ onMounted(async () => {
               <div
                 v-for="(file, index) of files"
                 :key="file.name + file.type + file.size"
-                class="flex flex-wrap items-center justify-between p-4 my-2 border rounded-md border-dashed border-surface-200 dark:border-surface-800"
+                class="my-2 flex flex-wrap items-center justify-between rounded-md border border-dashed border-surface-200 p-4 dark:border-surface-800"
               >
                 <div class="flex flex-wrap items-center">
-                  <i :class="filterFileIcon(file.name)" class="text-3xl p-2 mr-2" />
+                  <i :class="filterFileIcon(file.name)" class="mr-2 p-2 text-3xl" />
                   <div class="flex flex-col">
                     <h3 class="text-2xl font-normal text-surface-900 dark:text-surface-50">
                       {{ file.name }}
@@ -548,7 +548,7 @@ onMounted(async () => {
                   </div>
                 </div>
 
-                <div class="flex gap-2 sm:w-max w-full justify-between">
+                <div class="flex w-full justify-between gap-2 sm:w-max">
                   <Button
                     text
                     rounded
@@ -568,7 +568,7 @@ onMounted(async () => {
         </template>
 
         <template #loading>
-          <i class="pi pi-spin pi-spinner text-3xl mr-4"></i>
+          <i class="pi pi-spin pi-spinner mr-4 text-3xl"></i>
           <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
         </template>
 
@@ -580,13 +580,13 @@ onMounted(async () => {
               'left-0',
               'z-20',
               'flex items-center justify-center',
-              'w-full h-full',
+              'h-full w-full',
               'bg-none',
               'flex items-stretch text-center'
             ]"
             style="height: calc(100vh - 34rem)"
           >
-            <div class="flex flex-col gap-2 m-auto">
+            <div class="m-auto flex flex-col gap-2">
               <i class="pi pi-folder-open text-8xl text-surface-500" />
               <h5>{{ $t('No files found in folder') }}</h5>
             </div>
@@ -609,11 +609,11 @@ onMounted(async () => {
                 data.type === 'directory'
                   ? update(data.name)
                   : data.type === null
-                  ? goToBack()
-                  : false
+                    ? goToBack()
+                    : false
               "
             >
-              <div class="flex items-center justify-center mr-4">
+              <div class="mr-4 flex items-center justify-center">
                 <i
                   class="pi pi-folder-open text-2xl font-bold text-surface-500"
                   v-if="data.type === null"
@@ -694,21 +694,21 @@ onMounted(async () => {
           headerClass="font-bold text-center uppercase"
         >
           <template #body="{ data }">
-            <div class="flex justify-center flex-wrap">
+            <div class="flex flex-wrap justify-center">
               <a
                 download
                 target="_blank"
                 :href="getLinkToFile(data.name)"
                 :class="[
                   'relative',
-                  'w-12 h-12',
+                  'h-12 w-12',
                   'px-4 py-3',
                   'text-green-500',
                   'hover:bg-surface-300/20',
-                  'items-center inline-flex text-center align-bottom justify-center',
+                  'inline-flex items-center justify-center text-center align-bottom',
                   'focus:outline-none focus:outline-offset-0 focus:ring',
-                  'leading-normal rounded-full cursor-pointer',
-                  'overflow-hidden select-none',
+                  'cursor-pointer rounded-full leading-normal',
+                  'select-none overflow-hidden',
                   'transition duration-200 ease-in-out'
                 ]"
                 v-tooltip.bottom="$t('Download file')"
@@ -722,7 +722,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-copy"
-                class="w-12 h-12"
+                class="h-12 w-12"
                 iconClass="text-xl text-primary-500"
                 v-tooltip.bottom="$t('Copy file link')"
                 @click="copyLink(data.name)"
@@ -734,7 +734,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-file-edit"
-                class="w-12 h-12"
+                class="h-12 w-12"
                 iconClass="text-xl text-yellow-500"
                 v-tooltip.bottom="$t('Rename file')"
                 @click="rename(data.name)"
@@ -746,7 +746,7 @@ onMounted(async () => {
                 plain
                 rounded
                 icon="pi pi-trash"
-                class="w-12 h-12"
+                class="h-12 w-12"
                 iconClass="text-xl text-red-500"
                 v-tooltip.bottom="data.type === 'file' ? $t('Remove file') : $t('Remove folder')"
                 @click="remove(data.name)"
