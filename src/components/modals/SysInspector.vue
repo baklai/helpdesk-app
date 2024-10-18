@@ -269,42 +269,44 @@ const onCloseModal = () => {
             </div>
           </div>
           <table>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ record?.cpu?.Name || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Clock frequency') }}
-              </td>
-              <td>{{ record?.cpu?.CurrentClockSpeed || '-' }} MHz</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Number of cores') }}
-              </td>
-              <td>{{ record?.cpu?.NumberOfCores || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Number of logical cores') }}
-              </td>
-              <td>{{ record?.cpu?.NumberOfLogicalProcessors || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Type of architecture') }}
-              </td>
-              <td>{{ record?.cpu?.Architecture || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ record?.cpu?.Manufacturer || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ record?.cpu?.Name || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Clock frequency') }}
+                </td>
+                <td>{{ record?.cpu?.CurrentClockSpeed || '-' }} MHz</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Number of cores') }}
+                </td>
+                <td>{{ record?.cpu?.NumberOfCores || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Number of logical cores') }}
+                </td>
+                <td>{{ record?.cpu?.NumberOfLogicalProcessors || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Type of architecture') }}
+                </td>
+                <td>{{ record?.cpu?.Architecture || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ record?.cpu?.Manufacturer || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -333,30 +335,32 @@ const onCloseModal = () => {
             v-for="(memorychip, index) in record?.memorychip || []"
             :key="`memorychip_${index}`"
           >
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Capacity') }}
-              </td>
-              <td>{{ byteToStr(memorychip?.Capacity) }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Clock frequency') }}
-              </td>
-              <td>{{ memorychip?.Speed || '-' }} MHz</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ memorychip?.Manufacturer || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ memorychip?.Description || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Capacity') }}
+                </td>
+                <td>{{ byteToStr(memorychip?.Capacity) }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Clock frequency') }}
+                </td>
+                <td>{{ memorychip?.Speed || '-' }} MHz</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ memorychip?.Manufacturer || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ memorychip?.Description || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -383,36 +387,38 @@ const onCloseModal = () => {
             </div>
           </div>
           <table v-for="(diskdrive, index) in record?.diskdrive || []" :key="`diskdrive_${index}`">
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Type') }}
-              </td>
-              <td>{{ diskdrive?.Description || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ diskdrive?.Caption || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Capacity') }}
-              </td>
-              <td>{{ byteToStr(diskdrive?.Size) }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Serial number') }}
-              </td>
-              <td>{{ diskdrive?.SerialNumber || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ diskdrive?.Manufacturer || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Type') }}
+                </td>
+                <td>{{ diskdrive?.Description || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ diskdrive?.Caption || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Capacity') }}
+                </td>
+                <td>{{ byteToStr(diskdrive?.Size) }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Serial number') }}
+                </td>
+                <td>{{ diskdrive?.SerialNumber || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ diskdrive?.Manufacturer || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -448,42 +454,44 @@ const onCloseModal = () => {
             ) || []"
             :key="`netadapter_${index}`"
           >
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Connection name') }}
-              </td>
-              <td>{{ netadapter?.NetConnectionID || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Adapter type') }}
-              </td>
-              <td>{{ netadapter?.AdapterType || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Name') }}
-              </td>
-              <td>{{ netadapter?.Name || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ netadapter?.Description || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ netadapter?.Manufacturer || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('MAC') }}
-              </td>
-              <td>{{ netadapter?.MACAddress || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Connection name') }}
+                </td>
+                <td>{{ netadapter?.NetConnectionID || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Adapter type') }}
+                </td>
+                <td>{{ netadapter?.AdapterType || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Name') }}
+                </td>
+                <td>{{ netadapter?.Name || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ netadapter?.Description || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ netadapter?.Manufacturer || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('MAC') }}
+                </td>
+                <td>{{ netadapter?.MACAddress || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -512,24 +520,26 @@ const onCloseModal = () => {
           </div>
 
           <table v-for="(display, index) in record?.display || []" :key="`display_${index}`">
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ display?.Description || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ display?.MonitorManufacturer || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Type') }}
-              </td>
-              <td>{{ display?.MonitorType || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ display?.Description || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ display?.MonitorManufacturer || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Type') }}
+                </td>
+                <td>{{ display?.MonitorType || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -561,30 +571,32 @@ const onCloseModal = () => {
             v-for="(videoadapter, index) in record?.videoadapter || []"
             :key="`videoadapter_${index}`"
           >
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ videoadapter?.Description || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Memory') }}
-              </td>
-              <td>{{ byteToStr(videoadapter?.AdapterRAM) || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Update frequency') }}
-              </td>
-              <td>{{ videoadapter?.CurrentRefreshRate || '-' }} Hz</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Video processor') }}
-              </td>
-              <td>{{ videoadapter?.VideoProcessor || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ videoadapter?.Description || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Memory') }}
+                </td>
+                <td>{{ byteToStr(videoadapter?.AdapterRAM) || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Update frequency') }}
+                </td>
+                <td>{{ videoadapter?.CurrentRefreshRate || '-' }} Hz</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Video processor') }}
+                </td>
+                <td>{{ videoadapter?.VideoProcessor || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -613,18 +625,20 @@ const onCloseModal = () => {
           </div>
 
           <table v-for="(sound, index) in record?.sound || []" :key="`sound_${index}`">
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Description') }}
-              </td>
-              <td>{{ sound?.Description || '-' }}</td>
-            </tr>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="30%">
-                {{ $t('Manufacturer') }}
-              </td>
-              <td>{{ sound?.Manufacturer || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Description') }}
+                </td>
+                <td>{{ sound?.Description || '-' }}</td>
+              </tr>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <td class="font-bold" width="30%">
+                  {{ $t('Manufacturer') }}
+                </td>
+                <td>{{ sound?.Manufacturer || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -652,16 +666,18 @@ const onCloseModal = () => {
           </div>
 
           <table>
-            <tr
-              v-for="(printer, index) in record?.printer || []"
-              :key="`printer_${index}`"
-              class="border border-surface-200 dark:border-surface-600"
-            >
-              <td class="font-bold" width="30%">
-                {{ $t('Name') }}
-              </td>
-              <td>{{ printer?.Name || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr
+                v-for="(printer, index) in record?.printer || []"
+                :key="`printer_${index}`"
+                class="border border-surface-200 dark:border-surface-600"
+              >
+                <td class="font-bold" width="30%">
+                  {{ $t('Name') }}
+                </td>
+                <td>{{ printer?.Name || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -692,40 +708,42 @@ const onCloseModal = () => {
             </div>
           </div>
           <table>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <th></th>
-              <th>{{ $t('Name') }}</th>
-              <th>{{ $t('Description') }}</th>
-              <th>{{ $t('Status') }}</th>
-            </tr>
-            <tr
-              v-for="(user, index) in record?.useraccount || []"
-              :key="`user_${index}`"
-              class="border border-surface-200 dark:border-surface-600"
-            >
-              <td class="text-center">
-                <i
-                  class="pi pi-bookmark-fill text-orange-500"
-                  v-if="record?.useradmin?.includes(user.Name)"
-                />
-              </td>
-              <td>{{ user?.Name || '-' }}</td>
-              <td width="50%">{{ user?.Description || '-' }}</td>
-              <td>
-                <Tag
-                  :value="user?.Disabled ? $t('Off') : $t('On')"
-                  :class="[
-                    '!bg-transparent',
-                    '!border',
-                    '!text-sm',
-                    '!w-20',
-                    user?.Disabled
-                      ? '!border-surface-600/80 !text-surface-600/80'
-                      : '!border-green-500 !text-green-500'
-                  ]"
-                />
-              </td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <th></th>
+                <th>{{ $t('Name') }}</th>
+                <th>{{ $t('Description') }}</th>
+                <th>{{ $t('Status') }}</th>
+              </tr>
+              <tr
+                v-for="(user, index) in record?.useraccount || []"
+                :key="`user_${index}`"
+                class="border border-surface-200 dark:border-surface-600"
+              >
+                <td class="text-center">
+                  <i
+                    class="pi pi-bookmark-fill text-orange-500"
+                    v-if="record?.useradmin?.includes(user.Name)"
+                  />
+                </td>
+                <td>{{ user?.Name || '-' }}</td>
+                <td width="50%">{{ user?.Description || '-' }}</td>
+                <td>
+                  <Tag
+                    :value="user?.Disabled ? $t('Off') : $t('On')"
+                    :class="[
+                      '!bg-transparent',
+                      '!border',
+                      '!text-sm',
+                      '!w-20',
+                      user?.Disabled
+                        ? '!border-surface-600/80 !text-surface-600/80'
+                        : '!border-green-500 !text-green-500'
+                    ]"
+                  />
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -756,29 +774,31 @@ const onCloseModal = () => {
             </div>
           </div>
           <table>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <th></th>
-              <th class="uppercase">{{ $t('Name') }}</th>
-              <th class="uppercase">{{ $t('Publisher') }}</th>
-              <th class="uppercase">{{ $t('Version') }}</th>
-              <th class="uppercase">{{ $t('Installed') }}</th>
-            </tr>
-            <tr
-              v-for="(product, index) in record?.product || []"
-              :key="`product_${index}`"
-              class="border border-surface-200 dark:border-surface-600"
-            >
-              <td class="text-center">
-                <i
-                  class="pi pi-bookmark-fill text-orange-500"
-                  v-if="!validSoftware(product?.Name)"
-                />
-              </td>
-              <td width="45%">{{ product?.Name || '-' }}</td>
-              <td>{{ product?.Vendor || '-' }}</td>
-              <td>{{ product?.Version || '-' }}</td>
-              <td>{{ strToDate(product?.InstallDate) }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <th></th>
+                <th class="uppercase">{{ $t('Name') }}</th>
+                <th class="uppercase">{{ $t('Publisher') }}</th>
+                <th class="uppercase">{{ $t('Version') }}</th>
+                <th class="uppercase">{{ $t('Installed') }}</th>
+              </tr>
+              <tr
+                v-for="(product, index) in record?.product || []"
+                :key="`product_${index}`"
+                class="border border-surface-200 dark:border-surface-600"
+              >
+                <td class="text-center">
+                  <i
+                    class="pi pi-bookmark-fill text-orange-500"
+                    v-if="!validSoftware(product?.Name)"
+                  />
+                </td>
+                <td width="45%">{{ product?.Name || '-' }}</td>
+                <td>{{ product?.Vendor || '-' }}</td>
+                <td>{{ product?.Version || '-' }}</td>
+                <td>{{ strToDate(product?.InstallDate) }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -811,24 +831,26 @@ const onCloseModal = () => {
             </div>
           </div>
           <table>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <th></th>
-              <th>{{ $t('Name') }}</th>
-              <th>{{ $t('Path') }}</th>
-              <th>{{ $t('Description') }}</th>
-            </tr>
-            <tr
-              v-for="(share, index) in record?.share || []"
-              :key="`share_${index}`"
-              class="border border-surface-200 dark:border-surface-600"
-            >
-              <td class="text-center">
-                <i class="pi pi-bookmark-fill text-orange-500" v-if="share?.Type === 0" />
-              </td>
-              <td>{{ share?.Name || '-' }}</td>
-              <td width="50%">{{ share?.Path || '-' }}</td>
-              <td>{{ share?.Description || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <th></th>
+                <th>{{ $t('Name') }}</th>
+                <th>{{ $t('Path') }}</th>
+                <th>{{ $t('Description') }}</th>
+              </tr>
+              <tr
+                v-for="(share, index) in record?.share || []"
+                :key="`share_${index}`"
+                class="border border-surface-200 dark:border-surface-600"
+              >
+                <td class="text-center">
+                  <i class="pi pi-bookmark-fill text-orange-500" v-if="share?.Type === 0" />
+                </td>
+                <td>{{ share?.Name || '-' }}</td>
+                <td width="50%">{{ share?.Path || '-' }}</td>
+                <td>{{ share?.Description || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -858,22 +880,24 @@ const onCloseModal = () => {
             </div>
           </div>
           <table>
-            <tr class="border border-surface-200 dark:border-surface-600">
-              <th></th>
-              <th class="uppercase">{{ $t('HotFix') }}</th>
-              <th class="uppercase">{{ $t('Description') }}</th>
-              <th class="uppercase">{{ $t('Installed') }}</th>
-            </tr>
-            <tr
-              v-for="(fixupdate, index) in record?.fixupdate || []"
-              :key="`fixupdate_${index}`"
-              class="border border-surface-200 dark:border-surface-600"
-            >
-              <td width="3%"></td>
-              <td width="35%">{{ fixupdate?.HotFixID }} {{ fixupdate?.ServicePackInEffect }}</td>
-              <td>{{ fixupdate?.Description || '-' }}</td>
-              <td>{{ fixupdate?.InstalledOn || '-' }}</td>
-            </tr>
+            <tbody>
+              <tr class="border border-surface-200 dark:border-surface-600">
+                <th></th>
+                <th class="uppercase">{{ $t('HotFix') }}</th>
+                <th class="uppercase">{{ $t('Description') }}</th>
+                <th class="uppercase">{{ $t('Installed') }}</th>
+              </tr>
+              <tr
+                v-for="(fixupdate, index) in record?.fixupdate || []"
+                :key="`fixupdate_${index}`"
+                class="border border-surface-200 dark:border-surface-600"
+              >
+                <td width="3%"></td>
+                <td width="35%">{{ fixupdate?.HotFixID }} {{ fixupdate?.ServicePackInEffect }}</td>
+                <td>{{ fixupdate?.Description || '-' }}</td>
+                <td>{{ fixupdate?.InstalledOn || '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

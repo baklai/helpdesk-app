@@ -79,65 +79,67 @@ const onCloseSidebar = () => {
     <template #content>
       <div class="overflow-y-auto pt-6" style="height: calc(100vh - 20rem)">
         <table>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="40%">{{ $t('Login') }} :</td>
-            <td>{{ record?.login }}</td>
-          </tr>
+          <tbody>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="40%">{{ $t('Login') }} :</td>
+              <td>{{ record?.login }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="40%">{{ $t('Letter number') }} :</td>
-            <td>{{ record?.reqnum }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="40%">{{ $t('Letter number') }} :</td>
+              <td>{{ record?.reqnum }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="40%">{{ $t('Date open') }} :</td>
-            <td>{{ dateToStr(record?.dateOpen) || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="40%">{{ $t('Date open') }} :</td>
+              <td>{{ dateToStr(record?.dateOpen) || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="40%">{{ $t('Fullname') }} :</td>
-            <td>{{ record?.fullname }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="40%">{{ $t('Fullname') }} :</td>
+              <td>{{ record?.fullname }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Phone') }} :</td>
-            <td>{{ record?.phone || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Phone') }} :</td>
+              <td>{{ record?.phone || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Location') }} :</td>
-            <td>{{ record?.location?.name || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Location') }} :</td>
+              <td>{{ record?.location?.name || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Organization') }} :</td>
-            <td>{{ record?.organization?.name || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Organization') }} :</td>
+              <td>{{ record?.organization?.name || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Subdivision') }} :</td>
-            <td>{{ record?.subdivision?.name || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Subdivision') }} :</td>
+              <td>{{ record?.subdivision?.name || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Department') }} :</td>
-            <td>{{ record?.department?.name || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Department') }} :</td>
+              <td>{{ record?.department?.name || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Position') }} :</td>
-            <td>{{ record?.position?.name || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Position') }} :</td>
+              <td>{{ record?.position?.name || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="40%">{{ $t('Date close') }} :</td>
-            <td>{{ dateToStr(record?.dateClose) || '-' }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="40%">{{ $t('Date close') }} :</td>
+              <td>{{ dateToStr(record?.dateClose) || '-' }}</td>
+            </tr>
 
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Comment') }} :</td>
-            <td>{{ record?.comment }}</td>
-          </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">{{ $t('Comment') }} :</td>
+              <td>{{ record?.comment }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </template>
