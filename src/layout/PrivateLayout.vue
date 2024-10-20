@@ -51,7 +51,7 @@ const $config = useConfig();
         <p class="mb-0 text-surface-500">{{ message.header }}</p>
         <div class="mt-4 flex items-center gap-2">
           <Button
-            :label="$t('Yes')"
+            label="Так"
             :icon="message.acceptIcon || ''"
             @click="acceptCallback"
             class="w-[8rem]"
@@ -59,7 +59,7 @@ const $config = useConfig();
 
           <Button
             outlined
-            :label="$t('No')"
+            label="Ні"
             :icon="message.rejectIcon || ''"
             @click="rejectCallback"
             class="w-[8rem]"

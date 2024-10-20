@@ -3,7 +3,6 @@ import { ref, computed, defineAsyncComponent } from 'vue';
 import { useForm, useFieldArray } from 'vee-validate';
 import * as yup from 'yup';
 import { FilterMatchMode } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -12,7 +11,6 @@ const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 import { useScope } from '@/stores/scopes';
 import { useProfile } from '@/stores/api/profiles';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -24,9 +22,9 @@ const emits = defineEmits(['close']);
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      fullname: yup.string().required(t('Value is required')),
-      email: yup.string().email().required(t('Value is required')),
-      phone: yup.string().required(t('Value is required'))
+      fullname: yup.string().required('Потрібно вказати значення'),
+      email: yup.string().email().required('Потрібно вказати значення'),
+      phone: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {
       isAdmin: false,
@@ -73,17 +71,17 @@ const [isActivated, isActivatedAttrs] = defineField('isActivated');
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => await onSaveRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -92,14 +90,14 @@ const options = ref([
 const refSelectMenu = ref();
 const selectOptions = ref([
   {
-    label: t('Select all'),
+    label: 'Вибрати все',
     icon: 'pi pi-check-circle',
     command: () => {
       setValues({ scope: getSelectScope(true) });
     }
   },
   {
-    label: t('Unselect all'),
+    label: 'Скасувати вибір усіх',
     icon: 'pi pi-minus-circle',
     command: () => {
       setValues({ scope: getSelectScope(false) });
@@ -107,7 +105,7 @@ const selectOptions = ref([
   },
   { separator: true },
   {
-    label: t('Set default'),
+    label: 'Встановити за замовчуванням',
     icon: 'pi pi-verified',
     command: () => {
       setValues({ scope: getDefaultScope() });
@@ -116,11 +114,11 @@ const selectOptions = ref([
 ]);
 
 const columns = ref([
-  { field: 'create', header: t('Create') },
-  { field: 'read', header: t('Read') },
-  { field: 'update', header: t('Update') },
-  { field: 'delete', header: t('Delete') },
-  { field: 'notice', header: t('Notice') }
+  { field: 'create', header: 'Create' },
+  { field: 'read', header: 'Read' },
+  { field: 'update', header: 'Update' },
+  { field: 'delete', header: 'Delete' },
+  { field: 'notice', header: 'Notice' }
 ]);
 
 const filters = ref({
@@ -146,8 +144,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 3000
   });
 };
@@ -156,14 +154,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -173,15 +171,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -191,8 +189,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -211,16 +209,16 @@ const onSaveRecord = handleSubmit(async () => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -264,11 +262,9 @@ const onCloseModal = () => {
         <div class="flex items-center justify-center">
           <AppIcons name="core-profiles" :size="40" class="mr-4" />
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Profile account') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Профіль облікового запису</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -280,7 +276,7 @@ const onCloseModal = () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -294,37 +290,37 @@ const onCloseModal = () => {
     >
       <div class="flex flex-col space-y-4 md:!w-1/3 md:pr-2">
         <div class="flex flex-col gap-2">
-          <label for="fullname" class="font-bold">{{ $t('User name') }}</label>
+          <label for="fullname" class="font-bold">Ім'я користувача</label>
           <InputText
             id="fullname"
             v-model="fullname"
             v-bind="fullnameAttrs"
-            :placeholder="$t('User name')"
+            placeholder="Ім'я користувача"
             :invalid="!!errors?.fullname"
             aria-describedby="fullname-help"
           />
           <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
-            {{ $t(errors.fullname) }}
+            {{ errors.fullname }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="email" class="font-bold">{{ $t('User email') }}</label>
+          <label for="email" class="font-bold">Email користувача</label>
           <InputText
             id="email"
             v-model="email"
             v-bind="emailAttrs"
-            :placeholder="$t('User email')"
+            placeholder="Email користувача"
             :invalid="!!errors?.email"
             aria-describedby="email-help"
           />
           <small id="email-help" class="text-red-500" v-if="errors?.email">
-            {{ $t(errors.email) }}
+            {{ errors.email }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="phone" class="font-bold">{{ $t('User phone') }}</label>
+          <label for="phone" class="font-bold">Телефон користувача</label>
           <InputMask
             date="phone"
             mask="+99(999)999-99-99"
@@ -336,7 +332,7 @@ const onCloseModal = () => {
             aria-describedby="phone-help"
           />
           <small id="phone-help" class="text-red-500" v-if="errors?.phone">
-            {{ $t(errors.phone) }}
+            {{ errors.phone }}
           </small>
         </div>
 
@@ -348,16 +344,14 @@ const onCloseModal = () => {
               v-model="isActivated"
               v-bind="isActivatedAttrs"
             />
-            <label for="isActivated" class="ml-2 font-bold">
-              {{ $t('Activated account') }}
-            </label>
+            <label for="isActivated" class="ml-2 font-bold"> Активований обліковий запис </label>
           </div>
         </div>
 
         <div class="flex flex-col gap-2">
           <div class="flex items-center">
             <Checkbox inputId="isAdmin" binary v-model="isAdmin" v-bind="isAdminAttrs" />
-            <label for="isAdmin" class="ml-2 font-bold"> {{ $t('Admin account') }} </label>
+            <label for="isAdmin" class="ml-2 font-bold"> Обліковий запис адміністратора </label>
           </div>
         </div>
       </div>
@@ -379,11 +373,9 @@ const onCloseModal = () => {
               <div class="flex flex-wrap items-center gap-2">
                 <i class="pi pi-unlock mr-2 text-2xl"></i>
                 <div>
-                  <p>
-                    {{ $t('Scope list') }}
-                  </p>
+                  <p>Список дозволів</p>
                   <small class="text-surface-500">
-                    {{ $t('Select scopes', [selectScopeLength, scopeLength()]) }}
+                    {{ `Вибрано ${selectScopeLength} з ${scopeLength()} дозволів` }}
                   </small>
                 </div>
               </div>
@@ -395,13 +387,13 @@ const onCloseModal = () => {
                   <InputText
                     id="name"
                     class="w-full !bg-inherit px-10 sm:w-max"
-                    :placeholder="$t('Search')"
+                    :placeholder="'Пошук'"
                     v-model="filters['global'].value"
                   />
                   <i
                     v-show="!!filters['global'].value"
                     class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:!text-primary-500 dark:text-surface-600"
-                    v-tooltip.bottom="$t('Clear filter')"
+                    v-tooltip.bottom="'Очистити фільтр'"
                     @click="filters['global'].value = null"
                   />
                 </span>
@@ -412,7 +404,7 @@ const onCloseModal = () => {
                     plain
                     icon="pi pi-cog"
                     class="h-12 w-12 text-2xl"
-                    v-tooltip.bottom="$t('Options')"
+                    v-tooltip.bottom="'Опції'"
                     @click="event => refSelectMenu.toggle(event)"
                   />
                 </div>
@@ -422,12 +414,12 @@ const onCloseModal = () => {
 
           <template #empty>
             <div class="text-center">
-              <h5>{{ $t('No records found') }}</h5>
-              <p>{{ $t('Try changing the search terms in the filter') }}</p>
+              <h5>Записів не знайдено</h5>
+              <p>Спробуйте змінити пошукові терміни у фільтрі</p>
             </div>
           </template>
 
-          <Column frozen field="scope" filterField="scope" :header="$t('Scope')" class="font-bold">
+          <Column frozen field="scope" filterField="scope" header="Дозволи" class="font-bold">
             <template #body="{ data }">
               {{ data.value.comment }}
             </template>
@@ -455,8 +447,8 @@ const onCloseModal = () => {
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

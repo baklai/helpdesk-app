@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Qalendar } from 'qalendar';
@@ -9,8 +8,6 @@ import { dateTimeToStr } from '@/service/DataFilters';
 import { useEvent } from '@/stores/api/events';
 
 const Modal = defineAsyncComponent(() => import('@/components/modals/Event.vue'));
-
-const { t, locale } = useI18n();
 
 const toast = useToast();
 const confirm = useConfirm();
@@ -101,15 +98,15 @@ const getDataRecords = async () => {
     });
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Records is updated'),
+      summary: 'Інформація',
+      detail: 'Записи оновлені',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Records not updated'),
+      summary: 'Попередження',
+      detail: 'Записи не оновлено',
       life: 3000
     });
   } finally {
@@ -125,8 +122,8 @@ const handleMonthChange = async value => {
 
 const confirmDelete = ({ id }) => {
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -136,15 +133,15 @@ const confirmDelete = ({ id }) => {
         await removeOne({ id });
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 3000
         });
       } finally {
@@ -154,8 +151,8 @@ const confirmDelete = ({ id }) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 3000
       });
     }
@@ -168,7 +165,7 @@ onMounted(async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
+      summary: 'Попередження',
       detail: t(err.message),
       life: 3000
     });
@@ -204,7 +201,7 @@ onMounted(async () => {
             icon="pi pi-plus-circle"
             iconClass="text-2xl"
             class="h-12 w-12"
-            v-tooltip.bottom="$t('Create record')"
+            v-tooltip.bottom="'Створити запис'"
             @click="refModal.toggle({})"
           />
 
@@ -215,7 +212,7 @@ onMounted(async () => {
             icon="pi pi-sync"
             iconClass="text-2xl"
             class="h-12 w-12"
-            v-tooltip.bottom="$t('Update records')"
+            v-tooltip.bottom="'Оновити записи'"
             @click="getDataRecords"
           />
 
@@ -226,7 +223,7 @@ onMounted(async () => {
             icon="pi pi-cog"
             iconClass="text-2xl"
             class="h-12 w-12"
-            v-tooltip.bottom="$t('Options')"
+            v-tooltip.bottom="'Опції'"
           />
         </div>
       </div>
@@ -270,7 +267,7 @@ onMounted(async () => {
                           rounded
                           icon="pi pi-trash"
                           class=""
-                          v-tooltip.bottom="$t('Delete record')"
+                          v-tooltip.bottom="'Видалити запис'"
                           @click="
                             () => {
                               closeEventDialog();
@@ -285,7 +282,7 @@ onMounted(async () => {
                           rounded
                           icon="pi pi-file-edit"
                           class=""
-                          v-tooltip.bottom="$t('Update record')"
+                          v-tooltip.bottom="'Оновити запис'"
                           @click="
                             () => {
                               closeEventDialog();
@@ -300,7 +297,7 @@ onMounted(async () => {
                           rounded
                           icon="pi pi-times"
                           class=""
-                          v-tooltip.bottom="$t('Close')"
+                          v-tooltip.bottom="'Закрити'"
                           @click="closeEventDialog"
                         />
                       </div>

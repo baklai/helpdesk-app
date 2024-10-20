@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';
@@ -14,7 +13,6 @@ import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
 import { useTool } from '@/stores/api/systools';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const Inspector = useInspector();
@@ -28,7 +26,7 @@ const refDataTable = ref();
 const refWarningMenu = ref();
 const warningOptions = ref([
   {
-    label: t('Show missing IP Addresses'),
+    label: 'Show missing IP Addresses',
     icon: 'pi pi-desktop',
     command: async () =>
       await refDataTable.value.update({
@@ -38,7 +36,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show user account warnings'),
+    label: 'Показати попередження про обліковий запис користувача',
     icon: 'pi pi-users',
     command: async () =>
       await refDataTable.value.update({
@@ -48,7 +46,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show software warnings'),
+    label: 'Показати попередження про програмне забезпечення',
     icon: 'pi pi-microsoft',
     command: async () =>
       await refDataTable.value.update({
@@ -58,7 +56,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show warnings about shared resources'),
+    label: 'Показати попередження про спільні ресурси',
     icon: 'pi pi-folder',
     command: async () =>
       await refDataTable.value.update({
@@ -69,7 +67,7 @@ const warningOptions = ref([
   },
   { separator: true },
   {
-    label: t('Show all warnings'),
+    label: 'Показати всі попередження',
     icon: 'pi pi-bookmark-fill',
     command: async () =>
       await refDataTable.value.update({
@@ -475,16 +473,16 @@ const createSysInspectorScript = async () => {
     link.setAttribute('download', 'inspector.vbs');
     toast.add({
       severity: 'info',
-      summary: t('Information'),
-      detail: t('SysInspector script file created'),
+      summary: 'Інформація',
+      detail: 'Файл скрипта SysInspector створено',
       life: 3000
     });
     link.click();
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('SysInspector script file not created')
+      summary: 'Попередження',
+      detail: 'Файл скрипта SysInspector не створено'
     });
   }
 };
@@ -546,7 +544,7 @@ const createSysInspectorScript = async () => {
           icon="pi pi-bookmark-fill"
           iconClass="text-2xl"
           class="h-12 w-12 hover:text-orange-500"
-          v-tooltip.bottom="$t('Show all problems')"
+          v-tooltip.bottom="'Показати всі проблеми'"
           @click="event => refWarningMenu.toggle(event)"
         />
 

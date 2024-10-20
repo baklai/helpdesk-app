@@ -4,10 +4,10 @@ const DEFAULT_LIFE = 5000;
 
 export default {
   install: async (app, { life }) => {
-    const { $toast, $t } = app.config.globalProperties;
+    const { $toast } = app.config.globalProperties;
 
     app.config.globalProperties.$error = error => {
-      let message = $t('Helpdesk system error');
+      let message = 'Helpdesk system error';
       if (typeof error === 'string') {
         message = $t(capitalizeFirstLetter(error));
       } else if (typeof error?.message === 'string') {
@@ -17,7 +17,7 @@ export default {
       }
       $toast.add({
         severity: 'error',
-        summary: $t('Error'),
+        summary: 'Помилка',
         detail: message,
         life: life || DEFAULT_LIFE
       });

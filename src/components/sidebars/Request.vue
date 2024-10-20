@@ -60,10 +60,10 @@ const onCloseSidebar = () => {
         <div class="flex items-center justify-center">
           <AppIcons name="technical-support" :size="40" class="mr-4" />
           <div>
-            <p class="mb-0 text-lg">{{ $t('Current request') }}</p>
+            <p class="mb-0 text-lg">Поточний запит</p>
             <p class="text-base font-normal">
-              {{ $t('Status') }} :
-              {{ record?.closed ? $t('Request closed') : $t('Request opened') }}
+              Статус :
+              {{ record?.closed ? 'Запит закрито' : 'Запит відкрито' }}
             </p>
           </div>
         </div>
@@ -75,7 +75,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Menu')"
+            v-tooltip.bottom="'Меню'"
             @click="toggleMenu($event, record)"
           />
           <Button
@@ -85,7 +85,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-times"
-            v-tooltip.bottom="$t('Close')"
+            v-tooltip.bottom="'Закрити'"
             @click="onCloseSidebar"
           />
         </div>
@@ -96,19 +96,19 @@ const onCloseSidebar = () => {
       <div class="overflow-y-auto py-6" style="height: calc(100vh - 20rem)">
         <table class="w-full">
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Opened an request') }} :</td>
+            <td class="font-bold" width="50%">Відкрив запит :</td>
             <td>
               {{ record?.workerOpen ? record?.workerOpen?.fullname : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Date opened') }} :</td>
+            <td class="font-bold" width="50%">Дата відкриття :</td>
             <td>
               {{ record?.createdAt ? dateTimeToStr(record?.createdAt) : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Status') }} :</td>
+            <td class="font-bold" width="50%">Статус :</td>
             <td>
               <i
                 :class="
@@ -121,82 +121,82 @@ const onCloseSidebar = () => {
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
             <td colspan="2">
-              <p class="w-full font-bold">{{ $t('Request') }} :</p>
+              <p class="w-full font-bold">Запит :</p>
               <p class="text-primary font-medium">
                 {{ record?.request ? record?.request : '-' }}
               </p>
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Location') }} :</td>
+            <td class="font-bold" width="50%">Розташування :</td>
             <td>
               {{ record?.location ? record?.location?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Fullname') }} :</td>
+            <td class="font-bold" width="50%">Повне ім'я :</td>
             <td>{{ record?.fullname || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Phone') }} :</td>
+            <td class="font-bold" width="50%">Телефон :</td>
             <td>{{ record?.phone || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Position') }} :</td>
+            <td class="font-bold" width="50%">Посада :</td>
             <td>
               {{ record?.position ? record?.position?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('IP Address') }} :</td>
+            <td class="font-bold" width="50%">IP-адресa :</td>
             <td>
               {{ record?.ipaddress ? record?.ipaddress : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Letter number') }} :</td>
+            <td class="font-bold" width="50%">Номер листа :</td>
             <td>{{ record?.reqnum || '-' }}</td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Organization') }} :</td>
+            <td class="font-bold" width="50%">Організація :</td>
             <td>
               {{ record?.organization ? record?.organization?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Subdivision') }} :</td>
+            <td class="font-bold" width="50%">Підрозділ :</td>
             <td>
               {{ record?.subdivision ? record?.subdivision?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Department') }} :</td>
+            <td class="font-bold" width="50%">Відділ :</td>
             <td>
               {{ record?.department ? record?.department?.title : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Date closed') }} :</td>
+            <td class="font-bold" width="50%">Дата закриття :</td>
             <td>
               {{ record?.closed ? dateTimeToStr(record?.updatedAt) : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Closed an request') }} :</td>
+            <td class="font-bold" width="50%">Закрив запит :</td>
             <td>
               {{ record?.workerClose ? record?.workerClose?.fullname : '-' }}
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
             <td colspan="2">
-              <p class="w-full font-bold">{{ $t('Conclusion for request') }} :</p>
+              <p class="w-full font-bold">Висновок до запиту :</p>
               <p class="text-primary font-medium">
                 {{ record?.conclusion || '-' }}
               </p>
             </td>
           </tr>
           <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">{{ $t('Comment') }} :</td>
+            <td class="font-bold" width="50%">Коментар :</td>
             <td>{{ record?.comment || '-' }}</td>
           </tr>
         </table>

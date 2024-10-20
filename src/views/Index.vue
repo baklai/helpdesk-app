@@ -16,14 +16,13 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </div>
 
             <div class="mb-8 text-center">
-              <p class="font-medium text-surface-500">
-                {{ $t('Web Application of technical support') }}
-              </p>
+              <p class="font-medium text-surface-500">Веб-додаток техпідтримки</p>
             </div>
 
             <div class="mb-8 text-center">
               <p class="line-height-2 text-xl text-surface-500">
-                {{ $t('Helpdesk technical support') }}
+                Технічна підтримка - це тип обслуговування клієнтів, яке надає допомогу клієнтам з
+                технічними проблемами щодо їхніх продуктів або послуг
               </p>
             </div>
 

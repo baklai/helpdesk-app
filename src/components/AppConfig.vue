@@ -377,7 +377,7 @@ watchEffect(() => {
           <i class="pi pi-cog inline-block text-2xl" />
         </div>
         <div class="flex items-center justify-center">
-          <p class="inline-block text-2xl">{{ $t('HD Options') }}</p>
+          <p class="inline-block text-2xl">HD Опції</p>
         </div>
       </div>
     </template>
@@ -387,7 +387,7 @@ watchEffect(() => {
     <div class="px-4">
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Display scale') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Масштаб дисплея</h5>
         </div>
         <div class="flex flex-1 flex-col items-center justify-center">
           <Knob v-model="$config.appScale" :size="100" :step="1" :min="10" :max="18" />
@@ -398,7 +398,7 @@ watchEffect(() => {
 
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Primary colors') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Основні кольори</h5>
         </div>
         <div class="flex flex-1 items-center justify-center">
           <div class="inline-flex flex-wrap items-center justify-center gap-2 self-stretch">
@@ -420,7 +420,7 @@ watchEffect(() => {
 
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Surface colors') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Кольори поверхні</h5>
         </div>
         <div class="flex flex-1 items-center justify-center">
           <div class="inline-flex flex-wrap items-center justify-center gap-2 self-stretch">
@@ -442,9 +442,7 @@ watchEffect(() => {
 
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">
-            {{ $t('Ripple effect') }}
-          </h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Ефект хвилі</h5>
         </div>
         <div class="flex-1">
           <InputSwitch v-model="$config.appRipple" aria-labelledby="single" />
@@ -455,7 +453,7 @@ watchEffect(() => {
 
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Menu type') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Тип меню</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.appSideBarMode" :options="['static', 'overlay']" />
@@ -466,7 +464,7 @@ watchEffect(() => {
 
       <div class="my-3 flex">
         <div class="flex-1">
-          <h5 class="flex h-full items-center text-lg font-semibold">{{ $t('Themes style') }}</h5>
+          <h5 class="flex h-full items-center text-lg font-semibold">Стиль теми</h5>
         </div>
         <div class="flex-1 justify-center">
           <SelectButton v-model="$config.appTheme" :options="['light', 'dark']" />
@@ -476,7 +474,7 @@ watchEffect(() => {
       <Divider />
 
       <Button
-        :label="$t('Set default options')"
+        label="Встановити параметри за замовчуванням"
         class="my-6 w-full"
         @click="$config.setDefaultConfigs"
       />

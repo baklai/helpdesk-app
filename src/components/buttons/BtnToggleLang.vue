@@ -7,19 +7,9 @@ const $config = useConfig();
 const refMenu = ref();
 const items = ref([
   {
-    label: 'English',
-    icon: 'pi pi-language',
-    command: () => $config.toggleAppLang('en')
-  },
-  {
     label: 'Українська',
     icon: 'pi pi-language',
     command: () => $config.toggleAppLang('uk')
-  },
-  {
-    label: 'Русский',
-    icon: 'pi pi-language',
-    command: () => $config.toggleAppLang('ru')
   }
 ]);
 </script>
@@ -41,7 +31,7 @@ const items = ref([
       rounded
       icon="pi pi-language"
       class="h-12 w-12 text-2xl"
-      v-tooltip.bottom="$t('Languages')"
+      v-tooltip.bottom="'Мови'"
       @click="event => refMenu.toggle(event)"
     />
   </div>

@@ -1,14 +1,12 @@
 <script setup lang="jsx">
 import { ref, watch, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { getObjField } from '@/service/ObjectMethods';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const props = defineProps({
@@ -66,7 +64,7 @@ const onUpdateRecords = async () => {
     records.value = [];
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
+      summary: 'Попередження',
       detail: t(err.message),
       life: 3000
     });
@@ -337,7 +335,7 @@ watch(
       records.value = [];
       toast.add({
         severity: 'warn',
-        summary: t('Warning'),
+        summary: 'Попередження',
         detail: t(err.message),
         life: 3000
       });
@@ -361,7 +359,7 @@ watch(
         dataKey="selectable"
         optionValue="selectable"
         optionLabel="header.text"
-        :filterPlaceholder="$t('Search in list')"
+        :filterPlaceholder="'Пошук у списку'"
       >
         <template #option="{ index, option }">
           <div class="flex items-center">
@@ -391,7 +389,7 @@ watch(
       <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
-          :label="$t('Select All')"
+          :label="$'Вибрати все"
           icon="pi pi-check-square"
           size="small"
           class="w-full text-surface-500"
@@ -450,7 +448,7 @@ watch(
                 :class="
                   params?.filters && Object.keys(params.filters)?.length ? '!text-primary-600' : ''
                 "
-                v-tooltip.bottom="$t('Clear filters')"
+                v-tooltip.bottom="'Очистити фільтри'"
                 @click="clearFilters"
               />
 
@@ -460,7 +458,7 @@ watch(
                 rounded
                 icon="pi pi-sync"
                 class="h-12 w-12 text-2xl"
-                v-tooltip.bottom="$t('Update records')"
+                v-tooltip.bottom="'Оновити записи'"
                 @click="onUpdateRecords"
               />
 
@@ -470,7 +468,7 @@ watch(
                 rounded
                 icon="pi pi-cog"
                 class="h-12 w-12 text-2xl"
-                v-tooltip.bottom="$t('Columns option')"
+                v-tooltip.bottom="'Опції стовпців'"
                 @click="onColumnsMenu"
               />
             </div>
@@ -486,15 +484,13 @@ watch(
         >
           <div class="m-auto flex flex-col gap-2">
             <i class="pi pi-filter-slash text-4xl text-surface-500"></i>
-            <h5 class="text-xl font-semibold">{{ $t('No records found') }}</h5>
-            <p class="text-base text-surface-500">
-              {{ $t('Try changing the search terms in the filter') }}
-            </p>
+            <h5 class="text-xl font-semibold">Записів не знайдено</h5>
+            <p class="text-base text-surface-500">Спробуйте змінити пошукові терміни у фільтрі</p>
             <Button
               size="small"
               icon="pi pi-filter-slash text-sm"
               class="m-auto my-4 w-max"
-              :label="$t('Clear filters')"
+              :label="'Очистити фільтри'"
               @click="clearFilters"
             />
           </div>
@@ -567,8 +563,8 @@ watch(
               :options="filter?.options?.records || []"
               :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
               :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
-              :placeholder="$t('Search in database')"
-              :filterPlaceholder="$t('Search in list')"
+              :placeholder="'Пошук у базі даних'"
+              :filterPlaceholder="'Пошук у списку'"
               :virtualScrollerOptions="{ itemSize: 32 }"
               class="my-4 w-96"
               :pt="{
@@ -587,7 +583,7 @@ watch(
                   const response = await filter.options.onRecords();
                   filter.options.records = [
                     {
-                      group: $t('Empty values'),
+                      group: 'Порожні значення',
                       records: [
                         {
                           [filter?.options?.value || 'id']: null,
@@ -620,7 +616,7 @@ watch(
               :optionValue="filter.options.value || 'id'"
               :optionLabel="filter.options.label || 'id'"
               :options="filter?.options?.records || []"
-              :placeholder="$t('Select one record')"
+              placeholder="Виберіть один запис"
               style="min-width: 12rem"
               @change="filterCallback"
               @before-show="
@@ -641,7 +637,7 @@ watch(
               class="w-full"
               selectionMode="range"
               dateFormat="dd.mm.yy"
-              :placeholder="$t('Select date')"
+              placeholder="Виберіть дату"
               v-model="filterModel.value"
               v-else-if="filter?.matchMode === FilterMatchMode.DATE_IS"
             />
@@ -649,7 +645,7 @@ watch(
             <InputText
               type="text"
               v-model="filterModel.value"
-              :placeholder="$t('Search by column')"
+              placeholder="Пошук за стовпцем"
               @keydown.enter="filterCallback()"
               v-else-if="filter?.matchMode === FilterMatchMode.CONTAINS"
             />

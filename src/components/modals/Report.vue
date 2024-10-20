@@ -2,7 +2,6 @@
 import { ref, computed, reactive, inject, watch, defineAsyncComponent } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
@@ -27,7 +26,6 @@ import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 import { useUnit } from '@/stores/api/units';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -60,9 +58,9 @@ const {
   validateField
 } = useForm({
   validationSchema: yup.object({
-    name: yup.string().required(t('Value is required')),
-    description: yup.string().required(t('Value is required')),
-    datacollection: yup.string().required(t('Value is required')),
+    name: yup.string().required('Потрібно вказати значення'),
+    description: yup.string().required('Потрібно вказати значення'),
+    datacollection: yup.string().required('Потрібно вказати значення'),
     fields: yup.string(),
     filters: yup.string(),
     sorts: yup.string()
@@ -104,12 +102,12 @@ const visible = ref(false);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => await onSaveRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -118,8 +116,8 @@ const options = ref([
 const datacollections = ref([
   {
     name: 'ipaddresses',
-    label: 'Network IP Address',
-    description: 'Network IP Address of the technical support',
+    label: 'IP Адреси мережі',
+    description: 'IP Адреси мережі технічної підтримки',
     onUpdate: IPAddress.findAll,
     columns: [
       {
@@ -232,9 +230,9 @@ const datacollections = ref([
             label: 'name',
             onRecords: () => {
               return [
-                { key: 'opened', name: t('Internet opened') },
-                { key: 'closed', name: t('Internet closed') },
-                { key: 'missing', name: t('Not Internet') }
+                { key: 'opened', name: 'Інтернет відкрито' },
+                { key: 'closed', name: 'Інтернет закрито' },
+                { key: 'missing', name: 'Відсутній Інтернет' }
               ];
             }
           }
@@ -1206,14 +1204,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -1223,15 +1221,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -1241,8 +1239,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -1258,16 +1256,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -1302,11 +1300,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="reports" :size="42" class="mr-4" />
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Report template') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Шаблон звіту</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -1318,7 +1314,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -1326,7 +1322,7 @@ const onCloseModal = async () => {
     </template>
 
     <Stepper orientation="vertical" class="px-6" v-model:activeStep="active">
-      <StepperPanel :header="$t('Basics')">
+      <StepperPanel header="Основи">
         <template #header="props">
           <i
             :class="[
@@ -1340,7 +1336,7 @@ const onCloseModal = async () => {
           <span
             :class="['uppercase', props.active ? 'font-extrabold text-primary-400' : 'font-bold']"
           >
-            {{ $t('Basics') }}
+            Основи
           </span>
         </template>
         <template #content="{ nextCallback }">
@@ -1349,39 +1345,33 @@ const onCloseModal = async () => {
               class="flex flex-auto rounded-md border border-dashed border-surface-200 font-medium dark:border-surface-700"
             >
               <div class="flex w-full flex-col p-6 md:w-3/5">
-                <p class="mb-6 block text-2xl">
-                  {{ $t('Basics') }}
-                </p>
+                <p class="mb-6 block text-2xl">Основи</p>
                 <div class="mb-4 flex flex-col gap-2">
-                  <label for="name" class="font-semibold">
-                    {{ $t('Report name') }}
-                  </label>
+                  <label for="name" class="font-semibold"> Назва звіту </label>
                   <InputText
                     id="name"
                     v-model="name"
                     v-bind="titleAttrs"
-                    :placeholder="$t('Report name')"
+                    placeholder="Назва звіту"
                     :invalid="!!errors?.name"
                     aria-describedby="name-help"
                   />
                   <small id="name-help" class="text-red-500" v-if="errors?.name">
-                    {{ $t(errors.name) }}
+                    {{ errors.name }}
                   </small>
                 </div>
                 <div class="mb-4 flex flex-col gap-2">
-                  <label for="description" class="font-semibold">
-                    {{ $t('Report description') }}
-                  </label>
+                  <label for="description" class="font-semibold"> Опис звіту </label>
                   <InputText
                     id="description"
                     v-model="description"
                     v-bind="descriptionAttrs"
-                    :placeholder="$t('Report description')"
+                    placeholder="Опис звіту"
                     :invalid="!!errors?.description"
                     aria-describedby="description-help"
                   />
                   <small id="description-help" class="text-red-500" v-if="errors?.description">
-                    {{ $t(errors.description) }}
+                    {{ errors.description }}
                   </small>
                 </div>
               </div>
@@ -1389,7 +1379,7 @@ const onCloseModal = async () => {
           </div>
           <div class="flex py-4">
             <Button
-              :label="$t('Next')"
+              label="Далі"
               @click="
                 async () => {
                   const { valid: isNameValid } = await validateField('name');
@@ -1404,7 +1394,7 @@ const onCloseModal = async () => {
         </template>
       </StepperPanel>
 
-      <StepperPanel :header="$t('Data collections')">
+      <StepperPanel header="Колекції даних">
         <template #header="props">
           <i
             :class="[
@@ -1418,7 +1408,7 @@ const onCloseModal = async () => {
           <span
             :class="['uppercase', props.active ? 'font-extrabold text-primary-400' : 'font-bold']"
           >
-            {{ $t('Data collections') }}
+            Колекції даних
           </span>
         </template>
 
@@ -1428,13 +1418,9 @@ const onCloseModal = async () => {
               class="flex flex-auto rounded-md border border-dashed border-surface-200 font-medium dark:border-surface-700"
             >
               <div class="flex w-full flex-col p-6 md:w-3/5">
-                <p class="mb-6 block text-2xl">
-                  {{ $t('Data table collection') }}
-                </p>
+                <p class="mb-6 block text-2xl">Колекція таблиці даних</p>
                 <div class="mb-4 flex flex-col gap-2">
-                  <label for="collection" class="font-semibold">
-                    {{ $t('Data table collection') }}
-                  </label>
+                  <label for="collection" class="font-semibold"> Колекція таблиці даних </label>
                   <Dropdown
                     filter
                     autofocus
@@ -1444,15 +1430,15 @@ const onCloseModal = async () => {
                     v-model="datacollection"
                     v-bind="datacollectionAttrs"
                     :options="datacollections"
-                    :filterPlaceholder="$t('Search in list')"
-                    :placeholder="$t('Select collection')"
+                    filterPlaceholder="Пошук у списку"
+                    placeholder="Вибрати колекцію"
                   >
                     <template #option="{ option }">
                       <div class="flex flex-col">
                         <p class="text-xl font-medium text-black dark:text-white">
-                          {{ $t(option.label) }}
+                          {{ option.label }}
                         </p>
-                        <p>{{ $t(option.description) }}</p>
+                        <p>{{ option.description }}</p>
                       </div>
                     </template>
                   </Dropdown>
@@ -1461,16 +1447,16 @@ const onCloseModal = async () => {
                     class="text-red-500"
                     v-if="errors?.datacollection"
                   >
-                    {{ $t(errors.datacollection) }}
+                    {{ errors.datacollection }}
                   </small>
                 </div>
               </div>
             </div>
           </div>
           <div class="flex gap-2 py-4">
-            <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
+            <Button label="Назад" severity="secondary" @click="prevCallback" />
             <Button
-              :label="$t('Next')"
+              label="Далі"
               @click="
                 async () => {
                   const { valid: isCollectionValid } = await validateField('datacollection');
@@ -1484,7 +1470,7 @@ const onCloseModal = async () => {
         </template>
       </StepperPanel>
 
-      <StepperPanel :header="$t('Collection fields')">
+      <StepperPanel header="Поля колекції">
         <template #header="props">
           <i
             :class="[
@@ -1498,7 +1484,7 @@ const onCloseModal = async () => {
           <span
             :class="['uppercase', props.active ? 'font-extrabold text-primary-400' : 'font-bold']"
           >
-            {{ $t('Collection fields') }}
+            Поля колекції
           </span>
         </template>
 
@@ -1532,13 +1518,13 @@ const onCloseModal = async () => {
             </div>
           </div>
           <div class="flex gap-2 py-4">
-            <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
-            <Button :label="$t('Next')" @click="nextCallback" />
+            <Button label="Назад" severity="secondary" @click="prevCallback" />
+            <Button label="Далі" @click="nextCallback" />
           </div>
         </template>
       </StepperPanel>
 
-      <StepperPanel :header="$t('Summary')">
+      <StepperPanel header="Резюме">
         <template #header="slotProps">
           <i
             :class="[
@@ -1555,7 +1541,7 @@ const onCloseModal = async () => {
               slotProps.active ? 'font-extrabold text-primary-400' : 'font-bold'
             ]"
           >
-            {{ $t('Summary') }}
+            Резюме
           </span>
         </template>
 
@@ -1563,14 +1549,14 @@ const onCloseModal = async () => {
           <div class="flex min-h-60 flex-col">
             <div class="flex flex-col gap-2 py-4 pl-8">
               <p class="text-xl font-bold">
-                {{ $t('Report name') }} : <span class="font-normal">{{ name }}</span>
+                Назва звіту : <span class="font-normal">{{ name }}</span>
               </p>
               <p class="text-xl font-bold">
-                {{ $t('Report description') }} : <span class="font-normal">{{ description }}</span>
+                Опис звіту : <span class="font-normal">{{ description }}</span>
               </p>
 
               <div class="flex py-4 text-xl font-bold">
-                {{ $t('Data collection') }} :
+                Data collection :
                 <div class="px-2">
                   <p class="font-normal">{{ datatable?.label }}</p>
                   <p class="text-sm font-normal">{{ datatable?.description }}</p>
@@ -1578,7 +1564,7 @@ const onCloseModal = async () => {
               </div>
 
               <p class="text-xl font-bold">
-                {{ $t('Report created by') }} :
+                Звіт створений :
                 <span class="font-normal">
                   {{ profile.fullname }}
                 </span>
@@ -1586,16 +1572,16 @@ const onCloseModal = async () => {
             </div>
           </div>
           <div class="flex gap-2 py-4">
-            <Button :label="$t('Back')" severity="secondary" @click="prevCallback" />
-            <Button :label="$t('Save')" @click="onSaveRecord" />
+            <Button label="Назад" severity="secondary" @click="prevCallback" />
+            <Button label="Зберегти" @click="onSaveRecord" />
           </div>
         </template>
       </StepperPanel>
     </Stepper>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

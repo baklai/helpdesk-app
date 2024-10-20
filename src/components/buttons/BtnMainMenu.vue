@@ -22,7 +22,7 @@ const toggle = event => {
     rounded
     icon="pi pi-th-large"
     class="h-12 w-12 text-3xl"
-    v-tooltip.bottom="$t('Main menu')"
+    v-tooltip.bottom="'Головне меню'"
     @click="toggle"
   />
 

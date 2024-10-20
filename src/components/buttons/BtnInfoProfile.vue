@@ -13,7 +13,7 @@ const visible = ref(false);
     rounded
     icon="pi pi-user"
     class="h-12 w-12 text-2xl"
-    v-tooltip.top="$t('Profile account')"
+    v-tooltip.top="'Профіль облікового запису'"
     @click="visible = !visible"
   />
 

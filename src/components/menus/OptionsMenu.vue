@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { Clipboard } from 'v-clipboard';
@@ -8,7 +7,6 @@ import { Clipboard } from 'v-clipboard';
 import { useTool } from '@/stores/api/systools';
 import { usePing } from '@/stores/api/pings';
 
-const { t } = useI18n();
 const toast = useToast();
 const Tool = useTool();
 const Ping = usePing();
@@ -54,22 +52,22 @@ const refMenu = ref();
 
 const crudOptions = computed(() => [
   {
-    label: t('View record'),
+    label: 'Переглянути запис',
     icon: 'pi pi-eye',
     command: () => emits('view', record.value)
   },
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: () => emits('create', {})
   },
   {
-    label: t('Update record'),
+    label: 'Оновити запис',
     icon: 'pi pi-file-edit',
     command: () => emits('update', record.value)
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: () => emits('delete', record.value)
   }
@@ -79,40 +77,40 @@ const customOptions = computed(() => [...props.items]);
 
 const hostOptions = computed(() => [
   {
-    label: t('Options'),
+    label:'Опції',
     items: [
       {
-        label: t('Copy to clipboard'),
+        label: 'Копіювати в буфер обміну',
         icon: 'pi pi-copy',
         command: () => copyIPtoClipboard(record.value[props.hostkey])
       }
     ]
   },
   {
-    label: t('Commands'),
+    label: 'Команди',
     items: [
       {
-        label: t('ICMP Ping'),
+        label: 'ICMP Пінг',
         icon: 'pi pi-code',
         command: () => onPINGCommand(record.value[props.hostkey])
       }
     ]
   },
   {
-    label: t('Option links'),
+    label: 'Посилання на опції',
     items: [
       {
-        label: t('CMD Ping'),
+        label: 'CMD Ping',
         icon: 'pi pi-desktop',
         command: () => getPINGLink(record.value[props.hostkey])
       },
       {
-        label: t('RDP Connect'),
+        label: 'RDP Підключення',
         icon: 'pi pi-desktop',
         command: () => getRDPLink(record.value[props.hostkey])
       },
       {
-        label: t('VNC Connect'),
+        label: 'VNC Підключення',
         icon: 'pi pi-desktop',
         command: () => getVNClink(record.value[props.hostkey])
       }
@@ -131,14 +129,14 @@ const copyIPtoClipboard = async value => {
     await Clipboard.copy(value);
     toast.add({
       severity: 'info',
-      summary: t('Information'),
+      summary: 'Інформація',
       detail: t(`IP ${value} copied to clipboard`),
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
+      summary: 'Попередження',
       detail: t(`IP ${value} not copied to clipboard`),
       life: 3000
     });
@@ -149,15 +147,15 @@ const onPINGCommand = async value => {
   try {
     toast.add({
       severity: 'info',
-      summary: t('Information'),
-      detail: t(`ICMP Ping running on ${value}`),
+      summary: 'Інформація',
+      detail: `ICMP Ping running on ${value}`,
       life: 3000
     });
     const ping = await Ping.createOne({ host: value });
     if (ping.output) {
       toast.add({
         severity: 'success',
-        summary: t('HD ICMP Ping'),
+        summary: 'HD ICMP Пінг',
         detail: ping?.output,
         group: 'ping'
       });
@@ -165,8 +163,8 @@ const onPINGCommand = async value => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t(`ICMP Ping on ${value} does not answer`)
+      summary: 'Попередження',
+      detail: `ICMP Ping on ${value} does not answer`
     });
   }
 };
@@ -179,8 +177,8 @@ const getPINGLink = async value => {
   link.setAttribute('download', `PING_${value}.cmd`);
   toast.add({
     severity: 'info',
-    summary: t('Information'),
-    detail: t('PING File created'),
+    summary: 'Інформація',
+    detail: 'PING Файл створено',
     life: 3000
   });
   link.click();
@@ -194,8 +192,8 @@ const getRDPLink = async value => {
   link.setAttribute('download', `RDP_${value}.rdp`);
   toast.add({
     severity: 'info',
-    summary: t('Information'),
-    detail: t('RDP File created'),
+    summary: 'Інформація',
+    detail: 'RDP Файл створено',
     life: 3000
   });
   link.click();
@@ -209,8 +207,8 @@ const getVNClink = async value => {
   link.setAttribute('download', `VNC_${value}.vnc`);
   toast.add({
     severity: 'info',
-    summary: t('Information'),
-    detail: t('VNC File created'),
+    summary: 'Інформація',
+    detail: 'VNC Файл створено',
     life: 3000
   });
   link.click();

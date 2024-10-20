@@ -1,6 +1,5 @@
 <script setup>
 import { ref, inject, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
@@ -9,18 +8,16 @@ import { useScope } from '@/stores/scopes';
 defineProps(['visible']);
 defineEmits(['update:visible']);
 
-const { t } = useI18n();
-
 const $helpdesk = inject('helpdesk');
 
 const { getCustomScope } = useScope();
 
 const columns = ref([
-  { field: 'create', header: t('Create') },
-  { field: 'read', header: t('Read') },
-  { field: 'update', header: t('Update') },
-  { field: 'delete', header: t('Delete') },
-  { field: 'notice', header: t('Notice') }
+  { field: 'create', header: 'Create' },
+  { field: 'read', header: 'Read' },
+  { field: 'update', header: 'Update' },
+  { field: 'delete', header: 'Delete' },
+  { field: 'notice', header: 'Notice' }
 ]);
 
 const scopes = ref(getCustomScope($helpdesk.profile.scope));
@@ -65,7 +62,7 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
           <div class="flex flex-col items-center justify-center p-3" v-else>
             <i class="pi pi-cloud-upload p-3 text-3xl text-surface-500" />
             <p class="mb-0 mt-6 text-sm text-surface-500">
-              {{ $t('Drag and drop logo to here to upload') }}
+              Щоб завантажити, перетягніть логотип сюди
             </p>
           </div>
         </div>
@@ -73,19 +70,19 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
         <div class="w-full space-y-2 p-4 md:w-3/5">
           <div class="mb-0">
             <p class="text-lg font-bold">
-              {{ $t('Fullname') }} :
+              Повне ім'я :
               <span class="">{{ $helpdesk?.profile?.fullname }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="text-lg font-bold">
-              {{ $t('Email') }} :
+              Електронна пошта :
               <span class="">{{ $helpdesk?.profile?.email }}</span>
             </p>
           </div>
           <div class="mb-0">
             <p class="text-lg font-bold">
-              {{ $t('Phone') }} :
+              Телефон :
               <span class="">{{ $helpdesk?.profile?.phone }}</span>
             </p>
           </div>
@@ -102,11 +99,11 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
           >
             <template #empty>
               <div class="text-center">
-                <h5>{{ $t('No scopes found') }}</h5>
+                <h5>No scopes found</h5>
               </div>
             </template>
 
-            <Column frozen field="scope" :header="$t('Scope')" class="font-bold">
+            <Column frozen field="scope" header="Дозволи" class="font-bold">
               <template #body="slotProps">
                 {{ slotProps.data.comment }}
               </template>

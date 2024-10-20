@@ -48,7 +48,7 @@ const onCloseSidebar = () => {
           <div>
             <p class="mb-0 text-lg">IP {{ record?.ipaddress?.ipaddress }}</p>
             <p class="text-base font-normal">
-              {{ $t('Date open') }} : {{ dateToStr(record?.ipaddress?.date) || '-' }}
+              Дата відкриття : {{ dateToStr(record?.ipaddress?.date) || '-' }}
             </p>
           </div>
         </div>
@@ -60,7 +60,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Menu')"
+            v-tooltip.bottom="'Меню'"
             @click="toggleMenu($event, record.ipaddress)"
           />
           <Button
@@ -70,7 +70,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-times"
-            v-tooltip.bottom="$t('Close')"
+            v-tooltip.bottom="'Закрити'"
             @click="onCloseSidebar"
           />
         </div>

@@ -43,9 +43,7 @@ const disabledSelectedFromHTML = ref({
           </p>
         </div>
 
-        <p class="text-xl font-medium text-surface-500">
-          {{ $t('Web Application of technical support') }}
-        </p>
+        <p class="text-xl font-medium text-surface-500">Веб-додаток техпідтримки</p>
       </div>
 
       <main class="flex flex-col items-center gap-4">
@@ -76,14 +74,13 @@ const disabledSelectedFromHTML = ref({
         </div>
 
         <div class="mb-8 text-center">
-          <p class="text-xl font-medium text-surface-300">
-            {{ $t('Web Application of technical support') }}
-          </p>
+          <p class="text-xl font-medium text-surface-300">Веб-додаток техпідтримки</p>
         </div>
 
         <div class="mb-8 w-[30rem] text-center">
           <p class="line-height-2 text-xl text-surface-400">
-            {{ $t('Helpdesk technical support') }}
+            Технічна підтримка - це тип обслуговування клієнтів, яке надає допомогу клієнтам з
+            технічними проблемами щодо їхніх продуктів або послуг
           </p>
         </div>
 
@@ -118,7 +115,7 @@ const disabledSelectedFromHTML = ref({
             :to="{ name: 'home' }"
             class="font-medium uppercase text-primary-600 hover:text-primary-500"
           >
-            {{ $t('Helpdesk home page') }}
+            Helpdesk домашня сторінка
           </RouterLink>
         </p>
       </div>

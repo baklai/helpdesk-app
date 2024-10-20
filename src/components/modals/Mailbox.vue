@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -16,7 +15,6 @@ import { useDepartment } from '@/stores/api/departments';
 import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -31,11 +29,11 @@ const Position = usePosition();
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      reqnum: yup.string().required(t('Value is required')),
-      login: yup.string().required(t('Value is required')),
-      fullname: yup.string().required(t('Value is required')),
-      phone: yup.string().required(t('Value is required')),
-      dateOpen: yup.string().required(t('Value is required'))
+      reqnum: yup.string().required('Потрібно вказати значення'),
+      login: yup.string().required('Потрібно вказати значення'),
+      fullname: yup.string().required('Потрібно вказати значення'),
+      phone: yup.string().required('Потрібно вказати значення'),
+      dateOpen: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -77,17 +75,17 @@ const visible = ref(false);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => await onSaveRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -128,8 +126,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 5000
   });
 };
@@ -138,14 +136,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -155,15 +153,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -173,8 +171,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -190,16 +188,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -234,11 +232,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="network-mailbox" :size="42" class="mr-4" />
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Mailbox') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Поштова скринька</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -250,7 +246,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -260,7 +256,7 @@ const onCloseModal = async () => {
     <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
       <div class="flex flex-col space-y-4 md:w-1/2 md:pr-2">
         <div class="flex flex-col gap-2">
-          <label for="dateOpen" class="font-bold">{{ $t('Date open') }}</label>
+          <label for="dateOpen" class="font-bold">Дата відкриття</label>
           <Calendar
             showIcon
             showButtonBar
@@ -269,7 +265,7 @@ const onCloseModal = async () => {
             v-model="dateOpen"
             v-bind="dateOpenAttrs"
             :modelValue="dateToStr(values.dateOpen)"
-            :placeholder="$t('Date open')"
+            placeholder="Дата відкриття"
             :invalid="!!errors?.dateOpen"
             aria-describedby="dateOpen-help"
             :pt="{
@@ -289,42 +285,42 @@ const onCloseModal = async () => {
             }"
           />
           <small id="dateOpen-help" class="text-red-500" v-if="errors?.dateOpen">
-            {{ $t(errors.dateOpen) }}
+            {{ errors.dateOpen }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="reqnum" class="font-bold">{{ $t('Letter number') }}</label>
+          <label for="reqnum" class="font-bold">Номер листа</label>
           <InputText
             id="reqnum"
             v-model="reqnum"
             v-bind="reqnumAttrs"
-            :placeholder="$t('Letter number')"
+            placeholder="Номер листа"
             :invalid="!!errors?.reqnum"
             aria-describedby="reqnum-help"
           />
           <small id="reqnum-help" class="text-red-500" v-if="errors?.reqnum">
-            {{ $t(errors.reqnum) }}
+            {{ errors.reqnum }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="login" class="font-bold">{{ $t('Login mailbox') }}</label>
+          <label for="login" class="font-bold">Логін поштової скриньки</label>
           <InputText
             id="login"
             v-model="login"
             v-bind="loginAttrs"
-            :placeholder="$t('Login mailbox')"
+            placeholder="Логін поштової скриньки"
             :invalid="!!errors?.login"
             aria-describedby="login-help"
           />
           <small id="login-help" class="text-red-500" v-if="errors?.login">
-            {{ $t(errors.login) }}
+            {{ errors.login }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="dateClose" class="font-bold">{{ $t('Date close') }}</label>
+          <label for="dateClose" class="font-bold">Дата закриття</label>
           <Calendar
             showIcon
             showButtonBar
@@ -334,7 +330,7 @@ const onCloseModal = async () => {
             v-model="dateClose"
             v-bind="dateCloseAttrs"
             :modelValue="dateToStr(values.dateClose)"
-            :placeholder="$t('Date close')"
+            placeholder="Дата закриття"
             :pt="{
               dropdownbutton: {
                 root: {
@@ -354,34 +350,34 @@ const onCloseModal = async () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="comment" class="font-bold">{{ $t('Comment') }}</label>
+          <label for="comment" class="font-bold">Коментар</label>
           <Textarea
             id="comment"
             rows="6"
             class="outline-none"
             v-model="comment"
             v-bind="commentAttrs"
-            :placeholder="$t('Comment')"
+            placeholder="Коментар"
           />
         </div>
       </div>
 
       <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
-          <label for="client-info" class="font-bold">{{ $t('Client info') }}</label>
+          <label for="client-info" class="font-bold">Інформація про клієнта</label>
           <div class="flex flex-col gap-2" id="client-info">
             <div class="flex flex-col gap-2">
               <InputText
                 id="fullname"
                 v-model="fullname"
                 v-bind="fullnameAttrs"
-                :placeholder="$t('Client fullname')"
-                v-tooltip.bottom="$t('Client fullname')"
+                placeholder="Повне ім'я клієнта"
+                v-tooltip.bottom="'Повне ім\'я клієнта'"
                 :invalid="!!errors?.fullname"
                 aria-describedby="fullname-help"
               />
               <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
-                {{ $t(errors.fullname) }}
+                {{ errors.fullname }}
               </small>
             </div>
 
@@ -390,20 +386,20 @@ const onCloseModal = async () => {
                 id="phone"
                 v-model="phone"
                 v-bind="phoneAttrs"
-                :placeholder="$t('Client phone')"
-                v-tooltip.bottom="$t('Client phone')"
+                placeholder="Телефон клієнта"
+                v-tooltip.bottom="'Телефон клієнта'"
                 :invalid="!!errors?.phone"
                 aria-describedby="phone-help"
               />
               <small id="phone-help" class="text-red-500" v-if="errors?.phone">
-                {{ $t(errors.phone) }}
+                {{ errors.phone }}
               </small>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="location" class="font-bold">{{ $t('Location') }}</label>
+          <label for="location" class="font-bold">Розташування</label>
           <div class="flex flex-row gap-2">
             <Dropdown
               filter
@@ -419,8 +415,8 @@ const onCloseModal = async () => {
               v-model="location"
               v-bind="locationAttrs"
               :options="locations"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client location')"
+              filterPlaceholder="Пошук"
+              placeholder="Розташування клієнта"
               :invalid="!!errors?.location"
               aria-describedby="location-help"
               :virtualScrollerOptions="{ itemSize: 32 }"
@@ -453,12 +449,12 @@ const onCloseModal = async () => {
           </div>
 
           <small id="location-help" class="text-red-500" v-if="errors?.location">
-            {{ $t(errors.location) }}
+            {{ errors.location }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="organizations" class="font-bold">{{ $t('Organization') }}</label>
+          <label for="organizations" class="font-bold">Організація</label>
           <div class="flex flex-col gap-2" id="organizations">
             <div class="flex flex-col gap-2">
               <div class="flex flex-row gap-2">
@@ -474,9 +470,9 @@ const onCloseModal = async () => {
                   v-model="organization"
                   v-bind="organizationAttrs"
                   :options="organizations"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client organization')"
-                  v-tooltip.bottom="$t('Client organization')"
+                  filterPlaceholder="Пошук"
+                  placeholder="Організація клієнта"
+                  v-tooltip.bottom="'Організація клієнта'"
                   :invalid="!!errors?.organization"
                   aria-describedby="organization-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -489,7 +485,7 @@ const onCloseModal = async () => {
                 <BtnDBTable table="organization" />
               </div>
               <small id="organization-help" class="text-red-500" v-if="errors?.organization">
-                {{ $t(errors.organization) }}
+                {{ errors.organization }}
               </small>
             </div>
 
@@ -513,9 +509,9 @@ const onCloseModal = async () => {
                   v-model="subdivision"
                   v-bind="subdivisionAttrs"
                   :options="subdivisions"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client subdivision')"
-                  v-tooltip.bottom="$t('Client subdivision')"
+                  filterPlaceholder="Пошук"
+                  placeholder="Підрозділ клієнта"
+                  v-tooltip.bottom="'Підрозділ клієнта'"
                   :invalid="!!errors?.subdivision"
                   aria-describedby="subdivision-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -527,7 +523,7 @@ const onCloseModal = async () => {
                 <BtnDBTable table="subdivision" />
               </div>
               <small id="subdivision-help" class="text-red-500" v-if="errors?.subdivision">
-                {{ $t(errors.subdivision) }}
+                {{ errors.subdivision }}
               </small>
             </div>
 
@@ -545,9 +541,9 @@ const onCloseModal = async () => {
                   v-model="department"
                   v-bind="departmentAttrs"
                   :options="departments"
-                  :filterPlaceholder="$t('Search')"
-                  :placeholder="$t('Client department')"
-                  v-tooltip.bottom="$t('Client department')"
+                  filterPlaceholder="Пошук"
+                  placeholder="Відділ клієнта"
+                  v-tooltip.bottom="'Відділ клієнта'"
                   :invalid="!!errors?.department"
                   aria-describedby="department-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -561,14 +557,14 @@ const onCloseModal = async () => {
               </div>
 
               <small id="department-help" class="text-red-500" v-if="errors?.department">
-                {{ $t(errors.department) }}
+                {{ errors.department }}
               </small>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="position" class="font-bold">{{ $t('Client position') }}</label>
+          <label for="position" class="font-bold">Посада клієнта</label>
 
           <div class="flex flex-row gap-2">
             <Dropdown
@@ -583,8 +579,8 @@ const onCloseModal = async () => {
               v-model="position"
               v-bind="positionAttrs"
               :options="positions"
-              :filterPlaceholder="$t('Search')"
-              :placeholder="$t('Client position')"
+              filterPlaceholder="Пошук"
+              placeholder="Посада клієнта"
               :invalid="!!errors?.position"
               aria-describedby="position-help"
               :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -598,15 +594,15 @@ const onCloseModal = async () => {
           </div>
 
           <small id="position-help" class="text-red-500" v-if="errors?.position">
-            {{ $t(errors.position) }}
+            {{ errors.position }}
           </small>
         </div>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

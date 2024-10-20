@@ -52,9 +52,7 @@ const $config = useConfig();
               </p>
             </div>
             <div class="flex text-center">
-              <p class="text-base font-medium text-surface-500">
-                {{ $t('Web Application of technical support') }}
-              </p>
+              <p class="text-base font-medium text-surface-500">Веб-додаток техпідтримки</p>
             </div>
           </div>
         </RouterLink>

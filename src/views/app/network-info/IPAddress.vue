@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
@@ -17,8 +16,6 @@ import { useDepartment } from '@/stores/api/departments';
 import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 import { useUnit } from '@/stores/api/units';
-
-const { t } = useI18n();
 
 const IPAddress = useIPAddress();
 const Organization = useOrganization();
@@ -193,9 +190,9 @@ const columns = ref([
         label: 'name',
         onRecords: () => {
           return [
-            { key: 'opened', name: t('Internet opened') },
-            { key: 'closed', name: t('Internet closed') },
-            { key: 'missing', name: t('Not Internet') }
+            { key: 'opened', name: 'Інтернет відкрито' },
+            { key: 'closed', name: 'Інтернет закрито' },
+            { key: 'missing', name: 'Відсутній Інтернет' }
           ];
         }
       }

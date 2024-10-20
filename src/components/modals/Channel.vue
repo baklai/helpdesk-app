@@ -2,13 +2,11 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { useChannel } from '@/stores/api/channels';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -17,16 +15,16 @@ const { findOne, createOne, updateOne, removeOne } = useChannel();
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      locationFrom: yup.string().required(t('Value is required')),
-      unitFrom: yup.string().required(t('Value is required')),
-      locationTo: yup.string().required(t('Value is required')),
-      unitTo: yup.string().required(t('Value is required')),
-      level: yup.string().required(t('Value is required')),
-      type: yup.string().required(t('Value is required')),
-      speed: yup.string().required(t('Value is required')),
-      status: yup.string().required(t('Value is required')),
-      operator: yup.string().required(t('Value is required')),
-      composition: yup.string().required(t('Value is required'))
+      locationFrom: yup.string().required('Потрібно вказати значення'),
+      unitFrom: yup.string().required('Потрібно вказати значення'),
+      locationTo: yup.string().required('Потрібно вказати значення'),
+      unitTo: yup.string().required('Потрібно вказати значення'),
+      level: yup.string().required('Потрібно вказати значення'),
+      type: yup.string().required('Потрібно вказати значення'),
+      speed: yup.string().required('Потрібно вказати значення'),
+      status: yup.string().required('Потрібно вказати значення'),
+      operator: yup.string().required('Потрібно вказати значення'),
+      composition: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -51,17 +49,17 @@ const visible = ref(false);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => await onSaveRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -82,8 +80,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 5000
   });
 };
@@ -92,14 +90,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -109,15 +107,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -127,8 +125,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -144,16 +142,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -188,11 +186,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Network channel') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Мережевий канал</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -204,7 +200,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -214,165 +210,165 @@ const onCloseModal = async () => {
     <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
       <div class="flex flex-col space-y-4 md:w-1/2 md:pr-2">
         <div class="flex flex-col gap-2">
-          <label for="locationFrom" class="font-bold">{{ $t('Location start') }}</label>
+          <label for="locationFrom" class="font-bold">Початкове розташування</label>
           <InputText
             id="locationFrom"
             v-model="locationFrom"
             v-bind="locationFromAttrs"
-            :placeholder="$t('Location start')"
+            placeholder="Початкове розташування"
             :invalid="!!errors?.locationFrom"
             aria-describedby="locationFrom-help"
           />
           <small id="locationFrom-help" class="text-red-500" v-if="errors?.locationFrom">
-            {{ $t(errors.locationFrom) }}
+            {{ errors.locationFrom }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="unitFrom" class="font-bold">{{ $t('Unit start') }}</label>
+          <label for="unitFrom" class="font-bold">Початковий пристрій</label>
           <InputText
             id="unitFrom"
             v-model="unitFrom"
             v-bind="unitFromAttrs"
-            :placeholder="$t('Unit start')"
+            placeholder="Початковий пристрій"
             :invalid="!!errors?.unitFrom"
             aria-describedby="unitFrom-help"
           />
           <small id="unitFrom-help" class="text-red-500" v-if="errors?.unitFrom">
-            {{ $t(errors.unitFrom) }}
+            {{ errors.unitFrom }}
           </small>
         </div>
       </div>
 
       <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
-          <label for="locationTo" class="font-bold">{{ $t('Location end') }}</label>
+          <label for="locationTo" class="font-bold">Кінцеве розташування</label>
           <InputText
             id="locationTo"
             v-model="locationTo"
             v-bind="locationToAttrs"
-            :placeholder="$t('Location end')"
+            placeholder="Кінцеве розташування"
             :invalid="!!errors?.locationTo"
             aria-describedby="locationTo-help"
           />
           <small id="locationTo-help" class="text-red-500" v-if="errors?.locationTo">
-            {{ $t(errors.locationTo) }}
+            {{ errors.locationTo }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="unitTo" class="font-bold">{{ $t('Unit end') }}</label>
+          <label for="unitTo" class="font-bold">Кінцевий пристрій</label>
           <InputText
             id="unitTo"
             v-model="unitTo"
             v-bind="unitToAttrs"
-            :placeholder="$t('Unit end')"
+            placeholder="Кінцевий пристрій"
             :invalid="!!errors?.unitTo"
             aria-describedby="unitTo-help"
           />
           <small id="unitTo-help" class="text-red-500" v-if="errors?.unitTo">
-            {{ $t(errors.unitTo) }}
+            {{ errors.unitTo }}
           </small>
         </div>
       </div>
 
       <div class="flex w-full flex-col space-y-4">
         <div class="flex flex-col gap-2">
-          <label for="level" class="font-bold">{{ $t('Level') }}</label>
+          <label for="level" class="font-bold">Рівень</label>
           <InputText
             id="level"
             v-model="level"
             v-bind="levelAttrs"
-            :placeholder="$t('Level')"
+            placeholder="Рівень"
             :invalid="!!errors?.level"
             aria-describedby="level-help"
           />
           <small id="level-help" class="text-red-500" v-if="errors?.level">
-            {{ $t(errors.level) }}
+            {{ errors.level }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="type" class="font-bold">{{ $t('Type') }}</label>
+          <label for="type" class="font-bold">Тип</label>
           <InputText
             id="type"
             v-model="type"
             v-bind="typeAttrs"
-            :placeholder="$t('Type')"
+            placeholder="Тип"
             :invalid="!!errors?.type"
             aria-describedby="type-help"
           />
           <small id="type-help" class="text-red-500" v-if="errors?.type">
-            {{ $t(errors.type) }}
+            {{ errors.type }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="speed" class="font-bold">{{ $t('Speed') }}</label>
+          <label for="speed" class="font-bold">Швидкість</label>
           <InputText
             id="speed"
             v-model="speed"
             v-bind="speedAttrs"
-            :placeholder="$t('Speed')"
+            placeholder="Швидкість"
             :invalid="!!errors?.speed"
             aria-describedby="speed-help"
           />
           <small id="speed-help" class="text-red-500" v-if="errors?.speed">
-            {{ $t(errors.speed) }}
+            {{ errors.speed }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="status" class="font-bold">{{ $t('Status') }}</label>
+          <label for="status" class="font-bold">Статус</label>
           <InputText
             id="status"
             v-model="status"
             v-bind="statusAttrs"
-            :placeholder="$t('Status')"
+            placeholder="Статус"
             :invalid="!!errors?.status"
             aria-describedby="status-help"
           />
           <small id="status-help" class="text-red-500" v-if="errors?.status">
-            {{ $t(errors.status) }}
+            {{ errors.status }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="operator" class="font-bold">{{ $t('Operator') }}</label>
+          <label for="operator" class="font-bold">Оператор</label>
           <InputText
             id="operator"
             v-model="operator"
             v-bind="operatorAttrs"
-            :placeholder="$t('Operator')"
+            placeholder="Оператор"
             :invalid="!!errors?.operator"
             aria-describedby="operator-help"
           />
           <small id="operator-help" class="text-red-500" v-if="errors?.operator">
-            {{ $t(errors.operator) }}
+            {{ errors.operator }}
           </small>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="composition" class="font-bold">{{ $t('Composition') }}</label>
+          <label for="composition" class="font-bold">Склад</label>
           <Textarea
             rows="5"
             id="composition"
             v-model="composition"
             v-bind="compositionAttrs"
-            :placeholder="$t('Composition')"
+            placeholder="Склад"
             :invalid="!!errors?.composition"
             aria-describedby="composition-help"
           />
           <small id="composition-help" class="text-red-500" v-if="errors?.composition">
-            {{ $t(errors.composition) }}
+            {{ errors.composition }}
           </small>
         </div>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = false" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = false" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

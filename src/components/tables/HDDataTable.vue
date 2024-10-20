@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -10,7 +9,6 @@ const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
 
 import { getObjField } from '@/service/ObjectMethods';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -76,17 +74,17 @@ const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
 const refMenuActions = ref();
 const menuActions = computed(() => [
   {
-    label: t('Clear filters'),
+    label: 'Очистити фільтри',
     icon: 'pi pi-filter-slash',
     command: () => clearFilters()
   },
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: () => emits('toggleModal', {})
   },
   {
-    label: t('Update records'),
+    label: 'Оновити записи',
     icon: 'pi pi-sync',
     command: () => onUpdateRecords()
   }
@@ -98,8 +96,8 @@ const onColumnsMenu = event => {
 
 const onRemoveRecord = ({ id }) => {
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -109,16 +107,16 @@ const onRemoveRecord = ({ id }) => {
         await props.onDelete({ id });
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 3000
         });
         await onUpdateRecords();
       } else {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not selected'),
+          summary: 'Попередження',
+          detail: 'Запис не вибрано',
           life: 3000
         });
       }
@@ -126,8 +124,8 @@ const onRemoveRecord = ({ id }) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 3000
       });
     }
@@ -146,7 +144,7 @@ const onUpdateRecords = async () => {
     records.value = [];
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
+      summary: 'Попередження',
       detail: t(err.message),
       life: 3000
     });
@@ -436,15 +434,15 @@ const resetLocalStorage = async () => {
       keyDataTable.value += 1;
       toast.add({
         severity: 'success',
-        summary: t('Information'),
-        detail: t('Datatable reset to default'),
+        summary: 'Інформація',
+        detail: 'Таблиця скинута за замовчуванням',
         life: 3000
       });
     } catch (err) {
       toast.add({
         severity: 'warn',
-        summary: t('Warning'),
-        detail: t('Datatable not reset to default'),
+        summary: 'Попередження',
+        detail: 'Таблиця не скинута за замовчуванням',
         life: 3000
       });
     }
@@ -467,7 +465,7 @@ onMounted(async () => {
     records.value = [];
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
+      summary: 'Попередження',
       detail: t(err.message),
       life: 3000
     });
@@ -489,7 +487,7 @@ onMounted(async () => {
         dataKey="selectable"
         optionValue="selectable"
         optionLabel="header.text"
-        :filterPlaceholder="$t('Search in list')"
+        :filterPlaceholder="'Пошук у списку'"
       >
         <template #option="{ index, option }">
           <div class="flex items-center">
@@ -518,7 +516,7 @@ onMounted(async () => {
       <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
-          :label="$t('Select All')"
+          :label="$'Вибрати все"
           icon="pi pi-check-square"
           size="small"
           class="w-full text-surface-500"
@@ -559,13 +557,7 @@ onMounted(async () => {
       :rows="recordsPerPage"
       :totalRecords="totalRecords"
       :rowsPerPageOptions="recordsPerPageOptions"
-      :currentPageReportTemplate="
-        $t('Showing records', {
-          first: '{first}',
-          last: '{last}',
-          totalRecords: '{totalRecords}'
-        })
-      "
+      :currentPageReportTemplate="`Showing records first: ${first}, last: ${last}', totalRecords: ${totalRecords}`"
       style="height: calc(100vh - 5rem)"
       class="min-w-full overflow-x-auto text-base"
       :paginatorTemplate="'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'"
@@ -601,7 +593,7 @@ onMounted(async () => {
               />
               <i
                 class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:text-surface-900 dark:text-surface-600 dark:hover:text-surface-300"
-                v-tooltip.bottom="$t('Clear global filter')"
+                v-tooltip.bottom="'Очистити глобальний фільтр'"
                 @click="clearGlobalFilter"
               />
             </span>
@@ -616,7 +608,7 @@ onMounted(async () => {
                 :class="
                   params?.filters && Object.keys(params.filters).length ? '!text-primary-600' : ''
                 "
-                v-tooltip.bottom="$t('Clear filters')"
+                v-tooltip.bottom="'Очистити фільтри'"
                 @click="clearFilters"
               />
 
@@ -626,7 +618,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-plus-circle"
                 class="h-12 w-12 text-2xl"
-                v-tooltip.bottom="$t('Create record')"
+                v-tooltip.bottom="'Створити запис'"
                 @click="emits('toggleModal', {})"
               />
 
@@ -636,7 +628,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-sync"
                 class="h-12 w-12 text-2xl"
-                v-tooltip.bottom="$t('Update records')"
+                v-tooltip.bottom="'Оновити записи'"
                 @click="onUpdateRecords"
               />
 
@@ -648,7 +640,7 @@ onMounted(async () => {
                 rounded
                 icon="pi pi-cog"
                 class="h-12 w-12 text-2xl"
-                v-tooltip.bottom="$t('Columns option')"
+                v-tooltip.bottom="'Опції стовпців'"
                 @click="onColumnsMenu"
               />
             </div>
@@ -672,14 +664,12 @@ onMounted(async () => {
         >
           <div class="m-auto flex flex-col gap-2">
             <i class="pi pi-filter-slash text-7xl text-surface-500"></i>
-            <h5 class="text-2xl font-semibold">{{ $t('No records found') }}</h5>
-            <p class="text-base text-surface-500">
-              {{ $t('Try changing the search terms in the filter') }}
-            </p>
+            <h5 class="text-2xl font-semibold">Записів не знайдено</h5>
+            <p class="text-base text-surface-500">Спробуйте змінити пошукові терміни у фільтрі</p>
             <Button
               icon="pi pi-filter-slash text-sm"
               class="m-auto my-4 w-max"
-              :label="$t('Clear filters')"
+              :label="'Очистити фільтри'"
               @click="clearFilters"
             />
           </div>
@@ -695,7 +685,7 @@ onMounted(async () => {
               outlined
               icon="pi pi-refresh text-xl"
               class="h-10 w-full sm:w-max"
-              v-tooltip.bottom="$t('Reset to default')"
+              v-tooltip.bottom="'Скинути за замовчуванням'"
               @click="resetLocalStorage"
             />
 
@@ -711,15 +701,13 @@ onMounted(async () => {
               text
               plain
               outlined
-              :label="$t('Actions')"
+              label="Дії"
               class="h-10 w-full sm:w-max"
               @click="event => refMenuActions.toggle(event)"
             >
               <template #default>
                 <i class="pi pi-sliders-h" />
-                <span class="mx-2">
-                  {{ $t('Actions') }}
-                </span>
+                <span class="mx-2"> Дії </span>
                 <i class="pi pi-chevron-down" />
               </template>
             </Button>
@@ -735,7 +723,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-cog"
             class="m-2 h-8 w-8 font-bold"
-            v-tooltip.bottom="$t('Columns option')"
+            v-tooltip.bottom="'Опції стовпців'"
             @click="onColumnsMenu"
           />
         </template>
@@ -746,7 +734,7 @@ onMounted(async () => {
             rounded
             icon="pi pi-ellipsis-v"
             class="m-2 h-8 w-8 font-bold"
-            v-tooltip.bottom="$t('Optional menu')"
+            v-tooltip.bottom="'Додаткове меню'"
             @click="onOptionsMenu($event, data)"
           />
         </template>
@@ -828,8 +816,8 @@ onMounted(async () => {
               :options="filter?.options?.records || []"
               :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
               :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
-              :placeholder="$t('Search in database')"
-              :filterPlaceholder="$t('Search in list')"
+              :placeholder="'Пошук у базі даних'"
+              :filterPlaceholder="'Пошук у списку'"
               :virtualScrollerOptions="{ itemSize: 32 }"
               class="my-4 w-96"
               :pt="{
@@ -848,7 +836,7 @@ onMounted(async () => {
                   const response = await filter.options.onRecords();
                   filter.options.records = [
                     {
-                      group: $t('Empty values'),
+                      group: 'Порожні значення',
                       records: [
                         {
                           [filter?.options?.value || 'id']: null,
@@ -881,7 +869,7 @@ onMounted(async () => {
               :optionValue="filter.options.value || 'id'"
               :optionLabel="filter.options.label || 'id'"
               :options="filter?.options?.records || []"
-              :placeholder="$t('Select one record')"
+              placeholder="Виберіть один запис"
               style="min-width: 12rem"
               @change="filterCallback"
               @before-show="
@@ -902,7 +890,7 @@ onMounted(async () => {
               class="w-full"
               selectionMode="range"
               dateFormat="dd.mm.yy"
-              :placeholder="$t('Select date')"
+              placeholder="Виберіть дату"
               v-model="filterModel.value"
               v-else-if="filter?.matchMode === FilterMatchMode.DATE_IS"
             />
@@ -910,7 +898,7 @@ onMounted(async () => {
             <InputText
               type="text"
               v-model="filterModel.value"
-              :placeholder="$t('Search by column')"
+              placeholder="Пошук за стовпцем"
               @keydown.enter="filterCallback()"
               v-else-if="filter?.matchMode === FilterMatchMode.CONTAINS"
             />

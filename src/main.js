@@ -1,6 +1,5 @@
 import { createApp, defineAsyncComponent } from 'vue';
 import { createPinia } from 'pinia';
-import { createI18n } from 'vue-i18n';
 
 import App from './App.vue';
 import router from './router';
@@ -44,26 +43,13 @@ import 'primeicons/primeicons.css';
 
 import Presets from '@/presets';
 
-import en from '@/locales/en-US';
-import uk from '@/locales/uk-UA';
-import ru from '@/locales/ru-RU';
-
-const i18n = createI18n({
-  legacy: false,
-  locale: 'en',
-  fallbackLocale: 'en',
-  globalInjection: true,
-  messages: { en, uk, ru }
-});
-
 const app = createApp(App);
 
-app.use(i18n);
 app.use(router);
 app.use(createPinia());
 
 app.use(PrimeVue, {
-  locale: en.primevue,
+  // locale: uk.primevue,
   unstyled: true,
   ripple: false,
   pt: Presets

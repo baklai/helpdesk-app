@@ -1,26 +1,24 @@
 import { computed } from 'vue';
 import { defineStore } from 'pinia';
-import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 export const useSidebar = defineStore('sidebar', () => {
   const Router = useRouter();
-  const { t } = useI18n();
 
   const navLinks = computed(() => [
     { ...getRoute('home') },
 
-    t('Documentation'),
+    'Документація',
 
     {
-      label: t('Docs of helpdesk'),
+      label: 'Документація техпідтримки',
       url: '/docs/',
       icon: 'docs',
       target: '_blank',
-      description: t('Docs of the technical support')
+      description: 'Документація технічної підтримки'
     },
 
-    t('Applications'),
+    'Додатки',
 
     { ...getRoute('events-calendar') },
     {
@@ -44,11 +42,11 @@ export const useSidebar = defineStore('sidebar', () => {
 
     { ...getRoute('ping-icmp') },
 
-    t('HD Reports'),
+    'HD Звіти',
 
     { ...getRoute('reports') },
 
-    t('Administration'),
+    'Адміністрування',
 
     { ...getRoute('core-dashboard') },
     { ...getRoute('core-log-audit') },

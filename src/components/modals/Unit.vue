@@ -2,13 +2,11 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { useUnit } from '@/stores/api/units';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -17,7 +15,7 @@ const { findAll, createOne, updateOne, removeOne } = useUnit();
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      name: yup.string().required(t('Value is required'))
+      name: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -29,17 +27,17 @@ const visible = ref(true);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   },
   {
-    label: t('Update records'),
+    label: 'Оновити записи',
     icon: 'pi pi-sync',
     command: async () => await onUpdateRecords()
   }
@@ -60,15 +58,15 @@ const onUpdateRecords = async () => {
     records.value = await findAll({});
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Records is updated'),
+      summary: 'Інформація',
+      detail: 'Записи оновлені',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Records not updated'),
+      summary: 'Попередження',
+      detail: 'Записи не оновлено',
       life: 3000
     });
   }
@@ -78,8 +76,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 5000
   });
 };
@@ -88,14 +86,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -105,15 +103,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -123,8 +121,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -140,16 +138,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -184,9 +182,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <i class="pi pi-desktop mr-4 text-4xl"></i>
           <div>
-            <p class="line-height-2 text-lg font-bold">{{ $t('Unit') }}</p>
+            <p class="line-height-2 text-lg font-bold">Пристрій</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -198,7 +196,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -212,8 +210,8 @@ const onCloseModal = async () => {
         optionLabel="name"
         :options="records"
         @change="event => setValues({ ...event.value })"
-        :filterPlaceholder="$t('Search in list')"
-        :placeholder="$t('Search in database')"
+        :filterPlaceholder="'Пошук у списку'"
+        :placeholder="'Пошук у базі даних'"
       />
     </div>
 
@@ -221,35 +219,35 @@ const onCloseModal = async () => {
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSaveRecord">
       <div class="flex flex-col gap-2">
-        <label for="name" class="font-bold">{{ $t('Unit name') }}</label>
+        <label for="name" class="font-bold">Назва пристрою</label>
         <InputText
           id="name"
           v-model="name"
           v-bind="nameAttrs"
-          :placeholder="$t('Unit name')"
+          placeholder="Назва пристрою"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">
-          {{ $t(errors.name) }}
+          {{ errors.name }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description" class="font-bold">{{ $t('Unit description') }}</label>
+        <label for="description" class="font-bold">Опис пристрою</label>
         <Textarea
           rows="5"
           id="description"
           v-model="description"
           v-bind="descriptionAttrs"
-          :placeholder="$t('Unit description')"
+          placeholder="Опис пристрою"
         />
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

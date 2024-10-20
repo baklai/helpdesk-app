@@ -286,8 +286,8 @@ onMounted(async () => {
               optionGroupChildren="items"
               :options="locations"
               @change="event => onSelectLocation(event.value)"
-              :filterPlaceholder="$t('Search in list')"
-              :placeholder="$t('Select location')"
+              filterPlaceholder="Пошук у списку"
+              placeholder="Виберіть місце розташування"
               class="w-80 !bg-inherit"
               :virtualScrollerOptions="{ itemSize: 32 }"
               :pt="{
@@ -318,11 +318,11 @@ onMounted(async () => {
               outlined
               icon="pi pi-cog text-2xl"
               class="h-12 w-12"
-              v-tooltip.bottom="$t('Options')"
+              v-tooltip.bottom="'Опції'"
             />
           </div>
           <small v-if="ipaddreses?.length" class="text-surface-500">
-            {{ $t('Selected units') }}: {{ ipaddreses.length }}
+            Selected units : {{ ipaddreses.length }}
           </small>
         </div>
       </div>

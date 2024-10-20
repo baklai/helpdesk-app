@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -12,7 +11,6 @@ import { dateTimeToStr } from '@/service/DataFilters';
 import { useSyslog } from '@/stores/api/syslogs';
 import { useProfile } from '@/stores/api/profiles';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -222,8 +220,8 @@ const columns = ref([
 
 const confirmDeleteAll = () => {
   confirm.require({
-    message: t('Do you want to delete all records?'),
-    header: t('Confirm delete records'),
+    message: 'Ви бажаєте видалити всі записи?',
+    header: 'Підтвердження видалення записів',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -233,16 +231,16 @@ const confirmDeleteAll = () => {
       await refDataTable.value.update({});
       toast.add({
         severity: 'success',
-        summary: t('Information'),
-        detail: t('All records deleted'),
+        summary: 'Інформація',
+        detail: 'Всі записи видалено',
         life: 3000
       });
     },
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Records deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення записів не підтверджено',
         life: 3000
       });
     }
@@ -294,7 +292,7 @@ const confirmDeleteAll = () => {
           icon="pi pi-trash"
           iconClass="text-2xl"
           class="h-12 w-12"
-          v-tooltip.bottom="$t('Delete records')"
+          v-tooltip.bottom="'Видалити записи'"
           @click="confirmDeleteAll"
         />
       </template>
