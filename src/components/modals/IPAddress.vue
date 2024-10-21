@@ -203,7 +203,7 @@ const checkIPAddress = async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }

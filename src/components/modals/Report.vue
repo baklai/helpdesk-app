@@ -121,7 +121,7 @@ const datacollections = ref([
     onUpdate: IPAddress.findAll,
     columns: [
       {
-        header: { text: 'Location', width: '15rem' },
+        header: { text: 'Розташування', width: '15rem' },
         column: { field: 'location.name' },
         sorter: { field: 'location.name' },
         filter: {
@@ -160,7 +160,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Letter number', width: '16rem' },
+        header: { text: 'Номер листа', width: '16rem' },
         column: { field: 'reqnum' },
         sorter: { field: 'reqnum' },
         filter: {
@@ -189,7 +189,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'IP Address', width: '15rem' },
+        header: { text: 'IP-адреса', width: '15rem' },
         column: {
           field: 'ipaddress',
           render(value) {
@@ -207,7 +207,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Internet', width: '12rem' },
+        header: { text: 'Інтернет', width: '12rem' },
         column: {
           field: 'inetStatus',
           dataType: 'boolean',
@@ -240,12 +240,12 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Mask', width: '12rem' },
+        header: { text: 'Маска', width: '12rem' },
         column: { field: 'mask' }
       },
 
       {
-        header: { text: 'Gateway', width: '12rem' },
+        header: { text: 'Шлюз', width: '12rem' },
         column: { field: 'gateway' }
       },
 
@@ -266,7 +266,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Fullname', width: '16rem' },
+        header: { text: "Повне ім'я", width: '16rem' },
         column: { field: 'fullname' },
         sorter: { field: 'fullname' },
         filter: {
@@ -298,7 +298,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Phone', width: '12rem' },
+        header: { text: 'Номер телефону', width: '12rem' },
         column: { field: 'phone' },
         sorter: { field: 'phone' },
         filter: {
@@ -311,7 +311,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Organization', width: '16rem' },
+        header: { text: 'Організація', width: '16rem' },
         column: { field: 'organization.name' },
         sorter: { field: 'organization.name' },
         filter: {
@@ -330,7 +330,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Subdivision', width: '16rem' },
+        header: { text: 'Підрозділ', width: '16rem' },
         column: { field: 'subdivision.name' },
         sorter: { field: 'subdivision.name' },
         filter: {
@@ -349,7 +349,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Department', width: '16rem' },
+        header: { text: 'Відділ', width: '16rem' },
         column: { field: 'department.name' },
         sorter: { field: 'department.name' },
         filter: {
@@ -368,7 +368,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Autoanswer', width: '14rem' },
+        header: { text: 'Автовідповідь', width: '14rem' },
         column: { field: 'autoanswer' },
         sorter: { field: 'autoanswer' },
         filter: {
@@ -381,7 +381,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Comment', width: '25rem' },
+        header: { text: 'Коментар', width: '25rem' },
         column: { field: 'comment' }
       }
     ]
@@ -389,7 +389,7 @@ const datacollections = ref([
 
   {
     name: 'mailboxes',
-    label: 'Mailbox addresses',
+    label: 'Адреси поштових скриньок',
     description: 'Mailbox of the technical support',
     onUpdate: Mailbox.findAll,
     columns: [
@@ -421,7 +421,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Letter number', width: '20rem' },
+        header: { text: 'Номер листа', width: '20rem' },
         column: { field: 'reqnum' },
         sorter: { field: 'reqnum' },
         filter: {
@@ -487,7 +487,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Fullname', width: '18rem' },
+        header: { text: "Повне ім'я", width: '18rem' },
         column: { field: 'fullname' },
         sorter: { field: 'fullname' },
         filter: {
@@ -500,7 +500,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Location', width: '15rem' },
+        header: { text: 'Розташування', width: '15rem' },
         column: { field: 'location.name' },
         sorter: { field: 'location.name' },
         filter: {
@@ -520,7 +520,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Organization', width: '16rem' },
+        header: { text: 'Організація', width: '16rem' },
         column: { field: 'organization.name' },
         sorter: { field: 'organization.name' },
         filter: {
@@ -539,7 +539,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Subdivision', width: '16rem' },
+        header: { text: 'Підрозділ', width: '16rem' },
         column: { field: 'subdivision.name' },
         sorter: { field: 'subdivision.name' },
         filter: {
@@ -558,7 +558,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Department', width: '16rem' },
+        header: { text: 'Відділ', width: '16rem' },
         column: { field: 'department.name' },
         sorter: { field: 'department.name' },
         filter: {
@@ -596,7 +596,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Phone', width: '12rem' },
+        header: { text: 'Номер телефону', width: '12rem' },
         column: { field: 'phone' },
         sorter: { field: 'phone' },
         filter: {
@@ -625,7 +625,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Comment', width: '25rem' },
+        header: { text: 'Коментар', width: '25rem' },
         column: { field: 'comment' }
       }
     ]
@@ -694,7 +694,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Letter number', width: '16rem' },
+        header: { text: 'Номер листа', width: '16rem' },
         column: { field: 'reqnum' },
         sorter: { field: 'reqnum' },
         filter: {
@@ -725,7 +725,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Location', width: '15rem' },
+        header: { text: 'Розташування', width: '15rem' },
         column: { field: 'location.name' },
         sorter: { field: 'location.name' },
         filter: {
@@ -745,7 +745,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Fullname', width: '16rem' },
+        header: { text: "Повне ім'я", width: '16rem' },
         column: { field: 'fullname' },
         sorter: { field: 'fullname' },
         filter: {
@@ -758,7 +758,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Phone', width: '15rem' },
+        header: { text: 'Номер телефону', width: '15rem' },
         column: { field: 'phone' },
         sorter: { field: 'phone' },
         filter: {
@@ -790,7 +790,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'IP Address', width: '16rem' },
+        header: { text: 'IP-адреса', width: '16rem' },
         column: { field: 'ipaddress' },
         sorter: { field: 'ipaddress' },
         filter: {
@@ -803,7 +803,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Organization', width: '16rem' },
+        header: { text: 'Організація', width: '16rem' },
         column: { field: 'organization.name' },
         sorter: { field: 'organization.name' },
         filter: {
@@ -822,7 +822,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Subdivision', width: '16rem' },
+        header: { text: 'Підрозділ', width: '16rem' },
         column: { field: 'subdivision.name' },
         sorter: { field: 'subdivision.name' },
         filter: {
@@ -841,7 +841,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Department', width: '16rem' },
+        header: { text: 'Відділ', width: '16rem' },
         column: { field: 'department.name' },
         sorter: { field: 'department.name' },
         filter: {
@@ -900,7 +900,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'Comment', width: '25rem' },
+        header: { text: 'Коментар', width: '25rem' },
         column: { field: 'comment' }
       }
     ]
@@ -913,7 +913,7 @@ const datacollections = ref([
     onUpdate: Inspector.findAll,
     columns: [
       {
-        header: { text: 'PC Name', width: '16rem' },
+        header: { text: "Ім'я комп'ютера", width: '16rem' },
         column: {
           field: 'system.csname',
           render(value) {
@@ -949,7 +949,7 @@ const datacollections = ref([
       },
 
       {
-        header: { text: 'IP Address', width: '15rem' },
+        header: { text: 'IP-адреса', width: '15rem' },
         column: {
           field: 'host',
           render(value) {

@@ -27,7 +27,7 @@ const chartOptions = ref({
 onMounted(async () => {
   stats.value = await Statistic.request();
   yearChartData.value = {
-    labels: MONTHS_OF_YEAR.map(month => t(month.label)),
+    labels: MONTHS_OF_YEAR.map(month => month.label),
     datasets: [
       {
         label: 'Кількість запитів',
@@ -49,7 +49,7 @@ onMounted(async () => {
   };
 
   weekChartData.value = {
-    labels: DAYS_OF_WEEK.map(week => t(week.label)),
+    labels: DAYS_OF_WEEK.map(week => week.label),
     datasets: [
       {
         label: 'Кількість запитів',
@@ -70,10 +70,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>

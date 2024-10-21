@@ -77,7 +77,7 @@ const customOptions = computed(() => [...props.items]);
 
 const hostOptions = computed(() => [
   {
-    label:'Опції',
+    label: 'Опції',
     items: [
       {
         label: 'Копіювати в буфер обміну',
@@ -130,14 +130,14 @@ const copyIPtoClipboard = async value => {
     toast.add({
       severity: 'info',
       summary: 'Інформація',
-      detail: t(`IP ${value} copied to clipboard`),
+      detail: `IP ${value} copied to clipboard`,
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(`IP ${value} not copied to clipboard`),
+      detail: `IP ${value} not copied to clipboard`,
       life: 3000
     });
   }

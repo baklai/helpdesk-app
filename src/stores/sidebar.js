@@ -6,19 +6,17 @@ export const useSidebar = defineStore('sidebar', () => {
   const Router = useRouter();
 
   const navLinks = computed(() => [
-    { ...getRoute('home') },
-
     'Документація',
 
     {
-      label: 'Документація техпідтримки',
+      label: 'Документація',
       url: '/docs/',
       icon: 'docs',
       target: '_blank',
       description: 'Документація технічної підтримки'
     },
 
-    'Додатки',
+    'Системні додатки',
 
     { ...getRoute('events-calendar') },
     {
@@ -42,11 +40,11 @@ export const useSidebar = defineStore('sidebar', () => {
 
     { ...getRoute('ping-icmp') },
 
-    'HD Звіти',
+    'Категорії та шаблони',
 
     { ...getRoute('reports') },
 
-    'Адміністрування',
+    'Панель інструментів',
 
     { ...getRoute('core-dashboard') },
     { ...getRoute('core-log-audit') },
@@ -66,7 +64,7 @@ export const useSidebar = defineStore('sidebar', () => {
     const route = routes.find(item => item.name === name);
     return {
       name: route.name,
-      label: t(route.meta.title),
+      label: route.meta.title,
       icon: route.name,
       command: () => {
         Router.push({ name: route.name });
@@ -79,7 +77,7 @@ export const useSidebar = defineStore('sidebar', () => {
     const route = routes.find(item => item.name === name);
     return {
       name: route.name,
-      label: t(route.meta.title),
+      label: route.meta.title,
       icon: route.name
     };
   }

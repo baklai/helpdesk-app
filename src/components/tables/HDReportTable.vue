@@ -65,7 +65,7 @@ const onUpdateRecords = async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   } finally {
@@ -141,7 +141,7 @@ const initFields = () => {
   fields.value = columns.value
     .filter(item => item.selectable)
     .reduce((acc, item) => {
-      acc[item.column.field] = t(item.header.text);
+      acc[item.column.field] = item.header.text;
       return acc;
     }, {});
   emits('updateFields', fields.value);
@@ -336,7 +336,7 @@ watch(
       toast.add({
         severity: 'warn',
         summary: 'Попередження',
-        detail: t(err.message),
+        detail: err.message,
         life: 3000
       });
     } finally {
@@ -371,7 +371,7 @@ watch(
               @change="onField"
             />
             <label :for="`${option.column.field}${index}`">
-              {{ $t(option.header.text) }}
+              {{ option.header.text }}
             </label>
           </div>
         </template>
@@ -389,7 +389,7 @@ watch(
       <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
-          :label="$'Вибрати все"
+          label="Вибрати все"
           icon="pi pi-check-square"
           size="small"
           class="w-full text-surface-500"
@@ -514,7 +514,7 @@ watch(
       >
         <template #header>
           <span class="mx-2">
-            {{ $t(header?.text) }}
+            {{ header?.text }}
           </span>
         </template>
 
@@ -535,7 +535,7 @@ watch(
               "
             >
               <label class="font-bold">
-                <span class="uppercase">{{ $t(header?.text) }}</span>
+                <span class="uppercase">{{ header?.text }}</span>
               </label>
 
               <Button
@@ -660,7 +660,7 @@ watch(
                 @change="filterCallback"
               />
               <label for="verified-filter" class="font-bold">
-                {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
+                {{ header.text }} {{ filterModel.value == null ? '' : filterModel.value }}
               </label>
             </div>
           </div>

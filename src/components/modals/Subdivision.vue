@@ -260,7 +260,7 @@ const onCloseModal = async () => {
         </div>
 
         <small id="organizations-help" class="text-red-500" v-if="errors?.organization">
-          {{ $t(errors.organization) }}
+          {{ errors.organization }}
         </small>
       </div>
 
@@ -307,7 +307,7 @@ const onCloseModal = async () => {
           aria-describedby="code-help"
         />
         <small id="code-help" class="text-red-500" v-if="errors?.code">
-          {{ $t(errors.code) }}
+          {{ errors.code }}
         </small>
       </div>
 
@@ -322,7 +322,7 @@ const onCloseModal = async () => {
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">
-          {{ $t(errors.name) }}
+          {{ errors.name }}
         </small>
       </div>
 

@@ -60,10 +60,10 @@ const commandHandler = async text => {
         </i>
         <div>
           <h3 class="text-2xl">
-            {{ $t($route?.meta?.title) }}
+            {{ $route?.meta?.title }}
           </h3>
           <p class="text-base text-surface-500">
-            {{ $t($route?.meta?.description) }}
+            {{ $route?.meta?.description }}
           </p>
         </div>
       </div>

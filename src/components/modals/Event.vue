@@ -258,7 +258,7 @@ const onCloseModal = async () => {
           v-model="eventType"
           v-bind="eventTypeAttrs"
           :options="['event', 'meeting', 'deadline', 'holiday', 'birthday']"
-          :optionLabel="item => capitalizeFirstLetter($t(item))"
+          :optionLabel="item => capitalizeFirstLetter(item)"
           filterPlaceholder="Пошук"
           placeholder="Тип події"
           :invalid="!!errors?.eventType"

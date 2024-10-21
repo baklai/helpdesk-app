@@ -166,7 +166,7 @@ app.use(HelpdeskPlugin, {
     github: author.social.github,
     linkedin: author.social.linkedin
   },
-  copyright: `Copyright © ${new Date().getFullYear()} ${author.name}. All rights reserved.`
+  copyright: `Copyright © 2022-${new Date().getFullYear()} ${author.name}. Всі права захищені.`
 });
 
 app.config.errorHandler = function (err, vm, info) {

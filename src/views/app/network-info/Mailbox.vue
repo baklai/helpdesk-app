@@ -71,7 +71,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Letter number', width: '20rem' },
+    header: { text: 'Номер листа', width: '20rem' },
     column: {
       field: 'reqnum',
       render(value) {
@@ -162,7 +162,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '18rem' },
+    header: { text: "Повне ім'я", width: '18rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -185,7 +185,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Location', width: '15rem' },
+    header: { text: 'Розташування', width: '15rem' },
     column: {
       field: 'location.name',
       render(value) {
@@ -215,7 +215,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Organization', width: '16rem' },
+    header: { text: 'Організація', width: '16rem' },
     column: {
       field: 'organization.name',
       render(value) {
@@ -244,7 +244,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Subdivision', width: '16rem' },
+    header: { text: 'Підрозділ', width: '16rem' },
     column: {
       field: 'subdivision.name',
       render(value) {
@@ -273,7 +273,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Department', width: '16rem' },
+    header: { text: 'Відділ', width: '16rem' },
     column: {
       field: 'department.name',
       render(value) {
@@ -331,7 +331,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', width: '12rem' },
+    header: { text: 'Номер телефону', width: '12rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -375,7 +375,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Comment', width: '25rem' },
+    header: { text: 'Коментар', width: '25rem' },
     column: {
       field: 'comment',
       render(value) {
@@ -423,11 +423,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>

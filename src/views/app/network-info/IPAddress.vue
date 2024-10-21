@@ -33,12 +33,12 @@ const refDataTable = ref(null);
 const globalFilter = ref({
   field: 'ipaddress',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search IP Address'
+  placeholder: 'Пошук IP-адреси'
 });
 
 const columns = ref([
   {
-    header: { text: 'Location', width: '15rem' },
+    header: { text: 'Розташування', width: '15rem' },
     column: {
       field: 'location.name',
       render(value) {
@@ -97,7 +97,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Address', width: '15rem' },
+    header: { text: 'IP-адреса', width: '15rem' },
     column: {
       field: 'ipaddress',
       render(value) {
@@ -123,7 +123,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Letter number', width: '16rem' },
+    header: { text: 'Номер листа', width: '16rem' },
     column: {
       field: 'reqnum',
       render(value) {
@@ -167,7 +167,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Internet', width: '12rem' },
+    header: { text: 'Інтернет', width: '12rem' },
     column: {
       field: 'inetStatus',
       dataType: 'boolean',
@@ -205,7 +205,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Mask', width: '12rem' },
+    header: { text: 'Маска', width: '12rem' },
     column: {
       field: 'mask',
       render(value) {
@@ -220,7 +220,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Gateway', width: '12rem' },
+    header: { text: 'Шлюз', width: '12rem' },
     column: {
       field: 'gateway',
       render(value) {
@@ -256,7 +256,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '16rem' },
+    header: { text: "Повне ім'я", width: '16rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -308,7 +308,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', width: '12rem' },
+    header: { text: 'Номер телефону', width: '12rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -331,7 +331,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Organization', width: '16rem' },
+    header: { text: 'Організація', width: '16rem' },
     column: {
       field: 'organization.name',
       render(value) {
@@ -360,7 +360,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Subdivision', width: '16rem' },
+    header: { text: 'Підрозділ', width: '16rem' },
     column: {
       field: 'subdivision.name',
       render(value) {
@@ -389,7 +389,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Department', width: '16rem' },
+    header: { text: 'Відділ', width: '16rem' },
     column: {
       field: 'department.name',
       render(value) {
@@ -418,7 +418,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Autoanswer', width: '14rem' },
+    header: { text: 'Автовідповідь', width: '14rem' },
     column: {
       field: 'autoanswer',
       render(value) {
@@ -441,7 +441,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Comment', width: '25rem' },
+    header: { text: 'Коментар', width: '25rem' },
     column: {
       field: 'comment',
       render(value) {
@@ -489,11 +489,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>

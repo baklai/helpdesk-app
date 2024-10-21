@@ -25,7 +25,7 @@ const globalFilter = ref({
 
 const columns = ref([
   {
-    header: { text: 'Fullname', icon: 'pi pi-id-card', width: '14rem' },
+    header: { text: "Повне ім'я", icon: 'pi pi-id-card', width: '14rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -71,7 +71,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', icon: 'pi pi-phone', width: '16rem' },
+    header: { text: 'Номер телефону', icon: 'pi pi-phone', width: '16rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -198,11 +198,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
     </HDDataTable>
   </div>

@@ -422,10 +422,10 @@ onMounted(async () => {
               </i>
               <div>
                 <h3 class="m-0">
-                  {{ $t($route?.meta?.title) }}
+                  {{ $route?.meta?.title }}
                 </h3>
                 <p class="text-surface-500">
-                  {{ $t($route?.meta?.description) }}
+                  {{ $route?.meta?.description }}
                 </p>
               </div>
             </div>

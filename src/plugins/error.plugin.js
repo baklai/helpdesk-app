@@ -9,11 +9,11 @@ export default {
     app.config.globalProperties.$error = error => {
       let message = 'Helpdesk system error';
       if (typeof error === 'string') {
-        message = $t(capitalizeFirstLetter(error));
+        message = capitalizeFirstLetter(error);
       } else if (typeof error?.message === 'string') {
-        message = $t(capitalizeFirstLetter(error.message));
+        message = capitalizeFirstLetter(error.message);
       } else if (Array.isArray(error?.message)) {
-        message = error.message.map(msg => $t(capitalizeFirstLetter(msg))).join('\n');
+        message = error.message.map(msg => capitalizeFirstLetter(msg)).join('\n');
       }
       $toast.add({
         severity: 'error',

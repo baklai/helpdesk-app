@@ -35,7 +35,7 @@ const onSignup = handleSubmit(async values => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }
@@ -54,7 +54,7 @@ onMounted(() => {
   >
     <div class="flex flex-col gap-2">
       <label for="fullname" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
-        Ім'я користувача
+        Повне ім'я
       </label>
       <span class="relative">
         <i
@@ -65,7 +65,7 @@ onMounted(() => {
           v-model="fullname"
           v-bind="fullnameAttrs"
           :invalid="!!errors?.fullname"
-          placeholder="Ім'я користувача"
+          placeholder="Повне ім'я"
           class="w-full pl-10 text-xl"
           aria-describedby="fullname-help"
         />
@@ -77,7 +77,7 @@ onMounted(() => {
 
     <div class="flex flex-col gap-2">
       <label for="email" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
-        Email користувача
+        Електронна пошта
       </label>
       <span class="relative">
         <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />
@@ -86,7 +86,7 @@ onMounted(() => {
           v-model="email"
           v-bind="emailAttrs"
           :invalid="!!errors?.email"
-          placeholder="Email користувача"
+          placeholder="Електронна пошта"
           class="w-full pl-10 text-xl"
           aria-describedby="email-help"
         />
@@ -98,7 +98,7 @@ onMounted(() => {
 
     <div class="mb-4 flex flex-col gap-2">
       <label for="phone" class="text-lg font-semibold text-surface-950 dark:text-surface-50">
-        Телефон користувача
+        Номер телефону
       </label>
       <span class="relative">
         <i
@@ -111,7 +111,7 @@ onMounted(() => {
           v-model="phone"
           v-bind="phoneAttrs"
           :invalid="!!errors?.phone"
-          placeholder="Телефон користувача"
+          placeholder="Номер телефону"
           class="w-full pl-10 text-xl"
           aria-describedby="phone-help"
         />

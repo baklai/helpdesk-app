@@ -32,7 +32,7 @@ const onReset = handleSubmit(async values => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }
@@ -54,7 +54,7 @@ onMounted(() => {
         Забули пароль?
       </label>
       <p class="text-start font-medium text-surface-500">
-        Введіть свій електронний лист для скидання пароля
+        Введіть свій адрес електронної пошти для відновлення доступу до додатку
       </p>
       <span class="relative">
         <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />

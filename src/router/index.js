@@ -13,8 +13,8 @@ const router = createRouter({
       path: '/',
       name: 'home',
       meta: {
-        title: 'Helpdesk service',
-        description: 'Helpdesk of the technical support'
+        title: 'Техпідтримка',
+        description: 'Веб-додаток технічної підтримки'
       },
       component: () => import('@/views/Index.vue'),
       beforeEnter: (to, from) => {
@@ -36,8 +36,8 @@ const router = createRouter({
           name: 'events-calendar',
           path: 'events-calendar',
           meta: {
-            title: 'Calendar of events',
-            description: 'Сalendar of events of the technical support'
+            title: 'Календар подій',
+            description: 'Календар подій технічної підтримки'
           },
           component: () => import('@/views/app/EventsCalendar.vue')
         },
@@ -45,8 +45,8 @@ const router = createRouter({
           path: 'network-info',
           name: 'network-info',
           meta: {
-            title: 'Network information',
-            description: 'Network information of the technical support'
+            title: 'Мережева інформація',
+            description: 'Мережева інформація технічної підтримки'
           },
           redirect: { name: 'network-statistics' },
           children: [
@@ -54,8 +54,8 @@ const router = createRouter({
               path: 'channels',
               name: 'network-channels',
               meta: {
-                title: 'Network channels',
-                description: 'Network channels of the technical support'
+                title: 'Мережеві канали',
+                description: 'Мережеві канали технічної підтримки'
               },
               component: () => import('@/views/app/network-info/Channels.vue')
             },
@@ -63,8 +63,8 @@ const router = createRouter({
               path: 'ipaddress',
               name: 'network-ipaddress',
               meta: {
-                title: 'Network IP Address',
-                description: 'Network IP Address of the technical support'
+                title: 'IP-адреси мережі',
+                description: 'Мережеві IP-адреси технічної підтримки'
               },
               component: () => import('@/views/app/network-info/IPAddress.vue')
             },
@@ -72,8 +72,8 @@ const router = createRouter({
               path: 'mailbox',
               name: 'network-mailbox',
               meta: {
-                title: 'Mailbox addresses',
-                description: 'Mailbox of the technical support'
+                title: 'Поштові скриньки',
+                description: 'Електронні скриньки технічної підтримки'
               },
               component: () => import('@/views/app/network-info/Mailbox.vue')
             },
@@ -81,8 +81,8 @@ const router = createRouter({
               path: 'network-map',
               name: 'network-map',
               meta: {
-                title: 'Network maps',
-                description: 'Network maps of the technical support'
+                title: 'Мережеві мапи',
+                description: 'Мапи мережі технічної підтримки'
               },
               component: () => import('@/views/app/network-info/NetworkMap.vue')
             },
@@ -90,7 +90,7 @@ const router = createRouter({
               path: 'statistics',
               name: 'network-statistics',
               meta: {
-                title: 'Service statistics',
+                title: 'Статистика сервісу',
                 description: 'Statistics of network information'
               },
               component: () => import('@/views/app/network-info/NetworkStatistics.vue')
@@ -101,8 +101,8 @@ const router = createRouter({
           path: 'technical-support',
           name: 'technical-support',
           meta: {
-            title: 'Technical support',
-            description: 'Technical support log of the clients'
+            title: 'Технічна підтримка',
+            description: 'Журнал технічної підтримки клієнтів'
           },
           redirect: { name: 'technical-support-statistics' },
           children: [
@@ -110,8 +110,8 @@ const router = createRouter({
               path: 'requests',
               name: 'technical-support-requests',
               meta: {
-                title: 'Technical support',
-                description: 'Technical support log of the clients'
+                title: 'Технічна підтримка',
+                description: 'Журнал технічної підтримки клієнтів'
               },
               component: () => import('@/views/app/technical-support/TechnicalSupport.vue')
             },
@@ -119,8 +119,8 @@ const router = createRouter({
               path: 'statistics',
               name: 'technical-support-statistics',
               meta: {
-                title: 'Service statistics',
-                description: 'Statistics of technical support'
+                title: 'Статистика сервісу',
+                description: 'Статистика технічної підтримки'
               },
               component: () =>
                 import('@/views/app/technical-support/TechnicalSupportStatistics.vue')
@@ -131,8 +131,8 @@ const router = createRouter({
           path: 'pc-sys-inspector',
           name: 'pc-sys-inspector',
           meta: {
-            title: 'PC SysInspector',
-            description: 'PC SysInspector service of the technical support'
+            title: 'ПК SysInspector',
+            description: 'ПК SysInspector сервіс технічної підтримки'
           },
           redirect: { name: 'pc-sys-inspector-statistics' },
           children: [
@@ -140,8 +140,8 @@ const router = createRouter({
               path: 'reports',
               name: 'pc-sys-inspector-reports',
               meta: {
-                title: 'PC SysInspector',
-                description: 'PC SysInspector service of the technical support'
+                title: 'ПК SysInspector',
+                description: 'ПК SysInspector сервіс технічної підтримки'
               },
               component: () => import('@/views/app/pc-sys-inspector/PCSysInspector.vue')
             },
@@ -149,8 +149,8 @@ const router = createRouter({
               path: 'statistics',
               name: 'pc-sys-inspector-statistics',
               meta: {
-                title: 'Service statistics',
-                description: 'Statistics of PC SysInspector'
+                title: 'Статистика сервісу',
+                description: 'Статистика сервісу ПК SysInspector технічної підтримки'
               },
               component: () => import('@/views/app/pc-sys-inspector/PCSysInspectorStatistics.vue')
             }
@@ -160,8 +160,8 @@ const router = createRouter({
           path: 'ping-icmp',
           name: 'ping-icmp',
           meta: {
-            title: 'ICMP Ping',
-            description: 'ICMP Ping service of the technical support'
+            title: 'ICMP Пінг',
+            description: 'ICMP Пінг-сервіс технічної підтримки'
           },
           component: () => import('@/views/app/PingICMP.vue')
         },
@@ -169,8 +169,8 @@ const router = createRouter({
           path: 'storage',
           name: 'storage',
           meta: {
-            title: 'File Storage Client',
-            description: 'File Storage Client of the technical support'
+            title: 'Файлове сховище',
+            description: 'Файлове сховища технічної підтримки'
           },
           component: () => import('@/views/app/Storage.vue')
         },
@@ -178,8 +178,8 @@ const router = createRouter({
           path: 'reports',
           name: 'reports',
           meta: {
-            title: 'Reports of service',
-            description: 'Reports of the technical support'
+            title: 'Звіти техпідтримки',
+            description: 'Звіти технічної підтримки'
           },
           component: () => import('@/views/app/Reports.vue')
         }
@@ -195,8 +195,8 @@ const router = createRouter({
           path: 'dashboard',
           name: 'core-dashboard',
           meta: {
-            title: 'Dashboard',
-            description: 'Dashboard of the helpdesk service'
+            title: 'Панель інструментів',
+            description: 'Інформаційна панель технічної підтримки'
           },
           component: () => import('@/views/core/Dashboard.vue')
         },
@@ -204,8 +204,8 @@ const router = createRouter({
           path: 'log-audit',
           name: 'core-log-audit',
           meta: {
-            title: 'Activity audit',
-            description: 'Audit log of the helpdesk service'
+            title: 'Аудит активності',
+            description: 'Журнал аудиту технічної підтримки'
           },
           component: () => import('@/views/core/LogAudit.vue')
         },
@@ -213,8 +213,8 @@ const router = createRouter({
           path: 'profiles',
           name: 'core-profiles',
           meta: {
-            title: 'Profile accounts',
-            description: 'Profile accounts of the helpdesk service'
+            title: 'Користувачі',
+            description: 'Профільні акаунти технічної підтримки'
           },
           component: () => import('@/views/core/Profiles.vue')
         }
@@ -262,7 +262,7 @@ router.beforeEach((to, from) => {
   if (title) {
     document.title = `HD • ${title}`;
   } else {
-    document.title = `HD • Helpdesk service`;
+    document.title = `HD • Служба технічної підтримки`;
   }
 
   const description = to.meta.description;

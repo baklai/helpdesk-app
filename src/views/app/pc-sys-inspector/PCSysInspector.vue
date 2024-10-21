@@ -26,7 +26,7 @@ const refDataTable = ref();
 const refWarningMenu = ref();
 const warningOptions = ref([
   {
-    label: 'Show missing IP Addresses',
+    label: 'Показати відсутні IP-адреси',
     icon: 'pi pi-desktop',
     command: async () =>
       await refDataTable.value.update({
@@ -81,12 +81,12 @@ const warningOptions = ref([
 const globalFilter = ref({
   field: 'host',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search IP Address'
+  placeholder: 'Пошук IP-адреси'
 });
 
 const columns = ref([
   {
-    header: { text: 'PC Name', width: '16rem' },
+    header: { text: "Ім'я комп'ютера", width: '16rem' },
     column: {
       field: 'system.csname',
       render(value) {
@@ -140,7 +140,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Address', width: '15rem' },
+    header: { text: 'IP-адреса', width: '15rem' },
     column: {
       field: 'host',
       render(value) {
@@ -529,11 +529,11 @@ const createSysInspectorScript = async () => {
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>

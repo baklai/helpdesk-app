@@ -5,7 +5,7 @@ export const useScope = defineStore('scope', () => {
     return [
       {
         scope: 'event',
-        comment: 'Calendar of events',
+        comment: 'Календар подій',
         create: false,
         read: true,
         update: false,
@@ -15,13 +15,13 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'netmap',
-        comment: 'Network maps',
+        comment: 'Мережеві мапи',
         read: true
       },
 
       {
         scope: 'channel',
-        comment: 'Network channels',
+        comment: 'Мережеві канали',
         create: false,
         read: true,
         update: false,
@@ -31,7 +31,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'ipaddress',
-        comment: 'Network IP Addresses',
+        comment: 'Мережеві IP-адреси',
         create: false,
         read: true,
         update: false,
@@ -41,7 +41,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'mailbox',
-        comment: 'Mailbox addresses',
+        comment: 'Адреси поштових скриньок',
         create: false,
         read: true,
         update: false,

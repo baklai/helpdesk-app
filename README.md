@@ -1,145 +1,121 @@
-# HELPDESK APP V1
+# HELPDESK APP
 
-Web application of technical support
+Веб-додаток технічної підтримки
 
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/vue)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/pinia)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/vue-router)
-![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/vue-i18n)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/primevue)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/primeicons)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/axios)
 ![GitHub package.json dependency version (subfolder of monorepo)](https://img.shields.io/github/package-json/dependency-version/baklai/helpdesk-app-v1/html2pdf.js)
 
-## Prerequisites
+## Передумови
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
-- Docker - [Download & Install Docker](https://docs.docker.com/engine/install/).
+- Git - [Завантажте та встановіть Git](https://git-scm.com/downloads).
+- Node.js - [Завантажте та встановіть Node.js](https://nodejs.org/en/download/) і менеджер пакетів npm.
+- Docker - [Завантажте та встановіть Docker](https://docs.docker.com/engine/install/).
 
-## Downloading
+## Завантаження
 
 ```bash
 git clone
 ```
 
-## Installing NPM modules
+## Встановлення NPM модулів
 
 ```bash
-# install dependencies
 $ npm install
 ```
 
-## Project variables
+## Змінні проекту
 
-| Key                 | Comment      |
+| Ключ                | Коментар     |
 | ------------------- | ------------ |
 | `VITE_APP_BASE_URL` | APP Base url |
 | `VITE_API_BASE_URL` | API Base url |
 
 ## Project Setup
 
-### Compile and Hot-Reload for Development
+### Компіляція та гаряче перезавантаження для розробки
 
 ```bash
-# client with hot reload at localhost:5173
 npm run dev
 ```
 
-```bash
-# docs with hot reload at localhost:5174
-$ npm run docs:dev
-```
-
-### Compile and Minify for Production
+### Компіляція та мінімізація для виробництва
 
 ```bash
-# build for production
 npm run build
 ```
 
-```bash
-# build docs for production
-$ npm run docs:build
-```
-
-## Running application
+## Запустити додаток
 
 ```bash
-# run preview production
 $ npm run preview
 ```
 
-```bash
-# run docs preview production
-$ npm run docs:preview
-```
-
-### Lint with [ESLint](https://eslint.org/)
+### Перевікра з [ESLint](https://eslint.org/)
 
 ```bash
 npm run lint
 ```
 
-### Format with [Prettier](https://prettier.io/)
+### Формат з [Prettier](https://prettier.io/)
 
 ```bash
 npm run format
 ```
 
-After starting the app on port (5173 as default) you can open
-in your browser helpdesk by typing http://localhost:5173/.
+Після запуску програми на порту (5173 за замовчуванням) ви можете відкрити
+у службу підтримки браузера, ввівши http://localhost:5173/.
 
-## Docker Quick Start
+## Швидкий старт з Docker
 
 ```bash
-# Create custom docker compose file compose.yaml
+# Створіть спеціальний файл компонування докера compose.yaml
 services:
   app:
     image: baklai/helpdesk-app:latest
-    volumes:
-      - ${STORAGE_PATH}:${STORAGE_PATH}
     env_file: .env
     environment:
       - NODE_ENV=production
     ports:
-      - 3000:3000
+      - 5173:5173
     restart: unless-stopped
     container_name: helpdesk-app
 ```
 
 ```bash
-# Start application
+# Запустіть додаток
 docker compose up -d
 ```
 
 ```bash
-# Logs application
+# Журнали програми
 docker logs --tail 30 -f helpdesk-app
 ```
 
 ```bash
-# Restart application
+# Перезапустіть програму
 docker compose down && docker rmi baklai/helpdesk-app && docker compose up -d && docker logs -f helpdesk-app
 ```
 
-In the terminal, run the following command to stop the application.
-
 ```bash
-# Delete application
+# Видалити програму
 docker compose down
 ```
 
-After starting the app on port (5173 as default) you can open
-in your browser helpdesk by typing http://localhost:5173/.
+Після запуску програми на порту (5173 за замовчуванням) ви можете відкрити
+у службу підтримки браузера, ввівши http://localhost:5173/.
 
-## Build Docker images
+## Створення зображень Docker
 
 ```bash
-# Build docker image
+# Створення образу докера
 docker compose build
 
-# Build docker multiplatform images and Pushes images to the repository
+# Створюйте мультиплатформенні образи докерів і надсилайте зображення до репозиторію
 docker compose build --builder multibuilder --no-cache --push
 ```
 
@@ -148,17 +124,17 @@ machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
 you'll want to build the image for that platform, e.g.:
 
 ```bash
-# Make sure you have buildx installed. If it is not installed, install it as follows
+# Переконайтеся, що у вас встановлено buildx. Якщо він не встановлений, встановіть його наступним чином
 docker buildx install
 
-# Build and switch to buildx builder
+# Збірка та перехід на buildx builder
 docker buildx create --platform linux/amd64,linux/i386,linux/arm/v5,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x --name multibuilder --use
 
-# Start the builder instance
+# Запустіть екземпляр конструктора
 docker buildx inspect --bootstrap
 ```
 
 ```bash
-# Use Docker registry
+# Використовуйте реєстр Docker
 docker login
 ```

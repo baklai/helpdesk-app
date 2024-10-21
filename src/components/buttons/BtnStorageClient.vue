@@ -11,7 +11,7 @@
     rounded
     icon="pi pi-cloud-upload"
     class="h-12 w-12 text-2xl"
-    v-tooltip.bottom="'Клієнт файлового сховища'"
+    v-tooltip.bottom="'Файлове сховище'"
     @click="$router.push({ name: 'storage' })"
   />
 </template>

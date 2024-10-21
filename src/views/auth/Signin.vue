@@ -37,7 +37,7 @@ const onSignin = handleSubmit(async values => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }
@@ -82,7 +82,7 @@ onMounted(() => {
 
     <div class="flex flex-col gap-2">
       <label for="password" class="text-xl font-semibold text-surface-950 dark:text-surface-50">
-        Пароль
+        Пароль користувача
       </label>
       <span class="relative">
         <i

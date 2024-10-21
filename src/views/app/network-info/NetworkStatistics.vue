@@ -33,10 +33,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>
@@ -83,131 +83,6 @@ onMounted(async () => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <title>swap-horizontal</title>
                   <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
-                </svg>
-              </div>
-            </div>
-            <span class="mr-2 font-medium text-green-500">Актуально на</span>
-            <span class="">{{ currentDate }}</span>
-          </div>
-        </div>
-
-        <div class="w-full p-4 lg:w-1/2">
-          <div
-            class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
-          >
-            <div class="mb-3 flex justify-between">
-              <div>
-                <span class="mb-3 block font-bold">Загальна кількість пристроїв</span>
-                <div class="text-xl font-bold text-primary-500">
-                  {{ stats?.units || '-' }}
-                </div>
-              </div>
-              <div class="flex h-12 w-12 items-center justify-center rounded bg-green-100 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <title>expansion-card-variant</title>
-                  <path
-                    d="M2 7H4.5V17H3V8.5H2M22 7V16H14V17H7V16H6V7M10 9H8V12H10M13 9H11V12H13M20 9H15V14H20V9Z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <span class="mr-2 font-medium text-green-500">Актуально на</span>
-            <span class="">{{ currentDate }}</span>
-          </div>
-        </div>
-
-        <div class="w-full p-4 lg:w-1/2">
-          <div
-            class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
-          >
-            <div class="mb-3 flex justify-between">
-              <div>
-                <span class="mb-3 block font-bold">Загальна кількість розташувань</span>
-                <div class="text-xl font-bold text-primary-500">
-                  {{ stats?.locations || '-' }}
-                </div>
-              </div>
-              <div class="flex h-12 w-12 items-center justify-center rounded bg-blue-100 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <title>map-marker-outline</title>
-                  <path
-                    d="M12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9C7,10 7,12 12,18.71C17,12 17,10 17,9A5,5 0 0,0 12,4Z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <span class="mr-2 font-medium text-green-500">Актуально на</span>
-            <span class="">{{ currentDate }}</span>
-          </div>
-        </div>
-
-        <div class="w-full p-4 lg:w-1/2">
-          <div
-            class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
-          >
-            <div class="mb-3 flex justify-between">
-              <div>
-                <span class="mb-3 block font-bold">Загальна кількість організацій</span>
-                <div class="text-xl font-bold text-primary-500">
-                  {{ stats?.organizations || '-' }}
-                </div>
-              </div>
-              <div class="flex h-12 w-12 items-center justify-center rounded bg-blue-100 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <title>office-building-outline</title>
-                  <path
-                    d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <span class="mr-2 font-medium text-green-500">Актуально на</span>
-            <span class="">{{ currentDate }}</span>
-          </div>
-        </div>
-
-        <div class="w-full p-4 lg:w-1/2">
-          <div
-            class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
-          >
-            <div class="mb-3 flex justify-between">
-              <div>
-                <span class="mb-3 block font-bold">Загальна кількість підрозділів</span>
-                <div class="text-xl font-bold text-primary-500">
-                  {{ stats?.subdivisions || '-' }}
-                </div>
-              </div>
-              <div class="flex h-12 w-12 items-center justify-center rounded bg-blue-100 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <title>office-building-outline</title>
-                  <path
-                    d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <span class="mr-2 font-medium text-green-500">Актуально на</span>
-            <span class="">{{ currentDate }}</span>
-          </div>
-        </div>
-
-        <div class="w-full p-4 lg:w-1/2">
-          <div
-            class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
-          >
-            <div class="mb-3 flex justify-between">
-              <div>
-                <span class="mb-3 block font-bold">Загальна кількість відділів</span>
-                <div class="text-xl font-bold text-primary-500">
-                  {{ stats?.departments || '-' }}
-                </div>
-              </div>
-              <div class="flex h-12 w-12 items-center justify-center rounded bg-blue-100 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <title>office-building-outline</title>
-                  <path
-                    d="M19 3V21H13V17.5H11V21H5V3H19M15 7H17V5H15V7M11 7H13V5H11V7M7 7H9V5H7V7M15 11H17V9H15V11M11 11H13V9H11V11M7 11H9V9H7V11M15 15H17V13H15V15M11 15H13V13H11V15M7 15H9V13H7V15M15 19H17V17H15V19M7 19H9V17H7V19M21 1H3V23H21V1Z"
-                  />
                 </svg>
               </div>
             </div>

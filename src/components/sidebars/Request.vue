@@ -95,110 +95,112 @@ const onCloseSidebar = () => {
     <template #content>
       <div class="overflow-y-auto py-6" style="height: calc(100vh - 20rem)">
         <table class="w-full">
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Відкрив запит :</td>
-            <td>
-              {{ record?.workerOpen ? record?.workerOpen?.fullname : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Дата відкриття :</td>
-            <td>
-              {{ record?.createdAt ? dateTimeToStr(record?.createdAt) : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Статус :</td>
-            <td>
-              <i
-                :class="
-                  record?.closed
-                    ? 'pi pi-check-circle text-green-500'
-                    : 'pi pi-info-circle text-orange-500'
-                "
-              />
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td colspan="2">
-              <p class="w-full font-bold">Запит :</p>
-              <p class="text-primary font-medium">
-                {{ record?.request ? record?.request : '-' }}
-              </p>
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Розташування :</td>
-            <td>
-              {{ record?.location ? record?.location?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Повне ім'я :</td>
-            <td>{{ record?.fullname || '-' }}</td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Телефон :</td>
-            <td>{{ record?.phone || '-' }}</td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Посада :</td>
-            <td>
-              {{ record?.position ? record?.position?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">IP-адресa :</td>
-            <td>
-              {{ record?.ipaddress ? record?.ipaddress : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Номер листа :</td>
-            <td>{{ record?.reqnum || '-' }}</td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Організація :</td>
-            <td>
-              {{ record?.organization ? record?.organization?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Підрозділ :</td>
-            <td>
-              {{ record?.subdivision ? record?.subdivision?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Відділ :</td>
-            <td>
-              {{ record?.department ? record?.department?.title : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Дата закриття :</td>
-            <td>
-              {{ record?.closed ? dateTimeToStr(record?.updatedAt) : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Закрив запит :</td>
-            <td>
-              {{ record?.workerClose ? record?.workerClose?.fullname : '-' }}
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td colspan="2">
-              <p class="w-full font-bold">Висновок до запиту :</p>
-              <p class="text-primary font-medium">
-                {{ record?.conclusion || '-' }}
-              </p>
-            </td>
-          </tr>
-          <tr class="border border-surface-200 dark:border-surface-600">
-            <td class="font-bold" width="50%">Коментар :</td>
-            <td>{{ record?.comment || '-' }}</td>
-          </tr>
+          <tbody>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Відкрив запит :</td>
+              <td>
+                {{ record?.workerOpen ? record?.workerOpen?.fullname : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Дата відкриття :</td>
+              <td>
+                {{ record?.createdAt ? dateTimeToStr(record?.createdAt) : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Статус :</td>
+              <td>
+                <i
+                  :class="
+                    record?.closed
+                      ? 'pi pi-check-circle text-green-500'
+                      : 'pi pi-info-circle text-orange-500'
+                  "
+                />
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td colspan="2">
+                <p class="w-full font-bold">Запит :</p>
+                <p class="text-primary font-medium">
+                  {{ record?.request ? record?.request : '-' }}
+                </p>
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Розташування :</td>
+              <td>
+                {{ record?.location ? record?.location?.title : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Повне ім'я :</td>
+              <td>{{ record?.fullname || '-' }}</td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Телефон :</td>
+              <td>{{ record?.phone || '-' }}</td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Посада :</td>
+              <td>
+                {{ record?.position ? record?.position?.title : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">IP-адресa :</td>
+              <td>
+                {{ record?.ipaddress ? record?.ipaddress : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Номер листа :</td>
+              <td>{{ record?.reqnum || '-' }}</td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Організація :</td>
+              <td>
+                {{ record?.organization ? record?.organization?.title : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Підрозділ :</td>
+              <td>
+                {{ record?.subdivision ? record?.subdivision?.title : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Відділ :</td>
+              <td>
+                {{ record?.department ? record?.department?.title : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Дата закриття :</td>
+              <td>
+                {{ record?.closed ? dateTimeToStr(record?.updatedAt) : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Закрив запит :</td>
+              <td>
+                {{ record?.workerClose ? record?.workerClose?.fullname : '-' }}
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td colspan="2">
+                <p class="w-full font-bold">Висновок до запиту :</p>
+                <p class="text-primary font-medium">
+                  {{ record?.conclusion || '-' }}
+                </p>
+              </td>
+            </tr>
+            <tr class="border border-surface-200 dark:border-surface-600">
+              <td class="font-bold" width="50%">Коментар :</td>
+              <td>{{ record?.comment || '-' }}</td>
+            </tr>
+          </tbody>
         </table>
 
         <div class="w-full py-4">

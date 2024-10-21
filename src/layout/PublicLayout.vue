@@ -43,23 +43,23 @@ const disabledSelectedFromHTML = ref({
           </p>
         </div>
 
-        <p class="text-xl font-medium text-surface-500">Веб-додаток техпідтримки</p>
+        <p class="text-xl font-medium text-surface-500">Веб-додаток технічної підтримки</p>
       </div>
 
       <main class="flex flex-col items-center gap-4">
         <RouterView />
       </main>
 
-      <p class="text-center font-semibold text-surface-500">
-        A problem?
+      <p class="font-mormal text-center text-surface-500">
+        Є проблема?
         <a
           target="_blank"
           :href="$helpdesk.authorUrl"
           class="cursor-pointer font-semibold text-primary-600 hover:text-primary-500"
         >
-          Click here
+          Натисніть тут
         </a>
-        and let us help you.
+        і дозвольте нам допомогти вам.
       </p>
     </div>
 
@@ -74,7 +74,7 @@ const disabledSelectedFromHTML = ref({
         </div>
 
         <div class="mb-8 text-center">
-          <p class="text-xl font-medium text-surface-300">Веб-додаток техпідтримки</p>
+          <p class="text-xl font-medium text-surface-300">Веб-додаток технічної підтримки</p>
         </div>
 
         <div class="mb-8 w-[30rem] text-center">

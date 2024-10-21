@@ -96,7 +96,7 @@ const confirmDelete = ({ id }) => {
 
 const convertToCSV = data => {
   const [first] = data;
-  const headerI18n = Object.keys(first).map(item => t(item));
+  const headerI18n = Object.keys(first).map(item => item);
   const header = headerI18n.join(';');
   const rows = data.map(obj => Object.values(obj).join(';'));
   return `${header}\n${rows.join('\n')}`;
@@ -121,7 +121,7 @@ const reportToCSV = async ({ id }) => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   } finally {
@@ -136,7 +136,7 @@ onMounted(async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }
@@ -160,10 +160,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>

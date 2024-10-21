@@ -145,7 +145,7 @@ const onUpdateRecords = async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   } finally {
@@ -466,7 +466,7 @@ onMounted(async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   } finally {
@@ -498,7 +498,7 @@ onMounted(async () => {
               class="mr-2"
             />
             <label :for="`${option.column.field}${index}`">
-              {{ $t(option.header.text) }}
+              {{ option.header.text }}
             </label>
           </div>
         </template>
@@ -516,7 +516,7 @@ onMounted(async () => {
       <div class="flex w-full justify-between gap-3 pt-2">
         <Button
           outlined
-          :label="$'Вибрати все"
+          label="Вибрати все"
           icon="pi pi-check-square"
           size="small"
           class="w-full text-surface-500"
@@ -557,7 +557,7 @@ onMounted(async () => {
       :rows="recordsPerPage"
       :totalRecords="totalRecords"
       :rowsPerPageOptions="recordsPerPageOptions"
-      :currentPageReportTemplate="`Showing records first: ${first}, last: ${last}', totalRecords: ${totalRecords}`"
+      currentPageReportTemplate="Showing records first: {first}, last: {last}, totalRecords: {totalRecords}"
       style="height: calc(100vh - 5rem)"
       class="min-w-full overflow-x-auto text-base"
       :paginatorTemplate="'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'"
@@ -587,7 +587,7 @@ onMounted(async () => {
               <InputText
                 id="name"
                 class="w-full !bg-inherit px-10 sm:w-max"
-                :placeholder="$t(globalFilter?.placeholder)"
+                :placeholder="globalFilter?.placeholder"
                 v-model="filters['global'].value"
                 @keydown.enter="onFilter({ filters })"
               />
@@ -763,7 +763,7 @@ onMounted(async () => {
         <template #header>
           <span class="mx-2">
             <i v-if="header?.icon" :class="header.icon" class="mr-2" />
-            {{ $t(header?.text) }}
+            {{ header?.text }}
           </span>
         </template>
 
@@ -788,7 +788,7 @@ onMounted(async () => {
               "
             >
               <label class="font-bold">
-                <span class="uppercase">{{ $t(header?.text) }}</span>
+                <span class="uppercase">{{ header?.text }}</span>
               </label>
 
               <Button
@@ -913,7 +913,7 @@ onMounted(async () => {
                 @change="filterCallback"
               />
               <label for="verified-filter" class="font-bold">
-                {{ $t(header.text) }} {{ filterModel.value == null ? '' : filterModel.value }}
+                {{ header.text }} {{ filterModel.value == null ? '' : filterModel.value }}
               </label>
             </div>
           </div>

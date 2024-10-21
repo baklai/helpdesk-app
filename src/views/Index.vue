@@ -16,7 +16,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </div>
 
             <div class="mb-8 text-center">
-              <p class="font-medium text-surface-500">Веб-додаток техпідтримки</p>
+              <p class="font-medium text-surface-500">Веб-додаток технічної підтримки</p>
             </div>
 
             <div class="mb-8 text-center">
@@ -64,65 +64,66 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
       </div>
 
       <div class="flex w-auto items-center justify-center py-8">
-        <main class="w-[30rem] items-center justify-center text-surface-600 dark:text-surface-300">
+        <main class="w-[35rem] items-center justify-center text-surface-600 dark:text-surface-300">
           <section id="documentation" class="mb-6">
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
-              {{ 'Documentation' }}
+              Документація
             </h3>
             <span class="text-lg font-light">
               <RouterLink class="font-semibold text-primary-500 hover:text-primary-400" to="/docs">
-                HD’s official documentation
+                HD Довідник
               </RouterLink>
-              provides you with all information you need to get started.
+              містить усю інформацію, необхідну для початку роботи.
             </span>
           </section>
 
           <section id="pc-sys-inspector" class="mb-6">
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
-              {{ 'PC SysInspector' }}
+              ПК SysInspector
             </h3>
             <span class="text-lg font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'pc-sys-inspector' }"
               >
-                PC SysInspector service
+                ПК SysInspector сервіс
               </RouterLink>
-              aggregates information about computers on the network, which can be useful for
-              managing a fleet of computers and ensuring the security of an organization.
+              збирає інформацію про комп’ютери в мережі, яка може бути корисною для управління
+              парком комп'ютерів і забезпечення безпеки організації.
             </span>
           </section>
 
           <section id="hd-live-log" class="mb-6">
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
-              {{ 'Technical support' }}
+              Технічна підтримка
             </h3>
             <span class="text-lg font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'technical-support' }"
               >
-                Technical support
+                Технічна підтримка
               </RouterLink>
-              web service allows users to submit support requests through a web interface, track
-              request status, and provide statistics and analytics on Help Desk performance.
+              веб-додаток дозволяє користувачам надсилати запити на підтримку через веб-інтерфейс,
+              трек статус запиту, а також надавати статистику та аналітику продуктивності служби
+              підтримки.
             </span>
           </section>
 
           <section id="network-information">
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
-              {{ 'Network information' }}
+              Мережева інформація
             </h3>
             <span class="text-lg font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'network-info' }"
               >
-                Network information
+                Мережева інформація
               </RouterLink>
-              web service is designed for keeping track of IP addresses of network devices and users
-              on a local network. It allows administrators to keep records, as well as provides
-              information on the availability of devices and their current status.
+              веб-сервіс призначений для відстеження IP-адрес мережевих пристроїв і користувачів в
+              локальній мережі. Це дозволяє адміністраторам вести облік, а також забезпечує
+              інформація про наявність пристроїв та їх поточний стан.
             </span>
           </section>
         </main>

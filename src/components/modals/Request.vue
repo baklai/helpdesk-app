@@ -163,7 +163,7 @@ const findOneIPAddress = async () => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: t(err.message),
+      detail: err.message,
       life: 3000
     });
   }
@@ -488,7 +488,7 @@ const onCloseModal = async () => {
           </div>
 
           <small id="location-help" class="text-red-500" v-if="errors?.location">
-            {{ $t(errors.location) }}
+            {{ errors.location }}
           </small>
         </div>
 
