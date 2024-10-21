@@ -31,7 +31,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'ipaddress',
-        comment: 'Мережеві IP-адреси',
+        comment: 'IP-адреси мережі',
         create: false,
         read: true,
         update: false,
@@ -41,7 +41,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'mailbox',
-        comment: 'Адреси поштових скриньок',
+        comment: 'Поштові скриньки',
         create: false,
         read: true,
         update: false,
@@ -51,7 +51,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'request',
-        comment: 'Technical support',
+        comment: 'Технічна підтримка',
         create: false,
         read: true,
         update: false,
@@ -61,13 +61,13 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'inspector',
-        comment: 'PC SysInspector',
+        comment: 'ПК SysInspector',
         read: true
       },
 
       {
         scope: 'report',
-        comment: 'HD Reports of Service',
+        comment: 'Звіти техпідтримки',
         create: false,
         read: true,
         update: false,
@@ -77,7 +77,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'ping',
-        comment: 'ICMP Ping Service',
+        comment: 'ICMP Пінг-сервіс',
         create: true,
         read: true,
         update: false,
@@ -87,7 +87,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'organization',
-        comment: 'Organizations',
+        comment: 'Організації',
         create: false,
         read: true,
         update: false,
@@ -97,7 +97,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'subdivision',
-        comment: 'Subdivisions',
+        comment: 'Підрозділи',
         create: false,
         read: true,
         update: false,
@@ -107,7 +107,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'department',
-        comment: 'Departments',
+        comment: 'Відділи',
         create: false,
         read: true,
         update: false,
@@ -117,7 +117,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'location',
-        comment: 'Locations',
+        comment: 'Розташування',
         create: false,
         read: true,
         update: false,
@@ -127,7 +127,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'position',
-        comment: 'Positions',
+        comment: 'Посади',
         create: false,
         read: true,
         update: false,
@@ -137,7 +137,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'unit',
-        comment: 'Units',
+        comment: 'Пристрої',
         create: false,
         read: true,
         update: false,
@@ -147,7 +147,7 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'filter',
-        comment: 'Filters',
+        comment: 'Фільтри',
         create: false,
         read: true,
         update: false,
@@ -157,19 +157,19 @@ export const useScope = defineStore('scope', () => {
 
       {
         scope: 'statistic:network',
-        comment: 'Statistic of Network',
+        comment: 'Статистика мережі',
         read: true
       },
 
       {
         scope: 'statistic:request',
-        comment: 'Statistic of Requests',
+        comment: 'Статистика запитів',
         read: true
       },
 
       {
         scope: 'statistic:inspector',
-        comment: 'Statistic of PC SysInspector',
+        comment: 'Статистика ПК SysInspector',
         read: true
       }
     ];

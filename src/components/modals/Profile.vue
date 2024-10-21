@@ -97,7 +97,7 @@ const selectOptions = ref([
     }
   },
   {
-    label: 'Скасувати вибір усіх',
+    label: 'Скасувати все',
     icon: 'pi pi-minus-circle',
     command: () => {
       setValues({ scope: getSelectScope(false) });
@@ -105,7 +105,7 @@ const selectOptions = ref([
   },
   { separator: true },
   {
-    label: 'Встановити за замовчуванням',
+    label: 'За замовчуванням',
     icon: 'pi pi-verified',
     command: () => {
       setValues({ scope: getDefaultScope() });
@@ -114,11 +114,11 @@ const selectOptions = ref([
 ]);
 
 const columns = ref([
-  { field: 'create', header: 'Create' },
-  { field: 'read', header: 'Read' },
-  { field: 'update', header: 'Update' },
-  { field: 'delete', header: 'Delete' },
-  { field: 'notice', header: 'Notice' }
+  { field: 'create', header: 'Створити' },
+  { field: 'read', header: 'Читати' },
+  { field: 'update', header: 'Оновити' },
+  { field: 'delete', header: 'Видалити' },
+  { field: 'notice', header: 'Повідомлення' }
 ]);
 
 const filters = ref({
@@ -254,7 +254,7 @@ const onCloseModal = () => {
     closable
     :draggable="false"
     v-model:visible="visible"
-    class="mx-auto w-[90vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]"
+    class="mx-auto w-[90vw] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[50vw]"
     @hide="onCloseModal"
   >
     <template #header>
@@ -290,12 +290,12 @@ const onCloseModal = () => {
     >
       <div class="flex flex-col space-y-4 md:!w-1/3 md:pr-2">
         <div class="flex flex-col gap-2">
-          <label for="fullname" class="font-bold">Ім'я користувача</label>
+          <label for="fullname" class="font-bold">Повне ім'я</label>
           <InputText
             id="fullname"
             v-model="fullname"
             v-bind="fullnameAttrs"
-            placeholder="Ім'я користувача"
+            placeholder="Повне ім'я"
             :invalid="!!errors?.fullname"
             aria-describedby="fullname-help"
           />
@@ -305,12 +305,12 @@ const onCloseModal = () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="email" class="font-bold">Email користувача</label>
+          <label for="email" class="font-bold">Електронна пошта</label>
           <InputText
             id="email"
             v-model="email"
             v-bind="emailAttrs"
-            placeholder="Email користувача"
+            placeholder="Електронна пошта"
             :invalid="!!errors?.email"
             aria-describedby="email-help"
           />
@@ -320,7 +320,7 @@ const onCloseModal = () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="phone" class="font-bold">Телефон користувача</label>
+          <label for="phone" class="font-bold">Номер телефону</label>
           <InputMask
             date="phone"
             mask="+99(999)999-99-99"
@@ -373,7 +373,7 @@ const onCloseModal = () => {
               <div class="flex flex-wrap items-center gap-2">
                 <i class="pi pi-unlock mr-2 text-2xl"></i>
                 <div>
-                  <p>Список дозволів</p>
+                  <p>Набори дозволів</p>
                   <small class="text-surface-500">
                     {{ `Вибрано ${selectScopeLength} з ${scopeLength()} дозволів` }}
                   </small>
@@ -415,11 +415,11 @@ const onCloseModal = () => {
           <template #empty>
             <div class="text-center">
               <h5>Записів не знайдено</h5>
-              <p>Спробуйте змінити пошукові терміни у фільтрі</p>
+              <p>Спробуйте змінити пошукові запити у фільтрі</p>
             </div>
           </template>
 
-          <Column frozen field="scope" filterField="scope" header="Дозволи" class="font-bold">
+          <Column frozen field="scope" filterField="scope" header="" class="font-bold">
             <template #body="{ data }">
               {{ data.value.comment }}
             </template>

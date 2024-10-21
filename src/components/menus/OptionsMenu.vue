@@ -100,7 +100,7 @@ const hostOptions = computed(() => [
     label: 'Посилання на опції',
     items: [
       {
-        label: 'CMD Ping',
+        label: 'CMD Пінг',
         icon: 'pi pi-desktop',
         command: () => getPINGLink(record.value[props.hostkey])
       },
@@ -130,14 +130,14 @@ const copyIPtoClipboard = async value => {
     toast.add({
       severity: 'info',
       summary: 'Інформація',
-      detail: `IP ${value} copied to clipboard`,
+      detail: `IP ${value} скопійовано в буфер обміну`,
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: `IP ${value} not copied to clipboard`,
+      detail: `IP ${value} не скопійовано в буфер обміну`,
       life: 3000
     });
   }
@@ -148,7 +148,7 @@ const onPINGCommand = async value => {
     toast.add({
       severity: 'info',
       summary: 'Інформація',
-      detail: `ICMP Ping running on ${value}`,
+      detail: `ICMP Пінг запущено на ${value}`,
       life: 3000
     });
     const ping = await Ping.createOne({ host: value });
@@ -164,7 +164,7 @@ const onPINGCommand = async value => {
     toast.add({
       severity: 'warn',
       summary: 'Попередження',
-      detail: `ICMP Ping on ${value} does not answer`
+      detail: `ICMP Пінг на ${value} не відповідає`
     });
   }
 };

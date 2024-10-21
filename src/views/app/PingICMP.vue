@@ -32,19 +32,19 @@ const commandHandler = async text => {
       break;
 
     case 'ping':
-      response = `ICMP Ping працює ${host}`;
+      response = `ICMP Пінг працює ${host}`;
       try {
         const ping = await Ping.createOne({ host: host });
         if (ping.output) {
           response += ping?.output;
         }
       } catch (err) {
-        response += `ICMP Ping on ${host} does not answer`;
+        response += `ICMP Пінг на ${value} не відповідає`;
       }
       break;
 
     default:
-      response = 'Unknown command: <span>sdkfjg</span>' + command;
+      response = 'Невідома команда: <span>qwerty</span>' + command;
   }
 
   TerminalService.emit('response', response);

@@ -225,7 +225,7 @@ onMounted(async () => {
           <div class="mb-5 flex items-center justify-between">
             <div class="flex items-center justify-start gap-2">
               <i class="pi pi-history mr-2 text-2xl" />
-              <h5 class="font-bold">PC SysInspector дата звіту</h5>
+              <h5 class="font-bold">ПК SysInspector дата звіту</h5>
             </div>
             <Button text plain rounded icon="pi pi-ellipsis-v" class="h-12 w-12" />
           </div>
@@ -275,7 +275,7 @@ onMounted(async () => {
           <div class="flex h-12 items-center justify-between">
             <div class="flex items-center justify-start gap-2">
               <i class="pi pi-desktop mr-2 text-2xl"></i>
-              <h5 class="font-bold">PC SysInspector статуси</h5>
+              <h5 class="font-bold">ПК SysInspector статуси</h5>
             </div>
           </div>
 

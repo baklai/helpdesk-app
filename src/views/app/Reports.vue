@@ -24,22 +24,22 @@ const refModal = ref(null);
 const refMenu = ref();
 const options = ref([
   {
-    label: 'Створити звіт',
-    icon: 'pi pi-plus-circle',
-    command: async () => refModal.value.toggle({})
-  },
-  {
-    label: 'Експортувати звіт',
+    label: 'Сгенерувати звіт',
     icon: 'pi pi-file-export',
     command: async () => await reportToCSV(report.value)
   },
   {
-    label: 'Оновити звіт',
+    label: 'Створити шаблон звіту',
+    icon: 'pi pi-plus-circle',
+    command: async () => refModal.value.toggle({})
+  },
+  {
+    label: 'Оновити шаблон звіту',
     icon: 'pi pi-file-edit',
     command: async () => refModal.value.toggle(report.value)
   },
   {
-    label: 'Видалити звіт',
+    label: 'Видалити шаблон звіту',
     icon: 'pi pi-trash',
     command: async () => confirmDelete(report.value)
   }

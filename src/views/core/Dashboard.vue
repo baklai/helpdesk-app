@@ -215,7 +215,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold"> Загальна кількість звітів PC SysInspector </span>
+              <span class="mb-3 block font-bold"> Загальна кількість звітів ПК SysInspector </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.inspectors || '-' }}
               </div>

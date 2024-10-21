@@ -908,8 +908,8 @@ const datacollections = ref([
 
   {
     name: 'inspectors',
-    label: 'PC SysInspector',
-    description: 'PC SysInspector service of the technical support',
+    label: 'ПК SysInspector',
+    description: 'ПК SysInspector сервіс технічної підтримки',
     onUpdate: Inspector.findAll,
     columns: [
       {
@@ -1290,6 +1290,7 @@ const onCloseModal = async () => {
   <Dialog
     modal
     closable
+    maximizable
     :draggable="false"
     v-model:visible="visible"
     class="mx-auto w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]"
@@ -1556,7 +1557,7 @@ const onCloseModal = async () => {
               </p>
 
               <div class="flex py-4 text-xl font-bold">
-                Data collection :
+                Збір даних :
                 <div class="px-2">
                   <p class="font-normal">{{ datatable?.label }}</p>
                   <p class="text-sm font-normal">{{ datatable?.description }}</p>

@@ -81,7 +81,7 @@ const warningOptions = ref([
 const globalFilter = ref({
   field: 'host',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Пошук IP-адреси'
+  placeholder: 'Пошук за IP-адресою'
 });
 
 const columns = ref([
@@ -117,7 +117,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Baseboard', width: '16rem' },
+    header: { text: 'Материнська плата', width: '16rem' },
     column: {
       field: 'baseboard',
       render(value) {
@@ -166,7 +166,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Status', width: '10rem' },
+    header: { text: 'IP Статус', width: '10rem' },
     column: {
       field: 'ipaddress',
       render(value) {
@@ -189,7 +189,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Users', width: '13rem' },
+    header: { text: 'Користувачі', width: '13rem' },
     column: {
       field: 'inspector.useraccount',
       render(value) {
@@ -220,7 +220,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Products', width: '13rem' },
+    header: { text: 'Застосунки', width: '13rem' },
     column: {
       field: 'inspector.product',
       render(value) {
@@ -251,7 +251,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'SMB Share', width: '13rem' },
+    header: { text: 'SMB-ресурс', width: '13rem' },
     column: {
       field: 'inspector.share',
       render(value) {
@@ -282,11 +282,19 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fix Update', width: '13rem' },
+    header: { text: 'Оновлення', width: '13rem' },
     column: {
       field: 'fixupdate',
       render(value) {
-        return <Tag class={'w-3 text-base font-medium'} value={value} />;
+        return (
+          <Tag
+            class={[
+              'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+              '!bg-surface-500/20'
+            ]}
+            value={value || '-'}
+          />
+        );
       }
     },
     sorter: { field: 'fixupdate' },
@@ -305,7 +313,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Report date', width: '15rem' },
+    header: { text: 'Дата звіту', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -326,7 +334,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Name', width: '20rem' },
+    header: { text: 'Операційна система', width: '20rem' },
     column: {
       field: 'system.osname',
       render(value) {
@@ -349,7 +357,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Platform', width: '15rem' },
+    header: { text: 'ОС Платформа', width: '15rem' },
     column: {
       field: 'system.platform',
       render(value) {
@@ -372,7 +380,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Version', width: '12rem' },
+    header: { text: 'ОС Версія', width: '12rem' },
     column: {
       field: 'system.version',
       render(value) {

@@ -23,12 +23,12 @@ const refDataTable = ref();
 const globalFilter = ref({
   field: 'host',
   matchMode: FilterMatchMode.CONTAINS,
-  placeholder: 'Search address'
+  placeholder: 'Пошук за IP-адресою'
 });
 
 const columns = ref([
   {
-    header: { text: 'Address', width: '12rem' },
+    header: { text: 'IP-адреса', width: '12rem' },
     column: {
       field: 'host',
       render(value) {
@@ -56,7 +56,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date', width: '12rem' },
+    header: { text: 'Дата і час', width: '12rem' },
     column: {
       field: 'createdAt',
       render(value) {
@@ -77,7 +77,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Profile', width: '12rem' },
+    header: { text: 'Користувач', width: '12rem' },
     column: {
       field: 'profile',
       render(value) {
@@ -105,7 +105,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Method', width: '10rem' },
+    header: { text: 'Метод', width: '10rem' },
     column: {
       field: 'method',
       render(value) {
@@ -142,7 +142,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Status', width: '10rem' },
+    header: { text: 'Статус', width: '10rem' },
     column: {
       field: 'status',
       render(value) {
@@ -172,7 +172,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Base Url', width: '20rem' },
+    header: { text: 'URL-адреса', width: '20rem' },
     column: {
       field: 'baseUrl',
       render(value) {
@@ -195,7 +195,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'User agent', width: '30rem' },
+    header: { text: 'Агент користувача', width: '30rem' },
     column: {
       field: 'userAgent',
       render(value) {
