@@ -239,8 +239,8 @@ const onCloseModal = async () => {
             v-bind="organizationAttrs"
             :options="organizations"
             :invalid="!!errors?.organization"
-            :filterPlaceholder="'Пошук у списку'"
-            :placeholder="'Пошук у базі даних'"
+            filterPlaceholder="Пошук у списку"
+            placeholder="Пошук у базі даних"
             :virtualScrollerOptions="{ itemSize: 32 }"
             :ptOptions="{ mergeSections: true, mergeProps: true }"
             :pt="{
@@ -274,8 +274,8 @@ const onCloseModal = async () => {
           inputId="subdivisions"
           optionLabel="name"
           :options="subdivisions"
-          :filterPlaceholder="'Пошук у списку'"
-          :placeholder="'Пошук у базі даних'"
+          filterPlaceholder="Пошук у списку"
+          placeholder="Пошук у базі даних"
           :virtualScrollerOptions="{ itemSize: 32 }"
           :ptOptions="{ mergeSections: true, mergeProps: true }"
           :pt="{

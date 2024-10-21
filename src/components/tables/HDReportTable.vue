@@ -359,7 +359,7 @@ watch(
         dataKey="selectable"
         optionValue="selectable"
         optionLabel="header.text"
-        :filterPlaceholder="'Пошук у списку'"
+        filterPlaceholder="Пошук у списку"
       >
         <template #option="{ index, option }">
           <div class="flex items-center">
@@ -490,7 +490,7 @@ watch(
               size="small"
               icon="pi pi-filter-slash text-sm"
               class="m-auto my-4 w-max"
-              :label="'Очистити фільтри'"
+              label="Очистити фільтри"
               @click="clearFilters"
             />
           </div>
@@ -563,8 +563,8 @@ watch(
               :options="filter?.options?.records || []"
               :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
               :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
-              :placeholder="'Пошук у базі даних'"
-              :filterPlaceholder="'Пошук у списку'"
+              placeholder="Пошук у базі даних"
+              filterPlaceholder="Пошук у списку"
               :virtualScrollerOptions="{ itemSize: 32 }"
               class="my-4 w-96"
               :pt="{

@@ -72,21 +72,30 @@ const recordsPerPage = ref(15);
 const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
 
 const refMenuActions = ref();
+
 const menuActions = computed(() => [
-  {
-    label: 'Очистити фільтри',
-    icon: 'pi pi-filter-slash',
-    command: () => clearFilters()
-  },
   {
     label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: () => emits('toggleModal', {})
   },
   {
+    label: 'Очистити фільтри',
+    icon: 'pi pi-filter-slash',
+    command: () => clearFilters()
+  },
+  {
     label: 'Оновити записи',
     icon: 'pi pi-sync',
     command: () => onUpdateRecords()
+  },
+  {
+    label: '-'
+  },
+  {
+    label: 'Скинути таблицю',
+    icon: 'pi pi-trash',
+    command: () => resetLocalStorage()
   }
 ]);
 
@@ -487,7 +496,7 @@ onMounted(async () => {
         dataKey="selectable"
         optionValue="selectable"
         optionLabel="header.text"
-        :filterPlaceholder="'Пошук у списку'"
+        filterPlaceholder="Пошук у списку"
       >
         <template #option="{ index, option }">
           <div class="flex items-center">
@@ -557,7 +566,7 @@ onMounted(async () => {
       :rows="recordsPerPage"
       :totalRecords="totalRecords"
       :rowsPerPageOptions="recordsPerPageOptions"
-      currentPageReportTemplate="Showing records first: {first}, last: {last}, totalRecords: {totalRecords}"
+      currentPageReportTemplate="Показано з {first} по {last} з {totalRecords} записів"
       style="height: calc(100vh - 5rem)"
       class="min-w-full overflow-x-auto text-base"
       :paginatorTemplate="'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown'"
@@ -665,11 +674,11 @@ onMounted(async () => {
           <div class="m-auto flex flex-col gap-2">
             <i class="pi pi-filter-slash text-7xl text-surface-500"></i>
             <h5 class="text-2xl font-semibold">Записів не знайдено</h5>
-            <p class="text-base text-surface-500">Спробуйте змінити пошукові терміни у фільтрі</p>
+            <p class="text-base text-surface-500">Спробуйте змінити пошукові запити у фільтрі</p>
             <Button
               icon="pi pi-filter-slash text-sm"
               class="m-auto my-4 w-max"
-              :label="'Очистити фільтри'"
+              label="Очистити фільтри"
               @click="clearFilters"
             />
           </div>
@@ -679,24 +688,16 @@ onMounted(async () => {
       <template #paginatorstart>
         <div class="flex flex-wrap items-center justify-evenly gap-4 p-2 xl:justify-between">
           <div class="flex flex-wrap items-center justify-evenly gap-2">
-            <Button
-              text
-              plain
-              outlined
-              icon="pi pi-refresh text-xl"
-              class="h-10 w-full sm:w-max"
-              v-tooltip.bottom="'Скинути за замовчуванням'"
-              @click="resetLocalStorage"
-            />
-
             <Menu ref="refMenuActions" :model="menuActions" popup>
-              <template #item="{ label, item, props }">
-                <a :href="item.url" v-bind="props.action">
+              <template #item="{ label, item, props, separator }">
+                <hr v-if="item.label === '-'" />
+                <a :href="item.url" v-bind="props.action" v-else>
                   <span v-bind="props.icon" />
                   <span v-bind="props.label">{{ label }}</span>
                 </a>
               </template>
             </Menu>
+
             <Button
               text
               plain
@@ -707,7 +708,7 @@ onMounted(async () => {
             >
               <template #default>
                 <i class="pi pi-sliders-h" />
-                <span class="mx-2"> Дії </span>
+                <span class="mx-2"> Опційні дії </span>
                 <i class="pi pi-chevron-down" />
               </template>
             </Button>
@@ -816,8 +817,8 @@ onMounted(async () => {
               :options="filter?.options?.records || []"
               :optionGroupLabel="filter?.options?.grouped ? 'group' : null"
               :optionGroupChildren="filter?.options?.grouped ? 'records' : null"
-              :placeholder="'Пошук у базі даних'"
-              :filterPlaceholder="'Пошук у списку'"
+              placeholder="Пошук у базі даних"
+              filterPlaceholder="Пошук у списку"
               :virtualScrollerOptions="{ itemSize: 32 }"
               class="my-4 w-96"
               :pt="{

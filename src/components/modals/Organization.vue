@@ -212,8 +212,8 @@ const onCloseModal = async () => {
         resetFilterOnHide
         optionLabel="name"
         :options="records"
-        :filterPlaceholder="'Пошук у списку'"
-        :placeholder="'Пошук у базі даних'"
+        filterPlaceholder="Пошук у списку"
+        placeholder="Пошук у базі даних"
         :virtualScrollerOptions="{ itemSize: 32 }"
         @change="event => setValues({ ...event.value })"
       >

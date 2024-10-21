@@ -9,7 +9,6 @@ const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Notic
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useNotice } from '@/stores/api/notices';
 
- 
 const toast = useToast();
 
 const { findAll, removeOne } = useNotice();
@@ -67,9 +66,7 @@ onMounted(async () => {
           <div class="flex items-center justify-center">
             <Avatar size="xlarge" icon="pi pi-bell text-4xl" class="mr-4" />
             <div>
-              <p class="line-height-2 mb-2 text-lg font-bold">
-                HD Сповіщення
-              </p>
+              <p class="line-height-2 mb-2 text-lg font-bold">HD Сповіщення</p>
               <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
                 Система сповіщень служби технічної підтримки
               </p>
@@ -133,9 +130,7 @@ onMounted(async () => {
         </DataView>
 
         <div class="flex flex-col items-center justify-center p-2" v-else>
-          <p class="mb-0 text-lg font-medium text-surface-500">
-            Сповіщення не знайдені
-          </p>
+          <p class="mb-0 text-lg font-medium text-surface-500">Сповіщення не знайдені</p>
         </div>
       </div>
     </OverlayPanel>

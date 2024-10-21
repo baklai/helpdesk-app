@@ -57,7 +57,7 @@ const config = computed(() => {
     month: {
       showTrailingAndLeadingDates: true
     },
-    locale: fixLocale(locale?.value),
+    locale: 'uk-UA',
     defaultMode: 'month',
     disableModes: ['week', 'month'],
     isSilent: true,
@@ -82,12 +82,6 @@ const enents = computed(() => {
     };
   });
 });
-
-const fixLocale = key => {
-  if (key === 'uk') return 'uk-UA';
-  if (key === 'ru') return 'ru-RU';
-  return 'en-US';
-};
 
 const getDataRecords = async () => {
   try {

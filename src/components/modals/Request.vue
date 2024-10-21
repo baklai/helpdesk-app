@@ -650,7 +650,7 @@ const onCloseModal = async () => {
             id="comment"
             v-model="comment"
             v-bind="commentAttrs"
-            :placeholder="Коментар"
+            placeholder="Коментар"
           />
         </div>
       </div>

@@ -439,7 +439,7 @@ onMounted(async () => {
                   <InputText
                     id="name"
                     class="w-full !bg-inherit px-10 sm:w-max"
-                    :placeholder="'Пошук'"
+                    placeholder="Пошук"
                     v-model="filters['global'].value"
                   />
                   <i

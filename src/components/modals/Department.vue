@@ -211,8 +211,8 @@ const onCloseModal = async () => {
         optionLabel="name"
         :options="records"
         @change="event => setValues({ ...event.value })"
-        :filterPlaceholder="'Пошук у списку'"
-        :placeholder="'Пошук у базі даних'"
+        filterPlaceholder="Пошук у списку"
+        placeholder="Пошук у базі даних"
       />
     </div>
 
