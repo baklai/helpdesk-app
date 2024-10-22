@@ -392,7 +392,7 @@ const onCloseModal = async () => {
               v-bind="unitAttrs"
               :options="units"
               filterPlaceholder="Пошук"
-              placeholder="Пристрій клієнта"
+              placeholder="Пристрій"
               :invalid="!!errors?.unit"
               aria-describedby="unit-help"
               :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -417,10 +417,10 @@ const onCloseModal = async () => {
                 id="ipaddress"
                 v-model="ipaddress"
                 v-bind="ipaddressAttrs"
-                placeholder="IP-адреса клієнта"
+                placeholder="IP-адреса"
                 :invalid="!!errors?.ipaddress"
                 class="w-full"
-                v-tooltip.bottom="'IP-адреса клієнта'"
+                v-tooltip.bottom="'IP-адреса'"
                 @keypress.prevent.enter="checkIPAddress"
               />
 
@@ -478,8 +478,8 @@ const onCloseModal = async () => {
                 id="internetReqnum"
                 v-model="internetReqnum"
                 v-bind="internetReqnumAttrs"
-                placeholder="Номер листа на Інтернет"
-                v-tooltip.bottom="'Номер листа на Інтернет'"
+                placeholder="Номер листа"
+                v-tooltip.bottom="'Номер листа'"
               />
             </div>
 
@@ -492,8 +492,8 @@ const onCloseModal = async () => {
                 v-model="internetDateOpen"
                 v-bind="internetDateOpenAttrs"
                 :modelValue="dateToStr(values?.internet?.dateOpen)"
-                placeholder="Дата відкриття Інтернету"
-                v-tooltip.bottom="'Дата відкриття Інтернету'"
+                placeholder="Дата відкриття"
+                v-tooltip.bottom="'Дата відкриття'"
                 :pt="{
                   dropdownbutton: {
                     root: {
@@ -521,8 +521,8 @@ const onCloseModal = async () => {
                 v-model="internetDateClose"
                 v-bind="internetDateCloseAttrs"
                 :modelValue="dateToStr(values?.internet?.dateClose)"
-                placeholder="Дата закриття Iнтернету"
-                v-tooltip.bottom="'Дата закриття Iнтернету'"
+                placeholder="Дата закриття"
+                v-tooltip.bottom="'Дата закриття'"
                 :pt="{
                   dropdownbutton: {
                     root: {
@@ -589,7 +589,7 @@ const onCloseModal = async () => {
               v-bind="locationAttrs"
               :options="locations"
               filterPlaceholder="Пошук"
-              placeholder="Розташування клієнта"
+              placeholder="Розташування"
               :invalid="!!errors?.location"
               aria-describedby="location-help"
               :virtualScrollerOptions="{ itemSize: 32 }"
@@ -644,8 +644,8 @@ const onCloseModal = async () => {
                   v-bind="organizationAttrs"
                   :options="organizations"
                   filterPlaceholder="Пошук"
-                  placeholder="Організація клієнта"
-                  v-tooltip.bottom="'Організація клієнта'"
+                  placeholder="Організація"
+                  v-tooltip.bottom="'Організація'"
                   :invalid="!!errors?.organization"
                   aria-describedby="organization-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -685,8 +685,8 @@ const onCloseModal = async () => {
                   v-bind="subdivisionAttrs"
                   :options="subdivisions"
                   filterPlaceholder="Пошук"
-                  placeholder="Підрозділ клієнта"
-                  v-tooltip.bottom="'Підрозділ клієнта'"
+                  placeholder="Підрозділ"
+                  v-tooltip.bottom="'Підрозділ'"
                   :invalid="!!errors?.subdivision"
                   aria-describedby="subdivision-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -719,8 +719,8 @@ const onCloseModal = async () => {
                   v-bind="departmentAttrs"
                   :options="departments"
                   filterPlaceholder="Пошук"
-                  placeholder="Відділ клієнта"
-                  v-tooltip.bottom="'Відділ клієнта'"
+                  placeholder="Відділ"
+                  v-tooltip.bottom="'Відділ'"
                   :invalid="!!errors?.department"
                   aria-describedby="department-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -740,17 +740,17 @@ const onCloseModal = async () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="client-info" class="font-bold">Інформація про клієнта</label>
+          <label for="client-info" class="font-bold">Обдіковий запис</label>
           <div class="flex flex-col gap-2" id="client-info">
             <div class="flex flex-col gap-2">
               <InputText
                 id="fullname"
                 v-model="fullname"
                 v-bind="fullnameAttrs"
-                placeholder="Повне ім'я клієнта"
+                placeholder="Повне ім'я"
                 :invalid="!!errors?.fullname"
                 aria-describedby="fullname-help"
-                v-tooltip.bottom="'Повне ім\'я клієнта'"
+                v-tooltip.bottom="'Повне ім\'я'"
               />
               <small id="fullname-help" class="text-red-500" v-if="errors?.fullname">
                 {{ errors?.fullname }}
@@ -762,10 +762,10 @@ const onCloseModal = async () => {
                 id="phone"
                 v-model="phone"
                 v-bind="phoneAttrs"
-                placeholder="Телефон клієнта"
+                placeholder="Телефон"
                 :invalid="!!errors?.phone"
                 aria-describedby="phone-help"
-                v-tooltip.bottom="'Телефон клієнта'"
+                v-tooltip.bottom="'Телефон'"
               />
               <small id="phone-help" class="text-red-500" v-if="errors?.phone">
                 {{ errors?.phone }}
@@ -814,7 +814,7 @@ const onCloseModal = async () => {
             id="autoanswer"
             v-model="autoanswer"
             v-bind="autoanswerAttrs"
-            placeholder="Автовідповідь клієнта"
+            placeholder="Автовідповідь"
           />
         </div>
       </div>

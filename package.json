@@ -2,7 +2,7 @@
   "name": "helpdesk-app-v1",
   "version": "1.0.0",
   "type": "module",
-  "description": "Helpdesk - Web application of technical support",
+  "description": "Helpdesk - Веб-додаток технічної підтримки",
   "author": {
     "name": "Dmitrii Baklai",
     "email": "d.n.baklai@gmail.com",
@@ -23,12 +23,13 @@
   },
   "keywords": [
     "vue",
+    "pinia",
     "primevue"
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=20.16.0",
-    "npm": ">=10.8.1"
+    "node": ">=20",
+    "npm": ">=10"
   },
   "scripts": {
     "dev": "vite",

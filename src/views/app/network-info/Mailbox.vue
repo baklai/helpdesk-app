@@ -31,12 +31,12 @@ const refDataTable = ref();
 const globalFilter = ref({
   field: 'login',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search login'
+  placeholder: 'Пошук за логіном'
 });
 
 const columns = ref([
   {
-    header: { text: 'Login', width: '14rem' },
+    header: { text: 'Логін', width: '14rem' },
     column: {
       field: 'login',
       render(value) {
@@ -94,7 +94,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date open', width: '16rem' },
+    header: { text: 'Дата відкриття', width: '16rem' },
     column: {
       field: 'dateOpen',
       render(value) {
@@ -115,7 +115,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Updated', width: '15rem' },
+    header: { text: 'Оновлено', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -136,7 +136,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Status', width: '10rem' },
+    header: { text: 'Статус', width: '10rem' },
     column: {
       field: 'status',
       render(value) {
@@ -302,7 +302,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Position', width: '16rem' },
+    header: { text: 'Посада', width: '16rem' },
     column: {
       field: 'position.name',
       render(value) {
@@ -331,7 +331,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Номер телефону', width: '12rem' },
+    header: { text: 'Номер телефону', width: '16rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -354,7 +354,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date close', width: '16rem' },
+    header: { text: 'Дата закриття', width: '16rem' },
     column: {
       field: 'dateClose',
       render(value) {

@@ -7,7 +7,7 @@ export default {
     const { $toast } = app.config.globalProperties;
 
     app.config.globalProperties.$error = error => {
-      let message = 'Helpdesk system error';
+      let message = 'Системна помилка служби підтримки';
       if (typeof error === 'string') {
         message = capitalizeFirstLetter(error);
       } else if (typeof error?.message === 'string') {

@@ -305,12 +305,12 @@ const onCloseModal = async () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="login" class="font-bold">Логін поштової скриньки</label>
+          <label for="login" class="font-bold">Електронна пошта</label>
           <InputText
             id="login"
             v-model="login"
             v-bind="loginAttrs"
-            placeholder="Логін поштової скриньки"
+            placeholder="Електронна пошта"
             :invalid="!!errors?.login"
             aria-describedby="login-help"
           />
@@ -364,15 +364,15 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
-          <label for="client-info" class="font-bold">Інформація про клієнта</label>
+          <label for="client-info" class="font-bold">Обліковий запис</label>
           <div class="flex flex-col gap-2" id="client-info">
             <div class="flex flex-col gap-2">
               <InputText
                 id="fullname"
                 v-model="fullname"
                 v-bind="fullnameAttrs"
-                placeholder="Повне ім'я клієнта"
-                v-tooltip.bottom="'Повне ім\'я клієнта'"
+                placeholder="Повне ім'я"
+                v-tooltip.bottom="'Повне ім\'я'"
                 :invalid="!!errors?.fullname"
                 aria-describedby="fullname-help"
               />
@@ -386,8 +386,8 @@ const onCloseModal = async () => {
                 id="phone"
                 v-model="phone"
                 v-bind="phoneAttrs"
-                placeholder="Телефон клієнта"
-                v-tooltip.bottom="'Телефон клієнта'"
+                placeholder="Номер телефону"
+                v-tooltip.bottom="'Номер телефону'"
                 :invalid="!!errors?.phone"
                 aria-describedby="phone-help"
               />
@@ -416,7 +416,7 @@ const onCloseModal = async () => {
               v-bind="locationAttrs"
               :options="locations"
               filterPlaceholder="Пошук"
-              placeholder="Розташування клієнта"
+              placeholder="Розташування"
               :invalid="!!errors?.location"
               aria-describedby="location-help"
               :virtualScrollerOptions="{ itemSize: 32 }"
@@ -471,8 +471,8 @@ const onCloseModal = async () => {
                   v-bind="organizationAttrs"
                   :options="organizations"
                   filterPlaceholder="Пошук"
-                  placeholder="Організація клієнта"
-                  v-tooltip.bottom="'Організація клієнта'"
+                  placeholder="Організація"
+                  v-tooltip.bottom="'Організація'"
                   :invalid="!!errors?.organization"
                   aria-describedby="organization-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -510,8 +510,8 @@ const onCloseModal = async () => {
                   v-bind="subdivisionAttrs"
                   :options="subdivisions"
                   filterPlaceholder="Пошук"
-                  placeholder="Підрозділ клієнта"
-                  v-tooltip.bottom="'Підрозділ клієнта'"
+                  placeholder="Підрозділ"
+                  v-tooltip.bottom="'Підрозділ'"
                   :invalid="!!errors?.subdivision"
                   aria-describedby="subdivision-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -542,8 +542,8 @@ const onCloseModal = async () => {
                   v-bind="departmentAttrs"
                   :options="departments"
                   filterPlaceholder="Пошук"
-                  placeholder="Відділ клієнта"
-                  v-tooltip.bottom="'Відділ клієнта'"
+                  placeholder="Відділ"
+                  v-tooltip.bottom="'Відділ'"
                   :invalid="!!errors?.department"
                   aria-describedby="department-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -564,7 +564,7 @@ const onCloseModal = async () => {
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="position" class="font-bold">Посада клієнта</label>
+          <label for="position" class="font-bold">Посада</label>
 
           <div class="flex flex-row gap-2">
             <Dropdown
@@ -580,7 +580,7 @@ const onCloseModal = async () => {
               v-bind="positionAttrs"
               :options="positions"
               filterPlaceholder="Пошук"
-              placeholder="Посада клієнта"
+              placeholder="Посада"
               :invalid="!!errors?.position"
               aria-describedby="position-help"
               :ptOptions="{ mergeSections: true, mergeProps: true }"

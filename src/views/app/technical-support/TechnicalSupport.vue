@@ -33,12 +33,12 @@ const refDataTable = ref();
 const globalFilter = ref({
   field: 'request',
   matchMode: FilterMatchMode.CONTAINS,
-  placeholder: 'Search request'
+  placeholder: 'Пошук за запитом'
 });
 
 const columns = ref([
   {
-    header: { text: 'Opened an request', width: '16rem' },
+    header: { text: 'Відкрив заявку', width: '16rem' },
     column: {
       field: 'workerOpen.fullname',
       render(value) {
@@ -67,7 +67,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date opened', width: '15rem' },
+    header: { text: 'Дата відкриття', width: '15rem' },
     column: {
       field: 'createdAt',
       render(value) {
@@ -91,7 +91,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Status', width: '12rem' },
+    header: { text: 'Статус', width: '12rem' },
     column: {
       field: 'status',
       render(value) {
@@ -140,7 +140,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Request', width: '25rem' },
+    header: { text: 'Запит', width: '25rem' },
     column: {
       field: 'request',
       render(value) {
@@ -242,7 +242,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Position', width: '16rem' },
+    header: { text: 'Посада', width: '16rem' },
     column: {
       field: 'position.name',
       render(value) {
@@ -381,7 +381,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date closed', width: '15rem' },
+    header: { text: 'Дата закриття', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -402,7 +402,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Closed an request', width: '16rem' },
+    header: { text: 'Закрив запит', width: '16rem' },
     column: {
       field: 'workerClose.fullname',
       render(value) {
@@ -431,7 +431,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Conclusion for request', width: '25rem' },
+    header: { text: 'Висновок на запит', width: '25rem' },
     column: {
       field: 'conclusion',
       render(value) {

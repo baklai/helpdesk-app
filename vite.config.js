@@ -29,7 +29,7 @@ export default defineConfig({
       manifest: {
         name: 'Helpdesk',
         short_name: 'HD',
-        description: 'Helpdesk - Web application of technical support',
+        description: 'Helpdesk - Веб-додаток технічної підтримки',
         theme_color: '#ffffff',
         icons: [
           {

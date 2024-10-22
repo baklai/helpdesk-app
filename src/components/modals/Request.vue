@@ -335,13 +335,13 @@ const onCloseModal = async () => {
     <form class="flex flex-col gap-y-4 md:flex-row md:flex-wrap" @submit.prevent="onSaveRecord">
       <div class="flex flex-col space-y-4 md:w-1/2 md:pr-2">
         <div class="flex flex-col gap-2">
-          <label for="request" class="font-bold">Запит клієнта</label>
+          <label for="request" class="font-bold">Запит</label>
           <Textarea
             rows="8"
             id="request"
             v-model="request"
             v-bind="requestAttrs"
-            placeholder="Запит клієнта"
+            placeholder="Запит"
             :invalid="!!errors?.request"
             aria-describedby="request-help"
           />
@@ -363,7 +363,7 @@ const onCloseModal = async () => {
               id="ipaddress"
               v-model="ipaddress"
               v-bind="ipaddressAttrs"
-              placeholder="IP-адреса клієнта"
+              placeholder="IP-адреса"
               :invalid="!!errors?.ipaddress"
               class="w-full pr-10"
               @keypress.enter="findOneIPAddress"
@@ -405,14 +405,14 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col space-y-4 md:w-1/2 md:pl-2">
         <div class="flex flex-col gap-2">
-          <label for="client-info" class="font-bold">Інформація про клієнта</label>
+          <label for="client-info" class="font-bold">Обліковий запис</label>
           <div class="flex flex-col gap-2" id="client-info">
             <div class="flex flex-col gap-2">
               <InputText
                 id="fullname"
                 v-model="fullname"
                 v-bind="fullnameAttrs"
-                placeholder="Повне ім'я клієнта"
+                placeholder="Повне ім'я"
                 :invalid="!!errors?.fullname"
                 aria-describedby="fullname-help"
               />
@@ -426,7 +426,7 @@ const onCloseModal = async () => {
                 id="phone"
                 v-model="phone"
                 v-bind="phoneAttrs"
-                placeholder="Телефон клієнта"
+                placeholder="Номер телефону"
                 :invalid="!!errors?.phone"
                 aria-describedby="phone-help"
               />
@@ -455,7 +455,7 @@ const onCloseModal = async () => {
               v-bind="locationAttrs"
               :options="locations"
               filterPlaceholder="Пошук"
-              placeholder="Розташування клієнта"
+              placeholder="Розташування"
               :invalid="!!errors?.location"
               aria-describedby="location-help"
               :virtualScrollerOptions="{ itemSize: 32 }"
@@ -508,8 +508,8 @@ const onCloseModal = async () => {
               v-bind="positionAttrs"
               :options="positions"
               filterPlaceholder="Пошук"
-              placeholder="Посада клієнта"
-              v-tooltip.bottom="'Посада клієнта'"
+              placeholder="Посада"
+              v-tooltip.bottom="'Посада'"
               :invalid="!!errors?.position"
               aria-describedby="position-help"
               :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -545,8 +545,8 @@ const onCloseModal = async () => {
                   v-bind="organizationAttrs"
                   :options="organizations"
                   filterPlaceholder="Пошук"
-                  placeholder="Організація клієнта"
-                  v-tooltip.bottom="'Організація клієнта'"
+                  placeholder="Організація"
+                  v-tooltip.bottom="'Організація'"
                   :invalid="!!errors?.organization"
                   aria-describedby="organization-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -586,8 +586,8 @@ const onCloseModal = async () => {
                   v-bind="subdivisionAttrs"
                   :options="subdivisions"
                   filterPlaceholder="Пошук"
-                  placeholder="Підрозділ клієнта"
-                  v-tooltip.bottom="'Підрозділ клієнта'"
+                  placeholder="Підрозділ"
+                  v-tooltip.bottom="'Підрозділ'"
                   :invalid="!!errors?.subdivision"
                   aria-describedby="subdivision-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"
@@ -620,8 +620,8 @@ const onCloseModal = async () => {
                   v-bind="departmentAttrs"
                   :options="departments"
                   filterPlaceholder="Пошук"
-                  placeholder="Відділ клієнта"
-                  v-tooltip.bottom="'Відділ клієнта'"
+                  placeholder="Відділ"
+                  v-tooltip.bottom="'Відділ'"
                   :invalid="!!errors?.department"
                   aria-describedby="department-help"
                   :ptOptions="{ mergeSections: true, mergeProps: true }"

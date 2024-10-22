@@ -68,7 +68,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Unit', width: '12rem' },
+    header: { text: 'Пристрій', width: '12rem' },
     column: {
       field: 'unit.name',
       render(value) {
@@ -146,7 +146,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Opened date', width: '16rem' },
+    header: { text: 'Дата відкриття', width: '16rem' },
     column: {
       field: 'date',
       render(value) {
@@ -235,7 +235,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Updated', width: '15rem' },
+    header: { text: 'Оновлено', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -279,7 +279,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Position', width: '16rem' },
+    header: { text: 'Посада', width: '16rem' },
     column: {
       field: 'position.name',
       render(value) {
@@ -308,7 +308,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Номер телефону', width: '12rem' },
+    header: { text: 'Номер телефону', width: '16rem' },
     column: {
       field: 'phone',
       render(value) {

@@ -1,26 +1,26 @@
 export const MONTHS_OF_YEAR = [
-  { key: 1, label: 'January' },
-  { key: 2, label: 'February' },
-  { key: 3, label: 'March' },
-  { key: 4, label: 'April' },
-  { key: 5, label: 'May' },
-  { key: 6, label: 'June' },
-  { key: 7, label: 'July' },
-  { key: 8, label: 'August' },
-  { key: 9, label: 'September' },
-  { key: 10, label: 'October' },
-  { key: 11, label: 'November' },
-  { key: 12, label: 'December' }
+  { key: 1, label: 'Січень' },
+  { key: 2, label: 'Лютий' },
+  { key: 3, label: 'Березень' },
+  { key: 4, label: 'Квітень' },
+  { key: 5, label: 'Травень' },
+  { key: 6, label: 'Червень' },
+  { key: 7, label: 'Липень' },
+  { key: 8, label: 'Серпень' },
+  { key: 9, label: 'Вересень' },
+  { key: 10, label: 'Жовтень' },
+  { key: 11, label: 'Листопад' },
+  { key: 12, label: 'Грудень' }
 ];
 
 export const DAYS_OF_WEEK = [
-  { key: 1, label: 'Monday' },
-  { key: 2, label: 'Tuesday' },
-  { key: 3, label: 'Wednesday' },
-  { key: 4, label: 'Thursday' },
-  { key: 5, label: 'Friday' },
-  { key: 6, label: 'Saturday' },
-  { key: 7, label: 'Sunday' }
+  { key: 1, label: 'Понеділок' },
+  { key: 2, label: 'Вівторок' },
+  { key: 3, label: 'Середа' },
+  { key: 4, label: 'Четвер' },
+  { key: 5, label: "П'ятниця" },
+  { key: 6, label: 'Субота' },
+  { key: 7, label: 'Неділя' }
 ];
 
 export const monthOfNumber = value => {

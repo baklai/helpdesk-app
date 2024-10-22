@@ -99,7 +99,7 @@ const scopes = ref(getCustomScope($helpdesk.profile.scope));
           >
             <template #empty>
               <div class="text-center">
-                <h5>No scopes found</h5>
+                <h5>Набір дозволів не знайдено</h5>
               </div>
             </template>
 

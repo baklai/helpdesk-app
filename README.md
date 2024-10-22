@@ -30,12 +30,11 @@ $ npm install
 
 ## Змінні проекту
 
-| Ключ                | Коментар     |
-| ------------------- | ------------ |
-| `VITE_APP_BASE_URL` | APP Base url |
-| `VITE_API_BASE_URL` | API Base url |
-
-## Project Setup
+| Ключ                 | Коментар                       |
+| -------------------- | ------------------------------ |
+| `VITE_APP_BASE_URL`  | Базова URL-адреса додатку      |
+| `VITE_API_BASE_URL`  | Базова URL-адреса API додатку  |
+| `VITE_DOCS_BASE_URL` | Базова URL-адреса документації |
 
 ### Компіляція та гаряче перезавантаження для розробки
 
@@ -119,9 +118,9 @@ docker compose build
 docker compose build --builder multibuilder --no-cache --push
 ```
 
-If your cloud uses a different CPU architecture than your development
-machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
-you'll want to build the image for that platform, e.g.:
+Якщо у вас використовується інша архітектура процесора, ніж на вашій машині для розробки
+(наприклад, ви працюєте на Mac M1, а ваш хмарний провайдер використовує amd64), вам потрібно буде
+зібрати образ для цієї платформи, наприклад:
 
 ```bash
 # Переконайтеся, що у вас встановлено buildx. Якщо він не встановлений, встановіть його наступним чином
