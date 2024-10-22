@@ -1,13 +1,11 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';
 
 const Chart = defineAsyncComponent(() => import('primevue/chart'));
 
-const { t } = useI18n();
 const Statistic = useStatistic();
 
 const stats = ref({});
@@ -27,11 +25,16 @@ onMounted(async () => {
   stats.value = await Statistic.inspector();
 
   statusChart.value = {
-    labels: [t('Good PC'), t('Warning Users'), t('Warning Products'), t('Warning Shares')],
+    labels: [
+      "Хороший комп'ютер",
+      'Попередження користувачів',
+      'Попередження продуктів',
+      'Попередження шарам'
+    ],
     datasets: [
       {
         type: 'pie',
-        label: t('Count of PC status'),
+        label: "Кількість статусів комп'ютерів",
         data: [
           stats.value.count - stats.value.share - stats.value.product - stats.value.useraccount,
           stats.value.useraccount,
@@ -58,10 +61,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>
@@ -73,9 +76,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of reports') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість звітів </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.count || '-' }}
               </div>
@@ -89,7 +90,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -100,9 +101,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of success') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість успішних </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.count - stats?.warning || '-' }}
               </div>
@@ -116,7 +115,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -127,9 +126,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of warnings') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість попереджень </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.warning || '-' }}
               </div>
@@ -143,7 +140,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -154,7 +151,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">{{ $t('Administrator rights') }}</span>
+              <span class="mb-3 block font-bold">Права адміністратора</span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.useraccount || '-' }}
               </div>
@@ -168,7 +165,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -179,7 +176,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">{{ $t('Unwanted software') }}</span>
+              <span class="mb-3 block font-bold">Небажане програмне забезпечення</span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.product || '-' }}
               </div>
@@ -191,7 +188,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -202,7 +199,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">{{ $t('Shared resources') }}</span>
+              <span class="mb-3 block font-bold">Спільні ресурси</span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.share || '-' }}
               </div>
@@ -216,7 +213,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -228,7 +225,7 @@ onMounted(async () => {
           <div class="mb-5 flex items-center justify-between">
             <div class="flex items-center justify-start gap-2">
               <i class="pi pi-history mr-2 text-2xl" />
-              <h5 class="font-bold">{{ $t('PC SysInspector report date') }}</h5>
+              <h5 class="font-bold">ПК SysInspector дата звіту</h5>
             </div>
             <Button text plain rounded icon="pi pi-ellipsis-v" class="h-12 w-12" />
           </div>
@@ -241,19 +238,17 @@ onMounted(async () => {
             >
               <div class="w-4/5">
                 <span class="mr-2 font-bold text-primary-500">
-                  <span v-if="index === 0">
-                    &lt; {{ Math.round(item?.days) }} {{ $t('days') }}
-                  </span>
+                  <span v-if="index === 0"> &lt; {{ Math.round(item?.days) }} днів </span>
                   <span v-else-if="index === stats?.days?.length - 1">
-                    &gt; {{ Math.round(item?.days - 1) }} {{ $t('days') }}
+                    &gt; {{ Math.round(item?.days - 1) }} днів
                   </span>
                   <span v-else>
                     {{ Math.round(stats?.days[index - 1]?.days) }} ~
                     {{ Math.round(item?.days) }}
-                    {{ $t('days') }}
+                    днів
                   </span>
                 </span>
-                <div class="text-base">{{ $t('Actual on') }} {{ currentDate }}</div>
+                <div class="text-base">Актуально на {{ currentDate }}</div>
               </div>
 
               <div class="flex w-full items-center">
@@ -265,7 +260,7 @@ onMounted(async () => {
                 </div>
                 <span class="w-2/5 font-bold text-primary-500">
                   {{ item?.count }}
-                  <span class="font-medium text-surface-500">{{ $t('reports') }}</span>
+                  <span class="font-medium text-surface-500">звіти</span>
                 </span>
               </div>
             </li>
@@ -280,7 +275,7 @@ onMounted(async () => {
           <div class="flex h-12 items-center justify-between">
             <div class="flex items-center justify-start gap-2">
               <i class="pi pi-desktop mr-2 text-2xl"></i>
-              <h5 class="font-bold">{{ $t('PC SysInspector statuses') }}</h5>
+              <h5 class="font-bold">ПК SysInspector статуси</h5>
             </div>
           </div>
 

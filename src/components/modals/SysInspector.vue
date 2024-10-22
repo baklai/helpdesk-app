@@ -1,7 +1,6 @@
 <script setup>
 import html2pdf from 'html2pdf.js';
 import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -13,7 +12,6 @@ import { byteToStr, strToDate, dateTimeToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
 import { useFilter } from '@/stores/api/filters';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -49,12 +47,12 @@ const visible = ref(false);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => onSaveReport()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -99,14 +97,14 @@ const onRemoveRecord = async () => {
   if (!record.value?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -116,15 +114,15 @@ const onRemoveRecord = async () => {
         await Inspector.removeOne(record.value);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -134,8 +132,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -161,15 +159,15 @@ const onSaveReport = () => {
 
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Report created successfully'),
+      summary: 'Інформація',
+      detail: 'Звіт успішно створено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('An unexpected error has occurred'),
+      summary: 'Попередження',
+      detail: 'Виникла непередбачувана помилка',
       life: 3000
     });
   }
@@ -210,10 +208,10 @@ const onCloseModal = () => {
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
             <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
-              {{ $t('Report host') }}: {{ record?.host || '-' }}
+              Хост звіту: {{ record?.host || '-' }}
             </p>
             <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
-              {{ $t('Report date') }}:
+              Дата звіту:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
@@ -226,7 +224,7 @@ const onCloseModal = () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -262,48 +260,34 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('CPU') }}</p>
-              <p class="mb-0 text-base font-normal">
-                {{ $t('Central processing unit') }}
-              </p>
+              <p class="mb-0 text-base font-bold">CPU</p>
+              <p class="mb-0 text-base font-normal">Центральний процесор</p>
             </div>
           </div>
           <table>
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ record?.cpu?.Name || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Clock frequency') }}
-                </td>
+                <td class="font-bold" width="30%">Частота процесора</td>
                 <td>{{ record?.cpu?.CurrentClockSpeed || '-' }} MHz</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Number of cores') }}
-                </td>
+                <td class="font-bold" width="30%">Кількість ядер</td>
                 <td>{{ record?.cpu?.NumberOfCores || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Number of logical cores') }}
-                </td>
+                <td class="font-bold" width="30%">Кількість логічних ядер</td>
                 <td>{{ record?.cpu?.NumberOfLogicalProcessors || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Type of architecture') }}
-                </td>
+                <td class="font-bold" width="30%">Тип архітектури</td>
                 <td>{{ record?.cpu?.Architecture || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ record?.cpu?.Manufacturer || '-' }}</td>
               </tr>
             </tbody>
@@ -325,10 +309,8 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('RAM') }}</p>
-              <p class="mb-0 text-base font-normal">
-                {{ $t('Random access memory') }}
-              </p>
+              <p class="mb-0 text-base font-bold">RAM</p>
+              <p class="mb-0 text-base font-normal">Оперативна пам'ять</p>
             </div>
           </div>
           <table
@@ -337,27 +319,19 @@ const onCloseModal = () => {
           >
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Capacity') }}
-                </td>
+                <td class="font-bold" width="30%">Ємність</td>
                 <td>{{ byteToStr(memorychip?.Capacity) }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Clock frequency') }}
-                </td>
+                <td class="font-bold" width="30%">Частота процесора</td>
                 <td>{{ memorychip?.Speed || '-' }} MHz</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ memorychip?.Manufacturer || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ memorychip?.Description || '-' }}</td>
               </tr>
             </tbody>
@@ -379,9 +353,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('HDD') }}</p>
+              <p class="mb-0 text-base font-bold">HDD</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of harddisk') }} :
+                Кількість жорстких дисків :
                 {{ record?.diskdrive?.length || '-' }}
               </p>
             </div>
@@ -389,33 +363,23 @@ const onCloseModal = () => {
           <table v-for="(diskdrive, index) in record?.diskdrive || []" :key="`diskdrive_${index}`">
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Type') }}
-                </td>
+                <td class="font-bold" width="30%">Тип</td>
                 <td>{{ diskdrive?.Description || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ diskdrive?.Caption || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Capacity') }}
-                </td>
+                <td class="font-bold" width="30%">Ємність</td>
                 <td>{{ byteToStr(diskdrive?.Size) }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Serial number') }}
-                </td>
+                <td class="font-bold" width="30%">Серійний номер</td>
                 <td>{{ diskdrive?.SerialNumber || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ diskdrive?.Manufacturer || '-' }}</td>
               </tr>
             </tbody>
@@ -439,11 +403,9 @@ const onCloseModal = () => {
             </svg>
 
             <div>
-              <p class="mb-0 text-base font-bold">
-                {{ $t('Network adapters') }}
-              </p>
+              <p class="mb-0 text-base font-bold">Мережеві адаптери</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of network adapters') }} :
+                Кількість мережевих адаптерів :
                 {{ record?.netadapter?.filter(item => item?.NetConnectionID)?.length || '-' }}
               </p>
             </div>
@@ -456,39 +418,27 @@ const onCloseModal = () => {
           >
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Connection name') }}
-                </td>
+                <td class="font-bold" width="30%">Назва підключення</td>
                 <td>{{ netadapter?.NetConnectionID || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Adapter type') }}
-                </td>
+                <td class="font-bold" width="30%">Тип адаптера</td>
                 <td>{{ netadapter?.AdapterType || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Name') }}
-                </td>
+                <td class="font-bold" width="30%">Назва</td>
                 <td>{{ netadapter?.Name || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ netadapter?.Description || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ netadapter?.Manufacturer || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('MAC') }}
-                </td>
+                <td class="font-bold" width="30%">MAC</td>
                 <td>{{ netadapter?.MACAddress || '-' }}</td>
               </tr>
             </tbody>
@@ -511,9 +461,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Display') }}</p>
+              <p class="mb-0 text-base font-bold">Дисплей</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of displays') }} :
+                Кількість дисплеїв :
                 {{ record?.display?.length || '-' }}
               </p>
             </div>
@@ -522,21 +472,15 @@ const onCloseModal = () => {
           <table v-for="(display, index) in record?.display || []" :key="`display_${index}`">
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ display?.Description || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ display?.MonitorManufacturer || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Type') }}
-                </td>
+                <td class="font-bold" width="30%">Тип</td>
                 <td>{{ display?.MonitorType || '-' }}</td>
               </tr>
             </tbody>
@@ -559,9 +503,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Video adapter') }}</p>
+              <p class="mb-0 text-base font-bold">Відеоадаптер</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of video adapters') }} :
+                Кількість відеоадаптерів :
                 {{ record?.videoadapter?.length || '-' }}
               </p>
             </div>
@@ -573,27 +517,19 @@ const onCloseModal = () => {
           >
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ videoadapter?.Description || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Memory') }}
-                </td>
+                <td class="font-bold" width="30%">Пам'ять</td>
                 <td>{{ byteToStr(videoadapter?.AdapterRAM) || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Update frequency') }}
-                </td>
+                <td class="font-bold" width="30%">Частота оновлення</td>
                 <td>{{ videoadapter?.CurrentRefreshRate || '-' }} Hz</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Video processor') }}
-                </td>
+                <td class="font-bold" width="30%">Відеопроцесор</td>
                 <td>{{ videoadapter?.VideoProcessor || '-' }}</td>
               </tr>
             </tbody>
@@ -616,9 +552,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Sound device') }}</p>
+              <p class="mb-0 text-base font-bold">Аудіопристрій</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of sound devices') }} :
+                Кількість аудіопристроїв :
                 {{ record?.sound?.length || '-' }}
               </p>
             </div>
@@ -627,15 +563,11 @@ const onCloseModal = () => {
           <table v-for="(sound, index) in record?.sound || []" :key="`sound_${index}`">
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Description') }}
-                </td>
+                <td class="font-bold" width="30%">Опис</td>
                 <td>{{ sound?.Description || '-' }}</td>
               </tr>
               <tr class="border border-surface-200 dark:border-surface-600">
-                <td class="font-bold" width="30%">
-                  {{ $t('Manufacturer') }}
-                </td>
+                <td class="font-bold" width="30%">Виробник</td>
                 <td>{{ sound?.Manufacturer || '-' }}</td>
               </tr>
             </tbody>
@@ -657,9 +589,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Printers') }}</p>
+              <p class="mb-0 text-base font-bold">Принтери</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of printers') }} :
+                Кількість принтерів :
                 {{ record?.printer?.length || '-' }}
               </p>
             </div>
@@ -672,9 +604,7 @@ const onCloseModal = () => {
                 :key="`printer_${index}`"
                 class="border border-surface-200 dark:border-surface-600"
               >
-                <td class="font-bold" width="30%">
-                  {{ $t('Name') }}
-                </td>
+                <td class="font-bold" width="30%">Назва</td>
                 <td>{{ printer?.Name || '-' }}</td>
               </tr>
             </tbody>
@@ -696,14 +626,14 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Local users') }}</p>
+              <p class="mb-0 text-base font-bold">Локальні користувачі</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of users') }} :
+                Кількість користувачів :
                 {{ record?.useraccount?.length || '-' }}
               </p>
               <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
-                {{ $t('Account have administrator rights') }}
+                Обліковий запис має права адміністратора
               </p>
             </div>
           </div>
@@ -711,9 +641,9 @@ const onCloseModal = () => {
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
                 <th></th>
-                <th>{{ $t('Name') }}</th>
-                <th>{{ $t('Description') }}</th>
-                <th>{{ $t('Status') }}</th>
+                <th>Назва</th>
+                <th>Опис</th>
+                <th>Статус</th>
               </tr>
               <tr
                 v-for="(user, index) in record?.useraccount || []"
@@ -730,7 +660,7 @@ const onCloseModal = () => {
                 <td width="50%">{{ user?.Description || '-' }}</td>
                 <td>
                   <Tag
-                    :value="user?.Disabled ? $t('Off') : $t('On')"
+                    :value="user?.Disabled ? 'Вимк.' : 'Увімк.'"
                     :class="[
                       '!bg-transparent',
                       '!border',
@@ -762,14 +692,14 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">{{ $t('Installed apps') }}</p>
+              <p class="mb-0 text-base font-bold">Встановлені програми</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of applications') }} :
+                Кількість програм :
                 {{ record?.product?.length || '-' }}
               </p>
               <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
-                {{ $t('Unwanted software') }}
+                Небажане програмне забезпечення
               </p>
             </div>
           </div>
@@ -777,10 +707,10 @@ const onCloseModal = () => {
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
                 <th></th>
-                <th class="uppercase">{{ $t('Name') }}</th>
-                <th class="uppercase">{{ $t('Publisher') }}</th>
-                <th class="uppercase">{{ $t('Version') }}</th>
-                <th class="uppercase">{{ $t('Installed') }}</th>
+                <th class="uppercase">Назва</th>
+                <th class="uppercase">Видавець</th>
+                <th class="uppercase">Версія</th>
+                <th class="uppercase">Дата встановлення</th>
               </tr>
               <tr
                 v-for="(product, index) in record?.product || []"
@@ -817,16 +747,14 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">
-                {{ $t('Shared resources') }}
-              </p>
+              <p class="mb-0 text-base font-bold">Спільні ресурси</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of resources') }} :
+                Кількість ресурсів :
                 {{ record?.share?.length || '-' }}
               </p>
               <p class="mb-0 text-base font-normal">
                 <i class="pi pi-bookmark-fill text-orange-500" />
-                {{ $t('Shared resources') }}
+                Спільні ресурси
               </p>
             </div>
           </div>
@@ -834,9 +762,9 @@ const onCloseModal = () => {
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
                 <th></th>
-                <th>{{ $t('Name') }}</th>
-                <th>{{ $t('Path') }}</th>
-                <th>{{ $t('Description') }}</th>
+                <th>Назва</th>
+                <th>Шлях</th>
+                <th>Опис</th>
               </tr>
               <tr
                 v-for="(share, index) in record?.share || []"
@@ -870,11 +798,9 @@ const onCloseModal = () => {
               />
             </svg>
             <div>
-              <p class="mb-0 text-base font-bold">
-                {{ $t('Fixes and updates') }}
-              </p>
+              <p class="mb-0 text-base font-bold">Виправлення та оновлення</p>
               <p class="mb-0 text-base font-normal">
-                {{ $t('Number of updates') }} :
+                Кількість оновлень :
                 {{ record?.fixupdate?.length || '-' }}
               </p>
             </div>
@@ -883,9 +809,9 @@ const onCloseModal = () => {
             <tbody>
               <tr class="border border-surface-200 dark:border-surface-600">
                 <th></th>
-                <th class="uppercase">{{ $t('HotFix') }}</th>
-                <th class="uppercase">{{ $t('Description') }}</th>
-                <th class="uppercase">{{ $t('Installed') }}</th>
+                <th class="uppercase">Виправлення</th>
+                <th class="uppercase">Опис</th>
+                <th class="uppercase">Дата встановлення</th>
               </tr>
               <tr
                 v-for="(fixupdate, index) in record?.fixupdate || []"
@@ -906,8 +832,8 @@ const onCloseModal = () => {
     </template>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Close')" @click="visible = false" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveReport" />
+      <Button text plain icon="pi pi-times" label="Закрити" @click="visible = false" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveReport" />
     </template>
   </Dialog>
 </template>

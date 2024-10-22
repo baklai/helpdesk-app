@@ -33,7 +33,7 @@ const $config = useConfig();
         rounded
         class="my-2 h-12 w-12 text-xl"
         icon="pi pi-arrow-right-arrow-left"
-        v-tooltip.rigth="$t('Toggle sidebar')"
+        v-tooltip.rigth="'Перемкнути бічну панель'"
         @click="$config.appSideBarMini = !$config.appSideBarMini"
       />
     </li>

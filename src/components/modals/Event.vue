@@ -2,14 +2,12 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
 import { useEvent } from '@/stores/api/events';
 import { capitalizeFirstLetter } from '@/service/DataFilters';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -18,9 +16,9 @@ const { findOne, createOne, updateOne, removeOne } = useEvent();
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      title: yup.string().required(t('Value is required')),
-      datetime: yup.string().required(t('Value is required')),
-      eventType: yup.string().required(t('Value is required'))
+      title: yup.string().required('Потрібно вказати значення'),
+      datetime: yup.string().required('Потрібно вказати значення'),
+      eventType: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -46,17 +44,17 @@ const visible = ref(false);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Save record'),
+    label: 'Зберегти запис',
     icon: 'pi pi-save',
     command: async () => await onSaveRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   }
@@ -71,8 +69,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 5000
   });
 };
@@ -81,14 +79,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -98,15 +96,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -116,8 +114,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -133,16 +131,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -177,11 +175,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <AppIcons name="events-calendar" :size="40" class="mr-4" />
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Calendar event') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Подія календаря</p>
             <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -193,7 +189,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -202,22 +198,22 @@ const onCloseModal = async () => {
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSaveRecord">
       <div class="flex flex-col gap-2">
-        <label for="title" class="font-bold">{{ $t('Title event') }}</label>
+        <label for="title" class="font-bold">Назва події</label>
         <InputText
           id="title"
           v-model="title"
           v-bind="titleAttrs"
-          :placeholder="$t('Title event')"
+          placeholder="Назва події"
           :invalid="!!errors?.title"
           aria-describedby="title-help"
         />
         <small id="title-help" class="text-red-500" v-if="errors?.title">
-          {{ $t(errors.title) }}
+          {{ errors.title }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="datetime" class="font-bold">{{ $t('Datetime of event') }}</label>
+        <label for="datetime" class="font-bold">Дата та час події</label>
         <Calendar
           showIcon
           showTime
@@ -227,7 +223,7 @@ const onCloseModal = async () => {
           inputId="datetime"
           v-model="datetime"
           v-bind="datetimeAttrs"
-          :placeholder="$t('Datetime of event')"
+          placeholder="Дата та час події"
           :invalid="!!errors?.datetime"
           aria-describedby="datetime-help"
           :pt="{
@@ -247,12 +243,12 @@ const onCloseModal = async () => {
           }"
         />
         <small id="datetime-help" class="text-red-500" v-if="errors?.datetime">
-          {{ $t(errors.datetime) }}
+          {{ errors.datetime }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="eventType" class="font-bold">{{ $t('Event type') }}</label>
+        <label for="eventType" class="font-bold">Тип події</label>
         <Dropdown
           filter
           autofocus
@@ -262,33 +258,33 @@ const onCloseModal = async () => {
           v-model="eventType"
           v-bind="eventTypeAttrs"
           :options="['event', 'meeting', 'deadline', 'holiday', 'birthday']"
-          :optionLabel="item => capitalizeFirstLetter($t(item))"
-          :filterPlaceholder="$t('Search')"
-          :placeholder="$t('Event type')"
+          :optionLabel="item => capitalizeFirstLetter(item)"
+          filterPlaceholder="Пошук"
+          placeholder="Тип події"
           :invalid="!!errors?.eventType"
           aria-describedby="eventType-help"
         />
         <small id="eventType-help" class="text-red-500" v-if="errors?.eventType">
-          {{ $t(errors.eventType) }}
+          {{ errors.eventType }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description" class="font-bold">{{ $t('Description') }}</label>
+        <label for="description" class="font-bold">Опис</label>
         <Textarea
           rows="5"
           cols="12"
           id="description"
           v-model="description"
           v-bind="descriptionAttrs"
-          :placeholder="$t('Description')"
+          placeholder="Опис"
         />
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

@@ -20,12 +20,12 @@ const refDataTable = ref();
 const globalFilter = ref({
   field: 'fullname',
   matchMode: FilterMatchMode.CONTAINS,
-  placeholder: 'Search fullname'
+  placeholder: "Шукати за ім'ям"
 });
 
 const columns = ref([
   {
-    header: { text: 'Fullname', icon: 'pi pi-id-card', width: '14rem' },
+    header: { text: "Повне ім'я", icon: 'pi pi-id-card', width: '14rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -48,7 +48,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Email', icon: 'pi pi-envelope', width: '16rem' },
+    header: { text: 'Електронна пошта', icon: 'pi pi-envelope', width: '16rem' },
     column: {
       field: 'email',
       render(value) {
@@ -71,7 +71,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', icon: 'pi pi-phone', width: '16rem' },
+    header: { text: 'Номер телефону', icon: 'pi pi-phone', width: '16rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -94,7 +94,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Activated', icon: 'pi pi-check', width: '12rem' },
+    header: { text: 'Активація', icon: 'pi pi-check', width: '12rem' },
     column: {
       field: 'isActivated',
       render(value) {
@@ -116,7 +116,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Admin', icon: 'pi pi-check-circle', width: '12rem' },
+    header: { text: 'Адміністратор', icon: 'pi pi-check-circle', width: '12rem' },
     column: {
       field: 'isAdmin',
       render(value) {
@@ -138,7 +138,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Scope', icon: 'pi pi-unlock', width: '12rem' },
+    header: { text: 'Набори дозволів', icon: 'pi pi-unlock', width: '12rem' },
     column: {
       field: 'scope',
       render(value) {
@@ -198,11 +198,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
     </HDDataTable>
   </div>

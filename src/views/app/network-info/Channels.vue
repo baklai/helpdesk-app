@@ -278,10 +278,10 @@ const columns = ref([
         </i>
       </template>
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
     </HDDataTable>
 

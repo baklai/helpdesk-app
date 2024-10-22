@@ -2,7 +2,7 @@ import { useApp } from '@/stores/app';
 
 export default {
   install: async (app, options) => {
-    const { $toast, $t } = app.config.globalProperties;
+    const { $toast } = app.config.globalProperties;
 
     const store = useApp();
 
@@ -34,8 +34,8 @@ export default {
       notImplemented() {
         $toast.add({
           severity: 'info',
-          summary: $t('Information'),
-          detail: $t('This functionality has not yet been implemented'),
+          summary: 'Інформація',
+          detail: 'Цей функціонал ще не реалізований',
           life: 5000
         });
       }

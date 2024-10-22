@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import ProgressBar from 'primevue/progressbar';
@@ -12,7 +11,6 @@ const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Repor
 import { dateToStr } from '@/service/DataFilters';
 import { useReport } from '@/stores/api/reports';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -26,22 +24,22 @@ const refModal = ref(null);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create report'),
-    icon: 'pi pi-plus-circle',
-    command: async () => refModal.value.toggle({})
-  },
-  {
-    label: t('Export report'),
+    label: 'Сгенерувати звіт',
     icon: 'pi pi-file-export',
     command: async () => await reportToCSV(report.value)
   },
   {
-    label: t('Update report'),
+    label: 'Створити шаблон звіту',
+    icon: 'pi pi-plus-circle',
+    command: async () => refModal.value.toggle({})
+  },
+  {
+    label: 'Оновити шаблон звіту',
     icon: 'pi pi-file-edit',
     command: async () => refModal.value.toggle(report.value)
   },
   {
-    label: t('Delete report'),
+    label: 'Видалити шаблон звіту',
     icon: 'pi pi-trash',
     command: async () => confirmDelete(report.value)
   }
@@ -59,8 +57,8 @@ const onCloseModal = async () => {
 
 const confirmDelete = ({ id }) => {
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -70,15 +68,15 @@ const confirmDelete = ({ id }) => {
         await removeOne({ id });
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 3000
         });
       } finally {
@@ -88,8 +86,8 @@ const confirmDelete = ({ id }) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 3000
       });
     }
@@ -98,7 +96,7 @@ const confirmDelete = ({ id }) => {
 
 const convertToCSV = data => {
   const [first] = data;
-  const headerI18n = Object.keys(first).map(item => t(item));
+  const headerI18n = Object.keys(first).map(item => item);
   const header = headerI18n.join(';');
   const rows = data.map(obj => Object.values(obj).join(';'));
   return `${header}\n${rows.join('\n')}`;
@@ -122,8 +120,8 @@ const reportToCSV = async ({ id }) => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t(err.message),
+      summary: 'Попередження',
+      detail: err.message,
       life: 3000
     });
   } finally {
@@ -137,8 +135,8 @@ onMounted(async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t(err.message),
+      summary: 'Попередження',
+      detail: err.message,
       life: 3000
     });
   }
@@ -162,10 +160,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>
@@ -178,9 +176,7 @@ onMounted(async () => {
         <template #content>
           <div class="flex flex-col items-center justify-center gap-4">
             <i class="pi pi-plus-circle text-5xl" />
-            <p class="text-xl font-medium">
-              {{ $t('Create a report template') }}
-            </p>
+            <p class="text-xl font-medium">Створити шаблон звіту</p>
           </div>
         </template>
       </Card>
@@ -199,10 +195,10 @@ onMounted(async () => {
                   {{ item?.name || '-' }}
                 </p>
                 <p class="line-height-2 text-sm font-normal text-surface-500">
-                  {{ $t('Report created by') }} {{ item?.creator }}
+                  Звіт створений {{ item?.creator }}
                 </p>
                 <p class="line-height-2 text-sm font-normal text-surface-500">
-                  {{ $t('Created at') }} {{ dateToStr(item?.updatedAt) || '-' }}
+                  Створено о {{ dateToStr(item?.updatedAt) || '-' }}
                 </p>
               </div>
             </div>
@@ -214,7 +210,7 @@ onMounted(async () => {
                 rounded
                 class="h-12 w-12"
                 icon="pi pi-cog"
-                v-tooltip.bottom="$t('Options menu')"
+                v-tooltip.bottom="'Меню опцій'"
                 @click="event => onMenuClick(event, item)"
               />
             </div>
@@ -232,10 +228,6 @@ onMounted(async () => {
             <p class="text-base">
               {{ item?.description || '-' }}
             </p>
-
-            <!-- <p class="text-sm font-normal line-height-2 text-surface-500 pt-4">
-              {{ $t('Updated at') }} {{ dateToStr(item?.updatedAt) || '-' }}
-            </p> -->
           </div>
         </template>
       </Card>

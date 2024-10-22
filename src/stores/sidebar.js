@@ -1,26 +1,22 @@
 import { computed } from 'vue';
 import { defineStore } from 'pinia';
-import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 export const useSidebar = defineStore('sidebar', () => {
   const Router = useRouter();
-  const { t } = useI18n();
 
   const navLinks = computed(() => [
-    { ...getRoute('home') },
-
-    t('Documentation'),
+    'Документація',
 
     {
-      label: t('Docs of helpdesk'),
-      url: '/docs/',
+      label: 'Документація',
+      url: import.meta.env.VITE_DOCS_BASE_URL || '/',
       icon: 'docs',
       target: '_blank',
-      description: t('Docs of the technical support')
+      description: 'Документація технічної підтримки'
     },
 
-    t('Applications'),
+    'Системні додатки',
 
     { ...getRoute('events-calendar') },
     {
@@ -44,11 +40,11 @@ export const useSidebar = defineStore('sidebar', () => {
 
     { ...getRoute('ping-icmp') },
 
-    t('HD Reports'),
+    'Категорії та шаблони',
 
     { ...getRoute('reports') },
 
-    t('Administration'),
+    'Панель інструментів',
 
     { ...getRoute('core-dashboard') },
     { ...getRoute('core-log-audit') },
@@ -68,7 +64,7 @@ export const useSidebar = defineStore('sidebar', () => {
     const route = routes.find(item => item.name === name);
     return {
       name: route.name,
-      label: t(route.meta.title),
+      label: route.meta.title,
       icon: route.name,
       command: () => {
         Router.push({ name: route.name });
@@ -81,7 +77,7 @@ export const useSidebar = defineStore('sidebar', () => {
     const route = routes.find(item => item.name === name);
     return {
       name: route.name,
-      label: t(route.meta.title),
+      label: route.meta.title,
       icon: route.name
     };
   }

@@ -2,13 +2,11 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { useNotice } from '@/stores/api/notices';
 import { useProfile } from '@/stores/api/profiles';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const { createOne } = useNotice();
@@ -16,9 +14,9 @@ const Profile = useProfile();
 
 const { values, errors, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
-    title: yup.string().required(t('Value is required')),
-    text: yup.string().required(t('Value is required')),
-    profiles: yup.array().required(t('Value is required'))
+    title: yup.string().required('Потрібно вказати значення'),
+    text: yup.string().required('Потрібно вказати значення'),
+    profiles: yup.array().required('Потрібно вказати значення')
   }),
   initialValues: {}
 });
@@ -59,15 +57,15 @@ const onSendNotice = handleSubmit(async () => {
     });
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('All messages have been sent'),
+      summary: 'Інформація',
+      detail: 'Всі повідомлення відправлено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t(err?.message),
+      summary: 'Попередження',
+      detail: err?.message,
       life: 3000
     });
   } finally {
@@ -94,11 +92,9 @@ const onCloseModal = () => {
         <div class="flex items-center justify-center">
           <i class="pi pi-bell mr-4 text-4xl"></i>
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('HD Notification') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">HD Сповіщення</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ $t('Helpdesk system notifications') }}
+              Сповіщення системи служби технічної підтримки
             </p>
           </div>
         </div>
@@ -107,7 +103,7 @@ const onCloseModal = () => {
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSendNotice">
       <div class="flex flex-col gap-2">
-        <label for="profiles" class="font-bold">{{ $t('Notification profiles') }}</label>
+        <label for="profiles" class="font-bold">Профілі сповіщень</label>
         <MultiSelect
           id="profiles"
           filter
@@ -116,7 +112,7 @@ const onCloseModal = () => {
           :options="records"
           optionLabel="fullname"
           :maxSelectedLabels="3"
-          :placeholder="$t('Notification profiles')"
+          placeholder="Профілі сповіщень"
           :invalid="!!errors?.profiles"
           aria-describedby="profiles-help"
         >
@@ -128,50 +124,50 @@ const onCloseModal = () => {
           </template>
         </MultiSelect>
         <small id="profiles-help" class="text-red-500" v-if="errors?.profiles">
-          {{ $t(errors.profiles) }}
+          {{ errors.profiles }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="title" class="font-bold">{{ $t('Notification title') }}</label>
+        <label for="title" class="font-bold">Заголовок сповіщення</label>
         <InputText
           id="title"
           v-model="title"
           v-bind="titleAttrs"
-          :placeholder="$t('Notification title')"
+          placeholder="Заголовок сповіщення"
           :invalid="!!errors?.title"
           aria-describedby="title-help"
         />
         <small id="title-help" class="text-red-500" v-if="errors?.title">
-          {{ $t(errors.title) }}
+          {{ errors.title }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="text" class="font-bold">{{ $t('Notification text') }}</label>
+        <label for="text" class="font-bold">Текст сповіщення</label>
         <Textarea
           rows="10"
           id="text"
           v-model="text"
           v-bind="textAttrs"
-          :placeholder="$t('Notification text')"
+          placeholder="Текст сповіщення"
           :invalid="!!errors?.text"
           aria-describedby="text-help"
         />
         <small id="text-help" class="text-red-500" v-if="errors?.text">
-          {{ $t(errors.text) }}
+          {{ errors.text }}
         </small>
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
       <Button
         text
         plain
         icon="pi pi-send"
-        :label="$t('Send')"
-        v-tooltip.bottom="$t('Send notice')"
+        label="Відправити"
+        v-tooltip.bottom="'Надіслати сповіщення'"
         @click="onSendNotice"
       />
     </template>

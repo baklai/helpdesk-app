@@ -5,7 +5,7 @@ import SidebarMiniMenu from '@/components/menus/SidebarMiniMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnInfoProfile from '@/components/buttons/BtnInfoProfile.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
+import BtnStorageClient from '@/components/buttons/BtnStorageClient.vue';
 
 import { useConfig } from '@/stores/config';
 
@@ -52,9 +52,7 @@ const $config = useConfig();
               </p>
             </div>
             <div class="flex text-center">
-              <p class="text-base font-medium text-surface-500">
-                {{ $t('Web Application of technical support') }}
-              </p>
+              <p class="text-base font-medium text-surface-500">Веб-додаток технічної підтримки</p>
             </div>
           </div>
         </RouterLink>
@@ -66,9 +64,9 @@ const $config = useConfig();
             </Avatar>
           </div>
           <div class="flex flex-col items-start justify-center">
-            <span class="text-2xl">{{ $t($route?.meta?.title) }}</span>
+            <span class="text-2xl">{{ $route?.meta?.title }}</span>
             <p class="text-sm text-surface-500">
-              {{ $t($route?.meta?.description) }}
+              {{ $route?.meta?.description }}
             </p>
           </div>
         </div>
@@ -79,7 +77,7 @@ const $config = useConfig();
 
         <div class="flex flex-none flex-row content-center items-center justify-between py-2">
           <BtnInfoProfile />
-          <BtnToggleLang />
+          <BtnStorageClient />
           <BtnToggleTheme />
           <BtnAuth />
         </div>

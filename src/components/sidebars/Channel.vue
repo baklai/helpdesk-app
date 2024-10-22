@@ -43,7 +43,7 @@ const onCloseSidebar = () => {
         <div class="flex items-center justify-center">
           <AppIcons name="network-channels" :size="40" class="mr-4" />
           <div>
-            <p class="mb-0 text-lg">{{ $t('Network channel') }}</p>
+            <p class="mb-0 text-lg">Мережевий канал</p>
             <p class="text-base font-normal">
               {{ record?.locationFrom }} - {{ record?.locationTo }}
             </p>
@@ -57,7 +57,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Menu')"
+            v-tooltip.bottom="'Меню'"
             @click="toggleMenu($event, record)"
           />
           <Button
@@ -67,7 +67,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-times"
-            v-tooltip.bottom="$t('Close')"
+            v-tooltip.bottom="'Закрити'"
             @click="onCloseSidebar"
           />
         </div>
@@ -76,59 +76,59 @@ const onCloseSidebar = () => {
 
     <template #content>
       <div class="overflow-y-auto" style="height: calc(100vh - 20rem)">
-        <h5>{{ $t('Start point') }}</h5>
+        <h5>Початкова точка</h5>
         <table>
           <tbody>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Location start') }} :</td>
+              <td class="font-bold" width="50%">Початкове розташування :</td>
               <td>{{ record?.locationFrom || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Unit start') }} :</td>
+              <td class="font-bold" width="50%">Початковий пристрій :</td>
               <td>{{ record?.unitFrom || '-' }}</td>
             </tr>
           </tbody>
         </table>
 
-        <h5>{{ $t('End point') }}</h5>
+        <h5>Кінцева точка</h5>
         <table>
           <tbody>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Location end') }} :</td>
+              <td class="font-bold" width="50%">Кінцеве розташування :</td>
               <td>{{ record?.locationTo || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Unit end') }} :</td>
+              <td class="font-bold" width="50%">Кінцевий пристрій :</td>
               <td>{{ record?.unitTo || '-' }}</td>
             </tr>
           </tbody>
         </table>
 
-        <h5>{{ $t('Channel info') }}</h5>
+        <h5>Інформація про канал</h5>
         <table>
           <tbody>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Level') }} :</td>
+              <td class="font-bold" width="50%">Рівень :</td>
               <td>{{ record?.level || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Type') }} :</td>
+              <td class="font-bold" width="50%">Тип :</td>
               <td>{{ record?.type || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Speed') }} :</td>
+              <td class="font-bold" width="50%">Швидкість :</td>
               <td>{{ record?.speed || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Status') }} :</td>
+              <td class="font-bold" width="50%">Статус :</td>
               <td>{{ record?.status || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Operator') }} :</td>
+              <td class="font-bold" width="50%">Оператор :</td>
               <td>{{ record?.operator || '-' }}</td>
             </tr>
             <tr class="border border-surface-200 dark:border-surface-600">
-              <td class="font-bold" width="50%">{{ $t('Composition') }} :</td>
+              <td class="font-bold" width="50%">Склад :</td>
               <td>{{ record?.composition || '-' }}</td>
             </tr>
           </tbody>

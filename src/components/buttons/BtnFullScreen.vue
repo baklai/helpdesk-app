@@ -1,9 +1,7 @@
 <script setup>
 import { ref, onMounted, watchEffect } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const isFullScreen = ref(false);
@@ -35,8 +33,8 @@ watchEffect(() => {
   if (isFullScreen.value) {
     toast.add({
       severity: 'info',
-      summary: t('Information'),
-      detail: t('Helpdesk is now in full screen mode (Exit full screen mode: Esc)'),
+      summary: 'Інформація',
+      detail: 'Додаток тепер у повноекранному режимі (вийти з повноекранного режиму: Esc)',
       life: 3000
     });
   }
@@ -50,7 +48,7 @@ watchEffect(() => {
     rounded
     class="h-12 w-12 text-2xl"
     :icon="`pi ${isFullScreen ? 'pi-window-minimize' : 'pi-window-maximize'}`"
-    v-tooltip.bottom="$t('Maximize/Minimize')"
+    v-tooltip.bottom="'Збільшити/Зменшити'"
     @click="toggleFullScreen"
   />
 </template>

@@ -31,76 +31,74 @@ defineProps({
       </svg>
       <div>
         <p class="text-lg">IP {{ record?.ipaddress || '-' }}</p>
-        <p class="text-base font-normal">
-          {{ $t('Date open') }} : {{ dateToStr(record?.date) || '-' }}
-        </p>
+        <p class="text-base font-normal">Дата відкриття : {{ dateToStr(record?.date) || '-' }}</p>
       </div>
     </div>
 
     <table class="w-full text-lg font-normal">
       <tbody>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Location') }} :</td>
+          <td class="font-medium" width="50%">Розташування :</td>
           <td>{{ record?.location?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Unit') }} :</td>
+          <td class="font-medium" width="50%">Пристрій :</td>
           <td>{{ record?.unit?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('IP Address') }} :</td>
+          <td class="font-medium" width="50%">IP-адресa :</td>
           <td>{{ record?.ipaddress || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Mask') }} :</td>
+          <td class="font-medium" width="50%">Маска :</td>
           <td>{{ record?.mask || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Gateway') }} :</td>
+          <td class="font-medium" width="50%">Шлюз :</td>
           <td>{{ record?.gateway || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Letter number') }} :</td>
+          <td class="font-medium" width="50%">Номер листа :</td>
           <td>{{ record?.reqnum || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Organization') }} :</td>
+          <td class="font-medium" width="50%">Організація :</td>
           <td>{{ record?.organization?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Subdivision') }} :</td>
+          <td class="font-medium" width="50%">Підрозділ :</td>
           <td>{{ record?.subdivision?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Department') }} :</td>
+          <td class="font-medium" width="50%">Відділ :</td>
           <td>{{ record?.department?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Fullname') }} :</td>
+          <td class="font-medium" width="50%">Повне ім'я :</td>
           <td>{{ record?.fullname || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Position') }} :</td>
+          <td class="font-medium" width="50%">Посада :</td>
           <td>{{ record?.position?.name || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Phone') }} :</td>
+          <td class="font-medium" width="50%">Телефон :</td>
           <td>{{ record?.phone || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Autoanswer') }} :</td>
+          <td class="font-medium" width="50%">Автовідповідь :</td>
           <td>{{ record?.autoanswer || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Date open') }} :</td>
+          <td class="font-medium" width="50%">Дата відкриття :</td>
           <td>{{ dateToStr(record?.date) || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Comment') }} :</td>
+          <td class="font-medium" width="50%">Коментар :</td>
           <td>{{ record?.comment }}</td>
         </tr>
         <tr class="border-b border-surface-200 dark:border-surface-600">
-          <td class="font-medium" width="50%">{{ $t('Internet') }} :</td>
+          <td class="font-medium" width="50%">Інтернет :</td>
           <td>
             <i :class="record?.inetStatus ? 'pi pi-check font-bold text-green-500' : 'pi pi-ban'" />
           </td>
@@ -124,9 +122,9 @@ defineProps({
         />
       </svg>
       <div>
-        <p class="text-lg">{{ $t('Internet') }}</p>
+        <p class="text-lg">Інтернет</p>
         <p class="text-base font-normal">
-          {{ $t('Date open') }} : {{ dateToStr(record?.internet?.dateOpen) || '-' }}
+          Дата відкриття : {{ dateToStr(record?.internet?.dateOpen) || '-' }}
         </p>
       </div>
     </div>
@@ -143,19 +141,19 @@ defineProps({
     >
       <tbody>
         <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
-          <td class="font-medium" width="40%">{{ $t('Letter number') }} :</td>
+          <td class="font-medium" width="40%">Номер листа :</td>
           <td>{{ record?.internet?.reqnum || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
-          <td class="font-medium" width="40%">{{ $t('Date open') }} :</td>
+          <td class="font-medium" width="40%">Дата відкриття :</td>
           <td>{{ dateToStr(record?.internet?.dateOpen) || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
-          <td class="font-medium" width="40%">{{ $t('Date close') }} :</td>
+          <td class="font-medium" width="40%">Дата закриття :</td>
           <td>{{ dateToStr(record?.internet?.dateClose) || '-' }}</td>
         </tr>
         <tr class="border-b border-surface-200 py-2 dark:border-surface-600">
-          <td class="font-medium" width="40%">{{ $t('Comment') }} :</td>
+          <td class="font-medium" width="40%">Коментар :</td>
           <td>{{ record?.internet?.comment }}</td>
         </tr>
       </tbody>

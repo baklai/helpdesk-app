@@ -122,10 +122,10 @@ onMounted(async () => {
       </div>
       <div>
         <h3 class="text-2xl">
-          {{ $t($route?.meta?.title) }}
+          {{ $route?.meta?.title }}
         </h3>
         <p class="text-base text-surface-500">
-          {{ $t($route?.meta?.description) }}
+          {{ $route?.meta?.description }}
         </p>
       </div>
     </div>
@@ -135,9 +135,7 @@ onMounted(async () => {
         <div
           class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
         >
-          <h5 class="text-center text-xl font-bold">
-            {{ $t('API Activity for the current month') }}
-          </h5>
+          <h5 class="text-center text-xl font-bold">Активність API за поточний місяць</h5>
           <Chart
             type="line"
             :data="chartDataActivity"
@@ -151,9 +149,7 @@ onMounted(async () => {
         <div
           class="mb-0 rounded-lg border border-surface-300 bg-surface-50 p-6 dark:border-surface-600 dark:bg-surface-800"
         >
-          <h5 class="text-center text-xl font-bold">
-            {{ $t('Profile activity for the current week') }}
-          </h5>
+          <h5 class="text-center text-xl font-bold">Активність профілю за поточний тиждень</h5>
           <Chart
             type="bar"
             :data="chartDataActivityProfiles"
@@ -169,7 +165,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">{{ $t('Total number of profiles') }}</span>
+              <span class="mb-3 block font-bold">Загальна кількість профілів</span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.profiles || '-' }}
               </div>
@@ -183,7 +179,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -194,9 +190,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of requests') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість запитів </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.requests || '-' }}
               </div>
@@ -210,7 +204,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -221,9 +215,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of PC SysInspector reports') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість звітів ПК SysInspector </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.inspectors || '-' }}
               </div>
@@ -237,7 +229,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -248,9 +240,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of IP Addresses') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість IP-адрес </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.ipaddress || '-' }}
               </div>
@@ -264,7 +254,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -275,9 +265,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of channels') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість каналів </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.channels || '-' }}
               </div>
@@ -289,7 +277,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -300,9 +288,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of units') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість пристроїв </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.units || '-' }}
               </div>
@@ -316,7 +302,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -327,9 +313,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of positions') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість посад </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.positions || '-' }}
               </div>
@@ -343,7 +327,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -354,9 +338,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of locations') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість розташувань </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.locations || '-' }}
               </div>
@@ -370,7 +352,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -381,9 +363,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of organizations') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість організацій </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.organizations || '-' }}
               </div>
@@ -397,7 +377,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -408,9 +388,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of subdivisions') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість підрозділів </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.subdivisions || '-' }}
               </div>
@@ -424,7 +402,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>
@@ -435,9 +413,7 @@ onMounted(async () => {
         >
           <div class="mb-3 flex justify-between">
             <div>
-              <span class="mb-3 block font-bold">
-                {{ $t('Total number of departments') }}
-              </span>
+              <span class="mb-3 block font-bold"> Загальна кількість відділів </span>
               <div class="text-xl font-bold text-primary-500">
                 {{ stats?.departments || '-' }}
               </div>
@@ -451,7 +427,7 @@ onMounted(async () => {
               </svg>
             </div>
           </div>
-          <span class="mr-2 font-medium text-green-500">{{ $t('Actual on') }}</span>
+          <span class="mr-2 font-medium text-green-500">Актуально на</span>
           <span class="">{{ currentDate }}</span>
         </div>
       </div>

@@ -1,21 +1,17 @@
 import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { usePrimeVue } from 'primevue/config';
-import { useI18n } from 'vue-i18n';
 
 import useLocalStorage from '@/service/LocalStorage';
 
 export const useConfig = defineStore('config', () => {
   const primevue = usePrimeVue();
 
-  const { locale, fallbackLocale, availableLocales, tm } = useI18n();
-
   const appScale = ref(useLocalStorage('app-scale', 12));
   const appRipple = ref(useLocalStorage('app-ripple', false));
   const appSideBarMini = ref(useLocalStorage('app-sidebar-mini', false));
   const appSideBarMode = ref(useLocalStorage('app-sidebar-mode', 'static'));
   const appTheme = ref(useLocalStorage('app-theme', 'light'));
-  const appLanguage = ref(useLocalStorage('app-language', navigator.language || fallbackLocale));
 
   const appSideBarVisible = ref(null);
   const activeMenuItem = ref(null);
@@ -51,28 +47,7 @@ export const useConfig = defineStore('config', () => {
     appSideBarVisible.value = !appSideBarVisible.value;
   }
 
-  function toggleAppLang(value) {
-    if (value && availableLocales.includes(value)) {
-      locale.value = value;
-      appLanguage.value = value;
-    } else if (appLanguage.value && availableLocales.includes(appLanguage.value)) {
-      locale.value = appLanguage.value;
-    } else {
-      const browserLanguage = navigator.language.slice(0, 2);
-      if (availableLocales.includes(browserLanguage)) {
-        locale.value = browserLanguage;
-        appLanguage.value = browserLanguage;
-      } else {
-        locale.value = fallbackLocale;
-        appLanguage.value = fallbackLocale;
-      }
-    }
-
-    primevue.config.locale = tm('primevue');
-  }
-
   function initAppConfigs() {
-    toggleAppLang();
     toggleAppScale();
     toggleAppTheme();
     toggleAppRipple();
@@ -96,7 +71,6 @@ export const useConfig = defineStore('config', () => {
     appSideBarVisible,
     activeMenuItem,
     isDarkAppTheme,
-    toggleAppLang,
     toggleAppScale,
     toggleAppTheme,
     toggleAppRipple,

@@ -1,18 +1,15 @@
 <script setup>
 import { ref, shallowRef, computed, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
 
 const refMenu = ref();
 const refModal = shallowRef(null);
 
 const items = computed(() => [
   {
-    label: t('Unit records'),
+    label: 'Записи про пристрої',
     items: [
       {
-        label: t('Unit'),
+        label: 'Пристрій',
         icon: 'pi pi-desktop',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Unit.vue'));
@@ -21,10 +18,10 @@ const items = computed(() => [
     ]
   },
   {
-    label: t('Locations records'),
+    label: 'Записи розташувань',
     items: [
       {
-        label: t('Location'),
+        label: 'Розташування',
         icon: 'pi pi-map-marker',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Location.vue'));
@@ -33,10 +30,10 @@ const items = computed(() => [
     ]
   },
   {
-    label: t('Organizations records'),
+    label: 'Записи організацій',
     items: [
       {
-        label: t('Organization'),
+        label: 'Організація',
         icon: 'pi pi-building',
         command: () => {
           refModal.value = defineAsyncComponent(
@@ -45,7 +42,7 @@ const items = computed(() => [
         }
       },
       {
-        label: t('Subdivision'),
+        label: 'Підрозділ',
         icon: 'pi pi-building',
         command: () => {
           refModal.value = defineAsyncComponent(
@@ -54,7 +51,7 @@ const items = computed(() => [
         }
       },
       {
-        label: t('Department'),
+        label: 'Відділ',
         icon: 'pi pi-building',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Department.vue'));
@@ -63,10 +60,10 @@ const items = computed(() => [
     ]
   },
   {
-    label: t('Positions records'),
+    label: 'Записи посад',
     items: [
       {
-        label: t('Position'),
+        label: 'Посада',
         icon: 'pi pi-briefcase',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Position.vue'));
@@ -75,10 +72,10 @@ const items = computed(() => [
     ]
   },
   {
-    label: t('All System filters'),
+    label: 'Усі системні фільтри',
     items: [
       {
-        label: t('PC SysInspector'),
+        label: 'ПК SysInspector',
         icon: 'pi pi-filter',
         command: () => {
           refModal.value = defineAsyncComponent(() => import('@/components/modals/Filter.vue'));
@@ -105,7 +102,7 @@ const items = computed(() => [
     rounded
     icon="pi pi-table"
     class="h-12 w-12 text-2xl"
-    v-tooltip.bottom="$t('DB Tables')"
+    v-tooltip.bottom="'DB Таблиці'"
     @click="event => refMenu.toggle(event)"
   />
 

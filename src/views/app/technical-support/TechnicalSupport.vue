@@ -33,12 +33,12 @@ const refDataTable = ref();
 const globalFilter = ref({
   field: 'request',
   matchMode: FilterMatchMode.CONTAINS,
-  placeholder: 'Search request'
+  placeholder: 'Пошук за запитом'
 });
 
 const columns = ref([
   {
-    header: { text: 'Opened an request', width: '16rem' },
+    header: { text: 'Відкрив заявку', width: '16rem' },
     column: {
       field: 'workerOpen.fullname',
       render(value) {
@@ -67,7 +67,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date opened', width: '15rem' },
+    header: { text: 'Дата відкриття', width: '15rem' },
     column: {
       field: 'createdAt',
       render(value) {
@@ -91,7 +91,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Status', width: '12rem' },
+    header: { text: 'Статус', width: '12rem' },
     column: {
       field: 'status',
       render(value) {
@@ -117,7 +117,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Letter number', width: '16rem' },
+    header: { text: 'Номер листа', width: '16rem' },
     column: {
       field: 'reqnum',
       render(value) {
@@ -140,7 +140,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Request', width: '25rem' },
+    header: { text: 'Запит', width: '25rem' },
     column: {
       field: 'request',
       render(value) {
@@ -166,7 +166,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Location', width: '15rem' },
+    header: { text: 'Розташування', width: '15rem' },
     column: {
       field: 'location.name',
       render(value) {
@@ -196,7 +196,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '16rem' },
+    header: { text: "Повне ім'я", width: '16rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -219,7 +219,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', width: '15rem' },
+    header: { text: 'Номер телефону', width: '15rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -242,7 +242,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Position', width: '16rem' },
+    header: { text: 'Посада', width: '16rem' },
     column: {
       field: 'position.name',
       render(value) {
@@ -271,7 +271,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Address', width: '16rem' },
+    header: { text: 'IP-адреса', width: '16rem' },
     column: {
       field: 'ipaddress',
       render(value) {
@@ -294,7 +294,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Organization', width: '16rem' },
+    header: { text: 'Організація', width: '16rem' },
     column: {
       field: 'organization.name',
       render(value) {
@@ -323,7 +323,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Subdivision', width: '16rem' },
+    header: { text: 'Підрозділ', width: '16rem' },
     column: {
       field: 'subdivision.name',
       render(value) {
@@ -352,7 +352,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Department', width: '16rem' },
+    header: { text: 'Відділ', width: '16rem' },
     column: {
       field: 'department.name',
       render(value) {
@@ -381,7 +381,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Date closed', width: '15rem' },
+    header: { text: 'Дата закриття', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -402,7 +402,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Closed an request', width: '16rem' },
+    header: { text: 'Закрив запит', width: '16rem' },
     column: {
       field: 'workerClose.fullname',
       render(value) {
@@ -431,7 +431,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Conclusion for request', width: '25rem' },
+    header: { text: 'Висновок на запит', width: '25rem' },
     column: {
       field: 'conclusion',
       render(value) {
@@ -446,7 +446,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Comment', width: '25rem' },
+    header: { text: 'Коментар', width: '25rem' },
     column: {
       field: 'comment',
       render(value) {
@@ -494,11 +494,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>

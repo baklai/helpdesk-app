@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';
@@ -14,7 +13,6 @@ import { dateTimeToStr, byteToStr } from '@/service/DataFilters';
 import { useInspector } from '@/stores/api/inspectors';
 import { useTool } from '@/stores/api/systools';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const Inspector = useInspector();
@@ -28,7 +26,7 @@ const refDataTable = ref();
 const refWarningMenu = ref();
 const warningOptions = ref([
   {
-    label: t('Show missing IP Addresses'),
+    label: 'Показати відсутні IP-адреси',
     icon: 'pi pi-desktop',
     command: async () =>
       await refDataTable.value.update({
@@ -38,7 +36,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show user account warnings'),
+    label: 'Показати попередження про обліковий запис користувача',
     icon: 'pi pi-users',
     command: async () =>
       await refDataTable.value.update({
@@ -48,7 +46,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show software warnings'),
+    label: 'Показати попередження про програмне забезпечення',
     icon: 'pi pi-microsoft',
     command: async () =>
       await refDataTable.value.update({
@@ -58,7 +56,7 @@ const warningOptions = ref([
       })
   },
   {
-    label: t('Show warnings about shared resources'),
+    label: 'Показати попередження про спільні ресурси',
     icon: 'pi pi-folder',
     command: async () =>
       await refDataTable.value.update({
@@ -69,7 +67,7 @@ const warningOptions = ref([
   },
   { separator: true },
   {
-    label: t('Show all warnings'),
+    label: 'Показати всі попередження',
     icon: 'pi pi-bookmark-fill',
     command: async () =>
       await refDataTable.value.update({
@@ -83,12 +81,12 @@ const warningOptions = ref([
 const globalFilter = ref({
   field: 'host',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search IP Address'
+  placeholder: 'Пошук за IP-адресою'
 });
 
 const columns = ref([
   {
-    header: { text: 'PC Name', width: '16rem' },
+    header: { text: "Ім'я комп'ютера", width: '16rem' },
     column: {
       field: 'system.csname',
       render(value) {
@@ -119,7 +117,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Baseboard', width: '16rem' },
+    header: { text: 'Материнська плата', width: '16rem' },
     column: {
       field: 'baseboard',
       render(value) {
@@ -142,7 +140,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Address', width: '15rem' },
+    header: { text: 'IP-адреса', width: '15rem' },
     column: {
       field: 'host',
       render(value) {
@@ -168,7 +166,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Status', width: '10rem' },
+    header: { text: 'IP Статус', width: '10rem' },
     column: {
       field: 'ipaddress',
       render(value) {
@@ -191,7 +189,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Users', width: '13rem' },
+    header: { text: 'Користувачі', width: '13rem' },
     column: {
       field: 'inspector.useraccount',
       render(value) {
@@ -222,7 +220,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Products', width: '13rem' },
+    header: { text: 'Застосунки', width: '13rem' },
     column: {
       field: 'inspector.product',
       render(value) {
@@ -253,7 +251,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'SMB Share', width: '13rem' },
+    header: { text: 'SMB-ресурс', width: '13rem' },
     column: {
       field: 'inspector.share',
       render(value) {
@@ -284,11 +282,19 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fix Update', width: '13rem' },
+    header: { text: 'Оновлення', width: '13rem' },
     column: {
       field: 'fixupdate',
       render(value) {
-        return <Tag class={'w-3 text-base font-medium'} value={value} />;
+        return (
+          <Tag
+            class={[
+              'h-8 w-12 !text-base !font-semibold !text-black dark:!text-white',
+              '!bg-surface-500/20'
+            ]}
+            value={value || '-'}
+          />
+        );
       }
     },
     sorter: { field: 'fixupdate' },
@@ -307,7 +313,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Report date', width: '15rem' },
+    header: { text: 'Дата звіту', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -328,7 +334,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Name', width: '20rem' },
+    header: { text: 'Операційна система', width: '20rem' },
     column: {
       field: 'system.osname',
       render(value) {
@@ -351,7 +357,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Platform', width: '15rem' },
+    header: { text: 'ОС Платформа', width: '15rem' },
     column: {
       field: 'system.platform',
       render(value) {
@@ -374,7 +380,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'OS Version', width: '12rem' },
+    header: { text: 'ОС Версія', width: '12rem' },
     column: {
       field: 'system.version',
       render(value) {
@@ -475,16 +481,16 @@ const createSysInspectorScript = async () => {
     link.setAttribute('download', 'inspector.vbs');
     toast.add({
       severity: 'info',
-      summary: t('Information'),
-      detail: t('SysInspector script file created'),
+      summary: 'Інформація',
+      detail: 'Файл скрипта SysInspector створено',
       life: 3000
     });
     link.click();
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('SysInspector script file not created')
+      summary: 'Попередження',
+      detail: 'Файл скрипта SysInspector не створено'
     });
   }
 };
@@ -531,11 +537,11 @@ const createSysInspectorScript = async () => {
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>
@@ -546,7 +552,7 @@ const createSysInspectorScript = async () => {
           icon="pi pi-bookmark-fill"
           iconClass="text-2xl"
           class="h-12 w-12 hover:text-orange-500"
-          v-tooltip.bottom="$t('Show all problems')"
+          v-tooltip.bottom="'Показати всі проблеми'"
           @click="event => refWarningMenu.toggle(event)"
         />
 

@@ -60,11 +60,9 @@ const onCloseSidebar = () => {
             <p class="mb-0 text-lg">
               {{ record?.os ? record?.os?.CSName : record?.host }}
             </p>
-            <p class="mb-0 text-base font-normal">
-              {{ $t('Report host') }}: {{ record?.host || '-' }}
-            </p>
+            <p class="mb-0 text-base font-normal">Хост звіту: {{ record?.host || '-' }}</p>
             <p class="text-base font-normal">
-              {{ $t('Report date') }}:
+              Дата звіту:
               {{ dateTimeToStr(record?.updatedAt) || '-' }}
             </p>
           </div>
@@ -77,7 +75,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Menu')"
+            v-tooltip.bottom="'Меню'"
             @click="toggleMenu($event, record)"
           />
           <Button
@@ -87,7 +85,7 @@ const onCloseSidebar = () => {
             iconClass="text-xl"
             class="h-12 w-12 text-2xl"
             icon="pi pi-times"
-            v-tooltip.bottom="$t('Close')"
+            v-tooltip.bottom="'Закрити'"
             @click="onCloseSidebar"
           />
         </div>

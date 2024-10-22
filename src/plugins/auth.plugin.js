@@ -2,7 +2,7 @@ import { useApp } from '@/stores/app';
 
 export default {
   install: async (app, { endpoints }) => {
-    const { $error, $axios, $router, $toast, $t } = app.config.globalProperties;
+    const { $error, $axios, $router, $toast } = app.config.globalProperties;
 
     const store = useApp();
 
@@ -59,8 +59,8 @@ export default {
         $router.push({ name: 'signin' });
         $toast.add({
           severity: 'info',
-          summary: $t('Information'),
-          detail: $t('Logout successfully completed'),
+          summary: 'Інформація',
+          detail: 'Вихід успішно виконано',
           life: 3000
         });
       },

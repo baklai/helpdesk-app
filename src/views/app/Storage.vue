@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref, computed, inject, onMounted, defineAsyncComponent } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Clipboard } from 'v-clipboard';
@@ -17,7 +16,6 @@ import { useStorage } from '@/stores/api/storage';
 
 const axios = inject('axios');
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -53,24 +51,24 @@ const ctxMenuOptions = computed(() => {
   if (selectedRowData.value?.type === 'file') {
     return [
       {
-        label: t('Download file'),
+        label: 'Завантажити файл',
         icon: 'pi pi-download',
         url: getLinkToFile(selectedRowData.value.name),
         target: '_blank'
       },
       {
-        label: t('Copy file link'),
+        label: 'Копіювати посилання на файл',
         icon: 'pi pi-copy',
         command: () => copyLink(selectedRowData.value.name)
       },
       {
-        label: t('Rename file'),
+        label: 'Перейменувати файл',
         icon: 'pi pi-file-edit',
         command: () => rename(selectedRowData.value.name)
       },
       { separator: true },
       {
-        label: t('Delete file'),
+        label: 'Видалити файл',
         icon: 'pi pi-trash',
         command: () => remove(selectedRowData.value.name)
       }
@@ -80,18 +78,18 @@ const ctxMenuOptions = computed(() => {
   if (selectedRowData.value?.type === 'directory') {
     return [
       {
-        label: t('Open folder'),
+        label: 'Відкрити папку',
         icon: 'pi pi-folder-open',
         command: () => update(selectedRowData.value.name)
       },
       {
-        label: t('Rename folder'),
+        label: 'Перейменувати каталог',
         icon: 'pi pi-file-edit',
         command: () => rename(selectedRowData.value.name)
       },
       { separator: true },
       {
-        label: t('Delete folder'),
+        label: 'Видалити каталог',
         icon: 'pi pi-trash',
         command: () => remove(selectedRowData.value.name)
       }
@@ -126,8 +124,8 @@ const update = async path => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not updated'),
+      summary: 'Попередження',
+      detail: 'Запис не оновлено',
       life: 3000
     });
   } finally {
@@ -139,7 +137,7 @@ const rename = async value => {
   newValue.value = value;
   confirm.require({
     group: 'prompt-rename',
-    header: t('Rename'),
+    header: 'Перейменувати',
     message: value,
     icon: 'pi pi-question-circle',
     acceptIcon: 'pi pi-check mr-2',
@@ -152,15 +150,15 @@ const rename = async value => {
         });
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is renamed'),
+          summary: 'Інформація',
+          detail: 'Запис перейменовано',
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not renamed'),
+          summary: 'Попередження',
+          detail: 'Запис не перейменовано',
           life: 3000
         });
       } finally {
@@ -172,8 +170,8 @@ const rename = async value => {
       newValue.value = null;
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record rename not confirmed'),
+        summary: 'Інформація',
+        detail: 'Перейменування не підтверджено',
         life: 3000
       });
     }
@@ -182,8 +180,8 @@ const rename = async value => {
 
 const remove = async (name, type) => {
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -195,15 +193,15 @@ const remove = async (name, type) => {
         });
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 3000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 3000
         });
       } finally {
@@ -213,8 +211,8 @@ const remove = async (name, type) => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 3000
       });
     }
@@ -234,15 +232,15 @@ const uploadFiles = async event => {
     );
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('File is uploaded'),
+      summary: 'Інформація',
+      detail: 'Файл завантажено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('File not uploaded'),
+      summary: 'Попередження',
+      detail: 'Файл не завантажено',
       life: 3000
     });
   } finally {
@@ -252,22 +250,22 @@ const uploadFiles = async event => {
 };
 
 const uploadFolder = async () => {
-  const newFolderName = t('New Folder');
+  const newFolderName = 'Нова папка';
   try {
     await storage.uploadFolder({
       path: `/${breadcrumb.value.map(item => item.label).join('/')}/${newFolderName}`
     });
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Folder is created'),
+      summary: 'Інформація',
+      detail: 'Папку створено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Folder not created'),
+      summary: 'Попередження',
+      detail: 'Папку не створено',
       life: 3000
     });
   } finally {
@@ -287,8 +285,8 @@ const copyLink = async filename => {
     await Clipboard.copy(encodedLink);
     toast.add({
       severity: 'info',
-      summary: t('Information'),
-      detail: t(`Link copied to clipboard`),
+      summary: 'Інформація',
+      detail: 'Посилання скопійовано в буфер обміну',
       life: 3000
     });
   } catch (err) {
@@ -379,11 +377,7 @@ onMounted(async () => {
             <i
               class="pi pi-file-edit absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600"
             />
-            <InputText
-              v-model="newValue"
-              :placeholder="$t('Enter new name')"
-              class="w-full pl-10"
-            />
+            <InputText v-model="newValue" placeholder="Введіть нове ім'я" class="w-full pl-10" />
           </span>
         </template>
       </ConfirmDialog>
@@ -428,10 +422,10 @@ onMounted(async () => {
               </i>
               <div>
                 <h3 class="m-0">
-                  {{ $t($route?.meta?.title) }}
+                  {{ $route?.meta?.title }}
                 </h3>
                 <p class="text-surface-500">
-                  {{ $t($route?.meta?.description) }}
+                  {{ $route?.meta?.description }}
                 </p>
               </div>
             </div>
@@ -445,13 +439,13 @@ onMounted(async () => {
                   <InputText
                     id="name"
                     class="w-full !bg-inherit px-10 sm:w-max"
-                    :placeholder="$t('Search')"
+                    placeholder="Пошук"
                     v-model="filters['global'].value"
                   />
                   <i
                     v-show="!!filters['global'].value"
                     class="pi pi-times absolute right-3 top-2/4 -mt-2 cursor-pointer text-surface-400 hover:text-surface-900 dark:text-surface-600 dark:hover:text-surface-300"
-                    v-tooltip.bottom="$t('Clear filter')"
+                    v-tooltip.bottom="'Очистити фільтр'"
                     @click="filters['global'].value = null"
                   />
                 </span>
@@ -463,7 +457,7 @@ onMounted(async () => {
                   icon="pi pi-plus-circle"
                   iconClass="text-2xl"
                   class="hover:text-primary mx-2 h-12 w-12"
-                  v-tooltip.bottom="$t('Upload files')"
+                  v-tooltip.bottom="'Завантажте файли'"
                   @click="showUpload = !showUpload"
                 />
 
@@ -474,7 +468,7 @@ onMounted(async () => {
                   icon="pi pi-sync"
                   iconClass="text-2xl"
                   class="hover:text-primary h-12 w-12"
-                  v-tooltip.bottom="$t('Update records')"
+                  v-tooltip.bottom="'Оновити записи'"
                   @click="update()"
                 />
               </div>
@@ -496,14 +490,14 @@ onMounted(async () => {
                 <div class="flex items-center justify-center gap-2">
                   <Button
                     icon="pi pi-plus"
-                    :label="$t('Choose')"
+                    label="Обрати"
                     class="font-bold"
                     @click="chooseCallback()"
                   />
 
                   <Button
                     icon="pi pi-cloud-upload"
-                    :label="$t('Upload')"
+                    label="Завантажити"
                     class="font-bold"
                     :disabled="!files || files.length === 0"
                     @click="uploadEvent(uploadCallback)"
@@ -511,7 +505,7 @@ onMounted(async () => {
 
                   <Button
                     icon="pi pi-times"
-                    :label="$t('Cancel')"
+                    label="Скасувати"
                     class="font-bold"
                     :disabled="!files || files.length === 0"
                     @click="clearCallback()"
@@ -522,7 +516,7 @@ onMounted(async () => {
                   <Button
                     icon="pi pi-folder"
                     class="font-bold"
-                    :label="$t('Create folder')"
+                    label="Створити папку"
                     @click="uploadFolder()"
                   />
                 </div>
@@ -543,7 +537,7 @@ onMounted(async () => {
                     </h3>
                     <p class="text-xl font-normal text-surface-500">
                       <span class="mr-4">{{ byteToStr(file.size) }}</span>
-                      <Tag :value="$t('Pending')" severity="warning" />
+                      <Tag value="Очікування" severity="warning" />
                     </p>
                   </div>
                 </div>
@@ -562,14 +556,14 @@ onMounted(async () => {
 
             <template #empty>
               <ProgressBar mode="indeterminate" class="h-0.5rem w-full" v-show="uploading" />
-              <p>{{ $t('Drag and drop files to here to upload') }}</p>
+              <p>Перетягніть файли сюди для завантаження</p>
             </template>
           </FileUpload>
         </template>
 
         <template #loading>
           <i class="pi pi-spin pi-spinner mr-4 text-3xl"></i>
-          <span class="text-xl"> {{ $t('Loading records data. Please wait') }}.</span>
+          <span class="text-xl"> Завантаження даних записів. Будь ласка, зачекайте. </span>
         </template>
 
         <template #empty>
@@ -588,7 +582,7 @@ onMounted(async () => {
           >
             <div class="m-auto flex flex-col gap-2">
               <i class="pi pi-folder-open text-8xl text-surface-500" />
-              <h5>{{ $t('No files found in folder') }}</h5>
+              <h5>У даній папці файлів не знайдено</h5>
             </div>
           </div>
         </template>
@@ -596,7 +590,7 @@ onMounted(async () => {
         <Column
           sortable
           field="name"
-          :header="$t('Name')"
+          header="Назва"
           class="max-w-40 truncate"
           :style="{ minWidth: '50%' }"
           headerClass="font-bold text-center uppercase"
@@ -642,7 +636,7 @@ onMounted(async () => {
         <Column
           sortable
           field="size"
-          :header="$t('Size')"
+          header="Розмір"
           :style="{ minWidth: '10%' }"
           headerClass="font-bold text-center uppercase"
         >
@@ -656,25 +650,21 @@ onMounted(async () => {
         <Column
           sortable
           field="type"
-          :header="$t('Type')"
+          header="Тип"
           :style="{ minWidth: '10%' }"
           headerClass="font-bold text-center uppercase"
         >
           <template #body="{ data }">
             <span class="text-surface-500" v-if="data.type === null"> </span>
-            <span class="text-surface-500" v-if="data.type === 'file'">
-              {{ $t('File') }}
-            </span>
-            <span class="text-surface-500" v-if="data.type === 'directory'">
-              {{ $t('Folder') }}
-            </span>
+            <span class="text-surface-500" v-if="data.type === 'file'"> Файл </span>
+            <span class="text-surface-500" v-if="data.type === 'directory'"> Папка </span>
           </template>
         </Column>
 
         <Column
           sortable
           field="modifiedAt"
-          :header="$t('Modified time')"
+          header="Час зміни"
           :style="{ minWidth: '15%' }"
           headerClass="font-bold text-center uppercase"
         >
@@ -711,7 +701,7 @@ onMounted(async () => {
                   'select-none overflow-hidden',
                   'transition duration-200 ease-in-out'
                 ]"
-                v-tooltip.bottom="$t('Download file')"
+                v-tooltip.bottom="'Завантажити файл'"
                 v-if="data.type === 'file'"
               >
                 <i class="pi pi-download text-xl"></i>
@@ -724,7 +714,7 @@ onMounted(async () => {
                 icon="pi pi-copy"
                 class="h-12 w-12"
                 iconClass="text-xl text-primary-500"
-                v-tooltip.bottom="$t('Copy file link')"
+                v-tooltip.bottom="'Копіювати посилання на файл'"
                 @click="copyLink(data.name)"
                 v-if="data.type === 'file'"
               />
@@ -736,7 +726,7 @@ onMounted(async () => {
                 icon="pi pi-file-edit"
                 class="h-12 w-12"
                 iconClass="text-xl text-yellow-500"
-                v-tooltip.bottom="$t('Rename file')"
+                v-tooltip.bottom="'Перейменувати файл'"
                 @click="rename(data.name)"
                 v-if="data.type === 'file'"
               />
@@ -748,7 +738,7 @@ onMounted(async () => {
                 icon="pi pi-trash"
                 class="h-12 w-12"
                 iconClass="text-xl text-red-500"
-                v-tooltip.bottom="data.type === 'file' ? $t('Remove file') : $t('Remove folder')"
+                v-tooltip.bottom="data.type === 'file' ? 'Видалити файл' : 'Видалити папку'"
                 @click="remove(data.name)"
                 v-if="data.type === 'file'"
               />

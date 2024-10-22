@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -11,7 +10,6 @@ import BtnDBTable from '@/components/buttons/BtnDBTable.vue';
 import { useSubdivision } from '@/stores/api/subdivisions';
 import { useOrganization } from '@/stores/api/organizations';
 
-const { t } = useI18n();
 const toast = useToast();
 const confirm = useConfirm();
 
@@ -21,9 +19,9 @@ const Organization = useOrganization();
 const { values, errors, handleSubmit, controlledValues, setValues, resetForm, defineField } =
   useForm({
     validationSchema: yup.object({
-      code: yup.string().required(t('Value is required')),
-      name: yup.string().required(t('Value is required')),
-      organization: yup.string().required(t('Value is required'))
+      code: yup.string().required('Потрібно вказати значення'),
+      name: yup.string().required('Потрібно вказати значення'),
+      organization: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -35,17 +33,17 @@ const visible = ref(true);
 const refMenu = ref();
 const options = ref([
   {
-    label: t('Create record'),
+    label: 'Створити запис',
     icon: 'pi pi-plus-circle',
     command: async () => await onCreateRecord()
   },
   {
-    label: t('Delete record'),
+    label: 'Видалити запис',
     icon: 'pi pi-trash',
     command: async () => await onRemoveRecord()
   },
   {
-    label: t('Update records'),
+    label: 'Оновити записи',
     icon: 'pi pi-sync',
     command: async () => await onUpdateRecords()
   }
@@ -79,15 +77,15 @@ const onUpdateRecords = async () => {
     organizations.value = await Organization.findAll({});
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Records is updated'),
+      summary: 'Інформація',
+      detail: 'Записи оновлені',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Records not updated'),
+      summary: 'Попередження',
+      detail: 'Записи не оновлено',
       life: 3000
     });
   }
@@ -97,8 +95,8 @@ const onCreateRecord = async () => {
   resetForm({ values: {} }, { force: true });
   toast.add({
     severity: 'success',
-    summary: t('Information'),
-    detail: t('Input new record'),
+    summary: 'Інформація',
+    detail: 'Введіть новий запис',
     life: 5000
   });
 };
@@ -107,14 +105,14 @@ const onRemoveRecord = async () => {
   if (!values?.id) {
     return toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not selected'),
+      summary: 'Попередження',
+      detail: 'Запис не вибрано',
       life: 5000
     });
   }
   confirm.require({
-    message: t('Do you want to delete this record?'),
-    header: t('Confirm delete record'),
+    message: 'Ви бажаєте видалити цей запис?',
+    header: 'Підтвердити видалення запису',
     icon: 'pi pi-question',
     acceptIcon: 'pi pi-check',
     acceptClass: '',
@@ -124,15 +122,15 @@ const onRemoveRecord = async () => {
         await removeOne(values);
         toast.add({
           severity: 'success',
-          summary: t('Information'),
-          detail: t('Record is removed'),
+          summary: 'Інформація',
+          detail: 'Запис видалено',
           life: 5000
         });
       } catch (err) {
         toast.add({
           severity: 'warn',
-          summary: t('Warning'),
-          detail: t('Record not removed'),
+          summary: 'Попередження',
+          detail: 'Запис не видалено',
           life: 5000
         });
       } finally {
@@ -142,8 +140,8 @@ const onRemoveRecord = async () => {
     reject: () => {
       toast.add({
         severity: 'info',
-        summary: t('Information'),
-        detail: t('Record deletion not confirmed'),
+        summary: 'Інформація',
+        detail: 'Видалення запису не підтверджено',
         life: 5000
       });
     }
@@ -159,16 +157,16 @@ const onSaveRecord = handleSubmit(async values => {
     }
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: values?.id ? t('Record is updated') : t('Record is created'),
+      summary: 'Інформація',
+      detail: values?.id ? 'Запис оновлено' : 'Запис створено',
       life: 5000
     });
     visible.value = false;
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: values?.id ? t('Record not updated') : t('Record not created'),
+      summary: 'Попередження',
+      detail: values?.id ? 'Запис не оновлено' : 'Запис не створено',
       life: 5000
     });
   }
@@ -203,11 +201,9 @@ const onCloseModal = async () => {
         <div class="flex items-center justify-center">
           <i class="pi pi-building mr-4 text-4xl"></i>
           <div>
-            <p class="line-height-2 text-lg font-bold">
-              {{ $t('Subdivision') }}
-            </p>
+            <p class="line-height-2 text-lg font-bold">Підрозділ</p>
             <p class="line-height-2 text-base font-normal text-surface-500">
-              {{ values?.id ? $t('Edit selected record') : $t('Create new record') }}
+              {{ values?.id ? 'Редагувати обраний запис' : 'Створити новий запис' }}
             </p>
           </div>
         </div>
@@ -219,7 +215,7 @@ const onCloseModal = async () => {
             rounded
             class="h-12 w-12"
             icon="pi pi-ellipsis-v"
-            v-tooltip.bottom="$t('Options menu')"
+            v-tooltip.bottom="'Меню опцій'"
             @click="event => refMenu.toggle(event)"
           />
         </div>
@@ -228,7 +224,7 @@ const onCloseModal = async () => {
 
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-2">
-        <label for="organization" class="font-bold">{{ $t('Organization') }}</label>
+        <label for="organization" class="font-bold">Організація</label>
         <div class="flex flex-row gap-2">
           <Dropdown
             filter
@@ -243,8 +239,8 @@ const onCloseModal = async () => {
             v-bind="organizationAttrs"
             :options="organizations"
             :invalid="!!errors?.organization"
-            :filterPlaceholder="$t('Search in list')"
-            :placeholder="$t('Search in database')"
+            filterPlaceholder="Пошук у списку"
+            placeholder="Пошук у базі даних"
             :virtualScrollerOptions="{ itemSize: 32 }"
             :ptOptions="{ mergeSections: true, mergeProps: true }"
             :pt="{
@@ -264,12 +260,12 @@ const onCloseModal = async () => {
         </div>
 
         <small id="organizations-help" class="text-red-500" v-if="errors?.organization">
-          {{ $t(errors.organization) }}
+          {{ errors.organization }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="subdivisions" class="font-bold">{{ $t('Subdivision') }}</label>
+        <label for="subdivisions" class="font-bold">Підрозділ</label>
         <Dropdown
           filter
           showClear
@@ -278,8 +274,8 @@ const onCloseModal = async () => {
           inputId="subdivisions"
           optionLabel="name"
           :options="subdivisions"
-          :filterPlaceholder="$t('Search in list')"
-          :placeholder="$t('Search in database')"
+          filterPlaceholder="Пошук у списку"
+          placeholder="Пошук у базі даних"
           :virtualScrollerOptions="{ itemSize: 32 }"
           :ptOptions="{ mergeSections: true, mergeProps: true }"
           :pt="{
@@ -301,60 +297,60 @@ const onCloseModal = async () => {
 
     <form class="flex flex-col gap-y-4" @submit.prevent="onSaveRecord">
       <div class="flex flex-col gap-2">
-        <label for="code" class="font-bold">{{ $t('Subdivision code') }}</label>
+        <label for="code" class="font-bold">Код підрозділу</label>
         <InputText
           id="code"
           v-model="code"
           v-bind="codeAttrs"
-          :placeholder="$t('Subdivision code')"
+          placeholder="Код підрозділу"
           :invalid="!!errors?.code"
           aria-describedby="code-help"
         />
         <small id="code-help" class="text-red-500" v-if="errors?.code">
-          {{ $t(errors.code) }}
+          {{ errors.code }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="name" class="font-bold">{{ $t('Subdivision name') }}</label>
+        <label for="name" class="font-bold">Назва підрозділу</label>
         <InputText
           id="name"
           v-model="name"
           v-bind="nameAttrs"
-          :placeholder="$t('Subdivision name')"
+          placeholder="Назва підрозділу"
           :invalid="!!errors?.name"
           aria-describedby="name-help"
         />
         <small id="name-help" class="text-red-500" v-if="errors?.name">
-          {{ $t(errors.name) }}
+          {{ errors.name }}
         </small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="address" class="font-bold">{{ $t('Subdivision address') }}</label>
+        <label for="address" class="font-bold">Адреса підрозділу</label>
         <InputText
           id="address"
           v-model="address"
           v-bind="addressAttrs"
-          :placeholder="$t('Subdivision address')"
+          placeholder="Адреса підрозділу"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="description" class="font-bold">{{ $t('Subdivision description') }}</label>
+        <label for="description" class="font-bold">Опис підрозділу</label>
         <Textarea
           id="description"
           rows="5"
           v-model="description"
           v-bind="descriptionAttrs"
-          :placeholder="$t('Subdivision description')"
+          placeholder="Опис підрозділу"
         />
       </div>
     </form>
 
     <template #footer>
-      <Button text plain icon="pi pi-times" :label="$t('Cancel')" @click="visible = !visible" />
-      <Button text plain icon="pi pi-check" :label="$t('Save')" @click="onSaveRecord" />
+      <Button text plain icon="pi pi-times" label="Скасувати" @click="visible = !visible" />
+      <Button text plain icon="pi pi-check" label="Зберегти" @click="onSaveRecord" />
     </template>
   </Dialog>
 </template>

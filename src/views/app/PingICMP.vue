@@ -2,11 +2,8 @@
 import { onMounted, onBeforeUnmount } from 'vue';
 import Terminal from 'primevue/terminal';
 import TerminalService from 'primevue/terminalservice';
-import { useI18n } from 'vue-i18n';
 
 import { usePing } from '@/stores/api/pings';
-
-const { t } = useI18n();
 
 const Ping = usePing();
 
@@ -27,27 +24,27 @@ const commandHandler = async text => {
 
   switch (command) {
     case 'help':
-      response = t('Command List: help, date, ping');
+      response = 'Список команд: help, date, ping';
       break;
 
     case 'date':
-      response = t('Now is ') + new Date().toLocaleString();
+      response = 'Зараз ' + new Date().toLocaleString();
       break;
 
     case 'ping':
-      response = `ICMP Ping running on ${host}`;
+      response = `ICMP Пінг працює ${host}`;
       try {
         const ping = await Ping.createOne({ host: host });
         if (ping.output) {
           response += ping?.output;
         }
       } catch (err) {
-        response += `ICMP Ping on ${host} does not answer`;
+        response += `ICMP Пінг на ${value} не відповідає`;
       }
       break;
 
     default:
-      response = 'Unknown command: <span>sdkfjg</span>' + command;
+      response = 'Невідома команда: <span>qwerty</span>' + command;
   }
 
   TerminalService.emit('response', response);
@@ -63,10 +60,10 @@ const commandHandler = async text => {
         </i>
         <div>
           <h3 class="text-2xl">
-            {{ $t($route?.meta?.title) }}
+            {{ $route?.meta?.title }}
           </h3>
           <p class="text-base text-surface-500">
-            {{ $t($route?.meta?.description) }}
+            {{ $route?.meta?.description }}
           </p>
         </div>
       </div>
@@ -79,7 +76,7 @@ const commandHandler = async text => {
             icon="pi pi-trash"
             iconClass="text-2xl"
             class="h-12 w-12"
-            v-tooltip.bottom="$t('Clear terminal')"
+            v-tooltip.bottom="'Очистити термінал'"
           />
 
           <Button
@@ -89,7 +86,7 @@ const commandHandler = async text => {
             icon="pi pi-cog"
             iconClass="text-2xl"
             class="h-12 w-12"
-            v-tooltip.bottom="$t('Options')"
+            v-tooltip.bottom="'Опції'"
           />
         </div>
       </div>
@@ -125,27 +122,23 @@ const commandHandler = async text => {
 
     <div class="px-6 py-6">
       <h5 class="font-bold">
-        {{ $t('Example') }}:
+        Приклад:
         <span class="p-2 font-normal"> ping 192.168.0.1 </span>
       </h5>
 
       <h5 class="font-bold">
-        {{ $t('Example') }}:
+        Приклад:
         <span class="p-2 font-normal"> ping 192.168.0.1 -n 3 -w 1000 </span>
       </h5>
 
       <p>
-        <code class="text-base font-normal">-n &lt;{{ $t('number') }}&gt;</code>
-        <span class="line-height-2 text-lg font-normal">
-          : {{ $t('number of requests sent') }}
-        </span>
+        <code class="text-base font-normal">-n &lt;номер&gt;</code>
+        <span class="line-height-2 text-lg font-normal"> : кількість відправлених запитів </span>
       </p>
 
       <p>
-        <code class="text-base font-normal">-w &lt;{{ $t('number') }}&gt;</code>
-        <span class="line-height-2 text-lg font-normal">
-          : {{ $t('response time in milliseconds') }}
-        </span>
+        <code class="text-base font-normal">-w &lt;номер&gt;</code>
+        <span class="line-height-2 text-lg font-normal"> : час відповіді у мілісекундах </span>
       </p>
     </div>
   </div>

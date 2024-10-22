@@ -50,7 +50,7 @@ export default {
       },
       async error => {
         if (error.code === 'ECONNABORTED') {
-          throw new Error('The request has timed out. Please try again later.');
+          throw new Error('Час очікування запиту минув. Спробуйте пізніше.');
         }
         const originalRequest = error.config;
         if (error.response && error.response.status === 401 && !axiosInstance?.defaults?._retry) {

@@ -1,8 +1,5 @@
 <script setup>
 import { ref, shallowRef, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
 
 const props = defineProps({
   table: {
@@ -15,43 +12,43 @@ const refModal = shallowRef(null);
 
 const datatables = ref({
   unit: {
-    label: t('Unit'),
+    label: 'Пристрій',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Unit.vue'));
     }
   },
   location: {
-    label: t('Location'),
+    label: 'Розташування',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Location.vue'));
     }
   },
   organization: {
-    label: t('Organization'),
+    label: 'Організація',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Organization.vue'));
     }
   },
   subdivision: {
-    label: t('Subdivision'),
+    label: 'Підрозділ',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Subdivision.vue'));
     }
   },
   department: {
-    label: t('Department'),
+    label: 'Відділ',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Department.vue'));
     }
   },
   position: {
-    label: t('Position'),
+    label: 'Посада',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Position.vue'));
     }
   },
   filters: {
-    label: t('System filters'),
+    label: 'Системні фільтри',
     command: () => {
       refModal.value = defineAsyncComponent(() => import('@/components/modals/Filter.vue'));
     }
@@ -69,7 +66,7 @@ const datatables = ref({
       'border-surface-300 dark:border-surface-600',
       'hover:bg-surface-300/20 hover:dark:bg-surface-600/20'
     ]"
-    v-tooltip.bottom="$t(datatables[table].label)"
+    v-tooltip.bottom="datatables[table].label"
     @click="datatables[table].command"
     v-if="table && datatables[table]"
   />

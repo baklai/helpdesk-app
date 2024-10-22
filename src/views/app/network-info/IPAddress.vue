@@ -1,7 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useI18n } from 'vue-i18n';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';
 import BtnDBTables from '@/components/buttons/BtnDBTables.vue';
@@ -17,8 +16,6 @@ import { useDepartment } from '@/stores/api/departments';
 import { useLocation } from '@/stores/api/locations';
 import { usePosition } from '@/stores/api/positions';
 import { useUnit } from '@/stores/api/units';
-
-const { t } = useI18n();
 
 const IPAddress = useIPAddress();
 const Organization = useOrganization();
@@ -36,12 +33,12 @@ const refDataTable = ref(null);
 const globalFilter = ref({
   field: 'ipaddress',
   matchMode: FilterMatchMode.STARTS_WITH,
-  placeholder: 'Search IP Address'
+  placeholder: 'Пошук IP-адреси'
 });
 
 const columns = ref([
   {
-    header: { text: 'Location', width: '15rem' },
+    header: { text: 'Розташування', width: '15rem' },
     column: {
       field: 'location.name',
       render(value) {
@@ -71,7 +68,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Unit', width: '12rem' },
+    header: { text: 'Пристрій', width: '12rem' },
     column: {
       field: 'unit.name',
       render(value) {
@@ -100,7 +97,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'IP Address', width: '15rem' },
+    header: { text: 'IP-адреса', width: '15rem' },
     column: {
       field: 'ipaddress',
       render(value) {
@@ -126,7 +123,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Letter number', width: '16rem' },
+    header: { text: 'Номер листа', width: '16rem' },
     column: {
       field: 'reqnum',
       render(value) {
@@ -149,7 +146,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Opened date', width: '16rem' },
+    header: { text: 'Дата відкриття', width: '16rem' },
     column: {
       field: 'date',
       render(value) {
@@ -170,7 +167,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Internet', width: '12rem' },
+    header: { text: 'Інтернет', width: '12rem' },
     column: {
       field: 'inetStatus',
       dataType: 'boolean',
@@ -193,9 +190,9 @@ const columns = ref([
         label: 'name',
         onRecords: () => {
           return [
-            { key: 'opened', name: t('Internet opened') },
-            { key: 'closed', name: t('Internet closed') },
-            { key: 'missing', name: t('Not Internet') }
+            { key: 'opened', name: 'Інтернет відкрито' },
+            { key: 'closed', name: 'Інтернет закрито' },
+            { key: 'missing', name: 'Відсутній Інтернет' }
           ];
         }
       }
@@ -208,7 +205,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Mask', width: '12rem' },
+    header: { text: 'Маска', width: '12rem' },
     column: {
       field: 'mask',
       render(value) {
@@ -223,7 +220,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Gateway', width: '12rem' },
+    header: { text: 'Шлюз', width: '12rem' },
     column: {
       field: 'gateway',
       render(value) {
@@ -238,7 +235,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Updated', width: '15rem' },
+    header: { text: 'Оновлено', width: '15rem' },
     column: {
       field: 'updatedAt',
       render(value) {
@@ -259,7 +256,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Fullname', width: '16rem' },
+    header: { text: "Повне ім'я", width: '16rem' },
     column: {
       field: 'fullname',
       render(value) {
@@ -282,7 +279,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Position', width: '16rem' },
+    header: { text: 'Посада', width: '16rem' },
     column: {
       field: 'position.name',
       render(value) {
@@ -311,7 +308,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Phone', width: '12rem' },
+    header: { text: 'Номер телефону', width: '16rem' },
     column: {
       field: 'phone',
       render(value) {
@@ -334,7 +331,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Organization', width: '16rem' },
+    header: { text: 'Організація', width: '16rem' },
     column: {
       field: 'organization.name',
       render(value) {
@@ -363,7 +360,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Subdivision', width: '16rem' },
+    header: { text: 'Підрозділ', width: '16rem' },
     column: {
       field: 'subdivision.name',
       render(value) {
@@ -392,7 +389,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Department', width: '16rem' },
+    header: { text: 'Відділ', width: '16rem' },
     column: {
       field: 'department.name',
       render(value) {
@@ -421,7 +418,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Autoanswer', width: '14rem' },
+    header: { text: 'Автовідповідь', width: '14rem' },
     column: {
       field: 'autoanswer',
       render(value) {
@@ -444,7 +441,7 @@ const columns = ref([
   },
 
   {
-    header: { text: 'Comment', width: '25rem' },
+    header: { text: 'Коментар', width: '25rem' },
     column: {
       field: 'comment',
       render(value) {
@@ -492,11 +489,11 @@ const columns = ref([
       </template>
 
       <template #title>
-        {{ $t($route?.meta?.title) }}
+        {{ $route?.meta?.title }}
       </template>
 
       <template #subtitle>
-        {{ $t($route?.meta?.description) }}
+        {{ $route?.meta?.description }}
       </template>
 
       <template #actions>

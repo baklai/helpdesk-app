@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 const DataView = defineAsyncComponent(() => import('primevue/dataview'));
@@ -10,7 +9,6 @@ const ModalRecord = defineAsyncComponent(() => import('@/components/modals/Notic
 import { dateTimeToStr } from '@/service/DataFilters';
 import { useNotice } from '@/stores/api/notices';
 
-const { t } = useI18n();
 const toast = useToast();
 
 const { findAll, removeOne } = useNotice();
@@ -25,8 +23,8 @@ const onRecords = async () => {
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Records not updated'),
+      summary: 'Попередження',
+      detail: 'Записи не оновлено',
       life: 3000
     });
   }
@@ -37,15 +35,15 @@ const onRemoveRecord = async id => {
     await removeOne({ id });
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Record is removed'),
+      summary: 'Інформація',
+      detail: 'Запис видалено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t('Record not removed'),
+      summary: 'Попередження',
+      detail: 'Запис не видалено',
       life: 3000
     });
   } finally {
@@ -68,11 +66,9 @@ onMounted(async () => {
           <div class="flex items-center justify-center">
             <Avatar size="xlarge" icon="pi pi-bell text-4xl" class="mr-4" />
             <div>
-              <p class="line-height-2 mb-2 text-lg font-bold">
-                {{ $t('HD Notification') }}
-              </p>
+              <p class="line-height-2 mb-2 text-lg font-bold">HD Сповіщення</p>
               <p class="line-height-2 mb-0 text-base font-normal text-surface-500">
-                {{ $t('Helpdesk notification system') }}
+                Система сповіщень служби технічної підтримки
               </p>
             </div>
           </div>
@@ -83,7 +79,7 @@ onMounted(async () => {
               rounded
               icon="pi pi-plus-circle"
               class="h-12 w-12 text-2xl"
-              v-tooltip.bottom="$t('Create notice')"
+              v-tooltip.bottom="'Створити сповіщення'"
               @click="
                 () => {
                   refMenu.hide();
@@ -123,7 +119,7 @@ onMounted(async () => {
                     rounded
                     icon="pi pi-times"
                     class="hover:!text-orange-300"
-                    v-tooltip.bottom="$t('Close notice')"
+                    v-tooltip.bottom="'Закрити сповіщення'"
                     @click="onRemoveRecord(item.id)"
                   />
                 </div>
@@ -134,9 +130,7 @@ onMounted(async () => {
         </DataView>
 
         <div class="flex flex-col items-center justify-center p-2" v-else>
-          <p class="mb-0 text-lg font-medium text-surface-500">
-            {{ $t('Notifications not found') }}
-          </p>
+          <p class="mb-0 text-lg font-medium text-surface-500">Сповіщення не знайдені</p>
         </div>
       </div>
     </OverlayPanel>
@@ -144,7 +138,7 @@ onMounted(async () => {
     <button
       type="button"
       @click="event => refMenu.toggle(event)"
-      v-tooltip.bottom="$t('Notifications')"
+      v-tooltip.bottom="'Сповіщення'"
       class="relative inline-flex select-none items-center rounded-full p-3 text-center text-sm font-medium text-surface-500 hover:bg-surface-300/20 hover:text-surface-600 focus:outline-none focus:ring-4 focus:ring-primary-400/50 dark:hover:text-surface-300 dark:focus:ring-primary-300/50"
     >
       <i class="pi pi-bell text-2xl"></i>

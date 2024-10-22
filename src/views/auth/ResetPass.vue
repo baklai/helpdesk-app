@@ -2,19 +2,17 @@
 import { inject, onMounted } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 const SUBMIT_COUNT = 3;
 
-const { t } = useI18n();
 const toast = useToast();
 
 const $auth = inject('auth');
 
 const { values, errors, submitCount, handleSubmit, resetForm, defineField } = useForm({
   validationSchema: yup.object({
-    email: yup.string().email().required(t('Value is required'))
+    email: yup.string().email().required('Потрібно вказати значення')
   }),
   initialValues: {}
 });
@@ -26,15 +24,15 @@ const onReset = handleSubmit(async values => {
     await $auth.reset(values);
     toast.add({
       severity: 'success',
-      summary: t('Information'),
-      detail: t('Reset password passed'),
+      summary: 'Інформація',
+      detail: 'Скидання пароля пройдено',
       life: 3000
     });
   } catch (err) {
     toast.add({
       severity: 'warn',
-      summary: t('Warning'),
-      detail: t(err.message),
+      summary: 'Попередження',
+      detail: err.message,
       life: 3000
     });
   }
@@ -53,10 +51,10 @@ onMounted(() => {
   >
     <div class="flex flex-col gap-2">
       <label for="email" class="text-2xl font-bold text-surface-950 dark:text-surface-50">
-        {{ $t('Forgot password') }}?
+        Забули пароль?
       </label>
       <p class="text-start font-medium text-surface-500">
-        {{ $t('Enter your email to reset your password') }}
+        Введіть свій адрес електронної пошти для відновлення доступу до додатку
       </p>
       <span class="relative">
         <i class="pi pi-at absolute left-3 top-2/4 -mt-2 text-surface-400 dark:text-surface-600" />
@@ -66,13 +64,13 @@ onMounted(() => {
           class="w-full pl-10 text-xl"
           v-model="email"
           v-bind="emailAttrs"
-          :placeholder="$t('Email')"
+          placeholder="Електронна пошта"
           :invalid="!!errors?.email"
           aria-describedby="email-help"
         />
       </span>
       <small id="email-help" class="text-red-500" v-if="errors?.email">
-        {{ $t(errors.email) }}
+        {{ errors.email }}
       </small>
     </div>
 
@@ -82,7 +80,7 @@ onMounted(() => {
         icon="pi pi-lock-open"
         class="block w-full p-3 text-center text-xl"
         :disabled="submitCount > SUBMIT_COUNT"
-        :label="$t('Reset password')"
+        label="Скинути пароль"
         aria-describedby="submit-help"
       />
       <small
@@ -90,7 +88,7 @@ onMounted(() => {
         class="block w-full text-center text-red-500"
         v-if="submitCount > SUBMIT_COUNT"
       >
-        {{ $t('You submitted too many times') }}
+        Ви надсилали занадто багато разів
       </small>
     </div>
 
@@ -98,7 +96,7 @@ onMounted(() => {
       :to="{ name: 'signin' }"
       class="cursor-pointer text-center font-semibold text-primary-600 hover:text-primary-500"
     >
-      {{ $t('Sign In the application') }}
+      Увійти в додаток
     </RouterLink>
   </form>
 </template>

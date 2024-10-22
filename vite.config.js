@@ -29,9 +29,14 @@ export default defineConfig({
       manifest: {
         name: 'Helpdesk',
         short_name: 'HD',
-        description: 'Helpdesk - Web application of technical support',
+        description: 'Helpdesk - Веб-додаток технічної підтримки',
         theme_color: '#ffffff',
         icons: [
+          {
+            src: '/img/pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png'
+          },
           {
             src: '/img/pwa-192x192.png',
             sizes: '192x192',
@@ -53,7 +58,7 @@ export default defineConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 1500
+    chunkSizeWarningLimit: 1000
   },
   preview: {
     port: 5173,

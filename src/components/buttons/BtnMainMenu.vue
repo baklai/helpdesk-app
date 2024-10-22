@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import SidebarMenu from '@/components/menus/SidebarMenu.vue';
 import BtnAuth from '@/components/buttons/BtnAuth.vue';
 import BtnToggleTheme from '@/components/buttons/BtnToggleTheme.vue';
-import BtnToggleLang from '@/components/buttons/BtnToggleLang.vue';
 import BtnStorageClient from '@/components/buttons/BtnStorageClient.vue';
 import BtnFullScreen from '@/components/buttons/BtnFullScreen.vue';
 
@@ -22,7 +21,7 @@ const toggle = event => {
     rounded
     icon="pi pi-th-large"
     class="h-12 w-12 text-3xl"
-    v-tooltip.bottom="$t('Main menu')"
+    v-tooltip.bottom="'Головне меню'"
     @click="toggle"
   />
 
@@ -56,7 +55,6 @@ const toggle = event => {
     <template #end>
       <div class="flex content-center items-center justify-between py-2">
         <BtnToggleTheme />
-        <BtnToggleLang />
         <BtnStorageClient />
         <BtnFullScreen />
         <BtnAuth />
