@@ -1,5 +1,5 @@
 {
-  "name": "helpdesk-app-v1",
+  "name": "helpdesk-app",
   "version": "1.0.0",
   "type": "module",
   "description": "Helpdesk - Веб-додаток технічної підтримки",
@@ -13,13 +13,13 @@
       "linkedin": "https://www.linkedin.com/in/baklai/"
     }
   },
-  "homepage": "https://github.com/baklai/helpdesk-app-v1#readme",
+  "homepage": "https://github.com/baklai/helpdesk-app#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/baklai/helpdesk-app-v1.git"
+    "url": "git+https://github.com/baklai/helpdesk-app.git"
   },
   "bugs": {
-    "url": "https://github.com/baklai/helpdesk-app-v1/issues"
+    "url": "https://github.com/baklai/helpdesk-app/issues"
   },
   "keywords": [
     "vue",
