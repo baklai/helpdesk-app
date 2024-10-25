@@ -7,7 +7,7 @@ import PublicLayout from '@/layout/PublicLayout.vue';
 import { useApp } from '@/stores/app';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
