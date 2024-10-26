@@ -10,7 +10,7 @@ export const useSidebar = defineStore('sidebar', () => {
 
     {
       label: 'Документація',
-      url: import.meta.env.VITE_DOCS_BASE_URL || '/',
+      url: import.meta.env.VITE_DOCS_BASE_URL || '/docs',
       icon: 'docs',
       target: '_blank',
       description: 'Документація технічної підтримки'

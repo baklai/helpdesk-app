@@ -70,9 +70,13 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
               Документація
             </h3>
             <span class="text-lg font-light">
-              <RouterLink class="font-semibold text-primary-500 hover:text-primary-400" to="/docs">
+              <a
+                class="font-semibold text-primary-500 hover:text-primary-400"
+                href="/docs"
+                target="_blank"
+              >
                 HD Довідник
-              </RouterLink>
+              </a>
               містить усю інформацію, необхідну для початку роботи.
             </span>
           </section>
