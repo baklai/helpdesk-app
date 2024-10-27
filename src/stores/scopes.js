@@ -66,6 +66,15 @@ export const useScope = defineStore('scope', () => {
       },
 
       {
+        scope: 'onmap',
+        comment: 'ONMAP Сканер',
+        create: false,
+        read: true,
+        update: false,
+        delete: false
+      },
+
+      {
         scope: 'report',
         comment: 'Звіти техпідтримки',
         create: false,

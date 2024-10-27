@@ -38,6 +38,11 @@ export const useSidebar = defineStore('sidebar', () => {
       items: [getRoute('pc-sys-inspector-reports'), getRoute('pc-sys-inspector-statistics')]
     },
 
+    {
+      ...getRouteLabel('onmap-scanner'),
+      items: [getRoute('onmap-scanner-reports'), getRoute('onmap-scanner-statistics')]
+    },
+
     { ...getRoute('ping-icmp') },
 
     'Категорії та шаблони',

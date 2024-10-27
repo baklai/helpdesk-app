@@ -157,6 +157,35 @@ const router = createRouter({
           ]
         },
         {
+          path: 'onmap-scanner',
+          name: 'onmap-scanner',
+          meta: {
+            title: 'ONMAP Сканер',
+            description: 'Онлайн мережевий сканер технічної підтримки'
+          },
+          redirect: { name: 'onmap-scanner-statistics' },
+          children: [
+            {
+              path: 'reports',
+              name: 'onmap-scanner-reports',
+              meta: {
+                title: 'ONMAP Сканер',
+                description: 'Онлайн мережевий сканер технічної підтримки'
+              },
+              component: () => import('@/views/app/onmap-scanner/ONMAPScanner.vue')
+            },
+            {
+              path: 'statistics',
+              name: 'onmap-scanner-statistics',
+              meta: {
+                title: 'Статистика сервісу',
+                description: 'Статистика сервісу мережевий сканер технічної підтримки'
+              },
+              component: () => import('@/views/app/onmap-scanner/ONMAPStatistics.vue')
+            }
+          ]
+        },
+        {
           path: 'ping-icmp',
           name: 'ping-icmp',
           meta: {
