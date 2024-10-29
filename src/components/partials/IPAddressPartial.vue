@@ -1,7 +1,13 @@
 <script setup>
+import { ref } from 'vue';
+import QRCode from 'qrcode';
+
+const qrcode = ref(false);
+const qrCodeImage = ref();
+
 import { dateToStr } from '@/service/DataFilters';
 
-defineProps({
+const props = defineProps({
   record: {
     type: Object,
     default: () => {},
@@ -12,30 +18,77 @@ defineProps({
     default: true
   }
 });
+
+const getQRCode = async () => {
+  qrcode.value = !qrcode.value;
+
+  // const recordText = `
+  //   Розташування :	${props.record?.location?.name || '-'}
+  //   Пристрій :	${props.record?.unit?.name || '-'}
+  //   IP-адресa :	${props.record?.ipaddress || '-'}
+  //   Маска :	${props.record?.mask || '-'}
+  //   Шлюз :	${props.record?.gateway || '-'}
+  //   Номер листа :	${props.record?.reqnum || '-'}
+  //   Організація :	${props.record?.organization?.name || '-'}
+  //   Підрозділ :	${props.record?.subdivision?.name || '-'}
+  //   Відділ :	${props.record?.department?.name || '-'}
+  //   Повне ім'я :	${props.record?.fullname || '-'}
+  //   Посада :	${props.record?.position?.name || '-'}
+  //   Телефон :	${props.record?.phone || '-'}
+  //   Автовідповідь :	${props.record?.autoanswer || '-'}
+  //   Дата відкриття :	${dateToStr(props.record?.date) || '-'}
+  //   Коментар :	${props.record?.comment || '-'}
+  // `;
+
+  const recordText = `
+    IP-адресa :	${props.record?.ipaddress || '-'}
+    Повне ім'я :	${props.record?.fullname || '-'}
+    Посада :	${props.record?.position?.name || '-'}
+    Телефон :	${props.record?.phone || '-'}
+  `;
+
+  if (qrcode.value && props.record) {
+    qrCodeImage.value = await QRCode.toDataURL(recordText);
+  } else {
+    qrCodeImage.value = null;
+  }
+};
 </script>
 
 <template>
   <div class="my-3" v-if="record">
-    <div class="mb-6 flex items-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        width="40"
-        height="40"
-        class="mr-2"
-      >
-        <path
-          fill="currentColor"
-          d="M19 5V19H5V5H19M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M9 7H7V17H9V7M15 7H11V17H13V13H15C16.1 13 17 12.1 17 11V9C17 7.9 16.1 7 15 7M15 11H13V9H15V11Z"
-        />
-      </svg>
+    <div class="mb-6 flex items-center justify-between">
+      <div class="flex items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="40"
+          height="40"
+          class="mr-2"
+        >
+          <path
+            fill="currentColor"
+            d="M19 5V19H5V5H19M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M9 7H7V17H9V7M15 7H11V17H13V13H15C16.1 13 17 12.1 17 11V9C17 7.9 16.1 7 15 7M15 11H13V9H15V11Z"
+          />
+        </svg>
+        <div>
+          <p class="text-lg">IP {{ record?.ipaddress || '-' }}</p>
+          <p class="text-base font-normal">Дата відкриття : {{ dateToStr(record?.date) || '-' }}</p>
+        </div>
+      </div>
       <div>
-        <p class="text-lg">IP {{ record?.ipaddress || '-' }}</p>
-        <p class="text-base font-normal">Дата відкриття : {{ dateToStr(record?.date) || '-' }}</p>
+        <Button
+          text
+          plain
+          class="w-16 text-4xl"
+          icon="pi pi-qrcode"
+          v-tooltip.bottom="'QR-Code'"
+          @click="getQRCode"
+        />
       </div>
     </div>
 
-    <table class="w-full text-lg font-normal">
+    <table class="w-full text-lg font-normal" v-if="!qrcode">
       <tbody>
         <tr class="border-b border-surface-200 dark:border-surface-600">
           <td class="font-medium" width="50%">Розташування :</td>
@@ -105,6 +158,9 @@ defineProps({
         </tr>
       </tbody>
     </table>
+    <div v-else>
+      <img :src="qrCodeImage" alt="QR Code" v-if="qrCodeImage" class="w-full" />
+    </div>
   </div>
 
   <div class="my-3" v-if="internet">

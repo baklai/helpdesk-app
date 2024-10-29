@@ -46,6 +46,7 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.41.0",
     "qalendar": "^2.5.0",
+    "qrcode": "^1.5.4",
     "v-clipboard": "^3.0.0-next.1",
     "vee-validate": "^4.11.6",
     "vis-network": "^9.1.9",
