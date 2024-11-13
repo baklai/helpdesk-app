@@ -383,7 +383,7 @@ const columns = ref([
     },
     selectable: true,
     exportable: true,
-    filtrable: false,
+    filtrable: true,
     sortable: false,
     frozen: false
   },
