@@ -365,7 +365,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Sidebar
+  <Drawer
     position="right"
     class="w-[30rem]"
     :visible="visible"
@@ -445,7 +445,7 @@ watchEffect(() => {
           <h5 class="flex h-full items-center text-lg font-semibold">Ефект хвилі</h5>
         </div>
         <div class="flex-1">
-          <InputSwitch v-model="$config.appRipple" aria-labelledby="single" />
+          <ToggleSwitch v-model="$config.appRipple" aria-labelledby="single" />
         </div>
       </div>
 
@@ -479,5 +479,5 @@ watchEffect(() => {
         @click="$config.setDefaultConfigs"
       />
     </div>
-  </Sidebar>
+  </Drawer>
 </template>

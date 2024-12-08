@@ -1,6 +1,6 @@
 <script setup lang="jsx">
 import { ref, computed, inject, onMounted, defineAsyncComponent } from 'vue';
-import { FilterMatchMode } from 'primevue/api';
+import { FilterMatchMode } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 import { Clipboard } from 'v-clipboard';

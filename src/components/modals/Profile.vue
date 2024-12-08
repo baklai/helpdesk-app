@@ -2,7 +2,7 @@
 import { ref, computed, defineAsyncComponent } from 'vue';
 import { useForm, useFieldArray } from 'vee-validate';
 import * as yup from 'yup';
-import { FilterMatchMode } from 'primevue/api';
+import { FilterMatchMode } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 

@@ -1,6 +1,6 @@
 <script setup lang="jsx">
 import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
 
@@ -864,7 +864,7 @@ onMounted(async () => {
               </template>
             </MultiSelect>
 
-            <Dropdown
+            <Select
               showClear
               v-model="filterModel.value"
               :optionValue="filter.options.value || 'id'"
@@ -884,9 +884,9 @@ onMounted(async () => {
               <template #option="slotProps">
                 <Chip :label="slotProps.option[filter?.options?.label]" />
               </template>
-            </Dropdown>
+            </Select>
 
-            <Calendar
+            <DatePicker
               inline
               class="w-full"
               selectionMode="range"
@@ -908,7 +908,7 @@ onMounted(async () => {
               class="flex flex-col items-center gap-3"
               v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
             >
-              <TriStateCheckbox
+              <Checkbox
                 v-model="filterModel.value"
                 inputId="verified-filter"
                 @change="filterCallback"

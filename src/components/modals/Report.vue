@@ -4,10 +4,10 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 
 import Stepper from 'primevue/stepper';
-import StepperPanel from 'primevue/stepperpanel';
+// import StepperPanel from 'primevue/stepperpanel';
 
 const HDReportTable = defineAsyncComponent(() => import('@/components/tables/HDReportTable.vue'));
 
@@ -1422,7 +1422,7 @@ const onCloseModal = async () => {
                 <p class="mb-6 block text-2xl">Колекція таблиці даних</p>
                 <div class="mb-4 flex flex-col gap-2">
                   <label for="collection" class="font-semibold"> Колекція таблиці даних </label>
-                  <Dropdown
+                  <Select
                     filter
                     autofocus
                     optionValue="name"
@@ -1442,7 +1442,7 @@ const onCloseModal = async () => {
                         <p>{{ option.description }}</p>
                       </div>
                     </template>
-                  </Dropdown>
+                  </Select>
                   <small
                     id="datacollection-help"
                     class="text-red-500"

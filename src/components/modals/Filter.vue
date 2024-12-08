@@ -231,7 +231,7 @@ const onCloseModal = async () => {
     </template>
 
     <div class="flex flex-col gap-2">
-      <Dropdown
+      <Select
         filter
         autofocus
         :options="records"
@@ -261,7 +261,7 @@ const onCloseModal = async () => {
             </span>
           </div>
         </template>
-      </Dropdown>
+      </Select>
     </div>
 
     <Divider type="solid" class="my-6" />
@@ -284,7 +284,7 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col gap-2">
         <label for="type" class="font-bold">Тип фільтру</label>
-        <Dropdown
+        <Select
           filter
           autofocus
           showClear
@@ -306,7 +306,7 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col gap-2">
         <label for="status" class="font-bold">Статус фільтру</label>
-        <Dropdown
+        <Select
           filter
           autofocus
           showClear

@@ -1,4 +1,4 @@
-import { createApp, defineAsyncComponent } from 'vue';
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
 import App from './App.vue';
@@ -13,29 +13,11 @@ import HelpdeskPlugin from '@/plugins/helpdesk.plugin';
 import AppIcons from '@/components/AppIcons.vue';
 
 import PrimeVue from 'primevue/config';
-import Avatar from 'primevue/avatar';
-import Button from 'primevue/button';
-import Card from 'primevue/card';
-import Checkbox from 'primevue/checkbox';
-import TriStateCheckbox from 'primevue/tristatecheckbox';
-import Chip from 'primevue/chip';
-import Column from 'primevue/column';
-import ConfirmationService from 'primevue/confirmationservice';
-import DialogService from 'primevue/dialogservice';
-import Divider from 'primevue/divider';
-import InputText from 'primevue/inputtext';
-import InputSwitch from 'primevue/inputswitch';
-import InputMask from 'primevue/inputmask';
-import Password from 'primevue/password';
-import ProgressBar from 'primevue/progressbar';
-import ProgressSpinner from 'primevue/progressspinner';
-import SelectButton from 'primevue/selectbutton';
-import ScrollTop from 'primevue/scrolltop';
-import SplitButton from 'primevue/splitbutton';
-import Textarea from 'primevue/textarea';
-import ToastService from 'primevue/toastservice';
-import Tag from 'primevue/tag';
+import Aura from '@primevue/themes/aura';
 import Tooltip from 'primevue/tooltip';
+import ToastService from 'primevue/toastservice';
+import DialogService from 'primevue/dialogservice';
+import ConfirmationService from 'primevue/confirmationservice';
 
 import '@/assets/base.css';
 
@@ -47,6 +29,8 @@ const app = createApp(App);
 
 app.use(router);
 app.use(createPinia());
+
+app.use(PrimeVue, {});
 
 app.use(PrimeVue, {
   locale: {
@@ -194,9 +178,18 @@ app.use(PrimeVue, {
       rotateLeft: 'Повернути вліво'
     }
   },
+  // theme: {
+  //   preset: Aura,
+  //   options: {
+  //     cssLayer: {
+  //       name: 'primevue',
+  //       order: 'tailwind-base, primevue, tailwind-utilities'
+  //     }
+  //   }
+  // },
   unstyled: true,
   ripple: false,
-  pt: Presets
+  pt: Aura
 });
 
 app.use(ToastService);
@@ -206,75 +199,6 @@ app.use(ConfirmationService);
 app.directive('tooltip', Tooltip);
 
 app.component('AppIcons', AppIcons);
-app.component('Avatar', Avatar);
-app.component('Button', Button);
-app.component('Card', Card);
-app.component('Checkbox', Checkbox);
-app.component('TriStateCheckbox', TriStateCheckbox);
-app.component('Chip', Chip);
-app.component('Column', Column);
-app.component('Divider', Divider);
-app.component('InputMask', InputMask);
-app.component('InputText', InputText);
-app.component('InputSwitch', InputSwitch);
-app.component('Password', Password);
-app.component('ProgressBar', ProgressBar);
-app.component('ProgressSpinner', ProgressSpinner);
-app.component('SelectButton', SelectButton);
-app.component('ScrollTop', ScrollTop);
-app.component('SplitButton', SplitButton);
-app.component('Tag', Tag);
-app.component('Textarea', Textarea);
-
-app.component(
-  'Calendar',
-  defineAsyncComponent(() => import('primevue/calendar'))
-);
-
-app.component(
-  'Listbox',
-  defineAsyncComponent(() => import('primevue/listbox'))
-);
-
-app.component(
-  'Dropdown',
-  defineAsyncComponent(() => import('primevue/dropdown'))
-);
-
-app.component(
-  'MultiSelect',
-  defineAsyncComponent(() => import('primevue/multiselect'))
-);
-
-app.component(
-  'Menu',
-  defineAsyncComponent(() => import('primevue/menu'))
-);
-
-app.component(
-  'OverlayPanel',
-  defineAsyncComponent(() => import('primevue/overlaypanel'))
-);
-
-app.component(
-  'Sidebar',
-  defineAsyncComponent(() => import('primevue/sidebar'))
-);
-
-app.component(
-  'Toast',
-  defineAsyncComponent(() => import('primevue/toast'))
-);
-
-app.component(
-  'Dialog',
-  defineAsyncComponent(() => import('primevue/dialog'))
-);
-
-app.component(
-  'ConfirmDialog',
-  defineAsyncComponent(() => import('primevue/confirmdialog'))
-);
 
 app.use(ErrorPlugin, { life: 5000 });
 

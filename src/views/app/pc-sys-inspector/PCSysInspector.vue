@@ -1,6 +1,6 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
 
 import HDDataTable from '@/components/tables/HDDataTable.vue';

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import { FilterMatchMode } from 'primevue/api';
+import { FilterMatchMode } from '@primevue/core/api';
 
 import { useStatistic } from '@/stores/api/statistics';
 import { dateToStr } from '@/service/DataFilters';

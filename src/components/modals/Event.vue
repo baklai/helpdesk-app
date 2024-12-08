@@ -214,7 +214,7 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col gap-2">
         <label for="datetime" class="font-bold">Дата та час події</label>
-        <Calendar
+        <DatePicker
           showIcon
           showTime
           showButtonBar
@@ -249,7 +249,7 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col gap-2">
         <label for="eventType" class="font-bold">Тип події</label>
-        <Dropdown
+        <Select
           filter
           autofocus
           showClear

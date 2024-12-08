@@ -1,6 +1,6 @@
 <script setup lang="jsx">
 import { ref, watch, defineAsyncComponent } from 'vue';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
 
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
@@ -610,7 +610,7 @@ watch(
               </template>
             </MultiSelect>
 
-            <Dropdown
+            <Select
               showClear
               v-model="filterModel.value"
               :optionValue="filter.options.value || 'id'"
@@ -630,9 +630,9 @@ watch(
               <template #option="slotProps">
                 <Chip :label="slotProps.option[filter?.options?.label]" />
               </template>
-            </Dropdown>
+            </Select>
 
-            <Calendar
+            <DatePicker
               inline
               class="w-full"
               selectionMode="range"
@@ -654,7 +654,7 @@ watch(
               class="flex flex-col items-center gap-3"
               v-else-if="filter?.matchMode === FilterMatchMode.EQUALS"
             >
-              <TriStateCheckbox
+              <Checkbox
                 v-model="filterModel.value"
                 inputId="verified-filter"
                 @change="filterCallback"

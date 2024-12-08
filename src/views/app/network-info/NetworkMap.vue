@@ -275,7 +275,7 @@ onMounted(async () => {
       <div class="flex w-full flex-wrap items-center justify-between gap-2 sm:w-max">
         <div class="flex flex-col">
           <div class="flex w-full flex-row gap-2">
-            <Dropdown
+            <Select
               filter
               autofocus
               resetFilterOnHide
@@ -310,7 +310,7 @@ onMounted(async () => {
                   {{ option.name }}
                 </div>
               </template>
-            </Dropdown>
+            </Select>
 
             <Button
               text

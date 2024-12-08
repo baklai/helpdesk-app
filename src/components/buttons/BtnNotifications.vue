@@ -60,7 +60,7 @@ onMounted(async () => {
   <div>
     <ModalRecord ref="refModal" @close="async () => await onRecords()" />
 
-    <OverlayPanel ref="refMenu" appendTo="body" class="w-[35rem]">
+    <Popover ref="refMenu" appendTo="body" class="w-[35rem]">
       <div class="flex w-full flex-col">
         <div class="flex justify-between px-2 pt-2">
           <div class="flex items-center justify-center">
@@ -133,7 +133,7 @@ onMounted(async () => {
           <p class="mb-0 text-lg font-medium text-surface-500">Сповіщення не знайдені</p>
         </div>
       </div>
-    </OverlayPanel>
+    </Popover>
 
     <button
       type="button"

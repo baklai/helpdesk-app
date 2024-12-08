@@ -1,7 +1,7 @@
 <script setup lang="jsx">
 import { ref } from 'vue';
 import * as yup from 'yup';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import { useForm } from 'vee-validate';
 import { useToast } from 'primevue/usetoast';
 import Panel from 'primevue/panel';
@@ -308,7 +308,7 @@ const runTargetScan = handleSubmit(async () => {
             <div class="flex flex-row gap-4">
               <div class="flex flex-col gap-2 md:w-2/5">
                 <label for="profile">Профіль</label>
-                <Dropdown
+                <Select
                   filter
                   showClear
                   autofocus

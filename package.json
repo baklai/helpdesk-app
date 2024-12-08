@@ -39,14 +39,16 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@primevue/themes": "^4.2.4",
     "axios": "^1.5.0",
     "chart.js": "^4.2.1",
     "html2pdf.js": "^0.10.1",
     "pinia": "^2.2.4",
-    "primeicons": "^6.0.1",
-    "primevue": "^3.41.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.2.4",
     "qalendar": "^2.5.0",
     "qrcode": "^1.5.4",
+    "tailwindcss-primeui": "^0.3.4",
     "v-clipboard": "^3.0.0-next.1",
     "vee-validate": "^4.11.6",
     "vis-network": "^9.1.9",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "@primevue/auto-import-resolver": "^4.2.4",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/eslint-config-prettier": "^10.0.0",
@@ -68,6 +71,7 @@
     "prettier-plugin-tailwindcss": "^0.6.8",
     "sass": "^1.58.1",
     "tailwindcss": "^3.4.1",
+    "unplugin-vue-components": "^0.27.5",
     "vite": "^5.4.8",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-pwa": "^0.16.5"

@@ -226,7 +226,7 @@ const onCloseModal = async () => {
       <div class="flex flex-col gap-2">
         <label for="organization" class="font-bold">Організація</label>
         <div class="flex flex-row gap-2">
-          <Dropdown
+          <Select
             filter
             showClear
             autofocus
@@ -254,7 +254,7 @@ const onCloseModal = async () => {
                 {{ option.name }}
               </div>
             </template>
-          </Dropdown>
+          </Select>
 
           <BtnDBTable table="organization" />
         </div>
@@ -266,7 +266,7 @@ const onCloseModal = async () => {
 
       <div class="flex flex-col gap-2">
         <label for="subdivisions" class="font-bold">Підрозділ</label>
-        <Dropdown
+        <Select
           filter
           showClear
           autofocus
@@ -289,7 +289,7 @@ const onCloseModal = async () => {
               {{ option.name }}
             </div>
           </template>
-        </Dropdown>
+        </Select>
       </div>
     </div>
 
