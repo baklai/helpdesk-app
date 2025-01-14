@@ -1,44 +1,44 @@
-import { createApp, defineAsyncComponent } from 'vue';
 import { createPinia } from 'pinia';
+import { createApp, defineAsyncComponent } from 'vue';
 
+import { author, version } from '@@/package.json';
 import App from './App.vue';
 import router from './router';
-import { version, author } from '@@/package.json';
 
-import ErrorPlugin from '@/plugins/error.plugin';
 import AuthPlugin from '@/plugins/auth.plugin';
 import AxiosPlugin from '@/plugins/axios.plugin';
+import ErrorPlugin from '@/plugins/error.plugin';
 import HelpdeskPlugin from '@/plugins/helpdesk.plugin';
 
 import AppIcons from '@/components/AppIcons.vue';
 
-import PrimeVue from 'primevue/config';
 import Avatar from 'primevue/avatar';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Checkbox from 'primevue/checkbox';
-import TriStateCheckbox from 'primevue/tristatecheckbox';
 import Chip from 'primevue/chip';
 import Column from 'primevue/column';
+import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
 import Divider from 'primevue/divider';
-import InputText from 'primevue/inputtext';
-import InputSwitch from 'primevue/inputswitch';
 import InputMask from 'primevue/inputmask';
+import InputSwitch from 'primevue/inputswitch';
+import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
-import SelectButton from 'primevue/selectbutton';
 import ScrollTop from 'primevue/scrolltop';
+import SelectButton from 'primevue/selectbutton';
 import SplitButton from 'primevue/splitbutton';
+import Tag from 'primevue/tag';
 import Textarea from 'primevue/textarea';
 import ToastService from 'primevue/toastservice';
-import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
+import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import '@/assets/base.css';
-
+import '@/assets/fonts.css';
 import 'primeicons/primeicons.css';
 
 import Presets from '@/presets';

@@ -3,8 +3,8 @@ export default {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif']
+      sans: ['e-Ukraine', 'sans-serif'],
+      serif: ['e-Ukraine', 'serif']
     },
     extend: {
       colors: {
