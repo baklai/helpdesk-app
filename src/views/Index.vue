@@ -10,9 +10,9 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
         <header class="flex items-center justify-center">
           <div class="h-auto w-[30rem] text-center">
             <div class="mb-2 flex flex-row items-center">
-              <p class="text-7xl font-bold uppercase" translate="no" lang="en">help</p>
+              <p class="text-6xl font-bold uppercase" translate="no" lang="en">help</p>
               <AppLogo class="mx-2 text-primary-500" :size="56" />
-              <p class="text-7xl font-bold uppercase" translate="no" lang="en">desk</p>
+              <p class="text-6xl font-bold uppercase" translate="no" lang="en">desk</p>
             </div>
 
             <div class="mb-8 text-center">
@@ -20,7 +20,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             </div>
 
             <div class="mb-8 text-center">
-              <p class="line-height-2 text-xl text-surface-500">
+              <p class="line-height-2 text-lg text-surface-500">
                 Технічна підтримка - це тип обслуговування клієнтів, яке надає допомогу клієнтам з
                 технічними проблемами щодо їхніх продуктів або послуг
               </p>
@@ -69,7 +69,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               Документація
             </h3>
-            <span class="text-lg font-light">
+            <span class="text-md font-light">
               <a
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 href="/docs"
@@ -85,7 +85,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               ПК SysInspector
             </h3>
-            <span class="text-lg font-light">
+            <span class="text-md font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'pc-sys-inspector' }"
@@ -101,7 +101,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               Технічна підтримка
             </h3>
-            <span class="text-lg font-light">
+            <span class="text-md font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'technical-support' }"
@@ -118,7 +118,7 @@ import BtnSocialMedia from '@/components/buttons/BtnSocialMedia.vue';
             <h3 class="mb-2 text-2xl font-semibold text-surface-600 dark:text-surface-100">
               Мережева інформація
             </h3>
-            <span class="text-lg font-light">
+            <span class="text-md font-light">
               <RouterLink
                 class="font-semibold text-primary-500 hover:text-primary-400"
                 :to="{ name: 'network-info' }"
