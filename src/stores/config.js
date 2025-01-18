@@ -7,7 +7,7 @@ import useLocalStorage from '@/service/LocalStorage';
 export const useConfig = defineStore('config', () => {
   const primevue = usePrimeVue();
 
-  const appScale = ref(useLocalStorage('app-scale', 10));
+  const appScale = ref(useLocalStorage('app-scale', 11));
   const appRipple = ref(useLocalStorage('app-ripple', false));
   const appSideBarMini = ref(useLocalStorage('app-sidebar-mini', false));
   const appSideBarMode = ref(useLocalStorage('app-sidebar-mode', 'static'));
@@ -55,7 +55,7 @@ export const useConfig = defineStore('config', () => {
   }
 
   function setDefaultConfigs() {
-    appScale.value = 10;
+    appScale.value = 11;
     appRipple.value = false;
     appTheme.value = 'light';
     appSideBarMode.value = 'static';
