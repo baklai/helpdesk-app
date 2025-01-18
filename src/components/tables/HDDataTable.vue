@@ -1,8 +1,8 @@
 <script setup lang="jsx">
-import { ref, computed, onMounted, defineAsyncComponent } from 'vue';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import { useToast } from 'primevue/usetoast';
 import { useConfirm } from 'primevue/useconfirm';
+import { useToast } from 'primevue/usetoast';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 
 import AppLoading from '@/components/AppLoading.vue';
 const DataTable = defineAsyncComponent(() => import('primevue/datatable'));
@@ -68,7 +68,7 @@ const records = ref([]);
 const loading = ref(false);
 const totalRecords = ref();
 const offsetRecords = ref(0);
-const recordsPerPage = ref(15);
+const recordsPerPage = ref(20);
 const recordsPerPageOptions = ref([5, 10, 15, 20, 25, 50]);
 
 const refMenuActions = ref();
