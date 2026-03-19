@@ -1,5 +1,5 @@
 services:
-  helpdesk:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
