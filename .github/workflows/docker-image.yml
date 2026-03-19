@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: baklai/helpdesk-api:latest
+          tags: baklai/helpdesk-app:latest
