@@ -1,15 +1,13 @@
 <script setup>
 import { mdiHelpCircleOutline } from '@mdi/js';
-
-const docsBaseUrl = import.meta.env.VITE_DOCS_BASE_URL || '/docs';
 </script>
 
 <template>
   <Button
-    v-if="docsBaseUrl"
+    v-if="$helpdesk?.settings?.documentation"
     v-tooltip.bottom="'Документація'"
     as="a"
-    :href="docsBaseUrl"
+    :href="$helpdesk.settings.documentation"
     rel="noopener"
     rounded
     severity="secondary"

@@ -1,13 +1,13 @@
-import { PrimeVueResolver } from '@primevue/auto-import-resolver'
-import tailwindcss from '@tailwindcss/vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import { fileURLToPath, URL } from 'node:url'
-import Components from 'unplugin-vue-components/vite'
-import { defineConfig } from 'vite'
+import { PrimeVueResolver } from '@primevue/auto-import-resolver';
+import tailwindcss from '@tailwindcss/vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import { fileURLToPath, URL } from 'node:url';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/app/',
+  base: '/',
   plugins: [
     vue(),
     vueJsx(),
@@ -17,13 +17,13 @@ export default defineConfig({
       extensions: ['vue'],
       deep: true,
       dts: false,
-      resolvers: [PrimeVueResolver()],
-    }),
+      resolvers: [PrimeVueResolver()]
+    })
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   },
   build: {
     rollupOptions: {
@@ -34,16 +34,16 @@ export default defineConfig({
           primevue_core: ['primevue/config'],
           primevue_components: ['primevue'],
           apollo: ['@apollo/client', '@vue/apollo-composable'],
-          charts: ['chart.js'],
-        },
-      },
-    },
+          charts: ['chart.js']
+        }
+      }
+    }
   },
   preview: {
     port: 5173,
     host: true,
     cors: true,
     open: false,
-    strictPort: true,
-  },
-})
+    strictPort: true
+  }
+});

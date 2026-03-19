@@ -17,6 +17,7 @@ const { values } = useForm({
     department: yup.string(),
     copyright: yup.string(),
     filestorage: yup.string(),
+    documentation: yup.string(),
     systemadmin: yup.string(),
     systemphone: yup.string(),
     systememail: yup.string().email('Електронна адреса має бути дійсною')
@@ -28,6 +29,7 @@ const { values } = useForm({
       sysConfStore?.options?.copyright ||
       `Авторські права © ${new Date().getFullYear()}. Всі права захищені.`,
     filestorage: sysConfStore?.options?.filestorage || '',
+    documentation: sysConfStore?.options?.documentation || '',
     systemadmin: sysConfStore?.options?.systemadmin || '',
     systemphone: sysConfStore?.options?.systemphone || '',
     systememail: sysConfStore?.options?.systememail || ''
@@ -188,6 +190,16 @@ const handleUpdate = async key => {
                 :loading="loading"
                 name="filestorage"
                 placeholder="Вкажіть адресу посилання"
+                @save="handleUpdate"
+              />
+            </div>
+            <div class="flex w-full flex-col gap-y-4 p-4">
+              <SysConfField
+                description="Посилання на документацію системи"
+                label="Документація"
+                :loading="loading"
+                name="documentation"
+                placeholder="Вкажіть адресу документації"
                 @save="handleUpdate"
               />
             </div>
