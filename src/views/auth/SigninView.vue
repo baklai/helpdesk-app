@@ -37,7 +37,7 @@ const loading = ref(false);
 
 const onSignin = handleSubmit(async values => {
   try {
-    loading.value = false;
+    loading.value = true;
 
     await auth.signin(values);
 
@@ -57,7 +57,7 @@ const onSignin = handleSubmit(async values => {
       life: 3000
     });
   } finally {
-    loading.value = true;
+    loading.value = false;
   }
 });
 

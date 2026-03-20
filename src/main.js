@@ -29,21 +29,10 @@ import '@/assets/base.css';
 import '@/assets/fonts.css';
 import 'primeicons/primeicons.css';
 
-async function bootstrap() {
-  const configStore = useConfigStore();
-  const authStore = useAuthStore();
-  try {
-    configStore.initAppConfigs();
-    await authStore.me();
-  } catch {
-    authStore.clear();
-  }
-}
-
 const app = createApp(App);
 
-app.use(router);
 app.use(createPinia());
+app.use(router);
 
 app.use(PrimeVue, {
   theme: {
@@ -77,7 +66,6 @@ app.use(HelpdeskPlugin, {
 });
 
 app.directive('tooltip', Tooltip);
-
 app.directive('autocomplete-off', vAutocompleteOff);
 
 app.provide(DefaultApolloClient, apolloClient);
@@ -93,6 +81,17 @@ app.config.warnHandler = (msg, instance, trace) => {
     console.error('warnHandler', msg, instance, trace);
   }
 };
+
+async function bootstrap() {
+  const configStore = useConfigStore();
+  const authStore = useAuthStore();
+  try {
+    configStore.initAppConfigs();
+    await authStore.me();
+  } catch {
+    authStore.clear();
+  }
+}
 
 bootstrap().finally(() => {
   app.mount('#app');

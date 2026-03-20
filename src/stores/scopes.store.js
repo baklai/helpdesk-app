@@ -112,6 +112,7 @@ export const useScopeStore = defineStore('scope', () => {
     const mask = deserialize(maskStr);
     return _buildRows((scope, action) => {
       const bit = BIT_MAP.get(`${scope}:${action}`);
+      if (bit === undefined) return false;
       return (mask & bit) === bit;
     });
   }

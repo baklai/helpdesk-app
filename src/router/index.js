@@ -510,7 +510,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, _from) => {
   const authStore = useAuthStore();
-  const { hasScope } = useScopeStore();
+  const { hasAnyScope } = useScopeStore();
 
   const baseTitle = 'HD';
   const pageTitle = to.meta.title || 'Сервісна підтримка';
@@ -539,7 +539,7 @@ router.beforeEach(async (to, _from) => {
   }
 
   if (to.meta.permissions?.length && !authStore.isAdmin) {
-    if (!hasScope(authStore.user?.scope, to.meta.permissions)) {
+    if (!hasAnyScope(authStore.user?.scope, to.meta.permissions)) {
       return { name: 'access-denied' };
     }
   }

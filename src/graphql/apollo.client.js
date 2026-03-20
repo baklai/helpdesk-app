@@ -93,7 +93,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
             authStore.clear();
 
             router.push({ name: 'signin' }).catch(() => {
-              window.location.href = '/app/signin';
+              window.location.href = '/signin';
             });
 
             observer.error(error);

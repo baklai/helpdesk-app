@@ -12,7 +12,7 @@ import { useForm } from 'vee-validate';
 import { computed, ref } from 'vue';
 import * as yup from 'yup';
 
-import CIDRFiled from '@/components/fields/CIDRFiled.vue';
+import CIDRField from '@/components/fields/CIDRField.vue';
 import InputTextField from '@/components/fields/InputTextField.vue';
 import IPAddressField from '@/components/fields/IPAddressField.vue';
 import SelectButtonField from '@/components/fields/SelectButtonField.vue';
@@ -109,7 +109,7 @@ const panels = [
         name: 'ipaddress'
       },
       {
-        component: CIDRFiled,
+        component: CIDRField,
         name: 'cidr'
       },
       {

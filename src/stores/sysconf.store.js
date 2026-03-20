@@ -5,10 +5,10 @@ import { apolloClient } from '@/graphql/apollo.client';
 import { FIND_ALL_SYSCONFS, UPSERT_ONE_SYSCONF } from '@/graphql/apollo.gql';
 
 export const useSysConfStore = defineStore('sysconf', () => {
-  const sysconflist = ref();
+  const sysconflist = ref([]);
 
   const options = computed(() => {
-    if (!sysconflist.value) return {};
+    if (!sysconflist.value?.length) return {};
     return Object.fromEntries(sysconflist.value.map(({ key, value }) => [key, value]));
   });
 

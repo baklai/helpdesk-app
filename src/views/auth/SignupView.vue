@@ -154,7 +154,6 @@ const onSignup = handleSubmit(async values => {
             v-bind="phoneAttrs"
             aria-describedby="phone-help"
             class="w-full pl-10"
-            date="phone"
             :invalid="!!errors?.phone"
             mask="+99(999)999-99-99"
             placeholder="Номер телефону"

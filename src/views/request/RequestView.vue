@@ -391,14 +391,23 @@ const handleDelete = ({ id }) => {
       severity: 'danger'
     },
     accept: async () => {
-      await deleteRequest({ id });
-      toast.add({
-        severity: 'success',
-        summary: 'Інформація',
-        detail: 'Запис видалено',
-        life: 3000
-      });
-      refetch();
+      try {
+        await deleteRequest({ id });
+        toast.add({
+          severity: 'success',
+          summary: 'Інформація',
+          detail: 'Запис видалено',
+          life: 3000
+        });
+        refetch();
+      } catch (err) {
+        toast.add({
+          severity: 'error',
+          summary: 'Помилка',
+          detail: err?.message || 'Не вдалося видалити запис',
+          life: 3000
+        });
+      }
     },
     reject: () => {
       toast.add({
@@ -478,7 +487,7 @@ const handleSelected = async ({ id }) => {
       </template>
 
       <template #sidebar-subtitle>
-        Статус : {{ REQUEST_STATUS.find(item => item.key === doc.status)?.label ?? '-' }}
+        Статус : {{ REQUEST_STATUS.find(item => item.key === doc?.status)?.label ?? '-' }}
       </template>
 
       <template #sidebar-actions>

@@ -43,13 +43,11 @@ export const getObjField = (obj, path, defaultValue = null) => {
 };
 
 export const byteToStr = value => {
-  if (!Number(value)) return '-';
-  const index = Math.floor(Math.log(Number(value)) / Math.log(1024));
-  return (
-    (Number(value) / Math.pow(1024, index)).toFixed(2) * 1 +
-    ' ' +
-    ['B', 'kB', 'MB', 'GB', 'TB'][index]
-  );
+  if (value === null || value === undefined || isNaN(Number(value))) return '-';
+  const num = Number(value);
+  if (num === 0) return '0 B';
+  const index = Math.floor(Math.log(num) / Math.log(1024));
+  return (num / Math.pow(1024, index)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][index];
 };
 
 export const isIP = value => {

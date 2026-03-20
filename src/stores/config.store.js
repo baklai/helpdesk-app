@@ -177,7 +177,7 @@ export const useConfigStore = defineStore('config', () => {
     toggleAppThemePrimary();
     toggleAppThemeSurface();
     toggleAppThemeInputVariant();
-    toggleAppSideBar();
+    appSideBarVisible.value = true;
   }
 
   function setDefaultConfigs() {

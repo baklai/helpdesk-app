@@ -4,8 +4,6 @@ import { useSysConfStore } from '@/stores/sysconf.store';
 
 export default {
   install: (app, options) => {
-    const { $toast } = app.config.globalProperties;
-
     const authStore = useAuthStore();
     const sysConfStore = useSysConfStore();
     const scopeStore = useScopeStore();
@@ -51,12 +49,15 @@ export default {
       },
 
       notImplemented() {
-        $toast.add({
-          severity: 'info',
-          summary: 'Інформація',
-          detail: 'Цей функціонал ще не реалізований',
-          life: 5000
-        });
+        const $toast = app.config.globalProperties.$toast;
+        if ($toast) {
+          $toast.add({
+            severity: 'info',
+            summary: 'Інформація',
+            detail: 'Цей функціонал ще не реалізований',
+            life: 5000
+          });
+        }
       }
     };
 

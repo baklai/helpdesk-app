@@ -31,7 +31,7 @@ const userScopeLength = computed(() =>
     modal
     position="top"
     :visible="visible"
-    @update:visible="$emit('update:visible', !visible)"
+    @update:visible="$emit('update:visible', $event)"
   >
     <template #header>
       <div class="flex items-center">
@@ -55,7 +55,7 @@ const userScopeLength = computed(() =>
           <p class="text-muted-color text-xs font-medium tracking-wide uppercase">
             Прізвище та ім'я
           </p>
-          <p class="text-primary-500 text-xl font-bold">{{ user.fullname || '-' }}</p>
+          <p class="text-primary-500 text-xl font-bold">{{ user?.fullname || '-' }}</p>
         </div>
 
         <div class="flex flex-row flex-wrap gap-4">
@@ -63,14 +63,14 @@ const userScopeLength = computed(() =>
             <p class="text-muted-color text-xs font-medium tracking-wide uppercase">
               Електронна пошта
             </p>
-            <p class="text-base">{{ user.email || '-' }}</p>
+            <p class="text-base">{{ user?.email || '-' }}</p>
           </div>
 
           <div class="flex min-w-[calc(50%-0.5rem)] flex-1 flex-col gap-y-1">
             <p class="text-muted-color text-xs font-medium tracking-wide uppercase">
               Номер телефону
             </p>
-            <p class="text-base">{{ user.phone || '-' }}</p>
+            <p class="text-base">{{ user?.phone || '-' }}</p>
           </div>
         </div>
       </div>
@@ -81,15 +81,15 @@ const userScopeLength = computed(() =>
         <div class="flex items-center justify-between">
           <div class="flex flex-col gap-y-1">
             <p class="text-muted-color text-xs font-medium tracking-wide uppercase">Поточна роль</p>
-            <p class="text-base font-medium">{{ userRole.key }}</p>
+            <p class="text-base font-medium">{{ userRole?.key }}</p>
           </div>
-          <Tag :value="userRole.label" />
+          <Tag :value="userRole?.label" />
         </div>
 
         <div class="flex flex-col gap-y-1">
           <p class="text-muted-color text-xs font-medium tracking-wide uppercase">Опис ролі</p>
           <p class="text-base">
-            {{ userRole.comment }}
+            {{ userRole?.comment }}
           </p>
         </div>
       </div>

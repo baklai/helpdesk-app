@@ -26,7 +26,7 @@ function updateColors(type, name) {
     class="w-120!"
     position="right"
     :visible="visible"
-    @update:visible="$emit('update:visible', !visible)"
+    @update:visible="$emit('update:visible', $event)"
   >
     <template #header>
       <div class="text-surface-900 dark:text-surface-100 flex content-center font-semibold">
