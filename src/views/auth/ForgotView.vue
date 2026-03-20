@@ -22,7 +22,6 @@ const { errors, handleSubmit, defineField } = useForm({
 const [email, emailAttrs] = defineField('email');
 
 const onSubmit = handleSubmit(async () => {
-  // TODO: підключити мутацію скидання пароля, коли буде реалізовано на бекенді
   submitted.value = true;
   toast.add({
     severity: 'info',

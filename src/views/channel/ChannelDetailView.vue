@@ -27,7 +27,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
 
 <template>
   <div class="flex w-full flex-col" style="height: calc(100vh - 5rem)">
-    <!-- Header -->
     <div class="flex flex-row items-center justify-between">
       <div class="flex flex-wrap items-center gap-x-2">
         <AppIcon :path="$route.meta.icon" :size="42" />
@@ -59,7 +58,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
     <AppLoading v-if="loading" />
 
     <div v-if="!loading && channel" class="flex flex-col gap-6 overflow-y-auto p-4 lg:flex-row">
-      <!-- Точки підключення -->
       <div class="flex flex-1 flex-col gap-4">
         <div class="border-surface-200 dark:border-surface-700 rounded-xl border p-6">
           <div class="mb-4 flex items-center gap-2">
@@ -68,7 +66,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
           </div>
 
           <div class="flex flex-col gap-3">
-            <!-- Від -->
             <div class="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
               <p class="text-muted-color mb-1 text-xs font-medium tracking-wide uppercase">
                 Початкова точка
@@ -77,7 +74,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
               <p class="text-muted-color text-sm">{{ channel.deviceFrom || '-' }}</p>
             </div>
 
-            <!-- Стрілка -->
             <div class="flex items-center justify-center">
               <div
                 class="bg-surface-200 dark:bg-surface-700 flex h-8 w-8 items-center justify-center rounded-full"
@@ -86,7 +82,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
               </div>
             </div>
 
-            <!-- До -->
             <div class="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
               <p class="text-muted-color mb-1 text-xs font-medium tracking-wide uppercase">
                 Кінцева точка
@@ -97,7 +92,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
           </div>
         </div>
 
-        <!-- Дата -->
         <div class="border-surface-200 dark:border-surface-700 rounded-xl border p-6">
           <div class="flex flex-col gap-3">
             <div class="flex flex-col gap-y-1">
@@ -123,7 +117,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
         </div>
       </div>
 
-      <!-- Характеристики -->
       <div class="flex flex-1 flex-col gap-4">
         <div class="border-surface-200 dark:border-surface-700 rounded-xl border p-6">
           <div class="mb-4 flex items-center gap-2">
@@ -169,7 +162,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
           </div>
         </div>
 
-        <!-- Оператор і склад -->
         <div class="border-surface-200 dark:border-surface-700 rounded-xl border p-6">
           <div class="mb-4 flex items-center gap-2">
             <i class="pi pi-building" />
@@ -192,7 +184,6 @@ const handleEdit = () => router.push({ name: 'channel-edit', params: { id: route
         </div>
       </div>
 
-      <!-- Зведення (ChannelPartial) -->
       <div class="flex flex-1 flex-col gap-4">
         <div class="border-surface-200 dark:border-surface-700 rounded-xl border p-6">
           <div class="mb-4 flex items-center gap-2">

@@ -1,14 +1,14 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
-import globals from 'globals'
-import js from '@eslint/js'
-import pluginVue from 'eslint-plugin-vue'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import skipFormatting from 'eslint-config-prettier/flat'
+import js from '@eslint/js';
+import skipFormatting from 'eslint-config-prettier/flat';
+import pluginOxlint from 'eslint-plugin-oxlint';
+import pluginVue from 'eslint-plugin-vue';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
 
 export default defineConfig([
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{vue,js,mjs,jsx}'],
+    files: ['**/*.{vue,js,mjs,jsx}']
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
@@ -16,9 +16,9 @@ export default defineConfig([
   {
     languageOptions: {
       globals: {
-        ...globals.browser,
-      },
-    },
+        ...globals.browser
+      }
+    }
   },
 
   js.configs.recommended,
@@ -26,5 +26,5 @@ export default defineConfig([
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
-  skipFormatting,
-])
+  skipFormatting
+]);

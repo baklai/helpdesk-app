@@ -62,6 +62,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function signoutDeferred() {
+    try {
+      await apolloClient.mutate({
+        mutation: SIGN_OUT,
+        fetchPolicy: 'no-cache'
+      });
+    } catch {}
+  }
+
   function setToken(value) {
     token.value = value;
   }
@@ -84,6 +93,7 @@ export const useAuthStore = defineStore('auth', () => {
     signin,
     signup,
     signout,
+    signoutDeferred,
     setToken,
     clear
   };

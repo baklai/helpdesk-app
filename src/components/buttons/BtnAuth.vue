@@ -7,13 +7,16 @@ import { useAuthStore } from '@/stores/auth.store';
 const router = useRouter();
 const authStore = useAuthStore();
 
-// FIX #2: signout() тепер await-иться перед редиректом
 const handleBtnClick = async () => {
   if (authStore.loggedIn) {
-    await authStore.signout().catch(() => {});
-  }
+    await authStore.signoutDeferred();
 
-  router.push({ name: 'signin' });
+    await router.push({ name: 'signin' });
+
+    authStore.clear();
+  } else {
+    router.push({ name: 'signin' });
+  }
 };
 </script>
 

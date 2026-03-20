@@ -9,6 +9,7 @@ import { useForm } from 'vee-validate';
 import { computed, ref } from 'vue';
 import * as yup from 'yup';
 
+import InputMaskField from '@/components/fields/InputMaskField.vue';
 import InputPasswordField from '@/components/fields/InputPasswordField.vue';
 import InputTextField from '@/components/fields/InputTextField.vue';
 import SelectButtonField from '@/components/fields/SelectButtonField.vue';
@@ -30,10 +31,7 @@ const { getSelectScope, getDefaultScope, getCustomScope, getMaskFromRows, serial
 const { errors, handleSubmit, controlledValues, values, setValues } = useForm({
   validationSchema: yup.object({
     fullname: yup.string().required('Потрібно вказати значення'),
-    phone: yup
-      .string()
-      .matches(/^\+\d{7,15}$/, 'Некоректний формат номера телефону')
-      .required('Потрібно вказати значення'),
+    phone: yup.string().required('Потрібно вказати значення'),
     email: yup.string().email('Невірний формат email').required('Потрібно вказати значення'),
     status: yup.string().required('Потрібно вказати значення'),
     role: yup.string().required('Потрібно вказати значення'),
@@ -89,11 +87,12 @@ const panels = [
         placeholder: "Вкажіть прізвище та ім'я"
       },
       {
-        component: InputTextField,
+        component: InputMaskField,
         name: 'phone',
         label: 'Номер телефону',
         description: 'Контактний номер телефону користувача',
-        placeholder: 'Вкажіть номер телефону'
+        placeholder: 'Вкажіть номер телефону',
+        mask: '+99(999)999-99-99'
       },
       {
         component: InputTextField,

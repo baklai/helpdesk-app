@@ -89,12 +89,14 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
           })
           .catch(error => {
             const authStore = useAuthStore();
-
-            authStore.clear();
-
-            router.push({ name: 'signin' }).catch(() => {
-              window.location.href = '/signin';
-            });
+            router
+              .push({ name: 'signin' })
+              .catch(() => {
+                window.location.href = '/signin';
+              })
+              .finally(() => {
+                authStore.clear();
+              });
 
             observer.error(error);
           });
