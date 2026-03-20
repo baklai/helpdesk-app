@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', () => {
         variables: { input: { email, fullname, phone, password } }
       });
     } catch (err) {
-      throw new Error(err.message);
+      throw new Error(err.message, { cause: err });
     }
   }
 
@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
         fetchPolicy: 'no-cache'
       });
     } catch (err) {
-      throw new Error(err.message);
+      throw new Error(err.message, { cause: err });
     } finally {
       clear();
     }
@@ -68,7 +68,9 @@ export const useAuthStore = defineStore('auth', () => {
         mutation: SIGN_OUT,
         fetchPolicy: 'no-cache'
       });
-    } catch {}
+    } catch {
+      void 0;
+    }
   }
 
   function setToken(value) {

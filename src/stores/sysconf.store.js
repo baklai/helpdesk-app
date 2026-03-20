@@ -34,7 +34,7 @@ export const useSysConfStore = defineStore('sysconf', () => {
 
       await find();
     } catch (err) {
-      throw new Error(err.message);
+      throw new Error(err.message, { cause: err });
     }
   }
 
