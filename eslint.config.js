@@ -17,12 +17,30 @@ export default defineConfig([
     languageOptions: {
       globals: {
         ...globals.browser
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
       }
     }
   },
 
   js.configs.recommended,
+
   ...pluginVue.configs['flat/essential'],
+
+  {
+    name: 'app/vue-jsx',
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      }
+    }
+  },
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 

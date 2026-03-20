@@ -4,7 +4,9 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
   },
   "exclude": [
     "node_modules",
