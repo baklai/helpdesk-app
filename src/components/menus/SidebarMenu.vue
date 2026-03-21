@@ -42,25 +42,46 @@ const navLinks = computed(() => {
     {
       label: 'Мережеві дані',
       icon: mdiLan,
-      items: [...buildLinks(['channels', 'ipaddresses', 'network-statistic'])]
+      items: [
+        ...buildLinks([
+          'channels',
+          'ipaddresses',
+          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'network-statistic'
+        ])
+      ]
     },
 
     {
       label: 'Поштові скриньки',
       icon: mdiAt,
-      items: [...buildLinks(['mailboxes', 'mailbox-statistic'])]
+      items: [
+        ...buildLinks([
+          'mailboxes',
+          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'mailbox-statistic'
+        ])
+      ]
     },
 
     {
       label: 'Сервісна підтримка',
       icon: mdiBookOpenOutline,
-      items: [...buildLinks(['requests', 'request-statistic'])]
+      items: [
+        ...buildLinks([
+          'requests',
+          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'request-statistic'
+        ])
+      ]
     },
 
     {
       label: 'ПК SysInspector',
       icon: mdiMonitorDashboard,
-      items: [...buildLinks(['inspectors', 'inspector-statistic'])]
+      items: [
+        ...buildLinks([
+          'inspectors',
+          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'inspector-statistic'
+        ])
+      ]
     },
 
     'Звіти та шаблони',

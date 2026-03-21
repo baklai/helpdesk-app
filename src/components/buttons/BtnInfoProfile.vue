@@ -9,7 +9,7 @@ const visible = ref(false);
 
 <template>
   <Button
-    v-tooltip.top="'Профіль облікового запису'"
+    v-tooltip.top="'Мій профіль'"
     rounded
     severity="secondary"
     variant="text"
