@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@vue/apollo-composable';
 import { useToast } from 'primevue/usetoast';
 import { computed, defineAsyncComponent, ref } from 'vue';
 
+import { SEVERITY_STATUS } from '@/constants/enums.const';
 import { FIND_ALL_NOTICES, REMOVE_ONE_NOTICE } from '@/graphql/apollo.gql';
 import { dateTimeToStr } from '@/utils/DateMethods';
 
@@ -76,48 +77,41 @@ const onRemoveRecord = async id => {
 
         <Divider />
 
-        <DataView v-if="notices?.length" class="max-h-120 overflow-auto" :value="notices">
+        <DataView v-if="notices" class="max-h-120 overflow-auto" :value="notices">
           <template #list="{ items }">
-            <div
+            <Message
+              :severity="SEVERITY_STATUS[item.status] || 'secondary'"
               v-for="(item, index) in items"
-              :key="index"
-              class="w-full shrink-0 border-none p-4 py-2"
+              :key="`msg-${index}`"
+              pt:text="w-full!"
             >
-              <Message
-                :pt="{ text: { class: ['w-full'] } }"
-                :severity="item?.status?.toLowerCase() || 'secondary'"
-              >
-                <div class="flex w-full flex-row justify-start gap-3">
-                  <div class="align-items-start flex w-full flex-col overflow-auto">
-                    <div class="flex w-full items-center">
-                      <div class="flex w-full items-center">
-                        <i class="pi pi-info-circle mr-2 text-2xl!"></i>
-                        <div class="align my-2 flex flex-col">
-                          <p class="text-base font-medium">{{ item?.title }}</p>
-                          <p v-if="item.message" class="text-sm font-normal">{{ item?.message }}</p>
-                          <p class="text-muted-color text-xs font-normal">
-                            {{ dateTimeToStr(item?.createdAt) || '-' }}
-                          </p>
-                        </div>
-                      </div>
+              <div class="flex w-full flex-row justify-between gap-x-4">
+                <i class="pi pi-info-circle text-xl!"></i>
 
-                      <Button
-                        v-tooltip.bottom="'Закрити сповіщення'"
-                        icon="pi pi-times"
-                        rounded
-                        :severity="item.status?.toLowerCase() || 'secondary'"
-                        variant="text"
-                        @click="onRemoveRecord(item.id)"
-                      />
-                    </div>
-                    <pre
-                      class="text-md my-2 wrap-break-word whitespace-pre-wrap text-black dark:text-white"
-                      >{{ item?.text?.trim() }}</pre
-                    >
-                  </div>
+                <div class="flex w-full flex-col gap-y-1">
+                  <p v-if="item.title" class="text-base font-medium uppercase">{{ item.title }}</p>
+                  <p
+                    v-if="item.message"
+                    class="text-surface-600 dark:text-surface-200 text-sm font-normal whitespace-pre-wrap"
+                  >
+                    {{ item.message }}
+                  </p>
+                  <p v-if="item.createdAt" class="text-muted-color text-xs font-normal">
+                    {{ dateTimeToStr(item.createdAt) }}
+                  </p>
                 </div>
-              </Message>
-            </div>
+
+                <Button
+                  v-tooltip.bottom="'Закрити'"
+                  icon="pi pi-times"
+                  rounded
+                  size="small"
+                  :severity="SEVERITY_STATUS[item.status] || 'secondary'"
+                  variant="text"
+                  @click="onRemoveRecord(item.id)"
+                />
+              </div>
+            </Message>
           </template>
         </DataView>
 
