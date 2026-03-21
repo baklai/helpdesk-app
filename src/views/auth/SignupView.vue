@@ -2,11 +2,13 @@
 import { useToast } from 'primevue/usetoast';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import * as yup from 'yup';
 
 import { useAuthStore } from '@/stores/auth.store';
 
 const toast = useToast();
+const router = useRouter();
 const auth = useAuthStore();
 
 const loading = ref(false);
@@ -15,7 +17,7 @@ const { errors, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
     email: yup
       .string()
-      .email('Електронна адреса має бути дійсною')
+      .email('Електронна пошта має бути дійсною')
       .required('Потрібно вказати значення'),
     fullname: yup.string().required('Потрібно вказати значення'),
     password: yup
@@ -39,9 +41,10 @@ const onSignup = handleSubmit(async values => {
     toast.add({
       severity: 'success',
       summary: 'Інформація',
-      detail: 'Ваш обліковий запис зареєстровано',
-      life: 5000
+      detail: 'Ваш обліковий запис зареєстровано. Очікуйте активації.',
+      life: 10000
     });
+    router.push({ name: 'signin' });
   } catch (err) {
     toast.add({
       severity: 'warn',
@@ -87,7 +90,7 @@ const onSignup = handleSubmit(async values => {
       </div>
 
       <div class="flex flex-col gap-2">
-        <label class="text-lg font-medium" for="email"> Електронна адреса </label>
+        <label class="text-lg font-medium" for="email"> Електронна пошта </label>
         <IconField>
           <InputIcon class="pi pi-at" />
           <InputText
@@ -97,7 +100,7 @@ const onSignup = handleSubmit(async values => {
             aria-describedby="email-help"
             class="w-full"
             :invalid="!!errors?.email"
-            placeholder="Електронна адреса"
+            placeholder="Електронна пошта"
           />
         </IconField>
         <small v-if="errors?.email" id="email-help" class="text-red-500">

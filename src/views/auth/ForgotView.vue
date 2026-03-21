@@ -14,7 +14,7 @@ const { errors, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
     email: yup
       .string()
-      .email('Електронна адреса має бути дійсною')
+      .email('Електронна пошта має бути дійсною')
       .required('Потрібно вказати значення')
   })
 });
@@ -41,7 +41,7 @@ const onBack = () => router.push({ name: 'signin' });
         Відновлення пароля
       </p>
       <p class="text-surface-500 text-sm">
-        Введіть вашу електронну адресу — ми надішлемо інструкції для скидання пароля
+        Введіть вашу електронну пошту — ми надішлемо інструкції для скидання пароля
       </p>
     </div>
 
@@ -67,7 +67,7 @@ const onBack = () => router.push({ name: 'signin' });
       @submit.prevent="onSubmit"
     >
       <div class="flex flex-col gap-2">
-        <label class="text-xl font-medium" for="forgot-email"> Електронна адреса </label>
+        <label class="text-xl font-medium" for="forgot-email"> Електронна пошта </label>
         <IconField>
           <InputIcon class="pi pi-at" />
           <InputText
@@ -77,7 +77,7 @@ const onBack = () => router.push({ name: 'signin' });
             aria-describedby="forgot-email-help"
             class="w-full"
             :invalid="!!errors?.email"
-            placeholder="Електронна адреса"
+            placeholder="Електронна пошта"
           />
         </IconField>
         <small v-if="errors?.email" id="forgot-email-help" class="text-red-500">

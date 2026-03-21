@@ -20,7 +20,7 @@ const { values } = useForm({
     documentation: yup.string(),
     systemadmin: yup.string(),
     systemphone: yup.string(),
-    systememail: yup.string().email('Електронна адреса має бути дійсною')
+    systememail: yup.string().email('Електронна пошта має бути дійсною')
   }),
   initialValues: {
     enterprise: sysConfStore?.options?.enterprise || '',

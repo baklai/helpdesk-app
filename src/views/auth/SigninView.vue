@@ -17,7 +17,7 @@ const { values, errors, submitCount, handleSubmit, defineField } = useForm({
   validationSchema: yup.object({
     email: yup
       .string()
-      .email('Електронна адреса має бути дійсною')
+      .email('Електронна пошта має бути дійсною')
       .required('Потрібно вказати значення'),
     password: yup
       .string()
@@ -75,7 +75,7 @@ const onChangeRemember = () => {
 
     <form v-autocomplete-off class="flex flex-col justify-center gap-6" @submit.prevent="onSignin">
       <div class="flex flex-col gap-2">
-        <label class="text-xl font-medium" for="email"> Електронна адреса </label>
+        <label class="text-xl font-medium" for="email"> Електронна пошта </label>
         <IconField>
           <InputIcon class="pi pi-at" />
           <InputText
@@ -85,7 +85,7 @@ const onChangeRemember = () => {
             aria-describedby="email-help"
             class="w-full"
             :invalid="!!errors?.email"
-            placeholder="Електронна адреса"
+            placeholder="Електронна пошта"
           />
         </IconField>
         <small v-if="errors?.email" id="email-help" class="text-red-500">
