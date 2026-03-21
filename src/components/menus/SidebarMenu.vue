@@ -12,6 +12,7 @@ const navLinks = computed(() => {
   const buildLinks = names =>
     names
       .map(name => {
+        if (!name) return null;
         const route = routes.find(r => r.name === name);
         if (!route) return null;
 
@@ -30,66 +31,48 @@ const navLinks = computed(() => {
       })
       .filter(Boolean);
 
+  const buildGroup = (label, icon, names) => {
+    const items = buildLinks(names);
+    if (!items.length) return null;
+    return { label, icon, items };
+  };
+
   const adminLinks = $helpdesk?.isAdmin
-    ? [...buildLinks(['dashboard', 'log-audit', 'settings', 'users'])]
+    ? buildLinks(['dashboard', 'log-audit', 'settings', 'users'])
     : [];
+
+  const reportLinks = buildLinks(['reports']);
 
   return [
     ...buildLinks(['events']),
 
     'Системні додатки',
 
-    {
-      label: 'Мережеві дані',
-      icon: mdiLan,
-      items: [
-        ...buildLinks([
-          'channels',
-          'ipaddresses',
-          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'network-statistic'
-        ])
-      ]
-    },
+    buildGroup('Мережеві дані', mdiLan, [
+      'channels',
+      'ipaddresses',
+      ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'network-statistic'
+    ]),
 
-    {
-      label: 'Поштові скриньки',
-      icon: mdiAt,
-      items: [
-        ...buildLinks([
-          'mailboxes',
-          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'mailbox-statistic'
-        ])
-      ]
-    },
+    buildGroup('Поштові скриньки', mdiAt, [
+      'mailboxes',
+      ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'mailbox-statistic'
+    ]),
 
-    {
-      label: 'Сервісна підтримка',
-      icon: mdiBookOpenOutline,
-      items: [
-        ...buildLinks([
-          'requests',
-          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'request-statistic'
-        ])
-      ]
-    },
+    buildGroup('Сервісна підтримка', mdiBookOpenOutline, [
+      'requests',
+      ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'request-statistic'
+    ]),
 
-    {
-      label: 'ПК SysInspector',
-      icon: mdiMonitorDashboard,
-      items: [
-        ...buildLinks([
-          'inspectors',
-          ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'inspector-statistic'
-        ])
-      ]
-    },
+    buildGroup('ПК SysInspector', mdiMonitorDashboard, [
+      'inspectors',
+      ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'inspector-statistic'
+    ]),
 
-    'Звіти та шаблони',
-
-    ...buildLinks(['reports']),
+    ...(reportLinks.length ? ['Звіти та шаблони', ...reportLinks] : []),
 
     ...(adminLinks.length ? ['Адміністрування', ...adminLinks] : [])
-  ];
+  ].filter(Boolean);
 });
 </script>
 

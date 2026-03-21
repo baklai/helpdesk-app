@@ -1,19 +1,27 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useConfigStore } from '@/stores/config.store';
 
 const configStore = useConfigStore();
 const router = useRouter();
+const $helpdesk = inject('helpdesk');
 
 const navLinks = computed(() => {
   const routes = router.getRoutes();
 
-  return ['events', 'ipaddresses', 'mailboxes', 'requests', 'inspectors']
+  return ['events', 'ipaddresses', 'mailboxes', 'requests', 'inspectors', 'reports']
     .map(name => {
       const route = routes.find(r => r.name === name);
       if (!route) return null;
+
+      const permissions = route.meta?.permissions || [];
+
+      if (!$helpdesk?.isAdmin && permissions.length > 0) {
+        const hasAccess = permissions.every(p => $helpdesk?.scope(p));
+        if (!hasAccess) return null;
+      }
 
       return {
         icon: route.meta.icon,
@@ -31,8 +39,8 @@ const navLinks = computed(() => {
       v-for="(item, index) in navLinks"
       :key="`nav-link-m-item-${index}`"
       v-tooltip.right="item.label"
-      :to="{ name: item.name }"
       v-slot="{ isActive }"
+      :to="{ name: item.name }"
     >
       <Button
         class="w-full rounded-none!"
