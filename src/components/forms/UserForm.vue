@@ -32,7 +32,10 @@ const { errors, handleSubmit, controlledValues, values, setValues } = useForm({
   validationSchema: yup.object({
     fullname: yup.string().required('Потрібно вказати значення'),
     phone: yup.string().required('Потрібно вказати значення'),
-    email: yup.string().email('Невірний формат email').required('Потрібно вказати значення'),
+    email: yup
+      .string()
+      .email('Невірний формат електронної пошти')
+      .required('Потрібно вказати значення'),
     status: yup.string().required('Потрібно вказати значення'),
     role: yup.string().required('Потрібно вказати значення'),
     scope: yup.array()
