@@ -69,7 +69,7 @@ const configStore = useConfigStore();
           <SidebarMenu />
         </div>
 
-        <div class="flex flex-none flex-row content-center items-center justify-between py-2">
+        <div class="flex flex-none flex-row content-center items-center justify-between py-3">
           <BtnInfoProfile />
           <BtnToggleTheme />
           <BtnStorageClient />
