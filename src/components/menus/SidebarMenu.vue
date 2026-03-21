@@ -69,9 +69,11 @@ const navLinks = computed(() => {
       ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'inspector-statistic'
     ]),
 
-    ...(reportLinks.length ? ['Звіти та шаблони', ...reportLinks] : []),
+    ...(reportLinks.length && ($helpdesk?.isAdmin || $helpdesk?.isManager)
+      ? ['Звіти та шаблони', ...reportLinks]
+      : []),
 
-    ...(adminLinks.length ? ['Адміністрування', ...adminLinks] : [])
+    ...(adminLinks.length && $helpdesk?.isAdmin ? ['Адміністрування', ...adminLinks] : [])
   ].filter(Boolean);
 });
 </script>

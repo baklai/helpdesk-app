@@ -11,7 +11,14 @@ const $helpdesk = inject('helpdesk');
 const navLinks = computed(() => {
   const routes = router.getRoutes();
 
-  return ['events', 'ipaddresses', 'mailboxes', 'requests', 'inspectors', 'reports']
+  return [
+    'events',
+    'ipaddresses',
+    'mailboxes',
+    'requests',
+    'inspectors',
+    ($helpdesk?.isAdmin || $helpdesk?.isManager) && 'reports'
+  ]
     .map(name => {
       const route = routes.find(r => r.name === name);
       if (!route) return null;
