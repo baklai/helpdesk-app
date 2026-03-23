@@ -57,7 +57,7 @@ const filter = ref({
 
 const columns = ref([
   {
-    header: { text: 'Логін', width: '16rem' },
+    header: { text: 'Логін', width: '20rem' },
     column: {
       field: 'email',
       render(value) {
