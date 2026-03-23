@@ -1,12 +1,16 @@
 <script setup>
 import { mdiTable } from '@mdi/js';
-import { computed, defineAsyncComponent, ref, shallowRef } from 'vue';
+import { computed, defineAsyncComponent, inject, ref, shallowRef } from 'vue';
+
+const $helpdesk = inject('helpdesk');
 
 const refMenu = ref();
 const refModal = shallowRef(null);
 
+console.log($helpdesk.scope('device:create'));
+
 const options = computed(() => [
-  {
+  ['device:create', 'device:update', 'device:delete'].some(p => $helpdesk?.scope(p)) && {
     label: 'Системні пристрої',
     items: [
       {
@@ -20,7 +24,8 @@ const options = computed(() => [
       }
     ]
   },
-  {
+
+  ['location:create', 'location:update', 'location:delete'].some(p => $helpdesk?.scope(p)) && {
     label: 'Системні локації',
     items: [
       {
@@ -34,10 +39,23 @@ const options = computed(() => [
       }
     ]
   },
-  {
+
+  [
+    'organization:create',
+    'organization:update',
+    'organization:delete',
+    'subdivision:create',
+    'subdivision:update',
+    'subdivision:delete',
+    'department:create',
+    'department:update',
+    'department:delete'
+  ].some(p => $helpdesk?.scope(p)) && {
     label: 'Системні організації',
     items: [
-      {
+      ['organization:create', 'organization:update', 'organization:delete'].some(p =>
+        $helpdesk?.scope(p)
+      ) && {
         label: 'Організація',
         icon: 'pi pi-building',
         command: () => {
@@ -46,7 +64,9 @@ const options = computed(() => [
           );
         }
       },
-      {
+      ['subdivision:create', 'subdivision:update', 'subdivision:delete'].some(p =>
+        $helpdesk?.scope(p)
+      ) && {
         label: 'Підрозділ',
         icon: 'pi pi-building',
         command: () => {
@@ -55,7 +75,9 @@ const options = computed(() => [
           );
         }
       },
-      {
+      ['department:create', 'department:update', 'department:delete'].some(p =>
+        $helpdesk?.scope(p)
+      ) && {
         label: 'Відділ',
         icon: 'pi pi-building',
         command: () => {
@@ -66,7 +88,7 @@ const options = computed(() => [
       }
     ]
   },
-  {
+  ['position:create', 'position:update', 'position:delete'].some(p => $helpdesk?.scope(p)) && {
     label: 'Системні посади',
     items: [
       {

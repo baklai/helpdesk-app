@@ -448,6 +448,10 @@ const handleSelected = async ({ id }) => {
         {{ $route?.meta?.description }}
       </template>
 
+      <template #header-actions>
+        <BtnDBTables />
+      </template>
+
       <template #sidebar-icon>
         <AppIcon :path="$route.meta.icon" :size="40" />
       </template>
