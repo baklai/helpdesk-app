@@ -1,17 +1,19 @@
 <script setup>
 import { mdiPlusCircleOutline } from '@mdi/js';
-import { defineAsyncComponent, ref, shallowRef } from 'vue';
+import { computed, defineAsyncComponent, inject, shallowRef } from 'vue';
 
-defineProps({
+const props = defineProps({
   table: {
     type: [String, Boolean],
     default: false
   }
 });
 
+const $helpdesk = inject('helpdesk');
+
 const refModal = shallowRef(null);
 
-const datatables = ref({
+const datatables = {
   device: {
     label: 'Пристрій',
     command: () => {
@@ -54,12 +56,18 @@ const datatables = ref({
       refModal.value = defineAsyncComponent(() => import('@/components/modals/PositionModal.vue'));
     }
   }
-});
+};
+
+const hasTableScope = computed(() =>
+  props.table &&
+  datatables[props.table] &&
+  ['create', 'update', 'delete'].some(a => $helpdesk?.scope(`${props.table}:${a}`))
+);
 </script>
 
 <template>
   <Button
-    v-if="table && datatables[table]"
+    v-if="hasTableScope"
     v-tooltip.bottom="datatables[table].label"
     severity="secondary"
     @click="datatables[table].command"

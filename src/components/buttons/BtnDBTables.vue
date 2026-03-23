@@ -7,10 +7,22 @@ const $helpdesk = inject('helpdesk');
 const refMenu = ref();
 const refModal = shallowRef(null);
 
-console.log($helpdesk.scope('device:create'));
+const PERMS = {
+  device: ['device:create', 'device:update', 'device:delete'],
+  location: ['location:create', 'location:update', 'location:delete'],
+  organization: ['organization:create', 'organization:update', 'organization:delete'],
+  subdivision: ['subdivision:create', 'subdivision:update', 'subdivision:delete'],
+  department: ['department:create', 'department:update', 'department:delete'],
+  position: ['position:create', 'position:update', 'position:delete']
+};
+
+const hasScope = perms => perms.some(p => $helpdesk?.scope(p));
+
+const allPerms = Object.values(PERMS).flat();
+const isDisabled = computed(() => !hasScope(allPerms));
 
 const options = computed(() => [
-  ['device:create', 'device:update', 'device:delete'].some(p => $helpdesk?.scope(p)) && {
+  hasScope(PERMS.device) && {
     label: 'Системні пристрої',
     items: [
       {
@@ -25,7 +37,7 @@ const options = computed(() => [
     ]
   },
 
-  ['location:create', 'location:update', 'location:delete'].some(p => $helpdesk?.scope(p)) && {
+  hasScope(PERMS.location) && {
     label: 'Системні локації',
     items: [
       {
@@ -40,22 +52,12 @@ const options = computed(() => [
     ]
   },
 
-  [
-    'organization:create',
-    'organization:update',
-    'organization:delete',
-    'subdivision:create',
-    'subdivision:update',
-    'subdivision:delete',
-    'department:create',
-    'department:update',
-    'department:delete'
-  ].some(p => $helpdesk?.scope(p)) && {
+  [...PERMS.organization, ...PERMS.subdivision, ...PERMS.department].some(p =>
+    $helpdesk?.scope(p)
+  ) && {
     label: 'Системні організації',
     items: [
-      ['organization:create', 'organization:update', 'organization:delete'].some(p =>
-        $helpdesk?.scope(p)
-      ) && {
+      hasScope(PERMS.organization) && {
         label: 'Організація',
         icon: 'pi pi-building',
         command: () => {
@@ -64,9 +66,7 @@ const options = computed(() => [
           );
         }
       },
-      ['subdivision:create', 'subdivision:update', 'subdivision:delete'].some(p =>
-        $helpdesk?.scope(p)
-      ) && {
+      hasScope(PERMS.subdivision) && {
         label: 'Підрозділ',
         icon: 'pi pi-building',
         command: () => {
@@ -75,9 +75,7 @@ const options = computed(() => [
           );
         }
       },
-      ['department:create', 'department:update', 'department:delete'].some(p =>
-        $helpdesk?.scope(p)
-      ) && {
+      hasScope(PERMS.department) && {
         label: 'Відділ',
         icon: 'pi pi-building',
         command: () => {
@@ -86,9 +84,10 @@ const options = computed(() => [
           );
         }
       }
-    ]
+    ].filter(Boolean)
   },
-  ['position:create', 'position:update', 'position:delete'].some(p => $helpdesk?.scope(p)) && {
+
+  hasScope(PERMS.position) && {
     label: 'Системні посади',
     items: [
       {
@@ -106,7 +105,7 @@ const options = computed(() => [
 </script>
 
 <template>
-  <Menu ref="refMenu" :model="options" popup>
+  <Menu ref="refMenu" :model="options" popup v-if="!isDisabled">
     <template #submenulabel="{ item }">
       <span class="text-surface-500">{{ item.label }}</span>
     </template>
@@ -123,6 +122,7 @@ const options = computed(() => [
     rounded
     severity="secondary"
     variant="text"
+    v-if="!isDisabled"
     @click="event => refMenu.toggle(event)"
   >
     <template #icon>
@@ -130,5 +130,5 @@ const options = computed(() => [
     </template>
   </Button>
 
-  <component :is="refModal" />
+  <component :is="refModal" v-if="!isDisabled" />
 </template>
