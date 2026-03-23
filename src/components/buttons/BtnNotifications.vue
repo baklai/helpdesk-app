@@ -77,7 +77,12 @@ const onRemoveRecord = async id => {
 
         <Divider />
 
-        <DataView v-if="notices" class="max-h-120 overflow-auto" :value="notices">
+        <DataView
+          v-if="notices"
+          class="max-h-120 overflow-auto"
+          :value="notices"
+          pt:content="flex flex-col gap-y-2"
+        >
           <template #list="{ items }">
             <Message
               :severity="SEVERITY_STATUS[item.status] || 'secondary'"
