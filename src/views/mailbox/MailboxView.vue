@@ -57,7 +57,7 @@ const filter = ref({
 
 const columns = ref([
   {
-    header: { text: 'Логін', width: '20rem' },
+    header: { text: 'Електронна пошта', width: '20rem' },
     column: {
       field: 'email',
       render(value) {
@@ -437,10 +437,10 @@ const handleSelected = async ({ id }) => {
         <AppIcon :path="$route.meta.icon" :size="40" />
       </template>
 
-      <template #sidebar-title> Логін : {{ doc?.email }} </template>
+      <template #sidebar-title> Електронна пошта : {{ doc?.email }} </template>
 
       <template #sidebar-subtitle>
-        Дата відкриття : {{ dateToStr(doc?.dateOpen) || '-' }}
+        Дата відкриття : {{ dateToStr(doc?.createdAt) || '-' }}
       </template>
 
       <template #sidebar-actions>

@@ -7,46 +7,43 @@ defineOptions({
   inheritAttrs: false
 });
 
-const { data } = defineProps({
+const props = defineProps({
   data: {
     type: Object,
     default: null
   }
 });
 
-// API повертає lowercase значення enum ('opened', 'pending', ...)
-const STATUS_LABEL = {
-  opened: 'Відкрита',
-  pending: 'Очікує',
-  processing: 'В роботі',
-  resolved: 'Вирішено',
-  closed: 'Закрита',
-  rejected: 'Відхилена',
-  cancelled: 'Скасована'
-};
-
-const isClosed = computed(() =>
-  ['resolved', 'closed', 'rejected', 'cancelled'].includes(data?.status)
+const isClosed = computed(
+  () =>
+    props.data?.status &&
+    ['resolved', 'closed', 'rejected', 'cancelled'].includes(props.data.status)
 );
 
-const rows = computed(() => [
-  { label: 'Відкрив запит', value: data?.opened?.fullname || '-' },
-  { label: 'Дата відкриття', value: data?.createdAt ? dateTimeToStr(data?.createdAt) : '-' },
-  { label: 'Статус', value: STATUS_LABEL[data?.status] ?? data?.status ?? '-' },
-  { label: 'Запит', value: data?.request || '-' },
-  { label: 'Розташування', value: data?.location?.name || '-' },
-  { label: "Повне ім'я", value: data?.fullname || '-' },
-  { label: 'Телефон', value: data?.phone || '-' },
-  { label: 'Посада', value: data?.position?.name || '-' },
-  { label: 'Номер листа', value: data?.reqnum || '-' },
-  { label: 'Організація', value: data?.organization?.name || '-' },
-  { label: 'Підрозділ', value: data?.subdivision?.name || '-' },
-  { label: 'Відділ', value: data?.department?.name || '-' },
-  { label: 'Дата закриття', value: isClosed.value ? dateTimeToStr(data?.updatedAt) : '-' },
-  { label: 'Закрив запит', value: data?.closed?.fullname || '-' },
-  { label: 'Висновок до запиту', value: data?.conclusion || '-' },
-  { label: 'Коментар', value: data?.comment || '-' }
-]);
+const rows = computed(() =>
+  [
+    props.data?.opened?.fullname && { label: 'Відкрив запит', value: props.data.opened.fullname },
+    props.data?.createdAt && {
+      label: 'Дата відкриття',
+      value: dateTimeToStr(props.data.createdAt)
+    },
+    props.data?.status && { label: 'Статус', value: props.data.status },
+    props.data?.request && { label: 'Запит', value: props.data.request },
+    props.data?.location?.name && { label: 'Розташування', value: props.data.location.name },
+    props.data?.fullname && { label: "Повне ім'я", value: props.data.fullname },
+    props.data?.phone && { label: 'Телефон', value: props.data.phone },
+    props.data?.position?.name && { label: 'Посада', value: props.data.position.name },
+    props.data?.reqnum && { label: 'Номер листа', value: props.data.reqnum },
+    props.data?.organization?.name && { label: 'Організація', value: props.data.organization.name },
+    props.data?.subdivision?.name && { label: 'Підрозділ', value: props.data.subdivision.name },
+    props.data?.department?.name && { label: 'Відділ', value: props.data.department.name },
+    props.data?.updatedAt &&
+      isClosed && { label: 'Дата закриття', value: dateTimeToStr(props.data.updatedAt) },
+    props.data?.closed?.fullname && { label: 'Закрив запит', value: props.data.closed.fullname },
+    props.data?.conclusion && { label: 'Висновок до запиту', value: props.data.conclusion },
+    props.data?.comment && { label: 'Коментар', value: props.data.comment }
+  ].filter(Boolean)
+);
 </script>
 
 <template>
@@ -60,7 +57,7 @@ const rows = computed(() => [
         class="border-surface-200 dark:border-surface-800 border-b"
       >
         <td class="py-0.5" width="50%">{{ row.label }} :</td>
-        <td class="py-0.5">{{ row.value || '-' }}</td>
+        <td class="py-0.5">{{ row.value }}</td>
       </tr>
     </tbody>
   </table>

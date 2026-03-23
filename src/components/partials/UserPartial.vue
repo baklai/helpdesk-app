@@ -7,40 +7,31 @@ defineOptions({
   inheritAttrs: false
 });
 
-const { data } = defineProps({
+const props = defineProps({
   data: {
     type: Object,
     default: null
   }
 });
 
-const STATUS_LABEL = {
-  pending: 'Очікує активації',
-  active: 'Активний',
-  blocked: 'Заблоковано',
-  disabled: 'Вимкнено'
-};
-
-const ROLE_LABEL = {
-  admin: 'Адміністратор',
-  manager: 'Менеджер',
-  support: 'Спеціаліст',
-  client: 'Клієнт'
-};
-
-const rows = computed(() => [
-  { label: "Прізвище та ім'я", value: data?.fullname },
-  { label: 'Електронна пошта', value: data?.email },
-  { label: 'Номер телефону', value: data?.phone },
-  { label: 'Статус', value: STATUS_LABEL[data?.status] ?? data?.status ?? '-' },
-  { label: 'Роль', value: ROLE_LABEL[data?.role] ?? data?.role ?? '-' },
-  {
-    label: 'Кількість дозволів',
-    value: data?.scope?.length != null ? `${data.scope.length}` : '-'
-  },
-  { label: 'Дата реєстрації', value: data?.createdAt ? dateTimeToStr(data.createdAt) : '-' },
-  { label: 'Останнє оновлення', value: data?.updatedAt ? dateTimeToStr(data.updatedAt) : '-' }
-]);
+const rows = computed(() =>
+  [
+    props.data?.fullname && { label: "Прізвище та ім'я", value: props.data.fullname },
+    props.data?.email && { label: 'Електронна пошта', value: props.data.email },
+    props.data?.phone && { label: 'Номер телефону', value: props.data.phone },
+    props.data?.status && { label: 'Статус', value: props.data.status },
+    props.data?.role && { label: 'Роль', value: props.data.role },
+    props.data?.scope?.length && { label: 'Кількість дозволів', value: props.data.scope.length },
+    props.data?.createdAt && {
+      label: 'Дата реєстрації',
+      value: dateTimeToStr(props.data.createdAt)
+    },
+    props.data?.updatedAt && {
+      label: 'Останнє оновлення',
+      value: dateTimeToStr(props.data.updatedAt)
+    }
+  ].filter(Boolean)
+);
 </script>
 
 <template>
@@ -54,7 +45,7 @@ const rows = computed(() => [
         class="border-surface-200 dark:border-surface-800 border-b"
       >
         <td class="py-0.5" width="50%">{{ row.label }} :</td>
-        <td class="py-0.5">{{ row.value || '-' }}</td>
+        <td class="py-0.5">{{ row.value }}</td>
       </tr>
     </tbody>
   </table>
