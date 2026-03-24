@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
+import { MAILBOX_STATUS } from '@/constants/ui.const';
 import { dateToStr } from '@/utils/DateMethods';
 
 defineOptions({
@@ -14,6 +15,10 @@ const props = defineProps({
   }
 });
 
+const emailStatus = computed(
+  () => MAILBOX_STATUS.find(item => props.data?.status === item.key)?.label
+);
+
 const rows = computed(() =>
   [
     props.data?.email && { label: 'Електронна пошта', value: props.data.email },
@@ -21,7 +26,7 @@ const rows = computed(() =>
     props.data?.createdAt && { label: 'Дата відкриття', value: dateToStr(props.data.createdAt) },
     props.data?.fullname && { label: "Прізвище та ім'я", value: props.data.fullname },
     props.data?.phone && { label: 'Номер телефону', value: props.data.phone },
-    props.data?.status && { label: 'Статус', value: props.data.status },
+    emailStatus?.value && { label: 'Статус', value: emailStatus.value },
     props.data?.organization?.name && { label: 'Організація', value: props.data.organization.name },
     props.data?.subdivision?.name && { label: 'Підрозділ', value: props.data.subdivision.name },
     props.data?.department?.name && { label: 'Відділ', value: props.data.department.name },

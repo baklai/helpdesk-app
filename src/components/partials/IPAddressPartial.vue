@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
+import { INTERNET_STATUS } from '@/constants/ui.const';
 import { dateToStr } from '@/utils/DateMethods';
 
 defineOptions({
@@ -13,6 +14,10 @@ const props = defineProps({
     default: null
   }
 });
+
+const internetStatus = computed(
+  () => INTERNET_STATUS.find(item => props.data?.internet?.status === item.key)?.label
+);
 
 const rows = computed(() =>
   [
@@ -33,7 +38,7 @@ const rows = computed(() =>
     props.data?.email && { label: 'Електронна пошта', value: props.data.email },
     props.data?.autoanswer && { label: 'Автовідповідь', value: props.data.autoanswer },
     props.data?.comment && { label: 'Коментар', value: props.data.comment },
-    props.data?.internet?.status && { label: 'Інтернет', value: props.data.internet.status }
+    internetStatus?.value && { label: 'Інтернет', value: internetStatus.value }
   ].filter(Boolean)
 );
 </script>

@@ -1,9 +1,16 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
-import { USER_ROLE, USER_STATUS } from '@/constants/enums.const';
 import { apolloClient } from '@/graphql/apollo.client';
 import { ME, SIGN_IN, SIGN_OUT, SIGN_UP } from '@/graphql/apollo.gql';
+
+const USER_STATUS = Object.freeze(
+  Object.fromEntries(['PENDING', 'ACTIVE', 'BLOCKED', 'DISABLED'].map(k => [k, k]))
+);
+
+const USER_ROLE = Object.freeze(
+  Object.fromEntries(['ADMIN', 'MANAGER', 'SUPPORT', 'CLIENT'].map(k => [k, k]))
+);
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null);

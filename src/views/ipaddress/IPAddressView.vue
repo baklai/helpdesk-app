@@ -8,6 +8,7 @@ import QRCode from 'qrcode';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { INTERNET_STATUS } from '@/constants/ui.const';
 import {
   FIND_ALL_DEPARTMENTS,
   FIND_ALL_DEVICES,
@@ -169,13 +170,10 @@ const columns = ref([
         switch (value) {
           case 'ACTIVE':
             return <AppIcon path={mdiWebCheck} size={14} class="text-green-500" />;
-
           case 'BLOCKED':
             return <AppIcon path={mdiWebCancel} size={14} class="text-red-500" />;
-
           case 'CLOSED':
             return <AppIcon path={mdiWebRemove} size={14} class="text-gray-500" />;
-
           default:
             return <span>-</span>;
         }
@@ -188,27 +186,8 @@ const columns = ref([
       options: {
         key: 'key',
         value: 'key',
-        label: 'name',
-        onRecords: () => {
-          return [
-            {
-              key: 'NONE',
-              name: 'Відсутній'
-            },
-            {
-              key: 'ACTIVE',
-              name: 'Активний'
-            },
-            {
-              key: 'BLOCKED',
-              name: 'Заблоковано'
-            },
-            {
-              key: 'CLOSED',
-              name: 'Закрито'
-            }
-          ];
-        }
+        label: 'label',
+        onRecords: () => INTERNET_STATUS
       }
     }
   },
@@ -534,10 +513,7 @@ const handleSelected = async ({ id }) => {
 
         <IPAddressPartial :data="doc" />
 
-        <InternetPartial
-          v-if="doc?.internet && doc?.internet?.status && doc?.internet?.status !== 'NONE'"
-          :data="doc?.internet"
-        >
+        <InternetPartial v-if="doc?.internet" :data="doc.internet">
           <template #header>
             <div class="my-6 flex w-full flex-row items-center">
               <i class="mr-2">
@@ -545,9 +521,7 @@ const handleSelected = async ({ id }) => {
               </i>
               <div class="flex flex-col">
                 <p class="text-lg">Інтернет</p>
-                <p class="text-muted-color text-sm font-normal">
-                  Дата: {{ dateToStr(doc?.internet?.updatedAt) || '-' }}
-                </p>
+                <p class="text-muted-color text-sm font-normal">IP: {{ doc?.ipaddress || '-' }}</p>
               </div>
             </div>
           </template>

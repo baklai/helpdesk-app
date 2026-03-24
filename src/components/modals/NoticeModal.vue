@@ -5,8 +5,7 @@ import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import * as yup from 'yup';
 
-import { SEVERITY_STATUS } from '@/constants/enums.const';
-import { NOTICE_STATUS } from '@/constants/ui.const';
+import { NOTICE_STATUS, NOTICE_STATUS_SEVERITY } from '@/constants/ui.const';
 import { apolloClient } from '@/graphql/apollo.client';
 import { CREATE_ONE_NOTICE, FIND_ALL_USERS_ACTIVE } from '@/graphql/apollo.gql';
 
@@ -158,7 +157,7 @@ const onCloseModal = () => {
           placeholder="Оберіть статус сповіщення"
         >
           <template #option="slotProps">
-            <Message :severity="SEVERITY_STATUS[slotProps.option.key]">
+            <Message :severity="NOTICE_STATUS_SEVERITY[slotProps.option.key]">
               {{ slotProps.option?.comment }}
             </Message>
           </template>

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
+import { REQUEST_STATUS } from '@/constants/ui.const';
 import { dateTimeToStr } from '@/utils/DateMethods';
 
 defineOptions({
@@ -20,6 +21,10 @@ const isClosed = computed(
     ['resolved', 'closed', 'rejected', 'cancelled'].includes(props.data.status)
 );
 
+const requestStatus = computed(
+  () => REQUEST_STATUS.find(item => props.data?.status === item.key)?.label
+);
+
 const rows = computed(() =>
   [
     props.data?.opened?.fullname && { label: 'Відкрив запит', value: props.data.opened.fullname },
@@ -27,7 +32,7 @@ const rows = computed(() =>
       label: 'Дата відкриття',
       value: dateTimeToStr(props.data.createdAt)
     },
-    props.data?.status && { label: 'Статус', value: props.data.status },
+    requestStatus?.value && { label: 'Статус', value: requestStatus.value },
     props.data?.request && { label: 'Запит', value: props.data.request },
     props.data?.location?.name && { label: 'Розташування', value: props.data.location.name },
     props.data?.fullname && { label: "Повне ім'я", value: props.data.fullname },

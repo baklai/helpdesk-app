@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 
+import { INTERNET_STATUS } from '@/constants/ui.const';
+
 defineOptions({
   inheritAttrs: false
 });
@@ -12,10 +14,14 @@ const props = defineProps({
   }
 });
 
+const internetStatus = computed(
+  () => INTERNET_STATUS.find(item => props.data?.status === item.key)?.label
+);
+
 const rows = computed(() =>
   [
     props?.data?.reqnum && { label: 'Номер листа', value: props.data.reqnum },
-    props?.data?.status && { label: 'Статус', value: props.data.status },
+    internetStatus?.value && { label: 'Статус', value: internetStatus.value },
     props?.data?.comment && { label: 'Коментар', value: props.data.comment }
   ].filter(Boolean)
 );

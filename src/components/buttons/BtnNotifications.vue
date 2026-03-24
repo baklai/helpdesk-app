@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@vue/apollo-composable';
 import { useToast } from 'primevue/usetoast';
 import { computed, defineAsyncComponent, ref } from 'vue';
 
-import { SEVERITY_STATUS } from '@/constants/enums.const';
+import { NOTICE_STATUS_SEVERITY } from '@/constants/ui.const';
 import { FIND_ALL_NOTICES, REMOVE_ONE_NOTICE } from '@/graphql/apollo.gql';
 import { dateTimeToStr } from '@/utils/DateMethods';
 
@@ -85,7 +85,7 @@ const onRemoveRecord = async id => {
         >
           <template #list="{ items }">
             <Message
-              :severity="SEVERITY_STATUS[item.status] || 'secondary'"
+              :severity="NOTICE_STATUS_SEVERITY[item.status] || 'secondary'"
               v-for="(item, index) in items"
               :key="`msg-${index}`"
               pt:text="w-full!"
@@ -111,7 +111,7 @@ const onRemoveRecord = async id => {
                   icon="pi pi-times"
                   rounded
                   size="small"
-                  :severity="SEVERITY_STATUS[item.status] || 'secondary'"
+                  :severity="NOTICE_STATUS_SEVERITY[item.status] || 'secondary'"
                   variant="text"
                   @click="onRemoveRecord(item.id)"
                 />

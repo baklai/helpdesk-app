@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
+import { USER_ROLES, USER_STATUS } from '@/constants/ui.const';
 import { dateTimeToStr } from '@/utils/DateMethods';
 
 defineOptions({
@@ -14,21 +15,20 @@ const props = defineProps({
   }
 });
 
+const userStatus = computed(() => USER_STATUS.find(item => props.data?.status === item.key)?.label);
+const userRole = computed(() => USER_ROLES.find(item => props.data?.role === item.key)?.label);
+
 const rows = computed(() =>
   [
     props.data?.fullname && { label: "Прізвище та ім'я", value: props.data.fullname },
     props.data?.email && { label: 'Електронна пошта', value: props.data.email },
     props.data?.phone && { label: 'Номер телефону', value: props.data.phone },
-    props.data?.status && { label: 'Статус', value: props.data.status },
-    props.data?.role && { label: 'Роль', value: props.data.role },
+    userStatus?.value && { label: 'Статус', value: userStatus.value },
+    userRole?.value && { label: 'Роль', value: userRole.value },
     props.data?.scope?.length && { label: 'Кількість дозволів', value: props.data.scope.length },
     props.data?.createdAt && {
       label: 'Дата реєстрації',
       value: dateTimeToStr(props.data.createdAt)
-    },
-    props.data?.updatedAt && {
-      label: 'Останнє оновлення',
-      value: dateTimeToStr(props.data.updatedAt)
     }
   ].filter(Boolean)
 );

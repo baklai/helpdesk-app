@@ -185,6 +185,14 @@ export const NOTICE_STATUS = [
   }
 ];
 
+export const NOTICE_STATUS_SEVERITY = {
+  SUCCESS: 'success',
+  INFO: 'info',
+  WARN: 'warn',
+  ERROR: 'error',
+  SECONDARY: 'secondary'
+};
+
 export const INTERNET_STATUS = [
   {
     key: 'NONE',

@@ -8,6 +8,7 @@ import QRCode from 'qrcode';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { MAILBOX_STATUS } from '@/constants/ui.const';
 import {
   FIND_ALL_DEPARTMENTS,
   FIND_ALL_MAILBOXES,
@@ -140,13 +141,10 @@ const columns = ref([
         switch (value) {
           case 'OPENED':
             return <AppIcon path={mdiEmailCheckOutline} size={14} class="text-green-500" />;
-
           case 'BLOCKED':
             return <AppIcon path={mdiEmailAlertOutline} size={14} class="text-red-500" />;
-
           case 'CLOSED':
             return <AppIcon path={mdiEmailRemoveOutline} size={14} class="text-gray-500" />;
-
           default:
             return <span>-</span>;
         }
@@ -159,23 +157,8 @@ const columns = ref([
       options: {
         key: 'key',
         value: 'key',
-        label: 'name',
-        onRecords: () => {
-          return [
-            {
-              key: 'OPENED',
-              name: 'Активна'
-            },
-            {
-              key: 'BLOCKED',
-              name: 'Заблокована'
-            },
-            {
-              key: 'CLOSED',
-              name: 'Закрита'
-            }
-          ];
-        }
+        label: 'label',
+        onRecords: () => MAILBOX_STATUS
       }
     },
     frozen: true
