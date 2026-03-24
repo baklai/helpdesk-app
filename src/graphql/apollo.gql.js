@@ -12,6 +12,7 @@ export * from './queries/organization.gql.js';
 export * from './queries/position.gql.js';
 export * from './queries/report.gql.js';
 export * from './queries/request.gql.js';
+export * from './queries/statistic.gql.js';
 export * from './queries/subdivision.gql.js';
 export * from './queries/system.gql.js';
 export * from './queries/tools.gql.js';
