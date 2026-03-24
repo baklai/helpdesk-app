@@ -15,7 +15,7 @@ import {
   FIND_ALL_POSITIONS,
   FIND_ALL_REQUESTS,
   FIND_ALL_SUBDIVISIONS,
-  FIND_ALL_USERS,
+  FIND_ALL_USERS_ACTIVE,
   FIND_ONE_REQUEST,
   REMOVE_ONE_REQUEST
 } from '@/graphql/apollo.gql.js';
@@ -36,13 +36,6 @@ const { load, result, refetch, loading } = useLazyQuery(FIND_ALL_REQUESTS, null,
 
 const { mutate: deleteRequest } = useMutation(REMOVE_ONE_REQUEST);
 
-const { load: loadOraganizations } = useLazyQuery(FIND_ALL_ORGANIZATIONS);
-const { load: loadSubdivisions } = useLazyQuery(FIND_ALL_SUBDIVISIONS);
-const { load: loadDepartments } = useLazyQuery(FIND_ALL_DEPARTMENTS);
-const { load: loadPositions } = useLazyQuery(FIND_ALL_POSITIONS);
-const { load: loadLocations } = useLazyQuery(FIND_ALL_LOCATIONS);
-const { load: loadUsers } = useLazyQuery(FIND_ALL_USERS);
-
 const docs = computed(() => result.value?.requests?.docs || []);
 const limit = computed(() => result.value?.requests?.limit || 10);
 const offset = computed(() => result.value?.requests?.offset || 0);
@@ -61,6 +54,23 @@ const filter = ref({
 
 const columns = ref([
   {
+    header: { text: 'Номер заявки', width: '20rem' },
+    column: {
+      field: 'id',
+      render(value) {
+        return <span class="font-semibold uppercase">{value}</span>;
+      }
+    },
+    filter: {
+      field: '_id',
+      matchMode: FilterMatchMode.CONTAINS,
+      filterOperator: FilterOperator.AND,
+      showFilterMatchModes: true
+    },
+    frozen: true
+  },
+
+  {
     header: { text: 'Відкрив заявку', width: '16rem' },
     column: { field: 'opened.fullname' },
     filter: {
@@ -70,9 +80,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'fullname',
-        onRecords: async () => {
-          const response = await loadUsers();
-          return response?.users || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_USERS_ACTIVE
+          });
+
+          return data?.users || [];
         }
       }
     },
@@ -116,7 +129,7 @@ const columns = ref([
         key: 'key',
         value: 'key',
         label: 'label',
-        onRecords: () => REQUEST_STATUS
+        records: REQUEST_STATUS
       }
     }
   },
@@ -157,17 +170,22 @@ const columns = ref([
   {
     header: { text: 'Розташування', width: '15rem' },
     column: { field: 'location.name' },
+    sorter: { field: 'location.name' },
     filter: {
       field: 'location',
       matchMode: FilterMatchMode.IN,
       options: {
         key: 'id',
         value: 'id',
-        label: 'name',
-        grouped: true,
-        onRecords: async () => {
-          const response = await loadLocations();
-          return response?.locations || [];
+        label: data => {
+          return `${data.name} (${data.region})`;
+        },
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_LOCATIONS
+          });
+
+          return data?.locations || [];
         }
       }
     }
@@ -200,6 +218,7 @@ const columns = ref([
   {
     header: { text: 'Посада', width: '16rem' },
     column: { field: 'position.name' },
+    sorter: { field: 'position.name' },
     filter: {
       field: 'position',
       matchMode: FilterMatchMode.IN,
@@ -207,9 +226,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadPositions();
-          return response?.positions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_POSITIONS
+          });
+
+          return data?.positions || [];
         }
       }
     }
@@ -230,6 +252,7 @@ const columns = ref([
   {
     header: { text: 'Організація', width: '16rem' },
     column: { field: 'organization.name' },
+    sorter: { field: 'organization.name' },
     filter: {
       field: 'organization',
       matchMode: FilterMatchMode.IN,
@@ -237,9 +260,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadOraganizations();
-          return response?.organizations || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_ORGANIZATIONS
+          });
+
+          return data?.organizations || [];
         }
       }
     }
@@ -248,6 +274,7 @@ const columns = ref([
   {
     header: { text: 'Підрозділ', width: '16rem' },
     column: { field: 'subdivision.name' },
+    sorter: { field: 'subdivision.name' },
     filter: {
       field: 'subdivision',
       matchMode: FilterMatchMode.IN,
@@ -255,9 +282,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadSubdivisions();
-          return response?.subdivisions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_SUBDIVISIONS
+          });
+
+          return data?.subdivisions || [];
         }
       }
     }
@@ -266,6 +296,7 @@ const columns = ref([
   {
     header: { text: 'Відділ', width: '16rem' },
     column: { field: 'department.name' },
+    sorter: { field: 'department.name' },
     filter: {
       field: 'department',
       matchMode: FilterMatchMode.IN,
@@ -273,9 +304,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadDepartments();
-          return response?.departments || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_DEPARTMENTS
+          });
+
+          return data?.departments || [];
         }
       }
     }
@@ -306,9 +340,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'fullname',
-        onRecords: async () => {
-          const response = await loadUsers();
-          return response?.users || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_USERS_ACTIVE
+          });
+
+          return data?.users || [];
         }
       }
     }

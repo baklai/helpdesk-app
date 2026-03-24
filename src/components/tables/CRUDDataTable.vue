@@ -130,11 +130,10 @@ const initColumns = () => {
                     key: filter.options.key || 'id',
                     value: filter.options.value || 'id',
                     label: filter.options.label || 'title',
-                    grouped: filter.options.grouped || null,
                     records: filter.options.records || [],
-                    onRecords:
-                      typeof filter.options.onRecords === 'function'
-                        ? filter.options.onRecords
+                    onFetch:
+                      typeof filter.options.onFetch === 'function'
+                        ? filter.options.onFetch
                         : () => []
                   }
                 : null
@@ -673,79 +672,50 @@ try {
               v-if="col?.filter?.matchMode === FilterMatchMode.IN"
               v-model="filterModel.value"
               autoFilterFocus
-              class="my-4 w-96"
+              style="width: 30rem"
               :dataKey="col?.filter?.options?.key || 'id'"
               display="chip"
               filter
+              showClear
               filterMatchMode="contains"
               filterPlaceholder="Пошук у списку"
               :maxSelectedLabels="3"
-              :optionGroupChildren="col?.filter?.options?.grouped ? 'records' : null"
-              :optionGroupLabel="col?.filter?.options?.grouped ? 'group' : null"
-              :optionLabel="col?.filter?.options?.label || 'label'"
+              :optionLabel="
+                data => {
+                  if (typeof col?.filter?.options?.label === 'function') {
+                    return col?.filter?.options?.label(data);
+                  }
+                  return data[col?.filter?.options?.label || 'label'];
+                }
+              "
               :optionValue="col?.filter?.options?.value || 'id'"
               :options="col?.filter?.options?.records || []"
               placeholder="Пошук у базі даних"
-              :pt="{
-                itemgroup: {
-                  class: [
-                    'font-bold m-0 py-3 px-5 cursor-auto',
-                    'text-surface-800 dark:text-white/80',
-                    'bg-surface-200 dark:bg-surface-900/80'
-                  ]
-                }
-              }"
               resetFilterOnHide
               :selectionLimit="10"
               :virtualScrollerOptions="{ itemSize: 32 }"
               @before-show="
                 async () => {
                   if (col?.filter?.options?.records?.length) return;
-                  const response = await col.filter.options.onRecords();
-
-                  col.filter.options.records = [
-                    {
-                      group: 'Порожні значення',
-                      records: [
-                        {
-                          [col?.filter?.options?.value || 'id']: null,
-                          [col?.filter?.options?.label || 'label']: '-'
-                        }
-                      ]
-                    },
-                    ...response
-                  ];
+                  col.filter.options.records = await col.filter.options.onFetch();
                 }
               "
             >
-              <template #optiongroup="{ option }">
-                <div class="flex h-full items-center justify-center text-base uppercase">
-                  {{ option.group }}
-                </div>
-              </template>
-
-              <template #option="{ option }">
-                <div class="flex h-full items-center text-base">
-                  {{ option[col?.filter?.options?.label] }}
-                </div>
-              </template>
             </MultiSelect>
 
             <Select
-              v-else-if="col?.filter?.matchMode === FilterMatchMode.EQUALS && col?.filter?.options"
+              v-else-if="
+                col?.filter?.matchMode === FilterMatchMode.EQUALS &&
+                col?.filter?.options?.records?.length
+              "
               v-model="filterModel.value"
               :optionLabel="col?.filter?.options?.label || 'id'"
               :optionValue="col?.filter?.options?.value || 'id'"
               :options="col?.filter?.options?.records || []"
               placeholder="Виберіть один запис"
               showClear
-              style="min-width: 12rem"
-              @before-show="
-                async () => {
-                  if (col?.filter?.options?.records?.length) return;
-                  col.filter.options.records = await col.filter.options.onRecords();
-                }
-              "
+              style="width: 20rem"
+              @filter="event => handleFilter(event, col)"
             >
               <template #option="slotProps">
                 <Chip :label="slotProps.option[col?.filter?.options?.label]" />
@@ -758,14 +728,14 @@ try {
               class="w-full"
               dateFormat="dd.mm.yy"
               inline
-              placeholder="Виберіть дату"
+              placeholder="Оберіть дату"
               selectionMode="range"
             />
 
             <InputText
               v-else-if="col?.filter?.matchMode === FilterMatchMode.CONTAINS"
               v-model="filterModel.value"
-              placeholder="Пошук за стовпцем"
+              placeholder="Пошук за значенням"
               type="text"
               @keydown.enter="filterCallback()"
             />

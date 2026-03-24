@@ -5,9 +5,6 @@ export const FIND_ALL_DEVICES = gql`
     devices: findAllDevices {
       id
       name
-      description
-      createdAt
-      updatedAt
     }
   }
 `;

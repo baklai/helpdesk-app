@@ -37,13 +37,6 @@ const { load, result, refetch, loading } = useLazyQuery(FIND_ALL_IPADDRESSES, nu
 
 const { mutate: deleteIpAddress } = useMutation(REMOVE_ONE_IPADDRESS);
 
-const { load: loadOraganizations } = useLazyQuery(FIND_ALL_ORGANIZATIONS);
-const { load: loadSubdivisions } = useLazyQuery(FIND_ALL_SUBDIVISIONS);
-const { load: loadDepartments } = useLazyQuery(FIND_ALL_DEPARTMENTS);
-const { load: loadPositions } = useLazyQuery(FIND_ALL_POSITIONS);
-const { load: loadLocations } = useLazyQuery(FIND_ALL_LOCATIONS);
-const { load: loadDevices } = useLazyQuery(FIND_ALL_DEVICES);
-
 const docs = computed(() => result.value?.ipaddresses?.docs || []);
 const limit = computed(() => result.value?.ipaddresses?.limit || 10);
 const offset = computed(() => result.value?.ipaddresses?.offset || 0);
@@ -71,11 +64,15 @@ const columns = ref([
       options: {
         key: 'id',
         value: 'id',
-        label: 'name',
-        grouped: true,
-        onRecords: async () => {
-          const response = await loadLocations();
-          return response?.locations || [];
+        label: data => {
+          return `${data.name} (${data.region})`;
+        },
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_LOCATIONS
+          });
+
+          return data?.locations || [];
         }
       }
     },
@@ -93,9 +90,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadDevices();
-          return response?.devices || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_DEVICES
+          });
+
+          return data?.devices || [];
         }
       }
     }
@@ -187,7 +187,7 @@ const columns = ref([
         key: 'key',
         value: 'key',
         label: 'label',
-        onRecords: () => INTERNET_STATUS
+        records: INTERNET_STATUS
       }
     }
   },
@@ -215,9 +215,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadPositions();
-          return response?.positions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_POSITIONS
+          });
+
+          return data?.positions || [];
         }
       }
     }
@@ -257,9 +260,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadOraganizations();
-          return response?.organizations || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_ORGANIZATIONS
+          });
+
+          return data?.organizations || [];
         }
       }
     }
@@ -276,9 +282,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadSubdivisions();
-          return response?.subdivisions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_SUBDIVISIONS
+          });
+
+          return data?.subdivisions || [];
         }
       }
     }
@@ -295,9 +304,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadDepartments();
-          return response?.departments || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_DEPARTMENTS
+          });
+
+          return data?.departments || [];
         }
       }
     }

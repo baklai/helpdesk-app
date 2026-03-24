@@ -118,7 +118,7 @@ const columns = ref([
         key: 'key',
         value: 'key',
         label: 'label',
-        onRecords: () => USER_STATUS
+        records: USER_STATUS
       }
     }
   },
@@ -150,7 +150,7 @@ const columns = ref([
         key: 'key',
         value: 'key',
         label: 'label',
-        onRecords: () => USER_ROLES
+        records: USER_ROLES
       }
     }
   },

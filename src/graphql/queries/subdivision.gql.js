@@ -8,8 +8,6 @@ export const FIND_ALL_SUBDIVISIONS = gql`
       name
       address
       description
-      createdAt
-      updatedAt
     }
   }
 `;

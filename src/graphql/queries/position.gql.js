@@ -5,8 +5,6 @@ export const FIND_ALL_POSITIONS = gql`
     positions: findAllPositions {
       id
       name
-      createdAt
-      updatedAt
     }
   }
 `;

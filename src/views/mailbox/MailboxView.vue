@@ -35,11 +35,6 @@ const { load, result, refetch, loading } = useLazyQuery(FIND_ALL_MAILBOXES, null
 
 const { mutate: deleteMailbox } = useMutation(REMOVE_ONE_MAILBOX);
 
-const { load: loadOraganizations } = useLazyQuery(FIND_ALL_ORGANIZATIONS);
-const { load: loadSubdivisions } = useLazyQuery(FIND_ALL_SUBDIVISIONS);
-const { load: loadDepartments } = useLazyQuery(FIND_ALL_DEPARTMENTS);
-const { load: loadPositions } = useLazyQuery(FIND_ALL_POSITIONS);
-
 const docs = computed(() => result.value?.mailboxes?.docs || []);
 const limit = computed(() => result.value?.mailboxes?.limit || 10);
 const offset = computed(() => result.value?.mailboxes?.offset || 0);
@@ -158,7 +153,7 @@ const columns = ref([
         key: 'key',
         value: 'key',
         label: 'label',
-        onRecords: () => MAILBOX_STATUS
+        records: MAILBOX_STATUS
       }
     },
     frozen: true
@@ -187,9 +182,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadOraganizations();
-          return response?.organizations || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_ORGANIZATIONS
+          });
+
+          return data?.organizations || [];
         }
       }
     }
@@ -206,9 +204,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadSubdivisions();
-          return response?.subdivisions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_SUBDIVISIONS
+          });
+
+          return data?.subdivisions || [];
         }
       }
     }
@@ -225,9 +226,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadDepartments();
-          return response?.departments || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_DEPARTMENTS
+          });
+
+          return data?.departments || [];
         }
       }
     }
@@ -244,9 +248,12 @@ const columns = ref([
         key: 'id',
         value: 'id',
         label: 'name',
-        onRecords: async () => {
-          const response = await loadPositions();
-          return response?.positions || [];
+        onFetch: async () => {
+          const { data } = await client.query({
+            query: FIND_ALL_POSITIONS
+          });
+
+          return data?.positions || [];
         }
       }
     }

@@ -21,7 +21,7 @@ import { jsPDF } from 'jspdf';
 import { useToast } from 'primevue/usetoast';
 import { ref } from 'vue';
 
-import { FIND_INSPECTOR_REPORT } from '@/graphql/apollo.gql';
+import { FIND_ONE_INSPECTOR, FIND_ONE_IPADDRESS_BY_IP } from '@/graphql/apollo.gql';
 import { dateTimeToStr, dateToStr, strToDate } from '@/utils/DateMethods';
 import { byteToStr } from '@/utils/UtilityMethods';
 
@@ -38,13 +38,24 @@ defineExpose({
 
     try {
       const { data } = await client.query({
-        query: FIND_INSPECTOR_REPORT,
-        variables: { id, ip },
+        query: FIND_ONE_INSPECTOR,
+        variables: { id },
         fetchPolicy: 'no-cache'
       });
 
       inspector.value = data?.inspector || null;
-      ipaddress.value = data?.ipaddress || null;
+
+      try {
+        const { data } = await client.query({
+          query: FIND_ONE_IPADDRESS_BY_IP,
+          variables: { ip },
+          fetchPolicy: 'no-cache'
+        });
+
+        ipaddress.value = data?.ipaddress || null;
+      } catch {
+        ipaddress.value = null;
+      }
 
       visible.value = true;
     } catch {

@@ -6,8 +6,6 @@ export const FIND_ALL_DEPARTMENTS = gql`
       id
       name
       description
-      createdAt
-      updatedAt
     }
   }
 `;

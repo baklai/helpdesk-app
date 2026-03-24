@@ -27,6 +27,7 @@ const requestStatus = computed(
 
 const rows = computed(() =>
   [
+    props.data?.id && { label: 'Номер заявки', value: props.data?.id?.toUpperCase() },
     props.data?.opened?.fullname && { label: 'Відкрив запит', value: props.data.opened.fullname },
     props.data?.createdAt && {
       label: 'Дата відкриття',

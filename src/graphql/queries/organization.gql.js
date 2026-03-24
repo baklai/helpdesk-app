@@ -7,8 +7,6 @@ export const FIND_ALL_ORGANIZATIONS = gql`
       name
       address
       description
-      createdAt
-      updatedAt
     }
   }
 `;
