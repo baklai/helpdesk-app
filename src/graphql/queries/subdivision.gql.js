@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client/core';
 
-// --- SUBDIVISION ---
-
 export const FIND_ALL_SUBDIVISIONS = gql`
   query FindAllSubdivisions {
     subdivisions: findAllSubdivisions {
@@ -10,10 +8,6 @@ export const FIND_ALL_SUBDIVISIONS = gql`
       name
       address
       description
-      organization {
-        id
-        name
-      }
       createdAt
       updatedAt
     }
@@ -28,7 +22,6 @@ export const FIND_ONE_SUBDIVISION = gql`
       name
       address
       description
-      organization
       createdAt
       updatedAt
     }
@@ -43,7 +36,6 @@ export const CREATE_ONE_SUBDIVISION = gql`
       name
       address
       description
-      organization
       createdAt
       updatedAt
     }
@@ -58,7 +50,6 @@ export const UPDATE_ONE_SUBDIVISION = gql`
       name
       address
       description
-      organization
       createdAt
       updatedAt
     }
@@ -73,7 +64,6 @@ export const REMOVE_ONE_SUBDIVISION = gql`
       name
       address
       description
-      organization
       createdAt
       updatedAt
     }

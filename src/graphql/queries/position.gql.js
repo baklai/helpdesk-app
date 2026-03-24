@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client/core';
 
-// --- POSITION ---
-
 export const FIND_ALL_POSITIONS = gql`
   query FindAllPositions {
     positions: findAllPositions {

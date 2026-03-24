@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import { apolloClient } from '@/graphql/apollo.client';
 import {
   CREATE_ONE_SUBDIVISION,
-  FIND_ALL_ORGANIZATIONS,
   FIND_ALL_SUBDIVISIONS,
   REMOVE_ONE_SUBDIVISION,
   UPDATE_ONE_SUBDIVISION
@@ -21,8 +20,7 @@ const { values, errors, handleSubmit, controlledValues, setValues, resetForm, de
   useForm({
     validationSchema: yup.object({
       code: yup.string().required('Потрібно вказати значення'),
-      name: yup.string().required('Потрібно вказати значення'),
-      organization: yup.string().required('Потрібно вказати значення')
+      name: yup.string().required('Потрібно вказати значення')
     }),
     initialValues: {}
   });
@@ -50,26 +48,25 @@ const options = ref([
   }
 ]);
 
-const organizations = ref([]);
 const subdivisions = ref([]);
 
 const [code, codeAttrs] = defineField('code');
 const [name, nameAttrs] = defineField('name');
 const [address, addressAttrs] = defineField('address');
 const [description, descriptionAttrs] = defineField('description');
-const [organization, organizationAttrs] = defineField('organization');
 
 const onShowModal = async () => {
   const { data } = await apolloClient.query({
-    query: FIND_ALL_ORGANIZATIONS,
+    query: FIND_ALL_SUBDIVISIONS,
     fetchPolicy: 'no-cache'
   });
 
-  organizations.value = data?.organizations;
+  subdivisions.value = data?.subdivisions;
 };
 
-const onSubdivisionsUpdate = async event => {
-  if (event?.value) {
+const onUpdateRecords = async () => {
+  resetForm({ values: {} }, { force: true });
+  try {
     const { data } = await apolloClient.query({
       query: FIND_ALL_SUBDIVISIONS,
       fetchPolicy: 'no-cache'
@@ -77,22 +74,6 @@ const onSubdivisionsUpdate = async event => {
 
     subdivisions.value = data?.subdivisions;
 
-    // subdivisions.value = await findAllByOrganizationId({ id: event.value });
-  } else {
-    subdivisions.value = [];
-    resetForm({ values: {} }, { force: true });
-  }
-};
-
-const onUpdateRecords = async () => {
-  resetForm({ values: {} }, { force: true });
-  try {
-    const { data } = await apolloClient.query({
-      query: FIND_ALL_ORGANIZATIONS,
-      fetchPolicy: 'no-cache'
-    });
-
-    organizations.value = data?.organizations;
     toast.add({
       severity: 'success',
       summary: 'Інформація',
@@ -254,47 +235,6 @@ const onCloseModal = async () => {
     </template>
 
     <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-2">
-        <label class="font-bold" for="organization">Організація</label>
-        <div class="flex flex-row gap-2">
-          <Select
-            v-model="organization"
-            autofocus
-            dataKey="id"
-            filter
-            v-bind="organizationAttrs"
-            filterPlaceholder="Пошук у списку"
-            inputId="organization"
-            :invalid="!!errors?.organization"
-            optionLabel="name"
-            :options="organizations"
-            optionValue="id"
-            placeholder="Пошук у базі даних"
-            :pt="{
-              root: { class: ['w-full'] },
-              input: { class: ['whitespace-normal!'] }
-            }"
-            :ptOptions="{ mergeSections: true, mergeProps: true }"
-            resetFilterOnHide
-            showClear
-            :virtualScrollerOptions="{ itemSize: 32 }"
-            @change="onSubdivisionsUpdate"
-          >
-            <template #option="{ option }">
-              <div class="flex h-full items-center text-base">
-                {{ option.name }}
-              </div>
-            </template>
-          </Select>
-
-          <BtnDBTable table="organization" />
-        </div>
-
-        <small v-if="errors?.organization" id="organizations-help" class="text-red-500">
-          {{ errors.organization }}
-        </small>
-      </div>
-
       <div class="flex flex-col gap-2">
         <label class="font-bold" for="subdivisions">Підрозділ</label>
         <Select

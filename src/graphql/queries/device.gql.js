@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client/core';
 
-// --- DEVICE ---
-
 export const FIND_ALL_DEVICES = gql`
   query FindAllDevices {
     devices: findAllDevices {

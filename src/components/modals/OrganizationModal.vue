@@ -47,7 +47,7 @@ const options = ref([
   }
 ]);
 
-const records = ref([]);
+const organizations = ref([]);
 
 const [name, nameAttrs] = defineField('name');
 const [address, addressAttrs] = defineField('address');
@@ -59,7 +59,7 @@ const onShowModal = async () => {
     fetchPolicy: 'no-cache'
   });
 
-  records.value = data?.organizations;
+  organizations.value = data?.organizations;
 };
 
 const onUpdateRecords = async () => {
@@ -70,7 +70,7 @@ const onUpdateRecords = async () => {
       fetchPolicy: 'no-cache'
     });
 
-    records.value = data?.organizations;
+    organizations.value = data?.organizations;
 
     toast.add({
       severity: 'success',
@@ -238,7 +238,7 @@ const onCloseModal = async () => {
         filter
         filterPlaceholder="Пошук у списку"
         optionLabel="name"
-        :options="records"
+        :options="organizations"
         placeholder="Пошук у базі даних"
         resetFilterOnHide
         showClear

@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client/core';
 
-// --- ORGANIZATION ---
-
 export const FIND_ALL_ORGANIZATIONS = gql`
   query FindAllOrganizations {
     organizations: findAllOrganizations {
