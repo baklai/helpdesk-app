@@ -7,6 +7,7 @@ import { useToast } from 'primevue/usetoast';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { USER_ROLES, USER_STATUS } from '@/constants/ui.const';
 import { FIND_ALL_USERS, FIND_ONE_USER, REMOVE_ONE_USER } from '@/graphql/apollo.gql';
 import { useScopeStore } from '@/stores/scopes.store';
 
@@ -113,7 +114,12 @@ const columns = ref([
     filter: {
       field: 'status',
       matchMode: FilterMatchMode.EQUALS,
-      showFilterMatchModes: false
+      options: {
+        key: 'key',
+        value: 'key',
+        label: 'label',
+        onRecords: () => USER_STATUS
+      }
     }
   },
 
@@ -140,7 +146,12 @@ const columns = ref([
     filter: {
       field: 'role',
       matchMode: FilterMatchMode.EQUALS,
-      showFilterMatchModes: false
+      options: {
+        key: 'key',
+        value: 'key',
+        label: 'label',
+        onRecords: () => USER_ROLES
+      }
     }
   },
 
