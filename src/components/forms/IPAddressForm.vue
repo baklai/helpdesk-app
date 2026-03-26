@@ -39,7 +39,7 @@ const emit = defineEmits(['submit', 'cancel']);
 const { values, errors, handleSubmit, controlledValues } = useForm({
   validationSchema: yup.object({
     reqnum: yup.string().required('Потрібно вказати значення'),
-    inventory: yup.string(),
+    inventory: yup.string().nullable(),
     ipaddress: yup
       .string()
       .required('Потрібно вказати значення')
@@ -57,7 +57,7 @@ const { values, errors, handleSubmit, controlledValues } = useForm({
       .nullable(),
     fullname: yup.string().required('Потрібно вказати значення'),
     phone: yup.string().required('Потрібно вказати значення'),
-    email: yup.string().email('Невірний формат email'),
+    email: yup.string().email('Невірний формат email').nullable(),
     device: yup.object().required('Потрібно вказати значення'),
     location: yup.object().nullable(),
     position: yup.object().nullable(),

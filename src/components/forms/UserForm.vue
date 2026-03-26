@@ -38,7 +38,7 @@ const { errors, handleSubmit, controlledValues, values, setValues } = useForm({
       .required('Потрібно вказати значення'),
     status: yup.string().required('Потрібно вказати значення'),
     role: yup.string().required('Потрібно вказати значення'),
-    scope: yup.array()
+    scope: yup.array().nullable()
   }),
   initialValues: {
     ...props.initialValues,
