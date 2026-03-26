@@ -180,7 +180,8 @@ const panels = [
         label: 'Підрозділ',
         description: 'Структурний підрозділ у межах організації',
         placeholder: 'Оберіть підрозділ',
-        gql: FIND_ALL_SUBDIVISIONS
+        gql: FIND_ALL_SUBDIVISIONS,
+        optionLabel: option => `${option.code} (${option.name})`
       },
       {
         component: SelectLoadField,

@@ -203,7 +203,7 @@ const columns = ref([
       options: {
         key: 'id',
         value: 'id',
-        label: 'name',
+        label: option => `${option.code} (${option.name})`,
         onFetch: async () => {
           const { data } = await client.query({
             query: FIND_ALL_SUBDIVISIONS

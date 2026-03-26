@@ -242,7 +242,7 @@ const onCloseModal = async () => {
           filter
           filterPlaceholder="Пошук у списку"
           inputId="subdivisions"
-          optionLabel="name"
+          :optionLabel="option => `${option.code} (${option.name})`"
           :options="subdivisions"
           placeholder="Пошук у базі даних"
           :pt="{
