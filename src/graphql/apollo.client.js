@@ -7,6 +7,8 @@ import {
   from
 } from '@apollo/client/core';
 import { onError } from '@apollo/client/link/error';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
 
 import { REFRESH } from '@/graphql/apollo.gql';
 import router from '@/router';
@@ -48,6 +50,12 @@ const httpLink = new HttpLink({
   uri: import.meta.env.VITE_API_BASE_URL || '/api',
   credentials: 'include'
 });
+
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: import.meta.env.VITE_API_BASE_URL || '/api'
+  })
+);
 
 const authLink = new ApolloLink((operation, forward) => {
   const authStore = useAuthStore();
@@ -106,7 +114,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 apolloClient = new ApolloClient({
-  link: from([errorLink, authLink, httpLink]),
+  link: from([errorLink, authLink, httpLink, wsLink]),
   cache: new InMemoryCache(),
   devtools: {
     enabled: import.meta.env.DEV
