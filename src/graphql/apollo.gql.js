@@ -14,7 +14,6 @@ export * from './queries/report.gql.js';
 export * from './queries/request.gql.js';
 export * from './queries/statistic.gql.js';
 export * from './queries/subdivision.gql.js';
-export * from './queries/subscription.gql.js';
 export * from './queries/system.gql.js';
 export * from './queries/tools.gql.js';
 export * from './queries/user.gql.js';

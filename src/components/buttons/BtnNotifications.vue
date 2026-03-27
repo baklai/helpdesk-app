@@ -1,11 +1,11 @@
 <script setup>
 import { mdiBellOutline } from '@mdi/js';
-import { useMutation, useQuery, useSubscription } from '@vue/apollo-composable';
+import { useMutation, useQuery } from '@vue/apollo-composable';
 import { useToast } from 'primevue/usetoast';
 import { computed, defineAsyncComponent, ref } from 'vue';
 
 import { NOTICE_STATUS_SEVERITY } from '@/constants/ui.const';
-import { FIND_ALL_NOTICES, NOTICE_SUBSCRIPTION, REMOVE_ONE_NOTICE } from '@/graphql/apollo.gql';
+import { FIND_ALL_NOTICES, REMOVE_ONE_NOTICE } from '@/graphql/apollo.gql';
 import { dateTimeToStr } from '@/utils/DateMethods';
 
 const Modal = defineAsyncComponent(() => import('@/components/modals/NoticeModal.vue'));
@@ -15,11 +15,7 @@ const toast = useToast();
 const { result, refetch } = useQuery(FIND_ALL_NOTICES);
 const { mutate: deleteNotice } = useMutation(REMOVE_ONE_NOTICE);
 
-const { result: subNotices } = useSubscription(NOTICE_SUBSCRIPTION);
-
-const notices = computed(() =>
-  [...result.value?.notices, subNotices.value?.notice].filter(Boolean)
-);
+const notices = computed(() => result.value?.notices || []);
 
 const refMenu = ref();
 const refModal = ref();
