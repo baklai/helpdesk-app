@@ -49,7 +49,7 @@ const { values, errors, handleSubmit, controlledValues } = useForm({
     comment: yup.string().nullable(),
     conclusion: yup.string().nullable()
   }),
-  initialValues: props.initialValues
+  initialValues: JSON.parse(JSON.stringify(props.initialValues ?? {}))
 });
 
 const panelIndex = ref(0);

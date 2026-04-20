@@ -24,7 +24,7 @@ const { values, errors, handleSubmit, controlledValues } = useForm({
     description: yup.string().nullable(),
     datacollection: yup.string().required('Потрібно обрати колекцію')
   }),
-  initialValues: props.initialValues
+  initialValues: JSON.parse(JSON.stringify(props.initialValues ?? {}))
 });
 
 const panelIndex = ref(0);

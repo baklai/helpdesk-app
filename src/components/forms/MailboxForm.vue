@@ -42,7 +42,7 @@ const { errors, handleSubmit, controlledValues } = useForm({
     subdivision: yup.object().nullable(),
     department: yup.object().nullable()
   }),
-  initialValues: props.initialValues
+  initialValues: JSON.parse(JSON.stringify(props.initialValues ?? {}))
 });
 
 const panelIndex = ref(0);

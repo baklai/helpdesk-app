@@ -41,7 +41,7 @@ const { errors, handleSubmit, controlledValues, values, setValues } = useForm({
     scope: yup.array().nullable()
   }),
   initialValues: {
-    ...props.initialValues,
+    ...JSON.parse(JSON.stringify(props.initialValues ?? {})),
     scope:
       typeof props.initialValues.scope === 'string'
         ? getCustomScope(props.initialValues.scope)

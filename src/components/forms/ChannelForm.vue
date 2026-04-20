@@ -32,7 +32,7 @@ const { values, errors, handleSubmit, controlledValues } = useForm({
     operator: yup.string().required('Потрібно вказати значення'),
     composition: yup.string().required('Потрібно вказати значення')
   }),
-  initialValues: props.initialValues
+  initialValues: JSON.parse(JSON.stringify(props.initialValues ?? {}))
 });
 
 const panelIndex = ref(0);
